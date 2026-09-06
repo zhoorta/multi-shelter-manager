@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Blameable;
+use App\Traits\MultiShelterTrait;
 use Database\Factories\WingFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,7 +31,7 @@ use Illuminate\Support\Carbon;
 class Wing extends Model
 {
     /** @use HasFactory<WingFactory> */
-    use Blameable, HasFactory, SoftDeletes;
+    use Blameable, HasFactory, MultiShelterTrait, SoftDeletes;
 
     /**
      * Get the shelter the wing belongs to.

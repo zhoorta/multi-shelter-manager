@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Blameable;
+use App\Traits\MultiShelterTrait;
 use Database\Factories\PetFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -58,7 +59,7 @@ use Illuminate\Support\Carbon;
 class Pet extends Model
 {
     /** @use HasFactory<PetFactory> */
-    use Blameable, HasFactory, SoftDeletes;
+    use Blameable, HasFactory, MultiShelterTrait, SoftDeletes;
 
     /**
      * Get the attributes that should be cast.

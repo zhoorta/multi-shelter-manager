@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\Blameable;
+use App\Traits\MultiShelterTrait;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -31,7 +32,7 @@ use Illuminate\Support\Str;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use Blameable, HasFactory, Notifiable;
+    use Blameable, HasFactory, MultiShelterTrait, Notifiable;
 
     /**
      * Get the attributes that should be cast.
