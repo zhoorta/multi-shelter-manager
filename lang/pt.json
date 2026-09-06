@@ -54,5 +54,13 @@
     "Record created successfully": "Registo criado com sucesso.",
     "Record updated successfully": "Registo atualizado com sucesso.",
     "Record deleted successfully": "Registo eliminado com sucesso.",
-    "You do not have permission to view this shelter": "Não tem permissão para aceder a este abrigo."
+    "You do not have permission to view this shelter": "Não tem permissão para aceder a este abrigo.",
+
+    "Log in": "Entrar",
+    "Log in to your account": "Entrar na sua conta",
+    "Enter your email and password below to log in": "Introduza o seu email e palavra-passe para entrar",
+    "Email address": "Endereço de email",
+    "Password": "Palavra-passe",
+    "Forgot your password?": "Esqueceu-se da palavra-passe?",
+    "Remember me": "Lembrar-me"
 }
