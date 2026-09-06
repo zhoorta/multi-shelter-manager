@@ -9,6 +9,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -16,10 +17,12 @@ use Illuminate\Support\Str;
 
 /**
  * @property int $id
+ * @property int|null $shelter_id
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
+ * @property string $role
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
  * @property Carbon|null $two_factor_confirmed_at
@@ -57,5 +60,15 @@ class User extends Authenticatable
         return Str::length($initials) > 1
             ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
+    }
+
+    /**
+     * Get the shelter the user belongs to.
+     *
+     * @return BelongsTo<Shelter, $this>
+     */
+    public function shelter(): BelongsTo
+    {
+        return $this->belongsTo(Shelter::class);
     }
 }

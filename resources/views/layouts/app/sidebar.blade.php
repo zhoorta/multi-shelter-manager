@@ -15,6 +15,23 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="heart" href="#">
+                        {{ __('Pets') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="building-office-2" href="#">
+                        {{ __('Wings') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="beaker" href="#">
+                        {{ __('Vaccines') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="bug-ant" href="#">
+                        {{ __('Sicknesses') }}
+                    </flux:sidebar.item>
+                    @if (in_array(auth()->user()->role, ['admin', 'manager'], true))
+                        <flux:sidebar.item icon="users" href="#">
+                            {{ __('Users') }}
+                        </flux:sidebar.item>
+                    @endif
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
@@ -33,11 +50,17 @@
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>
 
-        <!-- Mobile User Menu -->
-        <flux:header class="lg:hidden">
+        <!-- Global Header -->
+        <flux:header class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
+            @if (auth()->user()->shelter)
+                <flux:heading class="hidden truncate sm:block">{{ auth()->user()->shelter->name }}</flux:heading>
+            @endif
+
             <flux:spacer />
+
+            <flux:text class="hidden sm:block">{{ auth()->user()->name }}</flux:text>
 
             <flux:dropdown position="top" align="end">
                 <flux:profile
