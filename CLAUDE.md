@@ -175,3 +175,17 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - After the feature tests pass, ask the user to run the complete suite with `php artisan test --compact`.
 
 </laravel-boost-guidelines>
+<shelter-manager-context>
+## Application Domain Rules
+- **Multi-Tenancy:** Data isolation is strictly based on `shelter_id`. Never leak or cross-contaminate data between shelters.
+- **Auditing:** Core models use `App\Traits\Blameable` to automatically handle `created_by`, `updated_by`, and `deleted_by` fields.
+- **User Roles & Permissions:** Enforced using string-based markers: `manager`, `staff`, and `admin` (the `user` role is deferred and will be implemented later). Default fallback is always `staff`.
+  - **Admin Role:** Globally authorized to create, edit, and delete `shelters`. Can send email invitations to new users to create accounts, explicitly assigning them a `shelter_id` and either the `manager` or `staff` role.
+  - **Manager Role:** Manages a single shelter, including full management of its local `staff` users and its daily operations (pets, wings, cages, etc.). Can send email invitations to new staff members to join their specific shelter.
+  - **Staff Role:** Can manage a shelter's daily operations (pets, wings, cages, etc.) under their assigned `shelter_id`.
+- **Language Layer:** Codebase, tables, and variables must be written in English. Facing text, UI elements, and user messages must be output in Portuguese (PT).
+- **Physical Layout:** Shelter spaces are structurally divided into Wings (`wings`) which contain multiple Cages (`cages`).
+- **Multi-Language Layer:** Managed globally via config/app.php locale settings. Default languages supported: `pt` and `en`. All facing text, UI strings, and alert messages must use Laravel's translation facades (`__('messages.key')`). In forms, when there is no translation for the database fields put the field name.
+- **Tech Stack Conventions:** Uses **Laravel 13** and traditional split **Livewire** components (separated into an `app/Livewire` class and a `resources/views/livewire` template). The user interface is fully built using **Tailwind CSS**.
+</shelter-manager-context>
+
