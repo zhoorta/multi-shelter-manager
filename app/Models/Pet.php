@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\Blameable;
 use Database\Factories\PetFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -41,6 +44,9 @@ use Illuminate\Support\Carbon;
  * @property int $view_count
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $created_by
+ * @property int|null $updated_by
+ * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
 #[Fillable([
@@ -52,17 +58,7 @@ use Illuminate\Support\Carbon;
 class Pet extends Model
 {
     /** @use HasFactory<PetFactory> */
-    use HasFactory, SoftDeletes;
-
-    /**
-     * Get the shelter the pet belongs to.
-     *
-     * @return BelongsTo<Shelter, $this>
-     */
-    public function shelter(): BelongsTo
-    {
-        return $this->belongsTo(Shelter::class);
-    }
+    use Blameable, HasFactory, SoftDeletes;
 
     /**
      * Get the attributes that should be cast.
@@ -82,5 +78,111 @@ class Pet extends Model
             'departure_date' => 'date',
             'date_of_death' => 'date',
         ];
+    }
+
+    /**
+     * Get the shelter the pet belongs to.
+     *
+     * @return BelongsTo<Shelter, $this>
+     */
+    public function shelter(): BelongsTo
+    {
+        return $this->belongsTo(Shelter::class);
+    }
+
+    /**
+     * Get the cage the pet is housed in.
+     *
+     * @return BelongsTo<Cage, $this>
+     */
+    public function cage(): BelongsTo
+    {
+        return $this->belongsTo(Cage::class);
+    }
+
+    /**
+     * Get the pet's species.
+     *
+     * @return BelongsTo<Species, $this>
+     */
+    public function species(): BelongsTo
+    {
+        return $this->belongsTo(Species::class);
+    }
+
+    /**
+     * Get the pet's breed.
+     *
+     * @return BelongsTo<Breed, $this>
+     */
+    public function breed(): BelongsTo
+    {
+        return $this->belongsTo(Breed::class);
+    }
+
+    /**
+     * Get the pet's primary color.
+     *
+     * @return BelongsTo<Color, $this>
+     */
+    public function primaryColor(): BelongsTo
+    {
+        return $this->belongsTo(Color::class, 'primary_color_id');
+    }
+
+    /**
+     * Get the pet's secondary color.
+     *
+     * @return BelongsTo<Color, $this>
+     */
+    public function secondaryColor(): BelongsTo
+    {
+        return $this->belongsTo(Color::class, 'secondary_color_id');
+    }
+
+    /**
+     * Get the pet's fur type.
+     *
+     * @return BelongsTo<FurType, $this>
+     */
+    public function furType(): BelongsTo
+    {
+        return $this->belongsTo(FurType::class);
+    }
+
+    /**
+     * Get the images belonging to the pet.
+     *
+     * @return HasMany<PetImage, $this>
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(PetImage::class);
+    }
+
+    /**
+     * Get the sicknesses diagnosed for the pet.
+     *
+     * @return BelongsToMany<Sickness, $this, PetSickness>
+     */
+    public function sicknesses(): BelongsToMany
+    {
+        return $this->belongsToMany(Sickness::class, 'pet_sickness')
+            ->using(PetSickness::class)
+            ->withPivot(['diagnosed_at', 'status', 'treatment_notes', 'created_by', 'updated_by'])
+            ->withTimestamps();
+    }
+
+    /**
+     * Get the vaccines administered to the pet.
+     *
+     * @return BelongsToMany<Vaccine, $this, PetVaccine>
+     */
+    public function vaccines(): BelongsToMany
+    {
+        return $this->belongsToMany(Vaccine::class, 'pet_vaccine')
+            ->using(PetVaccine::class)
+            ->withPivot(['administered_at', 'expires_at', 'created_by', 'updated_by'])
+            ->withTimestamps();
     }
 }

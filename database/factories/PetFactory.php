@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Breed;
 use App\Models\Pet;
 use App\Models\Shelter;
+use App\Models\Species;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @extends Factory<Pet>
@@ -19,24 +20,12 @@ class PetFactory extends Factory
      */
     public function definition(): array
     {
-        $speciesId = DB::table('species')->insertGetId([
-            'name' => fake()->unique()->word(),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $breedId = DB::table('breeds')->insertGetId([
-            'species_id' => $speciesId,
-            'name' => fake()->word(),
-            'is_default' => false,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $species = Species::factory()->create();
 
         return [
             'shelter_id' => Shelter::factory(),
-            'species_id' => $speciesId,
-            'breed_id' => $breedId,
+            'species_id' => $species->id,
+            'breed_id' => Breed::factory()->for($species)->create()->id,
             'name' => fake()->firstName(),
             'gender' => fake()->randomElement(['male', 'female', 'unknown']),
             'status' => 'available',

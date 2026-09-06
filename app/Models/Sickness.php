@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Blameable;
-use Database\Factories\WingFactory;
+use Database\Factories\SicknessFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
- * @property int $shelter_id
  * @property string $name
  * @property string|null $description
  * @property Carbon|null $created_at
@@ -26,29 +24,22 @@ use Illuminate\Support\Carbon;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['shelter_id', 'name', 'description'])]
-class Wing extends Model
+#[Fillable(['name', 'description'])]
+class Sickness extends Model
 {
-    /** @use HasFactory<WingFactory> */
+    /** @use HasFactory<SicknessFactory> */
     use Blameable, HasFactory, SoftDeletes;
 
     /**
-     * Get the shelter the wing belongs to.
+     * Get the pets diagnosed with the sickness.
      *
-     * @return BelongsTo<Shelter, $this>
+     * @return BelongsToMany<Pet, $this, PetSickness>
      */
-    public function shelter(): BelongsTo
+    public function pets(): BelongsToMany
     {
-        return $this->belongsTo(Shelter::class);
-    }
-
-    /**
-     * Get the cages belonging to the wing.
-     *
-     * @return HasMany<Cage, $this>
-     */
-    public function cages(): HasMany
-    {
-        return $this->hasMany(Cage::class);
+        return $this->belongsToMany(Pet::class, 'pet_sickness')
+            ->using(PetSickness::class)
+            ->withPivot(['diagnosed_at', 'status', 'treatment_notes', 'created_by', 'updated_by'])
+            ->withTimestamps();
     }
 }

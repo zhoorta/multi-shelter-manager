@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Blameable;
-use Database\Factories\WingFactory;
+use Database\Factories\CageFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,9 +16,9 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
- * @property int $shelter_id
- * @property string $name
- * @property string|null $description
+ * @property int $wing_id
+ * @property string $code
+ * @property int $capacity
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int|null $created_by
@@ -26,29 +26,29 @@ use Illuminate\Support\Carbon;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['shelter_id', 'name', 'description'])]
-class Wing extends Model
+#[Fillable(['wing_id', 'code', 'capacity'])]
+class Cage extends Model
 {
-    /** @use HasFactory<WingFactory> */
+    /** @use HasFactory<CageFactory> */
     use Blameable, HasFactory, SoftDeletes;
 
     /**
-     * Get the shelter the wing belongs to.
+     * Get the wing the cage belongs to.
      *
-     * @return BelongsTo<Shelter, $this>
+     * @return BelongsTo<Wing, $this>
      */
-    public function shelter(): BelongsTo
+    public function wing(): BelongsTo
     {
-        return $this->belongsTo(Shelter::class);
+        return $this->belongsTo(Wing::class);
     }
 
     /**
-     * Get the cages belonging to the wing.
+     * Get the pets housed in the cage.
      *
-     * @return HasMany<Cage, $this>
+     * @return HasMany<Pet, $this>
      */
-    public function cages(): HasMany
+    public function pets(): HasMany
     {
-        return $this->hasMany(Cage::class);
+        return $this->hasMany(Pet::class);
     }
 }
