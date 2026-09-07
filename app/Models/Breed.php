@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\Blameable;
 use Database\Factories\BreedFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -19,12 +21,16 @@ use Illuminate\Support\Carbon;
  * @property bool $is_default
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $created_by
+ * @property int|null $updated_by
+ * @property int|null $deleted_by
+ * @property Carbon|null $deleted_at
  */
 #[Fillable(['species_id', 'name', 'is_default'])]
 class Breed extends Model
 {
     /** @use HasFactory<BreedFactory> */
-    use HasFactory;
+    use Blameable, HasFactory, SoftDeletes;
 
     /**
      * Get the attributes that should be cast.

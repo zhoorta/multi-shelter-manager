@@ -35,10 +35,10 @@
                         <flux:sidebar.item icon="building-office" href="#">
                             {{ __('Shelters') }}
                         </flux:sidebar.item>
-                        <flux:sidebar.item icon="tag" href="#">
+                        <flux:sidebar.item icon="tag" :href="route('admin.species.index')" :current="request()->routeIs('admin.species.index')" wire:navigate>
                             {{ __('Species') }}
                         </flux:sidebar.item>
-                        <flux:sidebar.item icon="rectangle-stack" href="#">
+                        <flux:sidebar.item icon="rectangle-stack" :href="route('admin.breeds.index')" :current="request()->routeIs('admin.breeds.index')" wire:navigate>
                             {{ __('Breeds') }}
                         </flux:sidebar.item>
                         <flux:sidebar.item icon="swatch" href="#">

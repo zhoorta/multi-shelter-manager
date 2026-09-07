@@ -4,6 +4,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 
 | Applies to | Rule file |
 | --- | --- |
+| app/Livewire/Admin/** | .ai/rules/admin.md |
 | app/Livewire/** | .ai/rules/livewire.md |
 | app/Models/*.php | .ai/rules/models.md |
 | app/Traits/MultiShelterTrait.php | .ai/rules/traits.md |
