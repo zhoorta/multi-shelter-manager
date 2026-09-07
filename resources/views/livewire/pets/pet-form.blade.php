@@ -10,8 +10,8 @@
             @endif
         </div>
 
-        <flux:button :href="route('pets.index')" variant="filled" icon="arrow-left" wire:navigate>
-            {{ __('Pets') }}
+        <flux:button :href="$pet ? route('pets.show', $pet) : route('pets.index')" variant="filled" icon="arrow-left" wire:navigate>
+            {{ $pet ? $pet->name : __('Pets') }}
         </flux:button>
     </div>
 
@@ -185,7 +185,7 @@
         </div>
 
         <div class="flex justify-end gap-2">
-            <flux:button :href="route('pets.index')" variant="filled" wire:navigate>
+            <flux:button :href="$pet ? route('pets.show', $pet) : route('pets.index')" variant="filled" wire:navigate>
                 {{ __('Cancel') }}
             </flux:button>
 

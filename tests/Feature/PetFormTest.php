@@ -95,24 +95,24 @@ test('resets the selected breed when the species changes', function () {
         ->assertSet('petBreedId', null);
 });
 
-test('creates a new pet scoped to the acting user\'s shelter and redirects to the index', function () {
+test('creates a new pet scoped to the acting user\'s shelter and redirects to the show page', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
 
-    Livewire::test(PetForm::class)
+    $component = Livewire::test(PetForm::class)
         ->set('petName', 'Rex')
         ->set('petSpeciesId', $species->id)
         ->set('petBreedId', $breed->id)
         ->set('petGender', 'male')
         ->call('savePet')
-        ->assertHasNoErrors()
-        ->assertRedirect(route('pets.index'));
+        ->assertHasNoErrors();
 
     $pet = Pet::query()->where('name', 'Rex')->first();
     expect($pet)->not->toBeNull();
+    $component->assertRedirect(route('pets.show', $pet));
     expect($pet->shelter_id)->toBe($shelter->id);
     expect($pet->species_id)->toBe($species->id);
     expect($pet->breed_id)->toBe($breed->id);
@@ -134,7 +134,7 @@ test('creates a pet marked as not adoptable and not sponsorable', function () {
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
 
-    Livewire::test(PetForm::class)
+    $component = Livewire::test(PetForm::class)
         ->set('petName', 'Rex')
         ->set('petSpeciesId', $species->id)
         ->set('petBreedId', $breed->id)
@@ -142,12 +142,12 @@ test('creates a pet marked as not adoptable and not sponsorable', function () {
         ->set('petIsAdoptable', false)
         ->set('petIsSponsorable', false)
         ->call('savePet')
-        ->assertHasNoErrors()
-        ->assertRedirect(route('pets.index'));
+        ->assertHasNoErrors();
 
     $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
     expect($pet->is_adoptable)->toBeFalse();
     expect($pet->is_sponsorable)->toBeFalse();
+    $component->assertRedirect(route('pets.show', $pet));
 });
 
 test('creates a pet marked as neutered', function () {
@@ -157,18 +157,18 @@ test('creates a pet marked as neutered', function () {
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
 
-    Livewire::test(PetForm::class)
+    $component = Livewire::test(PetForm::class)
         ->set('petName', 'Rex')
         ->set('petSpeciesId', $species->id)
         ->set('petBreedId', $breed->id)
         ->set('petGender', 'male')
         ->set('petIsNeutered', true)
         ->call('savePet')
-        ->assertHasNoErrors()
-        ->assertRedirect(route('pets.index'));
+        ->assertHasNoErrors();
 
     $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
     expect($pet->is_neutered)->toBeTrue();
+    $component->assertRedirect(route('pets.show', $pet));
 });
 
 test('requires a name, species, breed, and gender to create a pet', function () {
@@ -330,7 +330,17 @@ test('populates the form with the pet\'s current data when editing', function ()
         ->assertSet('petIsSponsorable', false);
 });
 
-test('updates an existing pet and redirects to the index', function () {
+test('links back to the pet show page when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $this->get(route('pets.edit', $pet))
+        ->assertSee(route('pets.show', $pet), false);
+});
+
+test('updates an existing pet and redirects to the show page', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
@@ -352,7 +362,7 @@ test('updates an existing pet and redirects to the index', function () {
         ->set('petIsSponsorable', false)
         ->call('savePet')
         ->assertHasNoErrors()
-        ->assertRedirect(route('pets.index'));
+        ->assertRedirect(route('pets.show', $pet));
 
     expect($pet->fresh()->name)->toBe('Rex Renamed');
     expect($pet->fresh()->status)->toBe('adopted');

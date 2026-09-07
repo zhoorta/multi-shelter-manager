@@ -94,13 +94,13 @@
                                 </td>
                                 <td class="px-6 py-3">
                                     <div class="flex items-center gap-2">
-                                        {{-- No wire:navigate: see the note on the Create button above. --}}
                                         <flux:button
-                                            :href="route('pets.edit', $pet)"
+                                            :href="route('pets.show', $pet)"
                                             size="sm"
                                             variant="subtle"
-                                            icon="pencil"
-                                            :aria-label="__('Edit')"
+                                            icon="eye"
+                                            :aria-label="__('View')"
+                                            wire:navigate
                                         />
 
                                         <flux:modal.trigger name="confirm-pet-deletion-{{ $pet->id }}">
