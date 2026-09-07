@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Livewire\Admin\ManageBreeds;
 use App\Livewire\Admin\ManageSpecies;
 use App\Livewire\Dashboard;
+use App\Livewire\Pets\ManagePets;
+use App\Livewire\Pets\PetForm;
 use App\Livewire\Wings\ManageSpaces;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +23,9 @@ Route::middleware(['guest'])->group(function (): void {
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('dashboard', Dashboard::class)->name('dashboard');
 
-    // Pets routes will be attached here.
+    Route::livewire('pets', ManagePets::class)->name('pets.index');
+    Route::livewire('pets/create', PetForm::class)->name('pets.create');
+    Route::livewire('pets/{pet}/edit', PetForm::class)->name('pets.edit');
 
     Route::livewire('wings', ManageSpaces::class)->name('wings.index');
 

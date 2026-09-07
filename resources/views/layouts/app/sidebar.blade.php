@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                     @if (auth()->user()->role !== 'admin')
-                        <flux:sidebar.item icon="heart" href="#">
+                        <flux:sidebar.item icon="heart" :href="route('pets.index')" :current="request()->routeIs('pets.index')" wire:navigate>
                             {{ __('Pets') }}
                         </flux:sidebar.item>
                         <flux:sidebar.item icon="building-office-2" :href="route('wings.index')" :current="request()->routeIs('wings.index')" wire:navigate>
