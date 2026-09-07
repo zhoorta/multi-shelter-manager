@@ -19,7 +19,7 @@
                         <flux:sidebar.item icon="heart" href="#">
                             {{ __('Pets') }}
                         </flux:sidebar.item>
-                        <flux:sidebar.item icon="building-office-2" href="#">
+                        <flux:sidebar.item icon="building-office-2" :href="route('wings.index')" :current="request()->routeIs('wings.index')" wire:navigate>
                             {{ __('Wings') }}
                         </flux:sidebar.item>
                     @endif

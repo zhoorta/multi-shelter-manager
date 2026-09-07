@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Livewire\Admin\ManageBreeds;
 use App\Livewire\Admin\ManageSpecies;
 use App\Livewire\Dashboard;
+use App\Livewire\Wings\ManageSpaces;
 use Illuminate\Support\Facades\Route;
 
 // Public guest routes.
@@ -22,7 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     // Pets routes will be attached here.
 
-    // Wings routes will be attached here.
+    Route::livewire('wings', ManageSpaces::class)->name('wings.index');
 
     // Users routes will be attached here.
 

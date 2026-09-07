@@ -1,8 +1,12 @@
 {
     "Dashboard": "Painel de Controlo",
     "Pets": "Animais",
+    "Wing": "Ala",
     "Wings": "Alas",
     "Cages": "Gaiolas / Boxes",
+    "Capacity": "Capacidade",
+    "Code": "Código",
+    "Add Cage": "Adicionar Gaiola",
     "Species": "Espécies",
     "Breeds": "Raças",
     "Colors": "Cores",
@@ -67,6 +71,8 @@
 
     "No species registered": "Nenhuma espécie registada.",
     "No breeds registered": "Nenhuma raça registada.",
+    "No wings registered": "Nenhuma ala registada.",
+    "No cages registered for this wing": "Nenhuma gaiola registada para esta ala.",
     "All": "Todas",
     "Default Breed (SRD)": "Raça Padrão (SRD)",
     "SRD": "SRD",

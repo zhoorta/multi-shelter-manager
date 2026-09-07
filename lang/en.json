@@ -1,8 +1,12 @@
 {
     "Dashboard": "Dashboard",
     "Pets": "Pets",
+    "Wing": "Wing",
     "Wings": "Wings",
     "Cages": "Cages",
+    "Capacity": "Capacity",
+    "Code": "Code",
+    "Add Cage": "Add Cage",
     "Species": "Species",
     "Breeds": "Breeds",
     "Colors": "Colors",
@@ -67,6 +71,8 @@
 
     "No species registered": "No species registered.",
     "No breeds registered": "No breeds registered.",
+    "No wings registered": "No wings registered.",
+    "No cages registered for this wing": "No cages registered for this wing.",
     "All": "All",
     "Default Breed (SRD)": "Default Breed (SRD)",
     "SRD": "SRD",
