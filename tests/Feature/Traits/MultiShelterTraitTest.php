@@ -4,6 +4,7 @@ use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
 use App\Models\Wing;
+use Illuminate\Support\Facades\Auth;
 
 test('only returns records belonging to the authenticated user\'s shelter', function () {
     $shelter = Shelter::factory()->create();
@@ -53,4 +54,24 @@ test('does not override an explicitly assigned shelter_id when creating', functi
     $pet = Pet::factory()->for($otherShelter)->create();
 
     expect($pet->shelter_id)->toBe($otherShelter->id);
+});
+
+test('resolves the logged-in user from the session without recursing through its own shelter scope', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+
+    $this->post(route('login.store'), [
+        'email' => $user->email,
+        'password' => 'password',
+    ])->assertRedirect(route('dashboard', absolute: false));
+
+    // actingAs()/the guard that just logged in keeps the user cached in memory,
+    // which would hide this bug. Forget the guard so the next request resolves
+    // the user purely from the session, the same as a fresh request would.
+    Auth::forgetGuards();
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $this->assertAuthenticatedAs($user);
 });

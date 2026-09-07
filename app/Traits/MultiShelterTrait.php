@@ -32,6 +32,10 @@ trait MultiShelterTrait
                 return;
             }
 
+            if (! Auth::hasUser()) {
+                return;
+            }
+
             $user = Auth::user();
 
             if (! $user || $user->shelter_id === null) {
@@ -42,7 +46,7 @@ trait MultiShelterTrait
         });
 
         static::creating(function (Model $model): void {
-            $user = Auth::user();
+            $user = Auth::hasUser() ? Auth::user() : null;
 
             if ($user && $user->shelter_id !== null && static::hasShelterColumn($model) && ! $model->shelter_id) {
                 $model->shelter_id = $user->shelter_id;

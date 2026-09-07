@@ -11,7 +11,16 @@
     "Sicknesses": "Sicknesses",
     "Users": "Users",
     "Shelters": "Shelters",
-    
+    "Administration": "Administration",
+
+    "Total Pets": "Total Pets",
+    "Available Capacity": "Available Capacity",
+    "Total Staff": "Total Staff",
+    "Recent Intakes": "Recent Intakes",
+    "Cage": "Cage",
+    "No Cage Assigned": "No Cage Assigned",
+    "No Recent Intakes": "No Recent Intakes",
+
     "Name": "Name",
     "Gender": "Gender",
     "Male": "Male",

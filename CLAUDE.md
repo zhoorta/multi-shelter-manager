@@ -185,6 +185,9 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
   - **Staff Role:** Can manage a shelter's daily operations (pets, wings, cages, etc.) under their assigned `shelter_id`.
 - **Language Layer:** Codebase, tables, and variables must be written in English. Facing text, UI elements, and user messages must be output in Portuguese (PT).
 - **Physical Layout:** Shelter spaces are structurally divided into Wings (`wings`) which contain multiple Cages (`cages`).
+- **Sidebar & Navigation Visibility:**
+  - When an **Admin** logs in, the sidebar must display administrative modules for managing global lookup tables (`Species`, `Vaccines`, `Sicknesses`, `Shelters`, `Breeds`, `Fur Types`) alongside the dynamic option to create users by email invitation with a specific shelter assignment. He is not the manager of Pets and Wings so should not see those links
+  - Non-admin users (`manager`, `staff`) should not see these administrative management links.
 - **Multi-Language Layer:** Managed globally via config/app.php locale settings. Default languages supported: `pt` and `en`. All facing text, UI strings, and alert messages must use Laravel's translation facades (`__('messages.key')`). In forms, when there is no translation for the database fields put the field name.
 - **Tech Stack Conventions:** Uses **Laravel 13** and traditional split **Livewire** components (separated into an `app/Livewire` class and a `resources/views/livewire` template). The user interface is fully built using **Tailwind CSS**.
 </shelter-manager-context>

@@ -99,5 +99,23 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        // 7. SEED SYSTEM MANAGER SHELTER & USER
+        $adminShelterId = DB::table('shelters')->insertGetId([
+            'name' => 'Acolhe Central',
+            'city' => 'Porto',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'shelter_id' => $adminShelterId,
+            'name' => 'Gestor Acolhe',
+            'email' => 'manager@acolhe.pt',
+            'role' => 'manager', // Sets global system manager access
+            'password' => bcrypt('password'), // Native secure hashing
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
     }
 }

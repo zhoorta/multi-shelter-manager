@@ -11,7 +11,16 @@
     "Sicknesses": "Doenças / Condições Clínicas",
     "Users": "Utilizadores",
     "Shelters": "Abrigos",
-    
+    "Administration": "Administração",
+
+    "Total Pets": "Total de Animais",
+    "Available Capacity": "Capacidade Disponível",
+    "Total Staff": "Total de Funcionários",
+    "Recent Intakes": "Entradas Recentes",
+    "Cage": "Gaiola",
+    "No Cage Assigned": "Sem Gaiola Atribuída",
+    "No Recent Intakes": "Sem Entradas Recentes",
+
     "Name": "Nome",
     "Gender": "Género",
     "Male": "Macho",

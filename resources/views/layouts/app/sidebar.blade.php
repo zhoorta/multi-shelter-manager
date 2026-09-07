@@ -15,24 +15,43 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="heart" href="#">
-                        {{ __('Pets') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="building-office-2" href="#">
-                        {{ __('Wings') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="beaker" href="#">
-                        {{ __('Vaccines') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="bug-ant" href="#">
-                        {{ __('Sicknesses') }}
-                    </flux:sidebar.item>
+                    @if (auth()->user()->role !== 'admin')
+                        <flux:sidebar.item icon="heart" href="#">
+                            {{ __('Pets') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="building-office-2" href="#">
+                            {{ __('Wings') }}
+                        </flux:sidebar.item>
+                    @endif
                     @if (in_array(auth()->user()->role, ['admin', 'manager'], true))
                         <flux:sidebar.item icon="users" href="#">
                             {{ __('Users') }}
                         </flux:sidebar.item>
                     @endif
                 </flux:sidebar.group>
+
+                @if (auth()->user()->role === 'admin')
+                    <flux:sidebar.group :heading="__('Administration')" class="grid">
+                        <flux:sidebar.item icon="building-office" href="#">
+                            {{ __('Shelters') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="tag" href="#">
+                            {{ __('Species') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="rectangle-stack" href="#">
+                            {{ __('Breeds') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="swatch" href="#">
+                            {{ __('Fur Types') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="beaker" href="#">
+                            {{ __('Vaccines') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="bug-ant" href="#">
+                            {{ __('Sicknesses') }}
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                @endif
             </flux:sidebar.nav>
 
             <flux:spacer />
