@@ -48,6 +48,12 @@ class PetForm extends Component
 
     public string $petChip = '';
 
+    public bool $petIsNeutered = false;
+
+    public bool $petIsAdoptable = true;
+
+    public bool $petIsSponsorable = true;
+
     public string $petStatus = 'available';
 
     public ?int $petCageId = null;
@@ -75,6 +81,9 @@ class PetForm extends Component
         $this->petGender = $pet->gender;
         $this->petBirthDate = (string) $pet->birth_date?->format('Y-m-d');
         $this->petChip = (string) $pet->chip;
+        $this->petIsNeutered = (bool) $pet->is_neutered;
+        $this->petIsAdoptable = (bool) $pet->is_adoptable;
+        $this->petIsSponsorable = (bool) $pet->is_sponsorable;
         $this->petStatus = $pet->status;
         $this->petCageId = $pet->cage_id;
     }
@@ -178,6 +187,9 @@ class PetForm extends Component
             'petBirthDate' => ['nullable', 'date'],
             'petChip' => ['nullable', 'string', 'max:255'],
             'petStatus' => ['required', 'in:available,quarantine,adopted,medical'],
+            'petIsNeutered' => ['boolean'],
+            'petIsAdoptable' => ['boolean'],
+            'petIsSponsorable' => ['boolean'],
             'petCageId' => ['nullable', 'integer', 'exists:cages,id'],
             'petPhotos' => ['nullable', 'array'],
             'petPhotos.*' => ['image', 'max:2048'],
@@ -192,6 +204,9 @@ class PetForm extends Component
             'petBirthDate' => __('Birth Date'),
             'petChip' => __('Microchip / Chip'),
             'petStatus' => __('Status'),
+            'petIsNeutered' => __('Is Neutered'),
+            'petIsAdoptable' => __('Is Adoptable'),
+            'petIsSponsorable' => __('Is Sponsorable'),
             'petCageId' => __('Cage'),
             'petPhotos.*' => __('Photo'),
         ]);
@@ -218,6 +233,9 @@ class PetForm extends Component
             'gender' => $validated['petGender'],
             'birth_date' => $validated['petBirthDate'] !== '' ? $validated['petBirthDate'] : null,
             'status' => $validated['petStatus'],
+            'is_neutered' => $validated['petIsNeutered'],
+            'is_adoptable' => $validated['petIsAdoptable'],
+            'is_sponsorable' => $validated['petIsSponsorable'],
         ];
 
         DB::transaction(function () use ($petAttributes, $isEditing): void {

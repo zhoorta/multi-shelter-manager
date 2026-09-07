@@ -145,6 +145,12 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <flux:switch wire:model="petIsNeutered" :label="__('Is Neutered')" />
+            <flux:switch wire:model="petIsAdoptable" :label="__('Is Adoptable')" />
+            <flux:switch wire:model="petIsSponsorable" :label="__('Is Sponsorable')" />
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:select wire:model="petStatus" :label="__('Status')">
                 <flux:select.option value="available">{{ __('Available') }}</flux:select.option>
                 <flux:select.option value="quarantine">{{ __('Quarantine') }}</flux:select.option>

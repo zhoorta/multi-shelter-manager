@@ -122,6 +122,53 @@ test('creates a new pet scoped to the acting user\'s shelter and redirects to th
     expect($pet->fur_type_id)->toBeNull();
     expect($pet->cage_id)->toBeNull();
     expect($pet->birth_date)->toBeNull();
+    expect($pet->is_neutered)->toBeFalse();
+    expect($pet->is_adoptable)->toBeTrue();
+    expect($pet->is_sponsorable)->toBeTrue();
+});
+
+test('creates a pet marked as not adoptable and not sponsorable', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petIsAdoptable', false)
+        ->set('petIsSponsorable', false)
+        ->call('savePet')
+        ->assertHasNoErrors()
+        ->assertRedirect(route('pets.index'));
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->is_adoptable)->toBeFalse();
+    expect($pet->is_sponsorable)->toBeFalse();
+});
+
+test('creates a pet marked as neutered', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petIsNeutered', true)
+        ->call('savePet')
+        ->assertHasNoErrors()
+        ->assertRedirect(route('pets.index'));
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->is_neutered)->toBeTrue();
 });
 
 test('requires a name, species, breed, and gender to create a pet', function () {
@@ -266,6 +313,9 @@ test('populates the form with the pet\'s current data when editing', function ()
         'gender' => 'male',
         'chip' => '985121000123456',
         'status' => 'quarantine',
+        'is_neutered' => true,
+        'is_adoptable' => false,
+        'is_sponsorable' => false,
     ]);
 
     Livewire::test(PetForm::class, ['pet' => $pet])
@@ -274,7 +324,10 @@ test('populates the form with the pet\'s current data when editing', function ()
         ->assertSet('petBreedId', $breed->id)
         ->assertSet('petGender', 'male')
         ->assertSet('petChip', '985121000123456')
-        ->assertSet('petStatus', 'quarantine');
+        ->assertSet('petStatus', 'quarantine')
+        ->assertSet('petIsNeutered', true)
+        ->assertSet('petIsAdoptable', false)
+        ->assertSet('petIsSponsorable', false);
 });
 
 test('updates an existing pet and redirects to the index', function () {
@@ -286,11 +339,17 @@ test('updates an existing pet and redirects to the index', function () {
     $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create([
         'name' => 'Rex',
         'status' => 'available',
+        'is_neutered' => false,
+        'is_adoptable' => true,
+        'is_sponsorable' => true,
     ]);
 
     Livewire::test(PetForm::class, ['pet' => $pet])
         ->set('petName', 'Rex Renamed')
         ->set('petStatus', 'adopted')
+        ->set('petIsNeutered', true)
+        ->set('petIsAdoptable', false)
+        ->set('petIsSponsorable', false)
         ->call('savePet')
         ->assertHasNoErrors()
         ->assertRedirect(route('pets.index'));
@@ -298,6 +357,9 @@ test('updates an existing pet and redirects to the index', function () {
     expect($pet->fresh()->name)->toBe('Rex Renamed');
     expect($pet->fresh()->status)->toBe('adopted');
     expect($pet->fresh()->shelter_id)->toBe($shelter->id);
+    expect($pet->fresh()->is_neutered)->toBeTrue();
+    expect($pet->fresh()->is_adoptable)->toBeFalse();
+    expect($pet->fresh()->is_sponsorable)->toBeFalse();
 });
 
 test('adds a new photo during edit without touching the existing main photo', function () {
