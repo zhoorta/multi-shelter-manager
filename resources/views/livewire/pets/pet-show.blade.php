@@ -19,32 +19,86 @@
     @php
         $mainImage = $pet->images->firstWhere('is_main', true) ?? $pet->images->first();
         $otherImages = $pet->images->reject(fn ($image) => $image->is($mainImage));
+        $orderedImages = $pet->images->isNotEmpty() ? collect([$mainImage])->merge($otherImages) : collect();
+        $galleryUrls = $orderedImages->map(fn ($image) => \Illuminate\Support\Facades\Storage::url($image->image_path))->values();
     @endphp
 
     <div class="flex flex-col gap-8">
-        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+        <div
+            class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900"
+            x-data="{ lightboxIndex: 0, images: @js($galleryUrls), open: false }"
+            x-on:modal-show.window="$event.detail.name === 'pet-gallery' && (open = true)"
+            x-on:modal-close.window="(!$event.detail.name || $event.detail.name === 'pet-gallery') && (open = false)"
+            x-on:keydown.left.window="open && images.length > 1 && (lightboxIndex = (lightboxIndex - 1 + images.length) % images.length)"
+            x-on:keydown.right.window="open && images.length > 1 && (lightboxIndex = (lightboxIndex + 1) % images.length)"
+        >
             <flux:label>{{ __('Photos') }}</flux:label>
 
-            @if ($pet->images->isNotEmpty())
+            @if ($orderedImages->isNotEmpty())
                 <div class="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
-                    <img
-                        src="{{ \Illuminate\Support\Facades\Storage::url($mainImage->image_path) }}"
-                        alt="{{ $pet->name }}"
-                        class="h-24 w-full rounded-lg object-cover ring-2 ring-neutral-900 dark:ring-white"
-                    >
-
-                    @foreach ($otherImages as $image)
-                        <img
+                    @foreach ($orderedImages as $image)
+                        <button
+                            type="button"
                             wire:key="pet-image-{{ $image->id }}"
-                            src="{{ \Illuminate\Support\Facades\Storage::url($image->image_path) }}"
-                            alt="{{ $pet->name }}"
-                            class="h-24 w-full rounded-lg object-cover ring-1 ring-neutral-200 dark:ring-neutral-700"
+                            x-on:click="lightboxIndex = {{ $loop->index }}; $dispatch('modal-show', { name: 'pet-gallery' })"
+                            class="cursor-zoom-in overflow-hidden rounded-lg {{ $loop->first ? 'ring-2 ring-neutral-900 dark:ring-white' : 'ring-1 ring-neutral-200 dark:ring-neutral-700' }}"
                         >
+                            <img
+                                src="{{ \Illuminate\Support\Facades\Storage::url($image->image_path) }}"
+                                alt="{{ $pet->name }}"
+                                class="h-24 w-full object-cover"
+                            >
+                        </button>
                     @endforeach
                 </div>
             @else
                 <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('No photos uploaded') }}</flux:text>
             @endif
+
+            <flux:modal name="pet-gallery" variant="bare" class="h-dvh w-screen max-w-none p-0">
+                <div class="relative flex h-full w-full items-center justify-center bg-black/70">
+                    <div class="absolute top-4 end-4 z-20">
+                        <flux:modal.close>
+                            <flux:button variant="ghost" icon="x-mark" size="sm" :aria-label="__('Close')" class="text-white! hover:text-white/70!" />
+                        </flux:modal.close>
+                    </div>
+
+                    @if ($galleryUrls->count() > 1)
+                        <button
+                            type="button"
+                            x-on:click="lightboxIndex = (lightboxIndex - 1 + images.length) % images.length"
+                            class="absolute top-1/2 start-4 z-10 -translate-y-1/2 text-white/80 hover:text-white"
+                            aria-label="{{ __('Previous photo') }}"
+                        >
+                            <flux:icon name="chevron-left" class="size-10" />
+                        </button>
+                    @endif
+
+                    <img :src="images[lightboxIndex]" alt="{{ $pet->name }}" class="max-h-full max-w-full object-contain">
+
+                    @if ($galleryUrls->count() > 1)
+                        <button
+                            type="button"
+                            x-on:click="lightboxIndex = (lightboxIndex + 1) % images.length"
+                            class="absolute top-1/2 end-4 z-10 -translate-y-1/2 text-white/80 hover:text-white"
+                            aria-label="{{ __('Next photo') }}"
+                        >
+                            <flux:icon name="chevron-right" class="size-10" />
+                        </button>
+
+                        <div class="absolute bottom-4 z-10 flex gap-1.5">
+                            <template x-for="(url, i) in images" :key="i">
+                                <button
+                                    type="button"
+                                    x-on:click="lightboxIndex = i"
+                                    class="h-2 w-2 rounded-full"
+                                    :class="i === lightboxIndex ? 'bg-white' : 'bg-white/40'"
+                                ></button>
+                            </template>
+                        </div>
+                    @endif
+                </div>
+            </flux:modal>
         </div>
 
         <div class="grid grid-cols-[max-content_1fr] items-baseline gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
