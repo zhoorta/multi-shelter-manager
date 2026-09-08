@@ -142,9 +142,12 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:switch wire:model="petIsNeutered" :label="__('Is Neutered')" />
-            <flux:switch wire:model="petIsAdoptable" :label="__('Is Adoptable')" />
-            <flux:switch wire:model="petIsSponsorable" :label="__('Is Sponsorable')" />
+            <flux:switch wire:model="petIsNeutered" :label="__('Is Neutered')" align="left" />
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <flux:switch wire:model="petIsAdoptable" :label="__('Is Adoptable')" align="left" />
+            <flux:switch wire:model="petIsSponsorable" :label="__('Is Sponsorable')" align="left" />
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
