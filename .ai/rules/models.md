@@ -1,6 +1,7 @@
 ---
 paths:
   - 'app/Models/*.php'
+  - app/Models/Pet.php
 ---
 
 # Models
@@ -19,3 +20,6 @@ Currently applied to Pet, Wing, and User — the only models with a direct shelt
 
 ## Species and Breed now use Blameable + SoftDeletes
 Species and Breed (global taxonomy lookups, no shelter_id) were originally created without created_by/updated_by/deleted_by or deleted_at columns — unlike their sibling admin-managed lookups Vaccine and Sickness. Migration 2026_09_07_165054_add_soft_deletes_and_blameable_to_species_and_breeds_tables added those columns so Species/Breed now use the Blameable + SoftDeletes traits, matching Vaccine/Sickness. This is unrelated to MultiShelterTrait (still correctly not applied to any of these four models, per the existing rule below) — it's about audit/soft-delete parity across the admin-managed global lookups, needed so App\Livewire\Admin\ManageSpecies can soft-delete a Species/Breed without breaking the FK from pets.species_id/pets.breed_id (which are RESTRICT, not cascade).
+
+## pets.ref is required but not auto-populated by the DB — PetForm generates it
+pets.ref is a NOT NULL string column with no default and no uniqueness constraint at the DB level. Nothing else sets it automatically, so any code creating a Pet must supply it. PetForm::savePet() generates one via generatePetRef() (format `PET-XXXXXXXX`, uniqueness checked in app code) only on create, never on update. PetFactory also sets a unique 'ref'. If you add another way to create pets (e.g. an import, an API endpoint, a seeder), you must generate 'ref' there too or the insert will fail.

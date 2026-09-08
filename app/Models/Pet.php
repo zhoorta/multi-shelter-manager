@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $primary_color_id
  * @property int|null $secondary_color_id
  * @property int|null $fur_type_id
+ * @property string $ref
  * @property string $name
  * @property string|null $chip
  * @property bool $is_neutered
@@ -52,7 +53,7 @@ use Illuminate\Support\Carbon;
  */
 #[Fillable([
     'shelter_id', 'cage_id', 'species_id', 'breed_id', 'primary_color_id', 'secondary_color_id',
-    'fur_type_id', 'name', 'chip', 'is_neutered', 'gender', 'birth_date', 'status', 'notes',
+    'fur_type_id', 'ref', 'name', 'chip', 'is_neutered', 'gender', 'birth_date', 'status', 'notes',
     'description', 'is_adoptable', 'is_sponsorable', 'publish_to_portal', 'is_featured',
     'admission_date', 'departure_date', 'date_of_death', 'age', 'internal_notes',
 ])]

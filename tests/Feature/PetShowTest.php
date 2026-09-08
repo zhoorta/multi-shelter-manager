@@ -2,6 +2,8 @@
 
 use App\Models\Pet;
 use App\Models\Shelter;
+use App\Models\Sickness;
+use App\Models\Species;
 use App\Models\User;
 
 test('guests are redirected to the login page', function () {
@@ -76,4 +78,28 @@ test('does not display placeholder text when color and fur type are not assigned
         ->assertOk()
         ->assertDontSee('No Color Assigned')
         ->assertDontSee('No Fur Type Assigned');
+});
+
+test('lists the species sicknesses next to neutered status, marking which ones the pet has', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    $otherSpecies = Species::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['species_id' => $species->id, 'is_neutered' => false]);
+
+    $diagnosed = Sickness::factory()->create(['name' => 'Parvovirus']);
+    $diagnosed->species()->attach($species);
+    $pet->sicknesses()->attach($diagnosed, ['diagnosed_at' => now()]);
+
+    $notDiagnosed = Sickness::factory()->create(['name' => 'Ringworm']);
+    $notDiagnosed->species()->attach($species);
+
+    $unrelated = Sickness::factory()->create(['name' => 'Feline Leukemia']);
+    $unrelated->species()->attach($otherSpecies);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Neutered / Spayed', 'No', 'Parvovirus', 'Yes', 'Ringworm', 'No'])
+        ->assertDontSee('Feline Leukemia');
 });

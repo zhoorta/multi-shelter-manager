@@ -6,6 +6,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | --- | --- |
 | app/Livewire/Admin/** | .ai/rules/admin.md |
 | app/Livewire/** | .ai/rules/livewire.md |
-| app/Models/*.php | .ai/rules/models.md |
+| app/Models/*.php, app/Models/Pet.php | .ai/rules/models.md |
+| app/Livewire/Pets/** | .ai/rules/pets.md |
 | app/Traits/MultiShelterTrait.php | .ai/rules/traits.md |
 | app/Livewire/Wings/** | .ai/rules/wings.md |

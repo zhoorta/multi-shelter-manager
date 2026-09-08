@@ -129,10 +129,21 @@
             <flux:text>{{ $pet->furType?->name ?? '—' }}</flux:text>
         </div>
 
-        <div class="grid grid-cols-[max-content_1fr] items-center gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+        <div class="grid grid-cols-[max-content_1fr] items-center justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Is Neutered') }}:</flux:text>
             <flux:badge size="sm" :color="$pet->is_neutered ? 'lime' : 'zinc'">{{ $pet->is_neutered ? __('Yes') : __('No') }}</flux:badge>
 
+            @foreach ($this->sicknesses as $sickness)
+                @php
+                    $petHasSickness = $pet->sicknesses->contains('id', $sickness->id);
+                @endphp
+
+                <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ $sickness->name }}:</flux:text>
+                <flux:badge size="sm" :color="$petHasSickness ? 'lime' : 'zinc'">{{ $petHasSickness ? __('Yes') : __('No') }}</flux:badge>
+            @endforeach
+        </div>
+
+        <div class="grid grid-cols-[max-content_1fr] items-center justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Is Adoptable') }}:</flux:text>
             <flux:badge size="sm" :color="$pet->is_adoptable ? 'lime' : 'zinc'">{{ $pet->is_adoptable ? __('Yes') : __('No') }}</flux:badge>
 
@@ -140,7 +151,7 @@
             <flux:badge size="sm" :color="$pet->is_sponsorable ? 'lime' : 'zinc'">{{ $pet->is_sponsorable ? __('Yes') : __('No') }}</flux:badge>
         </div>
 
-        <div class="grid grid-cols-[max-content_1fr] items-center gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+        <div class="grid grid-cols-[max-content_1fr] items-center justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Status') }}:</flux:text>
             <flux:badge size="sm">{{ __(ucfirst($pet->status)) }}</flux:badge>
 

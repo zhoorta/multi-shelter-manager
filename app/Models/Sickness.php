@@ -42,4 +42,14 @@ class Sickness extends Model
             ->withPivot(['diagnosed_at', 'status', 'treatment_notes', 'created_by', 'updated_by'])
             ->withTimestamps();
     }
+
+    /**
+     * Get the species this sickness can affect.
+     *
+     * @return BelongsToMany<Species, $this>
+     */
+    public function species(): BelongsToMany
+    {
+        return $this->belongsToMany(Species::class, 'sickness_species');
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\Cage;
 use App\Models\Pet;
 use App\Models\PetImage;
 use App\Models\Shelter;
+use App\Models\Sickness;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
@@ -95,6 +96,37 @@ test('resets the selected breed when the species changes', function () {
         ->assertSet('petBreedId', null);
 });
 
+test('sickness toggles only list sicknesses linked to the selected species', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $otherSpecies = Species::factory()->create();
+    $sickness = Sickness::factory()->create(['name' => 'Parvovirus']);
+    $sickness->species()->attach($species);
+    $unrelatedSickness = Sickness::factory()->create(['name' => 'Feline Leukemia']);
+    $unrelatedSickness->species()->attach($otherSpecies);
+
+    Livewire::test(PetForm::class)
+        ->set('petSpeciesId', $species->id)
+        ->assertSee('Parvovirus')
+        ->assertDontSee('Feline Leukemia');
+});
+
+test('resets the selected sicknesses when the species changes', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $sickness = Sickness::factory()->create();
+    $sickness->species()->attach($species);
+
+    Livewire::test(PetForm::class)
+        ->set('petSicknessIds', [$sickness->id])
+        ->set('petSpeciesId', $species->id)
+        ->assertSet('petSicknessIds', []);
+});
+
 test('creates a new pet scoped to the acting user\'s shelter and redirects to the show page', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
@@ -169,6 +201,49 @@ test('creates a pet marked as neutered', function () {
     $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
     expect($pet->is_neutered)->toBeTrue();
     $component->assertRedirect(route('pets.show', $pet));
+});
+
+test('attaches the selected sicknesses to a newly created pet', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $sickness = Sickness::factory()->create();
+    $sickness->species()->attach($species);
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petSicknessIds', [$sickness->id])
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->sicknesses()->pluck('sicknesses.id')->all())->toBe([$sickness->id]);
+    expect($pet->sicknesses()->first()->pivot->status)->toBe('active');
+});
+
+test('rejects a sickness that does not belong to the selected species', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $otherSpecies = Species::factory()->create();
+    $mismatchedSickness = Sickness::factory()->create();
+    $mismatchedSickness->species()->attach($otherSpecies);
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petSicknessIds', [$mismatchedSickness->id])
+        ->call('savePet')
+        ->assertHasErrors(['petSicknessIds.0' => 'exists']);
 });
 
 test('requires a name, species, breed, and gender to create a pet', function () {
@@ -384,6 +459,21 @@ test('populates the form with the pet\'s current data when editing', function ()
         ->assertSet('petIsSponsorable', false);
 });
 
+test('populates the form with the pet\'s currently diagnosed sicknesses when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create();
+    $sickness = Sickness::factory()->create();
+    $sickness->species()->attach($species);
+    $pet->sicknesses()->attach($sickness, ['diagnosed_at' => now(), 'status' => 'active']);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->assertSet('petSicknessIds', [$sickness->id]);
+});
+
 test('links back to the pet show page when editing', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
@@ -424,6 +514,47 @@ test('updates an existing pet and redirects to the show page', function () {
     expect($pet->fresh()->is_neutered)->toBeTrue();
     expect($pet->fresh()->is_adoptable)->toBeFalse();
     expect($pet->fresh()->is_sponsorable)->toBeFalse();
+});
+
+test('removes a sickness from pet_sickness when its toggle is switched off', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['gender' => 'male']);
+    $sickness = Sickness::factory()->create();
+    $sickness->species()->attach($species);
+    $pet->sicknesses()->attach($sickness, ['diagnosed_at' => now(), 'status' => 'active']);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petSicknessIds', [])
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->sicknesses()->count())->toBe(0);
+});
+
+test('leaves an already-diagnosed sickness untouched when its toggle stays on', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['gender' => 'male']);
+    $sickness = Sickness::factory()->create();
+    $sickness->species()->attach($species);
+    $pet->sicknesses()->attach($sickness, ['diagnosed_at' => '2020-01-01', 'status' => 'chronic', 'treatment_notes' => 'Ongoing care']);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petSicknessIds', [$sickness->id])
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pivot = $pet->sicknesses()->first()->pivot;
+    expect($pivot->diagnosed_at->toDateString())->toBe('2020-01-01');
+    expect($pivot->status)->toBe('chronic');
+    expect($pivot->treatment_notes)->toBe('Ongoing care');
 });
 
 test('adds a new photo during edit without touching the existing main photo', function () {

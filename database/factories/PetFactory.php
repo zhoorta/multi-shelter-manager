@@ -26,8 +26,9 @@ class PetFactory extends Factory
             'shelter_id' => Shelter::factory(),
             'species_id' => $species->id,
             'breed_id' => Breed::factory()->for($species)->create()->id,
+            'ref' => 'PET-'.strtoupper(fake()->unique()->bothify('????????')),
             'name' => fake()->firstName(),
-            'gender' => fake()->randomElement(['male', 'female', 'unknown']),
+            'gender' => fake()->randomElement(['male', 'female']),
             'status' => 'available',
         ];
     }

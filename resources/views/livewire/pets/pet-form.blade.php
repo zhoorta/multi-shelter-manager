@@ -143,6 +143,15 @@
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:switch wire:model="petIsNeutered" :label="__('Is Neutered')" align="left" />
+
+            @foreach ($this->sicknesses as $item)
+                <flux:switch
+                    :checked="in_array($item->id, $petSicknessIds, true)"
+                    wire:click="toggleSickness({{ $item->id }})"
+                    :label="$item->name"
+                    align="left"
+                />
+            @endforeach
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
