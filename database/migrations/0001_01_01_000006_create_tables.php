@@ -77,7 +77,7 @@ return new class extends Migration
             $table->foreignId('secondary_color_id')->nullable()->constrained('colors');
             $table->foreignId('fur_type_id')->nullable()->constrained('fur_types');
             $table->string('ref');
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('chip')->nullable();
             $table->boolean('is_neutered')->default(false);
             $table->enum('gender', ['male', 'female']);
