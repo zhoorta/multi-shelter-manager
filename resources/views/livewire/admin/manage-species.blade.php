@@ -16,6 +16,7 @@
                     <thead class="bg-neutral-50 text-xs uppercase text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
                         <tr>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Plural Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Breeds') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
@@ -24,6 +25,7 @@
                         @forelse ($this->species as $item)
                             <tr wire:key="species-{{ $item->id }}">
                                 <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">{{ $item->name }}</td>
+                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->name_plural }}</td>
                                 <td class="px-6 py-3">
                                     <flux:badge size="sm">{{ $item->breeds_count }}</flux:badge>
                                 </td>
@@ -71,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="4" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No species registered') }}
                                 </td>
                             </tr>
@@ -89,6 +91,8 @@
             </flux:heading>
 
             <flux:input wire:model="speciesName" :label="__('Name')" />
+
+            <flux:input wire:model="speciesNamePlural" :label="__('Plural Name')" />
 
             <div class="flex justify-end gap-2">
                 <flux:modal.close>

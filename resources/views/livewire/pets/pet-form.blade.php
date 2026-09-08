@@ -1,8 +1,12 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
+    @php
+        $petsIndexRoute = route('pets.index', $this->currentSpecies ? ['speciesFilter' => $this->currentSpecies->id] : []);
+    @endphp
+
     <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
             <flux:heading size="xl">
-                {{ $pet ? __('Edit') : __('Create') }} &mdash; {{ __('Pets') }}
+                {{ $pet ? __('Edit') : __('Create') }} &mdash; {{ $this->currentSpecies?->name_plural ?? __('Pets') }}
             </flux:heading>
 
             @if ($pet)
@@ -10,8 +14,8 @@
             @endif
         </div>
 
-        <flux:button :href="$pet ? route('pets.show', $pet) : route('pets.index')" variant="filled" icon="arrow-left" wire:navigate>
-            {{ $pet ? $pet->name : __('Pets') }}
+        <flux:button :href="$pet ? route('pets.show', $pet) : $petsIndexRoute" variant="filled" icon="arrow-left" wire:navigate>
+            {{ $pet ? $pet->name : ($this->currentSpecies?->name_plural ?? __('Pets')) }}
         </flux:button>
     </div>
 
@@ -99,13 +103,6 @@
 
             <flux:input wire:model="petChip" :label="__('Microchip / Chip')" />
 
-            <flux:select wire:model.live="petSpeciesId" :label="__('Species')">
-                <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
-                @foreach ($this->species as $item)
-                    <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
-                @endforeach
-            </flux:select>
-
             <flux:select wire:model="petBreedId" :label="__('Breed')">
                 <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
                 @foreach ($this->breeds as $item)
@@ -185,7 +182,7 @@
         </div>
 
         <div class="flex justify-end gap-2">
-            <flux:button :href="$pet ? route('pets.show', $pet) : route('pets.index')" variant="filled" wire:navigate>
+            <flux:button :href="$pet ? route('pets.show', $pet) : $petsIndexRoute" variant="filled" wire:navigate>
                 {{ __('Cancel') }}
             </flux:button>
 

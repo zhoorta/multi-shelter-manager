@@ -302,6 +302,60 @@ test('rejects a photo larger than 2MB', function () {
         ->assertHasErrors(['petPhotos.0' => 'max']);
 });
 
+test('presets the species when arriving from a species-scoped pets list', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+
+    Livewire::withQueryParams(['species' => $species->id])
+        ->test(PetForm::class)
+        ->assertSet('petSpeciesId', $species->id)
+        ->assertSee('Dogs')
+        ->assertDontSee('wire:model.live="petSpeciesId"', false);
+});
+
+test('does not preset a species when creating a pet without one in the query string', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(PetForm::class)
+        ->assertSet('petSpeciesId', null)
+        ->assertDontSee('wire:model.live="petSpeciesId"', false);
+});
+
+test('creates a pet with the species carried over from a species-scoped pets list', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    $component = Livewire::withQueryParams(['species' => $species->id])
+        ->test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->species_id)->toBe($species->id);
+    $component->assertRedirect(route('pets.show', $pet));
+});
+
+test('does not show an editable species field when editing an existing pet', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+    $pet = Pet::factory()->for($shelter)->for($species)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->assertSee('Dogs')
+        ->assertDontSee('wire:model.live="petSpeciesId"', false);
+});
+
 test('populates the form with the pet\'s current data when editing', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));

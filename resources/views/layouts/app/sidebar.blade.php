@@ -16,9 +16,17 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                     @if (auth()->user()->role !== 'admin')
-                        <flux:sidebar.item icon="heart" :href="route('pets.index')" :current="request()->routeIs('pets.index')" wire:navigate>
-                            {{ __('Pets') }}
-                        </flux:sidebar.item>
+                        <flux:sidebar.group icon="heart" :heading="__('Pets')" expandable>
+                            @foreach (\App\Models\Species::query()->orderBy('name')->get() as $sidebarSpecies)
+                                <flux:sidebar.item
+                                    :href="route('pets.index', ['speciesFilter' => $sidebarSpecies->id])"
+                                    :current="request()->routeIs('pets.index') && (string) request()->query('speciesFilter') === (string) $sidebarSpecies->id"
+                                    wire:navigate
+                                >
+                                    {{ $sidebarSpecies->name_plural }}
+                                </flux:sidebar.item>
+                            @endforeach
+                        </flux:sidebar.group>
                         <flux:sidebar.item icon="building-office-2" :href="route('wings.index')" :current="request()->routeIs('wings.index')" wire:navigate>
                             {{ __('Wings') }}
                         </flux:sidebar.item>

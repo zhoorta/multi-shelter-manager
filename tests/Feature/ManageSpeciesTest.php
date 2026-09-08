@@ -36,16 +36,17 @@ test('shows a placeholder message when there are no species', function () {
     $this->get(route('admin.species.index'))->assertSee(__('No species registered'));
 });
 
-test('lists species with their breeds count, excluding soft-deleted breeds', function () {
+test('lists species with their plural name and breeds count, excluding soft-deleted breeds', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    $species = Species::factory()->create(['name' => 'Dog']);
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
     Breed::factory()->count(2)->create(['species_id' => $species->id]);
     Breed::factory()->create(['species_id' => $species->id])->delete();
 
     Livewire::test(ManageSpecies::class)
         ->assertSee('Dog')
+        ->assertSee('Dogs')
         ->assertSee('2');
 });
 
@@ -55,35 +56,39 @@ test('creates a new species and closes the modal', function () {
 
     Livewire::test(ManageSpecies::class)
         ->set('speciesName', 'Cat')
+        ->set('speciesNamePlural', 'Cats')
         ->call('saveSpecies')
         ->assertHasNoErrors()
         ->assertDispatched('modal-close', name: 'species-form');
 
-    expect(Species::query()->where('name', 'Cat')->exists())->toBeTrue();
+    expect(Species::query()->where('name', 'Cat')->where('name_plural', 'Cats')->exists())->toBeTrue();
 });
 
 test('opening the create modal resets a stale edit state', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    $species = Species::factory()->create(['name' => 'Dog']);
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
 
     Livewire::test(ManageSpecies::class)
         ->call('editSpecies', $species->id)
         ->assertSet('speciesName', 'Dog')
+        ->assertSet('speciesNamePlural', 'Dogs')
         ->call('createSpecies')
         ->assertSet('editingSpeciesId', null)
-        ->assertSet('speciesName', '');
+        ->assertSet('speciesName', '')
+        ->assertSet('speciesNamePlural', '');
 });
 
-test('requires a name to create a species', function () {
+test('requires a name and plural name to create a species', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
     Livewire::test(ManageSpecies::class)
         ->set('speciesName', '')
+        ->set('speciesNamePlural', '')
         ->call('saveSpecies')
-        ->assertHasErrors(['speciesName' => 'required']);
+        ->assertHasErrors(['speciesName' => 'required', 'speciesNamePlural' => 'required']);
 });
 
 test('rejects a duplicate species name', function () {
@@ -94,24 +99,40 @@ test('rejects a duplicate species name', function () {
 
     Livewire::test(ManageSpecies::class)
         ->set('speciesName', 'Dog')
+        ->set('speciesNamePlural', 'Something Else')
         ->call('saveSpecies')
         ->assertHasErrors(['speciesName' => 'unique']);
+});
+
+test('rejects a duplicate species plural name', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    Species::factory()->create(['name_plural' => 'Dogs']);
+
+    Livewire::test(ManageSpecies::class)
+        ->set('speciesName', 'Something Else')
+        ->set('speciesNamePlural', 'Dogs')
+        ->call('saveSpecies')
+        ->assertHasErrors(['speciesNamePlural' => 'unique']);
 });
 
 test('updates an existing species', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    $species = Species::factory()->create(['name' => 'Dog']);
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
 
     Livewire::test(ManageSpecies::class)
         ->call('editSpecies', $species->id)
         ->assertSet('speciesName', 'Dog')
         ->set('speciesName', 'Canine')
+        ->set('speciesNamePlural', 'Canines')
         ->call('saveSpecies')
         ->assertHasNoErrors();
 
     expect($species->fresh()->name)->toBe('Canine');
+    expect($species->fresh()->name_plural)->toBe('Canines');
 });
 
 test('soft-deletes a species instead of removing it permanently', function () {

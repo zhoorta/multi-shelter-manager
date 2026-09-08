@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property string $name
+ * @property string $name_plural
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int|null $created_by
@@ -23,7 +24,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name'])]
+#[Fillable(['name', 'name_plural'])]
 class Species extends Model
 {
     /** @use HasFactory<SpeciesFactory> */

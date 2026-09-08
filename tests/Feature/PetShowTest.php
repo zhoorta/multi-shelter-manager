@@ -51,6 +51,17 @@ test('links to the edit page', function () {
     $this->get(route('pets.show', $pet))->assertSee(route('pets.edit', $pet), false);
 });
 
+test('links back to the pets list scoped to the pet species', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertSee(route('pets.index', ['speciesFilter' => $pet->species_id]), false)
+        ->assertSee($pet->species->name_plural);
+});
+
 test('does not display placeholder text when color and fur type are not assigned', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create([

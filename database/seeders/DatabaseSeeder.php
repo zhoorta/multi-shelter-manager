@@ -13,16 +13,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 1. SEED SPECIES (Espécies)
-        $dogId = DB::table('species')->insertGetId(['name' => 'Cão', 'created_at' => now(), 'updated_at' => now()]);
-        $catId = DB::table('species')->insertGetId(['name' => 'Gato', 'created_at' => now(), 'updated_at' => now()]);
-        $rabbitId = DB::table('species')->insertGetId(['name' => 'Coelho', 'created_at' => now(), 'updated_at' => now()]);
+        $dogId = DB::table('species')->insertGetId(['name' => 'Cão', 'name_plural' => 'Cães', 'created_at' => now(), 'updated_at' => now()]);
+        $catId = DB::table('species')->insertGetId(['name' => 'Gato', 'name_plural' => 'Gatos', 'created_at' => now(), 'updated_at' => now()]);
 
         // 2. SEED BREEDS (Raças)
         // Global defaults (SRD / Indefinida)
         DB::table('breeds')->insert([
-            ['species_id' => $dogId, 'name' => 'Indefinida / SRD', 'is_default' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $catId, 'name' => 'Indefinida / SRD', 'is_default' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $rabbitId, 'name' => 'Indefinida / SRD', 'is_default' => true, 'created_at' => now(), 'updated_at' => now()],
+            ['species_id' => $dogId, 'name' => 'Indefinida', 'is_default' => true, 'created_at' => now(), 'updated_at' => now()],
+            ['species_id' => $catId, 'name' => 'Indefinida', 'is_default' => true, 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         // Common Portuguese Dog Breeds

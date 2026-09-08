@@ -19,6 +19,7 @@ class SpeciesFactory extends Factory
     {
         return [
             'name' => fake()->unique()->word(),
+            'name_plural' => fake()->unique()->word(),
         ];
     }
 }

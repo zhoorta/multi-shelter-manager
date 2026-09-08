@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -29,6 +30,14 @@ class PetForm extends Component
     use WithFileUploads;
 
     public ?Pet $pet = null;
+
+    /**
+     * Species id carried over from a species-scoped pets list (see
+     * ManagePets::selectedSpecies) so a pet created from there starts
+     * locked to that species instead of showing every species.
+     */
+    #[Url(as: 'species')]
+    public string $lockedSpeciesId = '';
 
     public string $petName = '';
 
@@ -68,6 +77,10 @@ class PetForm extends Component
         abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
 
         if ($pet === null) {
+            if ($this->lockedSpeciesId !== '') {
+                $this->petSpeciesId = Species::query()->whereKey($this->lockedSpeciesId)->value('id');
+            }
+
             return;
         }
 
@@ -89,12 +102,15 @@ class PetForm extends Component
     }
 
     /**
-     * @return Collection<int, Species>
+     * The species backing the current selection, used to label the form
+     * and link back to its species-scoped pets list.
      */
     #[Computed]
-    public function species(): Collection
+    public function currentSpecies(): ?Species
     {
-        return Species::query()->orderBy('name')->get();
+        return $this->petSpeciesId !== null
+            ? Species::query()->find($this->petSpeciesId)
+            : null;
     }
 
     /**
@@ -331,7 +347,7 @@ class PetForm extends Component
         return view('livewire.pets.pet-form')->title(
             $this->pet !== null
                 ? __('Edit').' — '.$this->pet->name
-                : __('Create').' — '.__('Pets'),
+                : __('Create').' — '.($this->currentSpecies?->name_plural ?? __('Pets')),
         );
     }
 }

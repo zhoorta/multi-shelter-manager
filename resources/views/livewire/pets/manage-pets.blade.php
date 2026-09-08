@@ -1,13 +1,17 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
-        <flux:heading size="xl">{{ __('Pets') }}</flux:heading>
+        <flux:heading size="xl">{{ $this->selectedSpecies?->name_plural ?? __('Pets') }}</flux:heading>
 
         {{-- A full page load (no wire:navigate) here is deliberate: navigate morphs
              the previous page's DOM into the new one, and a native <select> can keep
              its browser-side selected option across that morph even though the fresh
              component's bound property is null — a fresh request guarantees a clean
              form every time. --}}
-        <flux:button :href="route('pets.create')" variant="primary" icon="plus">
+        <flux:button
+            :href="route('pets.create', $this->selectedSpecies ? ['species' => $this->selectedSpecies->id] : [])"
+            variant="primary"
+            icon="plus"
+        >
             {{ __('Create') }}
         </flux:button>
     </div>
@@ -26,13 +30,6 @@
             <flux:select.option value="quarantine">{{ __('Quarantine') }}</flux:select.option>
             <flux:select.option value="adopted">{{ __('Adopted') }}</flux:select.option>
             <flux:select.option value="medical">{{ __('Medical') }}</flux:select.option>
-        </flux:select>
-
-        <flux:select wire:model.live="speciesFilter" :placeholder="__('All')" class="sm:max-w-xs">
-            <flux:select.option value="">{{ __('All') }}</flux:select.option>
-            @foreach ($this->species as $item)
-                <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
-            @endforeach
         </flux:select>
     </div>
 

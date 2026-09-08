@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 #[Title('Manage Pets')]
@@ -22,6 +23,7 @@ class ManagePets extends Component
 
     public string $statusFilter = '';
 
+    #[Url]
     public string $speciesFilter = '';
 
     public function mount(): void
@@ -57,12 +59,18 @@ class ManagePets extends Component
     }
 
     /**
-     * @return Collection<int, Species>
+     * The species currently selected via the sidebar/filter, if any —
+     * drives the page heading and is forwarded to the create link so a
+     * pet created from a species-scoped list starts locked to it.
      */
     #[Computed]
-    public function species(): Collection
+    public function selectedSpecies(): ?Species
     {
-        return Species::query()->orderBy('name')->get();
+        if ($this->speciesFilter === '') {
+            return null;
+        }
+
+        return Species::query()->find($this->speciesFilter);
     }
 
     public function deletePet(int $petId): void

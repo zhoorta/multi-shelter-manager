@@ -6,8 +6,8 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <flux:button :href="route('pets.index')" variant="filled" icon="arrow-left" wire:navigate>
-                {{ __('Pets') }}
+            <flux:button :href="route('pets.index', ['speciesFilter' => $pet->species_id])" variant="filled" icon="arrow-left" wire:navigate>
+                {{ $pet->species->name_plural }}
             </flux:button>
 
             <flux:button :href="route('pets.edit', $pet)" variant="primary" icon="pencil" wire:navigate>

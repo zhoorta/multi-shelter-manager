@@ -21,6 +21,8 @@ class ManageSpecies extends Component
 
     public string $speciesName = '';
 
+    public string $speciesNamePlural = '';
+
     public function mount(): void
     {
         abort_unless(Auth::user()->role === 'admin', 403);
@@ -49,6 +51,7 @@ class ManageSpecies extends Component
 
         $this->editingSpeciesId = $species->id;
         $this->speciesName = $species->name;
+        $this->speciesNamePlural = $species->name_plural;
     }
 
     public function saveSpecies(): void
@@ -60,19 +63,28 @@ class ManageSpecies extends Component
                 'max:255',
                 Rule::unique('species', 'name')->ignore($this->editingSpeciesId),
             ],
+            'speciesNamePlural' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('species', 'name_plural')->ignore($this->editingSpeciesId),
+            ],
         ], [], [
             'speciesName' => __('Name'),
+            'speciesNamePlural' => __('Plural Name'),
         ]);
 
         if ($this->editingSpeciesId !== null) {
             Species::query()->findOrFail($this->editingSpeciesId)->update([
                 'name' => $validated['speciesName'],
+                'name_plural' => $validated['speciesNamePlural'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record updated successfully'));
         } else {
             Species::query()->create([
                 'name' => $validated['speciesName'],
+                'name_plural' => $validated['speciesNamePlural'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record created successfully'));
@@ -99,7 +111,7 @@ class ManageSpecies extends Component
 
     protected function resetSpeciesForm(): void
     {
-        $this->reset(['editingSpeciesId', 'speciesName']);
+        $this->reset(['editingSpeciesId', 'speciesName', 'speciesNamePlural']);
         $this->resetErrorBag();
     }
 

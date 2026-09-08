@@ -39,6 +39,7 @@ return new class extends Migration
         Schema::create('species', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('name_plural')->unique();
             $table->timestamps();
         });
 

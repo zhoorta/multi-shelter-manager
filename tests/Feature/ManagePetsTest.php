@@ -105,6 +105,26 @@ test('filters pets by species', function () {
         ->assertDontSee('Bella');
 });
 
+test('shows the selected species\' plural name as the heading when arriving from the sidebar', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::withQueryParams(['speciesFilter' => (string) $species->id])
+        ->test(ManagePets::class)
+        ->assertSee('Dogs');
+});
+
+test('carries the selected species over to the create link so a new pet starts locked to it', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::withQueryParams(['speciesFilter' => (string) $species->id])
+        ->test(ManagePets::class)
+        ->assertSeeHtml(route('pets.create', ['species' => $species->id]));
+});
+
 test('soft-deletes a pet instead of removing it permanently', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
