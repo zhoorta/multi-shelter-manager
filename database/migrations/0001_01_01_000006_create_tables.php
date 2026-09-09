@@ -183,8 +183,8 @@ return new class extends Migration
             $table->string('email', 150)->nullable();
             $table->string('phone', 30)->nullable();
             $table->string('address')->nullable();
-            $table->string('address_postal_code')->nullable();
-            $table->string('address_locality')->nullable();
+            $table->string('postal_code', 20)->nullable();
+            $table->string('city', 100)->nullable();
             $table->date('adoption_date');
             $table->date('return_date')->nullable();
             $table->decimal('adoption_fee', 6, 2)->default(0.00);

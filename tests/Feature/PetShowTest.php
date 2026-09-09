@@ -105,6 +105,28 @@ test('shows the checkin date', function () {
         ->assertSeeInOrder(['Checkin Date', '10/01/2023']);
 });
 
+test('shows the pet description as rendered HTML in its own box at the end', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['description' => '<p>Loves <b>belly rubs</b>.</p>']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Checkin Date', 'Description', '<b>belly rubs</b>'], false);
+});
+
+test('shows a placeholder when the pet has no description', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['description' => null]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Description', '—']);
+});
+
 test('lists the species sicknesses next to neutered status, marking which ones the pet has', function () {
     $shelter = Shelter::factory()->create();
     $species = Species::factory()->create();

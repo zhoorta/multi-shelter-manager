@@ -77,6 +77,8 @@ class PetForm extends Component
 
     public string $petCheckinDate = '';
 
+    public string $petDescription = '';
+
     /**
      * @var array<int, TemporaryUploadedFile>
      */
@@ -112,6 +114,7 @@ class PetForm extends Component
         $this->petStatus = $pet->status;
         $this->petCageId = $pet->cage_id;
         $this->petCheckinDate = (string) $pet->checkin_date?->format('Y-m-d');
+        $this->petDescription = (string) $pet->description;
     }
 
     /**
@@ -258,6 +261,7 @@ class PetForm extends Component
             'petIsSponsorable' => ['boolean'],
             'petCageId' => ['nullable', 'integer', 'exists:cages,id'],
             'petCheckinDate' => ['nullable', 'date'],
+            'petDescription' => ['nullable', 'string'],
             'petPhotos' => ['nullable', 'array'],
             'petPhotos.*' => ['image', 'max:2048'],
         ], [], [
@@ -278,6 +282,7 @@ class PetForm extends Component
             'petIsSponsorable' => __('Is Sponsorable'),
             'petCageId' => __('Cage'),
             'petCheckinDate' => __('Checkin Date'),
+            'petDescription' => __('Description'),
             'petPhotos.*' => __('Photo'),
         ]);
 
@@ -305,6 +310,7 @@ class PetForm extends Component
             'date_of_death' => $validated['petDeathDate'] !== '' ? $validated['petDeathDate'] : null,
             'status' => $validated['petStatus'],
             'checkin_date' => $validated['petCheckinDate'] !== '' ? $validated['petCheckinDate'] : null,
+            'description' => $this->sanitizeDescription($validated['petDescription']),
             'is_neutered' => $validated['petIsNeutered'],
             'is_adoptable' => $validated['petIsAdoptable'],
             'is_sponsorable' => $validated['petIsSponsorable'],
@@ -337,6 +343,24 @@ class PetForm extends Component
     protected function generatePetRef(int $petId): string
     {
         return 'PET'.str_pad((string) $petId, 5, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Reduce the description editor's HTML to a small formatting-only
+     * allowlist and strip attributes from the surviving tags, since the
+     * client-side rich text editor sends raw contenteditable HTML that
+     * could otherwise carry stray attributes (e.g. onclick) into the
+     * stored value. Returns null when only empty markup remains.
+     */
+    protected function sanitizeDescription(string $html): ?string
+    {
+        $allowedTags = '<p><br><b><strong><i><em><u><ul><ol><li>';
+
+        $stripped = strip_tags($html, $allowedTags);
+        $stripped = preg_replace('/<(\w+)[^>]*>/', '<$1>', $stripped) ?? $stripped;
+        $stripped = trim($stripped);
+
+        return trim(strip_tags($stripped)) !== '' ? $stripped : null;
     }
 
     /**

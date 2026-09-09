@@ -161,6 +161,46 @@ test('creates a new pet scoped to the acting user\'s shelter and redirects to th
     expect($pet->is_sponsorable)->toBeTrue();
 });
 
+test('saves a formatted description, stripping tags outside the allowlist', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petDescription', '<p><b onclick="alert(1)">Friendly</b> and <i>playful</i></p>')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->description)->toBe('<p><b>Friendly</b> and <i>playful</i></p>');
+});
+
+test('empty description markup is saved as null', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petDescription', '<p><br></p>')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->description)->toBeNull();
+});
+
 test('generates a ref from the pet id on create', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));

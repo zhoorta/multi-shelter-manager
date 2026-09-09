@@ -169,5 +169,16 @@
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}:</flux:text>
             <flux:text>{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>
         </div>
+
+        <div class="grid grid-cols-[max-content_1fr] items-start justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Description') }}:</flux:text>
+            <flux:text inline class="[&_ol]:list-decimal [&_ol]:ps-5 [&_ul]:list-disc [&_ul]:ps-5">
+                @if ($pet->description)
+                    {!! $pet->description !!}
+                @else
+                    —
+                @endif
+            </flux:text>
+        </div>
     </div>
 </div>

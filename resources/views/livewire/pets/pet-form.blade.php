@@ -221,6 +221,60 @@
             />
         </div>
 
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <flux:field>
+                <flux:label>{{ __('Description') }}</flux:label>
+
+                {{-- contenteditable, synced to $wire manually via Alpine instead of wire:model:
+                     Livewire's DOM morphing on a bound contenteditable element fights the
+                     browser's own cursor/selection state on every keystroke. --}}
+                <div
+                    x-data="{
+                        init() {
+                            document.execCommand('defaultParagraphSeparator', false, 'p');
+                            this.$refs.editor.innerHTML = @js($petDescription);
+                        },
+                        sync() {
+                            $wire.set('petDescription', this.$refs.editor.innerHTML, false);
+                        },
+                        format(command) {
+                            document.execCommand(command);
+                            this.$refs.editor.focus();
+                            this.sync();
+                        },
+                    }"
+                    class="flex flex-col gap-2"
+                >
+                    <div class="flex items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-1 dark:border-neutral-700 dark:bg-neutral-800">
+                        <button type="button" x-on:click="format('bold')" class="rounded px-2 py-1 text-sm font-bold hover:bg-neutral-200 dark:hover:bg-neutral-700">
+                            {{ __('Bold') }}
+                        </button>
+                        <button type="button" x-on:click="format('italic')" class="rounded px-2 py-1 text-sm italic hover:bg-neutral-200 dark:hover:bg-neutral-700">
+                            {{ __('Italic') }}
+                        </button>
+                        <button type="button" x-on:click="format('underline')" class="rounded px-2 py-1 text-sm underline hover:bg-neutral-200 dark:hover:bg-neutral-700">
+                            {{ __('Underline') }}
+                        </button>
+                        <button type="button" x-on:click="format('insertUnorderedList')" class="rounded px-2 py-1 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700">
+                            &bull; {{ __('List') }}
+                        </button>
+                        <button type="button" x-on:click="format('insertOrderedList')" class="rounded px-2 py-1 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700">
+                            1. {{ __('List') }}
+                        </button>
+                    </div>
+
+                    <div
+                        x-ref="editor"
+                        x-on:input="sync"
+                        contenteditable="true"
+                        class="min-h-32 rounded-lg border border-neutral-200 bg-white p-3 text-sm text-neutral-900 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-white [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5"
+                    ></div>
+                </div>
+
+                <flux:error name="petDescription" />
+            </flux:field>
+        </div>
+
         <div class="flex justify-end gap-2">
             <flux:button :href="$pet ? route('pets.show', $pet) : $petsIndexRoute" variant="filled" wire:navigate>
                 {{ __('Cancel') }}
