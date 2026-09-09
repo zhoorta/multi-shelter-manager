@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Livewire\Admin\ManageBreeds;
 use App\Livewire\Admin\ManageSpecies;
 use App\Livewire\Dashboard;
+use App\Livewire\Pets\AdoptionForm;
 use App\Livewire\Pets\ManagePets;
 use App\Livewire\Pets\PetForm;
 use App\Livewire\Pets\PetShow;
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets/create', PetForm::class)->name('pets.create');
     Route::livewire('pets/{pet}/edit', PetForm::class)->name('pets.edit');
     Route::livewire('pets/{pet}', PetShow::class)->name('pets.show');
+    Route::livewire('pets/{pet}/adopt', AdoptionForm::class)->name('pets.adopt');
 
     Route::livewire('wings', ManageSpaces::class)->name('wings.index');
 

@@ -56,7 +56,7 @@ class ManagePets extends Component
     public function pets(): LengthAwarePaginator
     {
         return Pet::query()
-            ->with(['species', 'breed', 'cage.wing', 'images', 'primaryColor', 'secondaryColor', 'furType'])
+            ->with(['species', 'breed', 'cage.wing', 'images', 'primaryColor', 'secondaryColor', 'furType', 'latestAdoption'])
             ->when(
                 $this->search !== '',
                 fn (Builder $query) => $query->where(

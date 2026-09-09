@@ -53,6 +53,19 @@ test('links to the edit page', function () {
     $this->get(route('pets.show', $pet))->assertSee(route('pets.edit', $pet), false);
 });
 
+test('links to the adoption registration page unless the pet is already adopted', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))->assertSee(route('pets.adopt', $pet), false);
+
+    $pet->update(['status' => 'adopted']);
+
+    $this->get(route('pets.show', $pet))->assertDontSee(route('pets.adopt', $pet), false);
+});
+
 test('links back to the pets list scoped to the pet species', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();

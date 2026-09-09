@@ -13,6 +13,18 @@
             <flux:button :href="route('pets.edit', $pet)" variant="primary" icon="pencil" wire:navigate>
                 {{ __('Edit') }}
             </flux:button>
+
+            @unless ($pet->status === 'adopted')
+                <flux:button
+                    :href="route('pets.adopt', $pet)"
+                    variant="filled"
+                    icon="heart"
+                    wire:navigate
+                    class="bg-rose-400! hover:bg-rose-500! text-white! dark:bg-rose-400! dark:hover:bg-rose-500!"
+                >
+                    {{ __('Adoption Registration') }}
+                </flux:button>
+            @endunless
         </div>
     </div>
 

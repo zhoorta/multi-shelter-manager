@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -220,5 +221,25 @@ class Pet extends Model
             ->using(PetVaccine::class)
             ->withPivot(['administered_at', 'expires_at', 'created_by', 'updated_by'])
             ->withTimestamps();
+    }
+
+    /**
+     * Get the adoption records for the pet.
+     *
+     * @return HasMany<Adoption, $this>
+     */
+    public function adoptions(): HasMany
+    {
+        return $this->hasMany(Adoption::class);
+    }
+
+    /**
+     * Get the pet's most recent adoption record, by adoption date.
+     *
+     * @return HasOne<Adoption, $this>
+     */
+    public function latestAdoption(): HasOne
+    {
+        return $this->hasOne(Adoption::class)->latestOfMany('adoption_date');
     }
 }

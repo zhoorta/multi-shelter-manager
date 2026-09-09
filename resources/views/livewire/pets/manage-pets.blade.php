@@ -76,6 +76,13 @@
                                     <a href="{{ route('pets.show', $pet) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $pet->name }}</a>
                                     <span class="text-neutral-500 dark:text-neutral-400">{{ __(ucfirst($pet->gender)) }}</span>
                                     <span class="text-neutral-500 dark:text-neutral-400">{{ $pet->chip }}</span>
+
+                                    @if ($pet->status === 'adopted' && $pet->latestAdoption)
+                                        <span>&nbsp;</span>
+                                        <span class="text-neutral-500 dark:text-neutral-400">
+                                            {{ __('Adopted at').' '.$pet->latestAdoption->adoption_date->format('d/m/Y') }}
+                                        </span>
+                                    @endif
                                 </div>
                             </td>
                             <td class="px-6 py-3">

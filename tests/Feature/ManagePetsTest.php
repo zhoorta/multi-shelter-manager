@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Pets\ManagePets;
+use App\Models\Adoption;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Species;
@@ -88,6 +89,27 @@ test('filters pets by status', function () {
         ->set('statusFilter', 'quarantine')
         ->assertSee('Bella')
         ->assertDontSee('Rex');
+});
+
+test('shows the adoption date for adopted pets', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'adopted']);
+    Adoption::factory()->for($pet)->create(['adoption_date' => '2026-02-10']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertSeeInOrder(['Rex', 'Adopted at', '10/02/2026']);
+});
+
+test('does not show an adoption date for pets that are not adopted', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'available']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertDontSee('Adopted at');
 });
 
 test('filters pets by species', function () {
