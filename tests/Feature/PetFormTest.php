@@ -161,6 +161,39 @@ test('creates a new pet scoped to the acting user\'s shelter and redirects to th
     expect($pet->is_sponsorable)->toBeTrue();
 });
 
+test('generates a ref from the pet id on create', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->ref)->toBe('PET'.str_pad((string) $pet->id, 5, '0', STR_PAD_LEFT));
+});
+
+test('editing a pet does not change its ref', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $originalRef = $pet->ref;
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petName', 'Updated Name')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh()->ref)->toBe($originalRef);
+});
+
 test('creates a pet with a birth date and a death date', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));

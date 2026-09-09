@@ -26,10 +26,20 @@ class PetFactory extends Factory
             'shelter_id' => Shelter::factory(),
             'species_id' => $species->id,
             'breed_id' => Breed::factory()->for($species)->create()->id,
-            'ref' => 'PET-'.strtoupper(fake()->unique()->bothify('????????')),
+            'ref' => '',
             'name' => fake()->firstName(),
             'gender' => fake()->randomElement(['male', 'female']),
             'status' => 'available',
         ];
+    }
+
+    /**
+     * @return Factory<Pet>
+     */
+    public function configure(): Factory
+    {
+        return $this->afterCreating(function (Pet $pet): void {
+            $pet->update(['ref' => 'PET'.str_pad((string) $pet->id, 5, '0', STR_PAD_LEFT)]);
+        });
     }
 }

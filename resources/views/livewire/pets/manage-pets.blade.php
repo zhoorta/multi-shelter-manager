@@ -66,11 +66,14 @@
                                     class="size-24"
                                     :src="$mainImage ? \Illuminate\Support\Facades\Storage::url($mainImage->image_path) : null"
                                     :name="$pet->name"
+                                    :href="route('pets.show', $pet)"
+                                    wire:navigate
                                 />
                             </td>
                             <td class="px-6 py-3">
                                 <div class="flex flex-col gap-1">
-                                    <span class="font-medium text-neutral-900 dark:text-white">{{ $pet->name }}</span>
+                                    <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $pet->ref }}</span>
+                                    <a href="{{ route('pets.show', $pet) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $pet->name }}</a>
                                     <span class="text-neutral-500 dark:text-neutral-400">{{ __(ucfirst($pet->gender)) }}</span>
                                     <span class="text-neutral-500 dark:text-neutral-400">{{ $pet->chip }}</span>
                                 </div>

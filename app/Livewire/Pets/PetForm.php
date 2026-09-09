@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -293,7 +292,6 @@ class PetForm extends Component
         $isEditing = $this->pet !== null;
 
         $petAttributes = [
-            'ref' => $isEditing ? $this->pet->ref : $this->generatePetRef(),
             'cage_id' => $cage?->id,
             'species_id' => $validated['petSpeciesId'],
             'breed_id' => $validated['petBreedId'],
@@ -316,7 +314,8 @@ class PetForm extends Component
             if ($isEditing) {
                 $this->pet->update($petAttributes);
             } else {
-                $this->pet = Pet::query()->create($petAttributes);
+                $this->pet = Pet::query()->create([...$petAttributes, 'ref' => '']);
+                $this->pet->update(['ref' => $this->generatePetRef($this->pet->id)]);
             }
 
             $this->syncPetSicknesses($this->pet, $validated['petSicknessIds'] ?? []);
@@ -332,17 +331,12 @@ class PetForm extends Component
     }
 
     /**
-     * Generate a unique, human-readable reference for a newly created pet.
-     * pets.ref has no uniqueness constraint of its own, so uniqueness is
-     * enforced here before it's assigned.
+     * Generate the pet's reference from its id: PET00001, PET00002, etc.
+     * Only called on create, once the pet's id is known.
      */
-    protected function generatePetRef(): string
+    protected function generatePetRef(int $petId): string
     {
-        do {
-            $ref = 'PET-'.strtoupper(Str::random(8));
-        } while (Pet::withTrashed()->where('ref', $ref)->exists());
-
-        return $ref;
+        return 'PET'.str_pad((string) $petId, 5, '0', STR_PAD_LEFT);
     }
 
     /**
