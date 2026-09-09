@@ -8,6 +8,7 @@ use App\Traits\Blameable;
 use App\Traits\MultiShelterTrait;
 use Database\Factories\PetFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,8 +39,8 @@ use Illuminate\Support\Carbon;
  * @property bool $is_sponsorable
  * @property bool $publish_to_portal
  * @property bool $is_featured
- * @property Carbon|null $admission_date
- * @property Carbon|null $departure_date
+ * @property Carbon|null $checkin_date
+ * @property Carbon|null $checkout_date
  * @property Carbon|null $date_of_death
  * @property string|null $age
  * @property string|null $internal_notes
@@ -55,7 +56,7 @@ use Illuminate\Support\Carbon;
     'shelter_id', 'cage_id', 'species_id', 'breed_id', 'primary_color_id', 'secondary_color_id',
     'fur_type_id', 'ref', 'name', 'chip', 'is_neutered', 'gender', 'birth_date', 'status', 'notes',
     'description', 'is_adoptable', 'is_sponsorable', 'publish_to_portal', 'is_featured',
-    'admission_date', 'departure_date', 'date_of_death', 'age', 'internal_notes',
+    'checkin_date', 'checkout_date', 'date_of_death', 'age', 'internal_notes',
 ])]
 class Pet extends Model
 {
@@ -76,10 +77,43 @@ class Pet extends Model
             'is_sponsorable' => 'boolean',
             'publish_to_portal' => 'boolean',
             'is_featured' => 'boolean',
-            'admission_date' => 'date',
-            'departure_date' => 'date',
+            'checkin_date' => 'date',
+            'checkout_date' => 'date',
             'date_of_death' => 'date',
         ];
+    }
+
+    /**
+     * The pet's current age, in whole years and months, as a translated
+     * string (e.g. "1 ano e 3 meses"). Null when birth_date is unknown.
+     */
+    protected function ageInWords(): Attribute
+    {
+        return Attribute::make(
+            get: function (): ?string {
+                if ($this->birth_date === null) {
+                    return null;
+                }
+
+                $diff = $this->birth_date->diff(now());
+
+                $parts = [];
+
+                if ($diff->y > 0) {
+                    $parts[] = trans_choice(':count year|:count years', $diff->y, ['count' => $diff->y]);
+                }
+
+                if ($diff->m > 0) {
+                    $parts[] = trans_choice(':count month|:count months', $diff->m, ['count' => $diff->m]);
+                }
+
+                if ($parts === []) {
+                    $parts[] = trans_choice(':count month|:count months', 0, ['count' => 0]);
+                }
+
+                return implode(' '.__('and').' ', $parts);
+            },
+        );
     }
 
     /**

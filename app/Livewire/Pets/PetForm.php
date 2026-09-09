@@ -57,6 +57,8 @@ class PetForm extends Component
 
     public string $petBirthDate = '';
 
+    public string $petDeathDate = '';
+
     public string $petChip = '';
 
     public bool $petIsNeutered = false;
@@ -73,6 +75,8 @@ class PetForm extends Component
     public string $petStatus = 'available';
 
     public ?int $petCageId = null;
+
+    public string $petCheckinDate = '';
 
     /**
      * @var array<int, TemporaryUploadedFile>
@@ -100,6 +104,7 @@ class PetForm extends Component
         $this->petFurTypeId = $pet->fur_type_id;
         $this->petGender = $pet->gender;
         $this->petBirthDate = (string) $pet->birth_date?->format('Y-m-d');
+        $this->petDeathDate = (string) $pet->date_of_death?->format('Y-m-d');
         $this->petChip = (string) $pet->chip;
         $this->petIsNeutered = (bool) $pet->is_neutered;
         $this->petSicknessIds = $pet->sicknesses()->pluck('sicknesses.id')->all();
@@ -107,6 +112,7 @@ class PetForm extends Component
         $this->petIsSponsorable = (bool) $pet->is_sponsorable;
         $this->petStatus = $pet->status;
         $this->petCageId = $pet->cage_id;
+        $this->petCheckinDate = (string) $pet->checkin_date?->format('Y-m-d');
     }
 
     /**
@@ -238,8 +244,9 @@ class PetForm extends Component
             'petPrimaryColorId' => ['nullable', 'integer', 'exists:colors,id'],
             'petSecondaryColorId' => ['nullable', 'integer', 'exists:colors,id'],
             'petFurTypeId' => ['nullable', 'integer', 'exists:fur_types,id'],
-            'petGender' => ['required', 'in:male,female,unknown'],
+            'petGender' => ['required', 'in:male,female'],
             'petBirthDate' => ['nullable', 'date'],
+            'petDeathDate' => ['nullable', 'date'],
             'petChip' => ['nullable', 'string', 'max:255'],
             'petStatus' => ['required', 'in:available,quarantine,adopted,medical'],
             'petIsNeutered' => ['boolean'],
@@ -251,6 +258,7 @@ class PetForm extends Component
             'petIsAdoptable' => ['boolean'],
             'petIsSponsorable' => ['boolean'],
             'petCageId' => ['nullable', 'integer', 'exists:cages,id'],
+            'petCheckinDate' => ['nullable', 'date'],
             'petPhotos' => ['nullable', 'array'],
             'petPhotos.*' => ['image', 'max:2048'],
         ], [], [
@@ -262,6 +270,7 @@ class PetForm extends Component
             'petFurTypeId' => __('Fur Type'),
             'petGender' => __('Gender'),
             'petBirthDate' => __('Birth Date'),
+            'petDeathDate' => __('Death Date'),
             'petChip' => __('Microchip / Chip'),
             'petStatus' => __('Status'),
             'petIsNeutered' => __('Is Neutered'),
@@ -269,6 +278,7 @@ class PetForm extends Component
             'petIsAdoptable' => __('Is Adoptable'),
             'petIsSponsorable' => __('Is Sponsorable'),
             'petCageId' => __('Cage'),
+            'petCheckinDate' => __('Checkin Date'),
             'petPhotos.*' => __('Photo'),
         ]);
 
@@ -294,7 +304,9 @@ class PetForm extends Component
             'chip' => $validated['petChip'] !== '' ? $validated['petChip'] : null,
             'gender' => $validated['petGender'],
             'birth_date' => $validated['petBirthDate'] !== '' ? $validated['petBirthDate'] : null,
+            'date_of_death' => $validated['petDeathDate'] !== '' ? $validated['petDeathDate'] : null,
             'status' => $validated['petStatus'],
+            'checkin_date' => $validated['petCheckinDate'] !== '' ? $validated['petCheckinDate'] : null,
             'is_neutered' => $validated['petIsNeutered'],
             'is_adoptable' => $validated['petIsAdoptable'],
             'is_sponsorable' => $validated['petIsSponsorable'],

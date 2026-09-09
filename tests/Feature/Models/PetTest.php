@@ -107,6 +107,30 @@ test('vaccines relation exposes the administration pivot data', function () {
         ->and($attached->pivot->expires_at->toDateString())->toBe('2027-01-05');
 });
 
+test('age in words is null when birth date is unknown', function () {
+    $pet = Pet::factory()->create(['birth_date' => null]);
+
+    expect($pet->age_in_words)->toBeNull();
+});
+
+test('age in words combines years and months', function () {
+    $pet = Pet::factory()->create(['birth_date' => now()->subYears(1)->subMonths(3)]);
+
+    expect($pet->age_in_words)->toBe('1 year and 3 months');
+});
+
+test('age in words omits years when the pet is under a year old', function () {
+    $pet = Pet::factory()->create(['birth_date' => now()->subMonths(5)]);
+
+    expect($pet->age_in_words)->toBe('5 months');
+});
+
+test('age in words uses singular forms for one year and one month', function () {
+    $pet = Pet::factory()->create(['birth_date' => now()->subYears(1)->subMonths(1)]);
+
+    expect($pet->age_in_words)->toBe('1 year and 1 month');
+});
+
 test('stamps created_by on the sickness pivot record when authenticated', function () {
     $user = User::factory()->create();
     $this->actingAs($user);

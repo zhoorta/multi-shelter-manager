@@ -80,7 +80,7 @@
                                     <span>{{ $pet->breed->name }}</span>
                                     <span>{{ $pet->furType?->name }}</span>
                                     <span>{{ $colors }}</span>
-                                    <span>{{ $pet->birth_date?->format('d/m/Y') }}</span>
+                                    <span>{{ $pet->age_in_words !== null ? __('Age').' '.$pet->age_in_words : '' }}</span>
                                 </div>
                             </td>
                             <td class="px-6 py-3">
@@ -139,6 +139,10 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+
+        <div class="px-6 py-3">
+            <flux:pagination :paginator="$this->pets" />
         </div>
     </div>
 </div>

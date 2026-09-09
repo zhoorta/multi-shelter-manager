@@ -114,7 +114,6 @@
                 <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
                 <flux:select.option value="male">{{ __('Male') }}</flux:select.option>
                 <flux:select.option value="female">{{ __('Female') }}</flux:select.option>
-                <flux:select.option value="unknown">{{ __('Unknown') }}</flux:select.option>
             </flux:select>
         </div>
 
@@ -139,6 +138,37 @@
                     <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
                 @endforeach
             </flux:select>
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            {{-- Safari renders an empty native date input showing today's date instead of a
+                 blank placeholder, so the field starts as plain text and only switches to the
+                 native date picker on focus (reverting to text on blur if still empty). --}}
+            <flux:input
+                type="text"
+                wire:model="petBirthDate"
+                :label="__('Birth Date')"
+                :placeholder="__('Select a date')"
+                autocomplete="off"
+                clearable
+                x-data="{ dateFieldType: 'text' }"
+                x-bind:type="dateFieldType"
+                x-on:focus="dateFieldType = 'date'"
+                x-on:blur="if (! $el.value) dateFieldType = 'text'"
+            />
+
+            <flux:input
+                type="text"
+                wire:model="petDeathDate"
+                :label="__('Death Date')"
+                :placeholder="__('Select a date')"
+                autocomplete="off"
+                clearable
+                x-data="{ dateFieldType: 'text' }"
+                x-bind:type="dateFieldType"
+                x-on:focus="dateFieldType = 'date'"
+                x-on:blur="if (! $el.value) dateFieldType = 'text'"
+            />
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
@@ -173,16 +203,14 @@
                     <flux:select.option value="{{ $item->id }}">{{ $item->wing->name }} &middot; {{ $item->code }}</flux:select.option>
                 @endforeach
             </flux:select>
-        </div>
 
-        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             {{-- Safari renders an empty native date input showing today's date instead of a
                  blank placeholder, so the field starts as plain text and only switches to the
                  native date picker on focus (reverting to text on blur if still empty). --}}
             <flux:input
                 type="text"
-                wire:model="petBirthDate"
-                :label="__('Birth Date')"
+                wire:model="petCheckinDate"
+                :label="__('Checkin Date')"
                 :placeholder="__('Select a date')"
                 autocomplete="off"
                 clearable

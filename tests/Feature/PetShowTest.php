@@ -80,6 +80,31 @@ test('does not display placeholder text when color and fur type are not assigned
         ->assertDontSee('No Fur Type Assigned');
 });
 
+test('shows the birth date and death date', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create([
+        'birth_date' => '2018-05-01',
+        'date_of_death' => '2024-03-15',
+    ]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Birth Date', '01/05/2018', 'Death Date', '15/03/2024']);
+});
+
+test('shows the checkin date', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['checkin_date' => '2023-01-10']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Checkin Date', '10/01/2023']);
+});
+
 test('lists the species sicknesses next to neutered status, marking which ones the pet has', function () {
     $shelter = Shelter::factory()->create();
     $species = Species::factory()->create();

@@ -7,18 +7,21 @@ namespace App\Livewire\Pets;
 use App\Models\Pet;
 use App\Models\Species;
 use Flux\Flux;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Title('Manage Pets')]
 class ManagePets extends Component
 {
+    use WithPagination;
+
     public string $search = '';
 
     public string $statusFilter = '';
@@ -31,11 +34,26 @@ class ManagePets extends Component
         abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
     }
 
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatusFilter(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSpeciesFilter(): void
+    {
+        $this->resetPage();
+    }
+
     /**
-     * @return Collection<int, Pet>
+     * @return LengthAwarePaginator<int, Pet>
      */
     #[Computed]
-    public function pets(): Collection
+    public function pets(): LengthAwarePaginator
     {
         return Pet::query()
             ->with(['species', 'breed', 'cage.wing', 'images', 'primaryColor', 'secondaryColor', 'furType'])
@@ -55,7 +73,7 @@ class ManagePets extends Component
                 fn (Builder $query) => $query->where('species_id', $this->speciesFilter),
             )
             ->orderBy('name')
-            ->get();
+            ->paginate(20);
     }
 
     /**

@@ -82,6 +82,7 @@ return new class extends Migration
             $table->boolean('is_neutered')->default(false);
             $table->enum('gender', ['male', 'female']);
             $table->date('birth_date')->nullable();
+            $table->date('date_of_death')->nullable();
             $table->enum('status', ['available', 'quarantine', 'adopted', 'medical'])->default('available');
             $table->text('notes')->nullable();
             $table->text('description')->nullable();
@@ -89,10 +90,8 @@ return new class extends Migration
             $table->boolean('is_sponsorable')->default(true);
             $table->boolean('publish_to_portal')->default(false);
             $table->boolean('is_featured')->default(false);
-            $table->date('admission_date')->nullable();
-            $table->date('departure_date')->nullable();
-            $table->date('date_of_death')->nullable();
-            $table->string('age')->nullable();
+            $table->date('checkin_date')->nullable();
+            $table->date('checkout_date')->nullable();
             $table->text('internal_notes')->nullable();
             $table->integer('view_count')->default(0);
             $table->timestamps();
@@ -176,6 +175,27 @@ return new class extends Migration
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
+
+        Schema::create('adoptions', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
+            $table->string('name')->nullable();
+            $table->string('email', 150)->nullable();
+            $table->string('phone', 30)->nullable();
+            $table->string('address')->nullable();
+            $table->string('address_postal_code')->nullable();
+            $table->string('address_locality')->nullable();
+            $table->date('adoption_date');
+            $table->date('return_date')->nullable();
+            $table->decimal('adoption_fee', 6, 2)->default(0.00);
+            $table->text('notes')->nullable();
+            $table->enum('application_status', ['Pending', 'Approved', 'Rejected'])->default('Approved');
+            $table->timestamps();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->softDeletes();
+        });
     }
 
     public function down(): void
@@ -196,6 +216,7 @@ return new class extends Migration
         Schema::dropIfExists('wings');
         Schema::dropIfExists('users');
         Schema::dropIfExists('shelters');
+        Schema::dropIfExists('adoptions');
 
     }
 };

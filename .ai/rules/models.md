@@ -23,3 +23,6 @@ Species and Breed (global taxonomy lookups, no shelter_id) were originally creat
 
 ## pets.ref is required but not auto-populated by the DB — PetForm generates it
 pets.ref is a NOT NULL string column with no default and no uniqueness constraint at the DB level. Nothing else sets it automatically, so any code creating a Pet must supply it. PetForm::savePet() generates one via generatePetRef() (format `PET-XXXXXXXX`, uniqueness checked in app code) only on create, never on update. PetFactory also sets a unique 'ref'. If you add another way to create pets (e.g. an import, an API endpoint, a seeder), you must generate 'ref' there too or the insert will fail.
+
+## Pet uses checkin_date/checkout_date, not admission_date/departure_date
+The pets table migration was reworked to rename admission_date/departure_date to checkin_date/checkout_date (departure_date dropped in favor of checkout_date). Pet.php's docblock, $fillable, and casts() were updated to match — don't reintroduce admission_date/departure_date, those columns no longer exist.

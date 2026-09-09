@@ -66,7 +66,9 @@ test('the create form starts with every optional field empty', function () {
         ->assertSet('petSecondaryColorId', null)
         ->assertSet('petFurTypeId', null)
         ->assertSet('petCageId', null)
+        ->assertSet('petCheckinDate', '')
         ->assertSet('petBirthDate', '')
+        ->assertSet('petDeathDate', '')
         ->assertSet('petSpeciesId', null)
         ->assertSet('petBreedId', null);
 });
@@ -157,6 +159,30 @@ test('creates a new pet scoped to the acting user\'s shelter and redirects to th
     expect($pet->is_neutered)->toBeFalse();
     expect($pet->is_adoptable)->toBeTrue();
     expect($pet->is_sponsorable)->toBeTrue();
+});
+
+test('creates a pet with a birth date and a death date', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petBirthDate', '2018-05-01')
+        ->set('petDeathDate', '2024-03-15')
+        ->set('petCheckinDate', '2023-01-10')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->birth_date->toDateString())->toBe('2018-05-01');
+    expect($pet->date_of_death->toDateString())->toBe('2024-03-15');
+    expect($pet->checkin_date->toDateString())->toBe('2023-01-10');
 });
 
 test('creates a pet marked as not adoptable and not sponsorable', function () {
@@ -258,6 +284,22 @@ test('requires a name, species, breed, and gender to create a pet', function () 
             'petBreedId' => 'required',
             'petGender' => 'required',
         ]);
+});
+
+test('rejects unknown as a gender', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'unknown')
+        ->call('savePet')
+        ->assertHasErrors(['petGender' => 'in']);
 });
 
 test('rejects a breed that does not belong to the selected species', function () {
@@ -445,6 +487,9 @@ test('populates the form with the pet\'s current data when editing', function ()
         'is_neutered' => true,
         'is_adoptable' => false,
         'is_sponsorable' => false,
+        'birth_date' => '2018-05-01',
+        'date_of_death' => '2024-03-15',
+        'checkin_date' => '2023-01-10',
     ]);
 
     Livewire::test(PetForm::class, ['pet' => $pet])
@@ -456,7 +501,10 @@ test('populates the form with the pet\'s current data when editing', function ()
         ->assertSet('petStatus', 'quarantine')
         ->assertSet('petIsNeutered', true)
         ->assertSet('petIsAdoptable', false)
-        ->assertSet('petIsSponsorable', false);
+        ->assertSet('petIsSponsorable', false)
+        ->assertSet('petBirthDate', '2018-05-01')
+        ->assertSet('petDeathDate', '2024-03-15')
+        ->assertSet('petCheckinDate', '2023-01-10');
 });
 
 test('populates the form with the pet\'s currently diagnosed sicknesses when editing', function () {

@@ -129,6 +129,14 @@
             <flux:text>{{ $pet->furType?->name ?? '—' }}</flux:text>
         </div>
 
+        <div class="grid grid-cols-[max-content_1fr] items-baseline gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Birth Date') }}:</flux:text>
+            <flux:text>{{ $pet->birth_date?->format('d/m/Y') ?? '—' }}</flux:text>
+
+            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Death Date') }}:</flux:text>
+            <flux:text>{{ $pet->date_of_death?->format('d/m/Y') ?? '—' }}</flux:text>
+        </div>
+
         <div class="grid grid-cols-[max-content_1fr] items-center justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Is Neutered') }}:</flux:text>
             <flux:badge size="sm" :color="$pet->is_neutered ? 'lime' : 'zinc'">{{ $pet->is_neutered ? __('Yes') : __('No') }}</flux:badge>
@@ -157,11 +165,9 @@
 
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Cage') }}:</flux:text>
             <flux:text>{{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
-        </div>
 
-        <div class="grid grid-cols-[max-content_1fr] items-baseline gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Birth Date') }}:</flux:text>
-            <flux:text>{{ $pet->birth_date?->format('d/m/Y') ?? '—' }}</flux:text>
+            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}:</flux:text>
+            <flux:text>{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>
         </div>
     </div>
 </div>

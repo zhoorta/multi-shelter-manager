@@ -125,6 +125,22 @@ test('carries the selected species over to the create link so a new pet starts l
         ->assertSeeHtml(route('pets.create', ['species' => $species->id]));
 });
 
+test('paginates pets 20 per page', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    Pet::factory()->for($shelter)->for($species)->count(25)->sequence(fn ($sequence) => ['name' => 'Pet '.$sequence->index])->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $component = Livewire::test(ManagePets::class);
+
+    expect($component->get('pets')->count())->toBe(20);
+    expect($component->get('pets')->total())->toBe(25);
+
+    $component->call('nextPage');
+
+    expect($component->get('pets')->count())->toBe(5);
+});
+
 test('soft-deletes a pet instead of removing it permanently', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
