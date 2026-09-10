@@ -56,10 +56,10 @@
                         <flux:sidebar.item icon="swatch" :href="route('admin.fur-types.index')" :current="request()->routeIs('admin.fur-types.index')" wire:navigate>
                             {{ __('Fur Types') }}
                         </flux:sidebar.item>
-                        <flux:sidebar.item icon="beaker" href="#">
+                        <flux:sidebar.item icon="beaker" :href="route('admin.vaccines.index')" :current="request()->routeIs('admin.vaccines.index')" wire:navigate>
                             {{ __('Vaccines') }}
                         </flux:sidebar.item>
-                        <flux:sidebar.item icon="bug-ant" href="#">
+                        <flux:sidebar.item icon="bug-ant" :href="route('admin.sicknesses.index')" :current="request()->routeIs('admin.sicknesses.index')" wire:navigate>
                             {{ __('Sicknesses') }}
                         </flux:sidebar.item>
                     </flux:sidebar.group>

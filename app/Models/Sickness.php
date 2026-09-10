@@ -50,6 +50,6 @@ class Sickness extends Model
      */
     public function species(): BelongsToMany
     {
-        return $this->belongsToMany(Species::class, 'sickness_species');
+        return $this->belongsToMany(Species::class, 'sickness_species')->withTimestamps();
     }
 }

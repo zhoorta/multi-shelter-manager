@@ -41,4 +41,14 @@ class Vaccine extends Model
             ->withPivot(['administered_at', 'expires_at', 'created_by', 'updated_by'])
             ->withTimestamps();
     }
+
+    /**
+     * Get the species this vaccine can be administered to.
+     *
+     * @return BelongsToMany<Species, $this>
+     */
+    public function species(): BelongsToMany
+    {
+        return $this->belongsToMany(Species::class, 'vaccine_species')->withTimestamps();
+    }
 }
