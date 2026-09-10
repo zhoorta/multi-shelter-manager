@@ -15,15 +15,19 @@
             </flux:button>
 
             @unless ($pet->status === 'adopted')
-                <flux:button
-                    :href="route('pets.adopt', $pet)"
-                    variant="filled"
-                    icon="heart"
-                    wire:navigate
-                    class="bg-rose-400! hover:bg-rose-500! text-white! dark:bg-rose-400! dark:hover:bg-rose-500!"
-                >
-                    {{ __('Adoption Registration') }}
-                </flux:button>
+                <flux:dropdown position="bottom" align="end">
+                    <flux:button
+                        icon="heart"
+                        :aria-label="__('Adoption Registration')"
+                        class="bg-[#960532]! hover:bg-[#7a0429]! text-white! dark:bg-[#960532]! dark:hover:bg-[#7a0429]!"
+                    />
+
+                    <flux:menu>
+                        <flux:menu.item :href="route('pets.adopt', $pet)" icon="heart" wire:navigate>
+                            {{ __('Adoption Registration') }}
+                        </flux:menu.item>
+                    </flux:menu>
+                </flux:dropdown>
             @endunless
         </div>
     </div>
