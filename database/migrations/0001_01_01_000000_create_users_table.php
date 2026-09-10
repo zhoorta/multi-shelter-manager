@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['manager', 'staff', 'admin', 'user'])->default('staff');
             $table->rememberToken();
+            $table->timestamp('last_login')->nullable();
             $table->timestamps();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();

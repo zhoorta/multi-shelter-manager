@@ -140,6 +140,7 @@
 
     "Role": "Role",
     "Shelter": "Shelter",
+    "Last Login": "Last Login",
     "Invite User": "Invite User",
     "Edit User": "Edit User",
     "User invited successfully": "User invited successfully.",

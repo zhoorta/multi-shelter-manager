@@ -44,6 +44,32 @@ test('lists users across every shelter', function () {
     $response->assertSee($staffA->name)->assertSee($staffB->name);
 });
 
+test('filters users by shelter', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    $shelterA = Shelter::factory()->create();
+    $shelterB = Shelter::factory()->create();
+    $staffA = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelterA->id]);
+    $staffB = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelterB->id]);
+
+    Livewire::test(ManageUsers::class)
+        ->set('filterShelterId', (string) $shelterA->id)
+        ->assertSee($staffA->name)
+        ->assertDontSee($staffB->name);
+});
+
+test('displays each user\'s last login', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    User::factory()->create(['last_login' => now()->setDate(2026, 1, 15)->setTime(10, 30)]);
+
+    $response = $this->get(route('admin.users.index'));
+
+    $response->assertSee('15/01/2026 10:30');
+});
+
 test('admin can invite a staff member to a shelter', function () {
     Notification::fake();
 

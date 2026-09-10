@@ -63,3 +63,46 @@ test('password can be reset with valid token', function () {
         return true;
     });
 });
+
+test('resetting the password verifies an unverified email, as with an invitation link', function () {
+    Notification::fake();
+
+    $user = User::factory()->unverified()->create();
+
+    $this->post(route('password.request'), ['email' => $user->email]);
+
+    Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
+        $this->post(route('password.update'), [
+            'token' => $notification->token,
+            'email' => $user->email,
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+
+        expect($user->fresh()->email_verified_at)->not->toBeNull();
+
+        return true;
+    });
+});
+
+test('resetting the password does not change an already verified email timestamp', function () {
+    Notification::fake();
+
+    $user = User::factory()->create();
+    $originalVerifiedAt = $user->email_verified_at;
+
+    $this->post(route('password.request'), ['email' => $user->email]);
+
+    Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user, $originalVerifiedAt) {
+        $this->post(route('password.update'), [
+            'token' => $notification->token,
+            'email' => $user->email,
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+
+        expect($user->fresh()->email_verified_at)->toEqual($originalVerifiedAt);
+
+        return true;
+    });
+});

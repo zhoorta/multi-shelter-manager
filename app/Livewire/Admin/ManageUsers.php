@@ -22,6 +22,8 @@ use Livewire\Component;
 #[Title('Manage Users')]
 class ManageUsers extends Component
 {
+    public string $filterShelterId = '';
+
     public ?int $editingUserId = null;
 
     public string $userName = '';
@@ -45,6 +47,10 @@ class ManageUsers extends Component
     {
         return User::query()
             ->with('shelter')
+            ->when(
+                $this->filterShelterId !== '',
+                fn ($query) => $query->where('shelter_id', (int) $this->filterShelterId),
+            )
             ->orderBy('name')
             ->get();
     }
@@ -56,6 +62,11 @@ class ManageUsers extends Component
     public function shelters(): Collection
     {
         return Shelter::query()->orderBy('name')->get();
+    }
+
+    public function updatedFilterShelterId(): void
+    {
+        unset($this->users);
     }
 
     public function createUser(): void

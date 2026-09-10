@@ -10,6 +10,13 @@
     </div>
 
     <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+        <flux:select wire:model.live="filterShelterId" :label="__('Shelter')" class="max-w-xs">
+            <flux:select.option value="">{{ __('All') }}</flux:select.option>
+            @foreach ($this->shelters as $shelter)
+                <flux:select.option value="{{ $shelter->id }}">{{ $shelter->name }}</flux:select.option>
+            @endforeach
+        </flux:select>
+
         <div class="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
@@ -19,6 +26,7 @@
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Email') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Role') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Shelter') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Last Login') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
@@ -31,6 +39,7 @@
                                     <flux:badge size="sm">{{ __(\Illuminate\Support\Str::title($item->role)) }}</flux:badge>
                                 </td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->shelter?->name ?? '—' }}</td>
+                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->last_login?->format('d/m/Y H:i') ?? '—' }}</td>
                                 <td class="px-6 py-3">
                                     <div class="flex items-center gap-2">
                                         <flux:modal.trigger name="user-form">
@@ -57,6 +66,7 @@
                                                 <div class="space-y-6">
                                                     <div>
                                                         <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                        <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
                                                     </div>
 
                                                     <div class="flex justify-end space-x-2 rtl:space-x-reverse">
@@ -76,7 +86,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="6" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No users registered') }}
                                 </td>
                             </tr>
