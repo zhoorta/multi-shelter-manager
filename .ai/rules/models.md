@@ -2,6 +2,7 @@
 paths:
   - 'app/Models/*.php'
   - app/Models/Pet.php
+  - app/Models/FurType.php
 ---
 
 # Models
@@ -26,3 +27,6 @@ pets.ref is a NOT NULL string column with no default and no uniqueness constrain
 
 ## Pet uses checkin_date/checkout_date, not admission_date/departure_date
 The pets table migration was reworked to rename admission_date/departure_date to checkin_date/checkout_date (departure_date dropped in favor of checkout_date). Pet.php's docblock, $fillable, and casts() were updated to match — don't reintroduce admission_date/departure_date, those columns no longer exist.
+
+## FurType now uses Blameable + SoftDeletes, like Species/Breed/Vaccine/Sickness
+FurType (global taxonomy lookup, no shelter_id) was originally created without created_by/updated_by/deleted_by or deleted_at. Migration 2026_09_10_212501_add_soft_deletes_and_blameable_to_fur_types_table added those columns so App\Livewire\Admin\ManageFurTypes (admin/fur-types route) can soft-delete a FurType without breaking the RESTRICT FK from pets.fur_type_id. This completes parity across all admin-managed global lookups (Species, Breed, Vaccine, Sickness, FurType) — see [[models]] rule on Species/Breed. Colors is the only remaining global lookup without admin management/Blameable+SoftDeletes as of this change.
