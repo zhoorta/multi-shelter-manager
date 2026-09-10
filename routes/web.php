@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Livewire\Admin\ManageBreeds;
 use App\Livewire\Admin\ManageSpecies;
+use App\Livewire\Admin\ManageUsers;
 use App\Livewire\Dashboard;
 use App\Livewire\Facilities\ManageSpaces;
 use App\Livewire\Pets\AdoptionForm;
@@ -33,9 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     Route::livewire('facilities', ManageSpaces::class)->name('facilities.index');
 
-    // Users routes will be attached here.
-
     // Administration routes.
+    Route::livewire('admin/users', ManageUsers::class)->name('admin.users.index');
     Route::livewire('admin/species', ManageSpecies::class)->name('admin.species.index');
     Route::livewire('admin/breeds', ManageBreeds::class)->name('admin.breeds.index');
 });
