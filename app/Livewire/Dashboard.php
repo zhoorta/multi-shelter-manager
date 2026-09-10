@@ -45,7 +45,7 @@ class Dashboard extends Component
             ->count();
 
         $totalCapacity = (int) Cage::query()
-            ->whereHas('wing', fn ($query) => $query->where('shelter_id', $shelterId))
+            ->whereHas('wing.facility', fn ($query) => $query->where('shelter_id', $shelterId))
             ->sum('capacity');
 
         $this->availableCapacity = max(0, $totalCapacity - $this->activePetsCount);

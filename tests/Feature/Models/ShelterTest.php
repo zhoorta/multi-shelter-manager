@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
-use App\Models\Wing;
 
 test('soft deletes without removing the record from the database', function () {
     $shelter = Shelter::factory()->create();
@@ -25,15 +25,15 @@ test('users relation only returns users belonging to the shelter', function () {
         ->and($shelter->users->first()->is($ownUser))->toBeTrue();
 });
 
-test('wings relation only returns wings belonging to the shelter', function () {
+test('facilities relation only returns facilities belonging to the shelter', function () {
     $shelter = Shelter::factory()->create();
     $otherShelter = Shelter::factory()->create();
 
-    $ownWing = Wing::factory()->for($shelter)->create();
-    Wing::factory()->for($otherShelter)->create();
+    $ownFacility = Facility::factory()->for($shelter)->create();
+    Facility::factory()->for($otherShelter)->create();
 
-    expect($shelter->wings)->toHaveCount(1)
-        ->and($shelter->wings->first()->is($ownWing))->toBeTrue();
+    expect($shelter->facilities)->toHaveCount(1)
+        ->and($shelter->facilities->first()->is($ownFacility))->toBeTrue();
 });
 
 test('pets relation only returns pets belonging to the shelter', function () {

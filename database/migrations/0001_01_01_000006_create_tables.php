@@ -9,10 +9,26 @@ return new class extends Migration
     public function up(): void
     {
 
+        // 1. Facilities (Alas do Abrigo)
+        Schema::create('facilities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('shelter_id')->constrained()->cascadeOnDelete();
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postal_code', 20)->nullable();
+            $table->string('city', 100)->nullable();
+            $table->text('notes')->nullable();
+            $table->timestamps();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->softDeletes();
+        });
+
         // 3. WINGS (Alas do Abrigo)
         Schema::create('wings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shelter_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('facility_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
             $table->timestamps();
@@ -214,6 +230,7 @@ return new class extends Migration
         Schema::dropIfExists('species');
         Schema::dropIfExists('cages');
         Schema::dropIfExists('wings');
+        Schema::dropIfExists('facilities');
         Schema::dropIfExists('users');
         Schema::dropIfExists('shelters');
         Schema::dropIfExists('adoptions');

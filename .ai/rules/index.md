@@ -9,4 +9,4 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Models/*.php, app/Models/Pet.php | .ai/rules/models.md |
 | app/Livewire/Pets/** | .ai/rules/pets.md |
 | app/Traits/MultiShelterTrait.php | .ai/rules/traits.md |
-| app/Livewire/Wings/** | .ai/rules/wings.md |
+| app/Livewire/Facilities/** | .ai/rules/facilities.md |

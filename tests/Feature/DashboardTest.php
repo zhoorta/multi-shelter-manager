@@ -2,6 +2,7 @@
 
 use App\Livewire\Dashboard;
 use App\Models\Cage;
+use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
@@ -29,7 +30,7 @@ test('the layout shows the navigation links and the user shelter name', function
     $response = $this->get(route('dashboard'));
 
     $response->assertOk();
-    $response->assertSee(['Dashboard', 'Pets', 'Wings']);
+    $response->assertSee(['Dashboard', 'Pets', 'Facilities']);
     $response->assertSee('Happy Paws Shelter');
     $response->assertSee($user->name);
     $response->assertDontSee('Users');
@@ -61,14 +62,14 @@ test('staff and managers do not see the administration navigation links', functi
     $response->assertDontSee(['Shelters', 'Species', 'Breeds', 'Fur Types', 'Vaccines', 'Sicknesses']);
 });
 
-test('admins do not see the pets and wings navigation links', function () {
+test('admins do not see the pets and facilities navigation links', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
     $response = $this->get(route('dashboard'));
 
     $response->assertOk();
-    $response->assertDontSee(['>Pets<', '>Wings<'], false);
+    $response->assertDontSee(['>Pets<', '>Facilities<'], false);
 });
 
 test('only admins see the administration navigation links', function () {
@@ -89,7 +90,8 @@ test('shows accurate active pets, quarantine, capacity, and staff counts for the
 
     User::factory()->count(3)->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
 
-    $wing = Wing::factory()->create(['shelter_id' => $shelter->id]);
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
     Cage::factory()->create(['wing_id' => $wing->id, 'capacity' => 3]);
     Cage::factory()->create(['wing_id' => $wing->id, 'capacity' => 2]);
 
@@ -112,11 +114,13 @@ test('excludes other shelters pets, cages, and staff from the statistics', funct
     $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
     $this->actingAs($user);
 
-    $wing = Wing::factory()->create(['shelter_id' => $shelter->id]);
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
     Cage::factory()->create(['wing_id' => $wing->id, 'capacity' => 5]);
     Pet::factory()->create(['shelter_id' => $shelter->id, 'status' => 'available']);
 
-    $otherWing = Wing::factory()->create(['shelter_id' => $otherShelter->id]);
+    $otherFacility = Facility::factory()->create(['shelter_id' => $otherShelter->id]);
+    $otherWing = Wing::factory()->create(['facility_id' => $otherFacility->id]);
     Cage::factory()->create(['wing_id' => $otherWing->id, 'capacity' => 10]);
     Pet::factory()->count(2)->create(['shelter_id' => $otherShelter->id, 'status' => 'quarantine']);
     User::factory()->count(2)->create(['shelter_id' => $otherShelter->id, 'role' => 'staff']);
@@ -133,7 +137,8 @@ test('lists the five most recently added pets with their status and cage code', 
     $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
     $this->actingAs($user);
 
-    $wing = Wing::factory()->create(['shelter_id' => $shelter->id]);
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
     $cage = Cage::factory()->create(['wing_id' => $wing->id, 'code' => 'C-01']);
 
     Pet::factory()->create([

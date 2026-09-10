@@ -95,6 +95,7 @@
                             </td>
                             <td class="px-6 py-3">
                                 <div class="flex flex-col gap-1 text-neutral-500 dark:text-neutral-400">
+                                    <span>{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }}</span>
                                     <span>{{ $pet->cage?->wing->name ?? __('No Wing Assigned') }}</span>
                                     <span>{{ $pet->cage->code ?? __('No Cage Assigned') }}</span>
                                 </div>

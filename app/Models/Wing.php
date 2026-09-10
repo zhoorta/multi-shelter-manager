@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Blameable;
-use App\Traits\MultiShelterTrait;
 use Database\Factories\WingFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +16,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
- * @property int $shelter_id
+ * @property int $facility_id
  * @property string $name
  * @property string|null $description
  * @property Carbon|null $created_at
@@ -27,20 +26,20 @@ use Illuminate\Support\Carbon;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['shelter_id', 'name', 'description'])]
+#[Fillable(['facility_id', 'name', 'description'])]
 class Wing extends Model
 {
     /** @use HasFactory<WingFactory> */
-    use Blameable, HasFactory, MultiShelterTrait, SoftDeletes;
+    use Blameable, HasFactory, SoftDeletes;
 
     /**
-     * Get the shelter the wing belongs to.
+     * Get the facility the wing belongs to.
      *
-     * @return BelongsTo<Shelter, $this>
+     * @return BelongsTo<Facility, $this>
      */
-    public function shelter(): BelongsTo
+    public function facility(): BelongsTo
     {
-        return $this->belongsTo(Shelter::class);
+        return $this->belongsTo(Facility::class);
     }
 
     /**

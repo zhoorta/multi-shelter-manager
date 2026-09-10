@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Facility;
 use App\Models\PetImage;
-use App\Models\Shelter;
 use App\Models\User;
 use App\Models\Wing;
 
@@ -9,14 +9,14 @@ test('stamps created_by and updated_by when creating a record while authenticate
     $user = User::factory()->create();
     $this->actingAs($user);
 
-    $wing = Wing::factory()->for(Shelter::factory())->create();
+    $wing = Wing::factory()->for(Facility::factory())->create();
 
     expect($wing->created_by)->toBe($user->id)
         ->and($wing->updated_by)->toBe($user->id);
 });
 
 test('does not stamp created_by or updated_by when no user is authenticated', function () {
-    $wing = Wing::factory()->for(Shelter::factory())->create();
+    $wing = Wing::factory()->for(Facility::factory())->create();
 
     expect($wing->created_by)->toBeNull()
         ->and($wing->updated_by)->toBeNull();
@@ -25,7 +25,7 @@ test('does not stamp created_by or updated_by when no user is authenticated', fu
 test('stamps updated_by with the current user on update without changing created_by', function () {
     $creator = User::factory()->create();
     $this->actingAs($creator);
-    $wing = Wing::factory()->for(Shelter::factory())->create();
+    $wing = Wing::factory()->for(Facility::factory())->create();
 
     $editor = User::factory()->create();
     $this->actingAs($editor);
@@ -38,7 +38,7 @@ test('stamps updated_by with the current user on update without changing created
 test('stamps deleted_by when soft deleting a record', function () {
     $user = User::factory()->create();
     $this->actingAs($user);
-    $wing = Wing::factory()->for(Shelter::factory())->create();
+    $wing = Wing::factory()->for(Facility::factory())->create();
 
     $wing->delete();
 

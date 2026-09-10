@@ -44,13 +44,13 @@ class Shelter extends Model
     }
 
     /**
-     * Get the wings belonging to the shelter.
+     * Get the facilities belonging to the shelter.
      *
-     * @return HasMany<Wing, $this>
+     * @return HasMany<Facility, $this>
      */
-    public function wings(): HasMany
+    public function facilities(): HasMany
     {
-        return $this->hasMany(Wing::class);
+        return $this->hasMany(Facility::class);
     }
 
     /**

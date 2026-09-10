@@ -180,7 +180,7 @@
             <flux:badge size="sm">{{ __(ucfirst($pet->status)) }}</flux:badge>
 
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Cage') }}:</flux:text>
-            <flux:text>{{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
+            <flux:text>{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }} &middot; {{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
 
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}:</flux:text>
             <flux:text>{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>

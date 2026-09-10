@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Facility;
-use App\Models\Wing;
+use App\Models\Shelter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Wing>
+ * @extends Factory<Facility>
  */
-class WingFactory extends Factory
+class FacilityFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +19,12 @@ class WingFactory extends Factory
     public function definition(): array
     {
         return [
-            'facility_id' => Facility::factory(),
+            'shelter_id' => Shelter::factory(),
             'name' => fake()->words(2, true),
-            'description' => fake()->sentence(),
+            'address' => fake()->streetAddress(),
+            'postal_code' => fake()->postcode(),
+            'city' => fake()->city(),
+            'notes' => fake()->sentence(),
         ];
     }
 }

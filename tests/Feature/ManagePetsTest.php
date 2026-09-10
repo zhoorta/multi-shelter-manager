@@ -2,10 +2,13 @@
 
 use App\Livewire\Pets\ManagePets;
 use App\Models\Adoption;
+use App\Models\Cage;
+use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\User;
+use App\Models\Wing;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
@@ -145,6 +148,19 @@ test('carries the selected species over to the create link so a new pet starts l
     Livewire::withQueryParams(['speciesFilter' => (string) $species->id])
         ->test(ManagePets::class)
         ->assertSeeHtml(route('pets.create', ['species' => $species->id]));
+});
+
+test('shows the accommodation as facility, then wing, then cage code', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create(['name' => 'North Campus']);
+    $wing = Wing::factory()->for($facility)->create(['name' => 'Dog Wing']);
+    $cage = Cage::factory()->for($wing)->create(['code' => 'D12']);
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'cage_id' => $cage->id]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertSeeInOrder(['Rex', 'North Campus', 'Dog Wing', 'D12']);
 });
 
 test('paginates pets 20 per page', function () {

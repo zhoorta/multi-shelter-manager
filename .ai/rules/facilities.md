@@ -1,0 +1,18 @@
+---
+paths:
+  - 'app/Livewire/Facilities/**'
+---
+
+# Facilities
+
+## Hierarchy is Shelter -> Facility -> Wing -> Cage
+Facility has a direct `shelter_id` column and uses MultiShelterTrait (see [[models]] note on MultiShelterTrait). Wing belongs to Facility via `facility_id`, not to Shelter directly — Wing lost its own `shelter_id` column and MultiShelterTrait usage when Facility was introduced. Cage still belongs to Wing via `wing_id` and still has no shelter scope of its own. So tenancy for Wing is one hop transitive (`wing.facility.shelter_id`) and for Cage it's two hops (`wing.facility.shelter_id` via the `wing.facility` dot-notation whereHas).
+
+## Re-fetch the parent Facility/Wing through a scoped query before creating a nested record
+Wing and Cage have no shelter_id of their own, so nothing stops a validation rule like `exists:facilities,id` or `exists:wings,id` from accepting an id that belongs to a different shelter — `exists` queries the raw table and ignores Eloquent global scopes. App\Livewire\Facilities\ManageSpaces::createWing()/saveWing() re-fetch the target facility via `Facility::query()->findOrFail($facilityId)`, which *does* apply MultiShelterTrait's scope, and ::createCage()/saveCage() re-fetch the target wing via `scopedWingQuery()->findOrFail($wingId)`. Keep this double-check (validate for shape, then findOrFail for tenancy) for any future action that creates a child record under a shelter-scoped parent. See tests/Feature/ManageSpacesTest.php ("cannot add a wing to a facility belonging to another shelter", "cannot add a cage to a wing belonging to another shelter").
+
+## Wing and Cage have no shelter scope of their own — use scopedWingQuery()/scopedCageQuery() for any direct lookup
+App\Livewire\Facilities\ManageSpaces::scopedWingQuery() scopes a direct Wing::query() to the acting user's shelter via `->whereHas('facility', fn ($q) => $q->where('shelter_id', Auth::user()->shelter_id))`, and scopedCageQuery() does the same for Cage via the nested `wing.facility` relation (Laravel supports dot-notation nesting in whereHas). editWing()/deleteWing() and editCage()/deleteCage() all call the relevant helper before findOrFail(), so a record belonging to another shelter's facility 404s. Any new action that looks up a Wing or Cage directly by id must go through these helpers instead of `Wing::query()->find(...)` / `Cage::query()->find(...)`. See tests/Feature/ManageSpacesTest.php ("cannot edit or delete a wing belonging to another shelter", "cannot edit or delete a cage belonging to another shelter's wing").
+
+## Deleting a Facility/Wing must soft-delete its children one by one, not via a bulk query delete
+The `wings.facility_id` and `cages.wing_id` FKs have cascadeOnDelete() at the DB level, but that only fires on a real (hard) delete — Facility, Wing, and Cage all use SoftDeletes, so deleting a parent just sets its `deleted_at` and leaves existing child rows untouched unless the app does it explicitly. ManageSpaces::deleteFacility() walks `$facility->wings()->get()->each(...)`, soft-deleting each wing's cages then the wing itself, before deleting the facility; deleteWing() does the same one level down (`$wing->cages()->get()->each->delete()` before `$wing->delete()`). Don't swap either for a bulk `->delete()` call on the relation: SoftDeletingScope still turns it into a soft delete, but a bulk query delete doesn't fire per-model Eloquent events, so Blameable's `deleting` hook never runs and `deleted_by` stays null on the cascaded rows. See tests/Feature/ManageSpacesTest.php ("soft-deletes a facility's wings and cages along with it, stamping deleted_by", "soft-deletes a wing's cages along with it, stamping deleted_by").

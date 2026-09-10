@@ -3,6 +3,7 @@
 use App\Livewire\Pets\PetForm;
 use App\Models\Breed;
 use App\Models\Cage;
+use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\PetImage;
 use App\Models\Shelter;
@@ -394,7 +395,8 @@ test('rejects a breed that does not belong to the selected species', function ()
 
 test('cannot assign a pet to a cage belonging to another shelter', function () {
     $otherShelter = Shelter::factory()->create();
-    $wing = Wing::factory()->for($otherShelter)->create();
+    $otherFacility = Facility::factory()->for($otherShelter)->create();
+    $wing = Wing::factory()->for($otherFacility)->create();
     $cage = Cage::factory()->for($wing)->create();
 
     $shelter = Shelter::factory()->create();
@@ -413,6 +415,31 @@ test('cannot assign a pet to a cage belonging to another shelter', function () {
         ->toThrow(ModelNotFoundException::class);
 
     expect(Pet::query()->where('name', 'Rex')->exists())->toBeFalse();
+});
+
+test('cage options are sorted hierarchically by facility, wing, then code', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $facilityB = Facility::factory()->for($shelter)->create(['name' => 'Facility B']);
+    $facilityA = Facility::factory()->for($shelter)->create(['name' => 'Facility A']);
+
+    $wingB = Wing::factory()->for($facilityA)->create(['name' => 'Wing B']);
+    $wingA = Wing::factory()->for($facilityA)->create(['name' => 'Wing A']);
+
+    $cage2 = Cage::factory()->for($wingA)->create(['code' => 'A2']);
+    $cage1 = Cage::factory()->for($wingA)->create(['code' => 'A1']);
+    $cageInWingB = Cage::factory()->for($wingB)->create(['code' => 'B1']);
+    $cageInFacilityB = Cage::factory()->for(Wing::factory()->for($facilityB))->create(['code' => 'C1']);
+
+    $cages = Livewire::test(PetForm::class)->instance()->cages;
+
+    expect($cages->pluck('id')->all())->toBe([
+        $cage1->id,
+        $cage2->id,
+        $cageInWingB->id,
+        $cageInFacilityB->id,
+    ]);
 });
 
 test('stores an uploaded photo as the pet\'s main image', function () {

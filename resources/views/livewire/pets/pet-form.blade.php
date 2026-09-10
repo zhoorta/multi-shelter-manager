@@ -199,8 +199,12 @@
 
             <flux:select wire:model="petCageId" :label="__('Cage')">
                 <flux:select.option value="">{{ __('No Cage Assigned') }}</flux:select.option>
-                @foreach ($this->cages as $item)
-                    <flux:select.option value="{{ $item->id }}">{{ $item->wing->name }} &middot; {{ $item->code }}</flux:select.option>
+                @foreach ($this->cages->groupBy(fn ($item) => $item->wing->facility->name.' · '.$item->wing->name) as $groupLabel => $groupCages)
+                    <flux:select.group :label="$groupLabel">
+                        @foreach ($groupCages as $item)
+                            <flux:select.option value="{{ $item->id }}">{{ $item->code }}</flux:select.option>
+                        @endforeach
+                    </flux:select.group>
                 @endforeach
             </flux:select>
 

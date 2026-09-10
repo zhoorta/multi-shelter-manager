@@ -1,10 +1,13 @@
 <?php
 
+use App\Models\Cage;
+use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Sickness;
 use App\Models\Species;
 use App\Models\User;
+use App\Models\Wing;
 
 test('guests are redirected to the login page', function () {
     $pet = Pet::factory()->create();
@@ -138,6 +141,20 @@ test('shows a placeholder when the pet has no description', function () {
     $this->get(route('pets.show', $pet))
         ->assertOk()
         ->assertSeeInOrder(['Description', '—']);
+});
+
+test('shows the cage field as facility, then wing, then cage code', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create(['name' => 'North Campus']);
+    $wing = Wing::factory()->for($facility)->create(['name' => 'Dog Wing']);
+    $cage = Cage::factory()->for($wing)->create(['code' => 'D12']);
+    $pet = Pet::factory()->for($shelter)->create(['cage_id' => $cage->id]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Cage', 'North Campus', 'Dog Wing', 'D12']);
 });
 
 test('lists the species sicknesses next to neutered status, marking which ones the pet has', function () {

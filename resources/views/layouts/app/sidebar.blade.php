@@ -27,8 +27,8 @@
                                 </flux:sidebar.item>
                             @endforeach
                         </flux:sidebar.group>
-                        <flux:sidebar.item icon="building-office-2" :href="route('wings.index')" :current="request()->routeIs('wings.index')" wire:navigate>
-                            {{ __('Wings') }}
+                        <flux:sidebar.item icon="building-office-2" :href="route('facilities.index')" :current="request()->routeIs('facilities.index')" wire:navigate>
+                            {{ __('Facilities') }}
                         </flux:sidebar.item>
                     @endif
                     @if (in_array(auth()->user()->role, ['admin', 'manager'], true))

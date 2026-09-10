@@ -10,4 +10,4 @@ This app uses Livewire 4 class-based ("traditional split") components: app/Livew
 
 Livewire's default `component_layout` config ('layouts::app') automatically wraps the component's rendered view in resources/views/layouts/app.blade.php (sidebar + header chrome) — so the Blade view for a full-page component must NOT wrap itself in `<x-layouts::app>`; just return the inner content (see resources/views/livewire/settings/*.blade.php and livewire/dashboard.blade.php for the pattern). Set the browser tab title via `#[Title('...')]` on the component class, not a layout prop.
 
-When computing shelter-scoped stats that involve Cage: Cage has no direct shelter_id column (see [[models]] rule on MultiShelterTrait) so scope it via `Cage::whereHas('wing', fn ($q) => $q->where('shelter_id', $shelterId))`.
+When computing shelter-scoped stats that involve Cage: Cage has no direct shelter_id column and neither does its parent Wing (see [[models]] rule on MultiShelterTrait, and [[facilities]]) so scope it two hops transitively via `Cage::whereHas('wing.facility', fn ($q) => $q->where('shelter_id', $shelterId))`.

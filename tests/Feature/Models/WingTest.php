@@ -1,14 +1,14 @@
 <?php
 
 use App\Models\Cage;
-use App\Models\Shelter;
+use App\Models\Facility;
 use App\Models\Wing;
 
-test('shelter relation returns the shelter the wing belongs to', function () {
-    $shelter = Shelter::factory()->create();
-    $wing = Wing::factory()->for($shelter)->create();
+test('facility relation returns the facility the wing belongs to', function () {
+    $facility = Facility::factory()->create();
+    $wing = Wing::factory()->for($facility)->create();
 
-    expect($wing->shelter->is($shelter))->toBeTrue();
+    expect($wing->facility->is($facility))->toBeTrue();
 });
 
 test('cages relation only returns cages belonging to the wing', function () {

@@ -187,12 +187,24 @@ class PetForm extends Component
     }
 
     /**
+     * Cages available to house the pet, grouped hierarchically for the
+     * form's select: Facility -> Wing -> Cage.
+     *
      * @return Collection<int, Cage>
      */
     #[Computed]
     public function cages(): Collection
     {
-        return $this->scopedCageQuery()->with('wing')->orderBy('code')->get();
+        return $this->scopedCageQuery()
+            ->with('wing.facility')
+            ->get()
+            ->sortBy(fn (Cage $cage) => sprintf(
+                '%s|%s|%s',
+                $cage->wing->facility->name ?? '',
+                $cage->wing->name,
+                $cage->code,
+            ))
+            ->values();
     }
 
     /**
@@ -288,8 +300,8 @@ class PetForm extends Component
 
         // Cage has no shelter_id of its own, so the exists rule above can't
         // enforce tenancy — re-fetch through the scoped query (transitive
-        // through wing) so a cage id from another shelter 404s instead of
-        // silently housing the pet there (see .ai/rules/wings.md).
+        // through wing.facility) so a cage id from another shelter 404s
+        // instead of silently housing the pet there (see .ai/rules/facilities.md).
         $cage = $validated['petCageId'] !== null
             ? $this->scopedCageQuery()->findOrFail($validated['petCageId'])
             : null;
@@ -438,19 +450,19 @@ class PetForm extends Component
 
     /**
      * Cage has no shelter scope of its own, so scope it transitively
-     * through its wing (see .ai/rules/wings.md).
+     * through its wing's facility (see .ai/rules/facilities.md).
      */
     protected function scopedCageQuery(): Builder
     {
         return Cage::query()->whereHas(
-            'wing',
+            'wing.facility',
             fn (Builder $query) => $query->where('shelter_id', Auth::user()->shelter_id),
         );
     }
 
     /**
      * PetImage has no shelter scope of its own, so scope it transitively
-     * through its pet (mirrors scopedCageQuery(); see .ai/rules/wings.md).
+     * through its pet (mirrors scopedCageQuery(); see .ai/rules/facilities.md).
      */
     protected function scopedPetImageQuery(): Builder
     {

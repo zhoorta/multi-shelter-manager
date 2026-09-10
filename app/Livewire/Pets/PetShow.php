@@ -22,7 +22,7 @@ class PetShow extends Component
         abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
 
         $this->pet = $pet->load([
-            'species', 'breed', 'cage.wing', 'images', 'primaryColor', 'secondaryColor', 'furType', 'sicknesses',
+            'species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'sicknesses',
         ]);
     }
 
