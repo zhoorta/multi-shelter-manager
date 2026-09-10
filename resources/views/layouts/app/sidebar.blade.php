@@ -44,7 +44,7 @@
 
                 @if (auth()->user()->role === 'admin')
                     <flux:sidebar.group :heading="__('Administration')" class="grid">
-                        <flux:sidebar.item icon="building-office" href="#">
+                        <flux:sidebar.item icon="building-office" :href="route('admin.shelters.index')" :current="request()->routeIs('admin.shelters.index')" wire:navigate>
                             {{ __('Shelters') }}
                         </flux:sidebar.item>
                         <flux:sidebar.item icon="tag" :href="route('admin.species.index')" :current="request()->routeIs('admin.species.index')" wire:navigate>

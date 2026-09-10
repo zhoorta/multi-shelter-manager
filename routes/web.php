@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Livewire\Admin\ManageBreeds;
+use App\Livewire\Admin\ManageShelters;
 use App\Livewire\Admin\ManageSpecies;
 use App\Livewire\Admin\ManageUsers;
 use App\Livewire\Dashboard;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     // Administration routes.
     Route::livewire('admin/users', ManageUsers::class)->name('admin.users.index');
+    Route::livewire('admin/shelters', ManageShelters::class)->name('admin.shelters.index');
     Route::livewire('admin/species', ManageSpecies::class)->name('admin.species.index');
     Route::livewire('admin/breeds', ManageBreeds::class)->name('admin.breeds.index');
 });
