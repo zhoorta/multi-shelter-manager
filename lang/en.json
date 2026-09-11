@@ -130,6 +130,18 @@
     "Rejected": "Rejected",
     "Adopted at": "Adopted at",
 
+    "Sponsorship": "Sponsorship",
+    "Edit Sponsorship": "Edit Sponsorship",
+    "Send Feedback": "Send Feedback",
+    "Send Newsletter": "Send Newsletter",
+    "Sponsorship Payments": "Sponsorship Payments",
+    "Add Payment": "Add Payment",
+    "Start Date": "Start Date",
+    "End Date": "End Date",
+    "Payment Date": "Payment Date",
+    "Payment Value": "Payment Value",
+    "No sponsorship payments registered": "No sponsorship payments registered.",
+
     "Log in": "Log in",
     "Log in to your account": "Log in to your account",
     "Enter your email and password below to log in": "Enter your email and password below to log in",

@@ -1,13 +1,18 @@
 <?php
 
+use App\Livewire\Pets\PetShow;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Sickness;
 use App\Models\Species;
+use App\Models\Sponsorship;
+use App\Models\SponsorshipPayment;
 use App\Models\User;
 use App\Models\Wing;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
     $pet = Pet::factory()->create();
@@ -67,6 +72,19 @@ test('links to the adoption registration page unless the pet is already adopted'
     $pet->update(['status' => 'adopted']);
 
     $this->get(route('pets.show', $pet))->assertDontSee(route('pets.adopt', $pet), false);
+});
+
+test('links to the sponsorship registration page only when the pet is sponsorable', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))->assertSee(route('pets.sponsor', $pet), false);
+
+    $pet->update(['is_sponsorable' => false]);
+
+    $this->get(route('pets.show', $pet))->assertDontSee(route('pets.sponsor', $pet), false);
 });
 
 test('links back to the pets list scoped to the pet species', function () {
@@ -155,6 +173,233 @@ test('shows the cage field as facility, then wing, then cage code', function () 
     $this->get(route('pets.show', $pet))
         ->assertOk()
         ->assertSeeInOrder(['Cage', 'North Campus', 'Dog Wing', 'D12']);
+});
+
+test('shows the sponsorship box when the pet has a sponsorship', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    Sponsorship::factory()->for($pet)->create([
+        'name' => 'Maria Silva',
+        'email' => 'maria@example.com',
+        'phone' => '912345678',
+        'address' => 'Rua das Flores, 10',
+        'postal_code' => '1000-001',
+        'city' => 'Lisboa',
+        'send_feedback' => true,
+        'send_newsletter' => false,
+        'notes' => 'Prefers monthly updates',
+    ]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Sponsorship', 'Maria Silva', 'maria@example.com', '912345678', 'Rua das Flores, 10', '1000-001', 'Lisboa', 'Prefers monthly updates']);
+});
+
+test('shows every sponsorship, most recent first, when the pet has more than one', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    Sponsorship::factory()->for($pet)->create(['name' => 'Old Sponsor', 'created_at' => now()->subDay()]);
+    Sponsorship::factory()->for($pet)->create(['name' => 'New Sponsor', 'created_at' => now()]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['New Sponsor', 'Old Sponsor']);
+});
+
+test('does not show the sponsorship box when the pet has no sponsorship', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => false]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertDontSeeText('Sponsorship');
+});
+
+test('shows the payments made for a sponsorship', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+    SponsorshipPayment::factory()->for($sponsorship)->create([
+        'start_date' => '2026-01-01',
+        'end_date' => '2026-01-31',
+        'payment_date' => '2026-01-01',
+        'payment_value' => 25,
+        'notes' => 'January contribution',
+    ]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Sponsorship Payments', '01/01/2026', '31/01/2026', '25,00', 'January contribution']);
+});
+
+test('shows a message when a sponsorship has no payments', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    Sponsorship::factory()->for($pet)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSee('No sponsorship payments registered');
+});
+
+test('defaults the payment dates to today and the end date to one year later when opening the create payment form', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $today = now()->format('Y-m-d');
+    $oneYearFromToday = now()->addYear()->format('Y-m-d');
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('createPayment', $sponsorship->id)
+        ->assertSet('paymentStartDate', $today)
+        ->assertSet('paymentEndDate', $oneYearFromToday)
+        ->assertSet('paymentDate', $today)
+        ->call('savePayment')
+        ->assertHasNoErrors();
+});
+
+test('creates a sponsorship payment', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('createPayment', $sponsorship->id)
+        ->set('paymentStartDate', '2026-02-01')
+        ->set('paymentEndDate', '2026-02-28')
+        ->set('paymentDate', '2026-02-01')
+        ->set('paymentValue', '30.00')
+        ->set('paymentNotes', 'February contribution')
+        ->call('savePayment')
+        ->assertHasNoErrors();
+
+    $payment = $sponsorship->payments()->first();
+    expect($payment)->not->toBeNull();
+    expect($payment->payment_value)->toBe('30.00');
+    expect($payment->notes)->toBe('February contribution');
+});
+
+test('requires the payment fields', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('createPayment', $sponsorship->id)
+        ->set('paymentStartDate', '')
+        ->set('paymentEndDate', '')
+        ->set('paymentDate', '')
+        ->set('paymentValue', '')
+        ->call('savePayment')
+        ->assertHasErrors([
+            'paymentStartDate' => 'required',
+            'paymentEndDate' => 'required',
+            'paymentDate' => 'required',
+            'paymentValue' => 'required',
+        ]);
+});
+
+test('requires the payment end date to be on or after the start date', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('createPayment', $sponsorship->id)
+        ->set('paymentStartDate', '2026-02-10')
+        ->set('paymentEndDate', '2026-02-01')
+        ->set('paymentDate', '2026-02-01')
+        ->set('paymentValue', '10.00')
+        ->call('savePayment')
+        ->assertHasErrors(['paymentEndDate' => 'after_or_equal']);
+});
+
+test('loads an existing payment for editing', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+    $payment = SponsorshipPayment::factory()->for($sponsorship)->create([
+        'payment_value' => 15,
+        'notes' => 'Original notes',
+    ]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('editPayment', $payment->id)
+        ->assertSet('paymentValue', '15.00')
+        ->assertSet('paymentNotes', 'Original notes');
+});
+
+test('updates an existing sponsorship payment', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+    $payment = SponsorshipPayment::factory()->for($sponsorship)->create(['payment_value' => 15]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('editPayment', $payment->id)
+        ->set('paymentValue', '45.00')
+        ->call('savePayment')
+        ->assertHasNoErrors();
+
+    expect($sponsorship->payments()->count())->toBe(1);
+    expect($payment->fresh()->payment_value)->toBe('45.00');
+});
+
+test('deletes a sponsorship payment', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+    $payment = SponsorshipPayment::factory()->for($sponsorship)->create();
+
+    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $this->actingAs($user);
+
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('deletePayment', $payment->id);
+
+    expect($payment->fresh()->trashed())->toBeTrue();
+    expect($payment->fresh()->deleted_by)->toBe($user->id);
+});
+
+test('cannot create, edit or delete a payment for a sponsorship belonging to another pet', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $otherPet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $otherSponsorship = Sponsorship::factory()->for($otherPet)->create();
+    $otherPayment = SponsorshipPayment::factory()->for($otherSponsorship)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('createPayment', $otherSponsorship->id))
+        ->toThrow(ModelNotFoundException::class);
+
+    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('editPayment', $otherPayment->id))
+        ->toThrow(ModelNotFoundException::class);
+
+    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deletePayment', $otherPayment->id))
+        ->toThrow(ModelNotFoundException::class);
 });
 
 test('lists the species sicknesses next to neutered status, marking which ones the pet has', function () {

@@ -130,6 +130,18 @@
     "Rejected": "Rejeitada",
     "Adopted at": "Adotado em",
 
+    "Sponsorship": "Apadrinhamento",
+    "Edit Sponsorship": "Editar Apadrinhamento",
+    "Send Feedback": "Enviar Feedback",
+    "Send Newsletter": "Enviar Newsletter",
+    "Sponsorship Payments": "Pagamentos de Apadrinhamento",
+    "Add Payment": "Adicionar Pagamento",
+    "Start Date": "Data de Início",
+    "End Date": "Data de Fim",
+    "Payment Date": "Data de Pagamento",
+    "Payment Value": "Valor do Pagamento",
+    "No sponsorship payments registered": "Nenhum pagamento de apadrinhamento registado.",
+
     "Log in": "Entrar",
     "Log in to your account": "Entrar na sua conta",
     "Enter your email and password below to log in": "Introduza o seu email e palavra-passe para entrar",

@@ -242,4 +242,14 @@ class Pet extends Model
     {
         return $this->hasOne(Adoption::class)->latestOfMany('adoption_date');
     }
+
+    /**
+     * Get the sponsorship records for the pet.
+     *
+     * @return HasMany<Sponsorship, $this>
+     */
+    public function sponsorships(): HasMany
+    {
+        return $this->hasMany(Sponsorship::class);
+    }
 }

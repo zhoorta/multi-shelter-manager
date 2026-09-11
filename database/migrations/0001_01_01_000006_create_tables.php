@@ -212,6 +212,40 @@ return new class extends Migration
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
         });
+
+        Schema::create('sponsorships', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
+            $table->string('name')->nullable();
+            $table->string('email', 150)->nullable();
+            $table->string('phone', 30)->nullable();
+            $table->string('address')->nullable();
+            $table->string('postal_code', 20)->nullable();
+            $table->string('city', 100)->nullable();
+            $table->boolean('send_feedback')->default(true);
+            $table->boolean('send_newsletter')->default(false);
+            $table->text('notes')->nullable();
+            $table->timestamps();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->softDeletes();
+        });
+
+        Schema::create('sponsorship_payments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('sponsorship_id')->constrained()->cascadeOnDelete();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->date('payment_date');
+            $table->decimal('payment_value', 6, 2)->default(0.00);
+            $table->text('notes')->nullable();
+            $table->timestamps();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->softDeletes();
+        });
     }
 
     public function down(): void
