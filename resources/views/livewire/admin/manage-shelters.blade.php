@@ -2,11 +2,9 @@
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Shelters') }}</flux:heading>
 
-        <flux:modal.trigger name="shelter-form">
-            <flux:button variant="primary" icon="plus" wire:click="createShelter">
-                {{ __('Create') }}
-            </flux:button>
-        </flux:modal.trigger>
+        <flux:button variant="primary" icon="plus" :href="route('admin.shelters.create')" wire:navigate>
+            {{ __('Create') }}
+        </flux:button>
     </div>
 
     <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
@@ -49,15 +47,14 @@
                                 </td>
                                 <td class="px-6 py-3">
                                     <div class="flex items-center gap-2">
-                                        <flux:modal.trigger name="shelter-form">
-                                            <flux:button
-                                                size="sm"
-                                                variant="subtle"
-                                                icon="pencil"
-                                                wire:click="editShelter({{ $item->id }})"
-                                                :aria-label="__('Edit')"
-                                            />
-                                        </flux:modal.trigger>
+                                        <flux:button
+                                            size="sm"
+                                            variant="subtle"
+                                            icon="pencil"
+                                            :href="route('admin.shelters.edit', $item)"
+                                            :aria-label="__('Edit')"
+                                            wire:navigate
+                                        />
 
                                         <flux:modal.trigger name="confirm-shelter-deletion-{{ $item->id }}">
                                             <flux:button
@@ -101,68 +98,4 @@
             </div>
         </div>
     </div>
-
-    <flux:modal name="shelter-form" class="max-w-lg">
-        <form wire:submit="saveShelter" class="flex flex-col gap-6">
-            <flux:heading size="lg">
-                {{ $editingShelterId ? __('Edit') : __('Create') }} &mdash; {{ __('Shelters') }}
-            </flux:heading>
-
-            <flux:input wire:model="shelterName" :label="__('Name')" />
-
-            <flux:input wire:model="shelterCity" :label="__('City')" />
-
-            <flux:input wire:model="shelterAddress" :label="__('Address')" />
-
-            <flux:input wire:model="shelterPostalCode" :label="__('Postal Code')" />
-
-            <flux:input wire:model="shelterPhone" :label="__('Phone')" />
-
-            <flux:input wire:model="shelterEmail" type="email" :label="__('Email')" />
-
-            <flux:input wire:model="shelterWebsite" :label="__('Website')" />
-
-            <flux:textarea wire:model="shelterDescription" :label="__('Description')" />
-
-            <flux:field>
-                <flux:label>{{ __('Logo') }}</flux:label>
-
-                @if ($shelterLogo)
-                    <img
-                        src="{{ $shelterLogo->temporaryUrl() }}"
-                        alt="{{ __('Logo') }}"
-                        class="h-16 w-16 rounded-lg object-cover ring-1 ring-neutral-200 dark:ring-neutral-700"
-                    >
-                @elseif ($existingLogoPath)
-                    <img
-                        src="{{ \Illuminate\Support\Facades\Storage::url($existingLogoPath) }}"
-                        alt="{{ __('Logo') }}"
-                        class="h-16 w-16 rounded-lg object-cover ring-1 ring-neutral-200 dark:ring-neutral-700"
-                    >
-                @endif
-
-                <input type="file" wire:model="shelterLogo" accept="image/*">
-
-                <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">
-                    {{ __('PNG or JPG up to 2MB') }}
-                </flux:text>
-
-                <div wire:loading wire:target="shelterLogo">
-                    <flux:text size="sm">{{ __('Uploading') }}&hellip;</flux:text>
-                </div>
-
-                <flux:error name="shelterLogo" />
-            </flux:field>
-
-            <div class="flex justify-end gap-2">
-                <flux:modal.close>
-                    <flux:button type="button" variant="filled">{{ __('Cancel') }}</flux:button>
-                </flux:modal.close>
-
-                <flux:button type="submit" variant="primary">
-                    {{ $editingShelterId ? __('Save') : __('Create') }}
-                </flux:button>
-            </div>
-        </form>
-    </flux:modal>
 </div>

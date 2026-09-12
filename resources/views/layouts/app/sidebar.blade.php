@@ -17,7 +17,7 @@
                     </flux:sidebar.item>
                     @if (auth()->user()->role !== 'admin')
                         <flux:sidebar.group icon="heart" :heading="__('Pets')" expandable>
-                            @foreach (\App\Models\Species::query()->orderBy('name')->get() as $sidebarSpecies)
+                            @foreach (auth()->user()->shelter?->species()->orderBy('name')->get() ?? [] as $sidebarSpecies)
                                 <flux:sidebar.item
                                     :href="route('pets.index', ['speciesFilter' => $sidebarSpecies->id])"
                                     :current="request()->routeIs('pets.index') && (string) request()->query('speciesFilter') === (string) $sidebarSpecies->id"

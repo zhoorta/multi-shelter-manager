@@ -8,6 +8,7 @@ use Database\Factories\ShelterFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -61,5 +62,16 @@ class Shelter extends Model
     public function pets(): HasMany
     {
         return $this->hasMany(Pet::class);
+    }
+
+    /**
+     * Get the species enabled for the shelter. Controls which species
+     * appear on the sidebar for the shelter's manager and staff users.
+     *
+     * @return BelongsToMany<Species, $this>
+     */
+    public function species(): BelongsToMany
+    {
+        return $this->belongsToMany(Species::class, 'shelter_species')->withTimestamps();
     }
 }

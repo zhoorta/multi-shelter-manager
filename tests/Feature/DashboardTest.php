@@ -5,6 +5,7 @@ use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
+use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
 use Livewire\Livewire;
@@ -169,6 +170,35 @@ test('lists the five most recently added pets with their status and cage code', 
     $response->assertDontSee('Oldest Pet');
     $response->assertSee('C-01');
     $response->assertSee(__('No Cage Assigned'));
+});
+
+test('the pets sidebar only lists species enabled for the current shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $dog = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+    $cat = Species::factory()->create(['name' => 'Cat', 'name_plural' => 'Cats']);
+    $shelter->species()->attach($dog->id);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee('Dogs');
+    $response->assertDontSee('Cats');
+});
+
+test('the pets sidebar is empty when the shelter has no species enabled', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee('Dogs');
 });
 
 test('shows a placeholder message when there are no recent intakes', function () {

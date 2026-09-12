@@ -4,8 +4,6 @@ use App\Livewire\Admin\ManageShelters;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -51,105 +49,16 @@ test('lists shelters with their user and pet counts', function () {
         ->assertSee('Lisbon');
 });
 
-test('creates a new shelter and closes the modal', function () {
+test('links to the separate create and edit pages instead of a modal', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    Livewire::test(ManageShelters::class)
-        ->set('shelterName', 'Happy Paws')
-        ->set('shelterCity', 'Lisbon')
-        ->call('saveShelter')
-        ->assertHasNoErrors()
-        ->assertDispatched('modal-close', name: 'shelter-form');
+    $shelter = Shelter::factory()->create(['name' => 'Happy Paws']);
 
-    expect(Shelter::query()->where('name', 'Happy Paws')->where('city', 'Lisbon')->exists())->toBeTrue();
-});
-
-test('opening the create modal resets a stale edit state', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
-    $this->actingAs($admin);
-
-    $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'city' => 'Lisbon']);
-
-    Livewire::test(ManageShelters::class)
-        ->call('editShelter', $shelter->id)
-        ->assertSet('shelterName', 'Happy Paws')
-        ->assertSet('shelterCity', 'Lisbon')
-        ->call('createShelter')
-        ->assertSet('editingShelterId', null)
-        ->assertSet('shelterName', '')
-        ->assertSet('shelterCity', '');
-});
-
-test('requires a name and city to create a shelter', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
-    $this->actingAs($admin);
-
-    Livewire::test(ManageShelters::class)
-        ->set('shelterName', '')
-        ->set('shelterCity', '')
-        ->call('saveShelter')
-        ->assertHasErrors(['shelterName' => 'required', 'shelterCity' => 'required']);
-});
-
-test('validates email and website format', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
-    $this->actingAs($admin);
-
-    Livewire::test(ManageShelters::class)
-        ->set('shelterName', 'Happy Paws')
-        ->set('shelterCity', 'Lisbon')
-        ->set('shelterEmail', 'not-an-email')
-        ->set('shelterWebsite', 'not-a-url')
-        ->call('saveShelter')
-        ->assertHasErrors(['shelterEmail' => 'email', 'shelterWebsite' => 'url']);
-});
-
-test('updates an existing shelter', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
-    $this->actingAs($admin);
-
-    $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'city' => 'Lisbon']);
-
-    Livewire::test(ManageShelters::class)
-        ->call('editShelter', $shelter->id)
-        ->set('shelterName', 'Happier Paws')
-        ->set('shelterCity', 'Porto')
-        ->call('saveShelter')
-        ->assertHasNoErrors();
-
-    expect($shelter->fresh()->name)->toBe('Happier Paws');
-    expect($shelter->fresh()->city)->toBe('Porto');
-});
-
-test('uploads and replaces a shelter logo', function () {
-    Storage::fake('public');
-
-    $admin = User::factory()->create(['role' => 'admin']);
-    $this->actingAs($admin);
-
-    $shelter = Shelter::factory()->create(['logo_path' => null]);
-
-    Livewire::test(ManageShelters::class)
-        ->call('editShelter', $shelter->id)
-        ->set('shelterLogo', UploadedFile::fake()->image('logo.png'))
-        ->call('saveShelter')
-        ->assertHasNoErrors();
-
-    $firstLogoPath = $shelter->fresh()->logo_path;
-    expect($firstLogoPath)->not->toBeNull();
-    Storage::disk('public')->assertExists($firstLogoPath);
-
-    Livewire::test(ManageShelters::class)
-        ->call('editShelter', $shelter->id)
-        ->set('shelterLogo', UploadedFile::fake()->image('logo-2.png'))
-        ->call('saveShelter')
-        ->assertHasNoErrors();
-
-    $secondLogoPath = $shelter->fresh()->logo_path;
-    expect($secondLogoPath)->not->toBe($firstLogoPath);
-    Storage::disk('public')->assertExists($secondLogoPath);
-    Storage::disk('public')->assertMissing($firstLogoPath);
+    $this->get(route('admin.shelters.index'))
+        ->assertOk()
+        ->assertSee(route('admin.shelters.create'), false)
+        ->assertSee(route('admin.shelters.edit', $shelter), false);
 });
 
 test('soft-deletes a shelter instead of removing it permanently', function () {

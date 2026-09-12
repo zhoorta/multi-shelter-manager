@@ -246,6 +246,13 @@ return new class extends Migration
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
         });
+
+        Schema::create('shelter_species', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('shelter_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('species_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
     }
 
     public function down(): void

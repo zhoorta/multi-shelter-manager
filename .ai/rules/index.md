@@ -5,6 +5,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | Applies to | Rule file |
 | --- | --- |
 | app/Livewire/Admin/** | .ai/rules/admin.md |
+| app/Livewire/Admin/ShelterForm.php,app/Livewire/Admin/ManageShelters.php,app/Models/Shelter.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/app.md |
 | app/Livewire/Pets/SponsorshipShow.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/Concerns/ManagesSponsorshipPayments.php | .ai/rules/concerns.md |
 | app/Livewire/Facilities/** | .ai/rules/facilities.md |
 | app/Models/Sponsorship.php,app/Models/SponsorshipPayment.php,app/Livewire/Pets/SponsorshipForm.php | .ai/rules/livewire-pets.md |

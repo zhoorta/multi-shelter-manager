@@ -9,6 +9,7 @@ use App\Livewire\Admin\ManageSicknesses;
 use App\Livewire\Admin\ManageSpecies;
 use App\Livewire\Admin\ManageUsers;
 use App\Livewire\Admin\ManageVaccines;
+use App\Livewire\Admin\ShelterForm;
 use App\Livewire\Dashboard;
 use App\Livewire\Facilities\ManageSpaces;
 use App\Livewire\Pets\AdoptionForm;
@@ -53,6 +54,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     // Administration routes.
     Route::livewire('admin/users', ManageUsers::class)->name('admin.users.index');
     Route::livewire('admin/shelters', ManageShelters::class)->name('admin.shelters.index');
+    Route::livewire('admin/shelters/create', ShelterForm::class)->name('admin.shelters.create');
+    Route::livewire('admin/shelters/{shelter}/edit', ShelterForm::class)->name('admin.shelters.edit');
     Route::livewire('admin/species', ManageSpecies::class)->name('admin.species.index');
     Route::livewire('admin/breeds', ManageBreeds::class)->name('admin.breeds.index');
     Route::livewire('admin/fur-types', ManageFurTypes::class)->name('admin.fur-types.index');
