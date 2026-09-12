@@ -3,6 +3,15 @@
         <flux:heading size="xl">{{ __('Sponsorships') }}</flux:heading>
     </div>
 
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+        <flux:input
+            wire:model.live.debounce.300ms="search"
+            icon="magnifying-glass"
+            :placeholder="__('Search by sponsor, contact, pet or notes')"
+            class="sm:max-w-xs"
+        />
+    </div>
+
     <div class="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
@@ -17,16 +26,32 @@
                     @forelse ($this->sponsorships as $sponsorship)
                         @php
                             $mainImage = $sponsorship->pet->images->firstWhere('is_main', true) ?? $sponsorship->pet->images->first();
+                            $validityDate = $sponsorship->payments->max('end_date');
                         @endphp
                         <tr wire:key="sponsorship-{{ $sponsorship->id }}">
                             <td class="px-6 py-3">
                                 <div class="flex flex-col gap-1">
-                                    <span class="font-medium text-neutral-900 dark:text-white">{{ $sponsorship->name }}</span>
+                                    <a href="{{ route('pets.sponsor.show', [$sponsorship->pet, $sponsorship]) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">
+                                        {{ $sponsorship->name }}
+                                    </a>
                                     @if ($sponsorship->email)
                                         <span class="text-neutral-500 dark:text-neutral-400">{{ $sponsorship->email }}</span>
                                     @endif
                                     @if ($sponsorship->phone)
                                         <span class="text-neutral-500 dark:text-neutral-400">{{ $sponsorship->phone }}</span>
+                                    @endif
+                                    <span class="text-neutral-500 dark:text-neutral-400">
+                                        @if (! $validityDate)
+                                            {{ __('(No payments done)') }}
+                                        @elseif ($validityDate->greaterThanOrEqualTo(today()))
+                                            {!! __('Valid until :date', ['date' => '<strong>'.$validityDate->format('d/m/Y').'</strong>']) !!}
+                                        @else
+                                            {!! __('Expired at :date', ['date' => '<strong>'.$validityDate->format('d/m/Y').'</strong>']) !!}
+                                        @endif
+                                    </span>
+                                    @if ($sponsorship->notes)
+                                        <div class="h-3"></div>
+                                        <span class="text-neutral-500 dark:text-neutral-400">{{ $sponsorship->notes }}</span>
                                     @endif
                                 </div>
                             </td>

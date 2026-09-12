@@ -132,9 +132,13 @@
     "Adopted at": "Adotado em",
 
     "Sponsorships": "Apadrinhamentos",
+    "Search by sponsor, contact, pet or notes": "Pesquisar por padrinho, contacto, animal ou notas",
     "Sponsor name and contacts": "Nome e contactos do padrinho",
     "Options": "Opções",
     "No sponsorships registered": "Nenhum apadrinhamento registado.",
+    "Valid until :date": "Válido até :date",
+    "Expired at :date": "Expirado em :date",
+    "(No payments done)": "(Sem pagamentos efetuados)",
     "Sponsorship": "Apadrinhamento",
     "Edit Sponsorship": "Editar Apadrinhamento",
     "Send Feedback": "Enviar Feedback",
