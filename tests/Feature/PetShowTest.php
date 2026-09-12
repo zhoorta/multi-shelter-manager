@@ -270,6 +270,28 @@ test('shows a placeholder when the pet has no description', function () {
         ->assertSeeInOrder(['Description', '—']);
 });
 
+test('shows the pet notes in their own box after the description', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['description' => 'Loves belly rubs.', 'notes' => 'Needs a quiet home.']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Description', 'Loves belly rubs.', 'Notes', 'Needs a quiet home.']);
+});
+
+test('shows a placeholder when the pet has no notes', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['notes' => null]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Notes', '—']);
+});
+
 test('shows the cage field as facility, then wing, then cage code', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create(['name' => 'North Campus']);
@@ -333,9 +355,9 @@ test('does not show the sponsorship box when the pet has no sponsorship', functi
         ->assertDontSeeText('Sponsorship Payments');
 });
 
-test('shows the adoption box after the description', function () {
+test('shows the adoption box after the description and notes', function () {
     $shelter = Shelter::factory()->create();
-    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'description' => 'Loves belly rubs.']);
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'description' => 'Loves belly rubs.', 'notes' => 'Needs a quiet home.']);
     Adoption::factory()->for($pet)->create([
         'name' => 'Maria Silva',
         'email' => 'maria@example.com',
@@ -356,6 +378,7 @@ test('shows the adoption box after the description', function () {
         ->assertOk()
         ->assertSeeInOrder([
             'Description', 'Loves belly rubs.',
+            'Notes', 'Needs a quiet home.',
             'Adoption', 'Maria Silva', 'maria@example.com', '912345678',
             'Rua das Flores, 10', '1000-001', 'Lisboa', '15/01/2026',
             '25,50', 'Approved', 'Great home visit',

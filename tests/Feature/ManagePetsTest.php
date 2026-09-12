@@ -197,6 +197,39 @@ test('shows the size after the breed name in the characteristics column', functi
         ->assertSeeInOrder(['Rex', $pet->breed->name, 'Grande']);
 });
 
+test('shows "Pure breed" right after the breed name when the pet is a pure breed', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['has_pure_breed_field' => true]);
+    $pet = Pet::factory()->for($shelter)->for($species)->create(['name' => 'Rex', 'is_pure_breed' => true]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertSeeInOrder(['Rex', $pet->breed->name, 'Pure breed']);
+});
+
+test('does not show "Pure breed" when the pet is not a pure breed', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['has_pure_breed_field' => true]);
+    Pet::factory()->for($shelter)->for($species)->create(['name' => 'Rex', 'is_pure_breed' => false]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertDontSee('Pure breed');
+});
+
+test('does not show "Pure breed" when the species has the field disabled, even if the pet is flagged as pure breed', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['has_pure_breed_field' => false]);
+    Pet::factory()->for($shelter)->for($species)->create(['name' => 'Rex', 'is_pure_breed' => true]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertDontSee('Pure breed');
+});
+
 test('paginates pets 20 per page', function () {
     $shelter = Shelter::factory()->create();
     $species = Species::factory()->create();

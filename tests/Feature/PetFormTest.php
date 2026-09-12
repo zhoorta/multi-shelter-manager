@@ -294,6 +294,45 @@ test('empty description markup is saved as null', function () {
     expect($pet->description)->toBeNull();
 });
 
+test('saves notes on the pet', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petNotes', 'Needs a quiet home.')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->notes)->toBe('Needs a quiet home.');
+});
+
+test('empty notes are saved as null', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->notes)->toBeNull();
+});
+
 test('generates a ref from the pet id on create', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
@@ -724,6 +763,7 @@ test('populates the form with the pet\'s current data when editing', function ()
         'date_of_death' => '2024-03-15',
         'checkin_date' => '2023-01-10',
         'size_id' => $size->id,
+        'notes' => 'Needs a quiet home.',
     ]);
 
     Livewire::test(PetForm::class, ['pet' => $pet])
@@ -739,7 +779,8 @@ test('populates the form with the pet\'s current data when editing', function ()
         ->assertSet('petIsSponsorable', false)
         ->assertSet('petBirthDate', '2018-05-01')
         ->assertSet('petDeathDate', '2024-03-15')
-        ->assertSet('petCheckinDate', '2023-01-10');
+        ->assertSet('petCheckinDate', '2023-01-10')
+        ->assertSet('petNotes', 'Needs a quiet home.');
 });
 
 test('populates the form with the pet\'s currently diagnosed sicknesses when editing', function () {

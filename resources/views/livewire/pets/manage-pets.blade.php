@@ -93,6 +93,9 @@
                             <td class="px-6 py-3">
                                 <div class="flex flex-col gap-1 text-neutral-500 dark:text-neutral-400">
                                     <span>{{ $pet->breed->name }}</span>
+                                    @if ($pet->species->has_pure_breed_field && $pet->is_pure_breed)
+                                        <span>{{ __('Pure breed') }}</span>
+                                    @endif
                                     <span>{{ $pet->size?->name }}</span>
                                     <span>{{ $pet->furType?->name }}</span>
                                     <span>{{ $colors }}</span>

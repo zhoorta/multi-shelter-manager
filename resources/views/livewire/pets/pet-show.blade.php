@@ -218,6 +218,11 @@
             </flux:text>
         </div>
 
+        <div class="grid grid-cols-[max-content_1fr] items-start justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Notes') }}:</flux:text>
+            <flux:text inline class="whitespace-pre-line">{{ $pet->notes ?? '—' }}</flux:text>
+        </div>
+
         @foreach ($pet->adoptions as $adoption)
             @include('livewire.pets.partials.adoption-box', ['pet' => $pet, 'adoption' => $adoption])
         @endforeach
