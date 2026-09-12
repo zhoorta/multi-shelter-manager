@@ -48,7 +48,7 @@ class UserInvitation extends Notification
 
         return $message
             ->action(__('Create Password'), $url)
-            ->line(__('This invitation link will expire in :count minutes.', ['count' => (int) config('auth.passwords.users.expire')]))
+            ->line(__('This invitation link will expire in :count hours.', ['count' => (int) (config('auth.passwords.users.expire') / 60)]))
             ->line(__('If you did not expect this invitation, you can safely ignore this email.'));
     }
 }
