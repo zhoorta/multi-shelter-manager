@@ -1,15 +1,20 @@
 {{--
     Renders one adoption record's details plus an Edit link. Expects $pet
-    and $adoption. Included by pet-show.blade.php, looping over every
-    adoption for a pet whose status is 'adopted' (see .ai/rules/pets.md —
-    mirrors the sponsorship-box partial).
+    and $adoption, and optionally $backToAdoptionsList (bool, default false)
+    to send the edit form back to the adoptions list instead of the pet page.
+    Included by pet-show.blade.php, looping over every adoption for a pet
+    whose status is 'adopted', and by adoption-show.blade.php with
+    $backToAdoptionsList set (see .ai/rules/pets.md — mirrors the
+    sponsorship-box partial).
 --}}
 <div wire:key="adoption-{{ $adoption->id }}" class="grid grid-cols-[max-content_1fr] items-start justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
     <div class="col-span-2 flex w-full items-center justify-between">
         <flux:label>{{ __('Adoption') }}</flux:label>
 
         <flux:button
-            :href="route('pets.adopt.edit', [$pet, $adoption])"
+            :href="route('pets.adopt.edit', ($backToAdoptionsList ?? false)
+                ? ['pet' => $pet, 'adoption' => $adoption, 'from' => 'adoptions']
+                : ['pet' => $pet, 'adoption' => $adoption])"
             variant="filled"
             size="sm"
             icon="pencil"

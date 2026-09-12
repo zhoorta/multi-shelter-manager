@@ -5,26 +5,25 @@
             <flux:subheading>{{ $pet->name }}</flux:subheading>
         </div>
 
-        <flux:button :href="route('pets.show', $pet)" variant="filled" icon="arrow-left" wire:navigate>
-            {{ $pet->name }}
+        <flux:button :href="$backRoute" variant="filled" icon="arrow-left" wire:navigate>
+            {{ $backLabel }}
         </flux:button>
     </div>
 
     <form wire:submit="saveAdoption" autocomplete="off" class="flex flex-col gap-8">
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:input wire:model="adopterName" :label="__('Name')" />
+            <flux:input wire:model="adopterName" :label="__('Owner Name')" />
 
             <flux:input wire:model="adopterEmail" type="email" :label="__('Email')" />
 
             <flux:input wire:model="adopterPhone" :label="__('Phone')" />
-        </div>
 
-        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:input wire:model="adopterAddress" :label="__('Address')" />
 
-            <flux:input wire:model="adopterPostalCode" :label="__('Postal Code')" />
-
-            <flux:input wire:model="adopterCity" :label="__('City')" />
+            <div class="grid grid-cols-3 gap-4">
+                <flux:input wire:model="adopterPostalCode" :label="__('Postal Code')" />
+                <flux:input wire:model="adopterCity" :label="__('City')" field:class="col-span-2" />
+            </div>
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
@@ -69,7 +68,7 @@
         </div>
 
         <div class="flex justify-end gap-2">
-            <flux:button :href="route('pets.show', $pet)" variant="filled" wire:navigate>
+            <flux:button :href="$backRoute" variant="filled" wire:navigate>
                 {{ __('Cancel') }}
             </flux:button>
 

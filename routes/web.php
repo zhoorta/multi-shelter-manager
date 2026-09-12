@@ -12,6 +12,8 @@ use App\Livewire\Admin\ManageVaccines;
 use App\Livewire\Dashboard;
 use App\Livewire\Facilities\ManageSpaces;
 use App\Livewire\Pets\AdoptionForm;
+use App\Livewire\Pets\AdoptionShow;
+use App\Livewire\Pets\ManageAdoptions;
 use App\Livewire\Pets\ManagePets;
 use App\Livewire\Pets\ManageSponsorships;
 use App\Livewire\Pets\PetForm;
@@ -35,10 +37,12 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     Route::livewire('pets', ManagePets::class)->name('pets.index');
     Route::livewire('pets/sponsorships', ManageSponsorships::class)->name('pets.sponsorships.index');
+    Route::livewire('pets/adoptions', ManageAdoptions::class)->name('pets.adoptions.index');
     Route::livewire('pets/create', PetForm::class)->name('pets.create');
     Route::livewire('pets/{pet}/edit', PetForm::class)->name('pets.edit');
     Route::livewire('pets/{pet}', PetShow::class)->name('pets.show');
     Route::livewire('pets/{pet}/adopt', AdoptionForm::class)->name('pets.adopt');
+    Route::livewire('pets/{pet}/adopt/{adoption}', AdoptionShow::class)->name('pets.adopt.show');
     Route::livewire('pets/{pet}/adopt/{adoption}/edit', AdoptionForm::class)->name('pets.adopt.edit');
     Route::livewire('pets/{pet}/sponsor', SponsorshipForm::class)->name('pets.sponsor');
     Route::livewire('pets/{pet}/sponsor/{sponsorship}', SponsorshipShow::class)->name('pets.sponsor.show');

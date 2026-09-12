@@ -119,6 +119,7 @@
     "Next photo": "Next photo",
 
     "Adoption Registration": "Adoption Registration",
+    "Owner Name": "Owner Name",
     "Email": "Email",
     "Phone": "Phone",
     "Address": "Address",
@@ -136,6 +137,13 @@
     "at": "at",
     "Deceased": "Deceased",
     "Cannot clear the return date because the pet has already been adopted again since then.": "Cannot clear the return date because the pet has already been adopted again since then.",
+
+    "Adoptions": "Adoptions",
+    "Search by owner, contact, pet or notes": "Search by owner, contact, pet or notes",
+    "Owner Name and Contacts": "Owner Name and Contacts",
+    "No adoptions registered": "No adoptions registered.",
+    "Adopted at :date": "Adopted at :date",
+    "Returned at :date": "Returned at :date",
 
     "Sponsorships": "Sponsorships",
     "Search by sponsor, contact, pet or notes": "Search by sponsor, contact, pet or notes",

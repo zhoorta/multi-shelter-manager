@@ -40,6 +40,10 @@ class AdoptionForm extends Component
 
     public string $applicationStatus = 'Approved';
 
+    public string $backRoute = '';
+
+    public string $backLabel = '';
+
     public function mount(Pet $pet, ?Adoption $adoption = null): void
     {
         abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
@@ -48,6 +52,12 @@ class AdoptionForm extends Component
 
         $this->pet = $pet;
         $this->adoption = $adoption;
+
+        $fromAdoptionsList = $adoption !== null && request()->query('from') === 'adoptions';
+        $this->backRoute = $fromAdoptionsList ? route('pets.adopt.show', [$pet, $adoption]) : route('pets.show', $pet);
+        $this->backLabel = $fromAdoptionsList
+            ? ((string) $adoption->name !== '' ? $adoption->name : __('Adoption'))
+            : $pet->name;
 
         if ($adoption === null) {
             $this->adoptionDate = now()->toDateString();

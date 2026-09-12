@@ -312,3 +312,29 @@ test('returns 404 when the adoption does not belong to the given pet', function 
 
     $this->get(route('pets.adopt.edit', [$pet, $adoption]))->assertNotFound();
 });
+
+test('the back and cancel buttons link to the pet page by default when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
+    $adoption = Adoption::factory()->for($pet)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.adopt.edit', [$pet, $adoption]))
+        ->assertOk()
+        ->assertSeeHtml('href="'.route('pets.show', $pet).'"')
+        ->assertSee($pet->name);
+});
+
+test('the back and cancel buttons link to the adoption show page when editing via the adoptions list', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
+    $adoption = Adoption::factory()->for($pet)->create(['name' => 'Maria Silva']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.adopt.edit', [$pet, $adoption]).'?from=adoptions')
+        ->assertOk()
+        ->assertSeeHtml('href="'.route('pets.adopt.show', [$pet, $adoption]).'"')
+        ->assertSee('Maria Silva');
+});

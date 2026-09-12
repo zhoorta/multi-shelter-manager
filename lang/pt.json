@@ -119,6 +119,7 @@
     "Next photo": "Fotografia seguinte",
 
     "Adoption Registration": "Registo de Adoção",
+    "Owner Name": "Nome do Dono",
     "Email": "Email",
     "Phone": "Telefone",
     "Address": "Morada",
@@ -136,6 +137,13 @@
     "at": "em",
     "Deceased": "Falecido",
     "Cannot clear the return date because the pet has already been adopted again since then.": "Não é possível remover a data de devolução porque o animal já foi novamente adotado desde então.",
+
+    "Adoptions": "Adoções",
+    "Search by owner, contact, pet or notes": "Pesquisar por tutor, contacto, animal ou notas",
+    "Owner Name and Contacts": "Nome e Contactos do Tutor",
+    "No adoptions registered": "Nenhuma adoção registada.",
+    "Adopted at :date": "Adotado em :date",
+    "Returned at :date": "Devolvido em :date",
 
     "Sponsorships": "Apadrinhamentos",
     "Search by sponsor, contact, pet or notes": "Pesquisar por padrinho, contacto, animal ou notas",
