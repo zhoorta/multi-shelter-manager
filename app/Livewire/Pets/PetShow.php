@@ -7,6 +7,7 @@ namespace App\Livewire\Pets;
 use App\Livewire\Pets\Concerns\ManagesSponsorshipPayments;
 use App\Models\Pet;
 use App\Models\Sickness;
+use App\Models\Size;
 use App\Models\Sponsorship;
 use App\Models\SponsorshipPayment;
 use Illuminate\Contracts\View\View;
@@ -27,7 +28,7 @@ class PetShow extends Component
         abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
 
         $this->pet = $pet->load([
-            'species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'sicknesses',
+            'species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'sicknesses',
             'adoptions' => fn ($query) => $query->latest('adoption_date'),
             'sponsorships' => fn ($query) => $query->latest()->with(['payments' => fn ($paymentsQuery) => $paymentsQuery->orderByDesc('payment_date')]),
         ]);
@@ -46,6 +47,17 @@ class PetShow extends Component
             ->whereHas('species', fn (Builder $query) => $query->whereKey($this->pet->species_id))
             ->orderBy('name')
             ->get();
+    }
+
+    /**
+     * Whether the pet's species has any sizes registered (see the sizes
+     * table), used to hide the Size field entirely for species that don't
+     * use it — mirrors PetForm::sizes() (see .ai/rules/pets-models.md).
+     */
+    #[Computed]
+    public function speciesHasSizes(): bool
+    {
+        return Size::query()->where('species_id', $this->pet->species_id)->exists();
     }
 
     /**

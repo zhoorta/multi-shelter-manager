@@ -7,6 +7,7 @@ use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Sickness;
+use App\Models\Size;
 use App\Models\Species;
 use App\Models\Sponsorship;
 use App\Models\SponsorshipPayment;
@@ -118,6 +119,7 @@ test('does not display placeholder text when color and fur type are not assigned
         'primary_color_id' => null,
         'secondary_color_id' => null,
         'fur_type_id' => null,
+        'size_id' => null,
     ]);
 
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
@@ -126,6 +128,45 @@ test('does not display placeholder text when color and fur type are not assigned
         ->assertOk()
         ->assertDontSee('No Color Assigned')
         ->assertDontSee('No Fur Type Assigned');
+});
+
+test('shows the pet\'s size when assigned', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    $size = Size::factory()->for($species)->create(['name' => 'Grande']);
+    $pet = Pet::factory()->for($shelter)->for($species)->create(['size_id' => $size->id]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSee(__('Size'))
+        ->assertSee('Grande');
+});
+
+test('shows a placeholder when the species has sizes but the pet has none assigned', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    Size::factory()->for($species)->create(['name' => 'Grande']);
+    $pet = Pet::factory()->for($shelter)->for($species)->create(['size_id' => null]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSee(__('Size'));
+});
+
+test('hides the size field entirely when the species has no sizes registered', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    $pet = Pet::factory()->for($shelter)->for($species)->create(['size_id' => null]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertDontSee(__('Size'));
 });
 
 test('shows the birth date and death date', function () {

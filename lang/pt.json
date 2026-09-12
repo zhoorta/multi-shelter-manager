@@ -13,6 +13,7 @@
     "Add Cage": "Adicionar Gaiola",
     "Species": "Espécies",
     "Breeds": "Raças",
+    "Sizes": "Tamanhos",
     "Colors": "Cores",
     "Fur Types": "Tipos de Pelo",
     "Vaccines": "Vacinas",
@@ -33,6 +34,7 @@
     "No Facility Assigned": "Sem Instalação Atribuída",
     "No Color Assigned": "Sem Cor Atribuída",
     "No Fur Type Assigned": "Sem Tipo de Pelagem Atribuído",
+    "No Size Assigned": "Sem Tamanho Atribuído",
     "No Recent Intakes": "Sem Entradas Recentes",
 
     "Name": "Nome",
@@ -85,6 +87,7 @@
 
     "No species registered": "Nenhuma espécie registada.",
     "No breeds registered": "Nenhuma raça registada.",
+    "No sizes registered": "Nenhum tamanho registado.",
     "No facilities registered": "Nenhuma instalação registada.",
     "No wings registered": "Nenhuma ala registada.",
     "No cages registered for this wing": "Nenhuma gaiola registada para esta ala.",
@@ -99,6 +102,7 @@
     "Primary Color": "Cor Primária",
     "Secondary Color": "Cor Secundária",
     "Fur Type": "Tipo de Pelo",
+    "Size": "Tamanho",
     "Identification": "Identificação",
     "Characteristics": "Características",
     "Accommodation": "Acomodação",

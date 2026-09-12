@@ -56,6 +56,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('name_plural')->unique();
+            $table->boolean('has_pure_breed_field')->default(false);
             $table->timestamps();
         });
 
@@ -82,6 +83,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('sizes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('species_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->timestamps();
+        });
+
         // 9. PETS (Animais)
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
@@ -92,6 +100,8 @@ return new class extends Migration
             $table->foreignId('primary_color_id')->nullable()->constrained('colors');
             $table->foreignId('secondary_color_id')->nullable()->constrained('colors');
             $table->foreignId('fur_type_id')->nullable()->constrained('fur_types');
+            $table->foreignId('size_id')->nullable()->constrained('sizes');
+            $table->boolean('is_pure_breed')->default(false);
             $table->string('ref');
             $table->string('name');
             $table->string('chip')->nullable();

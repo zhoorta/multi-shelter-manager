@@ -11,6 +11,7 @@ use App\Models\FurType;
 use App\Models\Pet;
 use App\Models\PetImage;
 use App\Models\Sickness;
+use App\Models\Size;
 use App\Models\Species;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -51,6 +52,8 @@ class PetForm extends Component
     public ?int $petSecondaryColorId = null;
 
     public ?int $petFurTypeId = null;
+
+    public ?int $petSizeId = null;
 
     public string $petGender = '';
 
@@ -103,6 +106,7 @@ class PetForm extends Component
         $this->petPrimaryColorId = $pet->primary_color_id;
         $this->petSecondaryColorId = $pet->secondary_color_id;
         $this->petFurTypeId = $pet->fur_type_id;
+        $this->petSizeId = $pet->size_id;
         $this->petGender = $pet->gender;
         $this->petBirthDate = (string) $pet->birth_date?->format('Y-m-d');
         $this->petDeathDate = (string) $pet->date_of_death?->format('Y-m-d');
@@ -144,6 +148,27 @@ class PetForm extends Component
         }
 
         return Breed::query()
+            ->where('species_id', $this->petSpeciesId)
+            ->orderBy('name')
+            ->get();
+    }
+
+    /**
+     * Sizes of the currently selected species. Species' default scope
+     * excludes soft-deleted rows, so a trashed species never surfaces
+     * sizes here (see .ai/rules/admin.md). Empty when the species has
+     * no sizes registered, in which case the form hides the field.
+     *
+     * @return Collection<int, Size>
+     */
+    #[Computed]
+    public function sizes(): Collection
+    {
+        if ($this->petSpeciesId === null) {
+            return new Collection;
+        }
+
+        return Size::query()
             ->where('species_id', $this->petSpeciesId)
             ->orderBy('name')
             ->get();
@@ -229,9 +254,10 @@ class PetForm extends Component
     public function updatedPetSpeciesId(): void
     {
         $this->petBreedId = null;
+        $this->petSizeId = null;
         $this->petSicknessIds = [];
 
-        unset($this->breeds, $this->sicknesses);
+        unset($this->breeds, $this->sizes, $this->sicknesses);
     }
 
     public function toggleSickness(int $sicknessId): void
@@ -258,6 +284,11 @@ class PetForm extends Component
             'petPrimaryColorId' => ['nullable', 'integer', 'exists:colors,id'],
             'petSecondaryColorId' => ['nullable', 'integer', 'exists:colors,id'],
             'petFurTypeId' => ['nullable', 'integer', 'exists:fur_types,id'],
+            'petSizeId' => [
+                'nullable',
+                'integer',
+                Rule::exists('sizes', 'id')->where('species_id', $this->petSpeciesId),
+            ],
             'petGender' => ['required', 'in:male,female'],
             'petBirthDate' => ['nullable', 'date'],
             'petDeathDate' => ['nullable', 'date'],
@@ -283,6 +314,7 @@ class PetForm extends Component
             'petPrimaryColorId' => __('Primary Color'),
             'petSecondaryColorId' => __('Secondary Color'),
             'petFurTypeId' => __('Fur Type'),
+            'petSizeId' => __('Size'),
             'petGender' => __('Gender'),
             'petBirthDate' => __('Birth Date'),
             'petDeathDate' => __('Death Date'),
@@ -315,6 +347,7 @@ class PetForm extends Component
             'primary_color_id' => $validated['petPrimaryColorId'],
             'secondary_color_id' => $validated['petSecondaryColorId'],
             'fur_type_id' => $validated['petFurTypeId'],
+            'size_id' => $validated['petSizeId'],
             'name' => $validated['petName'],
             'chip' => $validated['petChip'] !== '' ? $validated['petChip'] : null,
             'gender' => $validated['petGender'],

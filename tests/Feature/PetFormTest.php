@@ -8,6 +8,7 @@ use App\Models\Pet;
 use App\Models\PetImage;
 use App\Models\Shelter;
 use App\Models\Sickness;
+use App\Models\Size;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
@@ -66,6 +67,7 @@ test('the create form starts with every optional field empty', function () {
         ->assertSet('petPrimaryColorId', null)
         ->assertSet('petSecondaryColorId', null)
         ->assertSet('petFurTypeId', null)
+        ->assertSet('petSizeId', null)
         ->assertSet('petCageId', null)
         ->assertSet('petCheckinDate', '')
         ->assertSet('petBirthDate', '')
@@ -97,6 +99,42 @@ test('resets the selected breed when the species changes', function () {
         ->set('petBreedId', $breed->id)
         ->set('petSpeciesId', $species->id)
         ->assertSet('petBreedId', null);
+});
+
+test('size dropdown reflects the selected species right after opening the create form', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    Size::factory()->for($species)->create(['name' => 'Grande']);
+
+    Livewire::test(PetForm::class)
+        ->set('petSpeciesId', $species->id)
+        ->assertSee('Grande');
+});
+
+test('hides the size field when the selected species has no sizes registered', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petSpeciesId', $species->id)
+        ->assertDontSee(__('No Size Assigned'));
+});
+
+test('resets the selected size when the species changes', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $size = Size::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petSizeId', $size->id)
+        ->set('petSpeciesId', $species->id)
+        ->assertSet('petSizeId', null);
 });
 
 test('sickness toggles only list sicknesses linked to the selected species', function () {
@@ -393,6 +431,46 @@ test('rejects a breed that does not belong to the selected species', function ()
         ->assertHasErrors(['petBreedId' => 'exists']);
 });
 
+test('creates a pet with the selected size', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $size = Size::factory()->for($species)->create(['name' => 'Grande']);
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petSizeId', $size->id)
+        ->set('petGender', 'male')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->first();
+    expect($pet->size_id)->toBe($size->id);
+});
+
+test('rejects a size that does not belong to the selected species', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $otherSpecies = Species::factory()->create();
+    $mismatchedSize = Size::factory()->for($otherSpecies)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petSizeId', $mismatchedSize->id)
+        ->set('petGender', 'male')
+        ->call('savePet')
+        ->assertHasErrors(['petSizeId' => 'exists']);
+});
+
 test('cannot assign a pet to a cage belonging to another shelter', function () {
     $otherShelter = Shelter::factory()->create();
     $otherFacility = Facility::factory()->for($otherShelter)->create();
@@ -579,6 +657,7 @@ test('populates the form with the pet\'s current data when editing', function ()
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
+    $size = Size::factory()->for($species)->create();
     $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create([
         'name' => 'Rex',
         'gender' => 'male',
@@ -590,12 +669,14 @@ test('populates the form with the pet\'s current data when editing', function ()
         'birth_date' => '2018-05-01',
         'date_of_death' => '2024-03-15',
         'checkin_date' => '2023-01-10',
+        'size_id' => $size->id,
     ]);
 
     Livewire::test(PetForm::class, ['pet' => $pet])
         ->assertSet('petName', 'Rex')
         ->assertSet('petSpeciesId', $species->id)
         ->assertSet('petBreedId', $breed->id)
+        ->assertSet('petSizeId', $size->id)
         ->assertSet('petGender', 'male')
         ->assertSet('petChip', '985121000123456')
         ->assertSet('petStatus', 'quarantine')

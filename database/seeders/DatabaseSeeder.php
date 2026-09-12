@@ -53,6 +53,14 @@ class DatabaseSeeder extends Seeder
             DB::table('fur_types')->insert(['name' => $fur, 'created_at' => now(), 'updated_at' => now()]);
         }
 
+        // Common Dog Sizes
+        DB::table('sizes')->insert([
+            ['species_id' => $dogId, 'name' => 'Pequeno', 'created_at' => now(), 'updated_at' => now()],
+            ['species_id' => $dogId, 'name' => 'Médio', 'created_at' => now(), 'updated_at' => now()],
+            ['species_id' => $dogId, 'name' => 'Grande', 'created_at' => now(), 'updated_at' => now()],
+            ['species_id' => $dogId, 'name' => 'Gigante', 'created_at' => now(), 'updated_at' => now()],
+        ]);
+
         // 5. SEED VACCINES (Vacinas) & LINK TO SPECIES
         $vacRaiva = DB::table('vaccines')->insertGetId(['name' => 'Antirrábica (Raiva)', 'created_at' => now(), 'updated_at' => now()]);
         $vacPolivalenteCao = DB::table('vaccines')->insertGetId(['name' => 'Polivalente Canina (DHPPi/L)', 'created_at' => now(), 'updated_at' => now()]);

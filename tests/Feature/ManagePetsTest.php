@@ -6,6 +6,7 @@ use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
+use App\Models\Size;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
@@ -182,6 +183,18 @@ test('shows the accommodation as facility, then wing, then cage code', function 
 
     Livewire::test(ManagePets::class)
         ->assertSeeInOrder(['Rex', 'North Campus', 'Dog Wing', 'D12']);
+});
+
+test('shows the size after the breed name in the characteristics column', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    $size = Size::factory()->for($species)->create(['name' => 'Grande']);
+    $pet = Pet::factory()->for($shelter)->for($species)->create(['name' => 'Rex', 'size_id' => $size->id]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertSeeInOrder(['Rex', $pet->breed->name, 'Grande']);
 });
 
 test('paginates pets 20 per page', function () {

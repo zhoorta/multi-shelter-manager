@@ -138,6 +138,15 @@
                     <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
                 @endforeach
             </flux:select>
+
+            @if ($this->sizes->isNotEmpty())
+                <flux:select wire:model="petSizeId" :label="__('Size')">
+                    <flux:select.option value="">{{ __('No Size Assigned') }}</flux:select.option>
+                    @foreach ($this->sizes as $item)
+                        <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+            @endif
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">

@@ -63,6 +63,9 @@
                         <flux:sidebar.item icon="rectangle-stack" :href="route('admin.breeds.index')" :current="request()->routeIs('admin.breeds.index')" wire:navigate>
                             {{ __('Breeds') }}
                         </flux:sidebar.item>
+                        <flux:sidebar.item icon="arrows-pointing-out" :href="route('admin.sizes.index')" :current="request()->routeIs('admin.sizes.index')" wire:navigate>
+                            {{ __('Sizes') }}
+                        </flux:sidebar.item>
                         <flux:sidebar.item icon="swatch" :href="route('admin.fur-types.index')" :current="request()->routeIs('admin.fur-types.index')" wire:navigate>
                             {{ __('Fur Types') }}
                         </flux:sidebar.item>

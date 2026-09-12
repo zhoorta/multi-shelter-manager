@@ -13,6 +13,7 @@
     "Add Cage": "Add Cage",
     "Species": "Species",
     "Breeds": "Breeds",
+    "Sizes": "Sizes",
     "Colors": "Colors",
     "Fur Types": "Fur Types",
     "Vaccines": "Vaccines",
@@ -33,6 +34,7 @@
     "No Facility Assigned": "No Facility Assigned",
     "No Color Assigned": "No Color Assigned",
     "No Fur Type Assigned": "No Fur Type Assigned",
+    "No Size Assigned": "No Size Assigned",
     "No Recent Intakes": "No Recent Intakes",
 
     "Name": "Name",
@@ -85,6 +87,7 @@
 
     "No species registered": "No species registered.",
     "No breeds registered": "No breeds registered.",
+    "No sizes registered": "No sizes registered.",
     "No facilities registered": "No facilities registered.",
     "No wings registered": "No wings registered.",
     "No cages registered for this wing": "No cages registered for this wing.",
@@ -99,6 +102,7 @@
     "Primary Color": "Primary Color",
     "Secondary Color": "Secondary Color",
     "Fur Type": "Fur Type",
+    "Size": "Size",
     "Identification": "Identification",
     "Characteristics": "Characteristics",
     "Accommodation": "Accommodation",

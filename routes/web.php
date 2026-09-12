@@ -6,6 +6,7 @@ use App\Livewire\Admin\ManageBreeds;
 use App\Livewire\Admin\ManageFurTypes;
 use App\Livewire\Admin\ManageShelters;
 use App\Livewire\Admin\ManageSicknesses;
+use App\Livewire\Admin\ManageSizes;
 use App\Livewire\Admin\ManageSpecies;
 use App\Livewire\Admin\ManageUsers;
 use App\Livewire\Admin\ManageVaccines;
@@ -58,6 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('admin/shelters/{shelter}/edit', ShelterForm::class)->name('admin.shelters.edit');
     Route::livewire('admin/species', ManageSpecies::class)->name('admin.species.index');
     Route::livewire('admin/breeds', ManageBreeds::class)->name('admin.breeds.index');
+    Route::livewire('admin/sizes', ManageSizes::class)->name('admin.sizes.index');
     Route::livewire('admin/fur-types', ManageFurTypes::class)->name('admin.fur-types.index');
     Route::livewire('admin/vaccines', ManageVaccines::class)->name('admin.vaccines.index');
     Route::livewire('admin/sicknesses', ManageSicknesses::class)->name('admin.sicknesses.index');

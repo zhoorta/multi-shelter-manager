@@ -151,6 +151,11 @@
 
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Fur Type') }}:</flux:text>
             <flux:text>{{ $pet->furType?->name ?? '—' }}</flux:text>
+
+            @if ($this->speciesHasSizes)
+                <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Size') }}:</flux:text>
+                <flux:text>{{ $pet->size?->name ?? '—' }}</flux:text>
+            @endif
         </div>
 
         <div class="grid grid-cols-[max-content_1fr] items-baseline gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
