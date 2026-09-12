@@ -14,9 +14,10 @@
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:input wire:model="adopterName" :label="__('Owner Name')" />
 
-            <flux:input wire:model="adopterEmail" type="email" :label="__('Email')" />
-
-            <flux:input wire:model="adopterPhone" :label="__('Phone')" />
+            <div class="grid grid-cols-2 gap-4">
+                <flux:input wire:model="adopterEmail" type="email" :label="__('Email')" />
+                <flux:input wire:model="adopterPhone" :label="__('Phone')" />
+            </div>
 
             <flux:input wire:model="adopterAddress" :label="__('Address')" />
 

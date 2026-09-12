@@ -12,19 +12,19 @@
 
     <form wire:submit="saveSponsorship" autocomplete="off" class="flex flex-col gap-8">
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:input wire:model="sponsorName" :label="__('Name')" />
+            <flux:input wire:model="sponsorName" :label="__('Sponsor Name')" />
 
-            <flux:input wire:model="sponsorEmail" type="email" :label="__('Email')" />
+            <div class="grid grid-cols-2 gap-4">
+                <flux:input wire:model="sponsorEmail" type="email" :label="__('Email')" />
+                <flux:input wire:model="sponsorPhone" :label="__('Phone')" />
+            </div>
 
-            <flux:input wire:model="sponsorPhone" :label="__('Phone')" />
-        </div>
-
-        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:input wire:model="sponsorAddress" :label="__('Address')" />
 
-            <flux:input wire:model="sponsorPostalCode" :label="__('Postal Code')" />
-
-            <flux:input wire:model="sponsorCity" :label="__('City')" />
+            <div class="grid grid-cols-3 gap-4">
+                <flux:input wire:model="sponsorPostalCode" :label="__('Postal Code')" />
+                <flux:input wire:model="sponsorCity" :label="__('City')" field:class="col-span-2" />
+            </div>
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
