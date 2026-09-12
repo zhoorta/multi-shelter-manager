@@ -2,11 +2,13 @@
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Facilities') }}</flux:heading>
 
-        <flux:modal.trigger name="facility-form">
-            <flux:button variant="primary" icon="plus" wire:click="createFacility">
-                {{ __('Create') }}
-            </flux:button>
-        </flux:modal.trigger>
+        @if (auth()->user()->role === 'manager')
+            <flux:modal.trigger name="facility-form">
+                <flux:button variant="primary" icon="plus" wire:click="createFacility">
+                    {{ __('Create') }}
+                </flux:button>
+            </flux:modal.trigger>
+        @endif
     </div>
 
     @if ($this->facilities->isEmpty())
@@ -32,60 +34,64 @@
                             @endif
                         </div>
 
-                        <div class="flex shrink-0 items-center gap-2">
-                            <flux:modal.trigger name="facility-form">
-                                <flux:button
-                                    size="sm"
-                                    variant="subtle"
-                                    icon="pencil"
-                                    wire:click="editFacility({{ $facility->id }})"
-                                    :aria-label="__('Edit')"
-                                />
-                            </flux:modal.trigger>
+                        @if (auth()->user()->role === 'manager')
+                            <div class="flex shrink-0 items-center gap-2">
+                                <flux:modal.trigger name="facility-form">
+                                    <flux:button
+                                        size="sm"
+                                        variant="subtle"
+                                        icon="pencil"
+                                        wire:click="editFacility({{ $facility->id }})"
+                                        :aria-label="__('Edit')"
+                                    />
+                                </flux:modal.trigger>
 
-                            <flux:modal.trigger name="confirm-facility-deletion-{{ $facility->id }}">
-                                <flux:button
-                                    size="sm"
-                                    variant="subtle"
-                                    icon="trash"
-                                    :aria-label="__('Delete')"
-                                />
-                            </flux:modal.trigger>
+                                <flux:modal.trigger name="confirm-facility-deletion-{{ $facility->id }}">
+                                    <flux:button
+                                        size="sm"
+                                        variant="subtle"
+                                        icon="trash"
+                                        :aria-label="__('Delete')"
+                                    />
+                                </flux:modal.trigger>
 
-                            <flux:modal name="confirm-facility-deletion-{{ $facility->id }}" class="max-w-lg">
-                                <div class="space-y-6">
-                                    <div>
-                                        <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
-                                        <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                <flux:modal name="confirm-facility-deletion-{{ $facility->id }}" class="max-w-lg">
+                                    <div class="space-y-6">
+                                        <div>
+                                            <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                            <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                        </div>
+
+                                        <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                            <flux:modal.close>
+                                                <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                            </flux:modal.close>
+
+                                            <flux:button variant="danger" wire:click="deleteFacility({{ $facility->id }})">
+                                                {{ __('Delete') }}
+                                            </flux:button>
+                                        </div>
                                     </div>
-
-                                    <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                                        <flux:modal.close>
-                                            <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                                        </flux:modal.close>
-
-                                        <flux:button variant="danger" wire:click="deleteFacility({{ $facility->id }})">
-                                            {{ __('Delete') }}
-                                        </flux:button>
-                                    </div>
-                                </div>
-                            </flux:modal>
-                        </div>
+                                </flux:modal>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="flex items-center justify-between">
                         <flux:subheading>{{ __('Wings') }}</flux:subheading>
 
-                        <flux:modal.trigger name="wing-form">
-                            <flux:button
-                                size="sm"
-                                variant="subtle"
-                                icon="plus"
-                                wire:click="createWing({{ $facility->id }})"
-                            >
-                                {{ __('Add Wing') }}
-                            </flux:button>
-                        </flux:modal.trigger>
+                        @if (auth()->user()->role === 'manager')
+                            <flux:modal.trigger name="wing-form">
+                                <flux:button
+                                    size="sm"
+                                    variant="subtle"
+                                    icon="plus"
+                                    wire:click="createWing({{ $facility->id }})"
+                                >
+                                    {{ __('Add Wing') }}
+                                </flux:button>
+                            </flux:modal.trigger>
+                        @endif
                     </div>
 
                     @if ($facility->wings->isEmpty())
@@ -105,60 +111,64 @@
                                             @endif
                                         </div>
 
-                                        <div class="flex shrink-0 items-center gap-2">
-                                            <flux:modal.trigger name="wing-form">
-                                                <flux:button
-                                                    size="sm"
-                                                    variant="subtle"
-                                                    icon="pencil"
-                                                    wire:click="editWing({{ $wing->id }})"
-                                                    :aria-label="__('Edit')"
-                                                />
-                                            </flux:modal.trigger>
+                                        @if (auth()->user()->role === 'manager')
+                                            <div class="flex shrink-0 items-center gap-2">
+                                                <flux:modal.trigger name="wing-form">
+                                                    <flux:button
+                                                        size="sm"
+                                                        variant="subtle"
+                                                        icon="pencil"
+                                                        wire:click="editWing({{ $wing->id }})"
+                                                        :aria-label="__('Edit')"
+                                                    />
+                                                </flux:modal.trigger>
 
-                                            <flux:modal.trigger name="confirm-wing-deletion-{{ $wing->id }}">
-                                                <flux:button
-                                                    size="sm"
-                                                    variant="subtle"
-                                                    icon="trash"
-                                                    :aria-label="__('Delete')"
-                                                />
-                                            </flux:modal.trigger>
+                                                <flux:modal.trigger name="confirm-wing-deletion-{{ $wing->id }}">
+                                                    <flux:button
+                                                        size="sm"
+                                                        variant="subtle"
+                                                        icon="trash"
+                                                        :aria-label="__('Delete')"
+                                                    />
+                                                </flux:modal.trigger>
 
-                                            <flux:modal name="confirm-wing-deletion-{{ $wing->id }}" class="max-w-lg">
-                                                <div class="space-y-6">
-                                                    <div>
-                                                        <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
-                                                        <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                <flux:modal name="confirm-wing-deletion-{{ $wing->id }}" class="max-w-lg">
+                                                    <div class="space-y-6">
+                                                        <div>
+                                                            <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                            <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                        </div>
+
+                                                        <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                                            <flux:modal.close>
+                                                                <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                                            </flux:modal.close>
+
+                                                            <flux:button variant="danger" wire:click="deleteWing({{ $wing->id }})">
+                                                                {{ __('Delete') }}
+                                                            </flux:button>
+                                                        </div>
                                                     </div>
-
-                                                    <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                                                        <flux:modal.close>
-                                                            <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                                                        </flux:modal.close>
-
-                                                        <flux:button variant="danger" wire:click="deleteWing({{ $wing->id }})">
-                                                            {{ __('Delete') }}
-                                                        </flux:button>
-                                                    </div>
-                                                </div>
-                                            </flux:modal>
-                                        </div>
+                                                </flux:modal>
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <div class="flex items-center justify-between">
                                         <flux:subheading>{{ __('Cages') }}</flux:subheading>
 
-                                        <flux:modal.trigger name="cage-form">
-                                            <flux:button
-                                                size="sm"
-                                                variant="subtle"
-                                                icon="plus"
-                                                wire:click="createCage({{ $wing->id }})"
-                                            >
-                                                {{ __('Add Cage') }}
-                                            </flux:button>
-                                        </flux:modal.trigger>
+                                        @if (auth()->user()->role === 'manager')
+                                            <flux:modal.trigger name="cage-form">
+                                                <flux:button
+                                                    size="sm"
+                                                    variant="subtle"
+                                                    icon="plus"
+                                                    wire:click="createCage({{ $wing->id }})"
+                                                >
+                                                    {{ __('Add Cage') }}
+                                                </flux:button>
+                                            </flux:modal.trigger>
+                                        @endif
                                     </div>
 
                                     <ul class="divide-y divide-neutral-200 overflow-hidden rounded-lg border border-neutral-200 dark:divide-neutral-700 dark:border-neutral-700">
@@ -169,43 +179,45 @@
                                                 <div class="flex items-center gap-2">
                                                     <flux:badge size="sm">{{ __('Capacity') }}: {{ $cage->capacity }}</flux:badge>
 
-                                                    <flux:modal.trigger name="cage-form">
-                                                        <flux:button
-                                                            size="sm"
-                                                            variant="subtle"
-                                                            icon="pencil"
-                                                            wire:click="editCage({{ $cage->id }})"
-                                                            :aria-label="__('Edit')"
-                                                        />
-                                                    </flux:modal.trigger>
+                                                    @if (auth()->user()->role === 'manager')
+                                                        <flux:modal.trigger name="cage-form">
+                                                            <flux:button
+                                                                size="sm"
+                                                                variant="subtle"
+                                                                icon="pencil"
+                                                                wire:click="editCage({{ $cage->id }})"
+                                                                :aria-label="__('Edit')"
+                                                            />
+                                                        </flux:modal.trigger>
 
-                                                    <flux:modal.trigger name="confirm-cage-deletion-{{ $cage->id }}">
-                                                        <flux:button
-                                                            size="sm"
-                                                            variant="subtle"
-                                                            icon="trash"
-                                                            :aria-label="__('Delete')"
-                                                        />
-                                                    </flux:modal.trigger>
+                                                        <flux:modal.trigger name="confirm-cage-deletion-{{ $cage->id }}">
+                                                            <flux:button
+                                                                size="sm"
+                                                                variant="subtle"
+                                                                icon="trash"
+                                                                :aria-label="__('Delete')"
+                                                            />
+                                                        </flux:modal.trigger>
 
-                                                    <flux:modal name="confirm-cage-deletion-{{ $cage->id }}" class="max-w-lg">
-                                                        <div class="space-y-6">
-                                                            <div>
-                                                                <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
-                                                                <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                        <flux:modal name="confirm-cage-deletion-{{ $cage->id }}" class="max-w-lg">
+                                                            <div class="space-y-6">
+                                                                <div>
+                                                                    <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                                    <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                                </div>
+
+                                                                <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                                                    <flux:modal.close>
+                                                                        <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                                                    </flux:modal.close>
+
+                                                                    <flux:button variant="danger" wire:click="deleteCage({{ $cage->id }})">
+                                                                        {{ __('Delete') }}
+                                                                    </flux:button>
+                                                                </div>
                                                             </div>
-
-                                                            <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                                                                <flux:modal.close>
-                                                                    <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                                                                </flux:modal.close>
-
-                                                                <flux:button variant="danger" wire:click="deleteCage({{ $cage->id }})">
-                                                                    {{ __('Delete') }}
-                                                                </flux:button>
-                                                            </div>
-                                                        </div>
-                                                    </flux:modal>
+                                                        </flux:modal>
+                                                    @endif
                                                 </div>
                                             </li>
                                         @empty
@@ -223,6 +235,7 @@
         </div>
     @endif
 
+    @if (auth()->user()->role === 'manager')
     <flux:modal name="facility-form" class="max-w-lg">
         <form wire:submit="saveFacility" class="flex flex-col gap-6">
             <flux:heading size="lg">
@@ -307,4 +320,5 @@
             </div>
         </form>
     </flux:modal>
+    @endif
 </div>

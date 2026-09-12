@@ -53,6 +53,11 @@ class ManageSpaces extends Component
         abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
     }
 
+    protected function isManager(): bool
+    {
+        return Auth::user()->role === 'manager';
+    }
+
     /**
      * @return Collection<int, Facility>
      */
@@ -70,11 +75,15 @@ class ManageSpaces extends Component
 
     public function createFacility(): void
     {
+        abort_unless($this->isManager(), 403);
+
         $this->resetFacilityForm();
     }
 
     public function editFacility(int $facilityId): void
     {
+        abort_unless($this->isManager(), 403);
+
         $facility = Facility::query()->findOrFail($facilityId);
 
         $this->editingFacilityId = $facility->id;
@@ -87,6 +96,8 @@ class ManageSpaces extends Component
 
     public function saveFacility(): void
     {
+        abort_unless($this->isManager(), 403);
+
         $validated = $this->validate([
             'facilityName' => [
                 'required',
@@ -134,6 +145,8 @@ class ManageSpaces extends Component
 
     public function deleteFacility(int $facilityId): void
     {
+        abort_unless($this->isManager(), 403);
+
         $facility = Facility::query()->findOrFail($facilityId);
 
         // Wing (and, transitively, Cage) has no shelter scope of its own and
@@ -158,6 +171,8 @@ class ManageSpaces extends Component
 
     public function createWing(int $facilityId): void
     {
+        abort_unless($this->isManager(), 403);
+
         // findOrFail enforces MultiShelterTrait's shelter scope, so a tampered
         // facility id from another shelter 404s before the modal ever opens.
         Facility::query()->findOrFail($facilityId);
@@ -168,6 +183,8 @@ class ManageSpaces extends Component
 
     public function editWing(int $wingId): void
     {
+        abort_unless($this->isManager(), 403);
+
         $wing = $this->scopedWingQuery()->findOrFail($wingId);
 
         $this->editingWingId = $wing->id;
@@ -178,6 +195,8 @@ class ManageSpaces extends Component
 
     public function saveWing(): void
     {
+        abort_unless($this->isManager(), 403);
+
         $validated = $this->validate([
             'wingFacilityId' => ['required', 'integer', 'exists:facilities,id'],
             'wingName' => [
@@ -227,6 +246,8 @@ class ManageSpaces extends Component
 
     public function deleteWing(int $wingId): void
     {
+        abort_unless($this->isManager(), 403);
+
         $wing = $this->scopedWingQuery()->findOrFail($wingId);
 
         // Cage has no shelter scope of its own and the DB's cascadeOnDelete
@@ -247,6 +268,8 @@ class ManageSpaces extends Component
 
     public function createCage(int $wingId): void
     {
+        abort_unless($this->isManager(), 403);
+
         // findOrFail enforces tenancy transitively through the wing's
         // facility, so a tampered wing id from another shelter 404s before
         // the modal ever opens.
@@ -258,6 +281,8 @@ class ManageSpaces extends Component
 
     public function editCage(int $cageId): void
     {
+        abort_unless($this->isManager(), 403);
+
         $cage = $this->scopedCageQuery()->findOrFail($cageId);
 
         $this->editingCageId = $cage->id;
@@ -268,6 +293,8 @@ class ManageSpaces extends Component
 
     public function saveCage(): void
     {
+        abort_unless($this->isManager(), 403);
+
         $validated = $this->validate([
             'cageWingId' => ['required', 'integer', 'exists:wings,id'],
             'cageCode' => ['required', 'string', 'max:255'],
@@ -308,6 +335,8 @@ class ManageSpaces extends Component
 
     public function deleteCage(int $cageId): void
     {
+        abort_unless($this->isManager(), 403);
+
         $this->scopedCageQuery()->findOrFail($cageId)->delete();
 
         if ($this->editingCageId === $cageId) {

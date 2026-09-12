@@ -8,6 +8,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Admin/ShelterForm.php,app/Livewire/Admin/ManageShelters.php,app/Models/Shelter.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/app.md |
 | app/Livewire/Pets/SponsorshipShow.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/Concerns/ManagesSponsorshipPayments.php | .ai/rules/concerns.md |
 | app/Livewire/Facilities/** | .ai/rules/facilities.md |
+| app/Livewire/Admin/ManageUsers.php,resources/views/livewire/admin/manage-users.blade.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/layouts-app.md |
 | app/Models/Sponsorship.php,app/Models/SponsorshipPayment.php,app/Livewire/Pets/SponsorshipForm.php | .ai/rules/livewire-pets.md |
 | app/Livewire/** | .ai/rules/livewire.md |
 | app/Models/*.php, app/Models/Pet.php, app/Models/FurType.php | .ai/rules/models.md |

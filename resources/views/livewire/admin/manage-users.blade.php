@@ -10,12 +10,14 @@
     </div>
 
     <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-        <flux:select wire:model.live="filterShelterId" :label="__('Shelter')" class="max-w-xs">
-            <flux:select.option value="">{{ __('All') }}</flux:select.option>
-            @foreach ($this->shelters as $shelter)
-                <flux:select.option value="{{ $shelter->id }}">{{ $shelter->name }}</flux:select.option>
-            @endforeach
-        </flux:select>
+        @if (auth()->user()->role === 'admin')
+            <flux:select wire:model.live="filterShelterId" :label="__('Shelter')" class="max-w-xs">
+                <flux:select.option value="">{{ __('All') }}</flux:select.option>
+                @foreach ($this->shelters as $shelter)
+                    <flux:select.option value="{{ $shelter->id }}">{{ $shelter->name }}</flux:select.option>
+                @endforeach
+            </flux:select>
+        @endif
 
         <div class="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="overflow-x-auto">
@@ -25,7 +27,9 @@
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Email') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Role') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Shelter') }}</th>
+                            @if (auth()->user()->role === 'admin')
+                                <th scope="col" class="px-6 py-3 font-medium">{{ __('Shelter') }}</th>
+                            @endif
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Last Login') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
@@ -38,7 +42,9 @@
                                 <td class="px-6 py-3">
                                     <flux:badge size="sm">{{ __(\Illuminate\Support\Str::title($item->role)) }}</flux:badge>
                                 </td>
-                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->shelter?->name ?? '—' }}</td>
+                                @if (auth()->user()->role === 'admin')
+                                    <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->shelter?->name ?? '—' }}</td>
+                                @endif
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->last_login?->format('d/m/Y H:i') ?? '—' }}</td>
                                 <td class="px-6 py-3">
                                     <div class="flex items-center gap-2">
@@ -86,7 +92,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="{{ auth()->user()->role === 'admin' ? 6 : 5 }}" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No users registered') }}
                                 </td>
                             </tr>
@@ -112,19 +118,21 @@
             @endif
 
             <flux:select wire:model="userRole" :label="__('Role')">
-                @foreach (['staff', 'manager', 'admin'] as $role)
+                @foreach ($this->assignableRoles() as $role)
                     <flux:select.option value="{{ $role }}">{{ __(\Illuminate\Support\Str::title($role)) }}</flux:select.option>
                 @endforeach
             </flux:select>
 
-            <div x-show="$wire.userRole !== 'admin'">
-                <flux:select wire:model="userShelterId" :label="__('Shelter')">
-                    <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
-                    @foreach ($this->shelters as $shelter)
-                        <flux:select.option value="{{ $shelter->id }}">{{ $shelter->name }}</flux:select.option>
-                    @endforeach
-                </flux:select>
-            </div>
+            @if (auth()->user()->role === 'admin')
+                <div x-show="$wire.userRole !== 'admin'">
+                    <flux:select wire:model="userShelterId" :label="__('Shelter')">
+                        <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
+                        @foreach ($this->shelters as $shelter)
+                            <flux:select.option value="{{ $shelter->id }}">{{ $shelter->name }}</flux:select.option>
+                        @endforeach
+                    </flux:select>
+                </div>
+            @endif
 
             <div class="flex justify-end gap-2">
                 <flux:modal.close>

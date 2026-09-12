@@ -36,7 +36,20 @@ class ManageUsers extends Component
 
     public function mount(): void
     {
-        abort_unless(Auth::user()->role === 'admin', 403);
+        abort_unless(in_array(Auth::user()->role, ['admin', 'manager'], true), 403);
+    }
+
+    protected function isManager(): bool
+    {
+        return Auth::user()->role === 'manager';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function assignableRoles(): array
+    {
+        return $this->isManager() ? ['staff', 'manager'] : ['staff', 'manager', 'admin'];
     }
 
     /**
@@ -91,6 +104,10 @@ class ManageUsers extends Component
             $this->userShelterId = null;
         }
 
+        if ($this->isManager()) {
+            $this->userShelterId = Auth::user()->shelter_id;
+        }
+
         $validated = $this->validate([
             'userName' => ['required', 'string', 'max:255'],
             'userEmail' => [
@@ -100,7 +117,7 @@ class ManageUsers extends Component
                 'max:255',
                 Rule::unique('users', 'email')->ignore($this->editingUserId),
             ],
-            'userRole' => ['required', Rule::in(['staff', 'manager', 'admin'])],
+            'userRole' => ['required', Rule::in($this->assignableRoles())],
             'userShelterId' => [
                 Rule::requiredIf(fn () => $this->userRole !== 'admin'),
                 Rule::prohibitedIf(fn () => $this->userRole === 'admin'),

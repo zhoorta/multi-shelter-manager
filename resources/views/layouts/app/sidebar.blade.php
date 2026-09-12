@@ -45,12 +45,8 @@
                             {{ __('Facilities') }}
                         </flux:sidebar.item>
                     @endif
-                    @if (auth()->user()->role === 'admin')
+                    @if (in_array(auth()->user()->role, ['admin', 'manager'], true))
                         <flux:sidebar.item icon="users" :href="route('admin.users.index')" :current="request()->routeIs('admin.users.index')" wire:navigate>
-                            {{ __('Users') }}
-                        </flux:sidebar.item>
-                    @elseif (auth()->user()->role === 'manager')
-                        <flux:sidebar.item icon="users" href="#">
                             {{ __('Users') }}
                         </flux:sidebar.item>
                     @endif

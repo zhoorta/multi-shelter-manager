@@ -4,6 +4,7 @@ use App\Livewire\Admin\ManageUsers;
 use App\Models\Shelter;
 use App\Models\User;
 use App\Notifications\UserInvitation;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
@@ -13,19 +14,22 @@ test('guests are redirected to the login page', function () {
     $response->assertRedirect(route('login'));
 });
 
-test('staff and managers are forbidden from viewing the page', function () {
+test('staff are forbidden from viewing the page', function () {
     $staff = User::factory()->create(['role' => 'staff']);
     $this->actingAs($staff);
-    $this->get(route('admin.users.index'))->assertForbidden();
-
-    $manager = User::factory()->create(['role' => 'manager']);
-    $this->actingAs($manager);
     $this->get(route('admin.users.index'))->assertForbidden();
 });
 
 test('admins can view the page', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
+
+    $this->get(route('admin.users.index'))->assertOk();
+});
+
+test('managers can view the page', function () {
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => Shelter::factory()]);
+    $this->actingAs($manager);
 
     $this->get(route('admin.users.index'))->assertOk();
 });
@@ -177,4 +181,150 @@ test('admin cannot delete their own account', function () {
         ->call('deleteUser', $admin->id);
 
     expect(User::query()->find($admin->id))->not->toBeNull();
+});
+
+test('manager only sees users from their own shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $this->actingAs($manager);
+
+    $ownStaff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $otherShelter = Shelter::factory()->create();
+    $otherStaff = User::factory()->create(['role' => 'staff', 'shelter_id' => $otherShelter->id]);
+
+    $response = $this->get(route('admin.users.index'));
+
+    $response->assertSee($ownStaff->name)->assertDontSee($otherStaff->name);
+});
+
+test('manager can invite a staff member to their own shelter', function () {
+    Notification::fake();
+
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $this->actingAs($manager);
+
+    Livewire::test(ManageUsers::class)
+        ->set('userName', 'Nova Funcionária')
+        ->set('userEmail', 'nova-manager@example.com')
+        ->set('userRole', 'staff')
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    $invited = User::query()->where('email', 'nova-manager@example.com')->first();
+
+    expect($invited)->not->toBeNull()
+        ->and($invited->role)->toBe('staff')
+        ->and($invited->shelter_id)->toBe($shelter->id);
+
+    Notification::assertSentTo($invited, UserInvitation::class);
+});
+
+test('manager can invite another manager to their own shelter', function () {
+    Notification::fake();
+
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $this->actingAs($manager);
+
+    Livewire::test(ManageUsers::class)
+        ->set('userName', 'Novo Gestor')
+        ->set('userEmail', 'novo-gestor@example.com')
+        ->set('userRole', 'manager')
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    $invited = User::query()->where('email', 'novo-gestor@example.com')->first();
+
+    expect($invited)->not->toBeNull()
+        ->and($invited->role)->toBe('manager')
+        ->and($invited->shelter_id)->toBe($shelter->id);
+});
+
+test('manager cannot invite an admin', function () {
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $this->actingAs($manager);
+
+    Livewire::test(ManageUsers::class)
+        ->set('userName', 'Tentativa Admin')
+        ->set('userEmail', 'tentativa-admin@example.com')
+        ->set('userRole', 'admin')
+        ->call('saveUser')
+        ->assertHasErrors(['userRole']);
+});
+
+test('manager cannot assign an invited user to another shelter', function () {
+    Notification::fake();
+
+    $shelter = Shelter::factory()->create();
+    $otherShelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $this->actingAs($manager);
+
+    Livewire::test(ManageUsers::class)
+        ->set('userName', 'Tentativa Outro Abrigo')
+        ->set('userEmail', 'tentativa-outro@example.com')
+        ->set('userRole', 'staff')
+        ->set('userShelterId', $otherShelter->id)
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    $invited = User::query()->where('email', 'tentativa-outro@example.com')->first();
+
+    expect($invited->shelter_id)->toBe($shelter->id);
+});
+
+test('manager can edit a user from their own shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $this->actingAs($manager);
+
+    Livewire::test(ManageUsers::class)
+        ->call('editUser', $staff->id)
+        ->set('userName', 'Nome Atualizado')
+        ->set('userRole', 'manager')
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    expect($staff->fresh()->name)->toBe('Nome Atualizado')
+        ->and($staff->fresh()->role)->toBe('manager')
+        ->and($staff->fresh()->shelter_id)->toBe($shelter->id);
+});
+
+test('manager cannot edit a user from another shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $otherShelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $otherStaff = User::factory()->create(['role' => 'staff', 'shelter_id' => $otherShelter->id]);
+    $this->actingAs($manager);
+
+    expect(fn () => Livewire::test(ManageUsers::class)->call('editUser', $otherStaff->id))
+        ->toThrow(ModelNotFoundException::class);
+});
+
+test('manager cannot delete a user from another shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $otherShelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $otherStaff = User::factory()->create(['role' => 'staff', 'shelter_id' => $otherShelter->id]);
+    $this->actingAs($manager);
+
+    expect(fn () => Livewire::test(ManageUsers::class)->call('deleteUser', $otherStaff->id))
+        ->toThrow(ModelNotFoundException::class);
+
+    expect($otherStaff->fresh()->trashed())->toBeFalse();
+});
+
+test('manager can delete a user from their own shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $this->actingAs($manager);
+
+    Livewire::test(ManageUsers::class)
+        ->call('deleteUser', $staff->id);
+
+    expect(User::query()->find($staff->id))->toBeNull();
 });
