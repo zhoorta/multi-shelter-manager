@@ -2,6 +2,7 @@
 
 use App\Livewire\Pets\PetShow;
 use App\Models\Adoption;
+use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
@@ -167,6 +168,45 @@ test('hides the size field entirely when the species has no sizes registered', f
     $this->get(route('pets.show', $pet))
         ->assertOk()
         ->assertDontSee(__('Size'));
+});
+
+test('shows "(Pure)" next to the breed when the species has pure breeds enabled and the pet is a pure breed', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['has_pure_breed_field' => true]);
+    $breed = Breed::factory()->for($species)->create(['name' => 'Labrador']);
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['is_pure_breed' => true]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeText('Labrador (Pure)');
+});
+
+test('does not show "(Pure)" when the pet is a pure breed but the species has pure breeds disabled', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['has_pure_breed_field' => false]);
+    $breed = Breed::factory()->for($species)->create(['name' => 'Labrador']);
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['is_pure_breed' => true]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertDontSee(__('Pure'));
+});
+
+test('does not show "(Pure)" when the species has pure breeds enabled but the pet is not a pure breed', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['has_pure_breed_field' => true]);
+    $breed = Breed::factory()->for($species)->create(['name' => 'Labrador']);
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['is_pure_breed' => false]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertDontSee(__('Pure'));
 });
 
 test('shows the birth date and death date', function () {

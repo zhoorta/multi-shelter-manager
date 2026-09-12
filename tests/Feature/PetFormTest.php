@@ -137,6 +137,60 @@ test('resets the selected size when the species changes', function () {
         ->assertSet('petSizeId', null);
 });
 
+test('shows the pure breed toggle when the selected species has has_pure_breed_field enabled', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create(['has_pure_breed_field' => true]);
+
+    Livewire::test(PetForm::class)
+        ->set('petSpeciesId', $species->id)
+        ->assertSee(__('Pure breed'));
+});
+
+test('hides the pure breed toggle when the selected species has has_pure_breed_field disabled', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create(['has_pure_breed_field' => false]);
+
+    Livewire::test(PetForm::class)
+        ->set('petSpeciesId', $species->id)
+        ->assertDontSee(__('Pure breed'));
+});
+
+test('resets the pure breed toggle when the species changes', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create(['has_pure_breed_field' => true]);
+
+    Livewire::test(PetForm::class)
+        ->set('petIsPureBreed', true)
+        ->set('petSpeciesId', $species->id)
+        ->assertSet('petIsPureBreed', false);
+});
+
+test('saves the pure breed flag on the pet', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create(['has_pure_breed_field' => true]);
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petIsPureBreed', true)
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->is_pure_breed)->toBeTrue();
+});
+
 test('sickness toggles only list sicknesses linked to the selected species', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));

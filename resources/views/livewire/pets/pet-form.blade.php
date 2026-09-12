@@ -110,6 +110,10 @@
                 @endforeach
             </flux:select>
 
+            @if ($this->currentSpecies?->has_pure_breed_field)
+                <flux:switch wire:model="petIsPureBreed" :label="__('Pure breed')" align="left" />
+            @endif
+
             <flux:select wire:model="petGender" :label="__('Gender')">
                 <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
                 <flux:select.option value="male">{{ __('Male') }}</flux:select.option>

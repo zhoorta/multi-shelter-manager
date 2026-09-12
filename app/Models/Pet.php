@@ -24,6 +24,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $cage_id
  * @property int $species_id
  * @property int $breed_id
+ * @property bool $is_pure_breed
  * @property int|null $primary_color_id
  * @property int|null $secondary_color_id
  * @property int|null $fur_type_id
@@ -55,7 +56,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  */
 #[Fillable([
-    'shelter_id', 'cage_id', 'species_id', 'breed_id', 'primary_color_id', 'secondary_color_id',
+    'shelter_id', 'cage_id', 'species_id', 'breed_id', 'is_pure_breed', 'primary_color_id', 'secondary_color_id',
     'fur_type_id', 'size_id', 'ref', 'name', 'chip', 'is_neutered', 'gender', 'birth_date', 'status', 'notes',
     'description', 'is_adoptable', 'is_sponsorable', 'publish_to_portal', 'is_featured',
     'checkin_date', 'checkout_date', 'date_of_death', 'age', 'internal_notes',
@@ -73,6 +74,7 @@ class Pet extends Model
     protected function casts(): array
     {
         return [
+            'is_pure_breed' => 'boolean',
             'is_neutered' => 'boolean',
             'birth_date' => 'date',
             'is_adoptable' => 'boolean',

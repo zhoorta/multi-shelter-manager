@@ -18,6 +18,7 @@
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Plural Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Breeds') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Pure breeds') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
@@ -28,6 +29,11 @@
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->name_plural }}</td>
                                 <td class="px-6 py-3">
                                     <flux:badge size="sm">{{ $item->breeds_count }}</flux:badge>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <flux:badge size="sm" :color="$item->has_pure_breed_field ? 'lime' : 'zinc'">
+                                        {{ $item->has_pure_breed_field ? __('Yes') : __('No') }}
+                                    </flux:badge>
                                 </td>
                                 <td class="px-6 py-3">
                                     <div class="flex items-center gap-2">
@@ -73,7 +79,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="5" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No species registered') }}
                                 </td>
                             </tr>
@@ -93,6 +99,8 @@
             <flux:input wire:model="speciesName" :label="__('Name')" />
 
             <flux:input wire:model="speciesNamePlural" :label="__('Plural Name')" />
+
+            <flux:switch wire:model="speciesHasPureBreedField" :label="__('Pure breeds')" align="left" />
 
             <div class="flex justify-end gap-2">
                 <flux:modal.close>

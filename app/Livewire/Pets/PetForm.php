@@ -47,6 +47,8 @@ class PetForm extends Component
 
     public ?int $petBreedId = null;
 
+    public bool $petIsPureBreed = false;
+
     public ?int $petPrimaryColorId = null;
 
     public ?int $petSecondaryColorId = null;
@@ -103,6 +105,7 @@ class PetForm extends Component
         $this->petName = $pet->name;
         $this->petSpeciesId = $pet->species_id;
         $this->petBreedId = $pet->breed_id;
+        $this->petIsPureBreed = (bool) $pet->is_pure_breed;
         $this->petPrimaryColorId = $pet->primary_color_id;
         $this->petSecondaryColorId = $pet->secondary_color_id;
         $this->petFurTypeId = $pet->fur_type_id;
@@ -254,10 +257,11 @@ class PetForm extends Component
     public function updatedPetSpeciesId(): void
     {
         $this->petBreedId = null;
+        $this->petIsPureBreed = false;
         $this->petSizeId = null;
         $this->petSicknessIds = [];
 
-        unset($this->breeds, $this->sizes, $this->sicknesses);
+        unset($this->breeds, $this->sizes, $this->sicknesses, $this->currentSpecies);
     }
 
     public function toggleSickness(int $sicknessId): void
@@ -281,6 +285,7 @@ class PetForm extends Component
                 'integer',
                 Rule::exists('breeds', 'id')->where('species_id', $this->petSpeciesId),
             ],
+            'petIsPureBreed' => ['boolean'],
             'petPrimaryColorId' => ['nullable', 'integer', 'exists:colors,id'],
             'petSecondaryColorId' => ['nullable', 'integer', 'exists:colors,id'],
             'petFurTypeId' => ['nullable', 'integer', 'exists:fur_types,id'],
@@ -311,6 +316,7 @@ class PetForm extends Component
             'petName' => __('Name'),
             'petSpeciesId' => __('Species'),
             'petBreedId' => __('Breed'),
+            'petIsPureBreed' => __('Pure breed'),
             'petPrimaryColorId' => __('Primary Color'),
             'petSecondaryColorId' => __('Secondary Color'),
             'petFurTypeId' => __('Fur Type'),
@@ -344,6 +350,7 @@ class PetForm extends Component
             'cage_id' => $cage?->id,
             'species_id' => $validated['petSpeciesId'],
             'breed_id' => $validated['petBreedId'],
+            'is_pure_breed' => $validated['petIsPureBreed'],
             'primary_color_id' => $validated['petPrimaryColorId'],
             'secondary_color_id' => $validated['petSecondaryColorId'],
             'fur_type_id' => $validated['petFurTypeId'],

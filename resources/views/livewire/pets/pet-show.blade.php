@@ -136,7 +136,12 @@
             <flux:text>{{ $pet->species->name }}</flux:text>
 
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Breed') }}:</flux:text>
-            <flux:text>{{ $pet->breed->name }}</flux:text>
+            <flux:text>
+                {{ $pet->breed->name }}
+                @if ($pet->species->has_pure_breed_field && $pet->is_pure_breed)
+                    ({{ __('Pure') }})
+                @endif
+            </flux:text>
 
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Gender') }}:</flux:text>
             <flux:text>{{ __(ucfirst($pet->gender)) }}</flux:text>

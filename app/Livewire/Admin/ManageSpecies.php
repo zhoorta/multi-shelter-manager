@@ -23,6 +23,8 @@ class ManageSpecies extends Component
 
     public string $speciesNamePlural = '';
 
+    public bool $speciesHasPureBreedField = false;
+
     public function mount(): void
     {
         abort_unless(Auth::user()->role === 'admin', 403);
@@ -52,6 +54,7 @@ class ManageSpecies extends Component
         $this->editingSpeciesId = $species->id;
         $this->speciesName = $species->name;
         $this->speciesNamePlural = $species->name_plural;
+        $this->speciesHasPureBreedField = $species->has_pure_breed_field;
     }
 
     public function saveSpecies(): void
@@ -69,6 +72,7 @@ class ManageSpecies extends Component
                 'max:255',
                 Rule::unique('species', 'name_plural')->ignore($this->editingSpeciesId),
             ],
+            'speciesHasPureBreedField' => ['boolean'],
         ], [], [
             'speciesName' => __('Name'),
             'speciesNamePlural' => __('Plural Name'),
@@ -78,6 +82,7 @@ class ManageSpecies extends Component
             Species::query()->findOrFail($this->editingSpeciesId)->update([
                 'name' => $validated['speciesName'],
                 'name_plural' => $validated['speciesNamePlural'],
+                'has_pure_breed_field' => $validated['speciesHasPureBreedField'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record updated successfully'));
@@ -85,6 +90,7 @@ class ManageSpecies extends Component
             Species::query()->create([
                 'name' => $validated['speciesName'],
                 'name_plural' => $validated['speciesNamePlural'],
+                'has_pure_breed_field' => $validated['speciesHasPureBreedField'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record created successfully'));
@@ -111,7 +117,7 @@ class ManageSpecies extends Component
 
     protected function resetSpeciesForm(): void
     {
-        $this->reset(['editingSpeciesId', 'speciesName', 'speciesNamePlural']);
+        $this->reset(['editingSpeciesId', 'speciesName', 'speciesNamePlural', 'speciesHasPureBreedField']);
         $this->resetErrorBag();
     }
 

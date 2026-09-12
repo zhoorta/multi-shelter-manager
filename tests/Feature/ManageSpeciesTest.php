@@ -57,27 +57,32 @@ test('creates a new species and closes the modal', function () {
     Livewire::test(ManageSpecies::class)
         ->set('speciesName', 'Cat')
         ->set('speciesNamePlural', 'Cats')
+        ->set('speciesHasPureBreedField', true)
         ->call('saveSpecies')
         ->assertHasNoErrors()
         ->assertDispatched('modal-close', name: 'species-form');
 
-    expect(Species::query()->where('name', 'Cat')->where('name_plural', 'Cats')->exists())->toBeTrue();
+    $species = Species::query()->where('name', 'Cat')->where('name_plural', 'Cats')->first();
+    expect($species)->not->toBeNull();
+    expect($species->has_pure_breed_field)->toBeTrue();
 });
 
 test('opening the create modal resets a stale edit state', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs', 'has_pure_breed_field' => true]);
 
     Livewire::test(ManageSpecies::class)
         ->call('editSpecies', $species->id)
         ->assertSet('speciesName', 'Dog')
         ->assertSet('speciesNamePlural', 'Dogs')
+        ->assertSet('speciesHasPureBreedField', true)
         ->call('createSpecies')
         ->assertSet('editingSpeciesId', null)
         ->assertSet('speciesName', '')
-        ->assertSet('speciesNamePlural', '');
+        ->assertSet('speciesNamePlural', '')
+        ->assertSet('speciesHasPureBreedField', false);
 });
 
 test('requires a name and plural name to create a species', function () {
@@ -121,18 +126,20 @@ test('updates an existing species', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs', 'has_pure_breed_field' => false]);
 
     Livewire::test(ManageSpecies::class)
         ->call('editSpecies', $species->id)
         ->assertSet('speciesName', 'Dog')
         ->set('speciesName', 'Canine')
         ->set('speciesNamePlural', 'Canines')
+        ->set('speciesHasPureBreedField', true)
         ->call('saveSpecies')
         ->assertHasNoErrors();
 
     expect($species->fresh()->name)->toBe('Canine');
     expect($species->fresh()->name_plural)->toBe('Canines');
+    expect($species->fresh()->has_pure_breed_field)->toBeTrue();
 });
 
 test('soft-deletes a species instead of removing it permanently', function () {
