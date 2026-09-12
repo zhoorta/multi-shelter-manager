@@ -26,6 +26,13 @@
                                     {{ $sidebarSpecies->name_plural }}
                                 </flux:sidebar.item>
                             @endforeach
+                            <flux:sidebar.item
+                                :href="route('pets.sponsorships.index')"
+                                :current="request()->routeIs('pets.sponsorships.index')"
+                                wire:navigate
+                            >
+                                {{ __('Sponsorships') }}
+                            </flux:sidebar.item>
                         </flux:sidebar.group>
                         <flux:sidebar.item icon="building-office-2" :href="route('facilities.index')" :current="request()->routeIs('facilities.index')" wire:navigate>
                             {{ __('Facilities') }}

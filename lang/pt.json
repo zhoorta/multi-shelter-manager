@@ -1,6 +1,7 @@
 {
     "Dashboard": "Painel de Controlo",
     "Pets": "Animais",
+    "Pet": "Animal",
     "Facility": "Instalação",
     "Facilities": "Instalações",
     "Wing": "Ala",
@@ -130,6 +131,10 @@
     "Rejected": "Rejeitada",
     "Adopted at": "Adotado em",
 
+    "Sponsorships": "Apadrinhamentos",
+    "Sponsor name and contacts": "Nome e contactos do padrinho",
+    "Options": "Opções",
+    "No sponsorships registered": "Nenhum apadrinhamento registado.",
     "Sponsorship": "Apadrinhamento",
     "Edit Sponsorship": "Editar Apadrinhamento",
     "Send Feedback": "Enviar Feedback",

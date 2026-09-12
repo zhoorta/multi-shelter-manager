@@ -218,7 +218,10 @@ test('does not show the sponsorship box when the pet has no sponsorship', functi
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
-        ->assertDontSeeText('Sponsorship');
+        // Plain "Sponsorship" isn't safe here: the sidebar's "Sponsorships"
+        // nav item renders on every page, so assert against a phrase that
+        // only appears inside the sponsorship box itself.
+        ->assertDontSeeText('Sponsorship Payments');
 });
 
 test('shows the payments made for a sponsorship', function () {

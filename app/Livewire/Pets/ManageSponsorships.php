@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Livewire\Pets;
+
+use App\Models\Sponsorship;
+use Flux\Flux;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Livewire\WithPagination;
+
+#[Title('Manage Sponsorships')]
+class ManageSponsorships extends Component
+{
+    use WithPagination;
+
+    public function mount(): void
+    {
+        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+    }
+
+    /**
+     * @return LengthAwarePaginator<int, Sponsorship>
+     */
+    #[Computed]
+    public function sponsorships(): LengthAwarePaginator
+    {
+        return Sponsorship::query()
+            // whereHas('pet') relies on Pet's MultiShelterTrait global scope
+            // to keep this scoped to the acting user's shelter, since
+            // Sponsorship itself has no shelter_id (see .ai/rules/pets.md).
+            ->whereHas('pet')
+            ->with(['pet.species', 'pet.images'])
+            ->latest()
+            ->paginate(20);
+    }
+
+    public function deleteSponsorship(int $sponsorshipId): void
+    {
+        Sponsorship::query()->whereHas('pet')->findOrFail($sponsorshipId)->delete();
+
+        unset($this->sponsorships);
+
+        Flux::toast(variant: 'success', text: __('Record deleted successfully'));
+    }
+
+    public function render(): View
+    {
+        return view('livewire.pets.manage-sponsorships');
+    }
+}

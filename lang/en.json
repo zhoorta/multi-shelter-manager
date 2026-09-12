@@ -1,6 +1,7 @@
 {
     "Dashboard": "Dashboard",
     "Pets": "Pets",
+    "Pet": "Pet",
     "Facility": "Facility",
     "Facilities": "Facilities",
     "Wing": "Wing",
@@ -130,6 +131,10 @@
     "Rejected": "Rejected",
     "Adopted at": "Adopted at",
 
+    "Sponsorships": "Sponsorships",
+    "Sponsor name and contacts": "Sponsor name and contacts",
+    "Options": "Options",
+    "No sponsorships registered": "No sponsorships registered.",
     "Sponsorship": "Sponsorship",
     "Edit Sponsorship": "Edit Sponsorship",
     "Send Feedback": "Send Feedback",
