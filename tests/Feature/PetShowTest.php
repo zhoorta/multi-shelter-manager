@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Pets\PetShow;
+use App\Models\Adoption;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
@@ -87,6 +88,19 @@ test('links to the sponsorship registration page only when the pet is sponsorabl
     $this->get(route('pets.show', $pet))->assertDontSee(route('pets.sponsor', $pet), false);
 });
 
+test('links to the adoption registration page only when the pet is not adopted', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))->assertSee(route('pets.adopt', $pet), false);
+
+    $pet->update(['status' => 'adopted']);
+
+    $this->get(route('pets.show', $pet))->assertDontSee(route('pets.adopt', $pet), false);
+});
+
 test('links back to the pets list scoped to the pet species', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
@@ -137,6 +151,20 @@ test('shows the checkin date', function () {
     $this->get(route('pets.show', $pet))
         ->assertOk()
         ->assertSeeInOrder(['Checkin Date', '10/01/2023']);
+});
+
+test('shows the checkout date after the checkin date', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create([
+        'checkin_date' => '2023-01-10',
+        'checkout_date' => '2023-06-20',
+    ]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Checkin Date', '10/01/2023', 'Checkout Date', '20/06/2023']);
 });
 
 test('shows the pet description as rendered HTML in its own box at the end', function () {
@@ -222,6 +250,76 @@ test('does not show the sponsorship box when the pet has no sponsorship', functi
         // nav item renders on every page, so assert against a phrase that
         // only appears inside the sponsorship box itself.
         ->assertDontSeeText('Sponsorship Payments');
+});
+
+test('shows the adoption box after the description', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'description' => 'Loves belly rubs.']);
+    Adoption::factory()->for($pet)->create([
+        'name' => 'Maria Silva',
+        'email' => 'maria@example.com',
+        'phone' => '912345678',
+        'address' => 'Rua das Flores, 10',
+        'postal_code' => '1000-001',
+        'city' => 'Lisboa',
+        'adoption_date' => '2026-01-15',
+        'return_date' => null,
+        'adoption_fee' => '25.50',
+        'application_status' => 'Approved',
+        'notes' => 'Great home visit',
+    ]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder([
+            'Description', 'Loves belly rubs.',
+            'Adoption', 'Maria Silva', 'maria@example.com', '912345678',
+            'Rua das Flores, 10', '1000-001', 'Lisboa', '15/01/2026',
+            '25,50', 'Approved', 'Great home visit',
+        ])
+        ->assertSee(route('pets.adopt.edit', [$pet, $pet->adoptions()->first()]));
+});
+
+test('does not show the adoption box when the pet has never been adopted', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertDontSeeText('Adoption Fee');
+});
+
+test('still shows the adoption box after the pet has been returned', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'available', 'checkout_date' => null]);
+    Adoption::factory()->for($pet)->create([
+        'name' => 'Maria Silva',
+        'adoption_date' => '2026-01-15',
+        'return_date' => '2026-03-01',
+    ]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Adoption', 'Maria Silva', '15/01/2026', '01/03/2026']);
+});
+
+test('shows every adoption, most recent first, when the pet has more than one', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
+    Adoption::factory()->for($pet)->create(['name' => 'Old Adopter', 'adoption_date' => '2025-01-01']);
+    Adoption::factory()->for($pet)->create(['name' => 'New Adopter', 'adoption_date' => '2026-01-01']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['New Adopter', 'Old Adopter']);
 });
 
 test('shows the payments made for a sponsorship', function () {

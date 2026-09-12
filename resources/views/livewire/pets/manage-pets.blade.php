@@ -77,10 +77,15 @@
                                     <span class="text-neutral-500 dark:text-neutral-400">{{ __(ucfirst($pet->gender)) }}</span>
                                     <span class="text-neutral-500 dark:text-neutral-400">{{ $pet->chip }}</span>
 
-                                    @if ($pet->status === 'adopted' && $pet->latestAdoption)
+                                    @if ($pet->date_of_death)
                                         <span>&nbsp;</span>
                                         <span class="text-neutral-500 dark:text-neutral-400">
-                                            {{ __('Adopted at').' '.$pet->latestAdoption->adoption_date->format('d/m/Y') }}
+                                            <strong>{{ __('Deceased') }}</strong> {{ __('at').' '.$pet->date_of_death->format('d/m/Y') }}
+                                        </span>
+                                    @elseif ($pet->status === 'adopted' && $pet->latestAdoption)
+                                        <span>&nbsp;</span>
+                                        <span class="text-neutral-500 dark:text-neutral-400">
+                                            <strong>{{ __('Adopted') }}</strong> {{ __('at').' '.$pet->latestAdoption->adoption_date->format('d/m/Y') }}
                                         </span>
                                     @endif
                                 </div>

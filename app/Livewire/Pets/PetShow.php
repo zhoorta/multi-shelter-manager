@@ -28,6 +28,7 @@ class PetShow extends Component
 
         $this->pet = $pet->load([
             'species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'sicknesses',
+            'adoptions' => fn ($query) => $query->latest('adoption_date'),
             'sponsorships' => fn ($query) => $query->latest()->with(['payments' => fn ($paymentsQuery) => $paymentsQuery->orderByDesc('payment_date')]),
         ]);
     }

@@ -102,7 +102,9 @@ test('shows the adoption date for adopted pets', function () {
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
     Livewire::test(ManagePets::class)
-        ->assertSeeInOrder(['Rex', 'Adopted at', '10/02/2026']);
+        ->assertSeeInOrder(['Rex', 'Adopted', 'at', '10/02/2026'])
+        ->assertSeeHtml('<strong>Adopted</strong>')
+        ->assertDontSee('Deceased');
 });
 
 test('does not show an adoption date for pets that are not adopted', function () {
@@ -112,7 +114,26 @@ test('does not show an adoption date for pets that are not adopted', function ()
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
     Livewire::test(ManagePets::class)
-        ->assertDontSee('Adopted at');
+        ->assertDontSeeHtml('<strong>Adopted</strong>')
+        ->assertDontSee('Deceased');
+});
+
+test('shows the death date instead of the adoption date for deceased pets', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create([
+        'name' => 'Rex',
+        'status' => 'adopted',
+        'date_of_death' => '2026-03-15',
+    ]);
+    Adoption::factory()->for($pet)->create(['adoption_date' => '2026-02-10']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertSeeInOrder(['Rex', 'Deceased', 'at', '15/03/2026'])
+        ->assertSeeHtml('<strong>Deceased</strong>')
+        ->assertDontSeeHtml('<strong>Adopted</strong>')
+        ->assertDontSee('10/02/2026');
 });
 
 test('filters pets by species', function () {

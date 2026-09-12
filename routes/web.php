@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets/{pet}/edit', PetForm::class)->name('pets.edit');
     Route::livewire('pets/{pet}', PetShow::class)->name('pets.show');
     Route::livewire('pets/{pet}/adopt', AdoptionForm::class)->name('pets.adopt');
+    Route::livewire('pets/{pet}/adopt/{adoption}/edit', AdoptionForm::class)->name('pets.adopt.edit');
     Route::livewire('pets/{pet}/sponsor', SponsorshipForm::class)->name('pets.sponsor');
     Route::livewire('pets/{pet}/sponsor/{sponsorship}', SponsorshipShow::class)->name('pets.sponsor.show');
     Route::livewire('pets/{pet}/sponsor/{sponsorship}/edit', SponsorshipForm::class)->name('pets.sponsor.edit');

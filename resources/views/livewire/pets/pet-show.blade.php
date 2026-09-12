@@ -192,6 +192,9 @@
 
             <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}:</flux:text>
             <flux:text>{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>
+
+            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Checkout Date') }}:</flux:text>
+            <flux:text>{{ $pet->checkout_date?->format('d/m/Y') ?? '—' }}</flux:text>
         </div>
 
         <div class="grid grid-cols-[max-content_1fr] items-start justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
@@ -204,6 +207,10 @@
                 @endif
             </flux:text>
         </div>
+
+        @foreach ($pet->adoptions as $adoption)
+            @include('livewire.pets.partials.adoption-box', ['pet' => $pet, 'adoption' => $adoption])
+        @endforeach
 
         @foreach ($pet->sponsorships as $sponsorship)
             @include('livewire.pets.partials.sponsorship-box', ['pet' => $pet, 'sponsorship' => $sponsorship])

@@ -3,6 +3,7 @@ paths:
   - 'app/Livewire/Pets/**'
   - app/Livewire/Pets/SponsorshipForm.php
   - app/Livewire/Pets/PetShow.php
+  - app/Livewire/Pets/AdoptionForm.php
 ---
 
 # Pets
@@ -38,3 +39,9 @@ PetShow::createPayment() sets paymentStartDate/paymentEndDate/paymentDate to tod
 
 ## SponsorshipPayment create form: default required date fields to today
 PetShow::createPayment() sets paymentStartDate/paymentDate to today (Y-m-d) and paymentEndDate to one year from today, instead of leaving them empty. Reason: the app-wide Safari date-input workaround (type starts as "text", switches to "date" on focus — see pet-show.blade.php / pet-form.blade.php) only hides the WebKit bug where an empty type="date" input visually shows today's date. That's harmless for nullable date fields (petBirthDate etc.) but broke required ones here: users saw what looked like a filled date, submitted without touching it, and got "required" errors. Defaulting to real, non-empty values sidesteps the WebKit quirk entirely instead of fighting it; the one-year end date matches a typical annual sponsorship period. Don't revert to empty defaults for these three fields without also solving the Safari empty-date rendering issue differently. Tests in tests/Feature/PetShowTest.php explicitly clear the date fields to still exercise the "required" validation path.
+
+## A non-null Adoption.return_date reverts the pet to 'available'
+AdoptionForm::saveAdoption() branches on whether the submitted return_date is non-null: if so, pet.status is set to 'available' and pet.checkout_date is cleared to null (instead of 'adopted' + checkout_date = adoption_date). This re-enables the pets.adopt create route (AdoptionForm::mount() only 403s the create form when pet.status === 'adopted') and re-shows the "Adoption Registration" link in pet-show.blade.php, both driven purely by pet.status. A pet can accumulate multiple Adoption rows over time this way (adopted → returned → re-adopted); nothing deletes prior rows.
+
+## Editing a non-active Adoption must not touch pet status/checkout_date
+A pet can have multiple Adoption rows over time (adopted → returned → re-adopted). AdoptionForm::saveAdoption() computes $hasAnotherOpenAdoption (another adoption row for the pet with return_date null, excluding the one being edited). If true: (1) clearing this adoption's return_date is rejected with a validation error on returnDate (would imply two concurrent open adoptions for the pet), and (2) any other edit to this now-past adoption skips the $this->pet->update(['status'=>..., 'checkout_date'=>...]) call entirely, since the newer open adoption is what determines the pet's current status/checkout_date. Only the pet's single currently-open adoption should ever drive pet.status/checkout_date.

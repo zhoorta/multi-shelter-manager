@@ -1,7 +1,7 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
-            <flux:heading size="xl">{{ __('Adoption Registration') }}</flux:heading>
+            <flux:heading size="xl">{{ $adoption !== null ? __('Edit Adoption') : __('Adoption Registration') }}</flux:heading>
             <flux:subheading>{{ $pet->name }}</flux:subheading>
         </div>
 
@@ -35,6 +35,19 @@
                 type="text"
                 wire:model="adoptionDate"
                 :label="__('Adoption Date')"
+                :placeholder="__('Select a date')"
+                autocomplete="off"
+                clearable
+                x-data="{ dateFieldType: 'text' }"
+                x-bind:type="dateFieldType"
+                x-on:focus="dateFieldType = 'date'"
+                x-on:blur="if (! $el.value) dateFieldType = 'text'"
+            />
+
+            <flux:input
+                type="text"
+                wire:model="returnDate"
+                :label="__('Return Date')"
                 :placeholder="__('Select a date')"
                 autocomplete="off"
                 clearable

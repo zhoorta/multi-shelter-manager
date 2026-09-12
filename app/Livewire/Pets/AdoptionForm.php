@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pets;
 
+use App\Models\Adoption;
 use App\Models\Pet;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -14,6 +15,8 @@ use Livewire\Component;
 class AdoptionForm extends Component
 {
     public Pet $pet;
+
+    public ?Adoption $adoption = null;
 
     public string $adopterName = '';
 
@@ -29,19 +32,40 @@ class AdoptionForm extends Component
 
     public string $adoptionDate = '';
 
+    public string $returnDate = '';
+
     public string $adoptionFee = '0.00';
 
     public string $adoptionNotes = '';
 
     public string $applicationStatus = 'Approved';
 
-    public function mount(Pet $pet): void
+    public function mount(Pet $pet, ?Adoption $adoption = null): void
     {
         abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
-        abort_if($pet->status === 'adopted', 403);
+        abort_if($adoption === null && $pet->status === 'adopted', 403);
+        abort_if($adoption !== null && $adoption->pet_id !== $pet->id, 404);
 
         $this->pet = $pet;
-        $this->adoptionDate = now()->toDateString();
+        $this->adoption = $adoption;
+
+        if ($adoption === null) {
+            $this->adoptionDate = now()->toDateString();
+
+            return;
+        }
+
+        $this->adopterName = (string) $adoption->name;
+        $this->adopterEmail = (string) $adoption->email;
+        $this->adopterPhone = (string) $adoption->phone;
+        $this->adopterAddress = (string) $adoption->address;
+        $this->adopterPostalCode = (string) $adoption->postal_code;
+        $this->adopterCity = (string) $adoption->city;
+        $this->adoptionDate = $adoption->adoption_date->toDateString();
+        $this->returnDate = (string) $adoption->return_date?->toDateString();
+        $this->adoptionFee = (string) $adoption->adoption_fee;
+        $this->adoptionNotes = (string) $adoption->notes;
+        $this->applicationStatus = $adoption->application_status;
     }
 
     public function saveAdoption(): void
@@ -54,6 +78,7 @@ class AdoptionForm extends Component
             'adopterPostalCode' => ['nullable', 'string', 'max:20'],
             'adopterCity' => ['nullable', 'string', 'max:100'],
             'adoptionDate' => ['required', 'date'],
+            'returnDate' => ['nullable', 'date', 'after_or_equal:adoptionDate'],
             'adoptionFee' => ['nullable', 'numeric', 'min:0'],
             'adoptionNotes' => ['nullable', 'string'],
             'applicationStatus' => ['required', 'in:Pending,Approved,Rejected'],
@@ -65,13 +90,30 @@ class AdoptionForm extends Component
             'adopterPostalCode' => __('Postal Code'),
             'adopterCity' => __('City'),
             'adoptionDate' => __('Adoption Date'),
+            'returnDate' => __('Return Date'),
             'adoptionFee' => __('Adoption Fee'),
             'adoptionNotes' => __('Notes'),
             'applicationStatus' => __('Application Status'),
         ]);
 
-        DB::transaction(function () use ($validated): void {
-            $this->pet->adoptions()->create([
+        $isEditing = $this->adoption !== null;
+
+        $hasAnotherOpenAdoption = $isEditing && $this->pet->adoptions()
+            ->whereKeyNot($this->adoption->id)
+            ->whereNull('return_date')
+            ->exists();
+
+        if ($isEditing && $this->adoption->return_date !== null && $validated['returnDate'] === '' && $hasAnotherOpenAdoption) {
+            $this->addError(
+                'returnDate',
+                __('Cannot clear the return date because the pet has already been adopted again since then.'),
+            );
+
+            return;
+        }
+
+        DB::transaction(function () use ($validated, $isEditing, $hasAnotherOpenAdoption): void {
+            $adoptionAttributes = [
                 'name' => $validated['adopterName'],
                 'email' => $validated['adopterEmail'] !== '' ? $validated['adopterEmail'] : null,
                 'phone' => $validated['adopterPhone'] !== '' ? $validated['adopterPhone'] : null,
@@ -79,20 +121,33 @@ class AdoptionForm extends Component
                 'postal_code' => $validated['adopterPostalCode'] !== '' ? $validated['adopterPostalCode'] : null,
                 'city' => $validated['adopterCity'] !== '' ? $validated['adopterCity'] : null,
                 'adoption_date' => $validated['adoptionDate'],
+                'return_date' => $validated['returnDate'] !== '' ? $validated['returnDate'] : null,
                 'adoption_fee' => $validated['adoptionFee'] !== '' ? $validated['adoptionFee'] : 0,
                 'notes' => $validated['adoptionNotes'] !== '' ? $validated['adoptionNotes'] : null,
                 'application_status' => $validated['applicationStatus'],
-            ]);
+            ];
+
+            if ($isEditing) {
+                $this->adoption->update($adoptionAttributes);
+            } else {
+                $this->pet->adoptions()->create($adoptionAttributes);
+            }
+
+            if ($hasAnotherOpenAdoption) {
+                return;
+            }
+
+            $isReturned = $adoptionAttributes['return_date'] !== null;
 
             $this->pet->update([
-                'status' => 'adopted',
-                'checkout_date' => $validated['adoptionDate'],
+                'status' => $isReturned ? 'available' : 'adopted',
+                'checkout_date' => $isReturned ? null : $validated['adoptionDate'],
             ]);
         });
 
         Flux::toast(
             variant: 'success',
-            text: __('Record created successfully'),
+            text: $isEditing ? __('Record updated successfully') : __('Record created successfully'),
         );
 
         $this->redirect(route('pets.show', $this->pet), navigate: true);
@@ -100,6 +155,8 @@ class AdoptionForm extends Component
 
     public function render(): View
     {
-        return view('livewire.pets.adoption-form')->title(__('Adoption Registration').' — '.$this->pet->name);
+        return view('livewire.pets.adoption-form')->title(
+            ($this->adoption !== null ? __('Edit Adoption') : __('Adoption Registration')).' — '.$this->pet->name,
+        );
     }
 }
