@@ -7,8 +7,8 @@
     $backToAdoptionsList set (see .ai/rules/pets.md — mirrors the
     sponsorship-box partial).
 --}}
-<div wire:key="adoption-{{ $adoption->id }}" class="grid grid-cols-[max-content_1fr] items-start justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-    <div class="col-span-2 flex w-full items-center justify-between">
+<div wire:key="adoption-{{ $adoption->id }}" class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+    <div class="flex w-full items-center justify-between">
         <flux:label>{{ __('Adoption') }}</flux:label>
 
         <flux:button
@@ -24,36 +24,60 @@
         </flux:button>
     </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}:</flux:text>
-    <flux:text>{{ $adoption->name ?? '—' }}</flux:text>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}</flux:text>
+            <flux:text>{{ $adoption->name ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Email') }}:</flux:text>
-    <flux:text>{{ $adoption->email ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Email') }}</flux:text>
+            <flux:text>{{ $adoption->email ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Phone') }}:</flux:text>
-    <flux:text>{{ $adoption->phone ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Phone') }}</flux:text>
+            <flux:text>{{ $adoption->phone ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Address') }}:</flux:text>
-    <flux:text>{{ $adoption->address ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Address') }}</flux:text>
+            <flux:text>{{ $adoption->address ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Postal Code') }}:</flux:text>
-    <flux:text>{{ $adoption->postal_code ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Postal Code') }}</flux:text>
+            <flux:text>{{ $adoption->postal_code ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('City') }}:</flux:text>
-    <flux:text>{{ $adoption->city ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('City') }}</flux:text>
+            <flux:text>{{ $adoption->city ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Adoption Date') }}:</flux:text>
-    <flux:text>{{ $adoption->adoption_date->format('d/m/Y') }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Adoption Date') }}</flux:text>
+            <flux:text>{{ $adoption->adoption_date->format('d/m/Y') }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Return Date') }}:</flux:text>
-    <flux:text>{{ $adoption->return_date?->format('d/m/Y') ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Return Date') }}</flux:text>
+            <flux:text>{{ $adoption->return_date?->format('d/m/Y') ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Adoption Fee') }}:</flux:text>
-    <flux:text>{{ number_format((float) $adoption->adoption_fee, 2, ',', '.') }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Adoption Fee') }}</flux:text>
+            <flux:text>{{ number_format((float) $adoption->adoption_fee, 2, ',', '.') }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Application Status') }}:</flux:text>
-    <flux:badge size="sm">{{ __($adoption->application_status) }}</flux:badge>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Application Status') }}</flux:text>
+            <flux:badge size="sm">{{ __($adoption->application_status) }}</flux:badge>
+        </div>
+    </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Notes') }}:</flux:text>
-    <flux:text>{{ $adoption->notes ?? '—' }}</flux:text>
+    <div>
+        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Notes') }}</flux:text>
+        <flux:text class="whitespace-pre-line">{{ $adoption->notes ?? '—' }}</flux:text>
+    </div>
 </div>

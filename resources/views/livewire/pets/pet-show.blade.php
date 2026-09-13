@@ -125,102 +125,144 @@
             </flux:modal>
         </div>
 
-        <div class="grid grid-cols-[max-content_1fr] items-baseline gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}:</flux:text>
-            <flux:text>{{ $pet->name }}</flux:text>
+        <div class="flex flex-col gap-6 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <div>
+                <flux:heading size="lg">{{ __('Identification') }}</flux:heading>
+                <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}</flux:text>
+                        <flux:text>{{ $pet->name }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Microchip / Chip') }}</flux:text>
+                        <flux:text>{{ $pet->chip ?? '—' }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Species') }}</flux:text>
+                        <flux:text>{{ $pet->species->name }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Breed') }}</flux:text>
+                        <flux:text>
+                            {{ $pet->breed->name }}
+                            @if ($pet->species->has_pure_breed_field && $pet->is_pure_breed)
+                                ({{ __('Pure') }})
+                            @endif
+                        </flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Gender') }}</flux:text>
+                        <flux:text>{{ __(ucfirst($pet->gender)) }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Birth Date') }}</flux:text>
+                        <flux:text>{{ $pet->birth_date?->format('d/m/Y') ?? '—' }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Death Date') }}</flux:text>
+                        <flux:text>{{ $pet->date_of_death?->format('d/m/Y') ?? '—' }}</flux:text>
+                    </div>
+                </div>
+            </div>
 
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Microchip / Chip') }}:</flux:text>
-            <flux:text>{{ $pet->chip ?? '—' }}</flux:text>
+            <div>
+                <flux:heading size="lg">{{ __('Characteristics') }}</flux:heading>
+                <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Primary Color') }}</flux:text>
+                        <flux:text>{{ $pet->primaryColor?->name ?? '—' }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Secondary Color') }}</flux:text>
+                        <flux:text>{{ $pet->secondaryColor?->name ?? '—' }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Fur Type') }}</flux:text>
+                        <flux:text>{{ $pet->furType?->name ?? '—' }}</flux:text>
+                    </div>
+                    @if ($this->speciesHasSizes)
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Size') }}</flux:text>
+                            <flux:text>{{ $pet->size?->name ?? '—' }}</flux:text>
+                        </div>
+                    @endif
+                </div>
+            </div>
 
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Species') }}:</flux:text>
-            <flux:text>{{ $pet->species->name }}</flux:text>
+            <div>
+                <flux:heading size="lg">{{ __('Health') }}</flux:heading>
+                <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Is Neutered') }}</flux:text>
+                        <flux:badge size="sm" :color="$pet->is_neutered ? 'lime' : 'zinc'">{{ $pet->is_neutered ? __('Yes') : __('No') }}</flux:badge>
+                    </div>
 
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Breed') }}:</flux:text>
-            <flux:text>
-                {{ $pet->breed->name }}
-                @if ($pet->species->has_pure_breed_field && $pet->is_pure_breed)
-                    ({{ __('Pure') }})
-                @endif
-            </flux:text>
+                    @foreach ($this->sicknesses as $sickness)
+                        @php
+                            $petHasSickness = $pet->sicknesses->contains('id', $sickness->id);
+                        @endphp
 
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Gender') }}:</flux:text>
-            <flux:text>{{ __(ucfirst($pet->gender)) }}</flux:text>
-        </div>
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ $sickness->name }}</flux:text>
+                            <flux:badge size="sm" :color="$petHasSickness ? 'lime' : 'zinc'">{{ $petHasSickness ? __('Yes') : __('No') }}</flux:badge>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
-        <div class="grid grid-cols-[max-content_1fr] items-baseline gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Primary Color') }}:</flux:text>
-            <flux:text>{{ $pet->primaryColor?->name ?? '—' }}</flux:text>
+            <div>
+                <flux:heading size="lg">{{ __('Adoption') }}</flux:heading>
+                <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Is Adoptable') }}</flux:text>
+                        <flux:badge size="sm" :color="$pet->is_adoptable ? 'lime' : 'zinc'">{{ $pet->is_adoptable ? __('Yes') : __('No') }}</flux:badge>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Is Sponsorable') }}</flux:text>
+                        <flux:badge size="sm" :color="$pet->is_sponsorable ? 'lime' : 'zinc'">{{ $pet->is_sponsorable ? __('Yes') : __('No') }}</flux:badge>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Status') }}</flux:text>
+                        <flux:badge size="sm">{{ __(ucfirst($pet->status)) }}</flux:badge>
+                    </div>
+                </div>
+            </div>
 
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Secondary Color') }}:</flux:text>
-            <flux:text>{{ $pet->secondaryColor?->name ?? '—' }}</flux:text>
+            <div>
+                <flux:heading size="lg">{{ __('Accommodation') }}</flux:heading>
+                <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Cage') }}</flux:text>
+                        <flux:text>{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }} &middot; {{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}</flux:text>
+                        <flux:text>{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>
+                    </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Checkout Date') }}</flux:text>
+                        <flux:text>{{ $pet->checkout_date?->format('d/m/Y') ?? '—' }}</flux:text>
+                    </div>
+                </div>
+            </div>
 
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Fur Type') }}:</flux:text>
-            <flux:text>{{ $pet->furType?->name ?? '—' }}</flux:text>
+            <div>
+                <flux:heading size="lg">{{ __('Description') }}</flux:heading>
+                <flux:text inline class="mt-2 [&_ol]:list-decimal [&_ol]:ps-5 [&_ul]:list-disc [&_ul]:ps-5">
+                    @if ($pet->description)
+                        {!! $pet->description !!}
+                    @else
+                        —
+                    @endif
+                </flux:text>
+            </div>
 
-            @if ($this->speciesHasSizes)
-                <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Size') }}:</flux:text>
-                <flux:text>{{ $pet->size?->name ?? '—' }}</flux:text>
+            @if ($pet->notes)
+                <div>
+                    <flux:heading size="lg">{{ __('Notes') }}</flux:heading>
+                    <flux:text class="mt-2 whitespace-pre-line">{{ $pet->notes }}</flux:text>
+                </div>
             @endif
-        </div>
-
-        <div class="grid grid-cols-[max-content_1fr] items-baseline gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Birth Date') }}:</flux:text>
-            <flux:text>{{ $pet->birth_date?->format('d/m/Y') ?? '—' }}</flux:text>
-
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Death Date') }}:</flux:text>
-            <flux:text>{{ $pet->date_of_death?->format('d/m/Y') ?? '—' }}</flux:text>
-        </div>
-
-        <div class="grid grid-cols-[max-content_1fr] items-center justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Is Neutered') }}:</flux:text>
-            <flux:badge size="sm" :color="$pet->is_neutered ? 'lime' : 'zinc'">{{ $pet->is_neutered ? __('Yes') : __('No') }}</flux:badge>
-
-            @foreach ($this->sicknesses as $sickness)
-                @php
-                    $petHasSickness = $pet->sicknesses->contains('id', $sickness->id);
-                @endphp
-
-                <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ $sickness->name }}:</flux:text>
-                <flux:badge size="sm" :color="$petHasSickness ? 'lime' : 'zinc'">{{ $petHasSickness ? __('Yes') : __('No') }}</flux:badge>
-            @endforeach
-        </div>
-
-        <div class="grid grid-cols-[max-content_1fr] items-center justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Is Adoptable') }}:</flux:text>
-            <flux:badge size="sm" :color="$pet->is_adoptable ? 'lime' : 'zinc'">{{ $pet->is_adoptable ? __('Yes') : __('No') }}</flux:badge>
-
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Is Sponsorable') }}:</flux:text>
-            <flux:badge size="sm" :color="$pet->is_sponsorable ? 'lime' : 'zinc'">{{ $pet->is_sponsorable ? __('Yes') : __('No') }}</flux:badge>
-        </div>
-
-        <div class="grid grid-cols-[max-content_1fr] items-center justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Status') }}:</flux:text>
-            <flux:badge size="sm">{{ __(ucfirst($pet->status)) }}</flux:badge>
-
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Cage') }}:</flux:text>
-            <flux:text>{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }} &middot; {{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
-
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}:</flux:text>
-            <flux:text>{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>
-
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Checkout Date') }}:</flux:text>
-            <flux:text>{{ $pet->checkout_date?->format('d/m/Y') ?? '—' }}</flux:text>
-        </div>
-
-        <div class="grid grid-cols-[max-content_1fr] items-start justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Description') }}:</flux:text>
-            <flux:text inline class="[&_ol]:list-decimal [&_ol]:ps-5 [&_ul]:list-disc [&_ul]:ps-5">
-                @if ($pet->description)
-                    {!! $pet->description !!}
-                @else
-                    —
-                @endif
-            </flux:text>
-        </div>
-
-        <div class="grid grid-cols-[max-content_1fr] items-start justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Notes') }}:</flux:text>
-            <flux:text inline class="whitespace-pre-line">{{ $pet->notes ?? '—' }}</flux:text>
         </div>
 
         @foreach ($pet->adoptions as $adoption)

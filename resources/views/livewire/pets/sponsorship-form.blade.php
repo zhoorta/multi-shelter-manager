@@ -28,10 +28,14 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:switch wire:model="sendFeedback" :label="__('Send Feedback')" align="left" />
+            <div class="grid grid-cols-2 gap-4">
+                <flux:switch wire:model="sendFeedback" :label="__('Send Feedback')" align="left" />
 
-            <flux:switch wire:model="sendNewsletter" :label="__('Send Newsletter')" align="left" />
+                <flux:switch wire:model="sendNewsletter" :label="__('Send Newsletter')" align="left" />
+            </div>
+        </div>
 
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:textarea wire:model="sponsorshipNotes" :label="__('Notes')" />
         </div>
 

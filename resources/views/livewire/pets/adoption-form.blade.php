@@ -28,43 +28,49 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            {{-- Safari renders an empty native date input showing today's date instead of a
-                 blank placeholder, so the field starts as plain text and only switches to the
-                 native date picker on focus (reverting to text on blur if still empty). --}}
-            <flux:input
-                type="text"
-                wire:model="adoptionDate"
-                :label="__('Adoption Date')"
-                :placeholder="__('Select a date')"
-                autocomplete="off"
-                clearable
-                x-data="{ dateFieldType: 'text' }"
-                x-bind:type="dateFieldType"
-                x-on:focus="dateFieldType = 'date'"
-                x-on:blur="if (! $el.value) dateFieldType = 'text'"
-            />
+            <div class="grid grid-cols-2 gap-4">
+                {{-- Safari renders an empty native date input showing today's date instead of a
+                     blank placeholder, so the field starts as plain text and only switches to the
+                     native date picker on focus (reverting to text on blur if still empty). --}}
+                <flux:input
+                    type="text"
+                    wire:model="adoptionDate"
+                    :label="__('Adoption Date')"
+                    :placeholder="__('Select a date')"
+                    autocomplete="off"
+                    clearable
+                    x-data="{ dateFieldType: 'text' }"
+                    x-bind:type="dateFieldType"
+                    x-on:focus="dateFieldType = 'date'"
+                    x-on:blur="if (! $el.value) dateFieldType = 'text'"
+                />
 
-            <flux:input
-                type="text"
-                wire:model="returnDate"
-                :label="__('Return Date')"
-                :placeholder="__('Select a date')"
-                autocomplete="off"
-                clearable
-                x-data="{ dateFieldType: 'text' }"
-                x-bind:type="dateFieldType"
-                x-on:focus="dateFieldType = 'date'"
-                x-on:blur="if (! $el.value) dateFieldType = 'text'"
-            />
+                <flux:input
+                    type="text"
+                    wire:model="returnDate"
+                    :label="__('Return Date')"
+                    :placeholder="__('Select a date')"
+                    autocomplete="off"
+                    clearable
+                    x-data="{ dateFieldType: 'text' }"
+                    x-bind:type="dateFieldType"
+                    x-on:focus="dateFieldType = 'date'"
+                    x-on:blur="if (! $el.value) dateFieldType = 'text'"
+                />
+            </div>
 
-            <flux:input wire:model="adoptionFee" type="number" step="0.01" min="0" :label="__('Adoption Fee')" />
+            <div class="grid grid-cols-2 gap-4">
+                <flux:input wire:model="adoptionFee" type="number" step="0.01" min="0" :label="__('Adoption Fee')" />
 
-            <flux:select wire:model="applicationStatus" :label="__('Application Status')">
-                <flux:select.option value="Pending">{{ __('Pending') }}</flux:select.option>
-                <flux:select.option value="Approved">{{ __('Approved') }}</flux:select.option>
-                <flux:select.option value="Rejected">{{ __('Rejected') }}</flux:select.option>
-            </flux:select>
+                <flux:select wire:model="applicationStatus" :label="__('Application Status')">
+                    <flux:select.option value="Pending">{{ __('Pending') }}</flux:select.option>
+                    <flux:select.option value="Approved">{{ __('Approved') }}</flux:select.option>
+                    <flux:select.option value="Rejected">{{ __('Rejected') }}</flux:select.option>
+                </flux:select>
+            </div>
+        </div>
 
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:textarea wire:model="adoptionNotes" :label="__('Notes')" />
         </div>
 

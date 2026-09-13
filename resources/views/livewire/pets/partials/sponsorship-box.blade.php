@@ -6,8 +6,8 @@
     editPayment, deletePayment) rely on the including Livewire component
     using the ManagesSponsorshipPayments trait.
 --}}
-<div wire:key="sponsorship-{{ $sponsorship->id }}" class="grid grid-cols-[max-content_1fr] items-start justify-items-start gap-x-2 gap-y-3 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-    <div class="col-span-2 flex w-full items-center justify-between">
+<div wire:key="sponsorship-{{ $sponsorship->id }}" class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+    <div class="flex w-full items-center justify-between">
         <flux:label>{{ __('Sponsorship') }}</flux:label>
 
         <flux:button
@@ -21,34 +21,54 @@
         </flux:button>
     </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}:</flux:text>
-    <flux:text>{{ $sponsorship->name ?? '—' }}</flux:text>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}</flux:text>
+            <flux:text>{{ $sponsorship->name ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Email') }}:</flux:text>
-    <flux:text>{{ $sponsorship->email ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Email') }}</flux:text>
+            <flux:text>{{ $sponsorship->email ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Phone') }}:</flux:text>
-    <flux:text>{{ $sponsorship->phone ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Phone') }}</flux:text>
+            <flux:text>{{ $sponsorship->phone ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Address') }}:</flux:text>
-    <flux:text>{{ $sponsorship->address ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Address') }}</flux:text>
+            <flux:text>{{ $sponsorship->address ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Postal Code') }}:</flux:text>
-    <flux:text>{{ $sponsorship->postal_code ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Postal Code') }}</flux:text>
+            <flux:text>{{ $sponsorship->postal_code ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('City') }}:</flux:text>
-    <flux:text>{{ $sponsorship->city ?? '—' }}</flux:text>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('City') }}</flux:text>
+            <flux:text>{{ $sponsorship->city ?? '—' }}</flux:text>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Send Feedback') }}:</flux:text>
-    <flux:badge size="sm" :color="$sponsorship->send_feedback ? 'lime' : 'zinc'">{{ $sponsorship->send_feedback ? __('Yes') : __('No') }}</flux:badge>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Send Feedback') }}</flux:text>
+            <flux:badge size="sm" :color="$sponsorship->send_feedback ? 'lime' : 'zinc'">{{ $sponsorship->send_feedback ? __('Yes') : __('No') }}</flux:badge>
+        </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Send Newsletter') }}:</flux:text>
-    <flux:badge size="sm" :color="$sponsorship->send_newsletter ? 'lime' : 'zinc'">{{ $sponsorship->send_newsletter ? __('Yes') : __('No') }}</flux:badge>
+        <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Send Newsletter') }}</flux:text>
+            <flux:badge size="sm" :color="$sponsorship->send_newsletter ? 'lime' : 'zinc'">{{ $sponsorship->send_newsletter ? __('Yes') : __('No') }}</flux:badge>
+        </div>
+    </div>
 
-    <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">{{ __('Notes') }}:</flux:text>
-    <flux:text>{{ $sponsorship->notes ?? '—' }}</flux:text>
+    <div>
+        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Notes') }}</flux:text>
+        <flux:text class="whitespace-pre-line">{{ $sponsorship->notes ?? '—' }}</flux:text>
+    </div>
 
-    <div class="col-span-2 flex w-full items-center justify-between pt-2">
+    <div class="flex w-full items-center justify-between pt-2">
         <flux:label>{{ __('Sponsorship Payments') }}</flux:label>
 
         <flux:modal.trigger name="sponsorship-payment-form">
@@ -63,7 +83,7 @@
         </flux:modal.trigger>
     </div>
 
-    <div class="col-span-2 w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+    <div class="w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
                 <thead class="bg-neutral-50 text-xs uppercase text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">

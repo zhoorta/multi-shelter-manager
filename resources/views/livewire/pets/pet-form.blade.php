@@ -101,7 +101,15 @@
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:input wire:model="petName" :label="__('Name')" />
 
-            <flux:input wire:model="petChip" :label="__('Microchip / Chip')" />
+            <div class="grid grid-cols-2 gap-4">
+                <flux:input wire:model="petChip" :label="__('Microchip / Chip')" />
+
+                <flux:select wire:model="petGender" :label="__('Gender')">
+                    <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
+                    <flux:select.option value="male">{{ __('Male') }}</flux:select.option>
+                    <flux:select.option value="female">{{ __('Female') }}</flux:select.option>
+                </flux:select>
+            </div>
 
             <flux:select wire:model="petBreedId" :label="__('Breed')">
                 <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
@@ -113,40 +121,45 @@
             @if ($this->currentSpecies?->has_pure_breed_field)
                 <flux:switch wire:model="petIsPureBreed" :label="__('Pure breed')" align="left" />
             @endif
-
-            <flux:select wire:model="petGender" :label="__('Gender')">
-                <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
-                <flux:select.option value="male">{{ __('Male') }}</flux:select.option>
-                <flux:select.option value="female">{{ __('Female') }}</flux:select.option>
-            </flux:select>
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:select wire:model="petPrimaryColorId" :label="__('Primary Color')">
-                <flux:select.option value="">{{ __('No Color Assigned') }}</flux:select.option>
-                @foreach ($this->colors as $item)
-                    <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
-                @endforeach
-            </flux:select>
+            <div class="grid grid-cols-2 gap-4">
+                <flux:select wire:model="petPrimaryColorId" :label="__('Primary Color')">
+                    <flux:select.option value="">{{ __('No Color Assigned') }}</flux:select.option>
+                    @foreach ($this->colors as $item)
+                        <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
+                    @endforeach
+                </flux:select>
 
-            <flux:select wire:model="petSecondaryColorId" :label="__('Secondary Color')">
-                <flux:select.option value="">{{ __('No Color Assigned') }}</flux:select.option>
-                @foreach ($this->colors as $item)
-                    <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
-                @endforeach
-            </flux:select>
-
-            <flux:select wire:model="petFurTypeId" :label="__('Fur Type')">
-                <flux:select.option value="">{{ __('No Fur Type Assigned') }}</flux:select.option>
-                @foreach ($this->furTypes as $item)
-                    <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
-                @endforeach
-            </flux:select>
+                <flux:select wire:model="petSecondaryColorId" :label="__('Secondary Color')">
+                    <flux:select.option value="">{{ __('No Color Assigned') }}</flux:select.option>
+                    @foreach ($this->colors as $item)
+                        <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+            </div>
 
             @if ($this->sizes->isNotEmpty())
-                <flux:select wire:model="petSizeId" :label="__('Size')">
-                    <flux:select.option value="">{{ __('No Size Assigned') }}</flux:select.option>
-                    @foreach ($this->sizes as $item)
+                <div class="grid grid-cols-2 gap-4">
+                    <flux:select wire:model="petFurTypeId" :label="__('Fur Type')">
+                        <flux:select.option value="">{{ __('No Fur Type Assigned') }}</flux:select.option>
+                        @foreach ($this->furTypes as $item)
+                            <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
+                        @endforeach
+                    </flux:select>
+
+                    <flux:select wire:model="petSizeId" :label="__('Size')">
+                        <flux:select.option value="">{{ __('No Size Assigned') }}</flux:select.option>
+                        @foreach ($this->sizes as $item)
+                            <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
+                        @endforeach
+                    </flux:select>
+                </div>
+            @else
+                <flux:select wire:model="petFurTypeId" :label="__('Fur Type')">
+                    <flux:select.option value="">{{ __('No Fur Type Assigned') }}</flux:select.option>
+                    @foreach ($this->furTypes as $item)
                         <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
                     @endforeach
                 </flux:select>
@@ -154,34 +167,36 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            {{-- Safari renders an empty native date input showing today's date instead of a
-                 blank placeholder, so the field starts as plain text and only switches to the
-                 native date picker on focus (reverting to text on blur if still empty). --}}
-            <flux:input
-                type="text"
-                wire:model="petBirthDate"
-                :label="__('Birth Date')"
-                :placeholder="__('Select a date')"
-                autocomplete="off"
-                clearable
-                x-data="{ dateFieldType: 'text' }"
-                x-bind:type="dateFieldType"
-                x-on:focus="dateFieldType = 'date'"
-                x-on:blur="if (! $el.value) dateFieldType = 'text'"
-            />
+            <div class="grid grid-cols-2 gap-4">
+                {{-- Safari renders an empty native date input showing today's date instead of a
+                     blank placeholder, so the field starts as plain text and only switches to the
+                     native date picker on focus (reverting to text on blur if still empty). --}}
+                <flux:input
+                    type="text"
+                    wire:model="petBirthDate"
+                    :label="__('Birth Date')"
+                    :placeholder="__('Select a date')"
+                    autocomplete="off"
+                    clearable
+                    x-data="{ dateFieldType: 'text' }"
+                    x-bind:type="dateFieldType"
+                    x-on:focus="dateFieldType = 'date'"
+                    x-on:blur="if (! $el.value) dateFieldType = 'text'"
+                />
 
-            <flux:input
-                type="text"
-                wire:model="petDeathDate"
-                :label="__('Death Date')"
-                :placeholder="__('Select a date')"
-                autocomplete="off"
-                clearable
-                x-data="{ dateFieldType: 'text' }"
-                x-bind:type="dateFieldType"
-                x-on:focus="dateFieldType = 'date'"
-                x-on:blur="if (! $el.value) dateFieldType = 'text'"
-            />
+                <flux:input
+                    type="text"
+                    wire:model="petDeathDate"
+                    :label="__('Death Date')"
+                    :placeholder="__('Select a date')"
+                    autocomplete="off"
+                    clearable
+                    x-data="{ dateFieldType: 'text' }"
+                    x-bind:type="dateFieldType"
+                    x-on:focus="dateFieldType = 'date'"
+                    x-on:blur="if (! $el.value) dateFieldType = 'text'"
+                />
+            </div>
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
@@ -198,28 +213,32 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:switch wire:model="petIsAdoptable" :label="__('Is Adoptable')" align="left" />
-            <flux:switch wire:model="petIsSponsorable" :label="__('Is Sponsorable')" align="left" />
+            <div class="grid grid-cols-2 gap-4">
+                <flux:switch wire:model="petIsAdoptable" :label="__('Is Adoptable')" align="left" />
+                <flux:switch wire:model="petIsSponsorable" :label="__('Is Sponsorable')" align="left" />
+            </div>
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:select wire:model="petStatus" :label="__('Status')">
-                <flux:select.option value="available">{{ __('Available') }}</flux:select.option>
-                <flux:select.option value="quarantine">{{ __('Quarantine') }}</flux:select.option>
-                <flux:select.option value="adopted">{{ __('Adopted') }}</flux:select.option>
-                <flux:select.option value="medical">{{ __('Medical') }}</flux:select.option>
-            </flux:select>
+            <div class="grid grid-cols-2 gap-4">
+                <flux:select wire:model="petStatus" :label="__('Status')">
+                    <flux:select.option value="available">{{ __('Available') }}</flux:select.option>
+                    <flux:select.option value="quarantine">{{ __('Quarantine') }}</flux:select.option>
+                    <flux:select.option value="adopted">{{ __('Adopted') }}</flux:select.option>
+                    <flux:select.option value="medical">{{ __('Medical') }}</flux:select.option>
+                </flux:select>
 
-            <flux:select wire:model="petCageId" :label="__('Cage')">
-                <flux:select.option value="">{{ __('No Cage Assigned') }}</flux:select.option>
-                @foreach ($this->cages->groupBy(fn ($item) => $item->wing->facility->name.' · '.$item->wing->name) as $groupLabel => $groupCages)
-                    <flux:select.group :label="$groupLabel">
-                        @foreach ($groupCages as $item)
-                            <flux:select.option value="{{ $item->id }}">{{ $item->code }}</flux:select.option>
-                        @endforeach
-                    </flux:select.group>
-                @endforeach
-            </flux:select>
+                <flux:select wire:model="petCageId" :label="__('Cage')">
+                    <flux:select.option value="">{{ __('No Cage Assigned') }}</flux:select.option>
+                    @foreach ($this->cages->groupBy(fn ($item) => $item->wing->facility->name.' · '.$item->wing->name) as $groupLabel => $groupCages)
+                        <flux:select.group :label="$groupLabel">
+                            @foreach ($groupCages as $item)
+                                <flux:select.option value="{{ $item->id }}">{{ $item->code }}</flux:select.option>
+                            @endforeach
+                        </flux:select.group>
+                    @endforeach
+                </flux:select>
+            </div>
 
             {{-- Safari renders an empty native date input showing today's date instead of a
                  blank placeholder, so the field starts as plain text and only switches to the
