@@ -90,6 +90,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('activities', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+
         // 9. PETS (Animais)
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
@@ -293,6 +299,13 @@ return new class extends Migration
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
+        });
+
+        Schema::create('volunteer_activities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('volunteer_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('activity_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
         });
 
     }

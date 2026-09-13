@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Livewire\Admin\ManageActivities;
 use App\Livewire\Admin\ManageBreeds;
 use App\Livewire\Admin\ManageFurTypes;
 use App\Livewire\Admin\ManageShelters;
@@ -71,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('admin/fur-types', ManageFurTypes::class)->name('admin.fur-types.index');
     Route::livewire('admin/vaccines', ManageVaccines::class)->name('admin.vaccines.index');
     Route::livewire('admin/sicknesses', ManageSicknesses::class)->name('admin.sicknesses.index');
+    Route::livewire('admin/activities', ManageActivities::class)->name('admin.activities.index');
 });
 
 require __DIR__.'/settings.php';

@@ -78,6 +78,9 @@
                         <flux:sidebar.item icon="bug-ant" :href="route('admin.sicknesses.index')" :current="request()->routeIs('admin.sicknesses.index')" wire:navigate>
                             {{ __('Sicknesses') }}
                         </flux:sidebar.item>
+                        <flux:sidebar.item icon="clipboard-document-list" :href="route('admin.activities.index')" :current="request()->routeIs('admin.activities.index')" wire:navigate>
+                            {{ __('Activities') }}
+                        </flux:sidebar.item>
                     </flux:sidebar.group>
                 @endif
             </flux:sidebar.nav>
