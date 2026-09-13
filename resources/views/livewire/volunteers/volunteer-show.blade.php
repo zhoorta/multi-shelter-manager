@@ -16,15 +16,15 @@
         </div>
 
         <div class="flex items-center gap-2">
-            @if (auth()->user()->role === 'manager')
-                <flux:button :href="route('volunteers.edit', $volunteer)" variant="filled" icon="pencil" wire:navigate>
-                    {{ __('Edit') }}
-                </flux:button>
-            @endif
-
             <flux:button :href="route('volunteers.index')" variant="filled" icon="arrow-left" wire:navigate>
                 {{ __('Volunteers') }}
             </flux:button>
+
+            @if (auth()->user()->role === 'manager')
+                <flux:button :href="route('volunteers.edit', $volunteer)" variant="primary" icon="pencil" wire:navigate>
+                    {{ __('Edit') }}
+                </flux:button>
+            @endif
         </div>
     </div>
 
@@ -86,6 +86,10 @@
                     <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Transport Mode') }}</flux:text>
                     <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $volunteer->transport_mode ? __($volunteer->transport_mode) : '—' }}</flux:text>
                 </div>
+                <div>
+                    <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Send Newsletter') }}</flux:text>
+                    <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $volunteer->send_newsletter ? __('Yes') : __('No') }}</flux:text>
+                </div>
             </div>
         </div>
 
@@ -109,8 +113,8 @@
                     <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $volunteer->performance_evaluation ? __($volunteer->performance_evaluation) : '—' }}</flux:text>
                 </div>
                 <div>
-                    <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Send Newsletter') }}</flux:text>
-                    <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $volunteer->send_newsletter ? __('Yes') : __('No') }}</flux:text>
+                    <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Activities') }}</flux:text>
+                    <flux:text class="text-neutral-700 dark:text-neutral-300 whitespace-pre-line">{{ $volunteer->activities->isNotEmpty() ? $volunteer->activities->pluck('name')->join("\n") : '—' }}</flux:text>
                 </div>
             </div>
         </div>

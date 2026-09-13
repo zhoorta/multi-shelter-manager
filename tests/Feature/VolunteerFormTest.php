@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Volunteers\VolunteerForm;
+use App\Models\Activity;
 use App\Models\Shelter;
 use App\Models\User;
 use App\Models\Volunteer;
@@ -129,6 +130,63 @@ test('uploads and replaces a volunteer photo', function () {
     expect($secondImagePath)->not->toBe($firstImagePath);
     Storage::disk('public')->assertExists($secondImagePath);
     Storage::disk('public')->assertMissing($firstImagePath);
+});
+
+test('attaches the selected activities to a newly created volunteer', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $activity = Activity::factory()->create();
+
+    Livewire::test(VolunteerForm::class)
+        ->set('volunteerName', 'Maria Silva')
+        ->set('volunteerGender', 'female')
+        ->set('volunteerActivityIds', [$activity->id])
+        ->call('saveVolunteer')
+        ->assertHasNoErrors();
+
+    $volunteer = Volunteer::query()->where('name', 'Maria Silva')->firstOrFail();
+    expect($volunteer->activities()->pluck('activities.id')->all())->toBe([$activity->id]);
+});
+
+test('rejects an activity id that does not exist', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(VolunteerForm::class)
+        ->set('volunteerName', 'Maria Silva')
+        ->set('volunteerGender', 'female')
+        ->set('volunteerActivityIds', [99999])
+        ->call('saveVolunteer')
+        ->assertHasErrors(['volunteerActivityIds.0' => 'exists']);
+});
+
+test('populates the form with the volunteer\'s currently selected activities when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+    $activity = Activity::factory()->create();
+    $volunteer->activities()->attach($activity);
+
+    Livewire::test(VolunteerForm::class, ['volunteer' => $volunteer])
+        ->assertSet('volunteerActivityIds', [$activity->id]);
+});
+
+test('removes an activity from volunteer_activities when its toggle is switched off', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+    $activity = Activity::factory()->create();
+    $volunteer->activities()->attach($activity);
+
+    Livewire::test(VolunteerForm::class, ['volunteer' => $volunteer])
+        ->call('toggleActivity', $activity->id)
+        ->call('saveVolunteer')
+        ->assertHasNoErrors();
+
+    expect($volunteer->activities()->pluck('activities.id')->all())->toBe([]);
 });
 
 test('returns 404 when editing a volunteer belonging to another shelter', function () {

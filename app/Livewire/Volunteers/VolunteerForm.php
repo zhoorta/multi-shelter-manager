@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Livewire\Volunteers;
 
+use App\Models\Activity;
 use App\Models\Volunteer;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -58,6 +61,11 @@ class VolunteerForm extends Component
 
     public string $volunteerNotes = '';
 
+    /**
+     * @var array<int, int>
+     */
+    public array $volunteerActivityIds = [];
+
     public function mount(?Volunteer $volunteer = null): void
     {
         abort_unless(Auth::user()->role === 'manager', 403);
@@ -86,6 +94,27 @@ class VolunteerForm extends Component
         $this->volunteerEndDate = (string) $volunteer->end_date?->format('Y-m-d');
         $this->volunteerSendNewsletter = $volunteer->send_newsletter;
         $this->volunteerNotes = (string) $volunteer->notes;
+        $this->volunteerActivityIds = $volunteer->activities()->pluck('activities.id')->all();
+    }
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    #[Computed]
+    public function activities(): Collection
+    {
+        return Activity::query()->orderBy('name')->get();
+    }
+
+    public function toggleActivity(int $activityId): void
+    {
+        if (in_array($activityId, $this->volunteerActivityIds, true)) {
+            $this->volunteerActivityIds = array_values(array_diff($this->volunteerActivityIds, [$activityId]));
+
+            return;
+        }
+
+        $this->volunteerActivityIds[] = $activityId;
     }
 
     public function saveVolunteer(): void
@@ -110,6 +139,8 @@ class VolunteerForm extends Component
             'volunteerEndDate' => ['nullable', 'date', 'after_or_equal:volunteerStartDate'],
             'volunteerSendNewsletter' => ['boolean'],
             'volunteerNotes' => ['nullable', 'string'],
+            'volunteerActivityIds' => ['array'],
+            'volunteerActivityIds.*' => ['integer', 'exists:activities,id'],
         ], [], [
             'volunteerName' => __('Name'),
             'volunteerGender' => __('Gender'),
@@ -130,6 +161,7 @@ class VolunteerForm extends Component
             'volunteerEndDate' => __('End Date'),
             'volunteerSendNewsletter' => __('Send Newsletter'),
             'volunteerNotes' => __('Notes'),
+            'volunteerActivityIds.*' => __('Activities'),
         ]);
 
         $attributes = [
@@ -168,6 +200,8 @@ class VolunteerForm extends Component
         } else {
             $this->volunteer = Volunteer::query()->create($attributes);
         }
+
+        $this->volunteer->activities()->sync($validated['volunteerActivityIds'] ?? []);
 
         Flux::toast(
             variant: 'success',

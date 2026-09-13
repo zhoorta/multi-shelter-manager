@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Activity;
 use App\Models\Shelter;
 use App\Models\User;
 use App\Models\Volunteer;
@@ -30,6 +31,22 @@ test('managers and staff can view a volunteer belonging to their shelter', funct
     $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
     $this->actingAs($staff);
     $this->get(route('volunteers.show', $volunteer))->assertOk()->assertSee('Maria Silva');
+});
+
+test('shows only the activities assigned to the volunteer', function () {
+    $shelter = Shelter::factory()->create();
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+
+    $assignedActivity = Activity::factory()->create(['name' => 'Dog Walking']);
+    $otherActivity = Activity::factory()->create(['name' => 'Cat Grooming']);
+    $volunteer->activities()->attach($assignedActivity);
+
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('volunteers.show', $volunteer))
+        ->assertOk()
+        ->assertSeeText('Dog Walking')
+        ->assertDontSeeText('Cat Grooming');
 });
 
 test('returns 404 when viewing a volunteer belonging to another shelter', function () {

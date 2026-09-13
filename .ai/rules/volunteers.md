@@ -1,6 +1,7 @@
 ---
 paths:
   - 'app/Livewire/Volunteers/**'
+  - app/Livewire/Volunteers/VolunteerForm.php
 ---
 
 # Volunteers
@@ -10,3 +11,6 @@ Volunteer has a direct shelter_id column (like Pet/Facility/User) so it uses Mul
 
 ## VolunteerForm: manager-only full page, mount() gates the whole page not just actions
 Create/edit now exist: App\Livewire\Volunteers\VolunteerForm (routes volunteers.create, volunteers.edit with implicit {volunteer} binding — MultiShelterTrait scoping 404s a cross-shelter edit). Unlike ManageSpaces (single page, gates each mutating action individually), VolunteerForm is a dedicated full page like ShelterForm/PetForm, so mount() gates the entire page with `abort_unless(Auth::user()->role === 'manager', 403)` — staff get 403 just visiting /volunteers/create, they never reach an action-level check. ManageVolunteers' Create button and each row's Edit button are both wrapped in `@if (auth()->user()->role === 'manager')`, same as the existing Delete gating. Photo upload follows ShelterForm's single-image pattern (WithFileUploads, `existingImagePath` + delete-old-then-store-new on replace into the `volunteers` disk path), not PetForm's multi-photo pattern. volunteerEndDate validates `after_or_equal:volunteerStartDate`.
+
+## VolunteerForm: activity toggles use a plain global pivot, no species scoping
+Volunteer.activities() is a BelongsToMany to Activity via 'volunteer_activities' (plain pivot: volunteer_id, activity_id, timestamps only — no custom pivot model, no withPivot columns), mirroring vaccine_species/sickness_species rather than pet_sickness. Activity is a global, unscoped lookup (like Species/Breed) managed at admin.activities.index (App\Livewire\Admin\ManageActivities), so VolunteerForm's `activities()` computed property lists ALL activities via `Activity::query()->orderBy('name')->get()` — unlike PetForm's sicknesses(), there is no species-style filtering to apply. toggleActivity()/volunteerActivityIds follow PetForm's toggleSickness()/petSicknessIds pattern exactly, and saveVolunteer() persists them with a single `$this->volunteer->activities()->sync($validated['volunteerActivityIds'] ?? [])` call (no attach-with-extra-columns step needed, since the pivot carries no domain data to preserve).

@@ -34,7 +34,12 @@
                     >
                 @endif
 
-                <input type="file" wire:model="volunteerImage" accept="image/*">
+                <input
+                    type="file"
+                    wire:model="volunteerImage"
+                    accept="image/*"
+                    class="block w-full text-sm text-neutral-700 file:mr-4 file:rounded-lg file:border-0 file:bg-neutral-900 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-neutral-700 dark:text-neutral-300 dark:file:bg-white dark:file:text-neutral-900 dark:hover:file:bg-neutral-200"
+                >
 
                 <flux:text size="sm" class="text-neutral-500 dark:text-neutral-400">
                     {{ __('PNG or JPG up to 2MB') }}
@@ -105,8 +110,6 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:heading size="lg">{{ __('Volunteering') }}</flux:heading>
-
             <div class="grid grid-cols-2 gap-4">
                 {{-- Safari renders an empty native date input showing today's date instead of a
                      blank placeholder, so the field starts as plain text and only switches to the
@@ -160,6 +163,19 @@
                 </flux:select>
             </div>
 
+            <flux:label>{{ __('Activities') }}</flux:label>
+
+            @foreach ($this->activities as $item)
+                <flux:switch
+                    :checked="in_array($item->id, $volunteerActivityIds, true)"
+                    wire:click="toggleActivity({{ $item->id }})"
+                    :label="$item->name"
+                    align="left"
+                />
+            @endforeach
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:switch wire:model="volunteerSendNewsletter" :label="__('Send Newsletter')" align="left" />
         </div>
 

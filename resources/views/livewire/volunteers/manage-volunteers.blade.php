@@ -43,15 +43,6 @@
                                         />
 
                                         @if (auth()->user()->role === 'manager')
-                                            <flux:button
-                                                size="sm"
-                                                variant="subtle"
-                                                icon="pencil"
-                                                :href="route('volunteers.edit', $item)"
-                                                :aria-label="__('Edit')"
-                                                wire:navigate
-                                            />
-
                                             <flux:modal.trigger name="confirm-volunteer-deletion-{{ $item->id }}">
                                                 <flux:button
                                                     size="sm"
