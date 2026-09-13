@@ -127,23 +127,23 @@
 
         <div class="flex flex-col gap-6 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <div>
-                <flux:heading size="lg">{{ __('Identification') }}</flux:heading>
+                <flux:heading>{{ __('Identification') }}</flux:heading>
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}</flux:text>
-                        <flux:text>{{ $pet->name }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->name }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Microchip / Chip') }}</flux:text>
-                        <flux:text>{{ $pet->chip ?? '—' }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->chip ?? '—' }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Species') }}</flux:text>
-                        <flux:text>{{ $pet->species->name }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->species->name }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Breed') }}</flux:text>
-                        <flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">
                             {{ $pet->breed->name }}
                             @if ($pet->species->has_pure_breed_field && $pet->is_pure_breed)
                                 ({{ __('Pure') }})
@@ -152,45 +152,45 @@
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Gender') }}</flux:text>
-                        <flux:text>{{ __(ucfirst($pet->gender)) }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ __(ucfirst($pet->gender)) }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Birth Date') }}</flux:text>
-                        <flux:text>{{ $pet->birth_date?->format('d/m/Y') ?? '—' }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->birth_date?->format('d/m/Y') ?? '—' }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Death Date') }}</flux:text>
-                        <flux:text>{{ $pet->date_of_death?->format('d/m/Y') ?? '—' }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->date_of_death?->format('d/m/Y') ?? '—' }}</flux:text>
                     </div>
                 </div>
             </div>
 
             <div>
-                <flux:heading size="lg">{{ __('Characteristics') }}</flux:heading>
+                <flux:heading>{{ __('Characteristics') }}</flux:heading>
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Primary Color') }}</flux:text>
-                        <flux:text>{{ $pet->primaryColor?->name ?? '—' }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->primaryColor?->name ?? '—' }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Secondary Color') }}</flux:text>
-                        <flux:text>{{ $pet->secondaryColor?->name ?? '—' }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->secondaryColor?->name ?? '—' }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Fur Type') }}</flux:text>
-                        <flux:text>{{ $pet->furType?->name ?? '—' }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->furType?->name ?? '—' }}</flux:text>
                     </div>
                     @if ($this->speciesHasSizes)
                         <div>
                             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Size') }}</flux:text>
-                            <flux:text>{{ $pet->size?->name ?? '—' }}</flux:text>
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->size?->name ?? '—' }}</flux:text>
                         </div>
                     @endif
                 </div>
             </div>
 
             <div>
-                <flux:heading size="lg">{{ __('Health') }}</flux:heading>
+                <flux:heading>{{ __('Health') }}</flux:heading>
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Is Neutered') }}</flux:text>
@@ -211,7 +211,7 @@
             </div>
 
             <div>
-                <flux:heading size="lg">{{ __('Adoption') }}</flux:heading>
+                <flux:heading>{{ __('Adoption') }}</flux:heading>
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Is Adoptable') }}</flux:text>
@@ -229,26 +229,26 @@
             </div>
 
             <div>
-                <flux:heading size="lg">{{ __('Accommodation') }}</flux:heading>
+                <flux:heading>{{ __('Accommodation') }}</flux:heading>
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Cage') }}</flux:text>
-                        <flux:text>{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }} &middot; {{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }} &middot; {{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}</flux:text>
-                        <flux:text>{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Checkout Date') }}</flux:text>
-                        <flux:text>{{ $pet->checkout_date?->format('d/m/Y') ?? '—' }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->checkout_date?->format('d/m/Y') ?? '—' }}</flux:text>
                     </div>
                 </div>
             </div>
 
             <div>
-                <flux:heading size="lg">{{ __('Description') }}</flux:heading>
-                <flux:text inline class="mt-2 [&_ol]:list-decimal [&_ol]:ps-5 [&_ul]:list-disc [&_ul]:ps-5">
+                <flux:heading>{{ __('Description') }}</flux:heading>
+                <flux:text inline class="text-neutral-700 dark:text-neutral-300 mt-2 [&_ol]:list-decimal [&_ol]:ps-5 [&_ul]:list-disc [&_ul]:ps-5">
                     @if ($pet->description)
                         {!! $pet->description !!}
                     @else
@@ -259,8 +259,8 @@
 
             @if ($pet->notes)
                 <div>
-                    <flux:heading size="lg">{{ __('Notes') }}</flux:heading>
-                    <flux:text class="mt-2 whitespace-pre-line">{{ $pet->notes }}</flux:text>
+                    <flux:heading>{{ __('Notes') }}</flux:heading>
+                    <flux:text class="text-neutral-700 dark:text-neutral-300 mt-2 whitespace-pre-line">{{ $pet->notes }}</flux:text>
                 </div>
             @endif
         </div>

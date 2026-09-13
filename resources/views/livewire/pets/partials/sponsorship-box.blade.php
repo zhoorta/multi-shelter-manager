@@ -24,32 +24,32 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}</flux:text>
-            <flux:text>{{ $sponsorship->name ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $sponsorship->name ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Email') }}</flux:text>
-            <flux:text>{{ $sponsorship->email ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $sponsorship->email ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Phone') }}</flux:text>
-            <flux:text>{{ $sponsorship->phone ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $sponsorship->phone ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Address') }}</flux:text>
-            <flux:text>{{ $sponsorship->address ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $sponsorship->address ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Postal Code') }}</flux:text>
-            <flux:text>{{ $sponsorship->postal_code ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $sponsorship->postal_code ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('City') }}</flux:text>
-            <flux:text>{{ $sponsorship->city ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $sponsorship->city ?? '—' }}</flux:text>
         </div>
 
         <div>
@@ -65,7 +65,7 @@
 
     <div>
         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Notes') }}</flux:text>
-        <flux:text class="whitespace-pre-line">{{ $sponsorship->notes ?? '—' }}</flux:text>
+        <flux:text class="text-neutral-700 dark:text-neutral-300 whitespace-pre-line">{{ $sponsorship->notes ?? '—' }}</flux:text>
     </div>
 
     <div class="flex w-full items-center justify-between pt-2">

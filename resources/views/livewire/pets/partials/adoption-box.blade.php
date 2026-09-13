@@ -27,47 +27,47 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Name') }}</flux:text>
-            <flux:text>{{ $adoption->name ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->name ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Email') }}</flux:text>
-            <flux:text>{{ $adoption->email ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->email ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Phone') }}</flux:text>
-            <flux:text>{{ $adoption->phone ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->phone ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Address') }}</flux:text>
-            <flux:text>{{ $adoption->address ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->address ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Postal Code') }}</flux:text>
-            <flux:text>{{ $adoption->postal_code ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->postal_code ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('City') }}</flux:text>
-            <flux:text>{{ $adoption->city ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->city ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Adoption Date') }}</flux:text>
-            <flux:text>{{ $adoption->adoption_date->format('d/m/Y') }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->adoption_date->format('d/m/Y') }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Return Date') }}</flux:text>
-            <flux:text>{{ $adoption->return_date?->format('d/m/Y') ?? '—' }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->return_date?->format('d/m/Y') ?? '—' }}</flux:text>
         </div>
 
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Adoption Fee') }}</flux:text>
-            <flux:text>{{ number_format((float) $adoption->adoption_fee, 2, ',', '.') }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ number_format((float) $adoption->adoption_fee, 2, ',', '.') }}</flux:text>
         </div>
 
         <div>
@@ -78,6 +78,6 @@
 
     <div>
         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Notes') }}</flux:text>
-        <flux:text class="whitespace-pre-line">{{ $adoption->notes ?? '—' }}</flux:text>
+        <flux:text class="text-neutral-700 dark:text-neutral-300 whitespace-pre-line">{{ $adoption->notes ?? '—' }}</flux:text>
     </div>
 </div>
