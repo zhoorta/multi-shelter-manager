@@ -20,3 +20,4 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Traits/MultiShelterTrait.php | .ai/rules/traits.md |
 | app/Livewire/Pets/PetShow.php,resources/views/livewire/pets/pet-show.blade.php, app/Livewire/Pets/ManagePets.php,resources/views/livewire/pets/manage-pets.blade.php | .ai/rules/views-livewire-pets.md |
 | resources/views/livewire/**/*.blade.php | .ai/rules/views-livewire.md |
+| app/Livewire/Volunteers/** | .ai/rules/volunteers.md |

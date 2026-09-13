@@ -41,6 +41,9 @@
                                 {{ __('Adoptions') }}
                             </flux:sidebar.item>
                         </flux:sidebar.group>
+                        <flux:sidebar.item icon="user-group" :href="route('volunteers.index')" :current="request()->routeIs('volunteers.*')" wire:navigate>
+                            {{ __('Volunteers') }}
+                        </flux:sidebar.item>
                         <flux:sidebar.item icon="building-office-2" :href="route('facilities.index')" :current="request()->routeIs('facilities.index')" wire:navigate>
                             {{ __('Facilities') }}
                         </flux:sidebar.item>

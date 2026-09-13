@@ -22,6 +22,9 @@ use App\Livewire\Pets\PetForm;
 use App\Livewire\Pets\PetShow;
 use App\Livewire\Pets\SponsorshipForm;
 use App\Livewire\Pets\SponsorshipShow;
+use App\Livewire\Volunteers\ManageVolunteers;
+use App\Livewire\Volunteers\VolunteerForm;
+use App\Livewire\Volunteers\VolunteerShow;
 use Illuminate\Support\Facades\Route;
 
 // Public guest routes.
@@ -49,6 +52,11 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets/{pet}/sponsor', SponsorshipForm::class)->name('pets.sponsor');
     Route::livewire('pets/{pet}/sponsor/{sponsorship}', SponsorshipShow::class)->name('pets.sponsor.show');
     Route::livewire('pets/{pet}/sponsor/{sponsorship}/edit', SponsorshipForm::class)->name('pets.sponsor.edit');
+
+    Route::livewire('volunteers', ManageVolunteers::class)->name('volunteers.index');
+    Route::livewire('volunteers/create', VolunteerForm::class)->name('volunteers.create');
+    Route::livewire('volunteers/{volunteer}/edit', VolunteerForm::class)->name('volunteers.edit');
+    Route::livewire('volunteers/{volunteer}', VolunteerShow::class)->name('volunteers.show');
 
     Route::livewire('facilities', ManageSpaces::class)->name('facilities.index');
 

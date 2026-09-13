@@ -205,7 +205,7 @@ return new class extends Migration
         Schema::create('adoptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('email', 150)->nullable();
             $table->string('phone', 30)->nullable();
             $table->string('address')->nullable();
@@ -226,7 +226,7 @@ return new class extends Migration
         Schema::create('sponsorships', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('email', 150)->nullable();
             $table->string('phone', 30)->nullable();
             $table->string('address')->nullable();
@@ -263,10 +263,45 @@ return new class extends Migration
             $table->foreignId('species_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
+
+        Schema::create('volunteers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('shelter_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('id_card')->nullable();
+            $table->string('tin')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('image_path')->nullable();
+            $table->string('professional_activity')->nullable();
+            $table->string('email', 150)->nullable();
+            $table->string('phone', 30)->nullable();
+            $table->string('address')->nullable();
+            $table->string('postal_code', 20)->nullable();
+            $table->string('city', 100)->nullable();
+
+            $table->enum('transport_mode', ['foot', 'bycicle', 'hitchhike', 'public transportation', 'own vehicule'])->nullable();
+            $table->enum('attendance_evaluation', ['very low', 'low', 'regular', 'high', 'very high', 'excellent'])->nullable();
+            $table->enum('performance_evaluation', ['very low', 'low', 'regular', 'high', 'very high', 'excellent'])->nullable();
+
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->boolean('send_newsletter')->default(false);
+            $table->text('notes')->nullable();
+            $table->timestamps();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->softDeletes();
+        });
+
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('shelter_species');
+        Schema::dropIfExists('sponsorship_payments');
+        Schema::dropIfExists('sponsorships');
         Schema::dropIfExists('pet_sickness');
         Schema::dropIfExists('pet_vaccine');
         Schema::dropIfExists('sickness_species');
