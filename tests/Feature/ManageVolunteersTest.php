@@ -1,7 +1,9 @@
 <?php
 
 use App\Livewire\Volunteers\ManageVolunteers;
+use App\Models\Activity;
 use App\Models\Shelter;
+use App\Models\Species;
 use App\Models\User;
 use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -49,6 +51,47 @@ test('lists only volunteers belonging to the acting user\'s shelter', function (
     Livewire::test(ManageVolunteers::class)
         ->assertSee('Maria Silva')
         ->assertDontSee('Other Shelter Volunteer');
+});
+
+test('lists a volunteer\'s activities, sector and availability alongside contact details', function () {
+    $shelter = Shelter::factory()->create();
+    $volunteer = Volunteer::factory()->for($shelter)->create([
+        'name' => 'Maria Silva',
+        'phone' => '912345678',
+        'email' => 'maria@example.com',
+    ]);
+
+    $activity = Activity::factory()->create(['name' => 'Dog Walking']);
+    $volunteer->activities()->attach($activity);
+
+    $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+    $volunteer->species()->attach($species);
+
+    $volunteer->availabilities()->create(['day_index' => 0, 'mornings' => true, 'afternoons' => false, 'frequency' => 'weekly']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManageVolunteers::class)
+        ->assertSeeText('Maria Silva')
+        ->assertSeeText('912345678')
+        ->assertSeeText('maria@example.com')
+        ->assertSeeText('Dog Walking')
+        ->assertSeeText('Dogs')
+        ->assertSeeText('Monday morning weekly')
+        ->assertDontSeeText('Present on Monday')
+        ->assertDontSeeText('Activities:')
+        ->assertDontSeeText('Availability:');
+});
+
+test('shows the end date only when the volunteer has one', function () {
+    $shelter = Shelter::factory()->create();
+    Volunteer::factory()->for($shelter)->create(['name' => 'Maria Silva', 'end_date' => '2026-01-15']);
+    Volunteer::factory()->for($shelter)->create(['name' => 'Joao Costa', 'end_date' => null]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManageVolunteers::class)
+        ->assertSeeText(__('Ended at').' 15/01/2026');
 });
 
 test('only managers see the create and edit links', function () {

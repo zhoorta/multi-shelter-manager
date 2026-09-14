@@ -15,24 +15,61 @@
                 <table class="w-full text-left text-sm">
                     <thead class="bg-neutral-50 text-xs uppercase text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
                         <tr>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Gender') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Email') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Phone') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('City') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Identification and Contacts') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Activity and Availability') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                         @forelse ($this->volunteers as $item)
+                            @php
+                                $availabilityLines = $item->availabilities->map(function ($availability) {
+                                    $periods = collect([
+                                        $availability->mornings ? lcfirst(__('Morning')) : null,
+                                        $availability->afternoons ? lcfirst(__('Afternoon')) : null,
+                                    ])->filter()->join(' '.__('and').' ');
+
+                                    return __(\App\Models\VolunteerAvailability::DAYS[$availability->day_index]).' '.$periods.' '.lcfirst(__($availability->frequency));
+                                });
+                            @endphp
                             <tr wire:key="volunteer-{{ $item->id }}">
-                                <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">
-                                    <a href="{{ route('volunteers.show', $item) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $item->name }}</a>
+                                <td class="px-6 py-3">
+                                    <div class="flex items-start gap-3">
+                                        @if ($item->image_path)
+                                            <flux:avatar
+                                                size="xl"
+                                                class="size-16 shrink-0"
+                                                :src="\Illuminate\Support\Facades\Storage::url($item->image_path)"
+                                                :name="$item->name"
+                                                :href="route('volunteers.show', $item)"
+                                                wire:navigate
+                                            />
+                                        @endif
+
+                                        <div class="flex flex-col gap-1">
+                                            <a href="{{ route('volunteers.show', $item) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $item->name }}</a>
+                                            <span class="text-neutral-500 dark:text-neutral-400">{{ $item->phone ?? '—' }}</span>
+                                            <span class="text-neutral-500 dark:text-neutral-400">{{ $item->email ?? '—' }}</span>
+                                            @if ($item->professional_activity)
+                                                <span class="text-neutral-500 dark:text-neutral-400">{{ $item->professional_activity }}</span>
+                                            @endif
+                                            <span class="text-neutral-500 dark:text-neutral-400">{{ __('Started at') }} {{ $item->start_date?->format('d/m/Y') ?? '—' }}</span>
+                                            @if ($item->end_date)
+                                                <span class="text-neutral-500 dark:text-neutral-400">{{ __('Ended at') }} {{ $item->end_date->format('d/m/Y') }}</span>
+                                            @endif
+                                            @if ($item->notes)
+                                                <span class="mt-1 line-clamp-2 max-w-xs text-neutral-500 dark:text-neutral-400">{{ $item->notes }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </td>
-                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ __($item->gender) }}</td>
-                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->email }}</td>
-                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->phone }}</td>
-                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->city }}</td>
+                                <td class="px-6 py-3">
+                                    <div class="flex flex-col gap-1 text-neutral-500 dark:text-neutral-400">
+                                        <span class="whitespace-pre-line">{{ $item->activities->isNotEmpty() ? $item->activities->pluck('name')->join("\n") : '—' }}</span>
+                                        <span class="mt-3">{{ __('Sector') }}: {{ $item->species->isNotEmpty() ? $item->species->pluck('name_plural')->join(', ') : '—' }}</span>
+                                        <span class="mt-3 whitespace-pre-line">{{ $availabilityLines->isNotEmpty() ? $availabilityLines->join("\n") : '—' }}</span>
+                                    </div>
+                                </td>
                                 <td class="px-6 py-3">
                                     <div class="flex items-center gap-2">
                                         <flux:button
@@ -78,7 +115,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="3" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No volunteers registered') }}
                                 </td>
                             </tr>

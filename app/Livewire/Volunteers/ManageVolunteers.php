@@ -33,6 +33,7 @@ class ManageVolunteers extends Component
     public function volunteers(): Collection
     {
         return Volunteer::query()
+            ->with(['activities', 'species', 'availabilities'])
             ->orderBy('name')
             ->get();
     }
