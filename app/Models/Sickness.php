@@ -37,7 +37,7 @@ class Sickness extends Model
      */
     public function pets(): BelongsToMany
     {
-        return $this->belongsToMany(Pet::class, 'pet_sickness')
+        return $this->belongsToMany(Pet::class, 'pet_sicknesses')
             ->using(PetSickness::class)
             ->withPivot(['diagnosed_at', 'status', 'treatment_notes', 'created_by', 'updated_by'])
             ->withTimestamps();

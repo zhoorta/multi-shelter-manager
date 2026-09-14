@@ -840,7 +840,7 @@ test('updates an existing pet and redirects to the show page', function () {
     expect($pet->fresh()->is_sponsorable)->toBeFalse();
 });
 
-test('removes a sickness from pet_sickness when its toggle is switched off', function () {
+test('removes a sickness from pet_sicknesses when its toggle is switched off', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 

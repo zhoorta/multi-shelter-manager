@@ -23,7 +23,7 @@ class PetVaccine extends Pivot
 {
     use Blameable;
 
-    protected $table = 'pet_vaccine';
+    protected $table = 'pet_vaccines';
 
     public $incrementing = true;
 

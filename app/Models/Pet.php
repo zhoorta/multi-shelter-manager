@@ -217,7 +217,7 @@ class Pet extends Model
      */
     public function sicknesses(): BelongsToMany
     {
-        return $this->belongsToMany(Sickness::class, 'pet_sickness')
+        return $this->belongsToMany(Sickness::class, 'pet_sicknesses')
             ->using(PetSickness::class)
             ->withPivot(['diagnosed_at', 'status', 'treatment_notes', 'created_by', 'updated_by'])
             ->withTimestamps();
@@ -230,7 +230,7 @@ class Pet extends Model
      */
     public function vaccines(): BelongsToMany
     {
-        return $this->belongsToMany(Vaccine::class, 'pet_vaccine')
+        return $this->belongsToMany(Vaccine::class, 'pet_vaccines')
             ->using(PetVaccine::class)
             ->withPivot(['administered_at', 'expires_at', 'created_by', 'updated_by'])
             ->withTimestamps();

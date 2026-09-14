@@ -36,7 +36,7 @@ class Vaccine extends Model
      */
     public function pets(): BelongsToMany
     {
-        return $this->belongsToMany(Pet::class, 'pet_vaccine')
+        return $this->belongsToMany(Pet::class, 'pet_vaccines')
             ->using(PetVaccine::class)
             ->withPivot(['administered_at', 'expires_at', 'created_by', 'updated_by'])
             ->withTimestamps();

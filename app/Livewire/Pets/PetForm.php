@@ -423,7 +423,7 @@ class PetForm extends Component
 
     /**
      * Toggle the pet's diagnosed sicknesses: newly checked ids are attached
-     * to pet_sickness with a fresh diagnosis, newly unchecked ids are
+     * to pet_sicknesses with a fresh diagnosis, newly unchecked ids are
      * detached, and already-attached ids are left untouched so an existing
      * diagnosis's status/treatment_notes aren't reset by the toggle.
      *
