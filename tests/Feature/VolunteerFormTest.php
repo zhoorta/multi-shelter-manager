@@ -3,6 +3,7 @@
 use App\Livewire\Volunteers\VolunteerForm;
 use App\Models\Activity;
 use App\Models\Shelter;
+use App\Models\Species;
 use App\Models\User;
 use App\Models\Volunteer;
 use Illuminate\Http\UploadedFile;
@@ -187,6 +188,63 @@ test('removes an activity from volunteer_activities when its toggle is switched 
         ->assertHasNoErrors();
 
     expect($volunteer->activities()->pluck('activities.id')->all())->toBe([]);
+});
+
+test('attaches the selected species to a newly created volunteer', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+
+    Livewire::test(VolunteerForm::class)
+        ->set('volunteerName', 'Maria Silva')
+        ->set('volunteerGender', 'female')
+        ->set('volunteerSpeciesIds', [$species->id])
+        ->call('saveVolunteer')
+        ->assertHasNoErrors();
+
+    $volunteer = Volunteer::query()->where('name', 'Maria Silva')->firstOrFail();
+    expect($volunteer->species()->pluck('species.id')->all())->toBe([$species->id]);
+});
+
+test('rejects a species id that does not exist', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(VolunteerForm::class)
+        ->set('volunteerName', 'Maria Silva')
+        ->set('volunteerGender', 'female')
+        ->set('volunteerSpeciesIds', [99999])
+        ->call('saveVolunteer')
+        ->assertHasErrors(['volunteerSpeciesIds.0' => 'exists']);
+});
+
+test('populates the form with the volunteer\'s currently selected species when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+    $species = Species::factory()->create();
+    $volunteer->species()->attach($species);
+
+    Livewire::test(VolunteerForm::class, ['volunteer' => $volunteer])
+        ->assertSet('volunteerSpeciesIds', [$species->id]);
+});
+
+test('removes a species from volunteer_species when its toggle is switched off', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+    $species = Species::factory()->create();
+    $volunteer->species()->attach($species);
+
+    Livewire::test(VolunteerForm::class, ['volunteer' => $volunteer])
+        ->call('toggleSpecies', $species->id)
+        ->call('saveVolunteer')
+        ->assertHasNoErrors();
+
+    expect($volunteer->species()->pluck('species.id')->all())->toBe([]);
 });
 
 test('saves availability for a day when morning or afternoon is checked', function () {

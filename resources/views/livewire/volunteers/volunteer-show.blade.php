@@ -38,7 +38,7 @@
                 </div>
                 <div>
                     <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Gender') }}</flux:text>
-                    <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $volunteer->gender === 'male' ? __('Male') : __('Female') }}</flux:text>
+                    <flux:text class="text-neutral-700 dark:text-neutral-300">{{ __($volunteer->gender) }}</flux:text>
                 </div>
                 <div>
                     <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('ID Card') }}</flux:text>
@@ -115,6 +115,10 @@
                 <div>
                     <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Activities') }}</flux:text>
                     <flux:text class="text-neutral-700 dark:text-neutral-300 whitespace-pre-line">{{ $volunteer->activities->isNotEmpty() ? $volunteer->activities->pluck('name')->join("\n") : '—' }}</flux:text>
+                </div>
+                <div>
+                    <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Sector') }}</flux:text>
+                    <flux:text class="text-neutral-700 dark:text-neutral-300 whitespace-pre-line">{{ $volunteer->species->isNotEmpty() ? $volunteer->species->pluck('name_plural')->join("\n") : '—' }}</flux:text>
                 </div>
             </div>
         </div>

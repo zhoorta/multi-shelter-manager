@@ -57,8 +57,8 @@
             <div class="grid grid-cols-2 gap-4">
                 <flux:select wire:model="volunteerGender" :label="__('Gender')">
                     <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
-                    <flux:select.option value="male">{{ __('Male') }}</flux:select.option>
-                    <flux:select.option value="female">{{ __('Female') }}</flux:select.option>
+                    <flux:select.option value="male">{{ __('male') }}</flux:select.option>
+                    <flux:select.option value="female">{{ __('female') }}</flux:select.option>
                 </flux:select>
 
                 {{-- Safari renders an empty native date input showing today's date instead of a
@@ -170,6 +170,17 @@
                     :checked="in_array($item->id, $volunteerActivityIds, true)"
                     wire:click="toggleActivity({{ $item->id }})"
                     :label="$item->name"
+                    align="left"
+                />
+            @endforeach
+
+            <flux:label>{{ __('Sector') }}</flux:label>
+
+            @foreach ($this->species as $item)
+                <flux:switch
+                    :checked="in_array($item->id, $volunteerSpeciesIds, true)"
+                    wire:click="toggleSpecies({{ $item->id }})"
+                    :label="$item->name_plural"
                     align="left"
                 />
             @endforeach

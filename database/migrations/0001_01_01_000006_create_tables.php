@@ -184,7 +184,7 @@ return new class extends Migration
         });
 
         // 15. PIVOT: PET_VACCINE
-        Schema::create('pet_vaccine', function (Blueprint $table) {
+        Schema::create('pet_vaccines', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
             $table->foreignId('vaccine_id')->constrained()->cascadeOnDelete();
@@ -196,7 +196,7 @@ return new class extends Migration
         });
 
         // 16. PIVOT: PET_SICKNESS
-        Schema::create('pet_sickness', function (Blueprint $table) {
+        Schema::create('pet_sicknesses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
             $table->foreignId('sickness_id')->constrained()->cascadeOnDelete();
@@ -329,8 +329,8 @@ return new class extends Migration
         Schema::dropIfExists('shelter_species');
         Schema::dropIfExists('sponsorship_payments');
         Schema::dropIfExists('sponsorships');
-        Schema::dropIfExists('pet_sickness');
-        Schema::dropIfExists('pet_vaccine');
+        Schema::dropIfExists('pet_sicknesses');
+        Schema::dropIfExists('pet_vaccines');
         Schema::dropIfExists('sickness_species');
         Schema::dropIfExists('sicknesses');
         Schema::dropIfExists('vaccine_species');

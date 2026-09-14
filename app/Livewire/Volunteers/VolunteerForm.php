@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Volunteers;
 
 use App\Models\Activity;
+use App\Models\Species;
 use App\Models\Volunteer;
 use App\Models\VolunteerAvailability;
 use Flux\Flux;
@@ -68,6 +69,11 @@ class VolunteerForm extends Component
     public array $volunteerActivityIds = [];
 
     /**
+     * @var array<int, int>
+     */
+    public array $volunteerSpeciesIds = [];
+
+    /**
      * Keyed by day_index (0 Monday - 6 Sunday); each entry has 'mornings', 'afternoons', 'frequency'.
      *
      * @var array<int, array{mornings: bool, afternoons: bool, frequency: string}>
@@ -111,6 +117,7 @@ class VolunteerForm extends Component
         $this->volunteerSendNewsletter = $volunteer->send_newsletter;
         $this->volunteerNotes = (string) $volunteer->notes;
         $this->volunteerActivityIds = $volunteer->activities()->pluck('activities.id')->all();
+        $this->volunteerSpeciesIds = $volunteer->species()->pluck('species.id')->all();
 
         foreach ($volunteer->availabilities as $availability) {
             $this->availabilities[$availability->day_index] = [
@@ -141,6 +148,26 @@ class VolunteerForm extends Component
         $this->volunteerActivityIds[] = $activityId;
     }
 
+    /**
+     * @return Collection<int, Species>
+     */
+    #[Computed]
+    public function species(): Collection
+    {
+        return Species::query()->orderBy('name')->get();
+    }
+
+    public function toggleSpecies(int $speciesId): void
+    {
+        if (in_array($speciesId, $this->volunteerSpeciesIds, true)) {
+            $this->volunteerSpeciesIds = array_values(array_diff($this->volunteerSpeciesIds, [$speciesId]));
+
+            return;
+        }
+
+        $this->volunteerSpeciesIds[] = $speciesId;
+    }
+
     public function saveVolunteer(): void
     {
         $validated = $this->validate([
@@ -165,6 +192,8 @@ class VolunteerForm extends Component
             'volunteerNotes' => ['nullable', 'string'],
             'volunteerActivityIds' => ['array'],
             'volunteerActivityIds.*' => ['integer', 'exists:activities,id'],
+            'volunteerSpeciesIds' => ['array'],
+            'volunteerSpeciesIds.*' => ['integer', 'exists:species,id'],
             'availabilities' => ['array'],
             'availabilities.*.mornings' => ['boolean'],
             'availabilities.*.afternoons' => ['boolean'],
@@ -190,6 +219,7 @@ class VolunteerForm extends Component
             'volunteerSendNewsletter' => __('Send Newsletter'),
             'volunteerNotes' => __('Notes'),
             'volunteerActivityIds.*' => __('Activities'),
+            'volunteerSpeciesIds.*' => __('Sector'),
             'availabilities.*.frequency' => __('Frequency'),
         ]);
 
@@ -231,6 +261,7 @@ class VolunteerForm extends Component
         }
 
         $this->volunteer->activities()->sync($validated['volunteerActivityIds'] ?? []);
+        $this->volunteer->species()->sync($validated['volunteerSpeciesIds'] ?? []);
 
         foreach ($validated['availabilities'] ?? [] as $dayIndex => $day) {
             if ($day['mornings'] || $day['afternoons']) {

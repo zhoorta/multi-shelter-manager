@@ -2,6 +2,7 @@
 
 use App\Models\Activity;
 use App\Models\Shelter;
+use App\Models\Species;
 use App\Models\User;
 use App\Models\Volunteer;
 
@@ -47,6 +48,22 @@ test('shows only the activities assigned to the volunteer', function () {
         ->assertOk()
         ->assertSeeText('Dog Walking')
         ->assertDontSeeText('Cat Grooming');
+});
+
+test('shows only the species (sections) assigned to the volunteer', function () {
+    $shelter = Shelter::factory()->create();
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+
+    $assignedSpecies = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
+    $otherSpecies = Species::factory()->create(['name' => 'Cat', 'name_plural' => 'Cats']);
+    $volunteer->species()->attach($assignedSpecies);
+
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('volunteers.show', $volunteer))
+        ->assertOk()
+        ->assertSeeText('Dogs')
+        ->assertDontSeeText('Cats');
 });
 
 test('shows the volunteer\'s availability days with their periods and frequency', function () {

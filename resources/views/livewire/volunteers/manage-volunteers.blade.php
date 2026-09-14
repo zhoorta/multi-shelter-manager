@@ -29,7 +29,7 @@
                                 <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">
                                     <a href="{{ route('volunteers.show', $item) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $item->name }}</a>
                                 </td>
-                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->gender === 'male' ? __('Male') : __('Female') }}</td>
+                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ __($item->gender) }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->email }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->phone }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->city }}</td>

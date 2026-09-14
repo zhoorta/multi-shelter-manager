@@ -99,4 +99,14 @@ class Volunteer extends Model
     {
         return $this->hasMany(VolunteerAvailability::class)->orderBy('day_index');
     }
+
+    /**
+     * Get the species (sections) the volunteer is available to work with.
+     *
+     * @return BelongsToMany<Species, $this>
+     */
+    public function species(): BelongsToMany
+    {
+        return $this->belongsToMany(Species::class, 'volunteer_species')->withTimestamps();
+    }
 }
