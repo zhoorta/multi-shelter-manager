@@ -233,7 +233,14 @@
                     @foreach ($this->cages->groupBy(fn ($item) => $item->wing->facility->name.' · '.$item->wing->name) as $groupLabel => $groupCages)
                         <flux:select.group :label="$groupLabel">
                             @foreach ($groupCages as $item)
-                                <flux:select.option value="{{ $item->id }}">{{ $item->code }}</flux:select.option>
+                                <flux:select.option value="{{ $item->id }}">
+                                    {{ match ($item->availability_color) {
+                                        'red' => '🔴',
+                                        'yellow' => '🟡',
+                                        default => '🟢',
+                                    } }}
+                                    {{ $item->code }} — {{ __(':available of :capacity free', ['available' => $item->available_space, 'capacity' => $item->capacity]) }}
+                                </flux:select.option>
                             @endforeach
                         </flux:select.group>
                     @endforeach

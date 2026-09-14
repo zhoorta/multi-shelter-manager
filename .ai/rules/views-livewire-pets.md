@@ -4,6 +4,7 @@ paths:
   - 'app/Livewire/Pets/ManagePets.php,resources/views/livewire/pets/manage-pets.blade.php'
   - 'app/Livewire/Pets/AdoptionForm.php,resources/views/livewire/pets/adoption-form.blade.php'
   - 'app/Livewire/Pets/SponsorshipForm.php,resources/views/livewire/pets/sponsorship-form.blade.php'
+  - 'app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php'
 ---
 
 # Views Livewire Pets
@@ -25,3 +26,8 @@ adoption-form.blade.php already paired Email+Phone and Postal Code+City (see the
 
 ## sponsorship-form.blade.php pairs its two switches into a grid row
 sponsorship-form.blade.php's first card already matched the volunteer-style density convention (Name full, Email+Phone paired, Address full, Postal Code+City paired). The second card's Send Feedback/Send Newsletter switches are now paired in a `grid grid-cols-2` row too (mirrors pet-form.blade.php's Is Adoptable/Is Sponsorable pairing), with the Notes textarea staying full-width below. See [[pets-views-livewire-pets]] for the overall convention and [[views-livewire-pets]] for the sibling adoption-form pairing.
+
+## Cage dropdown shows available space + color, via emoji (native select, no Flux badges possible)
+PetForm::cages() withCount()s each cage's 'active_pets_count' (status != adopted AND date_of_death IS NULL, excluding the pet currently being edited via whereKeyNot so its own slot doesn't count against itself), then annotates each Cage with runtime-only available_space (capacity - active_pets_count, floored at 0) and availability_color: red if available_space <= 0, yellow if active_pets_count is over 80% of capacity (strictly greater — exactly 80% usage stays green), else green.
+
+pet-form.blade.php's Cage <flux:select> is a native <select> (this Flux UI free-edition version, v2.18.0, has no listbox/combobox variant — confirmed by reading vendor/livewire/flux/stubs), so <option> can only hold plain text — flux:badge cannot be nested inside it. The color is conveyed with a 🔴/🟡/🟢 emoji prefix instead, plus the ":available of :capacity free" translated text (lang/en.json + lang/pt.json). If a future Flux upgrade adds a listbox/combobox, prefer switching to real color badges then.

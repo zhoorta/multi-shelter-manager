@@ -613,6 +613,70 @@ test('cage options are sorted hierarchically by facility, wing, then code', func
     ]);
 });
 
+test('cage available space and color reflect current occupancy', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+
+    $greenCage = Cage::factory()->for($wing)->create(['code' => 'G1', 'capacity' => 10]);
+    Pet::factory()->for($greenCage, 'cage')->count(2)->create(['shelter_id' => $shelter->id, 'status' => 'available']);
+
+    $boundaryCage = Cage::factory()->for($wing)->create(['code' => 'B1', 'capacity' => 10]);
+    Pet::factory()->for($boundaryCage, 'cage')->count(8)->create(['shelter_id' => $shelter->id, 'status' => 'available']);
+
+    $yellowCage = Cage::factory()->for($wing)->create(['code' => 'Y1', 'capacity' => 10]);
+    Pet::factory()->for($yellowCage, 'cage')->count(9)->create(['shelter_id' => $shelter->id, 'status' => 'available']);
+
+    $redCage = Cage::factory()->for($wing)->create(['code' => 'R1', 'capacity' => 10]);
+    Pet::factory()->for($redCage, 'cage')->count(10)->create(['shelter_id' => $shelter->id, 'status' => 'available']);
+
+    $cages = Livewire::test(PetForm::class)->instance()->cages->keyBy('id');
+
+    expect($cages[$greenCage->id]->available_space)->toBe(8)
+        ->and($cages[$greenCage->id]->availability_color)->toBe('green')
+        ->and($cages[$boundaryCage->id]->available_space)->toBe(2)
+        ->and($cages[$boundaryCage->id]->availability_color)->toBe('green')
+        ->and($cages[$yellowCage->id]->available_space)->toBe(1)
+        ->and($cages[$yellowCage->id]->availability_color)->toBe('yellow')
+        ->and($cages[$redCage->id]->available_space)->toBe(0)
+        ->and($cages[$redCage->id]->availability_color)->toBe('red');
+});
+
+test('adopted or deceased pets do not count against cage available space', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $cage = Cage::factory()->for($wing)->create(['capacity' => 3]);
+
+    Pet::factory()->for($cage, 'cage')->create(['shelter_id' => $shelter->id, 'status' => 'adopted']);
+    Pet::factory()->for($cage, 'cage')->create(['shelter_id' => $shelter->id, 'status' => 'available', 'date_of_death' => now()]);
+
+    $cages = Livewire::test(PetForm::class)->instance()->cages->keyBy('id');
+
+    expect($cages[$cage->id]->available_space)->toBe(3)
+        ->and($cages[$cage->id]->availability_color)->toBe('green');
+});
+
+test('editing a pet excludes its own occupied slot from its cage available space', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $cage = Cage::factory()->for($wing)->create(['capacity' => 1]);
+
+    $pet = Pet::factory()->for($cage, 'cage')->create(['shelter_id' => $shelter->id, 'status' => 'available']);
+
+    $cages = Livewire::test(PetForm::class, ['pet' => $pet])->instance()->cages->keyBy('id');
+
+    expect($cages[$cage->id]->available_space)->toBe(1)
+        ->and($cages[$cage->id]->availability_color)->toBe('green');
+});
+
 test('stores an uploaded photo as the pet\'s main image', function () {
     Storage::fake('public');
 

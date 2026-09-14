@@ -219,7 +219,9 @@ class PetForm extends Component
 
     /**
      * Cages available to house the pet, grouped hierarchically for the
-     * form's select: Facility -> Wing -> Cage.
+     * form's select: Facility -> Wing -> Cage. Each cage is annotated with
+     * available_space and availability_color (green/yellow/red) so the
+     * select can flag how full it is.
      *
      * @return Collection<int, Cage>
      */
@@ -228,7 +230,24 @@ class PetForm extends Component
     {
         return $this->scopedCageQuery()
             ->with('wing.facility')
+            ->withCount(['pets as active_pets_count' => function (Builder $query): void {
+                $query->where('status', '!=', 'adopted')->whereNull('date_of_death');
+
+                if ($this->pet !== null) {
+                    $query->whereKeyNot($this->pet->id);
+                }
+            }])
             ->get()
+            ->each(function (Cage $cage): void {
+                $availableSpace = max(0, $cage->capacity - $cage->active_pets_count);
+
+                $cage->available_space = $availableSpace;
+                $cage->availability_color = match (true) {
+                    $availableSpace <= 0 => 'red',
+                    $cage->active_pets_count > $cage->capacity * 0.8 => 'yellow',
+                    default => 'green',
+                };
+            })
             ->sortBy(fn (Cage $cage) => sprintf(
                 '%s|%s|%s',
                 $cage->wing->facility->name ?? '',
