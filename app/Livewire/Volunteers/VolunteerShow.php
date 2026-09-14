@@ -17,7 +17,7 @@ class VolunteerShow extends Component
     {
         abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
 
-        $this->volunteer = $volunteer->load('activities');
+        $this->volunteer = $volunteer->load('activities', 'availabilities');
     }
 
     public function render(): View

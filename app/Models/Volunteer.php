@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -87,5 +88,15 @@ class Volunteer extends Model
     public function activities(): BelongsToMany
     {
         return $this->belongsToMany(Activity::class, 'volunteer_activities')->withTimestamps();
+    }
+
+    /**
+     * Get the volunteer's weekly availability records.
+     *
+     * @return HasMany<VolunteerAvailability, $this>
+     */
+    public function availabilities(): HasMany
+    {
+        return $this->hasMany(VolunteerAvailability::class)->orderBy('day_index');
     }
 }

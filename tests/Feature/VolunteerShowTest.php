@@ -49,6 +49,32 @@ test('shows only the activities assigned to the volunteer', function () {
         ->assertDontSeeText('Cat Grooming');
 });
 
+test('shows the volunteer\'s availability days with their periods and frequency', function () {
+    $shelter = Shelter::factory()->create();
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+    $volunteer->availabilities()->create(['day_index' => 0, 'mornings' => true, 'afternoons' => false, 'frequency' => 'weekly']);
+    $volunteer->availabilities()->create(['day_index' => 3, 'mornings' => true, 'afternoons' => true, 'frequency' => 'biweekly']);
+
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('volunteers.show', $volunteer))
+        ->assertOk()
+        ->assertSeeText('Present on Monday')
+        ->assertSeeText('Present on Thursday')
+        ->assertDontSeeText('Present on Tuesday');
+});
+
+test('shows a dash when the volunteer has no availability set', function () {
+    $shelter = Shelter::factory()->create();
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('volunteers.show', $volunteer))
+        ->assertOk()
+        ->assertDontSeeText('Present on');
+});
+
 test('returns 404 when viewing a volunteer belonging to another shelter', function () {
     $otherShelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($otherShelter)->create();

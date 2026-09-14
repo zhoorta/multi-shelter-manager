@@ -189,6 +189,67 @@ test('removes an activity from volunteer_activities when its toggle is switched 
     expect($volunteer->activities()->pluck('activities.id')->all())->toBe([]);
 });
 
+test('saves availability for a day when morning or afternoon is checked', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(VolunteerForm::class)
+        ->set('volunteerName', 'Maria Silva')
+        ->set('volunteerGender', 'female')
+        ->set('availabilities.0.mornings', true)
+        ->set('availabilities.0.frequency', 'weekly')
+        ->call('saveVolunteer')
+        ->assertHasNoErrors();
+
+    $volunteer = Volunteer::query()->where('name', 'Maria Silva')->firstOrFail();
+    $monday = $volunteer->availabilities()->where('day_index', 0)->firstOrFail();
+    expect($monday->mornings)->toBeTrue();
+    expect($monday->afternoons)->toBeFalse();
+    expect($monday->frequency)->toBe('weekly');
+});
+
+test('does not save availability for a day when neither morning nor afternoon is checked', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(VolunteerForm::class)
+        ->set('volunteerName', 'Maria Silva')
+        ->set('volunteerGender', 'female')
+        ->call('saveVolunteer')
+        ->assertHasNoErrors();
+
+    $volunteer = Volunteer::query()->where('name', 'Maria Silva')->firstOrFail();
+    expect($volunteer->availabilities()->count())->toBe(0);
+});
+
+test('deletes an existing availability record when it is unchecked', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+    $volunteer->availabilities()->create(['day_index' => 0, 'mornings' => true, 'afternoons' => false, 'frequency' => 'weekly']);
+
+    Livewire::test(VolunteerForm::class, ['volunteer' => $volunteer])
+        ->set('availabilities.0.mornings', false)
+        ->call('saveVolunteer')
+        ->assertHasNoErrors();
+
+    expect($volunteer->availabilities()->where('day_index', 0)->exists())->toBeFalse();
+});
+
+test('populates the form with the volunteer\'s existing availability when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+    $volunteer->availabilities()->create(['day_index' => 3, 'mornings' => false, 'afternoons' => true, 'frequency' => 'biweekly']);
+
+    Livewire::test(VolunteerForm::class, ['volunteer' => $volunteer])
+        ->assertSet('availabilities.3.mornings', false)
+        ->assertSet('availabilities.3.afternoons', true)
+        ->assertSet('availabilities.3.frequency', 'biweekly');
+});
+
 test('returns 404 when editing a volunteer belonging to another shelter', function () {
     $otherShelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($otherShelter)->create();

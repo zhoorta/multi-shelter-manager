@@ -308,10 +308,24 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('volunteer_availabilities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('volunteer_id')->constrained()->cascadeOnDelete();
+            $table->unsignedTinyInteger('day_index');
+            $table->enum('frequency', ['occasionally', 'biweekly', 'weekly'])->default('occasionally');
+            $table->boolean('mornings')->default(false);
+            $table->boolean('afternoons')->default(false);
+            $table->timestamps();
+            $table->unique(['volunteer_id', 'day_index']);
+        });
+
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('volunteer_availabilities');
+        Schema::dropIfExists('volunteer_activities');
+        Schema::dropIfExists('volunteers');
         Schema::dropIfExists('shelter_species');
         Schema::dropIfExists('sponsorship_payments');
         Schema::dropIfExists('sponsorships');

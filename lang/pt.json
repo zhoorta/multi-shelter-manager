@@ -213,6 +213,7 @@
     "Contacts": "Contactos",
     "Transport Mode": "Meio de Transporte",
     "Volunteering": "Voluntariado",
+    "Activities": "Atividades",
     "Attendance Evaluation": "Avaliação de Assiduidade",
     "Performance Evaluation": "Avaliação de Desempenho",
     "foot": "A pé",
@@ -225,5 +226,20 @@
     "regular": "Regular",
     "high": "Alta",
     "very high": "Muito Alta",
-    "excellent": "Excelente"
+    "excellent": "Excelente",
+
+    "Availability": "Disponibilidade",
+    "Present on Monday": "Presente à Segunda-feira",
+    "Present on Tuesday": "Presente à Terça-feira",
+    "Present on Wednesday": "Presente à Quarta-feira",
+    "Present on Thursday": "Presente à Quinta-feira",
+    "Present on Friday": "Presente à Sexta-feira",
+    "Present on Saturday": "Presente ao Sábado",
+    "Present on Sunday": "Presente ao Domingo",
+    "Morning": "Manhã",
+    "Afternoon": "Tarde",
+    "Frequency": "Frequência",
+    "occasionally": "Ocasionalmente",
+    "biweekly": "Quinzenalmente",
+    "weekly": "Semanalmente"
 }

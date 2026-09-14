@@ -119,6 +119,23 @@
             </div>
         </div>
 
+        <div>
+            <flux:heading>{{ __('Availability') }}</flux:heading>
+            @php
+                $availabilityLines = $volunteer->availabilities->map(function ($availability) {
+                    $periods = collect([
+                        $availability->mornings ? __('Morning') : null,
+                        $availability->afternoons ? __('Afternoon') : null,
+                    ])->filter()->join(', ');
+
+                    return __('Present on '.\App\Models\VolunteerAvailability::DAYS[$availability->day_index]).' — '.$periods.' ('.__($availability->frequency).')';
+                });
+            @endphp
+            <flux:text class="text-neutral-700 dark:text-neutral-300 mt-2 whitespace-pre-line">
+                {{ $availabilityLines->isNotEmpty() ? $availabilityLines->join("\n") : '—' }}
+            </flux:text>
+        </div>
+
         @if ($volunteer->notes)
             <div>
                 <flux:heading>{{ __('Notes') }}</flux:heading>

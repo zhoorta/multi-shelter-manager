@@ -6,6 +6,7 @@ namespace App\Livewire\Volunteers;
 
 use App\Models\Activity;
 use App\Models\Volunteer;
+use App\Models\VolunteerAvailability;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -66,9 +67,24 @@ class VolunteerForm extends Component
      */
     public array $volunteerActivityIds = [];
 
+    /**
+     * Keyed by day_index (0 Monday - 6 Sunday); each entry has 'mornings', 'afternoons', 'frequency'.
+     *
+     * @var array<int, array{mornings: bool, afternoons: bool, frequency: string}>
+     */
+    public array $availabilities = [];
+
     public function mount(?Volunteer $volunteer = null): void
     {
         abort_unless(Auth::user()->role === 'manager', 403);
+
+        foreach (array_keys(VolunteerAvailability::DAYS) as $dayIndex) {
+            $this->availabilities[$dayIndex] = [
+                'mornings' => false,
+                'afternoons' => false,
+                'frequency' => 'occasionally',
+            ];
+        }
 
         if ($volunteer === null) {
             return;
@@ -95,6 +111,14 @@ class VolunteerForm extends Component
         $this->volunteerSendNewsletter = $volunteer->send_newsletter;
         $this->volunteerNotes = (string) $volunteer->notes;
         $this->volunteerActivityIds = $volunteer->activities()->pluck('activities.id')->all();
+
+        foreach ($volunteer->availabilities as $availability) {
+            $this->availabilities[$availability->day_index] = [
+                'mornings' => $availability->mornings,
+                'afternoons' => $availability->afternoons,
+                'frequency' => $availability->frequency,
+            ];
+        }
     }
 
     /**
@@ -141,6 +165,10 @@ class VolunteerForm extends Component
             'volunteerNotes' => ['nullable', 'string'],
             'volunteerActivityIds' => ['array'],
             'volunteerActivityIds.*' => ['integer', 'exists:activities,id'],
+            'availabilities' => ['array'],
+            'availabilities.*.mornings' => ['boolean'],
+            'availabilities.*.afternoons' => ['boolean'],
+            'availabilities.*.frequency' => ['required', 'in:occasionally,biweekly,weekly'],
         ], [], [
             'volunteerName' => __('Name'),
             'volunteerGender' => __('Gender'),
@@ -162,6 +190,7 @@ class VolunteerForm extends Component
             'volunteerSendNewsletter' => __('Send Newsletter'),
             'volunteerNotes' => __('Notes'),
             'volunteerActivityIds.*' => __('Activities'),
+            'availabilities.*.frequency' => __('Frequency'),
         ]);
 
         $attributes = [
@@ -202,6 +231,21 @@ class VolunteerForm extends Component
         }
 
         $this->volunteer->activities()->sync($validated['volunteerActivityIds'] ?? []);
+
+        foreach ($validated['availabilities'] ?? [] as $dayIndex => $day) {
+            if ($day['mornings'] || $day['afternoons']) {
+                $this->volunteer->availabilities()->updateOrCreate(
+                    ['day_index' => $dayIndex],
+                    [
+                        'mornings' => $day['mornings'],
+                        'afternoons' => $day['afternoons'],
+                        'frequency' => $day['frequency'],
+                    ],
+                );
+            } else {
+                $this->volunteer->availabilities()->where('day_index', $dayIndex)->delete();
+            }
+        }
 
         Flux::toast(
             variant: 'success',

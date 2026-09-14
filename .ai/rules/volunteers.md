@@ -2,6 +2,7 @@
 paths:
   - 'app/Livewire/Volunteers/**'
   - app/Livewire/Volunteers/VolunteerForm.php
+  - app/Livewire/Volunteers/VolunteerShow.php
 ---
 
 # Volunteers
@@ -14,3 +15,9 @@ Create/edit now exist: App\Livewire\Volunteers\VolunteerForm (routes volunteers.
 
 ## VolunteerForm: activity toggles use a plain global pivot, no species scoping
 Volunteer.activities() is a BelongsToMany to Activity via 'volunteer_activities' (plain pivot: volunteer_id, activity_id, timestamps only — no custom pivot model, no withPivot columns), mirroring vaccine_species/sickness_species rather than pet_sickness. Activity is a global, unscoped lookup (like Species/Breed) managed at admin.activities.index (App\Livewire\Admin\ManageActivities), so VolunteerForm's `activities()` computed property lists ALL activities via `Activity::query()->orderBy('name')->get()` — unlike PetForm's sicknesses(), there is no species-style filtering to apply. toggleActivity()/volunteerActivityIds follow PetForm's toggleSickness()/petSicknessIds pattern exactly, and saveVolunteer() persists them with a single `$this->volunteer->activities()->sync($validated['volunteerActivityIds'] ?? [])` call (no attach-with-extra-columns step needed, since the pivot carries no domain data to preserve).
+
+## VolunteerForm: per-day availability array, mornings/afternoons drive create-or-delete
+Volunteer.availabilities() is a HasMany to VolunteerAvailability ('volunteer_id', 'day_index' unique per volunteer). VolunteerAvailability::DAYS is a const array [0 => 'Monday', ..., 6 => 'Sunday'] used both to seed VolunteerForm's `$availabilities` array (keyed by day_index, each `['mornings' => bool, 'afternoons' => bool, 'frequency' => string]`, default frequency 'occasionally') and to iterate rows in volunteer-form.blade.php (`__('Present on '.$day)` — day labels are per-day literal translation keys "Present on Monday".."Present on Sunday" in lang/*.json, not a ':day' placeholder, since PT grammar needs "à" for weekdays but "ao" for Sábado/Domingo). frequency is a plain DB enum column (occasionally/biweekly/weekly), not a PHP enum, matching transport_mode/attendance_evaluation convention — see [[volunteers]]. saveVolunteer() loops the validated availabilities array after activities sync: if mornings or afternoons is true, `updateOrCreate(['day_index' => $i], [...])`; otherwise deletes any existing row for that day_index. No factory exists for VolunteerAvailability — tests create rows directly via `$volunteer->availabilities()->create([...])`.
+
+## VolunteerShow: availability rendered as day lines, eager-loaded and day_index-ordered
+mount() eager-loads `$volunteer->load('activities', 'availabilities')`. Volunteer::availabilities() orders by day_index at the relation level (`->orderBy('day_index')`) so callers always get Monday→Sunday order without re-sorting. volunteer-show.blade.php's "Availability" subsection (matching [[volunteers]]'s VolunteerForm rule) builds one line per availability row via a `@php` block — `__('Present on '.VolunteerAvailability::DAYS[$day_index]).' — '.$periods.' ('.__($frequency).')'` — then joins with "\n" into a `whitespace-pre-line` flux:text, same pattern as the existing Activities display; shows '—' when the collection is empty.

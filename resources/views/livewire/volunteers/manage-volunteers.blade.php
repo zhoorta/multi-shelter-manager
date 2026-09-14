@@ -26,7 +26,9 @@
                     <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                         @forelse ($this->volunteers as $item)
                             <tr wire:key="volunteer-{{ $item->id }}">
-                                <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">{{ $item->name }}</td>
+                                <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">
+                                    <a href="{{ route('volunteers.show', $item) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $item->name }}</a>
+                                </td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->gender === 'male' ? __('Male') : __('Female') }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->email }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->phone }}</td>

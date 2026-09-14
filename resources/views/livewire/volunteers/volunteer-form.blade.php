@@ -176,6 +176,25 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <flux:heading>{{ __('Availability') }}</flux:heading>
+
+            @foreach (\App\Models\VolunteerAvailability::DAYS as $dayIndex => $day)
+                <div class="grid grid-cols-1 items-end gap-4 border-b border-neutral-200 pb-4 last:border-0 last:pb-0 dark:border-neutral-700 sm:grid-cols-4">
+                    <flux:label class="sm:col-span-4">{{ __('Present on '.$day) }}</flux:label>
+
+                    <flux:checkbox wire:model="availabilities.{{ $dayIndex }}.mornings" :label="__('Morning')" />
+                    <flux:checkbox wire:model="availabilities.{{ $dayIndex }}.afternoons" :label="__('Afternoon')" />
+
+                    <flux:select wire:model="availabilities.{{ $dayIndex }}.frequency" :label="__('Frequency')" field:class="sm:col-span-2">
+                        <flux:select.option value="occasionally">{{ __('occasionally') }}</flux:select.option>
+                        <flux:select.option value="biweekly">{{ __('biweekly') }}</flux:select.option>
+                        <flux:select.option value="weekly">{{ __('weekly') }}</flux:select.option>
+                    </flux:select>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <flux:switch wire:model="volunteerSendNewsletter" :label="__('Send Newsletter')" align="left" />
         </div>
 

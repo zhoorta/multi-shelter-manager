@@ -213,6 +213,7 @@
     "Contacts": "Contacts",
     "Transport Mode": "Transport Mode",
     "Volunteering": "Volunteering",
+    "Activities": "Activities",
     "Attendance Evaluation": "Attendance Evaluation",
     "Performance Evaluation": "Performance Evaluation",
     "foot": "On Foot",
@@ -225,5 +226,20 @@
     "regular": "Regular",
     "high": "High",
     "very high": "Very High",
-    "excellent": "Excellent"
+    "excellent": "Excellent",
+
+    "Availability": "Availability",
+    "Present on Monday": "Present on Monday",
+    "Present on Tuesday": "Present on Tuesday",
+    "Present on Wednesday": "Present on Wednesday",
+    "Present on Thursday": "Present on Thursday",
+    "Present on Friday": "Present on Friday",
+    "Present on Saturday": "Present on Saturday",
+    "Present on Sunday": "Present on Sunday",
+    "Morning": "Morning",
+    "Afternoon": "Afternoon",
+    "Frequency": "Frequency",
+    "occasionally": "Occasionally",
+    "biweekly": "Biweekly",
+    "weekly": "Weekly"
 }
