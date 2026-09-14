@@ -93,6 +93,20 @@ class DatabaseSeeder extends Seeder
             ['sickness_id' => $doencaFIV, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
             ['sickness_id' => $doencaFeLV, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
         ]);
+        
+        DB::table('activities')->insert([
+            ['name' => 'Apoio na Enfermaria', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Tratamento e Cuidados aos Animais', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Passeios no Exterior', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Limpeza de Boxes', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'FAT', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Participação em Campanhas', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Transporte de Animais', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Tarefas na Área Profissional', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Suporte Administrativo', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Operador de Dados em Sistema Informático', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Captura de Animais', 'created_at' => now(), 'updated_at' => now()],
+        ]);
 
         // 7. SEED GLOBAL SYSTEM ADMIN USER (No shelter attached)
         DB::table('users')->insert([
@@ -111,6 +125,11 @@ class DatabaseSeeder extends Seeder
             'city' => 'Porto',
             'created_at' => now(),
             'updated_at' => now(),
+        ]);
+        
+        DB::table('shelter_species')->insert([
+            ['shelter_id' => $adminShelterId, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
+            ['shelter_id' => $adminShelterId, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         DB::table('users')->insert([
