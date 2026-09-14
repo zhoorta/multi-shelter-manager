@@ -9,7 +9,38 @@
         @endif
     </div>
 
-    <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+    <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+        <flux:input
+            wire:model.live.debounce.300ms="search"
+            icon="magnifying-glass"
+            :label="__('Search')"
+            :placeholder="__('Search by name, phone, email, TIN or notes')"
+            class="sm:max-w-xs"
+        />
+
+        <flux:select wire:model.live="speciesFilter" :label="__('Sector')" class="sm:max-w-xs">
+            <flux:select.option value="">{{ __('All') }}</flux:select.option>
+            @foreach ($this->species as $species)
+                <flux:select.option value="{{ $species->id }}">{{ $species->name_plural }}</flux:select.option>
+            @endforeach
+        </flux:select>
+
+        <flux:select wire:model.live="dayFilter" :label="__('Day of the Week')" class="sm:max-w-xs">
+            <flux:select.option value="">{{ __('All') }}</flux:select.option>
+            @foreach (\App\Models\VolunteerAvailability::DAYS as $dayIndex => $day)
+                <flux:select.option value="{{ $dayIndex }}">{{ __($day) }}</flux:select.option>
+            @endforeach
+        </flux:select>
+
+        <flux:select wire:model.live="activityFilter" :label="__('Activities')" class="sm:max-w-xs">
+            <flux:select.option value="">{{ __('All') }}</flux:select.option>
+            @foreach ($this->activities as $activity)
+                <flux:select.option value="{{ $activity->id }}">{{ $activity->name }}</flux:select.option>
+            @endforeach
+        </flux:select>
+    </div>
+
+    <div class="rounded-xl bg-white shadow-sm dark:bg-neutral-900">
         <div class="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
@@ -124,5 +155,9 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <div class="px-6 py-3">
+        <flux:pagination :paginator="$this->volunteers" class="!border-t-0 !pt-0" />
     </div>
 </div>
