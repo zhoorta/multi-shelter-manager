@@ -115,7 +115,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->date('birth_date')->nullable();
             $table->date('date_of_death')->nullable();
-            $table->enum('status', ['available', 'quarantine', 'adopted', 'medical'])->default('available');
+            $table->enum('status', ['available', 'quarantine', 'adopted', 'medical', 'deceased'])->default('available');
             $table->text('notes')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_adoptable')->default(true);
