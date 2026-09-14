@@ -20,6 +20,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php,app/Models/Pet.php | .ai/rules/pets-models.md |
 | resources/views/livewire/volunteers/volunteer-show.blade.php,resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/partials/sponsorship-box.blade.php | .ai/rules/pets-partials.md |
 | app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php,app/Livewire/Pets/PetShow.php,resources/views/livewire/pets/pet-show.blade.php | .ai/rules/pets-views-livewire-pets.md |
+| resources/views/livewire/pets/manage-pets.blade.php,resources/views/livewire/volunteers/manage-volunteers.blade.php | .ai/rules/pets-views-livewire-volunteers.md |
 | app/Livewire/Pets/**, app/Livewire/Pets/SponsorshipForm.php, app/Livewire/Pets/PetShow.php, app/Livewire/Pets/AdoptionForm.php | .ai/rules/pets.md |
 | resources/views/livewire/pets/pet-show.blade.php | .ai/rules/resources-views-livewire-pets.md |
 | routes/web.php | .ai/rules/routes.md |
