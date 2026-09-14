@@ -105,6 +105,10 @@
         </div>
     </div>
 
+    <div class="px-6 py-3">
+        <flux:pagination :paginator="$this->users" class="!border-t-0 !pt-0" />
+    </div>
+
     <flux:modal name="user-form" class="max-w-lg">
         <form wire:submit="saveUser" class="flex flex-col gap-6">
             <flux:heading size="lg">

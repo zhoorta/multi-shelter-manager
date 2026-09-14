@@ -13,3 +13,6 @@ Superseding the earlier note in [[resources-views-livewire-pets]]: `variant="str
 
 ## pet-show subsection headings dropped to default size to match "Photos" label
 The 7 subsection headings in pet-show.blade.php (Identification, Characteristics, Health, Adoption, Accommodation, Description, Notes) were changed from `<flux:heading size="lg">` (text-base, 16px) to bare `<flux:heading>` (default size, text-sm, 14px) so they visually match the "Photos" card title, which uses `<flux:label>` (also text-sm). The top-level page heading (`size="xl"`, the pet's name) is untouched. This was scoped to pet-show.blade.php only — volunteer-show.blade.php still uses `size="lg"` subsection headings; ask before changing it too if consistency is wanted there.
+
+## pet-show heart dropdown trigger has no custom color anymore
+The dropdown trigger `<flux:button icon="heart">` in the header no longer carries the custom `class="bg-[#960532]! ..."` maroon color override — it's a plain default-styled icon button now. Don't reintroduce the custom background color without being asked.

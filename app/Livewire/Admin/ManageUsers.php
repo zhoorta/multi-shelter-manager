@@ -8,6 +8,7 @@ use App\Models\Shelter;
 use App\Models\User;
 use App\Notifications\UserInvitation;
 use Flux\Flux;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +19,13 @@ use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Title('Manage Users')]
 class ManageUsers extends Component
 {
+    use WithPagination;
+
     public string $filterShelterId = '';
 
     public ?int $editingUserId = null;
@@ -53,10 +57,10 @@ class ManageUsers extends Component
     }
 
     /**
-     * @return Collection<int, User>
+     * @return LengthAwarePaginator<int, User>
      */
     #[Computed]
-    public function users(): Collection
+    public function users(): LengthAwarePaginator
     {
         return User::query()
             ->with('shelter')
@@ -65,7 +69,7 @@ class ManageUsers extends Component
                 fn ($query) => $query->where('shelter_id', (int) $this->filterShelterId),
             )
             ->orderBy('name')
-            ->get();
+            ->paginate(20);
     }
 
     /**
@@ -77,9 +81,9 @@ class ManageUsers extends Component
         return Shelter::query()->orderBy('name')->get();
     }
 
-    public function updatedFilterShelterId(): void
+    public function updatingFilterShelterId(): void
     {
-        unset($this->users);
+        $this->resetPage();
     }
 
     public function createUser(): void

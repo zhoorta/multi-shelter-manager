@@ -19,7 +19,6 @@
                     <flux:button
                         icon="heart"
                         :aria-label="__('Adoption Registration')"
-                        class="bg-[#960532]! hover:bg-[#7a0429]! text-white! dark:bg-[#960532]! dark:hover:bg-[#7a0429]!"
                     />
 
                     <flux:menu>

@@ -63,6 +63,22 @@ test('filters users by shelter', function () {
         ->assertDontSee($staffB->name);
 });
 
+test('paginates users 20 per page', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    User::factory()->count(24)->sequence(fn ($sequence) => ['name' => 'User '.$sequence->index])->create();
+
+    $component = Livewire::test(ManageUsers::class);
+
+    expect($component->get('users')->count())->toBe(20);
+    expect($component->get('users')->total())->toBe(25);
+
+    $component->call('nextPage');
+
+    expect($component->get('users')->count())->toBe(5);
+});
+
 test('displays each user\'s last login', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
