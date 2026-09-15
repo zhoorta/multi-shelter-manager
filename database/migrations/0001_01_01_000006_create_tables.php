@@ -189,10 +189,15 @@ return new class extends Migration
             $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
             $table->foreignId('vaccine_id')->constrained()->cascadeOnDelete();
             $table->date('administered_at');
-            $table->date('expires_at')->nullable();
+            $table->date('next_due_at')->nullable();
+            $table->string('lot_number')->nullable();
+            $table->string('veterinarian_name')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->softDeletes();
         });
 
         // 16. PIVOT: PET_SICKNESS

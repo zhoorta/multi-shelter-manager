@@ -91,6 +91,7 @@
     "Delete": "Delete",
     "Create": "Create New",
     "Actions": "Actions",
+    "Show": "Show",
     "Yes": "Yes",
     "No": "No",
     
@@ -203,6 +204,17 @@
     "Payment Date": "Payment Date",
     "Payment Value": "Payment Value",
     "No sponsorship payments registered": "No sponsorship payments registered.",
+
+    "New Vaccination": "New Vaccination",
+    "Edit Vaccination": "Edit Vaccination",
+    "Vaccinations": "Vaccinations",
+    "Vaccine": "Vaccine",
+    "Select a vaccine": "Select a vaccine",
+    "Administered Date": "Administered Date",
+    "Next Due Date": "Next Due Date",
+    "Lot Number": "Lot Number",
+    "Veterinarian": "Veterinarian",
+    "No vaccinations registered": "No vaccinations registered.",
 
     "Log in": "Log in",
     "Log in to your account": "Log in to your account",

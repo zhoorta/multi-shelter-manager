@@ -13,6 +13,7 @@ use App\Models\Species;
 use App\Models\Sponsorship;
 use App\Models\SponsorshipPayment;
 use App\Models\User;
+use App\Models\Vaccine;
 use App\Models\Wing;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
@@ -670,4 +671,173 @@ test('lists the species sicknesses next to neutered status, marking which ones t
         ->assertOk()
         ->assertSeeInOrder(['Neutered / Spayed', 'No', 'Parvovirus', 'Yes', 'Ringworm', 'No'])
         ->assertDontSee('Feline Leukemia');
+});
+
+test('links to the vaccination form next to the vaccinations table', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeHtml('href="'.route('pets.vaccinate', $pet).'"');
+});
+
+test('the vaccination link stays visible even when the heart dropdown is hidden', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'is_sponsorable' => false]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeHtml('href="'.route('pets.vaccinate', $pet).'"');
+});
+
+test('shows a message when the pet has no vaccinations', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSee('No vaccinations registered');
+});
+
+test('lists the vaccines administered to the pet, most recent first', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $rabies = Vaccine::factory()->create(['name' => 'Rabies']);
+    $pet->vaccines()->attach($rabies, [
+        'administered_at' => '2025-01-10',
+        'next_due_at' => '2026-01-10',
+        'lot_number' => 'LOT-OLD',
+        'veterinarian_name' => 'Dr. Alves',
+        'notes' => 'First dose',
+    ]);
+
+    $distemper = Vaccine::factory()->create(['name' => 'Distemper']);
+    $pet->vaccines()->attach($distemper, [
+        'administered_at' => '2026-02-01',
+        'next_due_at' => null,
+        'lot_number' => 'LOT-NEW',
+        'veterinarian_name' => 'Dr. Costa',
+        'notes' => null,
+    ]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Distemper', 'LOT-NEW', 'Dr. Costa', 'Rabies', 'LOT-OLD', 'Dr. Alves']);
+});
+
+test('highlights the next due date amber when it is due within a week or exactly a week away', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $dueSoon = Vaccine::factory()->create();
+    $pet->vaccines()->attach($dueSoon, ['administered_at' => now()->subMonth(), 'next_due_at' => now()->addDays(3)]);
+
+    $exactlyAWeek = Vaccine::factory()->create();
+    $pet->vaccines()->attach($exactlyAWeek, ['administered_at' => now()->subMonth(), 'next_due_at' => now()->addWeek()]);
+
+    $dueLater = Vaccine::factory()->create();
+    $pet->vaccines()->attach($dueLater, ['administered_at' => now()->subMonth(), 'next_due_at' => now()->addMonths(2)]);
+
+    $noDueDate = Vaccine::factory()->create();
+    $pet->vaccines()->attach($noDueDate, ['administered_at' => now()->subMonth(), 'next_due_at' => null]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $response = $this->get(route('pets.show', $pet))->assertOk();
+
+    // Matched against the full class string (rather than a short substring like
+    // "bg-amber-50") because Flux's own components elsewhere on the page also
+    // use amber/red Tailwind utility classes, causing false-positive matches.
+    expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(2);
+    expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(0);
+});
+
+test('highlights the next due date red when it is overdue and no newer dose of the same vaccine was administered', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $overdue = Vaccine::factory()->create();
+    $pet->vaccines()->attach($overdue, ['administered_at' => now()->subMonths(2), 'next_due_at' => now()->subDay()]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $response = $this->get(route('pets.show', $pet))->assertOk();
+
+    expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(1);
+    expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(0);
+});
+
+test('does not highlight red when a newer dose of the same vaccine was already administered', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $vaccine = Vaccine::factory()->create();
+    $pet->vaccines()->attach($vaccine, ['administered_at' => now()->subYear(), 'next_due_at' => now()->subMonth()]);
+    $pet->vaccines()->attach($vaccine, ['administered_at' => now()->subWeek(), 'next_due_at' => now()->addYear()]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $response = $this->get(route('pets.show', $pet))->assertOk();
+
+    expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(0);
+    expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(1);
+});
+
+test('renders show, edit and delete actions for each vaccination', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $pet->vaccines()->attach($vaccine, ['administered_at' => now()]);
+    $petVaccine = $pet->vaccines()->first()->pivot;
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSee('vaccination-show-'.$petVaccine->id, false)
+        ->assertSeeHtml('href="'.route('pets.vaccinate.edit', [$pet, $petVaccine]).'"')
+        ->assertSee('confirm-vaccination-deletion-'.$petVaccine->id, false);
+});
+
+test('deletes a vaccination record', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $pet->vaccines()->attach($vaccine, ['administered_at' => now()]);
+    $petVaccine = $pet->vaccines()->first()->pivot;
+
+    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $this->actingAs($user);
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('deleteVaccination', $petVaccine->id)
+        ->assertDontSee('confirm-vaccination-deletion-'.$petVaccine->id, false);
+
+    expect($petVaccine->fresh()->trashed())->toBeTrue();
+    expect($petVaccine->fresh()->deleted_by)->toBe($user->id);
+    expect($pet->fresh()->vaccines()->pluck('pet_vaccines.id'))->not->toContain($petVaccine->id);
+});
+
+test('cannot delete a vaccination belonging to another pet', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $otherPet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $otherPet->vaccines()->attach($vaccine, ['administered_at' => now()]);
+    $otherPetVaccine = $otherPet->vaccines()->first()->pivot;
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteVaccination', $otherPetVaccine->id))
+        ->toThrow(ModelNotFoundException::class);
 });

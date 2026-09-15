@@ -91,6 +91,7 @@
     "Delete": "Eliminar",
     "Create": "Criar Novo",
     "Actions": "Ações",
+    "Show": "Ver",
     "Yes": "Sim",
     "No": "Não",
     
@@ -203,6 +204,17 @@
     "Payment Date": "Data de Pagamento",
     "Payment Value": "Valor do Pagamento",
     "No sponsorship payments registered": "Nenhum pagamento de apadrinhamento registado.",
+
+    "New Vaccination": "Nova Vacinação",
+    "Edit Vaccination": "Editar Vacinação",
+    "Vaccinations": "Vacinações",
+    "Vaccine": "Vacina",
+    "Select a vaccine": "Selecione uma vacina",
+    "Administered Date": "Data de Administração",
+    "Next Due Date": "Próxima Data Prevista",
+    "Lot Number": "Número de Lote",
+    "Veterinarian": "Veterinário",
+    "No vaccinations registered": "Nenhuma vacinação registada.",
 
     "Log in": "Entrar",
     "Log in to your account": "Entrar na sua conta",

@@ -17,6 +17,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Models/Sponsorship.php,app/Models/SponsorshipPayment.php,app/Livewire/Pets/SponsorshipForm.php | .ai/rules/livewire-pets.md |
 | resources/views/livewire/volunteers/volunteer-show.blade.php | .ai/rules/livewire-volunteers.md |
 | app/Livewire/** | .ai/rules/livewire.md |
+| app/Models/PetVaccine.php,app/Models/Vaccine.php,app/Livewire/Pets/VaccinationForm.php,app/Livewire/Pets/PetShow.php | .ai/rules/models-livewire-pets-livewire-pets.md |
 | app/Models/Pet.php,app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php | .ai/rules/models-livewire-pets-views-livewire-pets.md |
 | app/Models/*.php, app/Models/Pet.php, app/Models/FurType.php | .ai/rules/models.md |
 | resources/views/livewire/pets/partials/sponsorship-box.blade.php,resources/views/livewire/pets/sponsorship-show.blade.php, resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/adoption-show.blade.php | .ai/rules/partials-views-livewire-pets.md |

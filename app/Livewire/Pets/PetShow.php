@@ -6,10 +6,12 @@ namespace App\Livewire\Pets;
 
 use App\Livewire\Pets\Concerns\ManagesSponsorshipPayments;
 use App\Models\Pet;
+use App\Models\PetVaccine;
 use App\Models\Sickness;
 use App\Models\Size;
 use App\Models\Sponsorship;
 use App\Models\SponsorshipPayment;
+use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -31,6 +33,7 @@ class PetShow extends Component
             'species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'sicknesses',
             'adoptions' => fn ($query) => $query->latest('adoption_date'),
             'sponsorships' => fn ($query) => $query->latest()->with(['payments' => fn ($paymentsQuery) => $paymentsQuery->orderByDesc('payment_date')]),
+            'vaccines' => fn ($query) => $query->orderByPivot('administered_at', 'desc'),
         ]);
     }
 
@@ -91,6 +94,36 @@ class PetShow extends Component
             'sponsorship',
             fn (Builder $query) => $query->where('pet_id', $this->pet->id),
         );
+    }
+
+    public function deleteVaccination(int $petVaccineId): void
+    {
+        $this->scopedPetVaccineQuery()->findOrFail($petVaccineId)->delete();
+
+        $this->refreshVaccines();
+
+        Flux::toast(variant: 'success', text: __('Record deleted successfully'));
+    }
+
+    /**
+     * PetVaccine has no shelter_id of its own, so scope it directly through
+     * its own pet_id column (unlike Sponsorship/SponsorshipPayment, it does
+     * have one).
+     */
+    protected function scopedPetVaccineQuery(): Builder
+    {
+        return PetVaccine::query()->where('pet_id', $this->pet->id);
+    }
+
+    /**
+     * Reload the pet's vaccines after one is deleted, so the vaccinations
+     * table reflects the change without navigation.
+     */
+    protected function refreshVaccines(): void
+    {
+        $this->pet->load([
+            'vaccines' => fn ($query) => $query->orderByPivot('administered_at', 'desc'),
+        ]);
     }
 
     public function render(): View

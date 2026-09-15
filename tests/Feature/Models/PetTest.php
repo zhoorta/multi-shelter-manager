@@ -97,14 +97,14 @@ test('vaccines relation exposes the administration pivot data', function () {
 
     $pet->vaccines()->attach($vaccine, [
         'administered_at' => '2026-01-05',
-        'expires_at' => '2027-01-05',
+        'next_due_at' => '2027-01-05',
     ]);
 
     $attached = $pet->vaccines()->first();
 
     expect($attached->is($vaccine))->toBeTrue()
         ->and($attached->pivot)->toBeInstanceOf(PetVaccine::class)
-        ->and($attached->pivot->expires_at->toDateString())->toBe('2027-01-05');
+        ->and($attached->pivot->next_due_at->toDateString())->toBe('2027-01-05');
 });
 
 test('age in words is null when birth date is unknown', function () {
