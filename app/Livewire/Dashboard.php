@@ -6,7 +6,6 @@ namespace App\Livewire;
 
 use App\Models\Adoption;
 use App\Models\Cage;
-use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Sponsorship;
@@ -28,7 +27,7 @@ class Dashboard extends Component
 
     public int $staffCount = 0;
 
-    public bool $hasFacilities = true;
+    public bool $hasCages = true;
 
     public bool $speciesConfigured = true;
 
@@ -82,8 +81,8 @@ class Dashboard extends Component
             ->where('shelter_id', $shelterId)
             ->count();
 
-        $this->hasFacilities = Facility::query()
-            ->where('shelter_id', $shelterId)
+        $this->hasCages = Cage::query()
+            ->whereHas('wing.facility', fn ($query) => $query->where('shelter_id', $shelterId))
             ->exists();
 
         $this->speciesConfigured = Shelter::query()

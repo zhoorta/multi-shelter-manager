@@ -577,12 +577,28 @@ test('shelter users see a warning when the shelter has no facilities defined', f
     $response->assertSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
 });
 
-test('shelter users do not see the facilities warning once a facility exists', function () {
+test('shelter users still see the facilities warning when a facility and wing exist but no cage does', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
     $this->actingAs($user);
 
-    Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    Wing::factory()->create(['facility_id' => $facility->id]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+});
+
+test('shelter users do not see the facilities warning once a cage exists', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
+    Cage::factory()->create(['wing_id' => $wing->id]);
 
     $response = $this->get(route('dashboard'));
 

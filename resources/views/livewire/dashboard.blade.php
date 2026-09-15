@@ -1,7 +1,7 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
-    @if (auth()->user()->role !== 'admin' && (! $hasFacilities || ! $speciesConfigured))
+    @if (auth()->user()->role !== 'admin' && (! $hasCages || ! $speciesConfigured))
         <div class="flex flex-col gap-3">
-            @if (! $hasFacilities)
+            @if (! $hasCages)
                 <a
                     href="{{ route('facilities.index') }}"
                     wire:navigate
