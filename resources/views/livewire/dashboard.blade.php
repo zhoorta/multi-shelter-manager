@@ -1,4 +1,24 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
+    @if (auth()->user()->role !== 'admin' && (! $hasFacilities || ! $speciesConfigured))
+        <div class="flex flex-col gap-3">
+            @if (! $hasFacilities)
+                <a
+                    href="{{ route('facilities.index') }}"
+                    wire:navigate
+                    class="block rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 hover:bg-amber-100 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-200 dark:hover:bg-amber-950/60"
+                >
+                    {{ __('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.') }}
+                </a>
+            @endif
+
+            @if (! $speciesConfigured)
+                <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-200">
+                    {{ __('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.') }}
+                </div>
+            @endif
+        </div>
+    @endif
+
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Total Pets') }}</span>

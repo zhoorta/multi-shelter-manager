@@ -565,3 +565,63 @@ test('shows a placeholder message when there are no recent intakes', function ()
     $response->assertOk();
     $response->assertSee(__('No Recent Intakes'));
 });
+
+test('shelter users see a warning when the shelter has no facilities defined', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+});
+
+test('shelter users do not see the facilities warning once a facility exists', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    Facility::factory()->create(['shelter_id' => $shelter->id]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+});
+
+test('shelter users see a warning when the shelter has no species configured', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee(__('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.'));
+});
+
+test('shelter users do not see the species warning once the shelter has a species configured', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $species = Species::factory()->create();
+    $shelter->species()->attach($species);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee(__('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.'));
+});
+
+test('admins do not see the facilities or species warnings', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+    $response->assertDontSee(__('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.'));
+});

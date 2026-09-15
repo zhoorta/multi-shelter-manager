@@ -6,7 +6,9 @@ namespace App\Livewire;
 
 use App\Models\Adoption;
 use App\Models\Cage;
+use App\Models\Facility;
 use App\Models\Pet;
+use App\Models\Shelter;
 use App\Models\Sponsorship;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -25,6 +27,10 @@ class Dashboard extends Component
     public int $availableCapacity = 0;
 
     public int $staffCount = 0;
+
+    public bool $hasFacilities = true;
+
+    public bool $speciesConfigured = true;
 
     /**
      * @var Collection<int, Pet>
@@ -75,6 +81,15 @@ class Dashboard extends Component
         $this->staffCount = User::query()
             ->where('shelter_id', $shelterId)
             ->count();
+
+        $this->hasFacilities = Facility::query()
+            ->where('shelter_id', $shelterId)
+            ->exists();
+
+        $this->speciesConfigured = Shelter::query()
+            ->whereKey($shelterId)
+            ->whereHas('species')
+            ->exists();
 
         $this->recentIntakes = Pet::query()
             ->with(['species', 'images'])
