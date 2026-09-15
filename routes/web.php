@@ -21,6 +21,7 @@ use App\Livewire\Pets\ManagePets;
 use App\Livewire\Pets\ManageSponsorships;
 use App\Livewire\Pets\PetForm;
 use App\Livewire\Pets\PetPrint;
+use App\Livewire\Pets\PetPrintList;
 use App\Livewire\Pets\PetShow;
 use App\Livewire\Pets\SponsorshipForm;
 use App\Livewire\Pets\SponsorshipShow;
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets/sponsorships', ManageSponsorships::class)->name('pets.sponsorships.index');
     Route::livewire('pets/adoptions', ManageAdoptions::class)->name('pets.adoptions.index');
     Route::livewire('pets/create', PetForm::class)->name('pets.create');
+    Route::livewire('pets/print', PetPrintList::class)->name('pets.print.list');
     Route::livewire('pets/{pet}/edit', PetForm::class)->name('pets.edit');
     Route::livewire('pets/{pet}', PetShow::class)->name('pets.show');
     Route::livewire('pets/{pet}/print', PetPrint::class)->name('pets.print');

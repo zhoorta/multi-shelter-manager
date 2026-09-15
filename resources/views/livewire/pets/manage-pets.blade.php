@@ -2,18 +2,35 @@
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ $this->selectedSpecies?->name_plural ?? __('Pets') }}</flux:heading>
 
-        {{-- A full page load (no wire:navigate) here is deliberate: navigate morphs
-             the previous page's DOM into the new one, and a native <select> can keep
-             its browser-side selected option across that morph even though the fresh
-             component's bound property is null — a fresh request guarantees a clean
-             form every time. --}}
-        <flux:button
-            :href="route('pets.create', $this->selectedSpecies ? ['species' => $this->selectedSpecies->id] : [])"
-            variant="primary"
-            icon="plus"
-        >
-            {{ __('Create') }}
-        </flux:button>
+        <div class="flex items-center gap-2">
+            {{-- A full page load (no wire:navigate) here is deliberate: navigate morphs
+                 the previous page's DOM into the new one, and a native <select> can keep
+                 its browser-side selected option across that morph even though the fresh
+                 component's bound property is null — a fresh request guarantees a clean
+                 form every time. --}}
+            <flux:button
+                :href="route('pets.create', $this->selectedSpecies ? ['species' => $this->selectedSpecies->id] : [])"
+                variant="primary"
+                icon="plus"
+            >
+                {{ __('Create') }}
+            </flux:button>
+
+            {{-- Opens in a new tab, carrying the currently applied filters as query
+                 params, so the printout matches whatever the list is showing on screen. --}}
+            <flux:button
+                :href="route('pets.print.list', array_filter([
+                    'search' => $search,
+                    'statusFilter' => $statusFilter,
+                    'locationFilter' => $locationFilter,
+                    'speciesFilter' => $speciesFilter,
+                    'missingDataFilter' => $missingDataFilter,
+                ]))"
+                icon="printer"
+                target="_blank"
+                :aria-label="__('Print')"
+            />
+        </div>
     </div>
 
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">

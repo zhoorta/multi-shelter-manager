@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pets;
 
+use App\Livewire\Pets\Concerns\FiltersPetsList;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
@@ -25,18 +26,10 @@ use Livewire\WithPagination;
 #[Title('Manage Pets')]
 class ManagePets extends Component
 {
-    use WithPagination;
-
-    public string $search = '';
-
-    public string $statusFilter = '';
-
-    public string $locationFilter = '';
+    use FiltersPetsList, WithPagination;
 
     #[Url]
     public string $speciesFilter = '';
-
-    public string $missingDataFilter = '';
 
     public function mount(): void
     {
@@ -74,52 +67,7 @@ class ManagePets extends Component
     #[Computed]
     public function pets(): LengthAwarePaginator
     {
-        return Pet::query()
-            ->with(['species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'latestAdoption'])
-            ->when(
-                $this->search !== '',
-                fn (Builder $query) => $query->where(
-                    fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('ref', 'like', '%'.$this->search.'%')
-                        ->orWhere('chip', 'like', '%'.$this->search.'%')
-                        ->orWhere('internal_notes', 'like', '%'.$this->search.'%')
-                ),
-            )
-            ->when(
-                $this->statusFilter !== '',
-                fn (Builder $query) => $query->where('status', $this->statusFilter),
-            )
-            ->when(
-                $this->locationFilter !== '',
-                function (Builder $query): void {
-                    [$type, $id] = explode(':', $this->locationFilter, 2);
-
-                    match ($type) {
-                        'facility' => $query->whereHas('cage.wing', fn (Builder $q) => $q->where('facility_id', $id)),
-                        'wing' => $query->whereHas('cage', fn (Builder $q) => $q->where('wing_id', $id)),
-                        'cage' => $query->where('cage_id', $id),
-                        default => null,
-                    };
-                },
-            )
-            ->when(
-                $this->speciesFilter !== '',
-                fn (Builder $query) => $query->where('species_id', $this->speciesFilter),
-            )
-            ->when(
-                $this->missingDataFilter !== '',
-                function (Builder $query): void {
-                    match ($this->missingDataFilter) {
-                        'no_age' => $query->whereNull('birth_date'),
-                        'no_photo' => $query->whereDoesntHave('images'),
-                        'no_checkin_date' => $query->whereNull('checkin_date'),
-                        'no_location' => $query->whereNull('cage_id')->whereNotIn('status', ['adopted', 'deceased']),
-                        default => null,
-                    };
-                },
-            )
-            ->orderBy('name')
-            ->paginate(20);
+        return $this->filteredPetsQuery()->paginate(20);
     }
 
     /**
