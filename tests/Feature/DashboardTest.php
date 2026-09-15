@@ -1,11 +1,13 @@
 <?php
 
 use App\Livewire\Dashboard;
+use App\Models\Adoption;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Species;
+use App\Models\Sponsorship;
 use App\Models\User;
 use App\Models\Wing;
 use Livewire\Livewire;
@@ -133,34 +135,38 @@ test('excludes other shelters pets, cages, and staff from the statistics', funct
         ->assertSet('staffCount', 1);
 });
 
-test('lists the five most recently added pets with their status and cage code', function () {
+test('lists the five most recent intakes with their species, ref, and a link to the pet', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
     $this->actingAs($user);
 
+    $species = Species::factory()->create(['name' => 'Dog']);
+
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
     $wing = Wing::factory()->create(['facility_id' => $facility->id]);
-    $cage = Cage::factory()->create(['wing_id' => $wing->id, 'code' => 'C-01']);
+    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
 
     Pet::factory()->create([
         'shelter_id' => $shelter->id,
+        'species_id' => $species->id,
+        'cage_id' => $cage->id,
         'name' => 'Oldest Pet',
-        'status' => 'available',
-        'created_at' => now()->subDays(10),
+        'checkin_date' => now()->subDays(10),
     ]);
 
     Pet::factory()->count(4)->sequence(
-        ['name' => 'Pet A', 'status' => 'available', 'created_at' => now()->subDays(4)],
-        ['name' => 'Pet B', 'status' => 'not_available', 'created_at' => now()->subDays(3)],
-        ['name' => 'Pet C', 'status' => 'adopted', 'created_at' => now()->subDays(2)],
-        ['name' => 'Pet D', 'status' => 'deceased', 'created_at' => now()->subDays(1)],
-    )->create(['shelter_id' => $shelter->id, 'cage_id' => $cage->id]);
+        ['name' => 'Pet A', 'checkin_date' => now()->subDays(4)],
+        ['name' => 'Pet B', 'checkin_date' => now()->subDays(3)],
+        ['name' => 'Pet C', 'checkin_date' => now()->subDays(2)],
+        ['name' => 'Pet D', 'checkin_date' => now()->subDays(1)],
+    )->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'cage_id' => $cage->id]);
 
-    Pet::factory()->create([
+    $newest = Pet::factory()->create([
         'shelter_id' => $shelter->id,
+        'species_id' => $species->id,
+        'cage_id' => $cage->id,
         'name' => 'Newest Pet',
-        'status' => 'available',
-        'created_at' => now(),
+        'checkin_date' => now(),
     ]);
 
     $response = $this->get(route('dashboard'));
@@ -168,8 +174,356 @@ test('lists the five most recently added pets with their status and cage code', 
     $response->assertOk();
     $response->assertSee(['Pet A', 'Pet B', 'Pet C', 'Pet D', 'Newest Pet']);
     $response->assertDontSee('Oldest Pet');
-    $response->assertSee('C-01');
-    $response->assertSee(__('No Cage Assigned'));
+    $response->assertSee('Dog - '.$newest->ref);
+    $response->assertSee(route('pets.show', $newest));
+});
+
+test('breaks recent intakes ties on the same check-in date by created_at desc', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $checkinDate = now()->subDay();
+
+    $earlierCreated = Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'name' => 'Earlier Created Pet',
+        'checkin_date' => $checkinDate,
+        'created_at' => now()->subHours(2),
+    ]);
+
+    $laterCreated = Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'name' => 'Later Created Pet',
+        'checkin_date' => $checkinDate,
+        'created_at' => now()->subHour(),
+    ]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSeeInOrder([$laterCreated->name, $earlierCreated->name]);
+});
+
+test('excludes pets without a check-in date from recent intakes', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
+    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
+
+    Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'cage_id' => $cage->id,
+        'name' => 'No Checkin Pet',
+        'checkin_date' => null,
+    ]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee('No Checkin Pet');
+    $response->assertSee(__('No Recent Intakes'));
+});
+
+test('lists the five most recent adoptions with their species, ref, and a link to the pet', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $species = Species::factory()->create(['name' => 'Cat']);
+
+    $oldestPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'name' => 'Oldest Adoption', 'status' => 'adopted']);
+    Adoption::factory()->create(['pet_id' => $oldestPet->id, 'adoption_date' => now()->subDays(10)]);
+
+    Pet::factory()->count(4)->sequence(
+        ['name' => 'Pet A'],
+        ['name' => 'Pet B'],
+        ['name' => 'Pet C'],
+        ['name' => 'Pet D'],
+    )->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'status' => 'adopted'])
+        ->each(function (Pet $pet, int $index): void {
+            Adoption::factory()->create(['pet_id' => $pet->id, 'adoption_date' => now()->subDays(4 - $index)]);
+        });
+
+    $newestPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'name' => 'Newest Adoption', 'status' => 'adopted']);
+    Adoption::factory()->create(['pet_id' => $newestPet->id, 'adoption_date' => now()]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee(['Pet A', 'Pet B', 'Pet C', 'Pet D', 'Newest Adoption']);
+    $response->assertDontSee('Oldest Adoption');
+    $response->assertSee('Cat - '.$newestPet->ref);
+    $response->assertSee(route('pets.show', $newestPet));
+});
+
+test('breaks recent adoptions ties on the same adoption date by created_at desc', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $adoptionDate = now()->subDay();
+
+    $earlierPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'name' => 'Earlier Created Adoption', 'status' => 'adopted']);
+    Adoption::factory()->create(['pet_id' => $earlierPet->id, 'adoption_date' => $adoptionDate, 'created_at' => now()->subHours(2)]);
+
+    $laterPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'name' => 'Later Created Adoption', 'status' => 'adopted']);
+    Adoption::factory()->create(['pet_id' => $laterPet->id, 'adoption_date' => $adoptionDate, 'created_at' => now()->subHour()]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSeeInOrder([$laterPet->name, $earlierPet->name]);
+});
+
+test('excludes other shelters adoptions from recent adoptions', function () {
+    $shelter = Shelter::factory()->create();
+    $otherShelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $otherPet = Pet::factory()->create(['shelter_id' => $otherShelter->id, 'name' => 'Other Shelter Pet', 'status' => 'adopted']);
+    Adoption::factory()->create(['pet_id' => $otherPet->id]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee('Other Shelter Pet');
+    $response->assertSee(__('No Recent Adoptions'));
+});
+
+test('excludes adoptions whose pet is not currently adopted from recent adoptions', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
+    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
+
+    $returnedPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'name' => 'Returned Pet', 'status' => 'available', 'cage_id' => $cage->id]);
+    Adoption::factory()->create(['pet_id' => $returnedPet->id, 'return_date' => now()]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee('Returned Pet');
+    $response->assertSee(__('No Recent Adoptions'));
+});
+
+test('lists active pets with no cage assigned, up to five, most recent first', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $species = Species::factory()->create(['name' => 'Rabbit']);
+
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
+    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
+
+    $hasCage = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'name' => 'Has A Cage', 'cage_id' => $cage->id]);
+    $adopted = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'name' => 'Adopted Without Cage', 'status' => 'adopted', 'cage_id' => null]);
+    $deceased = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'name' => 'Deceased Without Cage', 'date_of_death' => now(), 'cage_id' => null]);
+
+    $olderPet = Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'species_id' => $species->id,
+        'name' => 'Older No Location Pet',
+        'cage_id' => null,
+        'created_at' => now()->subDay(),
+    ]);
+
+    $newerPet = Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'species_id' => $species->id,
+        'name' => 'Newer No Location Pet',
+        'cage_id' => null,
+        'created_at' => now(),
+    ]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSeeInOrder([$newerPet->name, $olderPet->name]);
+    $response->assertSee('Rabbit - '.$newerPet->ref);
+    $response->assertSee(route('pets.show', $newerPet));
+
+    $unknownLocationIds = Livewire::test(Dashboard::class)->get('unknownLocationPets')->pluck('id');
+    expect($unknownLocationIds)
+        ->toContain($olderPet->id, $newerPet->id)
+        ->not->toContain($hasCage->id, $adopted->id, $deceased->id);
+});
+
+test('excludes other shelters pets from pets with unknown location', function () {
+    $shelter = Shelter::factory()->create();
+    $otherShelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    Pet::factory()->create(['shelter_id' => $otherShelter->id, 'name' => 'Other Shelter No Location Pet', 'cage_id' => null]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee('Other Shelter No Location Pet');
+    $response->assertSee(__('No Pets with Unknown Location'));
+});
+
+test('lists the five most recent passings with their species, ref, and a link to the pet', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $species = Species::factory()->create(['name' => 'Cat']);
+
+    Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'species_id' => $species->id,
+        'name' => 'Oldest Passing',
+        'date_of_death' => now()->subDays(10),
+    ]);
+
+    Pet::factory()->count(4)->sequence(
+        ['name' => 'Pet A', 'date_of_death' => now()->subDays(4)],
+        ['name' => 'Pet B', 'date_of_death' => now()->subDays(3)],
+        ['name' => 'Pet C', 'date_of_death' => now()->subDays(2)],
+        ['name' => 'Pet D', 'date_of_death' => now()->subDays(1)],
+    )->create(['shelter_id' => $shelter->id, 'species_id' => $species->id]);
+
+    $newest = Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'species_id' => $species->id,
+        'name' => 'Newest Passing',
+        'date_of_death' => now(),
+    ]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee(['Pet A', 'Pet B', 'Pet C', 'Pet D', 'Newest Passing']);
+    $response->assertDontSee('Oldest Passing');
+    $response->assertSee('Cat - '.$newest->ref);
+    $response->assertSee(route('pets.show', $newest));
+});
+
+test('breaks recent passings ties on the same date of death by created_at desc', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $dateOfDeath = now()->subDay();
+
+    $earlierCreated = Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'name' => 'Earlier Created Passing',
+        'date_of_death' => $dateOfDeath,
+        'created_at' => now()->subHours(2),
+    ]);
+
+    $laterCreated = Pet::factory()->create([
+        'shelter_id' => $shelter->id,
+        'name' => 'Later Created Passing',
+        'date_of_death' => $dateOfDeath,
+        'created_at' => now()->subHour(),
+    ]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSeeInOrder([$laterCreated->name, $earlierCreated->name]);
+});
+
+test('excludes pets without a date of death from recent passings', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
+    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
+
+    Pet::factory()->create(['shelter_id' => $shelter->id, 'name' => 'Alive Pet', 'date_of_death' => null, 'cage_id' => $cage->id]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee('Alive Pet');
+    $response->assertSee(__('No Recent Passings'));
+});
+
+test('excludes other shelters pets from recent passings', function () {
+    $shelter = Shelter::factory()->create();
+    $otherShelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    Pet::factory()->create(['shelter_id' => $otherShelter->id, 'name' => 'Other Shelter Passing', 'date_of_death' => now()]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee('Other Shelter Passing');
+    $response->assertSee(__('No Recent Passings'));
+});
+
+test('lists the five most recent sponsorships with their species, ref, and a link to the pet', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $species = Species::factory()->create(['name' => 'Parrot']);
+
+    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
+    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
+
+    $oldestPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'cage_id' => $cage->id, 'name' => 'Oldest Sponsorship']);
+    Sponsorship::factory()->create(['pet_id' => $oldestPet->id, 'created_at' => now()->subDays(10)]);
+
+    Pet::factory()->count(4)->sequence(
+        ['name' => 'Pet A'],
+        ['name' => 'Pet B'],
+        ['name' => 'Pet C'],
+        ['name' => 'Pet D'],
+    )->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'cage_id' => $cage->id])
+        ->each(function (Pet $pet, int $index): void {
+            Sponsorship::factory()->create(['pet_id' => $pet->id, 'created_at' => now()->subDays(4 - $index)]);
+        });
+
+    $newestPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'cage_id' => $cage->id, 'name' => 'Newest Sponsorship']);
+    Sponsorship::factory()->create(['pet_id' => $newestPet->id, 'created_at' => now()]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee(['Pet A', 'Pet B', 'Pet C', 'Pet D', 'Newest Sponsorship']);
+    $response->assertDontSee('Oldest Sponsorship');
+    $response->assertSee('Parrot - '.$newestPet->ref);
+    $response->assertSee(route('pets.show', $newestPet));
+});
+
+test('excludes other shelters sponsorships from recent sponsorships', function () {
+    $shelter = Shelter::factory()->create();
+    $otherShelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $facility = Facility::factory()->create(['shelter_id' => $otherShelter->id]);
+    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
+    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
+
+    $otherPet = Pet::factory()->create(['shelter_id' => $otherShelter->id, 'name' => 'Other Shelter Sponsorship Pet', 'cage_id' => $cage->id]);
+    Sponsorship::factory()->create(['pet_id' => $otherPet->id]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee('Other Shelter Sponsorship Pet');
+    $response->assertSee(__('No Recent Sponsorships'));
 });
 
 test('the pets sidebar only lists species enabled for the current shelter', function () {
