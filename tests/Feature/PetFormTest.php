@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Pets\PetForm;
+use App\Models\Adoption;
 use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Facility;
@@ -819,7 +820,7 @@ test('populates the form with the pet\'s current data when editing', function ()
         'name' => 'Rex',
         'gender' => 'male',
         'chip' => '985121000123456',
-        'status' => 'quarantine',
+        'status' => 'not_available',
         'is_neutered' => true,
         'is_adoptable' => false,
         'is_sponsorable' => false,
@@ -837,7 +838,6 @@ test('populates the form with the pet\'s current data when editing', function ()
         ->assertSet('petSizeId', $size->id)
         ->assertSet('petGender', 'male')
         ->assertSet('petChip', '985121000123456')
-        ->assertSet('petStatus', 'quarantine')
         ->assertSet('petIsNeutered', true)
         ->assertSet('petIsAdoptable', false)
         ->assertSet('petIsSponsorable', false)
@@ -880,7 +880,7 @@ test('updates an existing pet and redirects to the show page', function () {
     $breed = Breed::factory()->for($species)->create();
     $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create([
         'name' => 'Rex',
-        'status' => 'available',
+        'status' => 'not_available',
         'is_neutered' => false,
         'is_adoptable' => true,
         'is_sponsorable' => true,
@@ -888,7 +888,6 @@ test('updates an existing pet and redirects to the show page', function () {
 
     Livewire::test(PetForm::class, ['pet' => $pet])
         ->set('petName', 'Rex Renamed')
-        ->set('petStatus', 'adopted')
         ->set('petIsNeutered', true)
         ->set('petIsAdoptable', false)
         ->set('petIsSponsorable', false)
@@ -897,11 +896,89 @@ test('updates an existing pet and redirects to the show page', function () {
         ->assertRedirect(route('pets.show', $pet));
 
     expect($pet->fresh()->name)->toBe('Rex Renamed');
-    expect($pet->fresh()->status)->toBe('adopted');
+    expect($pet->fresh()->status)->toBe('not_available');
     expect($pet->fresh()->shelter_id)->toBe($shelter->id);
     expect($pet->fresh()->is_neutered)->toBeTrue();
     expect($pet->fresh()->is_adoptable)->toBeFalse();
     expect($pet->fresh()->is_sponsorable)->toBeFalse();
+});
+
+test('does not expose an editable status field, and status is derived from the is_adoptable/adoption/death rules on create and update', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create([
+        'status' => 'not_available',
+        'is_adoptable' => false,
+    ]);
+
+    expect(property_exists(PetForm::class, 'petStatus'))->toBeFalse();
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->assertDontSee('wire:model="petStatus"', false)
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh()->status)->toBe('not_available');
+
+    $createComponent = Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $createdPet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($createdPet->status)->toBe('available');
+    $createComponent->assertRedirect(route('pets.show', $createdPet));
+});
+
+test('setting a death date marks the pet deceased regardless of is_adoptable, and clearing it restores the available/not_available status', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create([
+        'status' => 'available',
+        'is_adoptable' => true,
+        'date_of_death' => null,
+    ]);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petDeathDate', '2026-05-01')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh()->status)->toBe('deceased');
+
+    Livewire::test(PetForm::class, ['pet' => $pet->fresh()])
+        ->set('petDeathDate', '')
+        ->set('petIsAdoptable', false)
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh()->status)->toBe('not_available');
+});
+
+test('setting a death date marks the pet deceased even while it has an open adoption', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+    $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['status' => 'adopted']);
+    Adoption::factory()->for($pet)->create(['return_date' => null]);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petDeathDate', '2026-05-01')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh()->status)->toBe('deceased');
 });
 
 test('removes a sickness from pet_sicknesses when its toggle is switched off', function () {

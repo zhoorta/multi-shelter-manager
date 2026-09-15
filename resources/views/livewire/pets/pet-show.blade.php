@@ -222,7 +222,12 @@
                     </div>
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Status') }}</flux:text>
-                        <flux:badge size="sm">{{ __(ucfirst($pet->status)) }}</flux:badge>
+                        <flux:badge size="sm">{{ __(match ($pet->status) {
+                            'available' => 'Available',
+                            'not_available' => 'Not Available',
+                            'adopted' => 'Adopted',
+                            'deceased' => 'Deceased',
+                        }) }}</flux:badge>
                     </div>
                 </div>
             </div>

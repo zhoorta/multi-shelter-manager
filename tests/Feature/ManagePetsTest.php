@@ -86,11 +86,11 @@ test('filters pets by microchip', function () {
 test('filters pets by status', function () {
     $shelter = Shelter::factory()->create();
     Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'available']);
-    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'status' => 'quarantine']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'status' => 'not_available']);
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
     Livewire::test(ManagePets::class)
-        ->set('statusFilter', 'quarantine')
+        ->set('statusFilter', 'not_available')
         ->assertSee('Bella')
         ->assertDontSee('Rex');
 });
@@ -105,7 +105,7 @@ test('shows the adoption date for adopted pets', function () {
     Livewire::test(ManagePets::class)
         ->assertSeeInOrder(['Rex', 'Adopted', 'at', '10/02/2026'])
         ->assertSeeHtml('<strong>Adopted</strong>')
-        ->assertDontSee('Deceased');
+        ->assertDontSeeHtml('<strong>Deceased</strong>');
 });
 
 test('does not show an adoption date for pets that are not adopted', function () {
@@ -116,7 +116,7 @@ test('does not show an adoption date for pets that are not adopted', function ()
 
     Livewire::test(ManagePets::class)
         ->assertDontSeeHtml('<strong>Adopted</strong>')
-        ->assertDontSee('Deceased');
+        ->assertDontSeeHtml('<strong>Deceased</strong>');
 });
 
 test('shows the death date instead of the adoption date for deceased pets', function () {

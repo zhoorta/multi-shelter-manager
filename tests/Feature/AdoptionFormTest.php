@@ -199,6 +199,27 @@ test('setting a return date marks the pet as available again and clears its chec
     expect($pet->checkout_date)->toBeNull();
 });
 
+test('setting a return date marks a non-adoptable pet not_available instead of available', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create([
+        'status' => 'adopted',
+        'checkout_date' => '2026-01-15',
+        'is_adoptable' => false,
+    ]);
+    $adoption = Adoption::factory()->for($pet)->create(['adoption_date' => '2026-01-15']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
+        ->set('returnDate', '2026-03-01')
+        ->call('saveAdoption')
+        ->assertHasNoErrors();
+
+    $pet->refresh();
+    expect($pet->status)->toBe('not_available');
+    expect($pet->checkout_date)->toBeNull();
+});
+
 test('a returned pet can be registered for a new adoption', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'checkout_date' => '2026-01-15']);

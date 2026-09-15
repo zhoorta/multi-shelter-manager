@@ -6,8 +6,8 @@
         </div>
 
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Quarantine') }}</span>
-            <span class="text-3xl font-semibold text-neutral-900 dark:text-white">{{ $quarantinedPetsCount }}</span>
+            <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Adoptions') }}</span>
+            <span class="text-3xl font-semibold text-neutral-900 dark:text-white">{{ $adoptionsPetsCount }}</span>
         </div>
 
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
@@ -43,11 +43,16 @@
                                 <span @class([
                                     'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
                                     'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' => $pet->status === 'available',
-                                    'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300' => $pet->status === 'quarantine',
+                                    'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300' => $pet->status === 'not_available',
                                     'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300' => $pet->status === 'adopted',
-                                    'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300' => $pet->status === 'medical',
+                                    'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300' => $pet->status === 'deceased',
                                 ])>
-                                    {{ __(ucfirst($pet->status)) }}
+                                    {{ __(match ($pet->status) {
+                                        'available' => 'Available',
+                                        'not_available' => 'Not Available',
+                                        'adopted' => 'Adopted',
+                                        'deceased' => 'Deceased',
+                                    }) }}
                                 </span>
                             </td>
                             <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">

@@ -27,9 +27,9 @@
         <flux:select wire:model.live="statusFilter" :placeholder="__('All')" class="sm:max-w-xs">
             <flux:select.option value="">{{ __('All') }}</flux:select.option>
             <flux:select.option value="available">{{ __('Available') }}</flux:select.option>
-            <flux:select.option value="quarantine">{{ __('Quarantine') }}</flux:select.option>
+            <flux:select.option value="not_available">{{ __('Not Available') }}</flux:select.option>
             <flux:select.option value="adopted">{{ __('Adopted') }}</flux:select.option>
-            <flux:select.option value="medical">{{ __('Medical') }}</flux:select.option>
+            <flux:select.option value="deceased">{{ __('Deceased') }}</flux:select.option>
         </flux:select>
     </div>
 

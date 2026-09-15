@@ -18,7 +18,7 @@ class Dashboard extends Component
 {
     public int $activePetsCount = 0;
 
-    public int $quarantinedPetsCount = 0;
+    public int $adoptionsPetsCount = 0;
 
     public int $availableCapacity = 0;
 
@@ -39,9 +39,9 @@ class Dashboard extends Component
             ->whereNull('date_of_death')
             ->count();
 
-        $this->quarantinedPetsCount = Pet::query()
+        $this->adoptionsPetsCount = Pet::query()
             ->where('shelter_id', $shelterId)
-            ->where('status', 'quarantine')
+            ->where('status', 'adopted')
             ->count();
 
         $totalCapacity = (int) Cage::query()

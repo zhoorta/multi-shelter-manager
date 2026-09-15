@@ -84,7 +84,7 @@ test('only admins see the administration navigation links', function () {
     $response->assertSee('Users');
 });
 
-test('shows accurate active pets, quarantine, capacity, and staff counts for the current shelter', function () {
+test('shows accurate active pets, adoptions, capacity, and staff counts for the current shelter', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
     $this->actingAs($user);
@@ -97,13 +97,13 @@ test('shows accurate active pets, quarantine, capacity, and staff counts for the
     Cage::factory()->create(['wing_id' => $wing->id, 'capacity' => 2]);
 
     Pet::factory()->count(2)->create(['shelter_id' => $shelter->id, 'status' => 'available']);
-    Pet::factory()->create(['shelter_id' => $shelter->id, 'status' => 'quarantine']);
-    Pet::factory()->create(['shelter_id' => $shelter->id, 'status' => 'adopted']);
-    Pet::factory()->create(['shelter_id' => $shelter->id, 'status' => 'medical', 'date_of_death' => now()->subDay()]);
+    Pet::factory()->create(['shelter_id' => $shelter->id, 'status' => 'not_available']);
+    Pet::factory()->count(2)->create(['shelter_id' => $shelter->id, 'status' => 'adopted']);
+    Pet::factory()->create(['shelter_id' => $shelter->id, 'status' => 'available', 'date_of_death' => now()->subDay()]);
 
     Livewire::test(Dashboard::class)
         ->assertSet('activePetsCount', 3)
-        ->assertSet('quarantinedPetsCount', 1)
+        ->assertSet('adoptionsPetsCount', 2)
         ->assertSet('availableCapacity', 2)
         ->assertSet('staffCount', 4);
 });
@@ -123,12 +123,12 @@ test('excludes other shelters pets, cages, and staff from the statistics', funct
     $otherFacility = Facility::factory()->create(['shelter_id' => $otherShelter->id]);
     $otherWing = Wing::factory()->create(['facility_id' => $otherFacility->id]);
     Cage::factory()->create(['wing_id' => $otherWing->id, 'capacity' => 10]);
-    Pet::factory()->count(2)->create(['shelter_id' => $otherShelter->id, 'status' => 'quarantine']);
+    Pet::factory()->count(2)->create(['shelter_id' => $otherShelter->id, 'status' => 'adopted']);
     User::factory()->count(2)->create(['shelter_id' => $otherShelter->id, 'role' => 'staff']);
 
     Livewire::test(Dashboard::class)
         ->assertSet('activePetsCount', 1)
-        ->assertSet('quarantinedPetsCount', 0)
+        ->assertSet('adoptionsPetsCount', 0)
         ->assertSet('availableCapacity', 4)
         ->assertSet('staffCount', 1);
 });
@@ -151,9 +151,9 @@ test('lists the five most recently added pets with their status and cage code', 
 
     Pet::factory()->count(4)->sequence(
         ['name' => 'Pet A', 'status' => 'available', 'created_at' => now()->subDays(4)],
-        ['name' => 'Pet B', 'status' => 'quarantine', 'created_at' => now()->subDays(3)],
+        ['name' => 'Pet B', 'status' => 'not_available', 'created_at' => now()->subDays(3)],
         ['name' => 'Pet C', 'status' => 'adopted', 'created_at' => now()->subDays(2)],
-        ['name' => 'Pet D', 'status' => 'medical', 'created_at' => now()->subDays(1)],
+        ['name' => 'Pet D', 'status' => 'deceased', 'created_at' => now()->subDays(1)],
     )->create(['shelter_id' => $shelter->id, 'cage_id' => $cage->id]);
 
     Pet::factory()->create([

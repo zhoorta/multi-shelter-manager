@@ -150,7 +150,7 @@ class AdoptionForm extends Component
             $isReturned = $adoptionAttributes['return_date'] !== null;
 
             $this->pet->update([
-                'status' => $isReturned ? 'available' : 'adopted',
+                'status' => $this->pet->determineStatus(),
                 'checkout_date' => $isReturned ? null : $validated['adoptionDate'],
             ]);
         });

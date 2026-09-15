@@ -71,7 +71,7 @@ class ManageAdoptions extends Component
 
             if ($wasOpenAdoption) {
                 $adoption->pet->update([
-                    'status' => 'available',
+                    'status' => $adoption->pet->determineStatus(),
                     'checkout_date' => null,
                 ]);
             }

@@ -220,14 +220,7 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <div class="grid grid-cols-2 gap-4">
-                <flux:select wire:model="petStatus" :label="__('Status')">
-                    <flux:select.option value="available">{{ __('Available') }}</flux:select.option>
-                    <flux:select.option value="quarantine">{{ __('Quarantine') }}</flux:select.option>
-                    <flux:select.option value="adopted">{{ __('Adopted') }}</flux:select.option>
-                    <flux:select.option value="medical">{{ __('Medical') }}</flux:select.option>
-                </flux:select>
-
+            <div class="grid grid-cols-1 gap-4">
                 <flux:select wire:model="petCageId" :label="__('Cage')">
                     <flux:select.option value="">{{ __('No Cage Assigned') }}</flux:select.option>
                     @foreach ($this->cages->groupBy(fn ($item) => $item->wing->facility->name.' · '.$item->wing->name) as $groupLabel => $groupCages)

@@ -257,6 +257,27 @@ class Pet extends Model
     }
 
     /**
+     * Derive the pet's status from its current attributes and adoption
+     * records, rather than trusting a manually set value: 'deceased' when
+     * date_of_death is filled, else 'adopted' when it has an adoption with
+     * no return_date, else 'available'/'not_available' based on is_adoptable.
+     */
+    public function determineStatus(): string
+    {
+        if ($this->date_of_death !== null) {
+            return 'deceased';
+        }
+
+        $hasOpenAdoption = $this->exists && $this->adoptions()->whereNull('return_date')->exists();
+
+        if ($hasOpenAdoption) {
+            return 'adopted';
+        }
+
+        return $this->is_adoptable ? 'available' : 'not_available';
+    }
+
+    /**
      * Get the sponsorship records for the pet.
      *
      * @return HasMany<Sponsorship, $this>

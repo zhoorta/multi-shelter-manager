@@ -76,8 +76,6 @@ class PetForm extends Component
 
     public bool $petIsSponsorable = true;
 
-    public string $petStatus = 'available';
-
     public ?int $petCageId = null;
 
     public string $petCheckinDate = '';
@@ -120,7 +118,6 @@ class PetForm extends Component
         $this->petSicknessIds = $pet->sicknesses()->pluck('sicknesses.id')->all();
         $this->petIsAdoptable = (bool) $pet->is_adoptable;
         $this->petIsSponsorable = (bool) $pet->is_sponsorable;
-        $this->petStatus = $pet->status;
         $this->petCageId = $pet->cage_id;
         $this->petCheckinDate = (string) $pet->checkin_date?->format('Y-m-d');
         $this->petDescription = (string) $pet->description;
@@ -320,7 +317,6 @@ class PetForm extends Component
             'petBirthDate' => ['nullable', 'date'],
             'petDeathDate' => ['nullable', 'date'],
             'petChip' => ['nullable', 'string', 'max:255'],
-            'petStatus' => ['required', 'in:available,quarantine,adopted,medical'],
             'petIsNeutered' => ['boolean'],
             'petSicknessIds' => ['array'],
             'petSicknessIds.*' => [
@@ -348,7 +344,6 @@ class PetForm extends Component
             'petBirthDate' => __('Birth Date'),
             'petDeathDate' => __('Death Date'),
             'petChip' => __('Microchip / Chip'),
-            'petStatus' => __('Status'),
             'petIsNeutered' => __('Is Neutered'),
             'petSicknessIds.*' => __('Sicknesses'),
             'petIsAdoptable' => __('Is Adoptable'),
@@ -384,7 +379,6 @@ class PetForm extends Component
             'gender' => $validated['petGender'],
             'birth_date' => $validated['petBirthDate'] !== '' ? $validated['petBirthDate'] : null,
             'date_of_death' => $validated['petDeathDate'] !== '' ? $validated['petDeathDate'] : null,
-            'status' => $validated['petStatus'],
             'checkin_date' => $validated['petCheckinDate'] !== '' ? $validated['petCheckinDate'] : null,
             'description' => $this->sanitizeDescription($validated['petDescription']),
             'notes' => $validated['petNotes'] !== '' ? $validated['petNotes'] : null,
@@ -395,8 +389,11 @@ class PetForm extends Component
 
         DB::transaction(function () use ($petAttributes, $isEditing, $validated): void {
             if ($isEditing) {
+                $this->pet->fill($petAttributes);
+                $petAttributes['status'] = $this->pet->determineStatus();
                 $this->pet->update($petAttributes);
             } else {
+                $petAttributes['status'] = (new Pet($petAttributes))->determineStatus();
                 $this->pet = Pet::query()->create([...$petAttributes, 'ref' => '']);
                 $this->pet->update(['ref' => $this->generatePetRef($this->pet->id)]);
             }
