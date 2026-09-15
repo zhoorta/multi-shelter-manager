@@ -4,6 +4,7 @@ paths:
   - app/Livewire/Pets/SponsorshipForm.php
   - app/Livewire/Pets/PetShow.php
   - app/Livewire/Pets/AdoptionForm.php
+  - app/Livewire/Pets/ManagePets.php
 ---
 
 # Pets
@@ -45,3 +46,6 @@ AdoptionForm::saveAdoption() branches on whether the submitted return_date is no
 
 ## Editing a non-active Adoption must not touch pet status/checkout_date
 A pet can have multiple Adoption rows over time (adopted → returned → re-adopted). AdoptionForm::saveAdoption() computes $hasAnotherOpenAdoption (another adoption row for the pet with return_date null, excluding the one being edited). If true: (1) clearing this adoption's return_date is rejected with a validation error on returnDate (would imply two concurrent open adoptions for the pet), and (2) any other edit to this now-past adoption skips the $this->pet->update(['status'=>..., 'checkout_date'=>...]) call entirely, since the newer open adoption is what determines the pet's current status/checkout_date. Only the pet's single currently-open adoption should ever drive pet.status/checkout_date.
+
+## no_location missingDataFilter excludes adopted/deceased pets
+Superseding the earlier note here: 'no_location' is now `whereNull('cage_id')->whereNotIn('status', ['adopted', 'deceased'])`, not just whereNull('cage_id'). Reason: an adopted or deceased pet has legitimately left the shelter, so having no cage assigned isn't a data-quality issue worth surfacing in this filter.

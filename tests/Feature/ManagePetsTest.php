@@ -83,6 +83,134 @@ test('filters pets by microchip', function () {
         ->assertDontSee('Bella');
 });
 
+test('filters pets by ref', function () {
+    $shelter = Shelter::factory()->create();
+    $rex = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella']);
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('search', $rex->ref)
+        ->assertSee('Rex')
+        ->assertDontSee('Bella');
+});
+
+test('filters pets by internal notes', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'internal_notes' => 'Aggressive with other dogs']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'internal_notes' => 'Very calm']);
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('search', 'Aggressive')
+        ->assertSee('Rex')
+        ->assertDontSee('Bella');
+});
+
+test('filters pets by cage', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $cage = Cage::factory()->for($wing)->create();
+    $otherCage = Cage::factory()->for($wing)->create();
+
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'cage_id' => $cage->id]);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'cage_id' => $otherCage->id]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('locationFilter', 'cage:'.$cage->id)
+        ->assertSee('Rex')
+        ->assertDontSee('Bella');
+});
+
+test('filters pets by every cage under a wing', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $otherWing = Wing::factory()->for($facility)->create();
+    $cageOne = Cage::factory()->for($wing)->create();
+    $cageTwo = Cage::factory()->for($wing)->create();
+    $otherCage = Cage::factory()->for($otherWing)->create();
+
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'cage_id' => $cageOne->id]);
+    Pet::factory()->for($shelter)->create(['name' => 'Fido', 'cage_id' => $cageTwo->id]);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'cage_id' => $otherCage->id]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('locationFilter', 'wing:'.$wing->id)
+        ->assertSee('Rex')
+        ->assertSee('Fido')
+        ->assertDontSee('Bella');
+});
+
+test('filters pets by every cage under a facility', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $otherFacility = Facility::factory()->for($shelter)->create();
+    $wingOne = Wing::factory()->for($facility)->create();
+    $wingTwo = Wing::factory()->for($facility)->create();
+    $otherWing = Wing::factory()->for($otherFacility)->create();
+    $cageOne = Cage::factory()->for($wingOne)->create();
+    $cageTwo = Cage::factory()->for($wingTwo)->create();
+    $otherCage = Cage::factory()->for($otherWing)->create();
+
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'cage_id' => $cageOne->id]);
+    Pet::factory()->for($shelter)->create(['name' => 'Fido', 'cage_id' => $cageTwo->id]);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'cage_id' => $otherCage->id]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('locationFilter', 'facility:'.$facility->id)
+        ->assertSee('Rex')
+        ->assertSee('Fido')
+        ->assertDontSee('Bella');
+});
+
+test('location filter only lists facilities/wings/cages belonging to the acting user\'s shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create(['name' => 'North Campus']);
+    $wing = Wing::factory()->for($facility)->create(['name' => 'Dog Wing']);
+    Cage::factory()->for($wing)->create(['code' => 'D12']);
+
+    $otherShelter = Shelter::factory()->create();
+    $otherFacility = Facility::factory()->for($otherShelter)->create(['name' => 'South Campus']);
+    $otherWing = Wing::factory()->for($otherFacility)->create(['name' => 'Cat Wing']);
+    Cage::factory()->for($otherWing)->create(['code' => 'X99']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $component = Livewire::test(ManagePets::class);
+
+    expect($component->get('facilities')->pluck('id'))->toEqual(collect([$facility->id]));
+});
+
+test('location filter shows each cage\'s available space and color', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+
+    $greenCage = Cage::factory()->for($wing)->create(['code' => 'G1', 'capacity' => 10]);
+    Pet::factory()->for($greenCage, 'cage')->count(2)->create(['shelter_id' => $shelter->id, 'status' => 'available']);
+
+    $redCage = Cage::factory()->for($wing)->create(['code' => 'R1', 'capacity' => 10]);
+    Pet::factory()->for($redCage, 'cage')->count(10)->create(['shelter_id' => $shelter->id, 'status' => 'available']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $cages = Livewire::test(ManagePets::class)
+        ->assertSee(__(':available of :capacity free', ['available' => 8, 'capacity' => 10]))
+        ->assertSee(__(':available of :capacity free', ['available' => 0, 'capacity' => 10]))
+        ->get('facilities')->first()->wings->first()->cages->keyBy('id');
+
+    expect($cages[$greenCage->id]->availability_color)->toBe('green')
+        ->and($cages[$redCage->id]->availability_color)->toBe('red');
+});
+
 test('filters pets by status', function () {
     $shelter = Shelter::factory()->create();
     Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'available']);
@@ -93,6 +221,74 @@ test('filters pets by status', function () {
         ->set('statusFilter', 'not_available')
         ->assertSee('Bella')
         ->assertDontSee('Rex');
+});
+
+test('filters pets with no age defined', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'birth_date' => null]);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'birth_date' => '2023-01-01']);
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('missingDataFilter', 'no_age')
+        ->assertSee('Rex')
+        ->assertDontSee('Bella');
+});
+
+test('filters pets with no photo', function () {
+    $shelter = Shelter::factory()->create();
+    $rex = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    $bella = Pet::factory()->for($shelter)->create(['name' => 'Bella']);
+    $bella->images()->create(['image_path' => 'pets/bella.jpg', 'is_main' => true]);
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('missingDataFilter', 'no_photo')
+        ->assertSee('Rex')
+        ->assertDontSee('Bella');
+});
+
+test('filters pets with no checkin date', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'checkin_date' => null]);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'checkin_date' => '2023-01-01']);
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('missingDataFilter', 'no_checkin_date')
+        ->assertSee('Rex')
+        ->assertDontSee('Bella');
+});
+
+test('filters pets with no location defined', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $cage = Cage::factory()->for($wing)->create();
+
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'cage_id' => null]);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'cage_id' => $cage->id]);
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('missingDataFilter', 'no_location')
+        ->assertSee('Rex')
+        ->assertDontSee('Bella');
+});
+
+test('excludes adopted and deceased pets from the no location defined filter', function () {
+    $shelter = Shelter::factory()->create();
+
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'cage_id' => null, 'status' => 'adopted']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'cage_id' => null, 'status' => 'deceased']);
+    Pet::factory()->for($shelter)->create(['name' => 'Fido', 'cage_id' => null, 'status' => 'available']);
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->set('missingDataFilter', 'no_location')
+        ->assertSee('Fido')
+        ->assertDontSee('Rex')
+        ->assertDontSee('Bella');
 });
 
 test('shows the adoption date for adopted pets', function () {
@@ -183,6 +379,19 @@ test('shows the accommodation as facility, then wing, then cage code', function 
 
     Livewire::test(ManagePets::class)
         ->assertSeeInOrder(['Rex', 'North Campus', 'Dog Wing', 'D12']);
+});
+
+test('shows a dash in the accommodation column when the pet has no cage assigned', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'cage_id' => null]);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertSeeInOrder(['Rex', '-'])
+        ->assertDontSee('No Facility Assigned')
+        ->assertDontSee('No Wing Assigned')
+        ->assertDontSee('No Cage Assigned');
 });
 
 test('shows the size after the breed name in the characteristics column', function () {

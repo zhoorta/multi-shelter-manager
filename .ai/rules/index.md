@@ -23,8 +23,8 @@ Before planning or editing, find the row whose globs match the file's path and r
 | resources/views/livewire/volunteers/volunteer-show.blade.php,resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/partials/sponsorship-box.blade.php | .ai/rules/pets-partials.md |
 | app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php,app/Livewire/Pets/PetShow.php,resources/views/livewire/pets/pet-show.blade.php | .ai/rules/pets-views-livewire-pets.md |
 | resources/views/livewire/pets/manage-pets.blade.php,resources/views/livewire/volunteers/manage-volunteers.blade.php | .ai/rules/pets-views-livewire-volunteers.md |
-| app/Livewire/Pets/**, app/Livewire/Pets/SponsorshipForm.php, app/Livewire/Pets/PetShow.php, app/Livewire/Pets/AdoptionForm.php | .ai/rules/pets.md |
-| resources/views/livewire/pets/pet-show.blade.php | .ai/rules/resources-views-livewire-pets.md |
+| app/Livewire/Pets/**, app/Livewire/Pets/SponsorshipForm.php, app/Livewire/Pets/PetShow.php, app/Livewire/Pets/AdoptionForm.php, app/Livewire/Pets/ManagePets.php | .ai/rules/pets.md |
+| resources/views/livewire/pets/pet-show.blade.php, resources/views/livewire/pets/manage-pets.blade.php | .ai/rules/resources-views-livewire-pets.md |
 | routes/web.php | .ai/rules/routes.md |
 | app/Traits/MultiShelterTrait.php | .ai/rules/traits.md |
 | app/Livewire/Pets/PetShow.php,resources/views/livewire/pets/pet-show.blade.php, app/Livewire/Pets/ManagePets.php,resources/views/livewire/pets/manage-pets.blade.php, app/Livewire/Pets/AdoptionForm.php,resources/views/livewire/pets/adoption-form.blade.php, app/Livewire/Pets/SponsorshipForm.php,resources/views/livewire/pets/sponsorship-form.blade.php, app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php | .ai/rules/views-livewire-pets.md |

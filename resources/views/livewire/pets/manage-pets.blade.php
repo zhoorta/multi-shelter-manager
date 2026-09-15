@@ -20,16 +20,49 @@
         <flux:input
             wire:model.live.debounce.300ms="search"
             icon="magnifying-glass"
-            :placeholder="__('Search by name or microchip')"
+            :placeholder="__('Search by name, ref, microchip or internal notes')"
             class="sm:max-w-xs"
         />
 
-        <flux:select wire:model.live="statusFilter" :placeholder="__('All')" class="sm:max-w-xs">
+        {{-- One selectable option per level (Facility, Wing, Cage), indented by depth via
+             leading non-breaking spaces (native <option> elements can't be styled with
+             padding/classes across browsers). Filtering by a Facility or Wing matches every
+             cage under it. --}}
+        <flux:select wire:model.live="locationFilter" class="sm:max-w-xs">
+            <flux:select.option value="">{{ __('All Locations') }}</flux:select.option>
+            @foreach ($this->facilities as $facility)
+                <flux:select.option value="facility:{{ $facility->id }}">{{ $facility->name }}</flux:select.option>
+                @foreach ($facility->wings as $wing)
+                    <flux:select.option value="wing:{{ $wing->id }}">{{ str_repeat("\u{00A0}", 4) }}{{ $wing->name }}</flux:select.option>
+                    @foreach ($wing->cages as $cage)
+                        <flux:select.option value="cage:{{ $cage->id }}">
+                            {{ str_repeat("\u{00A0}", 8) }}
+                            {{ match ($cage->availability_color) {
+                                'red' => '🔴',
+                                'yellow' => '🟡',
+                                default => '🟢',
+                            } }}
+                            {{ $cage->code }} — {{ __(':available of :capacity free', ['available' => $cage->available_space, 'capacity' => $cage->capacity]) }}
+                        </flux:select.option>
+                    @endforeach
+                @endforeach
+            @endforeach
+        </flux:select>
+
+        <flux:select wire:model.live="statusFilter" class="sm:max-w-xs">
             <flux:select.option value="">{{ __('All') }}</flux:select.option>
             <flux:select.option value="available">{{ __('Available') }}</flux:select.option>
             <flux:select.option value="not_available">{{ __('Not Available') }}</flux:select.option>
             <flux:select.option value="adopted">{{ __('Adopted') }}</flux:select.option>
             <flux:select.option value="deceased">{{ __('Deceased') }}</flux:select.option>
+        </flux:select>
+
+        <flux:select wire:model.live="missingDataFilter" class="sm:max-w-xs">
+            <flux:select.option value="">{{ __('All') }}</flux:select.option>
+            <flux:select.option value="no_age">{{ __('No age defined') }}</flux:select.option>
+            <flux:select.option value="no_photo">{{ __('No photo') }}</flux:select.option>
+            <flux:select.option value="no_checkin_date">{{ __('No checkin date') }}</flux:select.option>
+            <flux:select.option value="no_location">{{ __('No location defined') }}</flux:select.option>
         </flux:select>
     </div>
 
@@ -105,9 +138,13 @@
                                 </td>
                                 <td class="px-6 py-3">
                                     <div class="flex flex-col gap-1 text-neutral-500 dark:text-neutral-400">
-                                        <span>{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }}</span>
-                                        <span>{{ $pet->cage?->wing->name ?? __('No Wing Assigned') }}</span>
-                                        <span>{{ $pet->cage->code ?? __('No Cage Assigned') }}</span>
+                                        @if ($pet->cage)
+                                            <span>{{ $pet->cage->wing->facility->name }}</span>
+                                            <span>{{ $pet->cage->wing->name }}</span>
+                                            <span>{{ $pet->cage->code }}</span>
+                                        @else
+                                            <span>-</span>
+                                        @endif
                                     </div>
                                 </td>
                                 <td class="px-6 py-3">

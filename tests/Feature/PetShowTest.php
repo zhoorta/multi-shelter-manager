@@ -248,6 +248,47 @@ test('shows the checkout date after the checkin date', function () {
         ->assertSeeInOrder(['Checkin Date', '10/01/2023', 'Checkout Date', '20/06/2023']);
 });
 
+test('shows the adoption date next to the name when the pet is adopted', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'adopted']);
+    Adoption::factory()->for($pet)->create(['adoption_date' => '2026-02-10']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Rex', 'Adopted', 'at', '10/02/2026'])
+        ->assertDontSee('Deceased');
+});
+
+test('shows the death date next to the name when the pet is deceased, instead of the adoption date', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create([
+        'name' => 'Rex',
+        'status' => 'adopted',
+        'date_of_death' => '2026-03-15',
+    ]);
+    Adoption::factory()->for($pet)->create(['adoption_date' => '2026-02-10']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Rex', 'Deceased', 'at', '15/03/2026']);
+});
+
+test('does not show the adopted/deceased info next to the name for a pet that is neither', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'available']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertDontSee('Adopted')
+        ->assertDontSee('Deceased');
+});
+
 test('shows the pet description as rendered HTML in its own box at the end', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['description' => '<p>Loves <b>belly rubs</b>.</p>']);

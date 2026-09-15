@@ -1,7 +1,14 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
-            <flux:heading size="xl">{{ $pet->name }}</flux:heading>
+            <flux:heading size="xl">
+                {{ $pet->name }}
+                @if ($pet->date_of_death)
+                    <span class="text-base font-normal text-neutral-500 dark:text-neutral-400">({{ __('Deceased') }} {{ __('at') }} {{ $pet->date_of_death->format('d/m/Y') }})</span>
+                @elseif ($pet->status === 'adopted' && $pet->adoptions->isNotEmpty())
+                    <span class="text-base font-normal text-neutral-500 dark:text-neutral-400">({{ __('Adopted') }} {{ __('at') }} {{ $pet->adoptions->first()->adoption_date->format('d/m/Y') }})</span>
+                @endif
+            </flux:heading>
             <flux:subheading>{{ __('Pets') }}</flux:subheading>
         </div>
 
