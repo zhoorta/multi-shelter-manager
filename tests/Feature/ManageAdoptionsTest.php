@@ -158,6 +158,63 @@ test('filters the adoptions by pet ref', function () {
         ->assertDontSee('Joao Costa');
 });
 
+test('filters the adoptions by owner email', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'email' => 'maria@example.com']);
+    Adoption::factory()->for($pet)->create(['name' => 'Joao Costa', 'email' => 'joao@example.com']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManageAdoptions::class)
+        ->set('search', 'maria@example.com')
+        ->assertSee('Maria Silva')
+        ->assertDontSee('Joao Costa');
+});
+
+test('filters the adoptions by owner phone', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'phone' => '911111111']);
+    Adoption::factory()->for($pet)->create(['name' => 'Joao Costa', 'phone' => '922222222']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManageAdoptions::class)
+        ->set('search', '911111111')
+        ->assertSee('Maria Silva')
+        ->assertDontSee('Joao Costa');
+});
+
+test('filters the adoptions by notes', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'notes' => 'Prefers weekend visits']);
+    Adoption::factory()->for($pet)->create(['name' => 'Joao Costa', 'notes' => 'Has a big backyard']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManageAdoptions::class)
+        ->set('search', 'weekend visits')
+        ->assertSee('Maria Silva')
+        ->assertDontSee('Joao Costa');
+});
+
+test('filters the adoptions by pet name', function () {
+    $shelter = Shelter::factory()->create();
+    $rex = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    $bella = Pet::factory()->for($shelter)->create(['name' => 'Bella']);
+    Adoption::factory()->for($rex)->create(['name' => 'Maria Silva']);
+    Adoption::factory()->for($bella)->create(['name' => 'Joao Costa']);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManageAdoptions::class)
+        ->set('search', 'Rex')
+        ->assertSee('Maria Silva')
+        ->assertDontSee('Joao Costa');
+});
+
 test('resets the page when the search term changes', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();

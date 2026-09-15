@@ -50,7 +50,7 @@
         </flux:select>
 
         <flux:select wire:model.live="statusFilter" class="sm:max-w-xs">
-            <flux:select.option value="">{{ __('All') }}</flux:select.option>
+            <flux:select.option value="">{{ __('Any Status') }}</flux:select.option>
             <flux:select.option value="available">{{ __('Available') }}</flux:select.option>
             <flux:select.option value="not_available">{{ __('Not Available') }}</flux:select.option>
             <flux:select.option value="adopted">{{ __('Adopted') }}</flux:select.option>
