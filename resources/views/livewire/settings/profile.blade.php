@@ -3,12 +3,18 @@
 
     <flux:heading level="2" class="sr-only">{{ __('Profile settings') }}</flux:heading>
 
-    <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
-        <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
-            <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
+    <x-settings.layout :heading="__('Profile')" :subheading="__('View your name and email address')">
+        <div class="my-6 w-full space-y-6">
+            <flux:field>
+                <flux:label>{{ __('Name') }}</flux:label>
+                <flux:text>{{ $name }}</flux:text>
+            </flux:field>
 
             <div>
-                <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
+                <flux:field>
+                    <flux:label>{{ __('Email') }}</flux:label>
+                    <flux:text>{{ $email }}</flux:text>
+                </flux:field>
 
                 @if ($this->hasUnverifiedEmail)
                     <div>
@@ -23,14 +29,6 @@
                     </div>
                 @endif
             </div>
-
-            <div class="flex items-center gap-4">
-                <flux:button variant="primary" type="submit">{{ __('Save') }}</flux:button>
-            </div>
-        </form>
-
-        @if ($this->showDeleteUser)
-            <livewire:settings.delete-user-form />
-        @endif
+        </div>
     </x-settings.layout>
 </section>
