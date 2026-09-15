@@ -1,6 +1,7 @@
 ---
 paths:
   - 'app/Livewire/Admin/**'
+  - app/Livewire/Admin/ManageBreeds.php
 ---
 
 # Admin
@@ -26,3 +27,6 @@ Size (sizes table: species_id belongsTo, name) was created without Blameable/Sof
 Activity (activities table: name only, global lookup, no shelter_id) was introduced already in the base migration but without created_by/updated_by/deleted_by/deleted_at — fixed via a follow-up migration (2026_09_13_214206_add_soft_deletes_and_blameable_to_activities_table), same gap Species/Breed/FurType/Sizes had. App\Livewire\Admin\ManageActivities (route admin.activities.index, sidebar entry after Sicknesses) follows ManageFurTypes exactly: single name field, unique validation via Rule::unique('activities','name')->ignore(), shared 'activity-form' Flux modal for create/edit, soft-delete on destroy.
 
 volunteer_activities is a plain pivot (volunteer_id, activity_id, cascadeOnDelete on both) linking Volunteer<->Activity, created alongside the activities table in the same migration. No model relation (Volunteer::activities() / Activity::volunteers()) or UI wiring into VolunteerForm exists yet — this task only built the admin CRUD for the Activity lookup itself, not the volunteer-side assignment UI. Add the BelongsToMany relations and a checkbox/multi-select in VolunteerForm as a follow-up if volunteers need to pick their activities.
+
+## Only one default (SRD) breed per species
+ManageBreeds::saveBreed() enforces breeds.is_default as at-most-one-per-species: when breedIsDefault is true, after creating/updating the breed it runs `Breed::where('species_id', ...)->whereKeyNot($breed->id)->update(['is_default' => false])`, all inside a DB::transaction(). No DB-level unique constraint backs this — it's app-enforced only, so any other write path that sets is_default (bulk import, tinker, a future seeder) must clear siblings the same way or this invariant breaks silently. See tests/Feature/ManageBreedsTest.php ("marking a breed as default clears the flag from other breeds of the same species" and related).

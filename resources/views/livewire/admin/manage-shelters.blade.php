@@ -37,7 +37,12 @@
                                         </div>
                                     @endif
                                 </td>
-                                <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">{{ $item->name }}</td>
+                                <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">
+                                    {{ $item->name }}
+                                    @if ($item->short_name)
+                                        <div class="text-xs font-normal text-neutral-500 dark:text-neutral-400">{{ $item->short_name }}</div>
+                                    @endif
+                                </td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->city }}</td>
                                 <td class="px-6 py-3">
                                     <flux:badge size="sm">{{ $item->users_count }}</flux:badge>

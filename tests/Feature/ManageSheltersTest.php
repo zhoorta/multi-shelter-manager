@@ -40,13 +40,24 @@ test('lists shelters with their user and pet counts', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'city' => 'Lisbon']);
+    $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'short_name' => 'HP', 'city' => 'Lisbon']);
     User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
     Pet::factory()->create(['shelter_id' => $shelter->id]);
 
     Livewire::test(ManageShelters::class)
         ->assertSee('Happy Paws')
+        ->assertSee('HP')
         ->assertSee('Lisbon');
+});
+
+test('does not show a short name when the shelter has none', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    Shelter::factory()->create(['name' => 'Happy Paws', 'short_name' => null, 'city' => 'Lisbon']);
+
+    Livewire::test(ManageShelters::class)
+        ->assertDontSeeHtml('text-xs font-normal text-neutral-500 dark:text-neutral-400');
 });
 
 test('links to the separate create and edit pages instead of a modal', function () {

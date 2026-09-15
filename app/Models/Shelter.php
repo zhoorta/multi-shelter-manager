@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property string $name
+ * @property string|null $short_name
  * @property string $city
  * @property string|null $logo_path
  * @property string|null $address
@@ -28,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'city', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description'])]
+#[Fillable(['name', 'short_name', 'city', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description'])]
 class Shelter extends Model
 {
     /** @use HasFactory<ShelterFactory> */

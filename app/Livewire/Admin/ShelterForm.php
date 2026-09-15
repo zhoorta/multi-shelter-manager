@@ -23,6 +23,8 @@ class ShelterForm extends Component
 
     public string $shelterName = '';
 
+    public string $shelterShortName = '';
+
     public string $shelterCity = '';
 
     public string $shelterAddress = '';
@@ -56,6 +58,7 @@ class ShelterForm extends Component
 
         $this->shelter = $shelter;
         $this->shelterName = $shelter->name;
+        $this->shelterShortName = (string) $shelter->short_name;
         $this->shelterCity = $shelter->city;
         $this->shelterAddress = (string) $shelter->address;
         $this->shelterPostalCode = (string) $shelter->postal_code;
@@ -93,6 +96,7 @@ class ShelterForm extends Component
     {
         $validated = $this->validate([
             'shelterName' => ['required', 'string', 'max:255'],
+            'shelterShortName' => ['nullable', 'string', 'max:255'],
             'shelterCity' => ['required', 'string', 'max:255'],
             'shelterAddress' => ['nullable', 'string', 'max:255'],
             'shelterPostalCode' => ['nullable', 'string', 'max:255'],
@@ -105,6 +109,7 @@ class ShelterForm extends Component
             'shelterSpeciesIds.*' => ['integer', 'exists:species,id'],
         ], [], [
             'shelterName' => __('Name'),
+            'shelterShortName' => __('Short Name'),
             'shelterCity' => __('City'),
             'shelterAddress' => __('Address'),
             'shelterPostalCode' => __('Postal Code'),
@@ -118,6 +123,7 @@ class ShelterForm extends Component
 
         $data = [
             'name' => $validated['shelterName'],
+            'short_name' => $validated['shelterShortName'] !== '' ? $validated['shelterShortName'] : null,
             'city' => $validated['shelterCity'],
             'address' => $validated['shelterAddress'] !== '' ? $validated['shelterAddress'] : null,
             'postal_code' => $validated['shelterPostalCode'] !== '' ? $validated['shelterPostalCode'] : null,

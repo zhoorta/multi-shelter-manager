@@ -24,7 +24,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Species') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Default Breed (SRD)') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Default Breed') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
@@ -35,7 +35,7 @@
                                 <td class="px-6 py-3">{{ $breed->species->name }}</td>
                                 <td class="px-6 py-3">
                                     @if ($breed->is_default)
-                                        <flux:badge color="lime" size="sm">{{ __('SRD') }}</flux:badge>
+                                        <flux:badge color="green" size="sm">{{ __('Yes') }}</flux:badge>
                                     @else
                                         <span class="text-neutral-400">&mdash;</span>
                                     @endif
@@ -109,7 +109,7 @@
 
             <flux:input wire:model="breedName" :label="__('Name')" />
 
-            <flux:checkbox wire:model="breedIsDefault" :label="__('Default Breed (SRD)')" />
+            <flux:checkbox wire:model="breedIsDefault" :label="__('Default Breed')" />
 
             <div class="flex justify-end gap-2">
                 <flux:modal.close>

@@ -10,6 +10,7 @@ use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -91,23 +92,34 @@ class ManageBreeds extends Component
             'breedName' => __('Name'),
         ]);
 
-        if ($this->editingBreedId !== null) {
-            Breed::query()->findOrFail($this->editingBreedId)->update([
-                'species_id' => $validated['breedSpeciesId'],
-                'name' => $validated['breedName'],
-                'is_default' => $validated['breedIsDefault'],
-            ]);
+        DB::transaction(function () use ($validated): void {
+            if ($this->editingBreedId !== null) {
+                $breed = Breed::query()->findOrFail($this->editingBreedId);
+                $breed->update([
+                    'species_id' => $validated['breedSpeciesId'],
+                    'name' => $validated['breedName'],
+                    'is_default' => $validated['breedIsDefault'],
+                ]);
+            } else {
+                $breed = Breed::query()->create([
+                    'species_id' => $validated['breedSpeciesId'],
+                    'name' => $validated['breedName'],
+                    'is_default' => $validated['breedIsDefault'],
+                ]);
+            }
 
-            Flux::toast(variant: 'success', text: __('Record updated successfully'));
-        } else {
-            Breed::query()->create([
-                'species_id' => $validated['breedSpeciesId'],
-                'name' => $validated['breedName'],
-                'is_default' => $validated['breedIsDefault'],
-            ]);
+            if ($validated['breedIsDefault']) {
+                Breed::query()
+                    ->where('species_id', $validated['breedSpeciesId'])
+                    ->whereKeyNot($breed->id)
+                    ->update(['is_default' => false]);
+            }
+        });
 
-            Flux::toast(variant: 'success', text: __('Record created successfully'));
-        }
+        Flux::toast(
+            variant: 'success',
+            text: $this->editingBreedId !== null ? __('Record updated successfully') : __('Record created successfully'),
+        );
 
         $this->resetBreedForm();
         unset($this->breeds);

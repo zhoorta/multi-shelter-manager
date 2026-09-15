@@ -4,7 +4,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 
 | Applies to | Rule file |
 | --- | --- |
-| app/Livewire/Admin/** | .ai/rules/admin.md |
+| app/Livewire/Admin/**, app/Livewire/Admin/ManageBreeds.php | .ai/rules/admin.md |
 | app/Livewire/Admin/ShelterForm.php,app/Livewire/Admin/ManageShelters.php,app/Models/Shelter.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/app.md |
 | app/Livewire/Pets/SponsorshipShow.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/Concerns/ManagesSponsorshipPayments.php, app/Livewire/Pets/ManagePets.php,app/Livewire/Pets/PetPrintList.php,app/Livewire/Pets/Concerns/FiltersPetsList.php | .ai/rules/concerns.md |
 | app/Livewire/Documentation.php,resources/views/livewire/documentation.blade.php,resources/views/livewire/documentation/*.blade.php | .ai/rules/documentation.md |
@@ -28,7 +28,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | resources/views/livewire/volunteers/volunteer-show.blade.php,resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/partials/sponsorship-box.blade.php | .ai/rules/pets-partials.md |
 | app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php,app/Livewire/Pets/PetShow.php,resources/views/livewire/pets/pet-show.blade.php | .ai/rules/pets-views-livewire-pets.md |
 | resources/views/livewire/pets/manage-pets.blade.php,resources/views/livewire/volunteers/manage-volunteers.blade.php | .ai/rules/pets-views-livewire-volunteers.md |
-| app/Livewire/Pets/**, app/Livewire/Pets/SponsorshipForm.php, app/Livewire/Pets/PetShow.php, app/Livewire/Pets/AdoptionForm.php, app/Livewire/Pets/ManagePets.php | .ai/rules/pets.md |
+| app/Livewire/Pets/**, app/Livewire/Pets/SponsorshipForm.php, app/Livewire/Pets/PetShow.php, app/Livewire/Pets/AdoptionForm.php, app/Livewire/Pets/ManagePets.php, app/Livewire/Pets/PetForm.php | .ai/rules/pets.md |
 | resources/views/livewire/pets/pet-show.blade.php, resources/views/livewire/pets/manage-pets.blade.php | .ai/rules/resources-views-livewire-pets.md |
 | routes/web.php | .ai/rules/routes.md |
 | app/Livewire/Settings/Profile.php,resources/views/livewire/settings/profile.blade.php | .ai/rules/settings.md |

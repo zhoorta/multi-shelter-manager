@@ -5,6 +5,7 @@ paths:
   - app/Livewire/Pets/PetShow.php
   - app/Livewire/Pets/AdoptionForm.php
   - app/Livewire/Pets/ManagePets.php
+  - app/Livewire/Pets/PetForm.php
 ---
 
 # Pets
@@ -49,3 +50,6 @@ A pet can have multiple Adoption rows over time (adopted → returned → re-ado
 
 ## no_location missingDataFilter excludes adopted/deceased pets
 Superseding the earlier note here: 'no_location' is now `whereNull('cage_id')->whereNotIn('status', ['adopted', 'deceased'])`, not just whereNull('cage_id'). Reason: an adopted or deceased pet has legitimately left the shelter, so having no cage assigned isn't a data-quality issue worth surfacing in this filter.
+
+## New pets auto-select the species' default (SRD) breed
+When creating a pet (`$this->pet === null`), selecting a species auto-selects that species' default breed (Breed.is_default) into petBreedId, via `PetForm::defaultBreedIdFor()`, called both from `mount()` (lockedSpeciesId path) and `updatedPetSpeciesId()`. Falls back to null if the species has no default breed. When editing an existing pet, changing species still resets petBreedId to null (no auto-select) — the guard is `$this->pet === null`, don't drop it. See tests/Feature/PetFormTest.php ("auto-selects the species default breed...").

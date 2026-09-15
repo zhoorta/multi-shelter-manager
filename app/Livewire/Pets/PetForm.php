@@ -96,6 +96,9 @@ class PetForm extends Component
         if ($pet === null) {
             if ($this->lockedSpeciesId !== '') {
                 $this->petSpeciesId = Species::query()->whereKey($this->lockedSpeciesId)->value('id');
+                $this->petBreedId = $this->petSpeciesId !== null
+                    ? $this->defaultBreedIdFor($this->petSpeciesId)
+                    : null;
             }
 
             return;
@@ -275,12 +278,22 @@ class PetForm extends Component
 
     public function updatedPetSpeciesId(): void
     {
-        $this->petBreedId = null;
+        $this->petBreedId = $this->pet === null && $this->petSpeciesId !== null
+            ? $this->defaultBreedIdFor($this->petSpeciesId)
+            : null;
         $this->petIsPureBreed = false;
         $this->petSizeId = null;
         $this->petSicknessIds = [];
 
         unset($this->breeds, $this->sizes, $this->sicknesses, $this->currentSpecies);
+    }
+
+    /**
+     * The default (SRD) breed id for a species, when one is registered.
+     */
+    protected function defaultBreedIdFor(int $speciesId): ?int
+    {
+        return Breed::query()->where('species_id', $speciesId)->where('is_default', true)->value('id');
     }
 
     public function toggleSickness(int $sicknessId): void

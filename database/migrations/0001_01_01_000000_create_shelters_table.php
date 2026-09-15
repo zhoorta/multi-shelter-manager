@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('shelters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('short_name')->nullable();
             $table->string('city');
             $table->string('logo_path')->nullable();
             $table->string('address')->nullable();

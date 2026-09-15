@@ -11,7 +11,10 @@
 
     <form wire:submit="saveShelter" class="flex flex-col gap-6">
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:input wire:model="shelterName" :label="__('Name')" />
+            <div class="grid grid-cols-3 gap-4">
+                <flux:input wire:model="shelterName" :label="__('Name')" field:class="col-span-2" />
+                <flux:input wire:model="shelterShortName" :label="__('Short Name')" />
+            </div>
 
             <div class="grid grid-cols-2 gap-4">
                 <flux:input wire:model="shelterEmail" type="email" :label="__('Email')" />

@@ -38,12 +38,13 @@ test('creates a new shelter and redirects to the shelters list', function () {
 
     Livewire::test(ShelterForm::class)
         ->set('shelterName', 'Happy Paws')
+        ->set('shelterShortName', 'HP')
         ->set('shelterCity', 'Lisbon')
         ->call('saveShelter')
         ->assertHasNoErrors()
         ->assertRedirect(route('admin.shelters.index'));
 
-    expect(Shelter::query()->where('name', 'Happy Paws')->where('city', 'Lisbon')->exists())->toBeTrue();
+    expect(Shelter::query()->where('name', 'Happy Paws')->where('short_name', 'HP')->where('city', 'Lisbon')->exists())->toBeTrue();
 });
 
 test('requires a name and city to create a shelter', function () {
@@ -74,10 +75,11 @@ test('populates the form when editing an existing shelter', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'city' => 'Lisbon']);
+    $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'short_name' => 'HP', 'city' => 'Lisbon']);
 
     Livewire::test(ShelterForm::class, ['shelter' => $shelter])
         ->assertSet('shelterName', 'Happy Paws')
+        ->assertSet('shelterShortName', 'HP')
         ->assertSet('shelterCity', 'Lisbon');
 });
 
@@ -89,12 +91,14 @@ test('updates an existing shelter', function () {
 
     Livewire::test(ShelterForm::class, ['shelter' => $shelter])
         ->set('shelterName', 'Happier Paws')
+        ->set('shelterShortName', 'HPP')
         ->set('shelterCity', 'Porto')
         ->call('saveShelter')
         ->assertHasNoErrors()
         ->assertRedirect(route('admin.shelters.index'));
 
     expect($shelter->fresh()->name)->toBe('Happier Paws');
+    expect($shelter->fresh()->short_name)->toBe('HPP');
     expect($shelter->fresh()->city)->toBe('Porto');
 });
 

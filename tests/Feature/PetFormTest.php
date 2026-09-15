@@ -102,6 +102,45 @@ test('resets the selected breed when the species changes', function () {
         ->assertSet('petBreedId', null);
 });
 
+test('auto-selects the species default breed when creating a pet and selecting a species', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    Breed::factory()->for($species)->create(['name' => 'Poodle', 'is_default' => false]);
+    $defaultBreed = Breed::factory()->for($species)->create(['name' => 'SRD', 'is_default' => true]);
+
+    Livewire::test(PetForm::class)
+        ->set('petSpeciesId', $species->id)
+        ->assertSet('petBreedId', $defaultBreed->id);
+});
+
+test('auto-selects the species default breed when creating a pet locked to a species', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $species = Species::factory()->create();
+    $defaultBreed = Breed::factory()->for($species)->create(['is_default' => true]);
+
+    Livewire::test(PetForm::class, ['lockedSpeciesId' => (string) $species->id])
+        ->assertSet('petSpeciesId', $species->id)
+        ->assertSet('petBreedId', $defaultBreed->id);
+});
+
+test('does not auto-select a default breed when editing an existing pet and changing species', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $newSpecies = Species::factory()->create();
+    Breed::factory()->for($newSpecies)->create(['is_default' => true]);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petSpeciesId', $newSpecies->id)
+        ->assertSet('petBreedId', null);
+});
+
 test('size dropdown reflects the selected species right after opening the create form', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));

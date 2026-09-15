@@ -68,6 +68,61 @@ test('creates a new breed for the selected species and closes the modal', functi
     expect($breed->is_default)->toBeTrue();
 });
 
+test('marking a breed as default clears the flag from other breeds of the same species', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    $species = Species::factory()->create(['name' => 'Dog']);
+    $existingDefault = Breed::factory()->for($species)->create(['is_default' => true]);
+
+    Livewire::test(ManageBreeds::class)
+        ->set('breedSpeciesId', $species->id)
+        ->set('breedName', 'Poodle')
+        ->set('breedIsDefault', true)
+        ->call('saveBreed')
+        ->assertHasNoErrors();
+
+    $newDefault = Breed::query()->where('name', 'Poodle')->firstOrFail();
+    expect($newDefault->is_default)->toBeTrue();
+    expect($existingDefault->fresh()->is_default)->toBeFalse();
+});
+
+test('marking a breed as default does not affect default breeds of other species', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    $species = Species::factory()->create(['name' => 'Dog']);
+    $otherSpecies = Species::factory()->create(['name' => 'Cat']);
+    $otherSpeciesDefault = Breed::factory()->for($otherSpecies)->create(['is_default' => true]);
+
+    Livewire::test(ManageBreeds::class)
+        ->set('breedSpeciesId', $species->id)
+        ->set('breedName', 'Poodle')
+        ->set('breedIsDefault', true)
+        ->call('saveBreed')
+        ->assertHasNoErrors();
+
+    expect($otherSpeciesDefault->fresh()->is_default)->toBeTrue();
+});
+
+test('editing a breed to become the default clears the flag from the previous default', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    $species = Species::factory()->create(['name' => 'Dog']);
+    $existingDefault = Breed::factory()->for($species)->create(['is_default' => true]);
+    $breed = Breed::factory()->for($species)->create(['is_default' => false]);
+
+    Livewire::test(ManageBreeds::class)
+        ->call('editBreed', $breed->id)
+        ->set('breedIsDefault', true)
+        ->call('saveBreed')
+        ->assertHasNoErrors();
+
+    expect($breed->fresh()->is_default)->toBeTrue();
+    expect($existingDefault->fresh()->is_default)->toBeFalse();
+});
+
 test('creating a breed defaults its species to the active filter', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
