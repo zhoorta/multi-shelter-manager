@@ -13,6 +13,7 @@ use App\Livewire\Admin\ManageUsers;
 use App\Livewire\Admin\ManageVaccines;
 use App\Livewire\Admin\ShelterForm;
 use App\Livewire\Dashboard;
+use App\Livewire\Documentation;
 use App\Livewire\Facilities\ManageSpaces;
 use App\Livewire\Pets\AdoptionForm;
 use App\Livewire\Pets\AdoptionShow;
@@ -43,6 +44,7 @@ Route::middleware(['guest'])->group(function (): void {
 // Authenticated protected routes.
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('dashboard', Dashboard::class)->name('dashboard');
+    Route::livewire('documentation', Documentation::class)->name('documentation');
 
     Route::livewire('pets', ManagePets::class)->name('pets.index');
     Route::livewire('pets/sponsorships', ManageSponsorships::class)->name('pets.sponsorships.index');
