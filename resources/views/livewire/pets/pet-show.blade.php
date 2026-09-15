@@ -43,6 +43,13 @@
                     </flux:menu>
                 </flux:dropdown>
             @endif
+
+            <flux:button
+                :href="route('pets.print', $pet)"
+                icon="printer"
+                target="_blank"
+                :aria-label="__('Print')"
+            />
         </div>
     </div>
 

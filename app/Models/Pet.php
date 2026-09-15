@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Traits\Blameable;
 use App\Traits\MultiShelterTrait;
+use Carbon\CarbonInterface;
 use Database\Factories\PetFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -94,30 +95,44 @@ class Pet extends Model
     protected function ageInWords(): Attribute
     {
         return Attribute::make(
-            get: function (): ?string {
-                if ($this->birth_date === null) {
-                    return null;
-                }
-
-                $diff = $this->birth_date->diff(now());
-
-                $parts = [];
-
-                if ($diff->y > 0) {
-                    $parts[] = trans_choice(':count year|:count years', $diff->y, ['count' => $diff->y]);
-                }
-
-                if ($diff->m > 0) {
-                    $parts[] = trans_choice(':count month|:count months', $diff->m, ['count' => $diff->m]);
-                }
-
-                if ($parts === []) {
-                    $parts[] = trans_choice(':count month|:count months', 0, ['count' => 0]);
-                }
-
-                return implode(' '.__('and').' ', $parts);
-            },
+            get: fn (): ?string => $this->birth_date === null ? null : self::periodInWords($this->birth_date),
         );
+    }
+
+    /**
+     * How long the pet has been at the shelter, in whole years and months,
+     * as a translated string. Null when checkin_date is unknown.
+     */
+    protected function timeInCaptivity(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->checkin_date === null ? null : self::periodInWords($this->checkin_date),
+        );
+    }
+
+    /**
+     * The elapsed time between $from and now, in whole years and months,
+     * as a translated string (e.g. "1 ano e 3 meses").
+     */
+    private static function periodInWords(CarbonInterface $from): string
+    {
+        $diff = $from->diff(now());
+
+        $parts = [];
+
+        if ($diff->y > 0) {
+            $parts[] = trans_choice(':count year|:count years', $diff->y, ['count' => $diff->y]);
+        }
+
+        if ($diff->m > 0) {
+            $parts[] = trans_choice(':count month|:count months', $diff->m, ['count' => $diff->m]);
+        }
+
+        if ($parts === []) {
+            $parts[] = trans_choice(':count month|:count months', 0, ['count' => 0]);
+        }
+
+        return implode(' '.__('and').' ', $parts);
     }
 
     /**

@@ -10,12 +10,14 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Facilities/** | .ai/rules/facilities.md |
 | app/Livewire/Dashboard.php,resources/views/livewire/dashboard.blade.php,tests/Feature/DashboardTest.php | .ai/rules/feature.md |
 | app/Livewire/Admin/ManageUsers.php,resources/views/livewire/admin/manage-users.blade.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/layouts-app.md |
+| app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php,resources/views/layouts/print.blade.php | .ai/rules/layouts.md |
 | app/Livewire/Admin/ManageUsers.php,resources/views/livewire/admin/manage-users.blade.php | .ai/rules/livewire-admin.md |
 | app/Models/Pet.php,app/Livewire/Pets/PetForm.php,app/Livewire/Pets/AdoptionForm.php,app/Livewire/Pets/ManageAdoptions.php | .ai/rules/livewire-pets-livewire-pets.md |
 | resources/views/livewire/pets/sponsorship-form.blade.php,resources/views/livewire/pets/adoption-form.blade.php | .ai/rules/livewire-pets-views-livewire-pets.md |
 | app/Models/Sponsorship.php,app/Models/SponsorshipPayment.php,app/Livewire/Pets/SponsorshipForm.php | .ai/rules/livewire-pets.md |
 | resources/views/livewire/volunteers/volunteer-show.blade.php | .ai/rules/livewire-volunteers.md |
 | app/Livewire/** | .ai/rules/livewire.md |
+| app/Models/Pet.php,app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php | .ai/rules/models-livewire-pets-views-livewire-pets.md |
 | app/Models/*.php, app/Models/Pet.php, app/Models/FurType.php | .ai/rules/models.md |
 | resources/views/livewire/pets/partials/sponsorship-box.blade.php,resources/views/livewire/pets/sponsorship-show.blade.php, resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/adoption-show.blade.php | .ai/rules/partials-views-livewire-pets.md |
 | app/Livewire/Pets/AdoptionForm.php,app/Livewire/Pets/AdoptionShow.php,resources/views/livewire/pets/partials/adoption-box.blade.php | .ai/rules/partials.md |
