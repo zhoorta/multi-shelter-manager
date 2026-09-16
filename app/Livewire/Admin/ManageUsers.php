@@ -38,6 +38,8 @@ class ManageUsers extends Component
 
     public ?int $userShelterId = null;
 
+    public bool $userVaccinationNotifications = false;
+
     public function mount(): void
     {
         abort_unless(in_array(Auth::user()->role, ['admin', 'manager'], true), 403);
@@ -100,6 +102,7 @@ class ManageUsers extends Component
         $this->userEmail = $user->email;
         $this->userRole = $user->role;
         $this->userShelterId = $user->shelter_id;
+        $this->userVaccinationNotifications = $user->vaccination_notifications;
     }
 
     public function saveUser(): void
@@ -129,11 +132,13 @@ class ManageUsers extends Component
                 'integer',
                 'exists:shelters,id',
             ],
+            'userVaccinationNotifications' => ['boolean'],
         ], [], [
             'userName' => __('Name'),
             'userEmail' => __('Email'),
             'userRole' => __('Role'),
             'userShelterId' => __('Shelter'),
+            'userVaccinationNotifications' => __('Vaccination Notifications'),
         ]);
 
         $shelterId = $validated['userRole'] === 'admin' ? null : (int) $validated['userShelterId'];
@@ -143,6 +148,7 @@ class ManageUsers extends Component
                 'name' => $validated['userName'],
                 'role' => $validated['userRole'],
                 'shelter_id' => $shelterId,
+                'vaccination_notifications' => $validated['userVaccinationNotifications'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record updated successfully'));
@@ -152,6 +158,7 @@ class ManageUsers extends Component
                 'email' => $validated['userEmail'],
                 'role' => $validated['userRole'],
                 'shelter_id' => $shelterId,
+                'vaccination_notifications' => $validated['userVaccinationNotifications'],
                 'password' => Hash::make(Str::random(40)),
             ]);
 
@@ -188,7 +195,7 @@ class ManageUsers extends Component
 
     protected function resetUserForm(): void
     {
-        $this->reset(['editingUserId', 'userName', 'userEmail', 'userShelterId']);
+        $this->reset(['editingUserId', 'userName', 'userEmail', 'userShelterId', 'userVaccinationNotifications']);
         $this->userRole = 'staff';
         $this->resetErrorBag();
     }

@@ -28,6 +28,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Email') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Notifications') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Role') }}</th>
                             @if (auth()->user()->role === 'admin')
                                 <th scope="col" class="px-6 py-3 font-medium">{{ __('Shelter') }}</th>
@@ -41,6 +42,9 @@
                             <tr wire:key="user-{{ $item->id }}">
                                 <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">{{ $item->name }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->email }}</td>
+                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">
+                                    {{ $item->vaccination_notifications ? __('Vaccinations') : '—' }}
+                                </td>
                                 <td class="px-6 py-3">
                                     <flux:badge size="sm">{{ __(\Illuminate\Support\Str::title($item->role)) }}</flux:badge>
                                 </td>
@@ -94,7 +98,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="{{ auth()->user()->role === 'admin' ? 6 : 5 }}" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="{{ auth()->user()->role === 'admin' ? 7 : 6 }}" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No users registered') }}
                                 </td>
                             </tr>
@@ -139,6 +143,8 @@
                     </flux:select>
                 </div>
             @endif
+
+            <flux:switch wire:model="userVaccinationNotifications" :label="__('Vaccination Notifications')" />
 
             <div class="flex justify-end gap-2">
                 <flux:modal.close>

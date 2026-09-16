@@ -24,6 +24,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string $role
+ * @property bool $vaccination_notifications
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
  * @property Carbon|null $two_factor_confirmed_at
@@ -33,7 +34,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'email', 'password', 'role', 'shelter_id'])]
+#[Fillable(['name', 'email', 'password', 'role', 'shelter_id', 'vaccination_notifications'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -51,6 +52,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'last_login' => 'datetime',
             'password' => 'hashed',
+            'vaccination_notifications' => 'boolean',
         ];
     }
 

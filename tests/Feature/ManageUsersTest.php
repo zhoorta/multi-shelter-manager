@@ -114,6 +114,64 @@ test('admin can invite a staff member to a shelter', function () {
     Notification::assertSentTo($invited, UserInvitation::class);
 });
 
+test('lists Vaccinations in the notifications column for a user with vaccination notifications enabled', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    $staff = User::factory()->create(['role' => 'staff', 'vaccination_notifications' => true]);
+
+    Livewire::test(ManageUsers::class)
+        ->assertSeeInOrder([$staff->name, 'Vaccinations']);
+});
+
+test('leaves the notifications column blank for a user without vaccination notifications enabled', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    User::factory()->create(['role' => 'staff', 'vaccination_notifications' => false]);
+
+    Livewire::test(ManageUsers::class)
+        ->assertDontSee('Vaccinations');
+});
+
+test('admin can invite a staff member with vaccination notifications enabled', function () {
+    Notification::fake();
+
+    $admin = User::factory()->create(['role' => 'admin']);
+    $shelter = Shelter::factory()->create();
+    $this->actingAs($admin);
+
+    Livewire::test(ManageUsers::class)
+        ->set('userName', 'Nova Funcionária')
+        ->set('userEmail', 'nova-notif@example.com')
+        ->set('userRole', 'staff')
+        ->set('userShelterId', $shelter->id)
+        ->set('userVaccinationNotifications', true)
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    $invited = User::query()->where('email', 'nova-notif@example.com')->first();
+
+    expect($invited)->not->toBeNull()
+        ->and($invited->vaccination_notifications)->toBeTrue();
+});
+
+test('admin can toggle vaccination notifications when editing a user', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $shelter = Shelter::factory()->create();
+    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id, 'vaccination_notifications' => false]);
+    $this->actingAs($admin);
+
+    Livewire::test(ManageUsers::class)
+        ->call('editUser', $staff->id)
+        ->assertSet('userVaccinationNotifications', false)
+        ->set('userVaccinationNotifications', true)
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    expect($staff->fresh()->vaccination_notifications)->toBeTrue();
+});
+
 test('admin can invite another admin without assigning a shelter', function () {
     Notification::fake();
 
