@@ -24,9 +24,9 @@ class VaccinationForm extends Component
 
     public string $vaccineId = '';
 
-    public string $administeredAt = '';
+    public string $administeredDate = '';
 
-    public string $nextDueAt = '';
+    public string $dueDate = '';
 
     public string $lotNumber = '';
 
@@ -43,14 +43,12 @@ class VaccinationForm extends Component
         $this->petVaccine = $petVaccine;
 
         if ($petVaccine === null) {
-            $this->administeredAt = now()->toDateString();
-
             return;
         }
 
         $this->vaccineId = (string) $petVaccine->vaccine_id;
-        $this->administeredAt = $petVaccine->administered_at->toDateString();
-        $this->nextDueAt = (string) $petVaccine->next_due_at?->toDateString();
+        $this->administeredDate = (string) $petVaccine->administered_date?->toDateString();
+        $this->dueDate = (string) $petVaccine->due_date?->toDateString();
         $this->lotNumber = (string) $petVaccine->lot_number;
         $this->veterinarianName = (string) $petVaccine->veterinarian_name;
         $this->vaccinationNotes = (string) $petVaccine->notes;
@@ -79,25 +77,32 @@ class VaccinationForm extends Component
                 'integer',
                 Rule::exists('vaccine_species', 'vaccine_id')->where('species_id', $this->pet->species_id),
             ],
-            'administeredAt' => ['required', 'date'],
-            'nextDueAt' => ['nullable', 'date', 'after_or_equal:administeredAt'],
+            'administeredDate' => ['nullable', 'date'],
+            'dueDate' => ['nullable', 'date'],
             'lotNumber' => ['nullable', 'string', 'max:255'],
             'veterinarianName' => ['nullable', 'string', 'max:255'],
             'vaccinationNotes' => ['nullable', 'string'],
         ], [], [
             'vaccineId' => __('Vaccine'),
-            'administeredAt' => __('Administered Date'),
-            'nextDueAt' => __('Next Due Date'),
+            'administeredDate' => __('Administered Date'),
+            'dueDate' => __('Due Date'),
             'lotNumber' => __('Lot Number'),
             'veterinarianName' => __('Veterinarian'),
             'vaccinationNotes' => __('Notes'),
         ]);
 
+        if ($validated['administeredDate'] === '' && $validated['dueDate'] === '') {
+            $this->addError('administeredDate', __('Either the administered date or the due date must be filled in.'));
+
+            return;
+        }
+
         $vaccineId = (int) $validated['vaccineId'];
 
         $vaccinationAttributes = [
-            'administered_at' => $validated['administeredAt'],
-            'next_due_at' => $validated['nextDueAt'] !== '' ? $validated['nextDueAt'] : null,
+            'administered_date' => $validated['administeredDate'] !== '' ? $validated['administeredDate'] : null,
+            'due_date' => $validated['dueDate'] !== '' ? $validated['dueDate'] : null,
+            'status' => $validated['administeredDate'] !== '' ? 'administered' : 'scheduled',
             'lot_number' => $validated['lotNumber'] !== '' ? $validated['lotNumber'] : null,
             'veterinarian_name' => $validated['veterinarianName'] !== '' ? $validated['veterinarianName'] : null,
             'notes' => $validated['vaccinationNotes'] !== '' ? $validated['vaccinationNotes'] : null,

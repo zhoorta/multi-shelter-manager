@@ -20,6 +20,7 @@ use App\Livewire\Pets\AdoptionShow;
 use App\Livewire\Pets\ManageAdoptions;
 use App\Livewire\Pets\ManagePets;
 use App\Livewire\Pets\ManageSponsorships;
+use App\Livewire\Pets\ManageVaccinations;
 use App\Livewire\Pets\PetForm;
 use App\Livewire\Pets\PetPrint;
 use App\Livewire\Pets\PetPrintList;
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets', ManagePets::class)->name('pets.index');
     Route::livewire('pets/sponsorships', ManageSponsorships::class)->name('pets.sponsorships.index');
     Route::livewire('pets/adoptions', ManageAdoptions::class)->name('pets.adoptions.index');
+    Route::livewire('pets/vaccinations', ManageVaccinations::class)->name('pets.vaccinations.index');
     Route::livewire('pets/create', PetForm::class)->name('pets.create');
     Route::livewire('pets/print', PetPrintList::class)->name('pets.print.list');
     Route::livewire('pets/{pet}/edit', PetForm::class)->name('pets.edit');

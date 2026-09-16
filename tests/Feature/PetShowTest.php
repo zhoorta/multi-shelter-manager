@@ -712,8 +712,8 @@ test('lists the vaccines administered to the pet, most recent first', function (
 
     $rabies = Vaccine::factory()->create(['name' => 'Rabies']);
     $pet->vaccines()->attach($rabies, [
-        'administered_at' => '2025-01-10',
-        'next_due_at' => '2026-01-10',
+        'administered_date' => '2025-01-10',
+        'due_date' => '2026-01-10',
         'lot_number' => 'LOT-OLD',
         'veterinarian_name' => 'Dr. Alves',
         'notes' => 'First dose',
@@ -721,8 +721,8 @@ test('lists the vaccines administered to the pet, most recent first', function (
 
     $distemper = Vaccine::factory()->create(['name' => 'Distemper']);
     $pet->vaccines()->attach($distemper, [
-        'administered_at' => '2026-02-01',
-        'next_due_at' => null,
+        'administered_date' => '2026-02-01',
+        'due_date' => null,
         'lot_number' => 'LOT-NEW',
         'veterinarian_name' => 'Dr. Costa',
         'notes' => null,
@@ -735,21 +735,21 @@ test('lists the vaccines administered to the pet, most recent first', function (
         ->assertSeeInOrder(['Distemper', 'LOT-NEW', 'Dr. Costa', 'Rabies', 'LOT-OLD', 'Dr. Alves']);
 });
 
-test('highlights the next due date amber when it is due within a week or exactly a week away', function () {
+test('highlights the due date amber when scheduled and due within a week or exactly a week away', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
     $dueSoon = Vaccine::factory()->create();
-    $pet->vaccines()->attach($dueSoon, ['administered_at' => now()->subMonth(), 'next_due_at' => now()->addDays(3)]);
+    $pet->vaccines()->attach($dueSoon, ['due_date' => now()->addDays(3), 'status' => 'scheduled']);
 
     $exactlyAWeek = Vaccine::factory()->create();
-    $pet->vaccines()->attach($exactlyAWeek, ['administered_at' => now()->subMonth(), 'next_due_at' => now()->addWeek()]);
+    $pet->vaccines()->attach($exactlyAWeek, ['due_date' => now()->addWeek(), 'status' => 'scheduled']);
 
     $dueLater = Vaccine::factory()->create();
-    $pet->vaccines()->attach($dueLater, ['administered_at' => now()->subMonth(), 'next_due_at' => now()->addMonths(2)]);
+    $pet->vaccines()->attach($dueLater, ['due_date' => now()->addMonths(2), 'status' => 'scheduled']);
 
-    $noDueDate = Vaccine::factory()->create();
-    $pet->vaccines()->attach($noDueDate, ['administered_at' => now()->subMonth(), 'next_due_at' => null]);
+    $administeredWithSoonDueDate = Vaccine::factory()->create();
+    $pet->vaccines()->attach($administeredWithSoonDueDate, ['administered_date' => now(), 'due_date' => now()->addDays(3), 'status' => 'administered']);
 
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
@@ -762,12 +762,12 @@ test('highlights the next due date amber when it is due within a week or exactly
     expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(0);
 });
 
-test('highlights the next due date red when it is overdue and no newer dose of the same vaccine was administered', function () {
+test('highlights the due date red when scheduled and overdue', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
     $overdue = Vaccine::factory()->create();
-    $pet->vaccines()->attach($overdue, ['administered_at' => now()->subMonths(2), 'next_due_at' => now()->subDay()]);
+    $pet->vaccines()->attach($overdue, ['due_date' => now()->subDay(), 'status' => 'scheduled']);
 
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
@@ -777,27 +777,26 @@ test('highlights the next due date red when it is overdue and no newer dose of t
     expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(0);
 });
 
-test('does not highlight red when a newer dose of the same vaccine was already administered', function () {
+test('does not highlight the due date once the vaccine has been administered, even if overdue', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
     $vaccine = Vaccine::factory()->create();
-    $pet->vaccines()->attach($vaccine, ['administered_at' => now()->subYear(), 'next_due_at' => now()->subMonth()]);
-    $pet->vaccines()->attach($vaccine, ['administered_at' => now()->subWeek(), 'next_due_at' => now()->addYear()]);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now(), 'due_date' => now()->subDay(), 'status' => 'administered']);
 
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
     $response = $this->get(route('pets.show', $pet))->assertOk();
 
     expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(0);
-    expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(1);
+    expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(0);
 });
 
 test('renders show, edit and delete actions for each vaccination', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create();
-    $pet->vaccines()->attach($vaccine, ['administered_at' => now()]);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
@@ -813,7 +812,7 @@ test('deletes a vaccination record', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create();
-    $pet->vaccines()->attach($vaccine, ['administered_at' => now()]);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
     $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
@@ -833,7 +832,7 @@ test('cannot delete a vaccination belonging to another pet', function () {
     $pet = Pet::factory()->for($shelter)->create();
     $otherPet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create();
-    $otherPet->vaccines()->attach($vaccine, ['administered_at' => now()]);
+    $otherPet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $otherPetVaccine = $otherPet->vaccines()->first()->pivot;
 
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));

@@ -33,7 +33,7 @@ class PetShow extends Component
             'species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'sicknesses',
             'adoptions' => fn ($query) => $query->latest('adoption_date'),
             'sponsorships' => fn ($query) => $query->latest()->with(['payments' => fn ($paymentsQuery) => $paymentsQuery->orderByDesc('payment_date')]),
-            'vaccines' => fn ($query) => $query->orderByPivot('administered_at', 'desc'),
+            'vaccines' => fn ($query) => $query->orderByRaw('COALESCE(pet_vaccines.administered_date, pet_vaccines.due_date) desc'),
         ]);
     }
 
@@ -122,7 +122,7 @@ class PetShow extends Component
     protected function refreshVaccines(): void
     {
         $this->pet->load([
-            'vaccines' => fn ($query) => $query->orderByPivot('administered_at', 'desc'),
+            'vaccines' => fn ($query) => $query->orderByRaw('COALESCE(pet_vaccines.administered_date, pet_vaccines.due_date) desc'),
         ]);
     }
 

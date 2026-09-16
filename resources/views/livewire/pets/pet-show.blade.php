@@ -311,7 +311,7 @@
                             <tr>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Vaccine') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Administered Date') }}</th>
-                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Next Due Date') }}</th>
+                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Due Date') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Lot Number') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Veterinarian') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Notes') }}</th>
@@ -321,23 +321,19 @@
                         <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                             @forelse ($pet->vaccines as $vaccine)
                                 @php
-                                    $isVaccineOverdue = $vaccine->pivot->next_due_at !== null && $vaccine->pivot->next_due_at->lt(now()->startOfDay());
-                                    $hasNewerDoseOfSameVaccine = $isVaccineOverdue && $pet->vaccines->contains(
-                                        fn ($otherVaccine) => $otherVaccine->id === $vaccine->id
-                                            && $otherVaccine->pivot->administered_at->gt($vaccine->pivot->administered_at)
-                                    );
-                                    $isVaccineOverdueUnresolved = $isVaccineOverdue && ! $hasNewerDoseOfSameVaccine;
-                                    $isVaccineDueSoon = $vaccine->pivot->next_due_at !== null && $vaccine->pivot->next_due_at->lte(now()->addWeek());
+                                    $isVaccineScheduled = $vaccine->pivot->administered_date === null;
+                                    $isVaccineOverdue = $isVaccineScheduled && $vaccine->pivot->due_date !== null && $vaccine->pivot->due_date->lt(now()->startOfDay());
+                                    $isVaccineDueSoon = $isVaccineScheduled && $vaccine->pivot->due_date !== null && $vaccine->pivot->due_date->lte(now()->addWeek());
                                     $nextDueDateClass = match (true) {
-                                        $isVaccineOverdueUnresolved => 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200',
+                                        $isVaccineOverdue => 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200',
                                         $isVaccineDueSoon => 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200',
                                         default => '',
                                     };
                                 @endphp
                                 <tr wire:key="pet-vaccine-{{ $vaccine->pivot->id }}">
                                     <td class="px-4 py-2">{{ $vaccine->name }}</td>
-                                    <td class="px-4 py-2">{{ $vaccine->pivot->administered_at->format('d/m/Y') }}</td>
-                                    <td class="px-4 py-2 {{ $nextDueDateClass }}">{{ $vaccine->pivot->next_due_at?->format('d/m/Y') ?? '—' }}</td>
+                                    <td class="px-4 py-2">{{ $vaccine->pivot->administered_date?->format('d/m/Y') ?? '—' }}</td>
+                                    <td class="px-4 py-2 {{ $nextDueDateClass }}">{{ $vaccine->pivot->due_date?->format('d/m/Y') ?? '—' }}</td>
                                     <td class="px-4 py-2">{{ $vaccine->pivot->lot_number ?? '—' }}</td>
                                     <td class="px-4 py-2">{{ $vaccine->pivot->veterinarian_name ?? '—' }}</td>
                                     <td class="px-4 py-2">{{ $vaccine->pivot->notes ?? '—' }}</td>
@@ -367,11 +363,11 @@
                                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                         <div>
                                                             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Administered Date') }}</flux:text>
-                                                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $vaccine->pivot->administered_at->format('d/m/Y') }}</flux:text>
+                                                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $vaccine->pivot->administered_date?->format('d/m/Y') ?? '—' }}</flux:text>
                                                         </div>
                                                         <div>
-                                                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Next Due Date') }}</flux:text>
-                                                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $vaccine->pivot->next_due_at?->format('d/m/Y') ?? '—' }}</flux:text>
+                                                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Due Date') }}</flux:text>
+                                                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $vaccine->pivot->due_date?->format('d/m/Y') ?? '—' }}</flux:text>
                                                         </div>
                                                         <div>
                                                             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Lot Number') }}</flux:text>

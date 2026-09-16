@@ -56,8 +56,8 @@ test('creates a vaccination record for the pet', function () {
 
     $component = Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
-        ->set('administeredAt', '2026-01-15')
-        ->set('nextDueAt', '2027-01-15')
+        ->set('administeredDate', '2026-01-15')
+        ->set('dueDate', '2027-01-15')
         ->set('lotNumber', 'LOT-123')
         ->set('veterinarianName', 'Dr. Silva')
         ->set('vaccinationNotes', 'No adverse reaction')
@@ -67,13 +67,34 @@ test('creates a vaccination record for the pet', function () {
     $petVaccine = $pet->vaccines()->first();
     expect($petVaccine)->not->toBeNull();
     expect($petVaccine->id)->toBe($vaccine->id);
-    expect($petVaccine->pivot->administered_at->toDateString())->toBe('2026-01-15');
-    expect($petVaccine->pivot->next_due_at->toDateString())->toBe('2027-01-15');
+    expect($petVaccine->pivot->administered_date->toDateString())->toBe('2026-01-15');
+    expect($petVaccine->pivot->due_date->toDateString())->toBe('2027-01-15');
+    expect($petVaccine->pivot->status)->toBe('administered');
     expect($petVaccine->pivot->lot_number)->toBe('LOT-123');
     expect($petVaccine->pivot->veterinarian_name)->toBe('Dr. Silva');
     expect($petVaccine->pivot->notes)->toBe('No adverse reaction');
 
     $component->assertRedirect(route('pets.show', $pet));
+});
+
+test('creates a scheduled vaccination with only a due date', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $vaccine->species()->attach($pet->species_id);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(VaccinationForm::class, ['pet' => $pet])
+        ->set('vaccineId', (string) $vaccine->id)
+        ->set('dueDate', '2027-01-15')
+        ->call('saveVaccination')
+        ->assertHasNoErrors();
+
+    $petVaccine = $pet->vaccines()->first();
+    expect($petVaccine->pivot->administered_date)->toBeNull();
+    expect($petVaccine->pivot->due_date->toDateString())->toBe('2027-01-15');
+    expect($petVaccine->pivot->status)->toBe('scheduled');
 });
 
 test('allows administering the same vaccine to a pet more than once', function () {
@@ -86,19 +107,19 @@ test('allows administering the same vaccine to a pet more than once', function (
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
-        ->set('administeredAt', '2026-01-15')
+        ->set('administeredDate', '2026-01-15')
         ->call('saveVaccination');
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
-        ->set('administeredAt', '2027-01-15')
+        ->set('administeredDate', '2027-01-15')
         ->call('saveVaccination')
         ->assertHasNoErrors();
 
     expect($pet->vaccines()->count())->toBe(2);
 });
 
-test('requires a vaccine and an administered date', function () {
+test('requires a vaccine', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
@@ -106,9 +127,25 @@ test('requires a vaccine and an administered date', function () {
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', '')
-        ->set('administeredAt', '')
+        ->set('administeredDate', '2026-01-15')
         ->call('saveVaccination')
-        ->assertHasErrors(['vaccineId' => 'required', 'administeredAt' => 'required']);
+        ->assertHasErrors(['vaccineId' => 'required']);
+});
+
+test('requires either the administered date or the due date', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $vaccine->species()->attach($pet->species_id);
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(VaccinationForm::class, ['pet' => $pet])
+        ->set('vaccineId', (string) $vaccine->id)
+        ->set('administeredDate', '')
+        ->set('dueDate', '')
+        ->call('saveVaccination')
+        ->assertHasErrors(['administeredDate']);
 });
 
 test('rejects a vaccine that does not belong to the pet species', function () {
@@ -123,12 +160,12 @@ test('rejects a vaccine that does not belong to the pet species', function () {
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $mismatchedVaccine->id)
-        ->set('administeredAt', '2026-01-15')
+        ->set('administeredDate', '2026-01-15')
         ->call('saveVaccination')
         ->assertHasErrors(['vaccineId' => 'exists']);
 });
 
-test('rejects a next due date before the administered date', function () {
+test('allows an administered date after the due date', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create();
@@ -138,10 +175,14 @@ test('rejects a next due date before the administered date', function () {
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
-        ->set('administeredAt', '2026-01-15')
-        ->set('nextDueAt', '2026-01-10')
+        ->set('administeredDate', '2026-01-15')
+        ->set('dueDate', '2026-01-10')
         ->call('saveVaccination')
-        ->assertHasErrors(['nextDueAt' => 'after_or_equal']);
+        ->assertHasNoErrors();
+
+    $petVaccine = $pet->vaccines()->first();
+    expect($petVaccine->pivot->administered_date->toDateString())->toBe('2026-01-15');
+    expect($petVaccine->pivot->due_date->toDateString())->toBe('2026-01-10');
 });
 
 test('managers and staff can view the edit form for an existing vaccination', function () {
@@ -149,7 +190,7 @@ test('managers and staff can view the edit form for an existing vaccination', fu
     $pet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($pet->species_id);
-    $pet->vaccines()->attach($vaccine, ['administered_at' => now()]);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
     $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
@@ -167,8 +208,8 @@ test('loads the existing vaccination data when editing', function () {
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($pet->species_id);
     $pet->vaccines()->attach($vaccine, [
-        'administered_at' => '2026-01-15',
-        'next_due_at' => '2027-01-15',
+        'administered_date' => '2026-01-15',
+        'due_date' => '2027-01-15',
         'lot_number' => 'LOT-123',
         'veterinarian_name' => 'Dr. Silva',
         'notes' => 'No adverse reaction',
@@ -179,8 +220,8 @@ test('loads the existing vaccination data when editing', function () {
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet, 'petVaccine' => $petVaccine])
         ->assertSet('vaccineId', (string) $vaccine->id)
-        ->assertSet('administeredAt', '2026-01-15')
-        ->assertSet('nextDueAt', '2027-01-15')
+        ->assertSet('administeredDate', '2026-01-15')
+        ->assertSet('dueDate', '2027-01-15')
         ->assertSet('lotNumber', 'LOT-123')
         ->assertSet('veterinarianName', 'Dr. Silva')
         ->assertSet('vaccinationNotes', 'No adverse reaction');
@@ -191,22 +232,43 @@ test('updates an existing vaccination record', function () {
     $pet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($pet->species_id);
-    $pet->vaccines()->attach($vaccine, ['administered_at' => '2026-01-15']);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => '2026-01-15']);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
 
     $component = Livewire::test(VaccinationForm::class, ['pet' => $pet, 'petVaccine' => $petVaccine])
-        ->set('nextDueAt', '2027-02-01')
+        ->set('dueDate', '2027-02-01')
         ->set('lotNumber', 'LOT-999')
         ->call('saveVaccination')
         ->assertHasNoErrors();
 
     expect($pet->vaccines()->count())->toBe(1);
-    expect($petVaccine->fresh()->next_due_at->toDateString())->toBe('2027-02-01');
+    expect($petVaccine->fresh()->due_date->toDateString())->toBe('2027-02-01');
     expect($petVaccine->fresh()->lot_number)->toBe('LOT-999');
 
     $component->assertRedirect(route('pets.show', $pet));
+});
+
+test('editing a scheduled vaccination to add an administered date changes its status to administered', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $vaccine->species()->attach($pet->species_id);
+    $pet->vaccines()->attach($vaccine, ['due_date' => '2026-02-01', 'status' => 'scheduled']);
+    $petVaccine = $pet->vaccines()->first()->pivot;
+
+    expect($petVaccine->status)->toBe('scheduled');
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(VaccinationForm::class, ['pet' => $pet, 'petVaccine' => $petVaccine])
+        ->set('administeredDate', '2026-02-01')
+        ->call('saveVaccination')
+        ->assertHasNoErrors();
+
+    expect($petVaccine->fresh()->status)->toBe('administered');
+    expect($petVaccine->fresh()->administered_date->toDateString())->toBe('2026-02-01');
 });
 
 test('returns 404 when editing a vaccination that does not belong to the given pet', function () {
@@ -215,7 +277,7 @@ test('returns 404 when editing a vaccination that does not belong to the given p
     $otherPet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($otherPet->species_id);
-    $otherPet->vaccines()->attach($vaccine, ['administered_at' => now()]);
+    $otherPet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $otherPetVaccine = $otherPet->vaccines()->first()->pivot;
 
     $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));

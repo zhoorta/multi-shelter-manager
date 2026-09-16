@@ -24,7 +24,7 @@
                      native date picker on focus (reverting to text on blur if still empty). --}}
                 <flux:input
                     type="text"
-                    wire:model="administeredAt"
+                    wire:model="administeredDate"
                     :label="__('Administered Date')"
                     :placeholder="__('Select a date')"
                     autocomplete="off"
@@ -37,8 +37,8 @@
 
                 <flux:input
                     type="text"
-                    wire:model="nextDueAt"
-                    :label="__('Next Due Date')"
+                    wire:model="dueDate"
+                    :label="__('Due Date')"
                     :placeholder="__('Select a date')"
                     autocomplete="off"
                     clearable

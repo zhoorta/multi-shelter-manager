@@ -188,11 +188,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
             $table->foreignId('vaccine_id')->constrained()->cascadeOnDelete();
-            $table->date('administered_at');
-            $table->date('next_due_at')->nullable();
+            $table->date('administered_date')->nullable();
+            $table->date('due_date')->nullable();
             $table->string('lot_number')->nullable();
             $table->string('veterinarian_name')->nullable();
             $table->text('notes')->nullable();
+            $table->enum('status', ['scheduled', 'administered', 'canceled'])->default('scheduled');
+            $table->timestamp('notification_date')->nullable();
             $table->timestamps();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();

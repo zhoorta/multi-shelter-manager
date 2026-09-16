@@ -40,6 +40,13 @@
                             >
                                 {{ __('Adoptions') }}
                             </flux:sidebar.item>
+                            <flux:sidebar.item
+                                :href="route('pets.vaccinations.index')"
+                                :current="request()->routeIs('pets.vaccinations.index')"
+                                wire:navigate
+                            >
+                                {{ __('Vaccinations') }}
+                            </flux:sidebar.item>
                         </flux:sidebar.group>
                         <flux:sidebar.item icon="user-group" :href="route('volunteers.index')" :current="request()->routeIs('volunteers.*')" wire:navigate>
                             {{ __('Volunteers') }}

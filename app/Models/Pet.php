@@ -255,7 +255,7 @@ class Pet extends Model
     {
         return $this->belongsToMany(Vaccine::class, 'pet_vaccines')
             ->using(PetVaccine::class)
-            ->withPivot(['id', 'administered_at', 'next_due_at', 'lot_number', 'veterinarian_name', 'notes', 'created_by', 'updated_by'])
+            ->withPivot(['id', 'administered_date', 'due_date', 'status', 'lot_number', 'veterinarian_name', 'notes', 'created_by', 'updated_by'])
             ->wherePivotNull('deleted_at')
             ->withTimestamps();
     }
