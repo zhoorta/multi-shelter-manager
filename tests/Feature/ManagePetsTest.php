@@ -406,6 +406,23 @@ test('shows the size after the breed name in the characteristics column', functi
         ->assertSeeInOrder(['Rex', $pet->breed->name, 'Grande']);
 });
 
+test('still shows the breed name and does not error after the breed and species are soft-deleted', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    $pet = Pet::factory()->for($shelter)->for($species)->create(['name' => 'Rex']);
+    $breedName = $pet->breed->name;
+
+    $pet->breed->delete();
+    $species->delete();
+
+    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+
+    Livewire::test(ManagePets::class)
+        ->assertOk()
+        ->assertSee('Rex')
+        ->assertSee($breedName);
+});
+
 test('shows "Pure breed" right after the breed name when the pet is a pure breed', function () {
     $shelter = Shelter::factory()->create();
     $species = Species::factory()->create(['has_pure_breed_field' => true]);

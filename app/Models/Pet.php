@@ -156,23 +156,27 @@ class Pet extends Model
     }
 
     /**
-     * Get the pet's species.
+     * Get the pet's species. Includes soft-deleted species, since a pet
+     * keeps its species_id (RESTRICT FK) even after the species itself is
+     * soft-deleted, and the pet's display must still resolve the name.
      *
      * @return BelongsTo<Species, $this>
      */
     public function species(): BelongsTo
     {
-        return $this->belongsTo(Species::class);
+        return $this->belongsTo(Species::class)->withTrashed();
     }
 
     /**
-     * Get the pet's breed.
+     * Get the pet's breed. Includes soft-deleted breeds, since a pet keeps
+     * its breed_id (RESTRICT FK) even after the breed itself is
+     * soft-deleted, and the pet's display must still resolve the name.
      *
      * @return BelongsTo<Breed, $this>
      */
     public function breed(): BelongsTo
     {
-        return $this->belongsTo(Breed::class);
+        return $this->belongsTo(Breed::class)->withTrashed();
     }
 
     /**
@@ -196,23 +200,27 @@ class Pet extends Model
     }
 
     /**
-     * Get the pet's fur type.
+     * Get the pet's fur type. Includes soft-deleted fur types, since a pet
+     * keeps its fur_type_id (RESTRICT FK) even after the fur type itself
+     * is soft-deleted, and the pet's display must still resolve the name.
      *
      * @return BelongsTo<FurType, $this>
      */
     public function furType(): BelongsTo
     {
-        return $this->belongsTo(FurType::class);
+        return $this->belongsTo(FurType::class)->withTrashed();
     }
 
     /**
-     * Get the pet's size.
+     * Get the pet's size. Includes soft-deleted sizes, since a pet keeps
+     * its size_id (RESTRICT FK) even after the size itself is
+     * soft-deleted, and the pet's display must still resolve the name.
      *
      * @return BelongsTo<Size, $this>
      */
     public function size(): BelongsTo
     {
-        return $this->belongsTo(Size::class);
+        return $this->belongsTo(Size::class)->withTrashed();
     }
 
     /**
