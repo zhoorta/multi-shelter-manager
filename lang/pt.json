@@ -50,6 +50,7 @@
     "No Recent Sponsorships": "Sem Apadrinhamentos Recentes",
     "No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.": "Nenhuma instalação definida. Configure as Instalações, Alas e Jaulas na opção Instalações.",
     "No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.": "Nenhuma espécie de animal definida para o abrigo. Contacte o administrador do sistema para configurar as espécies do abrigo.",
+    "No breeds of :species exist. Please contact the site administrator to configure the breeds.": "Não existem raças de :species. Contacte o administrador do sistema para configurar as raças.",
 
     "Name": "Nome",
     "Short Name": "Nome Curto",

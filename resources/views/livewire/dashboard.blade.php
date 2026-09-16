@@ -1,5 +1,5 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
-    @if (auth()->user()->role !== 'admin' && (! $hasCages || ! $speciesConfigured))
+    @if (auth()->user()->role !== 'admin' && (! $hasCages || ! $speciesConfigured || $this->speciesWithoutBreeds->isNotEmpty()))
         <div class="flex flex-col gap-3">
             @if (! $hasCages)
                 <a
@@ -16,6 +16,12 @@
                     {{ __('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.') }}
                 </div>
             @endif
+
+            @foreach ($this->speciesWithoutBreeds as $speciesName)
+                <div wire:key="species-without-breeds-{{ $speciesName }}" class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-200">
+                    {{ __('No breeds of :species exist. Please contact the site administrator to configure the breeds.', ['species' => $speciesName]) }}
+                </div>
+            @endforeach
         </div>
     @endif
 

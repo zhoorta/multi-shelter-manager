@@ -12,7 +12,9 @@ use App\Models\Sponsorship;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -132,6 +134,21 @@ class Dashboard extends Component
             ->orderByDesc('created_at')
             ->take(5)
             ->get();
+    }
+
+    /**
+     * Names of the species enabled for the shelter that have no breeds defined.
+     *
+     * @return SupportCollection<int, string>
+     */
+    #[Computed]
+    public function speciesWithoutBreeds(): SupportCollection
+    {
+        $shelter = Shelter::query()->find(Auth::user()->shelter_id);
+
+        return $shelter
+            ? $shelter->species()->whereDoesntHave('breeds')->pluck('name')
+            : collect();
     }
 
     public function render(): View

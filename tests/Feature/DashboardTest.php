@@ -2,6 +2,7 @@
 
 use App\Livewire\Dashboard;
 use App\Models\Adoption;
+use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
@@ -640,4 +641,58 @@ test('admins do not see the facilities or species warnings', function () {
     $response->assertOk();
     $response->assertDontSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
     $response->assertDontSee(__('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.'));
+});
+
+test('shelter users see a warning for a shelter species that has no breeds', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $species = Species::factory()->create(['name' => 'Dog']);
+    $shelter->species()->attach($species);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee(__('No breeds of :species exist. Please contact the site administrator to configure the breeds.', ['species' => 'Dog']));
+});
+
+test('shelter users do not see the missing breeds warning once the species has a breed', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    $species = Species::factory()->create(['name' => 'Dog']);
+    $shelter->species()->attach($species);
+    Breed::factory()->create(['species_id' => $species->id]);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee(__('No breeds of :species exist. Please contact the site administrator to configure the breeds.', ['species' => 'Dog']));
+});
+
+test('shelter users do not see the missing breeds warning for species not enabled for their shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $this->actingAs($user);
+
+    Species::factory()->create(['name' => 'Cat']);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee(__('No breeds of :species exist. Please contact the site administrator to configure the breeds.', ['species' => 'Cat']));
+});
+
+test('admins do not see the missing breeds warning', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs($admin);
+
+    $species = Species::factory()->create(['name' => 'Dog']);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertDontSee(__('No breeds of :species exist. Please contact the site administrator to configure the breeds.', ['species' => 'Dog']));
 });
