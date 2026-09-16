@@ -21,6 +21,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Models/PetVaccine.php,app/Models/Vaccine.php,app/Livewire/Pets/VaccinationForm.php,app/Livewire/Pets/PetShow.php | .ai/rules/models-livewire-pets-livewire-pets.md |
 | app/Models/Pet.php,app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php | .ai/rules/models-livewire-pets-views-livewire-pets.md |
 | app/Models/*.php, app/Models/Pet.php, app/Models/FurType.php | .ai/rules/models.md |
+| app/Console/Commands/SendVaccinationDueNotifications.php,app/Models/PetVaccine.php,app/Notifications/VaccinationDueNotification.php | .ai/rules/notifications.md |
 | resources/views/livewire/pets/partials/sponsorship-box.blade.php,resources/views/livewire/pets/sponsorship-show.blade.php, resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/adoption-show.blade.php | .ai/rules/partials-views-livewire-pets.md |
 | app/Livewire/Pets/AdoptionForm.php,app/Livewire/Pets/AdoptionShow.php,resources/views/livewire/pets/partials/adoption-box.blade.php | .ai/rules/partials.md |
 | app/Livewire/Pets/ManageAdoptions.php,app/Livewire/Pets/AdoptionShow.php | .ai/rules/pets-livewire-pets.md |

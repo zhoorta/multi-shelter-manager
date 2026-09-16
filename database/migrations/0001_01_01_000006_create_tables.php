@@ -195,6 +195,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->enum('status', ['scheduled', 'administered', 'canceled'])->default('scheduled');
             $table->timestamp('notification_date')->nullable();
+            $table->text('notification_recipients')->nullable();
             $table->timestamps();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();

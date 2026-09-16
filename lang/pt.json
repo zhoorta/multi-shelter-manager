@@ -217,6 +217,8 @@
     "Lot Number": "Número de Lote",
     "Veterinarian": "Veterinário",
     "No vaccinations registered": "Nenhuma vacinação registada.",
+    "Vaccination Reminders": "Lembretes de Vacinação",
+    "The following pets have vaccinations due in the next 7 days:": "Os seguintes animais têm vacinações previstas para os próximos 7 dias:",
     "Search by vaccine, pet, lot number, veterinarian or notes": "Pesquisar por vacina, animal, número de lote, veterinário ou notas",
     "Either the administered date or the due date must be filled in.": "A data de administração ou a data prevista têm de ser preenchidas.",
     "Due date within a week": "Data prevista dentro de uma semana",

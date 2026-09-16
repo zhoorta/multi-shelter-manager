@@ -217,6 +217,8 @@
     "Lot Number": "Lot Number",
     "Veterinarian": "Veterinarian",
     "No vaccinations registered": "No vaccinations registered.",
+    "Vaccination Reminders": "Vaccination Reminders",
+    "The following pets have vaccinations due in the next 7 days:": "The following pets have vaccinations due in the next 7 days:",
     "Search by vaccine, pet, lot number, veterinarian or notes": "Search by vaccine, pet, lot number, veterinarian or notes",
     "Either the administered date or the due date must be filled in.": "Either the administered date or the due date must be filled in.",
     "Due date within a week": "Due date within a week",

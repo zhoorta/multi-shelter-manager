@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $notes
  * @property string $status
  * @property Carbon|null $notification_date
+ * @property array<int, string>|null $notification_recipients
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int|null $created_by
@@ -47,6 +48,7 @@ class PetVaccine extends Pivot
             'administered_date' => 'date',
             'due_date' => 'date',
             'notification_date' => 'datetime',
+            'notification_recipients' => 'array',
         ];
     }
 
