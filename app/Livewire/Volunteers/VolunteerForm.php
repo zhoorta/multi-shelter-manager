@@ -246,10 +246,10 @@ class VolunteerForm extends Component
 
         if ($this->volunteerImage !== null) {
             if ($this->existingImagePath !== null) {
-                Storage::disk('public')->delete($this->existingImagePath);
+                Storage::delete($this->existingImagePath);
             }
 
-            $attributes['image_path'] = $this->volunteerImage->store('volunteers', 'public');
+            $attributes['image_path'] = $this->volunteerImage->store('volunteers');
         }
 
         $isEditing = $this->volunteer !== null;

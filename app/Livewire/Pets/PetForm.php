@@ -493,7 +493,7 @@ class PetForm extends Component
         foreach ($this->petPhotos as $photo) {
             PetImage::query()->create([
                 'pet_id' => $pet->id,
-                'image_path' => $photo->store('pets', 'public'),
+                'image_path' => $photo->store('pets'),
                 'is_main' => ! $hasMainImage,
             ]);
 
@@ -517,7 +517,7 @@ class PetForm extends Component
     {
         $image = $this->scopedPetImageQuery()->findOrFail($imageId);
 
-        Storage::disk('public')->delete($image->image_path);
+        Storage::delete($image->image_path);
         $image->delete();
 
         unset($this->petImages);

@@ -135,10 +135,10 @@ class ShelterForm extends Component
 
         if ($this->shelterLogo !== null) {
             if ($this->existingLogoPath !== null) {
-                Storage::disk('public')->delete($this->existingLogoPath);
+                Storage::delete($this->existingLogoPath);
             }
 
-            $data['logo_path'] = $this->shelterLogo->store('shelters', 'public');
+            $data['logo_path'] = $this->shelterLogo->store('shelters');
         }
 
         $isEditing = $this->shelter !== null;
