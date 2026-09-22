@@ -63,6 +63,21 @@ test('requires a name and city to create a shelter', function () {
         ->assertHasNoErrors('shelterRegionId');
 });
 
+test('rejects a soft-deleted region', function () {
+    $admin = User::factory()->admin()->create();
+    $this->actingAs($admin);
+
+    $region = Region::factory()->create();
+    $region->delete();
+
+    Livewire::test(ShelterForm::class)
+        ->set('shelterName', 'Happy Paws')
+        ->set('shelterCity', 'Lisbon')
+        ->set('shelterRegionId', $region->id)
+        ->call('saveShelter')
+        ->assertHasErrors(['shelterRegionId' => 'exists']);
+});
+
 test('creates a shelter without a region', function () {
     $admin = User::factory()->admin()->create();
     $this->actingAs($admin);

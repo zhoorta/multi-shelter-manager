@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\Blameable;
 use Database\Factories\RegionFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,13 +20,16 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $created_by
+ * @property int|null $updated_by
+ * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
 #[Fillable(['name'])]
 class Region extends Model
 {
     /** @use HasFactory<RegionFactory> */
-    use HasFactory, SoftDeletes;
+    use Blameable, HasFactory, SoftDeletes;
 
     /**
      * Get the shelters located in the region.

@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('short_name')->nullable();
             $table->string('city');
-            $table->foreignId('region_id')->nullable()->constrained()->restrictOnDelete();
+            // FK constraint added in create_regions_table (regions depends on users, which depends on shelters)
+            $table->foreignId('region_id')->nullable();
             $table->string('logo_path')->nullable();
             $table->string('address')->nullable();
             $table->string('postal_code')->nullable();

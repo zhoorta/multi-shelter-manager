@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -113,7 +114,7 @@ class ShelterForm extends Component
             'shelterName' => ['required', 'string', 'max:255'],
             'shelterShortName' => ['nullable', 'string', 'max:255'],
             'shelterCity' => ['required', 'string', 'max:255'],
-            'shelterRegionId' => ['nullable', 'integer', 'exists:regions,id'],
+            'shelterRegionId' => ['nullable', 'integer', Rule::exists('regions', 'id')->withoutTrashed()],
             'shelterAddress' => ['nullable', 'string', 'max:255'],
             'shelterPostalCode' => ['nullable', 'string', 'max:255'],
             'shelterPhone' => ['nullable', 'string', 'max:255'],

@@ -115,16 +115,22 @@ test('soft-deletes a fur type instead of removing it permanently', function () {
     expect(Region::query()->find($region->id))->toBeNull();
 });
 
-test('a shelter keeps showing its region after the region is soft-deleted', function () {
+test('deleting a region unassigns it from its shelters', function () {
     $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $region = Region::factory()->create(['name' => 'Lisbon']);
     $shelter = Shelter::factory()->create(['region_id' => $region->id]);
+    $trashedShelter = Shelter::factory()->create(['region_id' => $region->id]);
+    $trashedShelter->delete();
+    $otherShelter = Shelter::factory()->create();
 
-    $region->delete();
+    Livewire::test(ManageRegions::class)
+        ->call('deleteRegion', $region->id);
 
-    expect($shelter->fresh()->region->name)->toBe('Lisbon');
+    expect($shelter->fresh()->region_id)->toBeNull();
+    expect($trashedShelter->fresh()->region_id)->toBeNull();
+    expect($otherShelter->fresh()->region_id)->not->toBeNull();
 });
 
 test('only admins see the regions link in the sidebar', function () {
@@ -133,4 +139,21 @@ test('only admins see the regions link in the sidebar', function () {
 
     $this->actingAs(User::factory()->create());
     $this->get(route('dashboard'))->assertDontSee(route('admin.regions.index'));
+});
+
+test('stamps the acting admin on create, update and delete', function () {
+    $admin = User::factory()->admin()->create();
+    $this->actingAs($admin);
+
+    Livewire::test(ManageRegions::class)
+        ->set('regionName', 'Viseu')
+        ->call('saveRegion');
+
+    $region = Region::query()->where('name', 'Viseu')->firstOrFail();
+    expect($region->created_by)->toBe($admin->id);
+    expect($region->updated_by)->toBe($admin->id);
+
+    Livewire::test(ManageRegions::class)->call('deleteRegion', $region->id);
+
+    expect($region->fresh()->deleted_by)->toBe($admin->id);
 });

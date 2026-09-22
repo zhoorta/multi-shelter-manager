@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Livewire\Admin;
 
 use App\Models\Region;
+use App\Models\Shelter;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
@@ -83,9 +85,19 @@ class ManageRegions extends Component
         Flux::modal('region-form')->close();
     }
 
+    /**
+     * Soft-delete the region and unassign it from every shelter (including
+     * trashed ones), since a soft delete does not trigger the FK's ON DELETE.
+     */
     public function deleteRegion(int $regionId): void
     {
-        Region::query()->findOrFail($regionId)->delete();
+        $region = Region::query()->findOrFail($regionId);
+
+        DB::transaction(function () use ($region): void {
+            Shelter::withTrashed()->where('region_id', $region->id)->update(['region_id' => null]);
+
+            $region->delete();
+        });
 
         if ($this->editingRegionId === $regionId) {
             $this->resetRegionForm();

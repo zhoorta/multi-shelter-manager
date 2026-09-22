@@ -16,7 +16,14 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
+        });
+
+        Schema::table('shelters', function (Blueprint $table) {
+            $table->foreign('region_id')->references('id')->on('regions')->restrictOnDelete();
         });
     }
 
@@ -25,6 +32,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('shelters', function (Blueprint $table) {
+            $table->dropForeign(['region_id']);
+        });
+
         Schema::dropIfExists('regions');
     }
 };
