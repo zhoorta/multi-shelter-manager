@@ -67,6 +67,9 @@
                         <flux:sidebar.item icon="building-office" :href="route('admin.shelters.index')" :current="request()->routeIs('admin.shelters.index')" wire:navigate>
                             {{ __('Shelters') }}
                         </flux:sidebar.item>
+                        <flux:sidebar.item icon="map" :href="route('admin.regions.index')" :current="request()->routeIs('admin.regions.index')" wire:navigate>
+                            {{ __('Regions') }}
+                        </flux:sidebar.item>
                         <flux:sidebar.item icon="tag" :href="route('admin.species.index')" :current="request()->routeIs('admin.species.index')" wire:navigate>
                             {{ __('Species') }}
                         </flux:sidebar.item>

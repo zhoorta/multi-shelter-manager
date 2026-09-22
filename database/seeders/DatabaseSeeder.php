@@ -119,10 +119,21 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        // 7. SEED SYSTEM MANAGER SHELTER & USER
+        // 8. SEED REGIONS (Distritos)
+        $regions = [
+            'Aveiro', 'Beja', 'Braga', 'Bragança', 'Castelo Branco', 'Coimbra', 'Évora', 'Faro', 'Guarda',
+            'Leiria', 'Lisboa', 'Portalegre', 'Porto', 'Santarém', 'Setúbal', 'Viana do Castelo', 'Vila Real', 'Viseu',
+            'Açores - Faial', 'Açores - Santa Maria',
+        ];
+        foreach ($regions as $region) {
+            DB::table('regions')->insert(['name' => $region, 'created_at' => now(), 'updated_at' => now()]);
+        }
+
+        // 9. SEED SYSTEM MANAGER SHELTER & USER
         $adminShelterId = DB::table('shelters')->insertGetId([
             'name' => 'Acolhe Central',
             'city' => 'Porto',
+            'region_id' => DB::table('regions')->where('name', 'Porto')->value('id'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

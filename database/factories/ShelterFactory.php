@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Region;
 use App\Models\Shelter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,6 +21,7 @@ class ShelterFactory extends Factory
         return [
             'name' => fake()->company(),
             'city' => fake()->city(),
+            'region_id' => Region::factory(),
             'address' => fake()->streetAddress(),
             'postal_code' => fake()->postcode(),
             'phone' => fake()->phoneNumber(),

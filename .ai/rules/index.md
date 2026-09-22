@@ -20,6 +20,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | resources/views/livewire/volunteers/volunteer-show.blade.php | .ai/rules/livewire-volunteers.md |
 | app/Livewire/** | .ai/rules/livewire.md |
 | database/migrations/** | .ai/rules/migrations.md |
+| app/Models/Region.php,app/Models/Shelter.php,app/Livewire/Admin/ShelterForm.php | .ai/rules/models-livewire-admin.md |
 | app/Models/PetVaccine.php,app/Models/Vaccine.php,app/Livewire/Pets/VaccinationForm.php,app/Livewire/Pets/PetShow.php | .ai/rules/models-livewire-pets-livewire-pets.md |
 | app/Models/Pet.php,app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php | .ai/rules/models-livewire-pets-views-livewire-pets.md |
 | app/Models/User.php,app/Models/Shelter.php | .ai/rules/models-models.md |

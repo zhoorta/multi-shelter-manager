@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin;
 
+use App\Models\Region;
 use App\Models\Shelter;
 use App\Models\Species;
 use Flux\Flux;
@@ -26,6 +27,8 @@ class ShelterForm extends Component
     public string $shelterShortName = '';
 
     public string $shelterCity = '';
+
+    public ?int $shelterRegionId = null;
 
     public string $shelterAddress = '';
 
@@ -60,6 +63,7 @@ class ShelterForm extends Component
         $this->shelterName = $shelter->name;
         $this->shelterShortName = (string) $shelter->short_name;
         $this->shelterCity = $shelter->city;
+        $this->shelterRegionId = $shelter->region_id;
         $this->shelterAddress = (string) $shelter->address;
         $this->shelterPostalCode = (string) $shelter->postal_code;
         $this->shelterPhone = (string) $shelter->phone;
@@ -81,6 +85,17 @@ class ShelterForm extends Component
         return Species::query()->orderBy('name')->get();
     }
 
+    /**
+     * All regions (distritos) a shelter can be located in.
+     *
+     * @return Collection<int, Region>
+     */
+    #[Computed]
+    public function regions(): Collection
+    {
+        return Region::query()->orderBy('name')->get();
+    }
+
     public function toggleSpecies(int $speciesId): void
     {
         if (in_array($speciesId, $this->shelterSpeciesIds, true)) {
@@ -98,6 +113,7 @@ class ShelterForm extends Component
             'shelterName' => ['required', 'string', 'max:255'],
             'shelterShortName' => ['nullable', 'string', 'max:255'],
             'shelterCity' => ['required', 'string', 'max:255'],
+            'shelterRegionId' => ['nullable', 'integer', 'exists:regions,id'],
             'shelterAddress' => ['nullable', 'string', 'max:255'],
             'shelterPostalCode' => ['nullable', 'string', 'max:255'],
             'shelterPhone' => ['nullable', 'string', 'max:255'],
@@ -111,6 +127,7 @@ class ShelterForm extends Component
             'shelterName' => __('Name'),
             'shelterShortName' => __('Short Name'),
             'shelterCity' => __('City'),
+            'shelterRegionId' => __('Region'),
             'shelterAddress' => __('Address'),
             'shelterPostalCode' => __('Postal Code'),
             'shelterPhone' => __('Phone'),
@@ -125,6 +142,7 @@ class ShelterForm extends Component
             'name' => $validated['shelterName'],
             'short_name' => $validated['shelterShortName'] !== '' ? $validated['shelterShortName'] : null,
             'city' => $validated['shelterCity'],
+            'region_id' => $validated['shelterRegionId'],
             'address' => $validated['shelterAddress'] !== '' ? $validated['shelterAddress'] : null,
             'postal_code' => $validated['shelterPostalCode'] !== '' ? $validated['shelterPostalCode'] : null,
             'phone' => $validated['shelterPhone'] !== '' ? $validated['shelterPhone'] : null,

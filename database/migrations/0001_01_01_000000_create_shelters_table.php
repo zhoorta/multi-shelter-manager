@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('short_name')->nullable();
             $table->string('city');
+            $table->foreignId('region_id')->nullable()->constrained()->restrictOnDelete();
             $table->string('logo_path')->nullable();
             $table->string('address')->nullable();
             $table->string('postal_code')->nullable();

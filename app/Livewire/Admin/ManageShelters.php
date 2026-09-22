@@ -28,6 +28,7 @@ class ManageShelters extends Component
     public function shelters(): Collection
     {
         return Shelter::query()
+            ->with('region')
             ->withCount(['users', 'pets'])
             ->orderBy('name')
             ->get();

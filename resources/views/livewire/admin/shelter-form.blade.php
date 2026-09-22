@@ -30,6 +30,13 @@
                 <flux:input wire:model="shelterCity" :label="__('City')" field:class="col-span-2" />
             </div>
 
+            <flux:select wire:model="shelterRegionId" :label="__('Region')">
+                <flux:select.option value="">{{ __('No region assigned') }}</flux:select.option>
+                @foreach ($this->regions as $region)
+                    <flux:select.option :value="$region->id">{{ $region->name }}</flux:select.option>
+                @endforeach
+            </flux:select>
+
             <flux:textarea wire:model="shelterDescription" :label="__('Description')" />
 
             <flux:field>

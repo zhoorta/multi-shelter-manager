@@ -16,6 +16,7 @@
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Logo') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('City') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Region') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Users') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Pets') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
@@ -44,6 +45,7 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->city }}</td>
+                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->region?->name }}</td>
                                 <td class="px-6 py-3">
                                     <flux:badge size="sm">{{ $item->users_count }}</flux:badge>
                                 </td>
@@ -93,7 +95,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="7" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No shelters registered') }}
                                 </td>
                             </tr>

@@ -314,5 +314,10 @@
     "Welcome! Let's set up the application": "Welcome! Let's set up the application",
     "Create the administrator account to get started": "Create the administrator account to get started",
     "Create administrator": "Create administrator",
-    "Confirm password": "Confirm password"
+    "Confirm password": "Confirm password",
+    "Region": "Region",
+    "Regions": "Regions",
+    "Manage Regions": "Manage Regions",
+    "No regions registered": "No regions registered",
+    "No region assigned": "No region assigned"
 }

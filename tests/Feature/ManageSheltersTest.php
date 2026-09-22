@@ -2,6 +2,7 @@
 
 use App\Livewire\Admin\ManageShelters;
 use App\Models\Pet;
+use App\Models\Region;
 use App\Models\Shelter;
 use App\Models\User;
 use Livewire\Livewire;
@@ -40,14 +41,16 @@ test('lists shelters with their user and pet counts', function () {
     $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
-    $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'short_name' => 'HP', 'city' => 'Lisbon']);
+    $region = Region::factory()->create(['name' => 'Setúbal']);
+    $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'short_name' => 'HP', 'city' => 'Lisbon', 'region_id' => $region->id]);
     User::factory()->forShelter($shelter, 'staff')->create();
     Pet::factory()->create(['shelter_id' => $shelter->id]);
 
     Livewire::test(ManageShelters::class)
         ->assertSee('Happy Paws')
         ->assertSee('HP')
-        ->assertSee('Lisbon');
+        ->assertSee('Lisbon')
+        ->assertSee('Setúbal');
 });
 
 test('does not show a short name when the shelter has none', function () {

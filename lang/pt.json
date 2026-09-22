@@ -314,5 +314,10 @@
     "Welcome! Let's set up the application": "Bem-vindo! Vamos configurar a aplicação",
     "Create the administrator account to get started": "Crie a conta de administrador para começar",
     "Create administrator": "Criar administrador",
-    "Confirm password": "Confirmar palavra-passe"
+    "Confirm password": "Confirmar palavra-passe",
+    "Region": "Distrito",
+    "Regions": "Distritos",
+    "Manage Regions": "Gerir Distritos",
+    "No regions registered": "Nenhum distrito registado",
+    "No region assigned": "Sem distrito atribuído"
 }

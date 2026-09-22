@@ -8,6 +8,7 @@ use Database\Factories\ShelterFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string|null $short_name
  * @property string $city
+ * @property int|null $region_id
  * @property string|null $logo_path
  * @property string|null $address
  * @property string|null $postal_code
@@ -29,11 +31,22 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'short_name', 'city', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description'])]
+#[Fillable(['name', 'short_name', 'city', 'region_id', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description'])]
 class Shelter extends Model
 {
     /** @use HasFactory<ShelterFactory> */
     use HasFactory, SoftDeletes;
+
+    /**
+     * Get the region (distrito) the shelter is located in. Includes
+     * soft-deleted regions so a shelter keeps resolving its historical region.
+     *
+     * @return BelongsTo<Region, $this>
+     */
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class)->withTrashed();
+    }
 
     /**
      * Get the users belonging to the shelter, with their role and
