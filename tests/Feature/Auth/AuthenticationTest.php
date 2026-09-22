@@ -11,6 +11,15 @@ test('login screen can be rendered', function () {
     $response->assertOk();
 });
 
+test('login screen shows the app name below the logo', function () {
+    config(['app.name' => 'Abrigo Teste']);
+    User::factory()->create();
+
+    $this->get(route('login'))
+        ->assertSee('Abrigo Teste')
+        ->assertDontSeeHtml('<span class="sr-only">Abrigo Teste</span>');
+});
+
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();
 

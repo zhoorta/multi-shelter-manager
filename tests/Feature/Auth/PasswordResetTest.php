@@ -15,6 +15,14 @@ test('reset password link screen can be rendered', function () {
     $response->assertOk();
 });
 
+test('reset password link screen shows the app name below the logo', function () {
+    config(['app.name' => 'Abrigo Teste']);
+
+    $this->get(route('password.request'))
+        ->assertSee('Abrigo Teste')
+        ->assertDontSeeHtml('<span class="sr-only">Abrigo Teste</span>');
+});
+
 test('reset password link can be requested', function () {
     Notification::fake();
 

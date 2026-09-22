@@ -37,13 +37,13 @@ class UserInvitation extends Notification
         ]);
 
         $message = (new MailMessage)
-            ->subject(__("You've Been Invited"))
+            ->subject(__("You've Been Invited to :app platform", ['app' => config('app.name')]))
             ->greeting(__('Hello, :name!', ['name' => $notifiable->name]));
 
         if ($notifiable->is_admin) {
-            $message->line(__('You have been invited to join the Shelter Manager platform as an administrator.'));
+            $message->line(__('You have been invited to join the :app platform as an administrator.', ['app' => config('app.name')]));
         } else {
-            $message->line(__('You have been invited to join the Shelter Manager platform.'));
+            $message->line(__('You have been invited to join the :app platform.', ['app' => config('app.name')]));
 
             $membership = $notifiable->shelters()->first();
 

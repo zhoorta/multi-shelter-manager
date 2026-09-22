@@ -248,9 +248,10 @@
     "No users registered": "No users registered.",
     "You cannot delete your own account": "You cannot delete your own account.",
 
-    "You've Been Invited": "You've Been Invited",
+    "You've Been Invited to :app platform": "You've Been Invited to :app platform",
     "Hello, :name!": "Hello, :name!",
-    "You have been invited to join the Shelter Manager platform.": "You have been invited to join the Shelter Manager platform.",
+    "You have been invited to join the :app platform.": "You have been invited to join the :app platform.",
+    "You have been invited to join the :app platform as an administrator.": "You have been invited to join the :app platform as an administrator.",
     "Your role: :role": "Your role: :role",
     "Your shelter: :shelter": "Your shelter: :shelter",
     "Create Password": "Create Password",

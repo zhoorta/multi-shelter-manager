@@ -248,9 +248,10 @@
     "No users registered": "Nenhum utilizador registado.",
     "You cannot delete your own account": "Não pode eliminar a sua própria conta.",
 
-    "You've Been Invited": "Foi Convidado",
+    "You've Been Invited to :app platform": "Foi Convidado para a plataforma :app",
     "Hello, :name!": "Olá, :name!",
-    "You have been invited to join the Shelter Manager platform.": "Foi convidado a juntar-se à plataforma Shelter Manager.",
+    "You have been invited to join the :app platform.": "Foi convidado a juntar-se à plataforma :app.",
+    "You have been invited to join the :app platform as an administrator.": "Foi convidado a juntar-se à plataforma :app como administrador.",
     "Your role: :role": "A sua função: :role",
     "Your shelter: :shelter": "O seu abrigo: :shelter",
     "Create Password": "Criar Palavra-passe",
