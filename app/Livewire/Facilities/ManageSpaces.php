@@ -48,6 +48,8 @@ class ManageSpaces extends Component
 
     public int $cageCapacity = 1;
 
+    public ?int $viewingCageId = null;
+
     public function mount(): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
@@ -59,6 +61,10 @@ class ManageSpaces extends Component
     }
 
     /**
+     * Each cage is annotated with available_space and availability_color
+     * (green/yellow/red), mirroring ManagePets::facilities() (see
+     * .ai/rules/views-livewire-pets.md), so the page can show how full it is.
+     *
      * @return Collection<int, Facility>
      */
     #[Computed]
@@ -67,10 +73,51 @@ class ManageSpaces extends Component
         return Facility::query()
             ->with([
                 'wings' => fn ($query) => $query->orderBy('name'),
-                'wings.cages' => fn ($query) => $query->orderBy('code'),
+                'wings.cages' => fn ($query) => $query->orderBy('code')
+                    ->withCount(['pets as active_pets_count' => fn (Builder $query) => $query->where('status', '!=', 'adopted')->whereNull('date_of_death')]),
             ])
             ->orderBy('name')
-            ->get();
+            ->get()
+            ->each(function (Facility $facility): void {
+                $facility->wings->each(function (Wing $wing): void {
+                    $wing->cages->each(function (Cage $cage): void {
+                        $availableSpace = max(0, $cage->capacity - $cage->active_pets_count);
+
+                        $cage->available_space = $availableSpace;
+                        $cage->availability_color = match (true) {
+                            $availableSpace <= 0 => 'red',
+                            $cage->active_pets_count > $cage->capacity * 0.8 => 'yellow',
+                            default => 'green',
+                        };
+                    });
+                });
+            });
+    }
+
+    /**
+     * The cage whose pets are shown in the cage-pets modal, with the pets
+     * still housed in it (not adopted or deceased).
+     */
+    #[Computed]
+    public function viewingCage(): ?Cage
+    {
+        if ($this->viewingCageId === null) {
+            return null;
+        }
+
+        return $this->scopedCageQuery()
+            ->with([
+                'wing',
+                'pets' => fn ($query) => $query->where('status', '!=', 'adopted')->whereNull('date_of_death')->with('species')->orderBy('name'),
+            ])
+            ->find($this->viewingCageId);
+    }
+
+    public function viewCagePets(int $cageId): void
+    {
+        $this->viewingCageId = $this->scopedCageQuery()->findOrFail($cageId)->id;
+
+        unset($this->viewingCage);
     }
 
     public function createFacility(): void

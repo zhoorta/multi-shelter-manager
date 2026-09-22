@@ -21,7 +21,14 @@
                 <div wire:key="facility-{{ $facility->id }}" class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
                     <div class="flex items-start justify-between gap-2">
                         <div class="flex flex-col gap-1">
-                            <flux:heading size="lg">{{ $facility->name }}</flux:heading>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <flux:heading size="lg">{{ $facility->name }}</flux:heading>
+
+                                @php($facilityCages = $facility->wings->flatMap->cages)
+                                @if ($facilityCages->isNotEmpty())
+                                    <flux:badge size="sm">{{ __(':available of :capacity free', ['available' => $facilityCages->sum('available_space'), 'capacity' => $facilityCages->sum('capacity')]) }}</flux:badge>
+                                @endif
+                            </div>
 
                             @if ($facility->address || $facility->postal_code || $facility->city)
                                 <flux:text class="text-neutral-500 dark:text-neutral-400">
@@ -99,12 +106,18 @@
                             {{ __('No wings registered') }}
                         </div>
                     @else
-                        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                        <div class="grid gap-4 lg:grid-cols-2">
                             @foreach ($facility->wings as $wing)
                                 <div wire:key="wing-{{ $wing->id }}" class="flex flex-col gap-3 rounded-lg border border-neutral-200 p-4 dark:border-neutral-700">
                                     <div class="flex items-start justify-between gap-2">
                                         <div class="flex flex-col gap-1">
-                                            <flux:heading size="sm">{{ $wing->name }}</flux:heading>
+                                            <div class="flex flex-wrap items-center gap-2">
+                                                <flux:heading size="sm">{{ $wing->name }}</flux:heading>
+
+                                                @if ($wing->cages->isNotEmpty())
+                                                    <flux:badge size="sm">{{ __(':available of :capacity free', ['available' => $wing->cages->sum('available_space'), 'capacity' => $wing->cages->sum('capacity')]) }}</flux:badge>
+                                                @endif
+                                            </div>
 
                                             @if ($wing->description)
                                                 <flux:text class="text-neutral-500 dark:text-neutral-400">{{ $wing->description }}</flux:text>
@@ -177,7 +190,17 @@
                                                 <span class="font-medium text-neutral-900 dark:text-white">{{ $cage->code }}</span>
 
                                                 <div class="flex items-center gap-2">
-                                                    <flux:badge size="sm">{{ __('Capacity') }}: {{ $cage->capacity }}</flux:badge>
+                                                    <flux:badge size="sm" :color="$cage->availability_color">{{ __(':available of :capacity free', ['available' => $cage->available_space, 'capacity' => $cage->capacity]) }}</flux:badge>
+
+                                                    <flux:modal.trigger name="cage-pets">
+                                                        <flux:button
+                                                            size="sm"
+                                                            variant="subtle"
+                                                            icon="eye"
+                                                            wire:click="viewCagePets({{ $cage->id }})"
+                                                            :aria-label="__('View pets')"
+                                                        />
+                                                    </flux:modal.trigger>
 
                                                     @if (auth()->user()->isManagerOfCurrentShelter())
                                                         <flux:modal.trigger name="cage-form">
@@ -234,6 +257,45 @@
             @endforeach
         </div>
     @endif
+
+    <flux:modal name="cage-pets" class="w-full max-w-lg">
+        <div class="flex flex-col gap-6">
+            <div class="flex flex-col gap-1">
+                <flux:heading size="lg">{{ __('Cage') }} {{ $this->viewingCage?->code }}</flux:heading>
+
+                @if ($this->viewingCage)
+                    <flux:text class="text-neutral-500 dark:text-neutral-400">
+                        {{ __('Wing') }}: <span class="font-medium text-neutral-900 dark:text-white">{{ $this->viewingCage->wing->name }}</span>
+                        &middot;
+                        {{ __(':available of :capacity free', ['available' => max(0, $this->viewingCage->capacity - $this->viewingCage->pets->count()), 'capacity' => $this->viewingCage->capacity]) }}
+                    </flux:text>
+                @endif
+            </div>
+
+            <ul class="divide-y divide-neutral-200 overflow-hidden rounded-lg border border-neutral-200 dark:divide-neutral-700 dark:border-neutral-700">
+                @forelse ($this->viewingCage?->pets ?? [] as $pet)
+                    <li wire:key="cage-pet-{{ $pet->id }}" class="flex items-center justify-between gap-2 px-4 py-2 text-sm">
+                        <div class="flex flex-col">
+                            <a href="{{ route('pets.show', $pet) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $pet->name }}</a>
+                            <span class="text-neutral-500 dark:text-neutral-400">{{ $pet->ref }} &middot; {{ $pet->species->name }}</span>
+                        </div>
+
+                        <flux:button size="sm" variant="subtle" icon="eye" :href="route('pets.show', $pet)" wire:navigate :aria-label="__('View')" />
+                    </li>
+                @empty
+                    <li class="px-4 py-6 text-center text-sm text-neutral-500 dark:text-neutral-400">
+                        {{ __('No pets in this cage') }}
+                    </li>
+                @endforelse
+            </ul>
+
+            <div class="flex justify-end">
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Close') }}</flux:button>
+                </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
 
     @if (auth()->user()->isManagerOfCurrentShelter())
     <flux:modal name="facility-form" class="max-w-lg">
