@@ -34,12 +34,14 @@ use App\Livewire\Setup;
 use App\Livewire\Volunteers\ManageVolunteers;
 use App\Livewire\Volunteers\VolunteerForm;
 use App\Livewire\Volunteers\VolunteerShow;
+use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
+
+// Public welcome page, open to guests and logged-in users alike.
+Route::livewire('/', Welcome::class)->name('home');
 
 // Public guest routes.
 Route::middleware(['guest'])->group(function (): void {
-    Route::redirect('/', '/login')->name('home');
-
     // First-run wizard to create the initial admin; only usable while no users exist.
     Route::livewire('setup', Setup::class)->name('setup');
 

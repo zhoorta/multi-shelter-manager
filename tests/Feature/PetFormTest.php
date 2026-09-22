@@ -473,6 +473,33 @@ test('creates a pet marked as not adoptable and not sponsorable', function () {
     $component->assertRedirect(route('pets.show', $pet));
 });
 
+test('publishes and features a pet on the public portal and loads the flags when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->assertSet('petPublishToPortal', false)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petPublishToPortal', true)
+        ->set('petIsFeatured', true)
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->publish_to_portal)->toBeTrue();
+    expect($pet->is_featured)->toBeTrue();
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->assertSet('petPublishToPortal', true)
+        ->assertSet('petIsFeatured', true);
+});
+
 test('creates a pet marked as neutered', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());

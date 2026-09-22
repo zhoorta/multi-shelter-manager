@@ -24,7 +24,6 @@
     "Users": "Users",
     "Shelters": "Shelters",
     "Administration": "Administration",
-
     "Total Pets": "Total Pets",
     "Available Capacity": "Available Capacity",
     "Total Staff": "Total Staff",
@@ -52,7 +51,6 @@
     "No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.": "No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.",
     "No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.": "No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.",
     "No breeds of :species exist. Please contact the site administrator to configure the breeds.": "No breeds of :species exist. Please contact the site administrator to configure the breeds.",
-
     "Name": "Name",
     "Short Name": "Short Name",
     "Gender": "Gender",
@@ -66,11 +64,9 @@
     "Status": "Status",
     "Microchip / Chip": "Microchip",
     "Is Neutered": "Neutered / Spayed",
-
     "Available": "Available",
     "Not Available": "Not Available",
     "Adopted": "Adopted",
-
     "Is Adoptable": "Is Adoptable",
     "Is Sponsorable": "Is Sponsorable",
     "Publish to Portal": "Publish to Public Portal",
@@ -82,11 +78,9 @@
     "Notes": "Operational Notes",
     "Description": "Description",
     "View Count": "View Count",
-    
     "Admin": "System Administrator",
     "Manager": "Shelter Manager",
     "Staff": "Staff / Worker",
-    
     "Save": "Save",
     "Cancel": "Cancel",
     "Edit": "Edit",
@@ -97,13 +91,11 @@
     "Show": "Show",
     "Yes": "Yes",
     "No": "No",
-    
     "Record created successfully": "Record created successfully.",
     "Record updated successfully": "Record updated successfully.",
     "User removed from the shelter": "User removed from the shelter.",
     "Record deleted successfully": "Record deleted successfully.",
     "You do not have permission to view this shelter": "You do not have permission to view this shelter.",
-
     "No species registered": "No species registered.",
     "No breeds registered": "No breeds registered.",
     "No sizes registered": "No sizes registered.",
@@ -151,7 +143,6 @@
     "Close": "Close",
     "Previous photo": "Previous photo",
     "Next photo": "Next photo",
-
     "Adoption Registration": "Adoption Registration",
     "Sponsorship Registration": "Sponsorship Registration",
     "Owner Name": "Owner Name",
@@ -177,14 +168,12 @@
     "at": "at",
     "Deceased": "Deceased",
     "Cannot clear the return date because the pet has already been adopted again since then.": "Cannot clear the return date because the pet has already been adopted again since then.",
-
     "Adoptions": "Adoptions",
     "Search by owner, contact, pet or notes": "Search by owner, contact, pet or notes",
     "Owner Name and Contacts": "Owner Name and Contacts",
     "No adoptions registered": "No adoptions registered.",
     "Adopted at :date": "Adopted at :date",
     "Returned at :date": "Returned at :date",
-
     "Sponsorships": "Sponsorships",
     "Sponsor Name": "Sponsor Name",
     "Search by sponsor, contact, pet or notes": "Search by sponsor, contact, pet or notes",
@@ -208,7 +197,6 @@
     "Payment Date": "Payment Date",
     "Payment Value": "Payment Value",
     "No sponsorship payments registered": "No sponsorship payments registered.",
-
     "New Vaccination": "New Vaccination",
     "Edit Vaccination": "Edit Vaccination",
     "Vaccinations": "Vaccinations",
@@ -227,7 +215,6 @@
     "Due date within two weeks": "Due date within two weeks",
     "Due date within a month": "Due date within a month",
     "Vaccine overdue": "Vaccine overdue",
-
     "Log in": "Log in",
     "Log in to your account": "Log in to your account",
     "Enter your email and password below to log in": "Enter your email and password below to log in",
@@ -235,7 +222,6 @@
     "Password": "Password",
     "Forgot your password?": "Forgot your password?",
     "Remember me": "Remember me",
-
     "Role": "Role",
     "Notifications": "Notifications",
     "Shelter": "Shelter",
@@ -247,7 +233,6 @@
     "User invited successfully": "User invited successfully.",
     "No users registered": "No users registered.",
     "You cannot delete your own account": "You cannot delete your own account.",
-
     "You've Been Invited to :app platform": "You've Been Invited to :app platform",
     "Hello, :name!": "Hello, :name!",
     "You have been invited to join the :app platform.": "You have been invited to join the :app platform.",
@@ -259,7 +244,6 @@
     "If you did not expect this invitation, you can safely ignore this email.": "If you did not expect this invitation, you can safely ignore this email.",
     "Regards,": "Regards,",
     "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:",
-
     "No volunteers registered": "No volunteers registered.",
     "Search": "Search",
     "Search by name, phone, email, TIN or notes": "Search by name, phone, email, TIN or notes",
@@ -287,7 +271,6 @@
     "high": "High",
     "very high": "Very High",
     "excellent": "Excellent",
-
     "Availability": "Availability",
     "Present on Monday": "Present on Monday",
     "Present on Tuesday": "Present on Tuesday",
@@ -309,7 +292,6 @@
     "occasionally": "Occasionally",
     "biweekly": "Biweekly",
     "weekly": "Weekly",
-
     "Setup": "Setup",
     "Welcome! Let's set up the application": "Welcome! Let's set up the application",
     "Create the administrator account to get started": "Create the administrator account to get started",
@@ -319,5 +301,37 @@
     "Regions": "Regions",
     "Manage Regions": "Manage Regions",
     "No regions registered": "No regions registered",
-    "No region assigned": "No region assigned"
+    "No region assigned": "No region assigned",
+    "Adopt": "Adopt",
+    "Shelter area": "Shelter area",
+    "Made with love for animals": "Made with love for animals",
+    "Adopt a friend": "Adopt a friend",
+    "Many shelters, one big family": "Many shelters, one big family",
+    "Every paw deserves": "Every paw deserves",
+    "a home": "a home",
+    ":app brings together animal shelters from all over the country on a single platform. Each shelter manages its own animals, and here you can meet all of them in one place — and find your new best friend.": ":app brings together animal shelters from all over the country on a single platform. Each shelter manages its own animals, and here you can meet all of them in one place — and find your new best friend.",
+    "Meet the animals": "Meet the animals",
+    "How it works": "How it works",
+    "Partner shelters": "Partner shelters",
+    "Animals waiting for a home": "Animals waiting for a home",
+    "Regions covered": "Regions covered",
+    "A simple bridge between those who care for animals and those who want to give them a family.": "A simple bridge between those who care for animals and those who want to give them a family.",
+    "Shelters join in": "Shelters join in",
+    "Each shelter manages its animals, spaces, vaccines and volunteers in its own private area.": "Each shelter manages its animals, spaces, vaccines and volunteers in its own private area.",
+    "You search in one place": "You search in one place",
+    "Animals ready for adoption from every shelter appear together here. Filter by species, gender, size and breed.": "Animals ready for adoption from every shelter appear together here. Filter by species, gender, size and breed.",
+    "You meet your new friend": "You meet your new friend",
+    "Found a match? Contact the shelter directly to arrange a visit and start the adoption.": "Found a match? Contact the shelter directly to arrange a visit and start the adoption.",
+    "Looking for a family": "Looking for a family",
+    "These friends are waiting for someone just like you. Use the filters to find your perfect match.": "These friends are waiting for someone just like you. Use the filters to find your perfect match.",
+    "Choose a species first": "Choose a species first",
+    "Clear filters": "Clear filters",
+    "No friends found with these filters": "No friends found with these filters",
+    "Try changing the filters — new animals arrive all the time!": "Try changing the filters — new animals arrive all the time!",
+    "Featured": "Featured",
+    "Neutered": "Neutered",
+    "Adoption of :name (:ref)": "Adoption of :name (:ref)",
+    "I want to adopt": "I want to adopt",
+    "Show this pet on the public adoption page": "Show this pet on the public adoption page",
+    "Shown first on the public adoption page": "Shown first on the public adoption page"
 }

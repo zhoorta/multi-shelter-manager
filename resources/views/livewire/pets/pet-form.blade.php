@@ -218,6 +218,8 @@
             <div class="grid grid-cols-2 gap-4">
                 <flux:switch wire:model="petIsAdoptable" :label="__('Is Adoptable')" align="left" />
                 <flux:switch wire:model="petIsSponsorable" :label="__('Is Sponsorable')" align="left" />
+                <flux:switch wire:model="petPublishToPortal" :label="__('Publish to Portal')" :description="__('Show this pet on the public adoption page')" align="left" />
+                <flux:switch wire:model="petIsFeatured" :label="__('Is Featured')" :description="__('Shown first on the public adoption page')" align="left" />
             </div>
         </div>
 

@@ -24,7 +24,6 @@
     "Users": "Utilizadores",
     "Shelters": "Abrigos",
     "Administration": "Administração",
-
     "Total Pets": "Total de Animais",
     "Available Capacity": "Capacidade Disponível",
     "Total Staff": "Total de Funcionários",
@@ -52,7 +51,6 @@
     "No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.": "Nenhuma instalação definida. Configure as Instalações, Alas e Jaulas na opção Instalações.",
     "No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.": "Nenhuma espécie de animal definida para o abrigo. Contacte o administrador do sistema para configurar as espécies do abrigo.",
     "No breeds of :species exist. Please contact the site administrator to configure the breeds.": "Não existem raças de :species. Contacte o administrador do sistema para configurar as raças.",
-
     "Name": "Nome",
     "Short Name": "Nome Curto",
     "Gender": "Género",
@@ -66,11 +64,9 @@
     "Status": "Estado",
     "Microchip / Chip": "Microchip",
     "Is Neutered": "Esterilizado / Castrado",
-
     "Available": "Disponível para Adoção",
     "Not Available": "Indisponível para Adoção",
     "Adopted": "Adotado",
-
     "Is Adoptable": "Disponível para Adoção",
     "Is Sponsorable": "Disponível para Apadrinhamento",
     "Publish to Portal": "Publicar no Portal Público",
@@ -82,11 +78,9 @@
     "Notes": "Notas Operacionais",
     "Description": "Descrição",
     "View Count": "Visualizações",
-    
     "Admin": "Administrador Global",
     "Manager": "Gestor de Abrigo",
     "Staff": "Funcionário / Operacional",
-    
     "Save": "Guardar",
     "Cancel": "Cancelar",
     "Edit": "Editar",
@@ -97,13 +91,11 @@
     "Show": "Ver",
     "Yes": "Sim",
     "No": "Não",
-    
     "Record created successfully": "Registo criado com sucesso.",
     "Record updated successfully": "Registo atualizado com sucesso.",
     "User removed from the shelter": "Utilizador removido do abrigo.",
     "Record deleted successfully": "Registo eliminado com sucesso.",
     "You do not have permission to view this shelter": "Não tem permissão para aceder a este abrigo.",
-
     "No species registered": "Nenhuma espécie registada.",
     "No breeds registered": "Nenhuma raça registada.",
     "No sizes registered": "Nenhum tamanho registado.",
@@ -151,7 +143,6 @@
     "Close": "Fechar",
     "Previous photo": "Fotografia anterior",
     "Next photo": "Fotografia seguinte",
-
     "Adoption Registration": "Registo de Adoção",
     "Sponsorship Registration": "Registo de Apadrinhamento",
     "Owner Name": "Nome do Dono",
@@ -177,14 +168,12 @@
     "at": "em",
     "Deceased": "Falecido",
     "Cannot clear the return date because the pet has already been adopted again since then.": "Não é possível remover a data de devolução porque o animal já foi novamente adotado desde então.",
-
     "Adoptions": "Adoções",
     "Search by owner, contact, pet or notes": "Pesquisar por tutor, contacto, animal ou notas",
     "Owner Name and Contacts": "Nome e Contactos do Tutor",
     "No adoptions registered": "Nenhuma adoção registada.",
     "Adopted at :date": "Adotado em :date",
     "Returned at :date": "Devolvido em :date",
-
     "Sponsorships": "Apadrinhamentos",
     "Sponsor Name": "Nome do Padrinho",
     "Search by sponsor, contact, pet or notes": "Pesquisar por padrinho, contacto, animal ou notas",
@@ -208,7 +197,6 @@
     "Payment Date": "Data de Pagamento",
     "Payment Value": "Valor do Pagamento",
     "No sponsorship payments registered": "Nenhum pagamento de apadrinhamento registado.",
-
     "New Vaccination": "Nova Vacinação",
     "Edit Vaccination": "Editar Vacinação",
     "Vaccinations": "Vacinações",
@@ -227,7 +215,6 @@
     "Due date within two weeks": "Data prevista dentro de duas semanas",
     "Due date within a month": "Data prevista dentro de um mês",
     "Vaccine overdue": "Vacina em atraso",
-
     "Log in": "Entrar",
     "Log in to your account": "Entrar na sua conta",
     "Enter your email and password below to log in": "Introduza o seu email e palavra-passe para entrar",
@@ -235,7 +222,6 @@
     "Password": "Palavra-passe",
     "Forgot your password?": "Esqueceu-se da palavra-passe?",
     "Remember me": "Lembrar-me",
-
     "Role": "Função",
     "Notifications": "Notificações",
     "Shelter": "Abrigo",
@@ -247,7 +233,6 @@
     "User invited successfully": "Utilizador convidado com sucesso.",
     "No users registered": "Nenhum utilizador registado.",
     "You cannot delete your own account": "Não pode eliminar a sua própria conta.",
-
     "You've Been Invited to :app platform": "Foi Convidado para a plataforma :app",
     "Hello, :name!": "Olá, :name!",
     "You have been invited to join the :app platform.": "Foi convidado a juntar-se à plataforma :app.",
@@ -259,7 +244,6 @@
     "If you did not expect this invitation, you can safely ignore this email.": "Se não esperava este convite, pode ignorar este email em segurança.",
     "Regards,": "Cumprimentos,",
     "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Se estiver com dificuldades em clicar no botão \":actionText\", copie e cole o URL abaixo\nno seu navegador:",
-
     "No volunteers registered": "Nenhum voluntário registado.",
     "Search": "Pesquisar",
     "Search by name, phone, email, TIN or notes": "Pesquisar por nome, telefone, email, NIF ou notas",
@@ -287,7 +271,6 @@
     "high": "Alta",
     "very high": "Muito Alta",
     "excellent": "Excelente",
-
     "Availability": "Disponibilidade",
     "Present on Monday": "Presente à Segunda-feira",
     "Present on Tuesday": "Presente à Terça-feira",
@@ -309,7 +292,6 @@
     "occasionally": "Ocasionalmente",
     "biweekly": "Quinzenalmente",
     "weekly": "Semanalmente",
-
     "Setup": "Configuração inicial",
     "Welcome! Let's set up the application": "Bem-vindo! Vamos configurar a aplicação",
     "Create the administrator account to get started": "Crie a conta de administrador para começar",
@@ -319,5 +301,37 @@
     "Regions": "Distritos",
     "Manage Regions": "Gerir Distritos",
     "No regions registered": "Nenhum distrito registado",
-    "No region assigned": "Sem distrito atribuído"
+    "No region assigned": "Sem distrito atribuído",
+    "Adopt": "Adotar",
+    "Shelter area": "Área dos abrigos",
+    "Made with love for animals": "Feito com amor pelos animais",
+    "Adopt a friend": "Adote um amigo",
+    "Many shelters, one big family": "Muitos abrigos, uma grande família",
+    "Every paw deserves": "Cada patinha merece",
+    "a home": "um lar",
+    ":app brings together animal shelters from all over the country on a single platform. Each shelter manages its own animals, and here you can meet all of them in one place — and find your new best friend.": "O :app junta abrigos de animais de todo o país numa única plataforma. Cada abrigo gere os seus próprios animais e aqui pode conhecê-los todos num só lugar — e encontrar o seu novo melhor amigo.",
+    "Meet the animals": "Conhecer os animais",
+    "How it works": "Como funciona",
+    "Partner shelters": "Abrigos parceiros",
+    "Animals waiting for a home": "Animais à espera de um lar",
+    "Regions covered": "Distritos abrangidos",
+    "A simple bridge between those who care for animals and those who want to give them a family.": "Uma ponte simples entre quem cuida dos animais e quem lhes quer dar uma família.",
+    "Shelters join in": "Os abrigos juntam-se",
+    "Each shelter manages its animals, spaces, vaccines and volunteers in its own private area.": "Cada abrigo gere os seus animais, espaços, vacinas e voluntários na sua própria área privada.",
+    "You search in one place": "Procura num só lugar",
+    "Animals ready for adoption from every shelter appear together here. Filter by species, gender, size and breed.": "Os animais prontos para adoção de todos os abrigos aparecem aqui juntos. Filtre por espécie, género, tamanho e raça.",
+    "You meet your new friend": "Conhece o seu novo amigo",
+    "Found a match? Contact the shelter directly to arrange a visit and start the adoption.": "Encontrou o par ideal? Contacte diretamente o abrigo para marcar uma visita e iniciar a adoção.",
+    "Looking for a family": "À procura de uma família",
+    "These friends are waiting for someone just like you. Use the filters to find your perfect match.": "Estes amigos estão à espera de alguém como você. Use os filtros para encontrar o par perfeito.",
+    "Choose a species first": "Escolha primeiro uma espécie",
+    "Clear filters": "Limpar filtros",
+    "No friends found with these filters": "Nenhum amigo encontrado com estes filtros",
+    "Try changing the filters — new animals arrive all the time!": "Experimente mudar os filtros — chegam novos animais a toda a hora!",
+    "Featured": "Destaque",
+    "Neutered": "Esterilizado",
+    "Adoption of :name (:ref)": "Adoção de :name (:ref)",
+    "I want to adopt": "Quero adotar",
+    "Show this pet on the public adoption page": "Mostrar este animal na página pública de adoção",
+    "Shown first on the public adoption page": "Mostrado em primeiro lugar na página pública de adoção"
 }

@@ -76,6 +76,10 @@ class PetForm extends Component
 
     public bool $petIsSponsorable = true;
 
+    public bool $petPublishToPortal = false;
+
+    public bool $petIsFeatured = false;
+
     public ?int $petCageId = null;
 
     public string $petCheckinDate = '';
@@ -123,6 +127,8 @@ class PetForm extends Component
         $this->petSicknessIds = $pet->sicknesses()->pluck('sicknesses.id')->all();
         $this->petIsAdoptable = (bool) $pet->is_adoptable;
         $this->petIsSponsorable = (bool) $pet->is_sponsorable;
+        $this->petPublishToPortal = (bool) $pet->publish_to_portal;
+        $this->petIsFeatured = (bool) $pet->is_featured;
         $this->petCageId = $pet->cage_id;
         $this->petCheckinDate = (string) $pet->checkin_date?->format('Y-m-d');
         $this->petDescription = (string) $pet->description;
@@ -341,6 +347,8 @@ class PetForm extends Component
             ],
             'petIsAdoptable' => ['boolean'],
             'petIsSponsorable' => ['boolean'],
+            'petPublishToPortal' => ['boolean'],
+            'petIsFeatured' => ['boolean'],
             'petCageId' => ['nullable', 'integer', 'exists:cages,id'],
             'petCheckinDate' => ['nullable', 'date'],
             'petDescription' => ['nullable', 'string'],
@@ -365,6 +373,8 @@ class PetForm extends Component
             'petSicknessIds.*' => __('Sicknesses'),
             'petIsAdoptable' => __('Is Adoptable'),
             'petIsSponsorable' => __('Is Sponsorable'),
+            'petPublishToPortal' => __('Publish to Portal'),
+            'petIsFeatured' => __('Is Featured'),
             'petCageId' => __('Cage'),
             'petCheckinDate' => __('Checkin Date'),
             'petDescription' => __('Description'),
@@ -404,6 +414,8 @@ class PetForm extends Component
             'is_neutered' => $validated['petIsNeutered'],
             'is_adoptable' => $validated['petIsAdoptable'],
             'is_sponsorable' => $validated['petIsSponsorable'],
+            'publish_to_portal' => $validated['petPublishToPortal'],
+            'is_featured' => $validated['petIsFeatured'],
         ];
 
         DB::transaction(function () use ($petAttributes, $isEditing, $validated): void {
