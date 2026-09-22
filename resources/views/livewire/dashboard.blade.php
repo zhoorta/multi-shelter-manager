@@ -1,7 +1,11 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     @if (! auth()->user()->is_admin && (! $hasCages || ! $speciesConfigured || $this->speciesWithoutBreeds->isNotEmpty()))
         <div class="flex flex-col gap-3">
-            @if (! $hasCages)
+            @if (! $hasCages && ! auth()->user()->isManagerOfCurrentShelter())
+                <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-200">
+                    {{ __('No facilities defined. Contact the shelter manager to configure the Facilities, Wings and Cages.') }}
+                </div>
+            @elseif (! $hasCages)
                 <a
                     href="{{ route('facilities.index') }}"
                     wire:navigate

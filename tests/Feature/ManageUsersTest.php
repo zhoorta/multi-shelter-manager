@@ -90,7 +90,42 @@ test('displays each user\'s last login', function () {
     $response->assertSee('15/01/2026 10:30');
 });
 
-test('lists a shelter name in the notifications column for a user with vaccination notifications enabled there', function () {
+test('shows the shelter short name in the shelters column when available', function () {
+    $admin = User::factory()->admin()->create();
+    $this->actingAs($admin);
+
+    $shelter = Shelter::factory()->create(['name' => 'Associação Protetora dos Animais', 'short_name' => 'APA']);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
+
+    Livewire::test(ManageUsers::class)
+        ->assertSeeInOrder([$staff->name, 'APA (']);
+});
+
+test('shows the short name after the name in the shelter filter options', function () {
+    $admin = User::factory()->admin()->create();
+    $this->actingAs($admin);
+
+    Shelter::factory()->create(['name' => 'Associação Protetora dos Animais', 'short_name' => 'APA']);
+    Shelter::factory()->create(['name' => 'Canil Municipal']);
+
+    Livewire::test(ManageUsers::class)
+        ->assertSee('Associação Protetora dos Animais (APA)')
+        ->assertSee('Canil Municipal')
+        ->assertDontSee('Canil Municipal (');
+});
+
+test('falls back to the shelter name in the shelters column without a short name', function () {
+    $admin = User::factory()->admin()->create();
+    $this->actingAs($admin);
+
+    $shelter = Shelter::factory()->create(['name' => 'Associação Protetora dos Animais']);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
+
+    Livewire::test(ManageUsers::class)
+        ->assertSeeInOrder([$staff->name, 'Associação Protetora dos Animais (']);
+});
+
+test('shows a notifications icon next to a shelter where the user has vaccination notifications enabled', function () {
     $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
@@ -98,10 +133,10 @@ test('lists a shelter name in the notifications column for a user with vaccinati
     $staff = User::factory()->forShelter($shelter, 'staff', true)->create();
 
     Livewire::test(ManageUsers::class)
-        ->assertSeeInOrder([$staff->name, $shelter->name]);
+        ->assertSeeInOrder([$staff->name, $shelter->name, 'data-test="vaccination-notifications-icon"'], false);
 });
 
-test('leaves the notifications column blank for a user without vaccination notifications enabled', function () {
+test('hides the notifications icon for a user without vaccination notifications enabled', function () {
     $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
@@ -109,7 +144,8 @@ test('leaves the notifications column blank for a user without vaccination notif
     $staff = User::factory()->forShelter($shelter, 'staff', false)->create();
 
     Livewire::test(ManageUsers::class)
-        ->assertSeeInOrder([$staff->name, '—']);
+        ->assertSee($staff->name)
+        ->assertDontSee('data-test="vaccination-notifications-icon"', false);
 });
 
 test('admin can delete another user', function () {

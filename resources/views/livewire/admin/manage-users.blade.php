@@ -9,10 +9,10 @@
 
     @if (auth()->user()->is_admin)
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <flux:select wire:model.live="filterShelterId" :label="__('Shelter')" class="sm:max-w-xs">
+            <flux:select wire:model.live="filterShelterId" :label="__('Shelter')" field:class="w-full sm:max-w-lg">
                 <flux:select.option value="">{{ __('All') }}</flux:select.option>
                 @foreach ($this->shelters as $shelter)
-                    <flux:select.option value="{{ $shelter->id }}">{{ $shelter->name }}</flux:select.option>
+                    <flux:select.option value="{{ $shelter->id }}">{{ $shelter->name }}{{ $shelter->short_name ? " ({$shelter->short_name})" : '' }}</flux:select.option>
                 @endforeach
             </flux:select>
         </div>
@@ -26,7 +26,6 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Email') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Notifications') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Shelters') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Last Login') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
@@ -37,16 +36,18 @@
                             <tr wire:key="user-{{ $item->id }}">
                                 <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">{{ $item->name }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->email }}</td>
-                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">
-                                    {{ $item->shelters->filter(fn ($shelter) => $shelter->pivot->vaccination_notifications)->pluck('name')->implode(', ') ?: '—' }}
-                                </td>
                                 <td class="px-6 py-3">
                                     @if ($item->is_admin)
                                         <flux:badge size="sm">{{ __('Admin') }}</flux:badge>
                                     @else
                                         <div class="flex flex-wrap gap-1">
                                             @foreach ($item->shelters as $shelter)
-                                                <flux:badge size="sm">{{ $shelter->name }} ({{ __(\Illuminate\Support\Str::title($shelter->pivot->role)) }})</flux:badge>
+                                                <flux:badge size="sm" title="{{ $shelter->name }}">
+                                                    {{ $shelter->short_name ?: $shelter->name }} ({{ __(\Illuminate\Support\Str::title($shelter->pivot->role)) }})
+                                                    @if ($shelter->pivot->vaccination_notifications)
+                                                        <flux:icon name="bell-alert" variant="micro" class="ms-1" title="{{ __('Vaccination Notifications') }}" aria-label="{{ __('Vaccination Notifications') }}" data-test="vaccination-notifications-icon" />
+                                                    @endif
+                                                </flux:badge>
                                             @endforeach
                                         </div>
                                     @endif
@@ -97,7 +98,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="5" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No users registered') }}
                                 </td>
                             </tr>

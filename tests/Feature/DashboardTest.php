@@ -569,7 +569,19 @@ test('shows a placeholder message when there are no recent intakes', function ()
     $response->assertSee(__('No Recent Intakes'));
 });
 
-test('shelter users see a warning when the shelter has no facilities defined', function () {
+test('managers see a warning linking to facilities when the shelter has no facilities defined', function () {
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->forShelter($shelter, 'manager')->create();
+    $this->actingAs($user);
+
+    $response = $this->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+    $response->assertDontSee(__('No facilities defined. Contact the shelter manager to configure the Facilities, Wings and Cages.'));
+});
+
+test('staff are told to contact the manager when the shelter has no facilities defined', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
@@ -577,7 +589,8 @@ test('shelter users see a warning when the shelter has no facilities defined', f
     $response = $this->get(route('dashboard'));
 
     $response->assertOk();
-    $response->assertSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+    $response->assertSee(__('No facilities defined. Contact the shelter manager to configure the Facilities, Wings and Cages.'));
+    $response->assertDontSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
 });
 
 test('shelter users still see the facilities warning when a facility and wing exist but no cage does', function () {
@@ -591,7 +604,7 @@ test('shelter users still see the facilities warning when a facility and wing ex
     $response = $this->get(route('dashboard'));
 
     $response->assertOk();
-    $response->assertSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+    $response->assertSee(__('No facilities defined. Contact the shelter manager to configure the Facilities, Wings and Cages.'));
 });
 
 test('shelter users do not see the facilities warning once a cage exists', function () {
@@ -606,7 +619,7 @@ test('shelter users do not see the facilities warning once a cage exists', funct
     $response = $this->get(route('dashboard'));
 
     $response->assertOk();
-    $response->assertDontSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+    $response->assertDontSee(__('No facilities defined. Contact the shelter manager to configure the Facilities, Wings and Cages.'));
 });
 
 test('shelter users see a warning when the shelter has no species configured', function () {
@@ -642,6 +655,7 @@ test('admins do not see the facilities or species warnings', function () {
 
     $response->assertOk();
     $response->assertDontSee(__('No facilities defined. Please configure the Facilities, Wings and Cages on the Facilities option.'));
+    $response->assertDontSee(__('No facilities defined. Contact the shelter manager to configure the Facilities, Wings and Cages.'));
     $response->assertDontSee(__('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.'));
 });
 
