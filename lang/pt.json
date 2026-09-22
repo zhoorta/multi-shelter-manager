@@ -319,5 +319,7 @@
     "Regions": "Distritos",
     "Manage Regions": "Gerir Distritos",
     "No regions registered": "Nenhum distrito registado",
-    "No region assigned": "Sem distrito atribuído"
+    "No region assigned": "Sem distrito atribuído",
+    "View pets": "Ver animais",
+    "No pets in this cage": "Nenhum animal nesta jaula"
 }

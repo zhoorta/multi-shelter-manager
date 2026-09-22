@@ -319,5 +319,7 @@
     "Regions": "Regions",
     "Manage Regions": "Manage Regions",
     "No regions registered": "No regions registered",
-    "No region assigned": "No region assigned"
+    "No region assigned": "No region assigned",
+    "View pets": "View pets",
+    "No pets in this cage": "No pets in this cage"
 }

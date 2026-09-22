@@ -3,6 +3,7 @@
 use App\Livewire\Facilities\ManageSpaces;
 use App\Models\Cage;
 use App\Models\Facility;
+use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
 use App\Models\Wing;
@@ -476,4 +477,51 @@ test('staff do not see create, edit, or delete controls on the facilities page',
         ->assertDontSee(__('Create'))
         ->assertDontSee(__('Add Wing'))
         ->assertDontSee(__('Add Cage'));
+});
+
+test('shows the available space of each cage, counting only pets still housed there', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $cage = Cage::factory()->for($wing)->create(['capacity' => 3]);
+
+    Pet::factory()->for($shelter)->create(['cage_id' => $cage->id]);
+    Pet::factory()->for($shelter)->create(['cage_id' => $cage->id, 'status' => 'adopted']);
+    Pet::factory()->for($shelter)->create(['cage_id' => $cage->id, 'date_of_death' => now()]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManageSpaces::class)
+        ->assertSee('2 of 3 free');
+});
+
+test('staff can view the pets still housed in a cage', function () {
+    $shelter = Shelter::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $cage = Cage::factory()->for($wing)->create();
+
+    Pet::factory()->for($shelter)->create(['cage_id' => $cage->id, 'name' => 'Rexinho']);
+    Pet::factory()->for($shelter)->create(['cage_id' => $cage->id, 'name' => 'Adotadinho', 'status' => 'adopted']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManageSpaces::class)
+        ->assertDontSee('Rexinho')
+        ->call('viewCagePets', $cage->id)
+        ->assertSee('Rexinho')
+        ->assertDontSee('Adotadinho');
+});
+
+test('cannot view the pets of a cage belonging to another shelter\'s wing', function () {
+    $otherShelter = Shelter::factory()->create();
+    $otherFacility = Facility::factory()->for($otherShelter)->create();
+    $otherWing = Wing::factory()->for($otherFacility)->create();
+    $cage = Cage::factory()->for($otherWing)->create();
+
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    expect(fn () => Livewire::test(ManageSpaces::class)->call('viewCagePets', $cage->id))
+        ->toThrow(ModelNotFoundException::class);
 });
