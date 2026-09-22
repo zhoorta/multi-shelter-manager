@@ -8,6 +8,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Admin/ShelterForm.php,app/Livewire/Admin/ManageShelters.php,app/Models/Shelter.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/app.md |
 | app/Livewire/Setup.php,app/Providers/FortifyServiceProvider.php,tests/Feature/Auth/** | .ai/rules/auth.md |
 | app/Livewire/Pets/SponsorshipShow.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/Concerns/ManagesSponsorshipPayments.php, app/Livewire/Pets/ManagePets.php,app/Livewire/Pets/PetPrintList.php,app/Livewire/Pets/Concerns/FiltersPetsList.php | .ai/rules/concerns.md |
+| resources/css/app.css | .ai/rules/css.md |
 | app/Livewire/Documentation.php,resources/views/livewire/documentation.blade.php,resources/views/livewire/documentation/*.blade.php | .ai/rules/documentation.md |
 | app/Livewire/Facilities/** | .ai/rules/facilities.md |
 | app/Livewire/Dashboard.php,resources/views/livewire/dashboard.blade.php,tests/Feature/DashboardTest.php | .ai/rules/feature.md |
@@ -38,6 +39,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | resources/views/livewire/pets/pet-show.blade.php, resources/views/livewire/pets/manage-pets.blade.php | .ai/rules/resources-views-livewire-pets.md |
 | routes/web.php | .ai/rules/routes.md |
 | app/Livewire/Settings/Profile.php,resources/views/livewire/settings/profile.blade.php | .ai/rules/settings.md |
+| tests/** | .ai/rules/tests.md |
 | app/Traits/MultiShelterTrait.php | .ai/rules/traits.md |
 | app/Livewire/Admin/ManageUsers.php,app/Livewire/Admin/UserForm.php,resources/views/livewire/admin/manage-users.blade.php,resources/views/livewire/admin/user-form.blade.php | .ai/rules/views-livewire-admin.md |
 | app/Models/PetVaccine.php,app/Livewire/Pets/VaccinationForm.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/ManageVaccinations.php,resources/views/livewire/pets/pet-show.blade.php,resources/views/livewire/pets/manage-vaccinations.blade.php | .ai/rules/views-livewire-pets-views-livewire-pets.md |

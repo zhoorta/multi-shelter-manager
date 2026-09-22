@@ -3,8 +3,8 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+    <body class="min-h-screen bg-amber-50 dark:bg-stone-950">
+        <flux:sidebar sticky collapsible="mobile" class="border-e border-amber-100 bg-white dark:border-stone-800 dark:bg-stone-900">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
                 <flux:sidebar.collapse class="lg:hidden" />
@@ -107,7 +107,7 @@
         </flux:sidebar>
 
         <!-- Global Header -->
-        <flux:header class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:header class="border-b border-amber-100 bg-white dark:border-stone-800 dark:bg-stone-900">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
             @if (! auth()->user()->is_admin)
