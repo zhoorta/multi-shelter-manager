@@ -14,7 +14,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('volunteers.index'))->assertForbidden();
@@ -23,18 +23,18 @@ test('admins are forbidden from viewing the page', function () {
 test('managers and staff can view the page', function () {
     $shelter = Shelter::factory()->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('volunteers.index'))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('volunteers.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no volunteers', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('volunteers.index'))->assertSee(__('No volunteers registered'));
 });
@@ -46,7 +46,7 @@ test('lists only volunteers belonging to the acting user\'s shelter', function (
     Volunteer::factory()->for($shelter)->create(['name' => 'Maria Silva']);
     Volunteer::factory()->for($otherShelter)->create(['name' => 'Other Shelter Volunteer']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVolunteers::class)
         ->assertSee('Maria Silva')
@@ -69,7 +69,7 @@ test('lists a volunteer\'s activities, sector and availability alongside contact
 
     $volunteer->availabilities()->create(['day_index' => 0, 'mornings' => true, 'afternoons' => false, 'frequency' => 'weekly']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVolunteers::class)
         ->assertSeeText('Maria Silva')
@@ -88,7 +88,7 @@ test('shows the end date only when the volunteer has one', function () {
     Volunteer::factory()->for($shelter)->create(['name' => 'Maria Silva', 'end_date' => '2026-01-15']);
     Volunteer::factory()->for($shelter)->create(['name' => 'Joao Costa', 'end_date' => null]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVolunteers::class)
         ->assertSeeText(__('Ended at').' 15/01/2026');
@@ -98,13 +98,13 @@ test('only managers see the create and edit links', function () {
     $shelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($shelter)->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('volunteers.index'))
         ->assertSee(route('volunteers.create'), false)
         ->assertSee(route('volunteers.edit', $volunteer), false);
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('volunteers.index'))
         ->assertDontSee(route('volunteers.create'), false)
@@ -115,7 +115,7 @@ test('staff cannot delete a volunteer', function () {
     $shelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVolunteers::class)
         ->call('deleteVolunteer', $volunteer->id)
@@ -128,7 +128,7 @@ test('manager can soft-delete a volunteer, stamping deleted_by', function () {
     $shelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($shelter)->create(['name' => 'Maria Silva']);
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
 
     Livewire::test(ManageVolunteers::class)
@@ -145,7 +145,7 @@ test('manager cannot delete a volunteer belonging to another shelter', function 
     $volunteer = Volunteer::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
 
     expect(fn () => Livewire::test(ManageVolunteers::class)->call('deleteVolunteer', $volunteer->id))
@@ -171,7 +171,7 @@ test('search filters volunteers by name, phone, email, tin or notes', function (
         'notes' => null,
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVolunteers::class)
         ->set('search', 'Maria')
@@ -200,7 +200,7 @@ test('sector filter shows only volunteers assigned to the selected species', fun
     $catVolunteer = Volunteer::factory()->for($shelter)->create(['name' => 'Joao Costa']);
     $catVolunteer->species()->attach($catSpecies);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVolunteers::class)
         ->set('speciesFilter', (string) $dogSpecies->id)
@@ -217,7 +217,7 @@ test('day of the week filter shows only volunteers available on the selected day
     $tuesdayVolunteer = Volunteer::factory()->for($shelter)->create(['name' => 'Joao Costa']);
     $tuesdayVolunteer->availabilities()->create(['day_index' => 1, 'mornings' => true, 'afternoons' => false, 'frequency' => 'weekly']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVolunteers::class)
         ->set('dayFilter', '0')
@@ -228,7 +228,7 @@ test('day of the week filter shows only volunteers available on the selected day
 test('paginates volunteers 20 per page', function () {
     $shelter = Shelter::factory()->create();
     Volunteer::factory()->for($shelter)->count(25)->sequence(fn ($sequence) => ['name' => 'Volunteer '.$sequence->index])->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $component = Livewire::test(ManageVolunteers::class);
 
@@ -252,7 +252,7 @@ test('activity filter shows only volunteers assigned to the selected activity', 
     $cleaner = Volunteer::factory()->for($shelter)->create(['name' => 'Joao Costa']);
     $cleaner->activities()->attach($cleaning);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVolunteers::class)
         ->set('activityFilter', (string) $walking->id)

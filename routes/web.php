@@ -12,6 +12,7 @@ use App\Livewire\Admin\ManageSpecies;
 use App\Livewire\Admin\ManageUsers;
 use App\Livewire\Admin\ManageVaccines;
 use App\Livewire\Admin\ShelterForm;
+use App\Livewire\Admin\UserForm;
 use App\Livewire\Dashboard;
 use App\Livewire\Documentation;
 use App\Livewire\Facilities\ManageSpaces;
@@ -74,6 +75,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     // Administration routes.
     Route::livewire('admin/users', ManageUsers::class)->name('admin.users.index');
+    Route::livewire('admin/users/create', UserForm::class)->name('admin.users.create');
+    Route::livewire('admin/users/{user}/edit', UserForm::class)->name('admin.users.edit');
     Route::livewire('admin/shelters', ManageShelters::class)->name('admin.shelters.index');
     Route::livewire('admin/shelters/create', ShelterForm::class)->name('admin.shelters.create');
     Route::livewire('admin/shelters/{shelter}/edit', ShelterForm::class)->name('admin.shelters.edit');

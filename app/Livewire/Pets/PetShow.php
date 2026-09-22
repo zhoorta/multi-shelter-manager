@@ -27,7 +27,7 @@ class PetShow extends Component
 
     public function mount(Pet $pet): void
     {
-        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+        abort_unless(! Auth::user()->is_admin, 403);
 
         $this->pet = $pet->load([
             'species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'sicknesses',

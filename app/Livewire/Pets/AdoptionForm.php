@@ -46,7 +46,7 @@ class AdoptionForm extends Component
 
     public function mount(Pet $pet, ?Adoption $adoption = null): void
     {
-        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+        abort_unless(! Auth::user()->is_admin, 403);
         abort_if($adoption === null && $pet->status === 'adopted', 403);
         abort_if($adoption !== null && $adoption->pet_id !== $pet->id, 404);
 

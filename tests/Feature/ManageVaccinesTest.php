@@ -13,31 +13,31 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff and managers are forbidden from viewing the page', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
     $this->get(route('admin.vaccines.index'))->assertForbidden();
 
-    $manager = User::factory()->create(['role' => 'manager']);
+    $manager = User::factory()->create();
     $this->actingAs($manager);
     $this->get(route('admin.vaccines.index'))->assertForbidden();
 });
 
 test('admins can view the page', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.vaccines.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no vaccines', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.vaccines.index'))->assertSee(__('No vaccines registered'));
 });
 
 test('lists vaccines with their assigned species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -50,7 +50,7 @@ test('lists vaccines with their assigned species', function () {
 });
 
 test('creates a new vaccine with assigned species and closes the modal', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -70,7 +70,7 @@ test('creates a new vaccine with assigned species and closes the modal', functio
 });
 
 test('opening the create modal resets a stale edit state', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -88,7 +88,7 @@ test('opening the create modal resets a stale edit state', function () {
 });
 
 test('requires a name to create a vaccine', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageVaccines::class)
@@ -98,7 +98,7 @@ test('requires a name to create a vaccine', function () {
 });
 
 test('rejects an unknown species id', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageVaccines::class)
@@ -109,7 +109,7 @@ test('rejects an unknown species id', function () {
 });
 
 test('updates an existing vaccine and its species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -130,7 +130,7 @@ test('updates an existing vaccine and its species', function () {
 });
 
 test('soft-deletes a vaccine instead of removing it permanently', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $vaccine = Vaccine::factory()->create(['name' => 'Rabies']);

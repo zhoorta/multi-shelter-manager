@@ -28,7 +28,7 @@ test('authenticated users can visit the dashboard', function () {
 
 test('the layout shows the navigation links and the user shelter name', function () {
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws Shelter']);
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $response = $this->get(route('dashboard'));
@@ -41,7 +41,8 @@ test('the layout shows the navigation links and the user shelter name', function
 });
 
 test('only managers and admins see the users navigation link', function () {
-    $manager = User::factory()->create(['role' => 'manager']);
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
 
     $response = $this->get(route('dashboard'));
@@ -51,14 +52,15 @@ test('only managers and admins see the users navigation link', function () {
 });
 
 test('staff and managers do not see the administration navigation links', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
 
     $response = $this->get(route('dashboard'));
     $response->assertOk();
     $response->assertDontSee(['Shelters', 'Species', 'Breeds', 'Fur Types', 'Vaccines', 'Sicknesses']);
 
-    $manager = User::factory()->create(['role' => 'manager']);
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
 
     $response = $this->get(route('dashboard'));
@@ -67,7 +69,7 @@ test('staff and managers do not see the administration navigation links', functi
 });
 
 test('admins do not see the pets and facilities navigation links', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $response = $this->get(route('dashboard'));
@@ -77,7 +79,7 @@ test('admins do not see the pets and facilities navigation links', function () {
 });
 
 test('only admins see the administration navigation links', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $response = $this->get(route('dashboard'));
@@ -89,10 +91,10 @@ test('only admins see the administration navigation links', function () {
 
 test('shows accurate active pets, adoptions, capacity, and staff counts for the current shelter', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
-    User::factory()->count(3)->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    User::factory()->count(3)->forShelter($shelter, 'staff')->create();
 
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
     $wing = Wing::factory()->create(['facility_id' => $facility->id]);
@@ -115,7 +117,7 @@ test('excludes other shelters pets, cages, and staff from the statistics', funct
     $shelter = Shelter::factory()->create();
     $otherShelter = Shelter::factory()->create();
 
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
@@ -127,7 +129,7 @@ test('excludes other shelters pets, cages, and staff from the statistics', funct
     $otherWing = Wing::factory()->create(['facility_id' => $otherFacility->id]);
     Cage::factory()->create(['wing_id' => $otherWing->id, 'capacity' => 10]);
     Pet::factory()->count(2)->create(['shelter_id' => $otherShelter->id, 'status' => 'adopted']);
-    User::factory()->count(2)->create(['shelter_id' => $otherShelter->id, 'role' => 'staff']);
+    User::factory()->count(2)->forShelter($otherShelter, 'staff')->create();
 
     Livewire::test(Dashboard::class)
         ->assertSet('activePetsCount', 1)
@@ -138,7 +140,7 @@ test('excludes other shelters pets, cages, and staff from the statistics', funct
 
 test('lists the five most recent intakes with their species, ref, and a link to the pet', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -181,7 +183,7 @@ test('lists the five most recent intakes with their species, ref, and a link to 
 
 test('breaks recent intakes ties on the same check-in date by created_at desc', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $checkinDate = now()->subDay();
@@ -208,7 +210,7 @@ test('breaks recent intakes ties on the same check-in date by created_at desc', 
 
 test('excludes pets without a check-in date from recent intakes', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
@@ -231,7 +233,7 @@ test('excludes pets without a check-in date from recent intakes', function () {
 
 test('lists the five most recent adoptions with their species, ref, and a link to the pet', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $species = Species::factory()->create(['name' => 'Cat']);
@@ -263,7 +265,7 @@ test('lists the five most recent adoptions with their species, ref, and a link t
 
 test('breaks recent adoptions ties on the same adoption date by created_at desc', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $adoptionDate = now()->subDay();
@@ -283,7 +285,7 @@ test('breaks recent adoptions ties on the same adoption date by created_at desc'
 test('excludes other shelters adoptions from recent adoptions', function () {
     $shelter = Shelter::factory()->create();
     $otherShelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $otherPet = Pet::factory()->create(['shelter_id' => $otherShelter->id, 'name' => 'Other Shelter Pet', 'status' => 'adopted']);
@@ -298,7 +300,7 @@ test('excludes other shelters adoptions from recent adoptions', function () {
 
 test('excludes adoptions whose pet is not currently adopted from recent adoptions', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
@@ -317,7 +319,7 @@ test('excludes adoptions whose pet is not currently adopted from recent adoption
 
 test('lists active pets with no cage assigned, up to five, most recent first', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $species = Species::factory()->create(['name' => 'Rabbit']);
@@ -362,7 +364,7 @@ test('lists active pets with no cage assigned, up to five, most recent first', f
 test('excludes other shelters pets from pets with unknown location', function () {
     $shelter = Shelter::factory()->create();
     $otherShelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     Pet::factory()->create(['shelter_id' => $otherShelter->id, 'name' => 'Other Shelter No Location Pet', 'cage_id' => null]);
@@ -376,7 +378,7 @@ test('excludes other shelters pets from pets with unknown location', function ()
 
 test('lists the five most recent passings with their species, ref, and a link to the pet', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $species = Species::factory()->create(['name' => 'Cat']);
@@ -413,7 +415,7 @@ test('lists the five most recent passings with their species, ref, and a link to
 
 test('breaks recent passings ties on the same date of death by created_at desc', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $dateOfDeath = now()->subDay();
@@ -440,7 +442,7 @@ test('breaks recent passings ties on the same date of death by created_at desc',
 
 test('excludes pets without a date of death from recent passings', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
@@ -459,7 +461,7 @@ test('excludes pets without a date of death from recent passings', function () {
 test('excludes other shelters pets from recent passings', function () {
     $shelter = Shelter::factory()->create();
     $otherShelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     Pet::factory()->create(['shelter_id' => $otherShelter->id, 'name' => 'Other Shelter Passing', 'date_of_death' => now()]);
@@ -473,7 +475,7 @@ test('excludes other shelters pets from recent passings', function () {
 
 test('lists the five most recent sponsorships with their species, ref, and a link to the pet', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $species = Species::factory()->create(['name' => 'Parrot']);
@@ -510,7 +512,7 @@ test('lists the five most recent sponsorships with their species, ref, and a lin
 test('excludes other shelters sponsorships from recent sponsorships', function () {
     $shelter = Shelter::factory()->create();
     $otherShelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $facility = Facility::factory()->create(['shelter_id' => $otherShelter->id]);
@@ -529,7 +531,7 @@ test('excludes other shelters sponsorships from recent sponsorships', function (
 
 test('the pets sidebar only lists species enabled for the current shelter', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $dog = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
@@ -545,7 +547,7 @@ test('the pets sidebar only lists species enabled for the current shelter', func
 
 test('the pets sidebar is empty when the shelter has no species enabled', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
@@ -558,7 +560,7 @@ test('the pets sidebar is empty when the shelter has no species enabled', functi
 
 test('shows a placeholder message when there are no recent intakes', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $response = $this->get(route('dashboard'));
@@ -569,7 +571,7 @@ test('shows a placeholder message when there are no recent intakes', function ()
 
 test('shelter users see a warning when the shelter has no facilities defined', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $response = $this->get(route('dashboard'));
@@ -580,7 +582,7 @@ test('shelter users see a warning when the shelter has no facilities defined', f
 
 test('shelter users still see the facilities warning when a facility and wing exist but no cage does', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
@@ -594,7 +596,7 @@ test('shelter users still see the facilities warning when a facility and wing ex
 
 test('shelter users do not see the facilities warning once a cage exists', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
@@ -609,7 +611,7 @@ test('shelter users do not see the facilities warning once a cage exists', funct
 
 test('shelter users see a warning when the shelter has no species configured', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $response = $this->get(route('dashboard'));
@@ -620,7 +622,7 @@ test('shelter users see a warning when the shelter has no species configured', f
 
 test('shelter users do not see the species warning once the shelter has a species configured', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $species = Species::factory()->create();
@@ -633,7 +635,7 @@ test('shelter users do not see the species warning once the shelter has a specie
 });
 
 test('admins do not see the facilities or species warnings', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $response = $this->get(route('dashboard'));
@@ -645,7 +647,7 @@ test('admins do not see the facilities or species warnings', function () {
 
 test('shelter users see a warning for a shelter species that has no breeds', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -659,7 +661,7 @@ test('shelter users see a warning for a shelter species that has no breeds', fun
 
 test('shelter users do not see the missing breeds warning once the species has a breed', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -674,7 +676,7 @@ test('shelter users do not see the missing breeds warning once the species has a
 
 test('shelter users do not see the missing breeds warning for species not enabled for their shelter', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['shelter_id' => $shelter->id, 'role' => 'staff']);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     Species::factory()->create(['name' => 'Cat']);
@@ -686,7 +688,7 @@ test('shelter users do not see the missing breeds warning for species not enable
 });
 
 test('admins do not see the missing breeds warning', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);

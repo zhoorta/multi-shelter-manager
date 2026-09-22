@@ -60,7 +60,7 @@ class Dashboard extends Component
 
     public function mount(): void
     {
-        $shelterId = Auth::user()->shelter_id;
+        $shelterId = Auth::user()->current_shelter_id;
 
         $this->activePetsCount = Pet::query()
             ->where('shelter_id', $shelterId)
@@ -80,7 +80,7 @@ class Dashboard extends Component
         $this->availableCapacity = max(0, $totalCapacity - $this->activePetsCount);
 
         $this->staffCount = User::query()
-            ->where('shelter_id', $shelterId)
+            ->whereHas('shelters', fn ($query) => $query->whereKey($shelterId))
             ->count();
 
         $this->hasCages = Cage::query()
@@ -144,7 +144,7 @@ class Dashboard extends Component
     #[Computed]
     public function speciesWithoutBreeds(): SupportCollection
     {
-        $shelter = Shelter::query()->find(Auth::user()->shelter_id);
+        $shelter = Shelter::query()->find(Auth::user()->current_shelter_id);
 
         return $shelter
             ? $shelter->species()->whereDoesntHave('breeds')->pluck('name')

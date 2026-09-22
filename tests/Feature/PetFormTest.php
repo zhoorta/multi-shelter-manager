@@ -26,7 +26,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the form', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('pets.create'))->assertForbidden();
@@ -39,12 +39,12 @@ test('managers and staff can view the create and edit pages', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.create'))->assertOk();
     $this->get(route('pets.edit', $pet))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.create'))->assertOk();
     $this->get(route('pets.edit', $pet))->assertOk();
@@ -55,14 +55,14 @@ test('returns 404 when editing a pet belonging to another shelter', function () 
     $pet = Pet::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.edit', $pet))->assertNotFound();
 });
 
 test('the create form starts with every optional field empty', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetForm::class)
         ->assertSet('petPrimaryColorId', null)
@@ -79,7 +79,7 @@ test('the create form starts with every optional field empty', function () {
 
 test('breed dropdown reflects the selected species right after opening the create form', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     Breed::factory()->for($species)->create(['name' => 'Labrador']);
@@ -91,7 +91,7 @@ test('breed dropdown reflects the selected species right after opening the creat
 
 test('resets the selected breed when the species changes', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -104,7 +104,7 @@ test('resets the selected breed when the species changes', function () {
 
 test('auto-selects the species default breed when creating a pet and selecting a species', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     Breed::factory()->for($species)->create(['name' => 'Poodle', 'is_default' => false]);
@@ -117,7 +117,7 @@ test('auto-selects the species default breed when creating a pet and selecting a
 
 test('auto-selects the species default breed when creating a pet locked to a species', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $defaultBreed = Breed::factory()->for($species)->create(['is_default' => true]);
@@ -129,7 +129,7 @@ test('auto-selects the species default breed when creating a pet locked to a spe
 
 test('does not auto-select a default breed when editing an existing pet and changing species', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $pet = Pet::factory()->for($shelter)->create();
 
@@ -143,7 +143,7 @@ test('does not auto-select a default breed when editing an existing pet and chan
 
 test('size dropdown reflects the selected species right after opening the create form', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     Size::factory()->for($species)->create(['name' => 'Grande']);
@@ -155,7 +155,7 @@ test('size dropdown reflects the selected species right after opening the create
 
 test('hides the size field when the selected species has no sizes registered', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
 
@@ -166,7 +166,7 @@ test('hides the size field when the selected species has no sizes registered', f
 
 test('resets the selected size when the species changes', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $size = Size::factory()->for($species)->create();
@@ -179,7 +179,7 @@ test('resets the selected size when the species changes', function () {
 
 test('shows the pure breed toggle when the selected species has has_pure_breed_field enabled', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create(['has_pure_breed_field' => true]);
 
@@ -190,7 +190,7 @@ test('shows the pure breed toggle when the selected species has has_pure_breed_f
 
 test('hides the pure breed toggle when the selected species has has_pure_breed_field disabled', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create(['has_pure_breed_field' => false]);
 
@@ -201,7 +201,7 @@ test('hides the pure breed toggle when the selected species has has_pure_breed_f
 
 test('resets the pure breed toggle when the species changes', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create(['has_pure_breed_field' => true]);
 
@@ -213,7 +213,7 @@ test('resets the pure breed toggle when the species changes', function () {
 
 test('saves the pure breed flag on the pet', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create(['has_pure_breed_field' => true]);
     $breed = Breed::factory()->for($species)->create();
@@ -233,7 +233,7 @@ test('saves the pure breed flag on the pet', function () {
 
 test('sickness toggles only list sicknesses linked to the selected species', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $otherSpecies = Species::factory()->create();
@@ -250,7 +250,7 @@ test('sickness toggles only list sicknesses linked to the selected species', fun
 
 test('resets the selected sicknesses when the species changes', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $sickness = Sickness::factory()->create();
@@ -264,7 +264,7 @@ test('resets the selected sicknesses when the species changes', function () {
 
 test('creates a new pet scoped to the acting user\'s shelter and redirects to the show page', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -296,7 +296,7 @@ test('creates a new pet scoped to the acting user\'s shelter and redirects to th
 
 test('saves a formatted description, stripping tags outside the allowlist', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -316,7 +316,7 @@ test('saves a formatted description, stripping tags outside the allowlist', func
 
 test('empty description markup is saved as null', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -336,7 +336,7 @@ test('empty description markup is saved as null', function () {
 
 test('saves notes on the pet', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -356,7 +356,7 @@ test('saves notes on the pet', function () {
 
 test('empty notes are saved as null', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -375,7 +375,7 @@ test('empty notes are saved as null', function () {
 
 test('generates a ref from the pet id on create', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -396,7 +396,7 @@ test('editing a pet does not change its ref', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
     $originalRef = $pet->ref;
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetForm::class, ['pet' => $pet])
         ->set('petName', 'Updated Name')
@@ -408,7 +408,7 @@ test('editing a pet does not change its ref', function () {
 
 test('creates a pet with a birth date and a death date', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -432,7 +432,7 @@ test('creates a pet with a birth date and a death date', function () {
 
 test('creates a pet marked as not adoptable and not sponsorable', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -455,7 +455,7 @@ test('creates a pet marked as not adoptable and not sponsorable', function () {
 
 test('creates a pet marked as neutered', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -476,7 +476,7 @@ test('creates a pet marked as neutered', function () {
 
 test('attaches the selected sicknesses to a newly created pet', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -499,7 +499,7 @@ test('attaches the selected sicknesses to a newly created pet', function () {
 
 test('rejects a sickness that does not belong to the selected species', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -519,7 +519,7 @@ test('rejects a sickness that does not belong to the selected species', function
 
 test('requires a name, species, breed, and gender to create a pet', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetForm::class)
         ->call('savePet')
@@ -533,7 +533,7 @@ test('requires a name, species, breed, and gender to create a pet', function () 
 
 test('rejects unknown as a gender', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -549,7 +549,7 @@ test('rejects unknown as a gender', function () {
 
 test('rejects a breed that does not belong to the selected species', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $otherSpecies = Species::factory()->create();
@@ -566,7 +566,7 @@ test('rejects a breed that does not belong to the selected species', function ()
 
 test('creates a pet with the selected size', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -587,7 +587,7 @@ test('creates a pet with the selected size', function () {
 
 test('rejects a size that does not belong to the selected species', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -611,7 +611,7 @@ test('cannot assign a pet to a cage belonging to another shelter', function () {
     $cage = Cage::factory()->for($wing)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -630,7 +630,7 @@ test('cannot assign a pet to a cage belonging to another shelter', function () {
 
 test('cage options are sorted hierarchically by facility, wing, then code', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $facilityB = Facility::factory()->for($shelter)->create(['name' => 'Facility B']);
     $facilityA = Facility::factory()->for($shelter)->create(['name' => 'Facility A']);
@@ -655,7 +655,7 @@ test('cage options are sorted hierarchically by facility, wing, then code', func
 
 test('cage available space and color reflect current occupancy', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
@@ -686,7 +686,7 @@ test('cage available space and color reflect current occupancy', function () {
 
 test('adopted or deceased pets do not count against cage available space', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
@@ -703,7 +703,7 @@ test('adopted or deceased pets do not count against cage available space', funct
 
 test('editing a pet excludes its own occupied slot from its cage available space', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
@@ -721,7 +721,7 @@ test('stores an uploaded photo as the pet\'s main image', function () {
     Storage::fake('public');
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -748,7 +748,7 @@ test('stores multiple uploaded photos, flagging only the first as main', functio
     Storage::fake('public');
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -778,7 +778,7 @@ test('stores multiple uploaded photos, flagging only the first as main', functio
 
 test('rejects a photo larger than 2MB', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -796,7 +796,7 @@ test('rejects a photo larger than 2MB', function () {
 
 test('presets the species when arriving from a species-scoped pets list', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
 
@@ -809,7 +809,7 @@ test('presets the species when arriving from a species-scoped pets list', functi
 
 test('does not preset a species when creating a pet without one in the query string', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetForm::class)
         ->assertSet('petSpeciesId', null)
@@ -818,7 +818,7 @@ test('does not preset a species when creating a pet without one in the query str
 
 test('creates a pet with the species carried over from a species-scoped pets list', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -841,7 +841,7 @@ test('does not show an editable species field when editing an existing pet', fun
     $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
     $pet = Pet::factory()->for($shelter)->for($species)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetForm::class, ['pet' => $pet])
         ->assertSee('Dogs')
@@ -850,7 +850,7 @@ test('does not show an editable species field when editing an existing pet', fun
 
 test('populates the form with the pet\'s current data when editing', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -888,7 +888,7 @@ test('populates the form with the pet\'s current data when editing', function ()
 
 test('populates the form with the pet\'s currently diagnosed sicknesses when editing', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -903,7 +903,7 @@ test('populates the form with the pet\'s currently diagnosed sicknesses when edi
 
 test('links back to the pet show page when editing', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $pet = Pet::factory()->for($shelter)->create();
 
@@ -913,7 +913,7 @@ test('links back to the pet show page when editing', function () {
 
 test('updates an existing pet and redirects to the show page', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -944,7 +944,7 @@ test('updates an existing pet and redirects to the show page', function () {
 
 test('does not expose an editable status field, and status is derived from the is_adoptable/adoption/death rules on create and update', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -977,7 +977,7 @@ test('does not expose an editable status field, and status is derived from the i
 
 test('setting a death date marks the pet deceased regardless of is_adoptable, and clearing it restores the available/not_available status', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -1005,7 +1005,7 @@ test('setting a death date marks the pet deceased regardless of is_adoptable, an
 
 test('setting a death date marks the pet deceased even while it has an open adoption', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -1022,7 +1022,7 @@ test('setting a death date marks the pet deceased even while it has an open adop
 
 test('removes a sickness from pet_sicknesses when its toggle is switched off', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -1041,7 +1041,7 @@ test('removes a sickness from pet_sicknesses when its toggle is switched off', f
 
 test('leaves an already-diagnosed sickness untouched when its toggle stays on', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -1065,7 +1065,7 @@ test('adds a new photo during edit without touching the existing main photo', fu
     Storage::fake('public');
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
@@ -1096,7 +1096,7 @@ test('adds a new photo during edit without touching the existing main photo', fu
 
 test('sets a different photo as the pet\'s main photo', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $pet = Pet::factory()->for($shelter)->create();
     $mainImage = PetImage::factory()->for($pet)->create(['is_main' => true]);
@@ -1113,7 +1113,7 @@ test('deletes a pet photo and its stored file', function () {
     Storage::fake('public');
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $pet = Pet::factory()->for($shelter)->create();
     $image = PetImage::factory()->for($pet)->create(['image_path' => 'pets/to-delete.jpg']);
@@ -1132,7 +1132,7 @@ test('cannot set as main or delete a photo belonging to another shelter\'s pet',
     $image = PetImage::factory()->for($pet)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     expect(fn () => Livewire::test(PetForm::class)->call('setMainPetImage', $image->id))
         ->toThrow(ModelNotFoundException::class);

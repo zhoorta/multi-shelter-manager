@@ -7,7 +7,6 @@ namespace App\Console\Commands;
 use App\Models\Pet;
 use App\Models\PetVaccine;
 use App\Models\Shelter;
-use App\Models\User;
 use App\Notifications\VaccinationDueNotification;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
@@ -38,9 +37,8 @@ class SendVaccinationDueNotifications extends Command
      */
     private function notifyShelter(Shelter $shelter): void
     {
-        $recipients = User::query()
-            ->where('shelter_id', $shelter->id)
-            ->where('vaccination_notifications', true)
+        $recipients = $shelter->users()
+            ->wherePivot('vaccination_notifications', true)
             ->get();
 
         if ($recipients->isEmpty()) {

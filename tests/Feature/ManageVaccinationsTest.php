@@ -15,7 +15,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('pets.vaccinations.index'))->assertForbidden();
@@ -24,18 +24,18 @@ test('admins are forbidden from viewing the page', function () {
 test('managers and staff can view the page', function () {
     $shelter = Shelter::factory()->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.vaccinations.index'))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.vaccinations.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no vaccinations', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.vaccinations.index'))->assertSee(__('No vaccinations registered'));
 });
@@ -50,7 +50,7 @@ test('lists the vaccine, dates and the vaccinated pet', function () {
         'due_date' => '2027-01-15',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->assertSee('Rabies')
@@ -75,7 +75,7 @@ test('lists only vaccinations whose pet belongs to the acting user\'s shelter', 
     $otherVaccine->species()->attach($otherPet->species_id);
     $otherPet->vaccines()->attach($otherVaccine, ['administered_date' => now()]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->assertSee('Rabies')
@@ -92,7 +92,7 @@ test('highlights an overdue due date in red when scheduled', function () {
         'status' => 'scheduled',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->assertSeeHtml('bg-red-50 text-red-800');
@@ -109,7 +109,7 @@ test('does not highlight an overdue due date in red once the vaccine has been ad
         'status' => 'administered',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->assertDontSeeHtml('bg-red-50 text-red-800');
@@ -125,7 +125,7 @@ test('highlights a due date within a week in amber when scheduled', function () 
         'status' => 'scheduled',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->assertSeeHtml('bg-amber-50 text-amber-800');
@@ -141,7 +141,7 @@ test('filters the vaccinations by vaccine name', function () {
     $pet->vaccines()->attach($rabies, ['administered_date' => now()]);
     $pet->vaccines()->attach($distemper, ['administered_date' => now()]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->set('search', 'Rabies')
@@ -158,7 +158,7 @@ test('filters the vaccinations by pet name', function () {
     $rex->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $bella->vaccines()->attach($vaccine, ['administered_date' => now()]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->set('search', 'Rex')
@@ -176,7 +176,7 @@ test('filters the vaccinations by next due date within a week', function () {
     $pet->vaccines()->attach($withinWeek, ['administered_date' => now(), 'due_date' => today()->addDays(3)]);
     $pet->vaccines()->attach($outsideWeek, ['administered_date' => now(), 'due_date' => today()->addDays(20)]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->set('nextDueFilter', 'within_week')
@@ -194,7 +194,7 @@ test('filters the vaccinations by next due date within two weeks', function () {
     $pet->vaccines()->attach($withinTwoWeeks, ['administered_date' => now(), 'due_date' => today()->addDays(10)]);
     $pet->vaccines()->attach($outsideTwoWeeks, ['administered_date' => now(), 'due_date' => today()->addDays(20)]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->set('nextDueFilter', 'within_two_weeks')
@@ -212,7 +212,7 @@ test('filters the vaccinations by next due date within a month', function () {
     $pet->vaccines()->attach($withinMonth, ['administered_date' => now(), 'due_date' => today()->addDays(25)]);
     $pet->vaccines()->attach($outsideMonth, ['administered_date' => now(), 'due_date' => today()->addDays(40)]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->set('nextDueFilter', 'within_month')
@@ -230,7 +230,7 @@ test('filters the vaccinations by overdue vaccines', function () {
     $pet->vaccines()->attach($overdue, ['due_date' => today()->subDay(), 'status' => 'scheduled']);
     $pet->vaccines()->attach($notYetDue, ['due_date' => today()->addDays(3), 'status' => 'scheduled']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->set('nextDueFilter', 'overdue')
@@ -245,7 +245,7 @@ test('the overdue filter excludes vaccines that have already been administered',
     $vaccine->species()->attach($pet->species_id);
     $pet->vaccines()->attach($vaccine, ['administered_date' => today(), 'due_date' => today()->subDay(), 'status' => 'administered']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->set('nextDueFilter', 'overdue')
@@ -260,7 +260,7 @@ test('links the edit action to the vaccination edit route', function () {
     $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageVaccinations::class)
         ->assertSeeHtml(route('pets.vaccinate.edit', [$pet, $petVaccine]));
@@ -268,7 +268,7 @@ test('links the edit action to the vaccination edit route', function () {
 
 test('soft-deletes a vaccination instead of removing it permanently', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $pet = Pet::factory()->for($shelter)->create();
@@ -294,7 +294,7 @@ test('cannot delete a vaccination belonging to another shelter\'s pet', function
     $petVaccine = $otherPet->vaccines()->first()->pivot;
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     expect(fn () => Livewire::test(ManageVaccinations::class)->call('deleteVaccination', $petVaccine->id))
         ->toThrow(ModelNotFoundException::class);

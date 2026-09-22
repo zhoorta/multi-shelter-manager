@@ -91,7 +91,7 @@ class PetForm extends Component
 
     public function mount(?Pet $pet = null): void
     {
-        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+        abort_unless(! Auth::user()->is_admin, 403);
 
         if ($pet === null) {
             if ($this->lockedSpeciesId !== '') {
@@ -531,7 +531,7 @@ class PetForm extends Component
     {
         return Cage::query()->whereHas(
             'wing.facility',
-            fn (Builder $query) => $query->where('shelter_id', Auth::user()->shelter_id),
+            fn (Builder $query) => $query->where('shelter_id', Auth::user()->current_shelter_id),
         );
     }
 
@@ -543,7 +543,7 @@ class PetForm extends Component
     {
         return PetImage::query()->whereHas(
             'pet',
-            fn (Builder $query) => $query->where('shelter_id', Auth::user()->shelter_id),
+            fn (Builder $query) => $query->where('shelter_id', Auth::user()->current_shelter_id),
         );
     }
 

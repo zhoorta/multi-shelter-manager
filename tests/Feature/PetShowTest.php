@@ -25,7 +25,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $pet = Pet::factory()->create();
@@ -37,11 +37,11 @@ test('managers and staff can view a pet belonging to their shelter', function ()
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.show', $pet))->assertOk()->assertSee('Rex');
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.show', $pet))->assertOk()->assertSee('Rex');
 });
@@ -51,7 +51,7 @@ test('returns 404 when viewing a pet belonging to another shelter', function () 
     $pet = Pet::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))->assertNotFound();
 });
@@ -60,7 +60,7 @@ test('links to the edit page', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))->assertSee(route('pets.edit', $pet), false);
 });
@@ -69,7 +69,7 @@ test('links to the adoption registration page unless the pet is already adopted'
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))->assertSee(route('pets.adopt', $pet), false);
 
@@ -82,7 +82,7 @@ test('links to the sponsorship registration page only when the pet is sponsorabl
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))->assertSee(route('pets.sponsor', $pet), false);
 
@@ -95,7 +95,7 @@ test('links to the adoption registration page only when the pet is not adopted',
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))->assertSee(route('pets.adopt', $pet), false);
 
@@ -108,7 +108,7 @@ test('links back to the pets list scoped to the pet species', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertSee(route('pets.index', ['speciesFilter' => $pet->species_id]), false)
@@ -124,7 +124,7 @@ test('does not display placeholder text when color and fur type are not assigned
         'size_id' => null,
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -138,7 +138,7 @@ test('shows the pet\'s size when assigned', function () {
     $size = Size::factory()->for($species)->create(['name' => 'Grande']);
     $pet = Pet::factory()->for($shelter)->for($species)->create(['size_id' => $size->id]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -152,7 +152,7 @@ test('shows a placeholder when the species has sizes but the pet has none assign
     Size::factory()->for($species)->create(['name' => 'Grande']);
     $pet = Pet::factory()->for($shelter)->for($species)->create(['size_id' => null]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -164,7 +164,7 @@ test('hides the size field entirely when the species has no sizes registered', f
     $species = Species::factory()->create();
     $pet = Pet::factory()->for($shelter)->for($species)->create(['size_id' => null]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -177,7 +177,7 @@ test('shows "(Pure)" next to the breed when the species has pure breeds enabled 
     $breed = Breed::factory()->for($species)->create(['name' => 'Labrador']);
     $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['is_pure_breed' => true]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -190,7 +190,7 @@ test('does not show "(Pure)" when the pet is a pure breed but the species has pu
     $breed = Breed::factory()->for($species)->create(['name' => 'Labrador']);
     $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['is_pure_breed' => true]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -203,7 +203,7 @@ test('does not show "(Pure)" when the species has pure breeds enabled but the pe
     $breed = Breed::factory()->for($species)->create(['name' => 'Labrador']);
     $pet = Pet::factory()->for($shelter)->for($species)->for($breed)->create(['is_pure_breed' => false]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -217,7 +217,7 @@ test('shows the birth date and death date', function () {
         'date_of_death' => '2024-03-15',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -228,7 +228,7 @@ test('shows the checkin date', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['checkin_date' => '2023-01-10']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -242,7 +242,7 @@ test('shows the checkout date after the checkin date', function () {
         'checkout_date' => '2023-06-20',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -254,7 +254,7 @@ test('shows the adoption date next to the name when the pet is adopted', functio
     $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'adopted']);
     Adoption::factory()->for($pet)->create(['adoption_date' => '2026-02-10']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -271,7 +271,7 @@ test('shows the death date next to the name when the pet is deceased, instead of
     ]);
     Adoption::factory()->for($pet)->create(['adoption_date' => '2026-02-10']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -282,7 +282,7 @@ test('does not show the adopted/deceased info next to the name for a pet that is
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'available']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -294,7 +294,7 @@ test('shows the pet description as rendered HTML in its own box at the end', fun
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['description' => '<p>Loves <b>belly rubs</b>.</p>']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -305,7 +305,7 @@ test('shows a placeholder when the pet has no description', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['description' => null]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -316,7 +316,7 @@ test('shows the pet notes in their own box after the description', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['description' => 'Loves belly rubs.', 'notes' => 'Needs a quiet home.']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -327,7 +327,7 @@ test('shows a placeholder when the pet has no notes', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['notes' => null]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -341,7 +341,7 @@ test('shows the cage field as facility, then wing, then cage code', function () 
     $cage = Cage::factory()->for($wing)->create(['code' => 'D12']);
     $pet = Pet::factory()->for($shelter)->create(['cage_id' => $cage->id]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -363,7 +363,7 @@ test('shows the sponsorship box when the pet has a sponsorship', function () {
         'notes' => 'Prefers monthly updates',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -376,7 +376,7 @@ test('shows every sponsorship, most recent first, when the pet has more than one
     Sponsorship::factory()->for($pet)->create(['name' => 'Old Sponsor', 'created_at' => now()->subDay()]);
     Sponsorship::factory()->for($pet)->create(['name' => 'New Sponsor', 'created_at' => now()]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -387,7 +387,7 @@ test('does not show the sponsorship box when the pet has no sponsorship', functi
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => false]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -414,7 +414,7 @@ test('shows the adoption box after the description and notes', function () {
         'notes' => 'Great home visit',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -432,7 +432,7 @@ test('does not show the adoption box when the pet has never been adopted', funct
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -448,7 +448,7 @@ test('still shows the adoption box after the pet has been returned', function ()
         'return_date' => '2026-03-01',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -461,7 +461,7 @@ test('shows every adoption, most recent first, when the pet has more than one', 
     Adoption::factory()->for($pet)->create(['name' => 'Old Adopter', 'adoption_date' => '2025-01-01']);
     Adoption::factory()->for($pet)->create(['name' => 'New Adopter', 'adoption_date' => '2026-01-01']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -480,7 +480,7 @@ test('shows the payments made for a sponsorship', function () {
         'notes' => 'January contribution',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -492,7 +492,7 @@ test('shows a message when a sponsorship has no payments', function () {
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     Sponsorship::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -504,7 +504,7 @@ test('defaults the payment dates to today and the end date to one year later whe
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     $sponsorship = Sponsorship::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $today = now()->format('Y-m-d');
     $oneYearFromToday = now()->addYear()->format('Y-m-d');
@@ -523,7 +523,7 @@ test('creates a sponsorship payment', function () {
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     $sponsorship = Sponsorship::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetShow::class, ['pet' => $pet])
         ->call('createPayment', $sponsorship->id)
@@ -546,7 +546,7 @@ test('requires the payment fields', function () {
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     $sponsorship = Sponsorship::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetShow::class, ['pet' => $pet])
         ->call('createPayment', $sponsorship->id)
@@ -568,7 +568,7 @@ test('requires the payment end date to be on or after the start date', function 
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     $sponsorship = Sponsorship::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetShow::class, ['pet' => $pet])
         ->call('createPayment', $sponsorship->id)
@@ -589,7 +589,7 @@ test('loads an existing payment for editing', function () {
         'notes' => 'Original notes',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetShow::class, ['pet' => $pet])
         ->call('editPayment', $payment->id)
@@ -603,7 +603,7 @@ test('updates an existing sponsorship payment', function () {
     $sponsorship = Sponsorship::factory()->for($pet)->create();
     $payment = SponsorshipPayment::factory()->for($sponsorship)->create(['payment_value' => 15]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(PetShow::class, ['pet' => $pet])
         ->call('editPayment', $payment->id)
@@ -621,7 +621,7 @@ test('deletes a sponsorship payment', function () {
     $sponsorship = Sponsorship::factory()->for($pet)->create();
     $payment = SponsorshipPayment::factory()->for($sponsorship)->create();
 
-    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     Livewire::test(PetShow::class, ['pet' => $pet])->call('deletePayment', $payment->id);
@@ -637,7 +637,7 @@ test('cannot create, edit or delete a payment for a sponsorship belonging to ano
     $otherSponsorship = Sponsorship::factory()->for($otherPet)->create();
     $otherPayment = SponsorshipPayment::factory()->for($otherSponsorship)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('createPayment', $otherSponsorship->id))
         ->toThrow(ModelNotFoundException::class);
@@ -665,7 +665,7 @@ test('lists the species sicknesses next to neutered status, marking which ones t
     $unrelated = Sickness::factory()->create(['name' => 'Feline Leukemia']);
     $unrelated->species()->attach($otherSpecies);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -677,7 +677,7 @@ test('links to the vaccination form next to the vaccinations table', function ()
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -688,7 +688,7 @@ test('the vaccination link stays visible even when the heart dropdown is hidden'
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'is_sponsorable' => false]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -699,7 +699,7 @@ test('shows a message when the pet has no vaccinations', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -728,7 +728,7 @@ test('lists the vaccines administered to the pet, most recent first', function (
         'notes' => null,
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -751,7 +751,7 @@ test('highlights the due date amber when scheduled and due within a week or exac
     $administeredWithSoonDueDate = Vaccine::factory()->create();
     $pet->vaccines()->attach($administeredWithSoonDueDate, ['administered_date' => now(), 'due_date' => now()->addDays(3), 'status' => 'administered']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $response = $this->get(route('pets.show', $pet))->assertOk();
 
@@ -769,7 +769,7 @@ test('highlights the due date red when scheduled and overdue', function () {
     $overdue = Vaccine::factory()->create();
     $pet->vaccines()->attach($overdue, ['due_date' => now()->subDay(), 'status' => 'scheduled']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $response = $this->get(route('pets.show', $pet))->assertOk();
 
@@ -784,7 +784,7 @@ test('does not highlight the due date once the vaccine has been administered, ev
     $vaccine = Vaccine::factory()->create();
     $pet->vaccines()->attach($vaccine, ['administered_date' => now(), 'due_date' => now()->subDay(), 'status' => 'administered']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $response = $this->get(route('pets.show', $pet))->assertOk();
 
@@ -799,7 +799,7 @@ test('renders show, edit and delete actions for each vaccination', function () {
     $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
@@ -815,7 +815,7 @@ test('deletes a vaccination record', function () {
     $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
-    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     Livewire::test(PetShow::class, ['pet' => $pet])
@@ -835,7 +835,7 @@ test('cannot delete a vaccination belonging to another pet', function () {
     $otherPet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $otherPetVaccine = $otherPet->vaccines()->first()->pivot;
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteVaccination', $otherPetVaccine->id))
         ->toThrow(ModelNotFoundException::class);

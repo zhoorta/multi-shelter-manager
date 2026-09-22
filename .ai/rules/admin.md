@@ -2,6 +2,7 @@
 paths:
   - 'app/Livewire/Admin/**'
   - app/Livewire/Admin/ManageBreeds.php
+  - app/Livewire/Admin/ManageUsers.php
 ---
 
 # Admin
@@ -30,3 +31,6 @@ volunteer_activities is a plain pivot (volunteer_id, activity_id, cascadeOnDelet
 
 ## Only one default (SRD) breed per species
 ManageBreeds::saveBreed() enforces breeds.is_default as at-most-one-per-species: when breedIsDefault is true, after creating/updating the breed it runs `Breed::where('species_id', ...)->whereKeyNot($breed->id)->update(['is_default' => false])`, all inside a DB::transaction(). No DB-level unique constraint backs this — it's app-enforced only, so any other write path that sets is_default (bulk import, tinker, a future seeder) must clear siblings the same way or this invariant breaks silently. See tests/Feature/ManageBreedsTest.php ("marking a breed as default clears the flag from other breeds of the same species" and related).
+
+## Manager delete detaches from current shelter unless it's the user's last
+ManageUsers::deleteUser() for a non-admin manager: if the user also belongs to other shelters, it only detaches the current_shelter_id membership (and moves the user's current_shelter_id to one of their remaining shelters if it pointed at the removed one); only when the current shelter is their last membership is the account soft-deleted. Admin delete always soft-deletes the whole account. Never let a manager's delete remove access to shelters they are not acting in.

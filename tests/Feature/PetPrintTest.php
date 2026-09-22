@@ -12,7 +12,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $pet = Pet::factory()->create();
@@ -25,7 +25,7 @@ test('returns 404 when printing a pet belonging to another shelter', function ()
     $pet = Pet::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print', $pet))->assertNotFound();
 });
@@ -34,11 +34,11 @@ test('managers and staff can view the printable page for a pet belonging to thei
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'city' => 'Lisbon']);
     $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.print', $pet))->assertOk()->assertSee('Rex')->assertSee($pet->ref);
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.print', $pet))->assertOk()->assertSee('Rex')->assertSee($pet->ref);
 });
@@ -52,7 +52,7 @@ test('shows the pet reference, breed, shelter name, city, website and email', fu
     ]);
     $pet = Pet::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print', $pet))
         ->assertOk()
@@ -68,7 +68,7 @@ test('links to the print page from the pet show page', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))->assertSee(route('pets.print', $pet), false);
 });
@@ -81,7 +81,7 @@ test('shows time in captivity since the checkin date for a pet that is neither a
         'date_of_death' => null,
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print', $pet))
         ->assertOk()
@@ -97,7 +97,7 @@ test('shows the adoption date instead of time in captivity when the pet is adopt
     $adoption = Adoption::factory()->for($pet)->create(['adoption_date' => '2025-03-10', 'return_date' => null]);
     $pet->update(['status' => 'adopted']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print', $pet))
         ->assertOk()
@@ -114,7 +114,7 @@ test('shows the death date and hides the age field when the pet is deceased', fu
         'date_of_death' => '2025-06-15',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print', $pet))
         ->assertOk()

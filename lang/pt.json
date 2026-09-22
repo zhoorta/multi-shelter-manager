@@ -100,6 +100,7 @@
     
     "Record created successfully": "Registo criado com sucesso.",
     "Record updated successfully": "Registo atualizado com sucesso.",
+    "User removed from the shelter": "Utilizador removido do abrigo.",
     "Record deleted successfully": "Registo eliminado com sucesso.",
     "You do not have permission to view this shelter": "Não tem permissão para aceder a este abrigo.",
 
@@ -241,6 +242,7 @@
     "Last Login": "Último Acesso",
     "Invite User": "Convidar Utilizador",
     "Edit User": "Editar Utilizador",
+    "This shelter has already been selected.": "Este abrigo já foi selecionado.",
     "User invited successfully": "Utilizador convidado com sucesso.",
     "No users registered": "Nenhum utilizador registado.",
     "You cannot delete your own account": "Não pode eliminar a sua própria conta.",

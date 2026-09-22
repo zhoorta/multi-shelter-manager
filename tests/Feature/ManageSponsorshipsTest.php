@@ -16,7 +16,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('pets.sponsorships.index'))->assertForbidden();
@@ -25,18 +25,18 @@ test('admins are forbidden from viewing the page', function () {
 test('managers and staff can view the page', function () {
     $shelter = Shelter::factory()->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.sponsorships.index'))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.sponsorships.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no sponsorships', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.sponsorships.index'))->assertSee(__('No sponsorships registered'));
 });
@@ -50,7 +50,7 @@ test('lists the sponsor contacts and the sponsored pet', function () {
         'phone' => '912345678',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSee('Maria Silva')
@@ -71,7 +71,7 @@ test('lists only sponsorships whose pet belongs to the acting user\'s shelter', 
     $otherPet = Pet::factory()->for($otherShelter)->create(['name' => 'Other Shelter Dog']);
     Sponsorship::factory()->for($otherPet)->create(['name' => 'Other Shelter Sponsor']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSee('Maria Silva')
@@ -83,7 +83,7 @@ test('shows the no payments message when a sponsorship has no payments', functio
     $pet = Pet::factory()->for($shelter)->create();
     Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSee(__('(No payments done)'));
@@ -95,7 +95,7 @@ test('shows the valid until date in bold when the latest payment end date is in 
     $sponsorship = Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva']);
     SponsorshipPayment::factory()->for($sponsorship)->create(['end_date' => today()->addMonth()]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSeeHtml('<strong>'.today()->addMonth()->format('d/m/Y').'</strong>')
@@ -108,7 +108,7 @@ test('shows the expired at date when the latest payment end date is in the past'
     $sponsorship = Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva']);
     SponsorshipPayment::factory()->for($sponsorship)->create(['end_date' => today()->subMonth()]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSeeHtml('<strong>'.today()->subMonth()->format('d/m/Y').'</strong>')
@@ -122,7 +122,7 @@ test('uses the largest payment end date to determine validity', function () {
     SponsorshipPayment::factory()->for($sponsorship)->create(['end_date' => today()->addMonth()]);
     SponsorshipPayment::factory()->for($sponsorship)->create(['end_date' => today()->addYear()]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSeeHtml('<strong>'.today()->addYear()->format('d/m/Y').'</strong>');
@@ -133,7 +133,7 @@ test('links the view action to the sponsorship show route', function () {
     $pet = Pet::factory()->for($shelter)->create();
     $sponsorship = Sponsorship::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSeeHtml(route('pets.sponsor.show', [$pet, $sponsorship]));
@@ -144,7 +144,7 @@ test('links the sponsor name to the sponsorship show route', function () {
     $pet = Pet::factory()->for($shelter)->create();
     $sponsorship = Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSeeHtml('href="'.route('pets.sponsor.show', [$pet, $sponsorship]).'"')
@@ -156,7 +156,7 @@ test('shows the sponsorship notes on a new line', function () {
     $pet = Pet::factory()->for($shelter)->create();
     Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva', 'notes' => 'Prefers email contact']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->assertSee('Prefers email contact');
@@ -168,7 +168,7 @@ test('filters the sponsorships by sponsor name', function () {
     Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva']);
     Sponsorship::factory()->for($pet)->create(['name' => 'Joao Costa']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->set('search', 'Maria')
@@ -182,7 +182,7 @@ test('filters the sponsorships by phone', function () {
     Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva', 'phone' => '912345678']);
     Sponsorship::factory()->for($pet)->create(['name' => 'Joao Costa', 'phone' => '911111111']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->set('search', '912345')
@@ -196,7 +196,7 @@ test('filters the sponsorships by email', function () {
     Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva', 'email' => 'maria@example.com']);
     Sponsorship::factory()->for($pet)->create(['name' => 'Joao Costa', 'email' => 'joao@example.com']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->set('search', 'maria@example.com')
@@ -211,7 +211,7 @@ test('filters the sponsorships by pet name', function () {
     Sponsorship::factory()->for($rex)->create(['name' => 'Maria Silva']);
     Sponsorship::factory()->for($bella)->create(['name' => 'Joao Costa']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->set('search', 'Rex')
@@ -226,7 +226,7 @@ test('filters the sponsorships by pet ref', function () {
     Sponsorship::factory()->for($rex)->create(['name' => 'Maria Silva']);
     Sponsorship::factory()->for($bella)->create(['name' => 'Joao Costa']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->set('search', 'PET00001')
@@ -240,7 +240,7 @@ test('filters the sponsorships by notes', function () {
     Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva', 'notes' => 'Prefers email contact']);
     Sponsorship::factory()->for($pet)->create(['name' => 'Joao Costa', 'notes' => 'Calls every month']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSponsorships::class)
         ->set('search', 'email contact')
@@ -254,7 +254,7 @@ test('resets the page when the search term changes', function () {
     Sponsorship::factory()->for($pet)->count(25)->create();
     Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     // Maria Silva is the only match and, being the latest record, would only
     // be visible on page 1 — so this only passes if updatingSearch() resets
@@ -267,7 +267,7 @@ test('resets the page when the search term changes', function () {
 
 test('soft-deletes a sponsorship instead of removing it permanently', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $pet = Pet::factory()->for($shelter)->create();
@@ -287,7 +287,7 @@ test('cannot delete a sponsorship belonging to another shelter\'s pet', function
     $sponsorship = Sponsorship::factory()->for($otherPet)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     expect(fn () => Livewire::test(ManageSponsorships::class)->call('deleteSponsorship', $sponsorship->id))
         ->toThrow(ModelNotFoundException::class);

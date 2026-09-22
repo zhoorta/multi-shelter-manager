@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shelter_id')->nullable()->constrained()->nullOnDelete();
+            $table->boolean('is_admin')->default(false);
+            $table->foreignId('current_shelter_id')->nullable()->constrained('shelters')->nullOnDelete();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['manager', 'staff', 'admin', 'user'])->default('staff');
-            $table->boolean('vaccination_notifications')->default(false);
             $table->rememberToken();
             $table->timestamp('last_login')->nullable();
             $table->timestamps();

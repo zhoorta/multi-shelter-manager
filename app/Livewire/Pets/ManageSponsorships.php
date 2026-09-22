@@ -24,7 +24,7 @@ class ManageSponsorships extends Component
 
     public function mount(): void
     {
-        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+        abort_unless(! Auth::user()->is_admin, 403);
     }
 
     public function updatingSearch(): void

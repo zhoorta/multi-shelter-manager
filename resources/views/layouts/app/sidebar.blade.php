@@ -15,9 +15,9 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
-                    @if (auth()->user()->role !== 'admin')
+                    @if (! auth()->user()->is_admin)
                         <flux:sidebar.group icon="heart" :heading="__('Pets')" expandable>
-                            @foreach (auth()->user()->shelter?->species()->orderBy('name')->get() ?? [] as $sidebarSpecies)
+                            @foreach (auth()->user()->currentShelter?->species()->orderBy('name')->get() ?? [] as $sidebarSpecies)
                                 <flux:sidebar.item
                                     :href="route('pets.index', ['speciesFilter' => $sidebarSpecies->id])"
                                     :current="request()->routeIs('pets.index') && (string) request()->query('speciesFilter') === (string) $sidebarSpecies->id"
@@ -55,14 +55,14 @@
                             {{ __('Facilities') }}
                         </flux:sidebar.item>
                     @endif
-                    @if (in_array(auth()->user()->role, ['admin', 'manager'], true))
+                    @if (auth()->user()->is_admin || auth()->user()->isManagerOfCurrentShelter())
                         <flux:sidebar.item icon="users" :href="route('admin.users.index')" :current="request()->routeIs('admin.users.index')" wire:navigate>
                             {{ __('Users') }}
                         </flux:sidebar.item>
                     @endif
                 </flux:sidebar.group>
 
-                @if (auth()->user()->role === 'admin')
+                @if (auth()->user()->is_admin)
                     <flux:sidebar.group :heading="__('Administration')" class="grid">
                         <flux:sidebar.item icon="building-office" :href="route('admin.shelters.index')" :current="request()->routeIs('admin.shelters.index')" wire:navigate>
                             {{ __('Shelters') }}
@@ -107,8 +107,8 @@
         <flux:header class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
-            @if (auth()->user()->shelter)
-                <flux:heading class="hidden truncate sm:block">{{ auth()->user()->shelter->name }}</flux:heading>
+            @if (! auth()->user()->is_admin)
+                <livewire:shelter-switcher />
             @endif
 
             <flux:spacer />

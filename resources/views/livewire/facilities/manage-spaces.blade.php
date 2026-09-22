@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Facilities') }}</flux:heading>
 
-        @if (auth()->user()->role === 'manager')
+        @if (auth()->user()->isManagerOfCurrentShelter())
             <flux:modal.trigger name="facility-form">
                 <flux:button variant="primary" icon="plus" wire:click="createFacility">
                     {{ __('Create') }}
@@ -34,7 +34,7 @@
                             @endif
                         </div>
 
-                        @if (auth()->user()->role === 'manager')
+                        @if (auth()->user()->isManagerOfCurrentShelter())
                             <div class="flex shrink-0 items-center gap-2">
                                 <flux:modal.trigger name="facility-form">
                                     <flux:button
@@ -80,7 +80,7 @@
                     <div class="flex items-center justify-between">
                         <flux:subheading>{{ __('Wings') }}</flux:subheading>
 
-                        @if (auth()->user()->role === 'manager')
+                        @if (auth()->user()->isManagerOfCurrentShelter())
                             <flux:modal.trigger name="wing-form">
                                 <flux:button
                                     size="sm"
@@ -111,7 +111,7 @@
                                             @endif
                                         </div>
 
-                                        @if (auth()->user()->role === 'manager')
+                                        @if (auth()->user()->isManagerOfCurrentShelter())
                                             <div class="flex shrink-0 items-center gap-2">
                                                 <flux:modal.trigger name="wing-form">
                                                     <flux:button
@@ -157,7 +157,7 @@
                                     <div class="flex items-center justify-between">
                                         <flux:subheading>{{ __('Cages') }}</flux:subheading>
 
-                                        @if (auth()->user()->role === 'manager')
+                                        @if (auth()->user()->isManagerOfCurrentShelter())
                                             <flux:modal.trigger name="cage-form">
                                                 <flux:button
                                                     size="sm"
@@ -179,7 +179,7 @@
                                                 <div class="flex items-center gap-2">
                                                     <flux:badge size="sm">{{ __('Capacity') }}: {{ $cage->capacity }}</flux:badge>
 
-                                                    @if (auth()->user()->role === 'manager')
+                                                    @if (auth()->user()->isManagerOfCurrentShelter())
                                                         <flux:modal.trigger name="cage-form">
                                                             <flux:button
                                                                 size="sm"
@@ -235,7 +235,7 @@
         </div>
     @endif
 
-    @if (auth()->user()->role === 'manager')
+    @if (auth()->user()->isManagerOfCurrentShelter())
     <flux:modal name="facility-form" class="max-w-lg">
         <form wire:submit="saveFacility" class="flex flex-col gap-6">
             <flux:heading size="lg">

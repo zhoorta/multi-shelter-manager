@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Volunteers') }}</flux:heading>
 
-        @if (auth()->user()->role === 'manager')
+        @if (auth()->user()->isManagerOfCurrentShelter())
             <flux:button variant="primary" icon="plus" :href="route('volunteers.create')" wire:navigate>
                 {{ __('Create') }}
             </flux:button>
@@ -112,7 +112,7 @@
                                             wire:navigate
                                         />
 
-                                        @if (auth()->user()->role === 'manager')
+                                        @if (auth()->user()->isManagerOfCurrentShelter())
                                             <flux:modal.trigger name="confirm-volunteer-deletion-{{ $item->id }}">
                                                 <flux:button
                                                     size="sm"

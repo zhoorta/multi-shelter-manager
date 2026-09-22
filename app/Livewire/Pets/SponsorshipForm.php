@@ -37,7 +37,7 @@ class SponsorshipForm extends Component
 
     public function mount(Pet $pet, ?Sponsorship $sponsorship = null): void
     {
-        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+        abort_unless(! Auth::user()->is_admin, 403);
         abort_unless($pet->is_sponsorable, 403);
         abort_if($sponsorship !== null && $sponsorship->pet_id !== $pet->id, 404);
 

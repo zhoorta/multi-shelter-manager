@@ -2,14 +2,12 @@
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Users') }}</flux:heading>
 
-        <flux:modal.trigger name="user-form">
-            <flux:button variant="primary" icon="plus" wire:click="createUser">
-                {{ __('Invite User') }}
-            </flux:button>
-        </flux:modal.trigger>
+        <flux:button variant="primary" icon="plus" :href="route('admin.users.create')" wire:navigate>
+            {{ __('Invite User') }}
+        </flux:button>
     </div>
 
-    @if (auth()->user()->role === 'admin')
+    @if (auth()->user()->is_admin)
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
             <flux:select wire:model.live="filterShelterId" :label="__('Shelter')" class="sm:max-w-xs">
                 <flux:select.option value="">{{ __('All') }}</flux:select.option>
@@ -29,10 +27,7 @@
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Email') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Notifications') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Role') }}</th>
-                            @if (auth()->user()->role === 'admin')
-                                <th scope="col" class="px-6 py-3 font-medium">{{ __('Shelter') }}</th>
-                            @endif
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Shelters') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Last Login') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
@@ -43,26 +38,30 @@
                                 <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">{{ $item->name }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->email }}</td>
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">
-                                    {{ $item->vaccination_notifications ? __('Vaccinations') : '—' }}
+                                    {{ $item->shelters->filter(fn ($shelter) => $shelter->pivot->vaccination_notifications)->pluck('name')->implode(', ') ?: '—' }}
                                 </td>
                                 <td class="px-6 py-3">
-                                    <flux:badge size="sm">{{ __(\Illuminate\Support\Str::title($item->role)) }}</flux:badge>
+                                    @if ($item->is_admin)
+                                        <flux:badge size="sm">{{ __('Admin') }}</flux:badge>
+                                    @else
+                                        <div class="flex flex-wrap gap-1">
+                                            @foreach ($item->shelters as $shelter)
+                                                <flux:badge size="sm">{{ $shelter->name }} ({{ __(\Illuminate\Support\Str::title($shelter->pivot->role)) }})</flux:badge>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </td>
-                                @if (auth()->user()->role === 'admin')
-                                    <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->shelter?->name ?? '—' }}</td>
-                                @endif
                                 <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->last_login?->format('d/m/Y H:i') ?? '—' }}</td>
                                 <td class="px-6 py-3">
                                     <div class="flex items-center gap-2">
-                                        <flux:modal.trigger name="user-form">
-                                            <flux:button
-                                                size="sm"
-                                                variant="subtle"
-                                                icon="pencil"
-                                                wire:click="editUser({{ $item->id }})"
-                                                :aria-label="__('Edit')"
-                                            />
-                                        </flux:modal.trigger>
+                                        <flux:button
+                                            size="sm"
+                                            variant="subtle"
+                                            icon="pencil"
+                                            :href="route('admin.users.edit', $item)"
+                                            wire:navigate
+                                            :aria-label="__('Edit')"
+                                        />
 
                                         @unless ($item->id === auth()->id())
                                             <flux:modal.trigger name="confirm-user-deletion-{{ $item->id }}">
@@ -98,7 +97,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="{{ auth()->user()->role === 'admin' ? 7 : 6 }}" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="6" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No users registered') }}
                                 </td>
                             </tr>
@@ -112,49 +111,4 @@
     <div class="px-6 py-3">
         <flux:pagination :paginator="$this->users" class="!border-t-0 !pt-0" />
     </div>
-
-    <flux:modal name="user-form" class="max-w-lg">
-        <form wire:submit="saveUser" class="flex flex-col gap-6">
-            <flux:heading size="lg">
-                {{ $editingUserId ? __('Edit User') : __('Invite User') }}
-            </flux:heading>
-
-            <flux:input wire:model="userName" :label="__('Name')" />
-
-            @if ($editingUserId)
-                <flux:input :value="$userEmail" :label="__('Email')" disabled />
-            @else
-                <flux:input wire:model="userEmail" :label="__('Email')" type="email" />
-            @endif
-
-            <flux:select wire:model="userRole" :label="__('Role')">
-                @foreach ($this->assignableRoles() as $role)
-                    <flux:select.option value="{{ $role }}">{{ __(\Illuminate\Support\Str::title($role)) }}</flux:select.option>
-                @endforeach
-            </flux:select>
-
-            @if (auth()->user()->role === 'admin')
-                <div x-show="$wire.userRole !== 'admin'">
-                    <flux:select wire:model="userShelterId" :label="__('Shelter')">
-                        <flux:select.option value="">{{ __('Select an option') }}</flux:select.option>
-                        @foreach ($this->shelters as $shelter)
-                            <flux:select.option value="{{ $shelter->id }}">{{ $shelter->name }}</flux:select.option>
-                        @endforeach
-                    </flux:select>
-                </div>
-            @endif
-
-            <flux:switch wire:model="userVaccinationNotifications" :label="__('Vaccination Notifications')" />
-
-            <div class="flex justify-end gap-2">
-                <flux:modal.close>
-                    <flux:button type="button" variant="filled">{{ __('Cancel') }}</flux:button>
-                </flux:modal.close>
-
-                <flux:button type="submit" variant="primary">
-                    {{ $editingUserId ? __('Save') : __('Invite User') }}
-                </flux:button>
-            </div>
-        </form>
-    </flux:modal>
 </div>

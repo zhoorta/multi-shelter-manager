@@ -13,31 +13,31 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff and managers are forbidden from viewing the page', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
     $this->get(route('admin.breeds.index'))->assertForbidden();
 
-    $manager = User::factory()->create(['role' => 'manager']);
+    $manager = User::factory()->create();
     $this->actingAs($manager);
     $this->get(route('admin.breeds.index'))->assertForbidden();
 });
 
 test('admins can view the page', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.breeds.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no breeds', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.breeds.index'))->assertSee(__('No breeds registered'));
 });
 
 test('lists breeds with their species name', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -49,7 +49,7 @@ test('lists breeds with their species name', function () {
 });
 
 test('creates a new breed for the selected species and closes the modal', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -69,7 +69,7 @@ test('creates a new breed for the selected species and closes the modal', functi
 });
 
 test('marking a breed as default clears the flag from other breeds of the same species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -88,7 +88,7 @@ test('marking a breed as default clears the flag from other breeds of the same s
 });
 
 test('marking a breed as default does not affect default breeds of other species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -106,7 +106,7 @@ test('marking a breed as default does not affect default breeds of other species
 });
 
 test('editing a breed to become the default clears the flag from the previous default', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -124,7 +124,7 @@ test('editing a breed to become the default clears the flag from the previous de
 });
 
 test('creating a breed defaults its species to the active filter', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -136,7 +136,7 @@ test('creating a breed defaults its species to the active filter', function () {
 });
 
 test('filters the breeds list by species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -153,7 +153,7 @@ test('filters the breeds list by species', function () {
 });
 
 test('requires a species to create a breed', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageBreeds::class)
@@ -164,7 +164,7 @@ test('requires a species to create a breed', function () {
 });
 
 test('requires a name to create a breed', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -177,7 +177,7 @@ test('requires a name to create a breed', function () {
 });
 
 test('updates an existing breed, including reassigning its species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -198,7 +198,7 @@ test('updates an existing breed, including reassigning its species', function ()
 });
 
 test('soft-deletes a breed instead of removing it permanently', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -212,7 +212,7 @@ test('soft-deletes a breed instead of removing it permanently', function () {
 });
 
 test('hides breeds whose species has been soft-deleted', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -225,7 +225,7 @@ test('hides breeds whose species has been soft-deleted', function () {
 });
 
 test('soft-deleted species do not appear in the species dropdowns', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $active = Species::factory()->create(['name' => 'Dog']);
@@ -238,7 +238,7 @@ test('soft-deleted species do not appear in the species dropdowns', function () 
 });
 
 test('still saves a breed whose species was soft-deleted after it was assigned', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);

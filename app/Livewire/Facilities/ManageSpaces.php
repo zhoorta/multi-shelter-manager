@@ -50,12 +50,12 @@ class ManageSpaces extends Component
 
     public function mount(): void
     {
-        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+        abort_unless(! Auth::user()->is_admin, 403);
     }
 
     protected function isManager(): bool
     {
-        return Auth::user()->role === 'manager';
+        return Auth::user()->isManagerOfCurrentShelter();
     }
 
     /**
@@ -104,7 +104,7 @@ class ManageSpaces extends Component
                 'string',
                 'max:255',
                 Rule::unique('facilities', 'name')
-                    ->where(fn ($query) => $query->where('shelter_id', Auth::user()->shelter_id))
+                    ->where(fn ($query) => $query->where('shelter_id', Auth::user()->current_shelter_id))
                     ->ignore($this->editingFacilityId),
             ],
             'facilityAddress' => ['nullable', 'string', 'max:255'],
@@ -374,7 +374,7 @@ class ManageSpaces extends Component
     {
         return Wing::query()->whereHas(
             'facility',
-            fn ($query) => $query->where('shelter_id', Auth::user()->shelter_id),
+            fn ($query) => $query->where('shelter_id', Auth::user()->current_shelter_id),
         );
     }
 
@@ -386,7 +386,7 @@ class ManageSpaces extends Component
     {
         return Cage::query()->whereHas(
             'wing.facility',
-            fn ($query) => $query->where('shelter_id', Auth::user()->shelter_id),
+            fn ($query) => $query->where('shelter_id', Auth::user()->current_shelter_id),
         );
     }
 

@@ -13,7 +13,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $pet = Pet::factory()->create();
@@ -27,11 +27,11 @@ test('managers and staff can view an adoption for a pet in their shelter', funct
     $pet = Pet::factory()->for($shelter)->create();
     $adoption = Adoption::factory()->for($pet)->create(['name' => 'Maria Silva']);
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.adopt.show', [$pet, $adoption]))->assertOk()->assertSee('Maria Silva');
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.adopt.show', [$pet, $adoption]))->assertOk()->assertSee('Maria Silva');
 });
@@ -42,7 +42,7 @@ test('returns 404 when the adoption does not belong to the given pet', function 
     $otherPet = Pet::factory()->for($shelter)->create();
     $adoption = Adoption::factory()->for($otherPet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt.show', [$pet, $adoption]))->assertNotFound();
 });
@@ -53,7 +53,7 @@ test('returns 404 when the pet belongs to another shelter', function () {
     $adoption = Adoption::factory()->for($pet)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt.show', [$pet, $adoption]))->assertNotFound();
 });
@@ -67,7 +67,7 @@ test('shows the owner contacts and adoption details', function () {
         'phone' => '912345678',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt.show', [$pet, $adoption]))
         ->assertOk()
@@ -79,7 +79,7 @@ test('the edit link sends the form back to the adoptions list', function () {
     $pet = Pet::factory()->for($shelter)->create();
     $adoption = Adoption::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt.show', [$pet, $adoption]))
         ->assertOk()

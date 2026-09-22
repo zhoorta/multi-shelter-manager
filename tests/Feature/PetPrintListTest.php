@@ -9,7 +9,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('pets.print.list'))->assertForbidden();
@@ -19,11 +19,11 @@ test('managers and staff can view the printable list for their shelter', functio
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'city' => 'Lisbon']);
     Pet::factory()->for($shelter)->create(['name' => 'Rex']);
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.print.list'))->assertOk()->assertSee('Rex')->assertSee('Happy Paws');
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.print.list'))->assertOk()->assertSee('Rex')->assertSee('Happy Paws');
 });
@@ -35,7 +35,7 @@ test('only lists pets belonging to the acting user\'s shelter', function () {
     Pet::factory()->for($shelter)->create(['name' => 'Rex']);
     Pet::factory()->for($otherShelter)->create(['name' => 'Other Shelter Dog']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print.list'))
         ->assertSee('Rex')
@@ -47,7 +47,7 @@ test('respects the search filter passed via the query string', function () {
     Pet::factory()->for($shelter)->create(['name' => 'Rex']);
     Pet::factory()->for($shelter)->create(['name' => 'Bella']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print.list', ['search' => 'Rex']))
         ->assertOk()
@@ -60,7 +60,7 @@ test('respects the status filter passed via the query string', function () {
     Pet::factory()->for($shelter)->create(['name' => 'Rex', 'status' => 'available']);
     Pet::factory()->for($shelter)->create(['name' => 'Bella', 'status' => 'adopted']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print.list', ['statusFilter' => 'adopted']))
         ->assertOk()
@@ -70,14 +70,14 @@ test('respects the status filter passed via the query string', function () {
 
 test('shows a placeholder message when no pets match', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.print.list'))->assertSee(__('No pets registered'));
 });
 
 test('links to the print list page from the manage pets page', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.index'))->assertSee(route('pets.print.list'), false);
 });

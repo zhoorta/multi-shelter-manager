@@ -15,7 +15,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('pets.adoptions.index'))->assertForbidden();
@@ -24,18 +24,18 @@ test('admins are forbidden from viewing the page', function () {
 test('managers and staff can view the page', function () {
     $shelter = Shelter::factory()->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.adoptions.index'))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.adoptions.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no adoptions', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adoptions.index'))->assertSee(__('No adoptions registered'));
 });
@@ -49,7 +49,7 @@ test('lists the owner contacts and the adopted pet', function () {
         'phone' => '912345678',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->assertSee('Maria Silva')
@@ -70,7 +70,7 @@ test('lists only adoptions whose pet belongs to the acting user\'s shelter', fun
     $otherPet = Pet::factory()->for($otherShelter)->create(['name' => 'Other Shelter Dog']);
     Adoption::factory()->for($otherPet)->create(['name' => 'Other Shelter Adopter']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->assertSee('Maria Silva')
@@ -82,7 +82,7 @@ test('shows the adoption date in bold and hides the return date when the pet was
     $pet = Pet::factory()->for($shelter)->create();
     Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'adoption_date' => '2026-01-10']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->assertSeeHtml('<strong>10/01/2026</strong>')
@@ -99,7 +99,7 @@ test('shows the return date in bold on its own line when the pet was returned', 
         'return_date' => '2026-02-15',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->assertSeeHtml('<strong>10/01/2026</strong>')
@@ -112,7 +112,7 @@ test('shows the adoption notes on a new line', function () {
     $pet = Pet::factory()->for($shelter)->create();
     Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'notes' => 'Prefers weekend visits']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->assertSee('Prefers weekend visits');
@@ -123,7 +123,7 @@ test('links the view action to the adoption show route', function () {
     $pet = Pet::factory()->for($shelter)->create();
     $adoption = Adoption::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->assertSeeHtml(route('pets.adopt.show', [$pet, $adoption]));
@@ -135,7 +135,7 @@ test('filters the adoptions by owner name', function () {
     Adoption::factory()->for($pet)->create(['name' => 'Maria Silva']);
     Adoption::factory()->for($pet)->create(['name' => 'Joao Costa']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->set('search', 'Maria')
@@ -150,7 +150,7 @@ test('filters the adoptions by pet ref', function () {
     Adoption::factory()->for($rex)->create(['name' => 'Maria Silva']);
     Adoption::factory()->for($bella)->create(['name' => 'Joao Costa']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->set('search', 'PET00001')
@@ -164,7 +164,7 @@ test('filters the adoptions by owner email', function () {
     Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'email' => 'maria@example.com']);
     Adoption::factory()->for($pet)->create(['name' => 'Joao Costa', 'email' => 'joao@example.com']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->set('search', 'maria@example.com')
@@ -178,7 +178,7 @@ test('filters the adoptions by owner phone', function () {
     Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'phone' => '911111111']);
     Adoption::factory()->for($pet)->create(['name' => 'Joao Costa', 'phone' => '922222222']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->set('search', '911111111')
@@ -192,7 +192,7 @@ test('filters the adoptions by notes', function () {
     Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'notes' => 'Prefers weekend visits']);
     Adoption::factory()->for($pet)->create(['name' => 'Joao Costa', 'notes' => 'Has a big backyard']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->set('search', 'weekend visits')
@@ -207,7 +207,7 @@ test('filters the adoptions by pet name', function () {
     Adoption::factory()->for($rex)->create(['name' => 'Maria Silva']);
     Adoption::factory()->for($bella)->create(['name' => 'Joao Costa']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageAdoptions::class)
         ->set('search', 'Rex')
@@ -221,7 +221,7 @@ test('resets the page when the search term changes', function () {
     Adoption::factory()->for($pet)->count(25)->create();
     Adoption::factory()->for($pet)->create(['name' => 'Maria Silva']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     // Maria Silva is the only match and, being the latest record, would only
     // be visible on page 1 — so this only passes if updatingSearch() resets
@@ -234,7 +234,7 @@ test('resets the page when the search term changes', function () {
 
 test('soft-deletes an adoption instead of removing it permanently', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $pet = Pet::factory()->for($shelter)->create();
@@ -250,7 +250,7 @@ test('soft-deletes an adoption instead of removing it permanently', function () 
 
 test('deleting an open adoption clears the pet checkout date and marks it available', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $pet = Pet::factory()->for($shelter)->create([
@@ -272,7 +272,7 @@ test('deleting an open adoption clears the pet checkout date and marks it availa
 
 test('deleting an open adoption marks a non-adoptable pet not_available instead of available', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     $pet = Pet::factory()->for($shelter)->create([
@@ -294,7 +294,7 @@ test('deleting an open adoption marks a non-adoptable pet not_available instead 
 
 test('deleting a closed adoption does not change the pet status or checkout date', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
     // The pet's current state reflects a separate, newer open adoption —
@@ -322,7 +322,7 @@ test('cannot delete an adoption belonging to another shelter\'s pet', function (
     $adoption = Adoption::factory()->for($otherPet)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     expect(fn () => Livewire::test(ManageAdoptions::class)->call('deleteAdoption', $adoption->id))
         ->toThrow(ModelNotFoundException::class);

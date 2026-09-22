@@ -14,7 +14,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the form', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $pet = Pet::factory()->create(['is_sponsorable' => true]);
@@ -26,11 +26,11 @@ test('managers and staff can view the sponsorship form for a sponsorable pet in 
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.sponsor', $pet))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.sponsor', $pet))->assertOk();
 });
@@ -40,7 +40,7 @@ test('returns 404 when the pet belongs to another shelter', function () {
     $pet = Pet::factory()->for($otherShelter)->create(['is_sponsorable' => true]);
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.sponsor', $pet))->assertNotFound();
 });
@@ -49,7 +49,7 @@ test('is forbidden when the pet is not sponsorable', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => false]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.sponsor', $pet))->assertForbidden();
 });
@@ -58,7 +58,7 @@ test('creates a sponsorship record for the pet', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $component = Livewire::test(SponsorshipForm::class, ['pet' => $pet])
         ->set('sponsorName', 'Maria Silva')
@@ -83,7 +83,7 @@ test('requires a sponsor name', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(SponsorshipForm::class, ['pet' => $pet])
         ->set('sponsorName', '')
@@ -96,7 +96,7 @@ test('loads the existing sponsorship data when editing', function () {
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     $sponsorship = Sponsorship::factory()->for($pet)->create(['name' => 'Ana Costa']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(SponsorshipForm::class, ['pet' => $pet, 'sponsorship' => $sponsorship])
         ->assertSet('sponsorName', 'Ana Costa')
@@ -108,7 +108,7 @@ test('updates an existing sponsorship record', function () {
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     $sponsorship = Sponsorship::factory()->for($pet)->create(['name' => 'Ana Costa']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $component = Livewire::test(SponsorshipForm::class, ['pet' => $pet, 'sponsorship' => $sponsorship])
         ->set('sponsorName', 'Ana Costa Silva')
@@ -127,7 +127,7 @@ test('returns 404 when the sponsorship does not belong to the given pet', functi
     $otherPet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     $sponsorship = Sponsorship::factory()->for($otherPet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.sponsor.edit', [$pet, $sponsorship]))->assertNotFound();
 });

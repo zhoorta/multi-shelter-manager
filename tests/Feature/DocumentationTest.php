@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Shelter;
 use App\Models\User;
 
 test('guests are redirected to the login page', function () {
@@ -8,7 +9,9 @@ test('guests are redirected to the login page', function () {
 });
 
 test('authenticated users of any role can visit the documentation page', function (string $role) {
-    $user = User::factory()->create(['role' => $role]);
+    $user = $role === 'admin'
+        ? User::factory()->admin()->create()
+        : User::factory()->forShelter(Shelter::factory(), $role)->create();
     $this->actingAs($user);
 
     $response = $this->get(route('documentation'));

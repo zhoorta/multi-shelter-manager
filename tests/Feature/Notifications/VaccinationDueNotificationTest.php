@@ -9,7 +9,7 @@ use App\Notifications\VaccinationDueNotification;
 
 test('links each pet name to its pet page in the reminder email', function () {
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id]);
+    $recipient = User::factory()->forShelter($shelter, 'staff')->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $vaccine = Vaccine::factory()->create();
@@ -26,7 +26,7 @@ test('links each pet name to its pet page in the reminder email', function () {
 
 test('renders the due vaccinations as an HTML table', function () {
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id]);
+    $recipient = User::factory()->forShelter($shelter, 'staff')->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $vaccine = Vaccine::factory()->create(['name' => 'Antirrábica']);

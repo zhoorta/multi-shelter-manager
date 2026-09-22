@@ -14,7 +14,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the form', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $pet = Pet::factory()->create();
@@ -26,11 +26,11 @@ test('managers and staff can view the adoption form for a pet in their shelter',
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.adopt', $pet))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.adopt', $pet))->assertOk();
 });
@@ -40,7 +40,7 @@ test('returns 404 when the pet belongs to another shelter', function () {
     $pet = Pet::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt', $pet))->assertNotFound();
 });
@@ -49,7 +49,7 @@ test('is forbidden when the pet is already adopted', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt', $pet))->assertForbidden();
 });
@@ -58,7 +58,7 @@ test('creates an adoption record, marks the pet as adopted, and sets its checkou
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'available', 'checkout_date' => null]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $component = Livewire::test(AdoptionForm::class, ['pet' => $pet])
         ->set('adopterName', 'Maria Silva')
@@ -89,7 +89,7 @@ test('creates an adoption record with a return date', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet])
         ->set('adopterName', 'Maria Silva')
@@ -106,7 +106,7 @@ test('rejects a return date before the adoption date', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet])
         ->set('adopterName', 'Maria Silva')
@@ -120,7 +120,7 @@ test('requires an adopter name and an adoption date', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet])
         ->set('adopterName', '')
@@ -134,11 +134,11 @@ test('managers and staff can view the edit form for an already-adopted pet', fun
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
     $adoption = Adoption::factory()->for($pet)->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.adopt.edit', [$pet, $adoption]))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.adopt.edit', [$pet, $adoption]))->assertOk();
 });
@@ -148,7 +148,7 @@ test('loads the existing adoption data when editing', function () {
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
     $adoption = Adoption::factory()->for($pet)->create(['name' => 'Ana Costa', 'return_date' => '2026-02-01']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
         ->assertSet('adopterName', 'Ana Costa')
@@ -161,7 +161,7 @@ test('updates an existing adoption record and keeps the pet checkout date in syn
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'checkout_date' => '2026-01-15']);
     $adoption = Adoption::factory()->for($pet)->create(['name' => 'Ana Costa', 'adoption_date' => '2026-01-15']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $component = Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
         ->set('adopterName', 'Ana Costa Silva')
@@ -185,7 +185,7 @@ test('setting a return date marks the pet as available again and clears its chec
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'checkout_date' => '2026-01-15']);
     $adoption = Adoption::factory()->for($pet)->create(['adoption_date' => '2026-01-15']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
         ->set('returnDate', '2026-03-01')
@@ -208,7 +208,7 @@ test('setting a return date marks a non-adoptable pet not_available instead of a
     ]);
     $adoption = Adoption::factory()->for($pet)->create(['adoption_date' => '2026-01-15']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
         ->set('returnDate', '2026-03-01')
@@ -225,7 +225,7 @@ test('a returned pet can be registered for a new adoption', function () {
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'checkout_date' => '2026-01-15']);
     $adoption = Adoption::factory()->for($pet)->create(['adoption_date' => '2026-01-15']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
         ->set('returnDate', '2026-03-01')
@@ -261,7 +261,7 @@ test('rejects clearing the return date when the pet has since been adopted again
         'return_date' => null,
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $returnedAdoption])
         ->set('returnDate', '')
@@ -285,7 +285,7 @@ test('editing a past adoption does not touch the pet status or checkout date whe
         'return_date' => null,
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $returnedAdoption])
         ->set('adopterName', 'Ana Costa Silva')
@@ -309,7 +309,7 @@ test('allows clearing the return date when it is the only or most recent adoptio
         'return_date' => '2026-03-01',
     ]);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
         ->set('returnDate', '')
@@ -329,7 +329,7 @@ test('returns 404 when the adoption does not belong to the given pet', function 
     $otherPet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
     $adoption = Adoption::factory()->for($otherPet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt.edit', [$pet, $adoption]))->assertNotFound();
 });
@@ -339,7 +339,7 @@ test('the back and cancel buttons link to the pet page by default when editing',
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
     $adoption = Adoption::factory()->for($pet)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt.edit', [$pet, $adoption]))
         ->assertOk()
@@ -352,7 +352,7 @@ test('the back and cancel buttons link to the adoption show page when editing vi
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
     $adoption = Adoption::factory()->for($pet)->create(['name' => 'Maria Silva']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.adopt.edit', [$pet, $adoption]).'?from=adoptions')
         ->assertOk()

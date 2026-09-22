@@ -20,7 +20,7 @@
                 {{ __('Volunteers') }}
             </flux:button>
 
-            @if (auth()->user()->role === 'manager')
+            @if (auth()->user()->isManagerOfCurrentShelter())
                 <flux:button :href="route('volunteers.edit', $volunteer)" variant="primary" icon="pencil" wire:navigate>
                     {{ __('Edit') }}
                 </flux:button>

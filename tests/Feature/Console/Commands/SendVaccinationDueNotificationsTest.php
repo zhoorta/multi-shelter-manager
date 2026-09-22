@@ -12,8 +12,8 @@ test('emails users with vaccination notifications enabled about vaccines due wit
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => true]);
-    User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => false]);
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
+    User::factory()->forShelter($shelter, 'staff', false)->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $vaccine = Vaccine::factory()->create();
@@ -32,7 +32,7 @@ test('does not email a shelter with no users subscribed to vaccination notificat
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
-    User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => false]);
+    User::factory()->forShelter($shelter, 'staff', false)->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $vaccine = Vaccine::factory()->create();
@@ -47,7 +47,7 @@ test('excludes vaccinations due outside the next 7 days', function () {
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => true]);
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $tooFar = Vaccine::factory()->create();
@@ -62,7 +62,7 @@ test('excludes vaccinations that have already been administered', function () {
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => true]);
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $administered = Vaccine::factory()->create();
@@ -81,10 +81,10 @@ test('continues to the next shelter when an earlier shelter has no subscribed us
     Notification::fake();
 
     $shelterWithoutSubscribers = Shelter::factory()->create();
-    User::factory()->create(['shelter_id' => $shelterWithoutSubscribers->id, 'vaccination_notifications' => false]);
+    User::factory()->forShelter($shelterWithoutSubscribers, 'staff', false)->create();
 
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => true]);
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $vaccine = Vaccine::factory()->create();
     $pet->vaccines()->attach($vaccine, ['due_date' => today()->addDays(3), 'status' => 'scheduled']);
@@ -98,7 +98,7 @@ test('orders the due vaccinations by due date ascending', function () {
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => true]);
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $laterVaccine = Vaccine::factory()->create();
@@ -122,7 +122,7 @@ test('breaks ties on the same due date by pet name ascending', function () {
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => true]);
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
 
     $zeltaPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'name' => 'Zelta']);
     $amaraPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'name' => 'Amara']);
@@ -146,7 +146,7 @@ test('excludes vaccinations already notified', function () {
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => true]);
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $alreadyNotified = Vaccine::factory()->create();
@@ -165,7 +165,7 @@ test('sets notification_date and notification_recipients on the notified vaccina
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
-    $recipient = User::factory()->create(['shelter_id' => $shelter->id, 'vaccination_notifications' => true]);
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
 
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $vaccine = Vaccine::factory()->create();

@@ -16,7 +16,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('facilities.index'))->assertForbidden();
@@ -25,18 +25,18 @@ test('admins are forbidden from viewing the page', function () {
 test('managers and staff can view the page', function () {
     $shelter = Shelter::factory()->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('facilities.index'))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('facilities.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no facilities', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('facilities.index'))->assertSee(__('No facilities registered'));
 });
@@ -51,7 +51,7 @@ test('lists only facilities belonging to the acting user\'s shelter, with their 
 
     Facility::factory()->for($otherShelter)->create(['name' => 'Other Shelter Building']);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSpaces::class)
         ->assertSee('Main Building')
@@ -62,7 +62,7 @@ test('lists only facilities belonging to the acting user\'s shelter, with their 
 
 test('creates a new facility scoped to the acting user\'s shelter and closes the modal', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->set('facilityName', 'Main Building')
@@ -83,7 +83,7 @@ test('creates a new facility scoped to the acting user\'s shelter and closes the
 
 test('requires a name to create a facility', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->set('facilityName', '')
@@ -94,7 +94,7 @@ test('requires a name to create a facility', function () {
 test('rejects a duplicate facility name within the same shelter', function () {
     $shelter = Shelter::factory()->create();
     Facility::factory()->for($shelter)->create(['name' => 'Main Building']);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->set('facilityName', 'Main Building')
@@ -107,7 +107,7 @@ test('allows the same facility name across different shelters', function () {
     Facility::factory()->for($otherShelter)->create(['name' => 'Main Building']);
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->set('facilityName', 'Main Building')
@@ -118,7 +118,7 @@ test('allows the same facility name across different shelters', function () {
 test('updates an existing facility', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create(['name' => 'Main Building']);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('editFacility', $facility->id)
@@ -133,7 +133,7 @@ test('updates an existing facility', function () {
 test('soft-deletes a facility instead of removing it permanently', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create(['name' => 'Main Building']);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('deleteFacility', $facility->id)
@@ -147,7 +147,7 @@ test('soft-deletes a facility\'s wings and cages along with it, stamping deleted
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
     $cage = Cage::factory()->for($wing)->create();
-    $user = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($user);
 
     Livewire::test(ManageSpaces::class)->call('deleteFacility', $facility->id);
@@ -163,7 +163,7 @@ test('cannot edit or delete a facility belonging to another shelter', function (
     $facility = Facility::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     expect(fn () => Livewire::test(ManageSpaces::class)->call('editFacility', $facility->id))
         ->toThrow(ModelNotFoundException::class);
@@ -175,7 +175,7 @@ test('cannot edit or delete a facility belonging to another shelter', function (
 test('adds a wing to a facility and closes the modal', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('createWing', $facility->id)
@@ -195,7 +195,7 @@ test('adds a wing to a facility and closes the modal', function () {
 test('requires a name to create a wing', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('createWing', $facility->id)
@@ -208,7 +208,7 @@ test('rejects a duplicate wing name within the same facility', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create();
     Wing::factory()->for($facility)->create(['name' => 'North Wing']);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('createWing', $facility->id)
@@ -223,7 +223,7 @@ test('allows the same wing name across different facilities', function () {
     Wing::factory()->for($otherFacility)->create(['name' => 'North Wing']);
 
     $facility = Facility::factory()->for($shelter)->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('createWing', $facility->id)
@@ -237,7 +237,7 @@ test('cannot add a wing to a facility belonging to another shelter', function ()
     $facility = Facility::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     expect(fn () => Livewire::test(ManageSpaces::class)->call('createWing', $facility->id))
         ->toThrow(ModelNotFoundException::class);
@@ -257,7 +257,7 @@ test('updates an existing wing', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create(['name' => 'North Wing']);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('editWing', $wing->id)
@@ -273,7 +273,7 @@ test('soft-deletes a wing instead of removing it permanently', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create(['name' => 'North Wing']);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('deleteWing', $wing->id)
@@ -288,7 +288,7 @@ test('soft-deletes a wing\'s cages along with it, stamping deleted_by', function
     $wing = Wing::factory()->for($facility)->create();
     $cageOne = Cage::factory()->for($wing)->create();
     $cageTwo = Cage::factory()->for($wing)->create();
-    $user = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $user = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($user);
 
     Livewire::test(ManageSpaces::class)->call('deleteWing', $wing->id);
@@ -305,7 +305,7 @@ test('cannot edit or delete a wing belonging to another shelter\'s facility', fu
     $wing = Wing::factory()->for($otherFacility)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     expect(fn () => Livewire::test(ManageSpaces::class)->call('editWing', $wing->id))
         ->toThrow(ModelNotFoundException::class);
@@ -318,7 +318,7 @@ test('adds a cage to a wing and closes the modal', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('createCage', $wing->id)
@@ -339,7 +339,7 @@ test('requires a code and a valid capacity to add a cage', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('createCage', $wing->id)
@@ -355,7 +355,7 @@ test('cannot add a cage to a wing belonging to another shelter', function () {
     $wing = Wing::factory()->for($otherFacility)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     expect(fn () => Livewire::test(ManageSpaces::class)->call('createCage', $wing->id))
         ->toThrow(ModelNotFoundException::class);
@@ -377,7 +377,7 @@ test('editing a cage populates the form and displays its wing name for reference
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create(['name' => 'North Wing']);
     $cage = Cage::factory()->for($wing)->create(['code' => 'C-01', 'capacity' => 2]);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('editCage', $cage->id)
@@ -392,7 +392,7 @@ test('updates an existing cage and closes the modal', function () {
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
     $cage = Cage::factory()->for($wing)->create(['code' => 'C-01', 'capacity' => 2]);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('editCage', $cage->id)
@@ -411,7 +411,7 @@ test('soft-deletes a cage instead of removing it permanently', function () {
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
     $cage = Cage::factory()->for($wing)->create(['code' => 'C-01']);
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(ManageSpaces::class)
         ->call('deleteCage', $cage->id)
@@ -427,7 +427,7 @@ test('cannot edit or delete a cage belonging to another shelter\'s wing', functi
     $cage = Cage::factory()->for($otherWing)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     expect(fn () => Livewire::test(ManageSpaces::class)->call('editCage', $cage->id))
         ->toThrow(ModelNotFoundException::class);
@@ -443,7 +443,7 @@ test('staff cannot create, edit, or delete facilities, wings, or cages', functio
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
     $cage = Cage::factory()->for($wing)->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(ManageSpaces::class)->call('createFacility')->assertForbidden();
     Livewire::test(ManageSpaces::class)->call('editFacility', $facility->id)->assertForbidden();
@@ -470,7 +470,7 @@ test('staff do not see create, edit, or delete controls on the facilities page',
     $facility = Facility::factory()->for($shelter)->create();
     $wing = Wing::factory()->for($facility)->create();
     Cage::factory()->for($wing)->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('facilities.index'))
         ->assertDontSee(__('Create'))

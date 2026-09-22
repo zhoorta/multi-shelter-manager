@@ -50,7 +50,7 @@ class ShelterForm extends Component
 
     public function mount(?Shelter $shelter = null): void
     {
-        abort_unless(Auth::user()->role === 'admin', 403);
+        abort_unless(Auth::user()->is_admin, 403);
 
         if ($shelter === null) {
             return;

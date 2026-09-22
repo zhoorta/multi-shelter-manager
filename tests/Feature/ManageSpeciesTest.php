@@ -13,31 +13,31 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff and managers are forbidden from viewing the page', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
     $this->get(route('admin.species.index'))->assertForbidden();
 
-    $manager = User::factory()->create(['role' => 'manager']);
+    $manager = User::factory()->create();
     $this->actingAs($manager);
     $this->get(route('admin.species.index'))->assertForbidden();
 });
 
 test('admins can view the page', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.species.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.species.index'))->assertSee(__('No species registered'));
 });
 
 test('lists species with their plural name and breeds count, excluding soft-deleted breeds', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs']);
@@ -51,7 +51,7 @@ test('lists species with their plural name and breeds count, excluding soft-dele
 });
 
 test('creates a new species and closes the modal', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageSpecies::class)
@@ -68,7 +68,7 @@ test('creates a new species and closes the modal', function () {
 });
 
 test('opening the create modal resets a stale edit state', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs', 'has_pure_breed_field' => true]);
@@ -86,7 +86,7 @@ test('opening the create modal resets a stale edit state', function () {
 });
 
 test('requires a name and plural name to create a species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageSpecies::class)
@@ -97,7 +97,7 @@ test('requires a name and plural name to create a species', function () {
 });
 
 test('rejects a duplicate species name', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Species::factory()->create(['name' => 'Dog']);
@@ -110,7 +110,7 @@ test('rejects a duplicate species name', function () {
 });
 
 test('rejects a duplicate species plural name', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Species::factory()->create(['name_plural' => 'Dogs']);
@@ -123,7 +123,7 @@ test('rejects a duplicate species plural name', function () {
 });
 
 test('updates an existing species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog', 'name_plural' => 'Dogs', 'has_pure_breed_field' => false]);
@@ -143,7 +143,7 @@ test('updates an existing species', function () {
 });
 
 test('soft-deletes a species instead of removing it permanently', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);

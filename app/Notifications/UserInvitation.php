@@ -38,12 +38,19 @@ class UserInvitation extends Notification
 
         $message = (new MailMessage)
             ->subject(__("You've Been Invited"))
-            ->greeting(__('Hello, :name!', ['name' => $notifiable->name]))
-            ->line(__('You have been invited to join the Shelter Manager platform.'))
-            ->line(__('Your role: :role', ['role' => __(Str::title($notifiable->role))]));
+            ->greeting(__('Hello, :name!', ['name' => $notifiable->name]));
 
-        if ($notifiable->shelter_id !== null && $notifiable->shelter) {
-            $message->line(__('Your shelter: :shelter', ['shelter' => $notifiable->shelter->name]));
+        if ($notifiable->is_admin) {
+            $message->line(__('You have been invited to join the Shelter Manager platform as an administrator.'));
+        } else {
+            $message->line(__('You have been invited to join the Shelter Manager platform.'));
+
+            $membership = $notifiable->shelters()->first();
+
+            if ($membership !== null) {
+                $message->line(__('Your shelter: :shelter', ['shelter' => $membership->name]));
+                $message->line(__('Your role: :role', ['role' => __(Str::title($membership->pivot->role))]));
+            }
         }
 
         return $message

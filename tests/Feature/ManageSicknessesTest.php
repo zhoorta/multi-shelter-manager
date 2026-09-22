@@ -13,31 +13,31 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff and managers are forbidden from viewing the page', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
     $this->get(route('admin.sicknesses.index'))->assertForbidden();
 
-    $manager = User::factory()->create(['role' => 'manager']);
+    $manager = User::factory()->create();
     $this->actingAs($manager);
     $this->get(route('admin.sicknesses.index'))->assertForbidden();
 });
 
 test('admins can view the page', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.sicknesses.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no sicknesses', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.sicknesses.index'))->assertSee(__('No sicknesses registered'));
 });
 
 test('lists sicknesses with their description and assigned species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -51,7 +51,7 @@ test('lists sicknesses with their description and assigned species', function ()
 });
 
 test('creates a new sickness with assigned species and closes the modal', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -73,7 +73,7 @@ test('creates a new sickness with assigned species and closes the modal', functi
 });
 
 test('creates a sickness without a description', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageSicknesses::class)
@@ -87,7 +87,7 @@ test('creates a sickness without a description', function () {
 });
 
 test('opening the create modal resets a stale edit state', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -107,7 +107,7 @@ test('opening the create modal resets a stale edit state', function () {
 });
 
 test('requires a name to create a sickness', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageSicknesses::class)
@@ -117,7 +117,7 @@ test('requires a name to create a sickness', function () {
 });
 
 test('rejects an unknown species id', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageSicknesses::class)
@@ -128,7 +128,7 @@ test('rejects an unknown species id', function () {
 });
 
 test('updates an existing sickness and its species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -151,7 +151,7 @@ test('updates an existing sickness and its species', function () {
 });
 
 test('soft-deletes a sickness instead of removing it permanently', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $sickness = Sickness::factory()->create(['name' => 'Parvovirus']);

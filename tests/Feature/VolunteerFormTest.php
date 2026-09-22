@@ -15,14 +15,14 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff are forbidden from viewing the form', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
 
     $this->get(route('volunteers.create'))->assertForbidden();
 });
 
 test('admins are forbidden from viewing the form', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('volunteers.create'))->assertForbidden();
@@ -30,7 +30,7 @@ test('admins are forbidden from viewing the form', function () {
 
 test('managers can view the create and edit pages', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create();
 
@@ -40,7 +40,7 @@ test('managers can view the create and edit pages', function () {
 
 test('creates a new volunteer scoped to the acting manager\'s shelter and redirects to its show page', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(VolunteerForm::class)
         ->set('volunteerName', 'Maria Silva')
@@ -57,7 +57,7 @@ test('creates a new volunteer scoped to the acting manager\'s shelter and redire
 
 test('requires a name and gender to create a volunteer', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(VolunteerForm::class)
         ->set('volunteerName', '')
@@ -68,7 +68,7 @@ test('requires a name and gender to create a volunteer', function () {
 
 test('validates email format and that the end date is not before the start date', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(VolunteerForm::class)
         ->set('volunteerName', 'Maria Silva')
@@ -82,7 +82,7 @@ test('validates email format and that the end date is not before the start date'
 
 test('populates the form when editing an existing volunteer', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create(['name' => 'Maria Silva', 'gender' => 'female']);
 
@@ -93,7 +93,7 @@ test('populates the form when editing an existing volunteer', function () {
 
 test('updates an existing volunteer', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create(['name' => 'Maria Silva']);
 
@@ -109,7 +109,7 @@ test('uploads and replaces a volunteer photo', function () {
     Storage::fake('public');
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create(['image_path' => null]);
 
@@ -135,7 +135,7 @@ test('uploads and replaces a volunteer photo', function () {
 
 test('attaches the selected activities to a newly created volunteer', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $activity = Activity::factory()->create();
 
@@ -152,7 +152,7 @@ test('attaches the selected activities to a newly created volunteer', function (
 
 test('rejects an activity id that does not exist', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(VolunteerForm::class)
         ->set('volunteerName', 'Maria Silva')
@@ -164,7 +164,7 @@ test('rejects an activity id that does not exist', function () {
 
 test('populates the form with the volunteer\'s currently selected activities when editing', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create();
     $activity = Activity::factory()->create();
@@ -176,7 +176,7 @@ test('populates the form with the volunteer\'s currently selected activities whe
 
 test('removes an activity from volunteer_activities when its toggle is switched off', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create();
     $activity = Activity::factory()->create();
@@ -192,7 +192,7 @@ test('removes an activity from volunteer_activities when its toggle is switched 
 
 test('attaches the selected species to a newly created volunteer', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $species = Species::factory()->create();
 
@@ -209,7 +209,7 @@ test('attaches the selected species to a newly created volunteer', function () {
 
 test('rejects a species id that does not exist', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(VolunteerForm::class)
         ->set('volunteerName', 'Maria Silva')
@@ -221,7 +221,7 @@ test('rejects a species id that does not exist', function () {
 
 test('populates the form with the volunteer\'s currently selected species when editing', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create();
     $species = Species::factory()->create();
@@ -233,7 +233,7 @@ test('populates the form with the volunteer\'s currently selected species when e
 
 test('removes a species from volunteer_species when its toggle is switched off', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create();
     $species = Species::factory()->create();
@@ -249,7 +249,7 @@ test('removes a species from volunteer_species when its toggle is switched off',
 
 test('saves availability for a day when morning or afternoon is checked', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(VolunteerForm::class)
         ->set('volunteerName', 'Maria Silva')
@@ -268,7 +268,7 @@ test('saves availability for a day when morning or afternoon is checked', functi
 
 test('does not save availability for a day when neither morning nor afternoon is checked', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(VolunteerForm::class)
         ->set('volunteerName', 'Maria Silva')
@@ -282,7 +282,7 @@ test('does not save availability for a day when neither morning nor afternoon is
 
 test('deletes an existing availability record when it is unchecked', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create();
     $volunteer->availabilities()->create(['day_index' => 0, 'mornings' => true, 'afternoons' => false, 'frequency' => 'weekly']);
@@ -297,7 +297,7 @@ test('deletes an existing availability record when it is unchecked', function ()
 
 test('populates the form with the volunteer\'s existing availability when editing', function () {
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $volunteer = Volunteer::factory()->for($shelter)->create();
     $volunteer->availabilities()->create(['day_index' => 3, 'mornings' => false, 'afternoons' => true, 'frequency' => 'biweekly']);
@@ -313,7 +313,7 @@ test('returns 404 when editing a volunteer belonging to another shelter', functi
     $volunteer = Volunteer::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $this->get(route('volunteers.edit', $volunteer))->assertNotFound();
 });

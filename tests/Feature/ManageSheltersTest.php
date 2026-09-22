@@ -13,35 +13,35 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff and managers are forbidden from viewing the page', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
     $this->get(route('admin.shelters.index'))->assertForbidden();
 
-    $manager = User::factory()->create(['role' => 'manager']);
+    $manager = User::factory()->create();
     $this->actingAs($manager);
     $this->get(route('admin.shelters.index'))->assertForbidden();
 });
 
 test('admins can view the page', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.shelters.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no shelters', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.shelters.index'))->assertSee(__('No shelters registered'));
 });
 
 test('lists shelters with their user and pet counts', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'short_name' => 'HP', 'city' => 'Lisbon']);
-    User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    User::factory()->forShelter($shelter, 'staff')->create();
     Pet::factory()->create(['shelter_id' => $shelter->id]);
 
     Livewire::test(ManageShelters::class)
@@ -51,7 +51,7 @@ test('lists shelters with their user and pet counts', function () {
 });
 
 test('does not show a short name when the shelter has none', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Shelter::factory()->create(['name' => 'Happy Paws', 'short_name' => null, 'city' => 'Lisbon']);
@@ -61,7 +61,7 @@ test('does not show a short name when the shelter has none', function () {
 });
 
 test('links to the separate create and edit pages instead of a modal', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws']);
@@ -73,7 +73,7 @@ test('links to the separate create and edit pages instead of a modal', function 
 });
 
 test('soft-deletes a shelter instead of removing it permanently', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws']);

@@ -13,7 +13,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the page', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $volunteer = Volunteer::factory()->create();
@@ -25,11 +25,11 @@ test('managers and staff can view a volunteer belonging to their shelter', funct
     $shelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($shelter)->create(['name' => 'Maria Silva']);
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('volunteers.show', $volunteer))->assertOk()->assertSee('Maria Silva');
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('volunteers.show', $volunteer))->assertOk()->assertSee('Maria Silva');
 });
@@ -42,7 +42,7 @@ test('shows only the activities assigned to the volunteer', function () {
     $otherActivity = Activity::factory()->create(['name' => 'Cat Grooming']);
     $volunteer->activities()->attach($assignedActivity);
 
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $this->get(route('volunteers.show', $volunteer))
         ->assertOk()
@@ -58,7 +58,7 @@ test('shows only the species (sections) assigned to the volunteer', function () 
     $otherSpecies = Species::factory()->create(['name' => 'Cat', 'name_plural' => 'Cats']);
     $volunteer->species()->attach($assignedSpecies);
 
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $this->get(route('volunteers.show', $volunteer))
         ->assertOk()
@@ -72,7 +72,7 @@ test('shows the volunteer\'s availability days with their periods and frequency'
     $volunteer->availabilities()->create(['day_index' => 0, 'mornings' => true, 'afternoons' => false, 'frequency' => 'weekly']);
     $volunteer->availabilities()->create(['day_index' => 3, 'mornings' => true, 'afternoons' => true, 'frequency' => 'biweekly']);
 
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $this->get(route('volunteers.show', $volunteer))
         ->assertOk()
@@ -85,7 +85,7 @@ test('shows a dash when the volunteer has no availability set', function () {
     $shelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     $this->get(route('volunteers.show', $volunteer))
         ->assertOk()
@@ -97,7 +97,7 @@ test('returns 404 when viewing a volunteer belonging to another shelter', functi
     $volunteer = Volunteer::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('volunteers.show', $volunteer))->assertNotFound();
 });

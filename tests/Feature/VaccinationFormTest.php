@@ -15,7 +15,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('admins are forbidden from viewing the form', function () {
-    $admin = User::factory()->create(['role' => 'admin', 'shelter_id' => null]);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $pet = Pet::factory()->create();
@@ -27,11 +27,11 @@ test('managers and staff can view the vaccination form for a pet in their shelte
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.vaccinate', $pet))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.vaccinate', $pet))->assertOk();
 });
@@ -41,7 +41,7 @@ test('returns 404 when the pet belongs to another shelter', function () {
     $pet = Pet::factory()->for($otherShelter)->create();
 
     $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.vaccinate', $pet))->assertNotFound();
 });
@@ -52,7 +52,7 @@ test('creates a vaccination record for the pet', function () {
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($pet->species_id);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $component = Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
@@ -83,7 +83,7 @@ test('creates a scheduled vaccination with only a due date', function () {
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($pet->species_id);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
@@ -103,7 +103,7 @@ test('allows administering the same vaccine to a pet more than once', function (
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($pet->species_id);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
@@ -123,7 +123,7 @@ test('requires a vaccine', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', '')
@@ -138,7 +138,7 @@ test('requires either the administered date or the due date', function () {
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($pet->species_id);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
@@ -156,7 +156,7 @@ test('rejects a vaccine that does not belong to the pet species', function () {
     $mismatchedVaccine = Vaccine::factory()->create();
     $mismatchedVaccine->species()->attach($otherSpecies);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $mismatchedVaccine->id)
@@ -171,7 +171,7 @@ test('allows an administered date after the due date', function () {
     $vaccine = Vaccine::factory()->create();
     $vaccine->species()->attach($pet->species_id);
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet])
         ->set('vaccineId', (string) $vaccine->id)
@@ -193,11 +193,11 @@ test('managers and staff can view the edit form for an existing vaccination', fu
     $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
-    $manager = User::factory()->create(['role' => 'manager', 'shelter_id' => $shelter->id]);
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('pets.vaccinate.edit', [$pet, $petVaccine]))->assertOk();
 
-    $staff = User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]);
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('pets.vaccinate.edit', [$pet, $petVaccine]))->assertOk();
 });
@@ -216,7 +216,7 @@ test('loads the existing vaccination data when editing', function () {
     ]);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet, 'petVaccine' => $petVaccine])
         ->assertSet('vaccineId', (string) $vaccine->id)
@@ -235,7 +235,7 @@ test('updates an existing vaccination record', function () {
     $pet->vaccines()->attach($vaccine, ['administered_date' => '2026-01-15']);
     $petVaccine = $pet->vaccines()->first()->pivot;
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $component = Livewire::test(VaccinationForm::class, ['pet' => $pet, 'petVaccine' => $petVaccine])
         ->set('dueDate', '2027-02-01')
@@ -260,7 +260,7 @@ test('editing a scheduled vaccination to add an administered date changes its st
 
     expect($petVaccine->status)->toBe('scheduled');
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     Livewire::test(VaccinationForm::class, ['pet' => $pet, 'petVaccine' => $petVaccine])
         ->set('administeredDate', '2026-02-01')
@@ -280,7 +280,7 @@ test('returns 404 when editing a vaccination that does not belong to the given p
     $otherPet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $otherPetVaccine = $otherPet->vaccines()->first()->pivot;
 
-    $this->actingAs(User::factory()->create(['role' => 'staff', 'shelter_id' => $shelter->id]));
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.vaccinate.edit', [$pet, $otherPetVaccine]))->assertNotFound();
 });

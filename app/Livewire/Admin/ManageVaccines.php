@@ -28,7 +28,7 @@ class ManageVaccines extends Component
 
     public function mount(): void
     {
-        abort_unless(Auth::user()->role === 'admin', 403);
+        abort_unless(Auth::user()->is_admin, 403);
     }
 
     /**

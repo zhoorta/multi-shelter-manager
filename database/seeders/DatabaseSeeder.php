@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
             ['sickness_id' => $doencaFIV, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
             ['sickness_id' => $doencaFeLV, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
         ]);
-        
+
         DB::table('activities')->insert([
             ['name' => 'Apoio na Enfermaria', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Tratamento e Cuidados aos Animais', 'created_at' => now(), 'updated_at' => now()],
@@ -108,12 +108,12 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Captura de Animais', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
-        // 7. SEED GLOBAL SYSTEM ADMIN USER (No shelter attached)
+        // 7. SEED GLOBAL SYSTEM ADMIN USER (no shelter membership)
         DB::table('users')->insert([
-            'shelter_id' => null, // Explicitly global manager
+            'is_admin' => true,
+            'current_shelter_id' => null,
             'name' => 'Administrador Acolhe',
             'email' => 'admin@acolhe.pt',
-            'role' => 'admin',
             'password' => bcrypt('password'),
             'created_at' => now(),
             'updated_at' => now(),
@@ -126,18 +126,27 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        
+
         DB::table('shelter_species')->insert([
             ['shelter_id' => $adminShelterId, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
             ['shelter_id' => $adminShelterId, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
         ]);
 
-        DB::table('users')->insert([
-            'shelter_id' => $adminShelterId,
+        $managerId = DB::table('users')->insertGetId([
+            'is_admin' => false,
+            'current_shelter_id' => $adminShelterId,
             'name' => 'Gestor Acolhe',
             'email' => 'manager@acolhe.pt',
-            'role' => 'manager', // Sets global system manager access
             'password' => bcrypt('password'), // Native secure hashing
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('shelter_users')->insert([
+            'shelter_id' => $adminShelterId,
+            'user_id' => $managerId,
+            'role' => 'manager', // Sets shelter management access
+            'vaccination_notifications' => false,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

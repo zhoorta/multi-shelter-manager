@@ -18,7 +18,7 @@ class AdoptionShow extends Component
 
     public function mount(Pet $pet, Adoption $adoption): void
     {
-        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+        abort_unless(! Auth::user()->is_admin, 403);
         abort_if($adoption->pet_id !== $pet->id, 404);
 
         $this->pet = $pet;

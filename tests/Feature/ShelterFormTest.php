@@ -13,17 +13,17 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff and managers are forbidden from viewing the form', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
     $this->get(route('admin.shelters.create'))->assertForbidden();
 
-    $manager = User::factory()->create(['role' => 'manager']);
+    $manager = User::factory()->create();
     $this->actingAs($manager);
     $this->get(route('admin.shelters.create'))->assertForbidden();
 });
 
 test('admins can view the create and edit pages', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $shelter = Shelter::factory()->create();
@@ -33,7 +33,7 @@ test('admins can view the create and edit pages', function () {
 });
 
 test('creates a new shelter and redirects to the shelters list', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ShelterForm::class)
@@ -48,7 +48,7 @@ test('creates a new shelter and redirects to the shelters list', function () {
 });
 
 test('requires a name and city to create a shelter', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ShelterForm::class)
@@ -59,7 +59,7 @@ test('requires a name and city to create a shelter', function () {
 });
 
 test('validates email and website format', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ShelterForm::class)
@@ -72,7 +72,7 @@ test('validates email and website format', function () {
 });
 
 test('populates the form when editing an existing shelter', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'short_name' => 'HP', 'city' => 'Lisbon']);
@@ -84,7 +84,7 @@ test('populates the form when editing an existing shelter', function () {
 });
 
 test('updates an existing shelter', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws', 'city' => 'Lisbon']);
@@ -105,7 +105,7 @@ test('updates an existing shelter', function () {
 test('uploads and replaces a shelter logo', function () {
     Storage::fake('public');
 
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $shelter = Shelter::factory()->create(['logo_path' => null]);
@@ -131,7 +131,7 @@ test('uploads and replaces a shelter logo', function () {
 });
 
 test('toggles species on and off before saving', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -147,7 +147,7 @@ test('toggles species on and off before saving', function () {
 });
 
 test('saves the enabled species for the shelter', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -166,7 +166,7 @@ test('saves the enabled species for the shelter', function () {
 });
 
 test('editing an existing shelter reflects its currently enabled species and can change them', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);

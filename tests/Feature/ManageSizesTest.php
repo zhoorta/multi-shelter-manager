@@ -13,31 +13,31 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff and managers are forbidden from viewing the page', function () {
-    $staff = User::factory()->create(['role' => 'staff']);
+    $staff = User::factory()->create();
     $this->actingAs($staff);
     $this->get(route('admin.sizes.index'))->assertForbidden();
 
-    $manager = User::factory()->create(['role' => 'manager']);
+    $manager = User::factory()->create();
     $this->actingAs($manager);
     $this->get(route('admin.sizes.index'))->assertForbidden();
 });
 
 test('admins can view the page', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.sizes.index'))->assertOk();
 });
 
 test('shows a placeholder message when there are no sizes', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $this->get(route('admin.sizes.index'))->assertSee(__('No sizes registered'));
 });
 
 test('lists sizes with their species name', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -49,7 +49,7 @@ test('lists sizes with their species name', function () {
 });
 
 test('creates a new size for the selected species and closes the modal', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -67,7 +67,7 @@ test('creates a new size for the selected species and closes the modal', functio
 });
 
 test('creating a size defaults its species to the active filter', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -79,7 +79,7 @@ test('creating a size defaults its species to the active filter', function () {
 });
 
 test('filters the sizes list by species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -96,7 +96,7 @@ test('filters the sizes list by species', function () {
 });
 
 test('requires a species to create a size', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     Livewire::test(ManageSizes::class)
@@ -107,7 +107,7 @@ test('requires a species to create a size', function () {
 });
 
 test('requires a name to create a size', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -120,7 +120,7 @@ test('requires a name to create a size', function () {
 });
 
 test('updates an existing size, including reassigning its species', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $dog = Species::factory()->create(['name' => 'Dog']);
@@ -141,7 +141,7 @@ test('updates an existing size, including reassigning its species', function () 
 });
 
 test('soft-deletes a size instead of removing it permanently', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -155,7 +155,7 @@ test('soft-deletes a size instead of removing it permanently', function () {
 });
 
 test('hides sizes whose species has been soft-deleted', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);
@@ -168,7 +168,7 @@ test('hides sizes whose species has been soft-deleted', function () {
 });
 
 test('soft-deleted species do not appear in the species dropdowns', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $active = Species::factory()->create(['name' => 'Dog']);
@@ -181,7 +181,7 @@ test('soft-deleted species do not appear in the species dropdowns', function () 
 });
 
 test('still saves a size whose species was soft-deleted after it was assigned', function () {
-    $admin = User::factory()->create(['role' => 'admin']);
+    $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
     $species = Species::factory()->create(['name' => 'Dog']);

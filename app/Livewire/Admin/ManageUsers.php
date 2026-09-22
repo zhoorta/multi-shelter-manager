@@ -6,16 +6,11 @@ namespace App\Livewire\Admin;
 
 use App\Models\Shelter;
 use App\Models\User;
-use App\Notifications\UserInvitation;
 use Flux\Flux;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -28,34 +23,11 @@ class ManageUsers extends Component
 
     public string $filterShelterId = '';
 
-    public ?int $editingUserId = null;
-
-    public string $userName = '';
-
-    public string $userEmail = '';
-
-    public string $userRole = 'staff';
-
-    public ?int $userShelterId = null;
-
-    public bool $userVaccinationNotifications = false;
-
     public function mount(): void
     {
-        abort_unless(in_array(Auth::user()->role, ['admin', 'manager'], true), 403);
-    }
+        $viewer = Auth::user();
 
-    protected function isManager(): bool
-    {
-        return Auth::user()->role === 'manager';
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    public function assignableRoles(): array
-    {
-        return $this->isManager() ? ['staff', 'manager'] : ['staff', 'manager', 'admin'];
+        abort_unless($viewer->is_admin || $viewer->isManagerOfCurrentShelter(), 403);
     }
 
     /**
@@ -64,11 +36,19 @@ class ManageUsers extends Component
     #[Computed]
     public function users(): LengthAwarePaginator
     {
+        $viewer = Auth::user();
+
         return User::query()
-            ->with('shelter')
+            ->with(['shelters' => fn ($query) => $viewer->is_admin
+                ? $query
+                : $query->whereIn('shelters.id', $viewer->managedShelterIds())])
             ->when(
-                $this->filterShelterId !== '',
-                fn ($query) => $query->where('shelter_id', (int) $this->filterShelterId),
+                $viewer->is_admin && $this->filterShelterId !== '',
+                fn ($query) => $query->whereHas('shelters', fn ($q) => $q->whereKey((int) $this->filterShelterId)),
+            )
+            ->when(
+                ! $viewer->is_admin,
+                fn ($query) => $query->whereHas('shelters', fn ($q) => $q->whereKey($viewer->current_shelter_id)),
             )
             ->orderBy('name')
             ->paginate(20);
@@ -88,92 +68,6 @@ class ManageUsers extends Component
         $this->resetPage();
     }
 
-    public function createUser(): void
-    {
-        $this->resetUserForm();
-    }
-
-    public function editUser(int $userId): void
-    {
-        $user = User::query()->findOrFail($userId);
-
-        $this->editingUserId = $user->id;
-        $this->userName = $user->name;
-        $this->userEmail = $user->email;
-        $this->userRole = $user->role;
-        $this->userShelterId = $user->shelter_id;
-        $this->userVaccinationNotifications = $user->vaccination_notifications;
-    }
-
-    public function saveUser(): void
-    {
-        if ($this->userRole === 'admin') {
-            $this->userShelterId = null;
-        }
-
-        if ($this->isManager()) {
-            $this->userShelterId = Auth::user()->shelter_id;
-        }
-
-        $validated = $this->validate([
-            'userName' => ['required', 'string', 'max:255'],
-            'userEmail' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('users', 'email')->ignore($this->editingUserId),
-            ],
-            'userRole' => ['required', Rule::in($this->assignableRoles())],
-            'userShelterId' => [
-                Rule::requiredIf(fn () => $this->userRole !== 'admin'),
-                Rule::prohibitedIf(fn () => $this->userRole === 'admin'),
-                'nullable',
-                'integer',
-                'exists:shelters,id',
-            ],
-            'userVaccinationNotifications' => ['boolean'],
-        ], [], [
-            'userName' => __('Name'),
-            'userEmail' => __('Email'),
-            'userRole' => __('Role'),
-            'userShelterId' => __('Shelter'),
-            'userVaccinationNotifications' => __('Vaccination Notifications'),
-        ]);
-
-        $shelterId = $validated['userRole'] === 'admin' ? null : (int) $validated['userShelterId'];
-
-        if ($this->editingUserId !== null) {
-            User::query()->findOrFail($this->editingUserId)->update([
-                'name' => $validated['userName'],
-                'role' => $validated['userRole'],
-                'shelter_id' => $shelterId,
-                'vaccination_notifications' => $validated['userVaccinationNotifications'],
-            ]);
-
-            Flux::toast(variant: 'success', text: __('Record updated successfully'));
-        } else {
-            $user = User::query()->create([
-                'name' => $validated['userName'],
-                'email' => $validated['userEmail'],
-                'role' => $validated['userRole'],
-                'shelter_id' => $shelterId,
-                'vaccination_notifications' => $validated['userVaccinationNotifications'],
-                'password' => Hash::make(Str::random(40)),
-            ]);
-
-            $token = Password::broker()->createToken($user);
-            $user->notify(new UserInvitation($token));
-
-            Flux::toast(variant: 'success', text: __('User invited successfully'));
-        }
-
-        $this->resetUserForm();
-        unset($this->users);
-
-        Flux::modal('user-form')->close();
-    }
-
     public function deleteUser(int $userId): void
     {
         if ($userId === Auth::id()) {
@@ -182,22 +76,43 @@ class ManageUsers extends Component
             return;
         }
 
-        User::query()->findOrFail($userId)->delete();
+        $viewer = Auth::user();
 
-        if ($this->editingUserId === $userId) {
-            $this->resetUserForm();
+        $user = User::query()
+            ->when(
+                ! $viewer->is_admin,
+                fn ($query) => $query->whereHas('shelters', fn ($q) => $q->whereKey($viewer->current_shelter_id)),
+            )
+            ->findOrFail($userId);
+
+        if (! $viewer->is_admin && $user->shelters()->whereKeyNot($viewer->current_shelter_id)->exists()) {
+            $this->removeFromCurrentShelter($user, $viewer->current_shelter_id);
+
+            return;
         }
+
+        $user->delete();
 
         unset($this->users);
 
         Flux::toast(variant: 'success', text: __('Record deleted successfully'));
     }
 
-    protected function resetUserForm(): void
+    /**
+     * Detach a user who also belongs to other shelters from the manager's
+     * current shelter only, keeping their account for those other shelters.
+     */
+    private function removeFromCurrentShelter(User $user, int $shelterId): void
     {
-        $this->reset(['editingUserId', 'userName', 'userEmail', 'userShelterId', 'userVaccinationNotifications']);
-        $this->userRole = 'staff';
-        $this->resetErrorBag();
+        $user->shelters()->detach($shelterId);
+
+        if ($user->current_shelter_id === $shelterId) {
+            $user->update(['current_shelter_id' => $user->shelters()->value('shelters.id')]);
+        }
+
+        unset($this->users);
+
+        Flux::toast(variant: 'success', text: __('User removed from the shelter'));
     }
 
     public function render(): View

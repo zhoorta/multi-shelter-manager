@@ -1,5 +1,5 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
-    @if (auth()->user()->role !== 'admin' && (! $hasCages || ! $speciesConfigured || $this->speciesWithoutBreeds->isNotEmpty()))
+    @if (! auth()->user()->is_admin && (! $hasCages || ! $speciesConfigured || $this->speciesWithoutBreeds->isNotEmpty()))
         <div class="flex flex-col gap-3">
             @if (! $hasCages)
                 <a

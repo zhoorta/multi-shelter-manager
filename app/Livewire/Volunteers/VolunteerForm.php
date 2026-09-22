@@ -82,7 +82,7 @@ class VolunteerForm extends Component
 
     public function mount(?Volunteer $volunteer = null): void
     {
-        abort_unless(Auth::user()->role === 'manager', 403);
+        abort_unless(Auth::user()->isManagerOfCurrentShelter(), 403);
 
         foreach (array_keys(VolunteerAvailability::DAYS) as $dayIndex) {
             $this->availabilities[$dayIndex] = [

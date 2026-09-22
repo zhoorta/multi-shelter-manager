@@ -14,15 +14,17 @@ test('soft deletes without removing the record from the database', function () {
     expect(Shelter::find($shelter->id))->toBeNull();
 });
 
-test('users relation only returns users belonging to the shelter', function () {
+test('users relation only returns users belonging to the shelter, with role and notifications on the pivot', function () {
     $shelter = Shelter::factory()->create();
     $otherShelter = Shelter::factory()->create();
 
-    $ownUser = User::factory()->create(['shelter_id' => $shelter->id]);
-    User::factory()->create(['shelter_id' => $otherShelter->id]);
+    $ownUser = User::factory()->forShelter($shelter, 'manager', true)->create();
+    User::factory()->forShelter($otherShelter, 'staff')->create();
 
     expect($shelter->users)->toHaveCount(1)
-        ->and($shelter->users->first()->is($ownUser))->toBeTrue();
+        ->and($shelter->users->first()->is($ownUser))->toBeTrue()
+        ->and($shelter->users->first()->pivot->role)->toBe('manager')
+        ->and($shelter->users->first()->pivot->vaccination_notifications)->toBeTrue();
 });
 
 test('facilities relation only returns facilities belonging to the shelter', function () {

@@ -42,9 +42,9 @@ class PetPrintList extends Component
 
     public function mount(): void
     {
-        abort_unless(in_array(Auth::user()->role, ['manager', 'staff'], true), 403);
+        abort_unless(! Auth::user()->is_admin, 403);
 
-        $this->shelter = Auth::user()->shelter;
+        $this->shelter = Auth::user()->currentShelter;
         $this->pets = $this->filteredPetsQuery()->get();
     }
 

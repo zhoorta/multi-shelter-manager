@@ -36,13 +36,17 @@ class Shelter extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * Get the users belonging to the shelter.
+     * Get the users belonging to the shelter, with their role and
+     * notification preference for this shelter on the pivot.
      *
-     * @return HasMany<User, $this>
+     * @return BelongsToMany<User, $this>
      */
-    public function users(): HasMany
+    public function users(): BelongsToMany
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'shelter_users')
+            ->using(ShelterUser::class)
+            ->withPivot(['role', 'vaccination_notifications'])
+            ->withTimestamps();
     }
 
     /**

@@ -100,6 +100,7 @@
     
     "Record created successfully": "Record created successfully.",
     "Record updated successfully": "Record updated successfully.",
+    "User removed from the shelter": "User removed from the shelter.",
     "Record deleted successfully": "Record deleted successfully.",
     "You do not have permission to view this shelter": "You do not have permission to view this shelter.",
 
@@ -241,6 +242,7 @@
     "Last Login": "Last Login",
     "Invite User": "Invite User",
     "Edit User": "Edit User",
+    "This shelter has already been selected.": "This shelter has already been selected.",
     "User invited successfully": "User invited successfully.",
     "No users registered": "No users registered.",
     "You cannot delete your own account": "You cannot delete your own account.",
