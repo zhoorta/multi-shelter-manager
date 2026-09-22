@@ -210,6 +210,8 @@
                     align="left"
                 />
             @endforeach
+
+            <flux:textarea wire:model="petClinicalNotes" :label="__('Clinical Notes')" rows="3" />
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">

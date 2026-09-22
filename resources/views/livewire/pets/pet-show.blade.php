@@ -221,6 +221,13 @@
                         </div>
                     @endforeach
                 </div>
+
+                @if ($pet->clinical_notes)
+                    <div class="mt-4">
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Clinical Notes') }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300 whitespace-pre-line">{{ $pet->clinical_notes }}</flux:text>
+                    </div>
+                @endif
             </div>
 
             <div>

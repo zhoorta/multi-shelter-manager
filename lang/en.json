@@ -80,7 +80,6 @@
     "Date of Death": "Date of Death",
     "Age": "Age",
     "Notes": "Operational Notes",
-    "Internal Notes": "Internal / Medical Notes",
     "Description": "Description",
     "View Count": "View Count",
     
@@ -131,6 +130,7 @@
     "Identification": "Identification",
     "Characteristics": "Characteristics",
     "Health": "Health",
+    "Clinical Notes": "Clinical Notes",
     "Accommodation": "Accommodation",
     "and": "and",
     ":count year|:count years": ":count year|:count years",

@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('fur_types', function (Blueprint $table) {
+        Schema::create('cages', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('wing_id')->constrained()->cascadeOnDelete();
+            $table->string('code');
+            $table->integer('capacity')->default(1);
+            $table->timestamps();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
@@ -24,11 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('fur_types', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-            $table->dropConstrainedForeignId('created_by');
-            $table->dropConstrainedForeignId('updated_by');
-            $table->dropConstrainedForeignId('deleted_by');
-        });
+        Schema::dropIfExists('cages');
     }
 };

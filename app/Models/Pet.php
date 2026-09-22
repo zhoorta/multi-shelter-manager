@@ -48,6 +48,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $date_of_death
  * @property string|null $age
  * @property string|null $internal_notes
+ * @property string|null $clinical_notes
  * @property int $view_count
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -60,7 +61,7 @@ use Illuminate\Support\Carbon;
     'shelter_id', 'cage_id', 'species_id', 'breed_id', 'is_pure_breed', 'primary_color_id', 'secondary_color_id',
     'fur_type_id', 'size_id', 'ref', 'name', 'chip', 'is_neutered', 'gender', 'birth_date', 'status', 'notes',
     'description', 'is_adoptable', 'is_sponsorable', 'publish_to_portal', 'is_featured',
-    'checkin_date', 'checkout_date', 'date_of_death', 'age', 'internal_notes',
+    'checkin_date', 'checkout_date', 'date_of_death', 'age', 'internal_notes', 'clinical_notes',
 ])]
 class Pet extends Model
 {

@@ -11,7 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sizes', function (Blueprint $table) {
+        Schema::create('sponsorship_payments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('sponsorship_id')->constrained()->cascadeOnDelete();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->date('payment_date');
+            $table->decimal('payment_value', 6, 2)->default(0.00);
+            $table->text('notes')->nullable();
+            $table->timestamps();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
@@ -24,11 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('sizes', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-            $table->dropConstrainedForeignId('created_by');
-            $table->dropConstrainedForeignId('updated_by');
-            $table->dropConstrainedForeignId('deleted_by');
-        });
+        Schema::dropIfExists('sponsorship_payments');
     }
 };

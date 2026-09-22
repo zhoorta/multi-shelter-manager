@@ -84,6 +84,8 @@ class PetForm extends Component
 
     public string $petNotes = '';
 
+    public string $petClinicalNotes = '';
+
     /**
      * @var array<int, TemporaryUploadedFile>
      */
@@ -125,6 +127,7 @@ class PetForm extends Component
         $this->petCheckinDate = (string) $pet->checkin_date?->format('Y-m-d');
         $this->petDescription = (string) $pet->description;
         $this->petNotes = (string) $pet->notes;
+        $this->petClinicalNotes = (string) $pet->clinical_notes;
     }
 
     /**
@@ -342,6 +345,7 @@ class PetForm extends Component
             'petCheckinDate' => ['nullable', 'date'],
             'petDescription' => ['nullable', 'string'],
             'petNotes' => ['nullable', 'string'],
+            'petClinicalNotes' => ['nullable', 'string'],
             'petPhotos' => ['nullable', 'array'],
             'petPhotos.*' => ['image', 'max:2048'],
         ], [], [
@@ -365,6 +369,7 @@ class PetForm extends Component
             'petCheckinDate' => __('Checkin Date'),
             'petDescription' => __('Description'),
             'petNotes' => __('Notes'),
+            'petClinicalNotes' => __('Clinical Notes'),
             'petPhotos.*' => __('Photo'),
         ]);
 
@@ -395,6 +400,7 @@ class PetForm extends Component
             'checkin_date' => $validated['petCheckinDate'] !== '' ? $validated['petCheckinDate'] : null,
             'description' => $this->sanitizeDescription($validated['petDescription']),
             'notes' => $validated['petNotes'] !== '' ? $validated['petNotes'] : null,
+            'clinical_notes' => $validated['petClinicalNotes'] !== '' ? $validated['petClinicalNotes'] : null,
             'is_neutered' => $validated['petIsNeutered'],
             'is_adoptable' => $validated['petIsAdoptable'],
             'is_sponsorable' => $validated['petIsSponsorable'],

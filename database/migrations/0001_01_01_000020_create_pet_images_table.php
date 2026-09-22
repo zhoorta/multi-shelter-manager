@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('activities', function (Blueprint $table) {
+        Schema::create('pet_images', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
+            $table->string('image_path');
+            $table->boolean('is_main')->default(false);
+            $table->timestamps();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->softDeletes();
         });
     }
 
@@ -24,11 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('activities', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-            $table->dropConstrainedForeignId('created_by');
-            $table->dropConstrainedForeignId('updated_by');
-            $table->dropConstrainedForeignId('deleted_by');
-        });
+        Schema::dropIfExists('pet_images');
     }
 };

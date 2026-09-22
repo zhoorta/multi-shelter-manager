@@ -334,6 +334,28 @@ test('shows a placeholder when the pet has no notes', function () {
         ->assertSeeInOrder(['Notes', '—']);
 });
 
+test('shows the pet clinical notes in the health section', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['clinical_notes' => 'Allergic to penicillin.']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder(['Health', 'Clinical Notes', 'Allergic to penicillin.', 'Adoption']);
+});
+
+test('hides the clinical notes when the pet has none', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['clinical_notes' => null]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertDontSee('Clinical Notes');
+});
+
 test('shows the cage field as facility, then wing, then cage code', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create(['name' => 'North Campus']);

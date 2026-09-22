@@ -147,3 +147,9 @@ test('stamps created_by on the sickness pivot record when authenticated', functi
 
     expect($pet->sicknesses()->first()->pivot->created_by)->toBe($user->id);
 });
+
+test('clinical notes are mass assignable and persisted', function () {
+    $pet = Pet::factory()->create(['clinical_notes' => 'Allergic to penicillin']);
+
+    expect($pet->fresh()->clinical_notes)->toBe('Allergic to penicillin');
+});
