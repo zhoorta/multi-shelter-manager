@@ -29,6 +29,7 @@ use App\Livewire\Pets\PetShow;
 use App\Livewire\Pets\SponsorshipForm;
 use App\Livewire\Pets\SponsorshipShow;
 use App\Livewire\Pets\VaccinationForm;
+use App\Livewire\Setup;
 use App\Livewire\Volunteers\ManageVolunteers;
 use App\Livewire\Volunteers\VolunteerForm;
 use App\Livewire\Volunteers\VolunteerShow;
@@ -37,6 +38,9 @@ use Illuminate\Support\Facades\Route;
 // Public guest routes.
 Route::middleware(['guest'])->group(function (): void {
     Route::redirect('/', '/login')->name('home');
+
+    // First-run wizard to create the initial admin; only usable while no users exist.
+    Route::livewire('setup', Setup::class)->name('setup');
 
     // Login GET/POST routes are registered by Laravel Fortify
     // (see App\Providers\FortifyServiceProvider) and render

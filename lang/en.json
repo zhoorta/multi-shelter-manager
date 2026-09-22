@@ -307,5 +307,11 @@
     "Frequency": "Frequency",
     "occasionally": "Occasionally",
     "biweekly": "Biweekly",
-    "weekly": "Weekly"
+    "weekly": "Weekly",
+
+    "Setup": "Setup",
+    "Welcome! Let's set up the application": "Welcome! Let's set up the application",
+    "Create the administrator account to get started": "Create the administrator account to get started",
+    "Create administrator": "Create administrator",
+    "Confirm password": "Confirm password"
 }

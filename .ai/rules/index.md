@@ -6,6 +6,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | --- | --- |
 | app/Livewire/Admin/**, app/Livewire/Admin/ManageBreeds.php, app/Livewire/Admin/ManageUsers.php | .ai/rules/admin.md |
 | app/Livewire/Admin/ShelterForm.php,app/Livewire/Admin/ManageShelters.php,app/Models/Shelter.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/app.md |
+| app/Livewire/Setup.php,app/Providers/FortifyServiceProvider.php,tests/Feature/Auth/** | .ai/rules/auth.md |
 | app/Livewire/Pets/SponsorshipShow.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/Concerns/ManagesSponsorshipPayments.php, app/Livewire/Pets/ManagePets.php,app/Livewire/Pets/PetPrintList.php,app/Livewire/Pets/Concerns/FiltersPetsList.php | .ai/rules/concerns.md |
 | app/Livewire/Documentation.php,resources/views/livewire/documentation.blade.php,resources/views/livewire/documentation/*.blade.php | .ai/rules/documentation.md |
 | app/Livewire/Facilities/** | .ai/rules/facilities.md |

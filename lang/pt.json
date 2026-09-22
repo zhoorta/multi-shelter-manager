@@ -307,5 +307,11 @@
     "Frequency": "Frequência",
     "occasionally": "Ocasionalmente",
     "biweekly": "Quinzenalmente",
-    "weekly": "Semanalmente"
+    "weekly": "Semanalmente",
+
+    "Setup": "Configuração inicial",
+    "Welcome! Let's set up the application": "Bem-vindo! Vamos configurar a aplicação",
+    "Create the administrator account to get started": "Crie a conta de administrador para começar",
+    "Create administrator": "Criar administrador",
+    "Confirm password": "Confirmar palavra-passe"
 }
