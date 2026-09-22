@@ -17,7 +17,11 @@
     $chip = 'inline-flex items-center gap-1.5 rounded-full border-2 px-4 py-1.5 text-sm font-semibold transition hover:-translate-y-0.5';
     $chipOn = 'border-orange-400 bg-orange-400 text-white shadow-md shadow-orange-200 dark:shadow-none';
     $chipOff = 'border-amber-200 bg-white text-stone-600 hover:border-orange-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300';
-    $select = 'w-full rounded-2xl border-2 border-amber-200 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 focus:border-orange-400 focus:ring-0 focus:outline-none disabled:opacity-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200';
+    // Pill-shaped selects matching the filter chips; the native arrow is hidden and replaced by $selectChevron.
+    $select = 'w-full cursor-pointer appearance-none rounded-full border-2 py-1.5 ps-4 pe-10 text-sm font-semibold transition focus:border-orange-400 focus:ring-4 focus:ring-orange-100 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:focus:ring-orange-950';
+    $selectOn = 'border-orange-400 bg-orange-50 text-orange-700 dark:bg-orange-950/50 dark:text-orange-200';
+    $selectChevron = '<svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 text-orange-500"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd"/></svg>';
+    $selectOff = 'border-amber-200 bg-white text-stone-600 hover:border-orange-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300';
     $hasFilters = $speciesFilter !== '' || $genderFilter !== '' || $sizeFilter !== '' || $breedFilter !== '' || $regionFilter !== '';
 @endphp
 
@@ -34,7 +38,7 @@
                     🏡 {{ __('Many shelters, one big family') }}
                 </span>
 
-                <h1 class="font-[Fredoka] text-5xl leading-[1.05] font-bold tracking-tight text-stone-900 sm:text-6xl dark:text-white">
+                <h1 class="font-display text-5xl leading-[1.05] font-bold tracking-tight text-stone-900 sm:text-6xl dark:text-white">
                     {{ __('Every paw deserves') }}
                     <span class="relative whitespace-nowrap text-orange-500">
                         {{ __('a home') }}
@@ -48,10 +52,10 @@
                 </p>
 
                 <div class="flex flex-wrap items-center gap-3">
-                    <a href="#adopt" class="rounded-full bg-orange-500 px-7 py-3.5 font-[Fredoka] text-lg font-semibold text-white shadow-lg shadow-orange-300/60 transition hover:-translate-y-0.5 hover:bg-orange-600 dark:shadow-none">
+                    <a href="#adopt" class="rounded-full bg-orange-500 px-7 py-3.5 font-display text-lg font-semibold text-white shadow-lg shadow-orange-300/60 transition hover:-translate-y-0.5 hover:bg-orange-600 dark:shadow-none">
                         {{ __('Meet the animals') }} 🐾
                     </a>
-                    <a href="#how-it-works" class="rounded-full bg-white px-7 py-3.5 font-[Fredoka] text-lg font-semibold text-stone-700 shadow-sm ring-1 ring-amber-200 transition hover:-translate-y-0.5 dark:bg-stone-900 dark:text-stone-200 dark:ring-stone-700">
+                    <a href="#how-it-works" class="rounded-full bg-white px-7 py-3.5 font-display text-lg font-semibold text-stone-700 shadow-sm ring-1 ring-amber-200 transition hover:-translate-y-0.5 dark:bg-stone-900 dark:text-stone-200 dark:ring-stone-700">
                         {{ __('How it works') }}
                     </a>
                 </div>
@@ -80,7 +84,7 @@
                     <div wire:key="stat-{{ $loop->index }}" class="flex items-center gap-4 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-amber-100 dark:bg-stone-900 dark:ring-stone-800">
                         <span class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-amber-50 text-3xl dark:bg-stone-800">{{ $stat['icon'] }}</span>
                         <div>
-                            <div class="font-[Fredoka] text-3xl font-bold {{ $stat['tint'] }}">{{ $stat['value'] }}</div>
+                            <div class="font-display text-3xl font-bold {{ $stat['tint'] }}">{{ $stat['value'] }}</div>
                             <div class="text-sm font-medium text-stone-500 dark:text-stone-400">{{ $stat['label'] }}</div>
                         </div>
                     </div>
@@ -92,7 +96,7 @@
     {{-- How it works --}}
     <section id="how-it-works" class="scroll-mt-20 bg-white py-16 dark:bg-stone-900">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
-            <h2 class="text-center font-[Fredoka] text-4xl font-bold text-stone-900 dark:text-white">{{ __('How it works') }}</h2>
+            <h2 class="text-center font-display text-4xl font-bold text-stone-900 dark:text-white">{{ __('How it works') }}</h2>
             <p class="mx-auto mt-3 max-w-2xl text-center text-stone-500 dark:text-stone-400">{{ __('A simple bridge between those who care for animals and those who want to give them a family.') }}</p>
 
             <div class="mt-12 grid gap-6 md:grid-cols-3">
@@ -104,9 +108,9 @@
                     <div wire:key="step-{{ $loop->index }}" class="rounded-[2rem] {{ $step['bg'] }} p-8 transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <span class="flex size-14 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm dark:bg-stone-900">{{ $step['icon'] }}</span>
-                            <span class="font-[Fredoka] text-5xl font-bold text-stone-900/10 dark:text-white/10">{{ $loop->iteration }}</span>
+                            <span class="font-display text-5xl font-bold text-stone-900/10 dark:text-white/10">{{ $loop->iteration }}</span>
                         </div>
-                        <h3 class="mt-5 font-[Fredoka] text-2xl font-semibold text-stone-900 dark:text-white">{{ $step['title'] }}</h3>
+                        <h3 class="mt-5 font-display text-2xl font-semibold text-stone-900 dark:text-white">{{ $step['title'] }}</h3>
                         <p class="mt-2 leading-relaxed text-stone-600 dark:text-stone-300">{{ $step['text'] }}</p>
                     </div>
                 @endforeach
@@ -118,7 +122,7 @@
     <section id="adopt" class="scroll-mt-20 py-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
             <div class="flex flex-col items-center gap-3 text-center">
-                <h2 class="font-[Fredoka] text-4xl font-bold text-stone-900 dark:text-white">{{ __('Looking for a family') }} 🏡</h2>
+                <h2 class="font-display text-4xl font-bold text-stone-900 dark:text-white">{{ __('Looking for a family') }} 🏡</h2>
                 <p class="max-w-2xl text-stone-500 dark:text-stone-400">{{ __('These friends are waiting for someone just like you. Use the filters to find your perfect match.') }}</p>
             </div>
 
@@ -153,32 +157,41 @@
 
                     <label class="flex flex-col gap-2">
                         <span class="text-sm font-bold tracking-wide text-stone-400 uppercase">{{ __('Region') }}</span>
-                        <select wire:model.live="regionFilter" class="{{ $select }}">
-                            <option value="">📍 {{ __('All') }}</option>
-                            @foreach ($this->regions as $region)
-                                <option wire:key="region-option-{{ $region->id }}" value="{{ $region->id }}">{{ $region->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="relative">
+                            <select wire:model.live="regionFilter" @class([$select, $regionFilter !== '' ? $selectOn : $selectOff])>
+                                <option value="">📍 {{ __('All') }}</option>
+                                @foreach ($this->regions as $region)
+                                    <option wire:key="region-option-{{ $region->id }}" value="{{ $region->id }}">{{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                            {!! $selectChevron !!}
+                        </div>
                     </label>
 
                     <label class="flex flex-col gap-2">
                         <span class="text-sm font-bold tracking-wide text-stone-400 uppercase">{{ __('Size') }}</span>
-                        <select wire:model.live="sizeFilter" class="{{ $select }}" @disabled($speciesFilter === '')>
-                            <option value="">{{ $speciesFilter === '' ? __('Choose a species first') : __('All') }}</option>
-                            @foreach ($this->sizes as $size)
-                                <option wire:key="size-option-{{ $size->id }}" value="{{ $size->id }}">{{ $size->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="relative">
+                            <select wire:model.live="sizeFilter" @class([$select, $sizeFilter !== '' ? $selectOn : $selectOff]) @disabled($speciesFilter === '')>
+                                <option value="">{{ $speciesFilter === '' ? __('Choose a species first') : __('All') }}</option>
+                                @foreach ($this->sizes as $size)
+                                    <option wire:key="size-option-{{ $size->id }}" value="{{ $size->id }}">{{ $size->name }}</option>
+                                @endforeach
+                            </select>
+                            {!! $selectChevron !!}
+                        </div>
                     </label>
 
                     <label class="flex flex-col gap-2">
                         <span class="text-sm font-bold tracking-wide text-stone-400 uppercase">{{ __('Breed') }}</span>
-                        <select wire:model.live="breedFilter" class="{{ $select }}" @disabled($speciesFilter === '')>
-                            <option value="">{{ $speciesFilter === '' ? __('Choose a species first') : __('All') }}</option>
-                            @foreach ($this->breeds as $breed)
-                                <option wire:key="breed-option-{{ $breed->id }}" value="{{ $breed->id }}">{{ $breed->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="relative">
+                            <select wire:model.live="breedFilter" @class([$select, $breedFilter !== '' ? $selectOn : $selectOff]) @disabled($speciesFilter === '')>
+                                <option value="">{{ $speciesFilter === '' ? __('Choose a species first') : __('All') }}</option>
+                                @foreach ($this->breeds as $breed)
+                                    <option wire:key="breed-option-{{ $breed->id }}" value="{{ $breed->id }}">{{ $breed->name }}</option>
+                                @endforeach
+                            </select>
+                            {!! $selectChevron !!}
+                        </div>
                     </label>
 
                     @if ($hasFilters)
@@ -198,7 +211,7 @@
                 @if ($this->pets->isEmpty())
                     <div class="flex flex-col items-center gap-3 rounded-[2rem] border-2 border-dashed border-amber-200 bg-white/60 px-6 py-16 text-center dark:border-stone-700 dark:bg-stone-900/60">
                         <span class="text-6xl">🐕‍🦺</span>
-                        <p class="font-[Fredoka] text-2xl font-semibold text-stone-700 dark:text-stone-200">{{ __('No friends found with these filters') }}</p>
+                        <p class="font-display text-2xl font-semibold text-stone-700 dark:text-stone-200">{{ __('No friends found with these filters') }}</p>
                         <p class="text-stone-500 dark:text-stone-400">{{ __('Try changing the filters — new animals arrive all the time!') }}</p>
                     </div>
                 @else
@@ -233,7 +246,7 @@
 
                                 <div class="flex flex-1 flex-col gap-3 p-5">
                                     <div>
-                                        <h3 class="font-[Fredoka] text-2xl font-semibold text-stone-900 group-hover:text-orange-500 dark:text-white">{{ $pet->name }}</h3>
+                                        <h3 class="font-display text-2xl font-semibold text-stone-900 group-hover:text-orange-500 dark:text-white">{{ $pet->name }}</h3>
                                         <p class="text-sm text-stone-500 dark:text-stone-400">{{ $pet->breed->name }}</p>
                                     </div>
 
@@ -354,7 +367,7 @@
                 <div class="flex flex-col gap-5 p-6">
                     <div class="flex items-start justify-between gap-4">
                         <div>
-                            <h3 class="font-[Fredoka] text-3xl font-bold text-stone-900 dark:text-white">{{ $pet->name }}</h3>
+                            <h3 class="font-display text-3xl font-bold text-stone-900 dark:text-white">{{ $pet->name }}</h3>
                             <p class="text-stone-500 dark:text-stone-400">{{ $pet->species->name }} · {{ $pet->breed->name }}</p>
                         </div>
                         <span @class([
@@ -386,7 +399,7 @@
                     @endif
 
                     <div class="flex flex-col gap-3 rounded-2xl bg-orange-50 p-4 dark:bg-orange-950/40">
-                        <p class="font-[Fredoka] text-lg font-semibold text-stone-900 dark:text-white">🏠 {{ $pet->shelter->name }}</p>
+                        <p class="font-display text-lg font-semibold text-stone-900 dark:text-white">🏠 {{ $pet->shelter->name }}</p>
                         <p class="text-sm text-stone-600 dark:text-stone-300">
                             {{ collect([$pet->shelter->address, $pet->shelter->postal_code, $pet->shelter->city, $pet->shelter->region?->name])->filter()->implode(', ') }}
                         </p>

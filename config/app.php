@@ -86,6 +86,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Privacy Contact
+    |--------------------------------------------------------------------------
+    |
+    | E-mail address shown on the public privacy policy page for data
+    | protection requests (access, rectification, erasure, etc.).
+    |
+    */
+
+    'privacy_contact_email' => env('PRIVACY_CONTACT_EMAIL', env('MAIL_FROM_ADDRESS')),
+
+    /*
+    |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
     |

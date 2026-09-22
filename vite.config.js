@@ -15,6 +15,11 @@ export default defineConfig({
                 bunny('Instrument Sans', {
                     weights: [400, 500, 600],
                 }),
+                // Display font of the public pages only, so it isn't preloaded on every page.
+                bunny('Fredoka', {
+                    weights: [500, 600, 700],
+                    preload: false,
+                }),
             ],
         }),
         tailwindcss(),

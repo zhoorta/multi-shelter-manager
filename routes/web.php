@@ -30,6 +30,7 @@ use App\Livewire\Pets\PetShow;
 use App\Livewire\Pets\SponsorshipForm;
 use App\Livewire\Pets\SponsorshipShow;
 use App\Livewire\Pets\VaccinationForm;
+use App\Livewire\PrivacyPolicy;
 use App\Livewire\Setup;
 use App\Livewire\Volunteers\ManageVolunteers;
 use App\Livewire\Volunteers\VolunteerForm;
@@ -39,6 +40,7 @@ use Illuminate\Support\Facades\Route;
 
 // Public welcome page, open to guests and logged-in users alike.
 Route::livewire('/', Welcome::class)->name('home');
+Route::livewire('privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
 
 // Public guest routes.
 Route::middleware(['guest'])->group(function (): void {
