@@ -11,13 +11,14 @@ test('guests are redirected to the login page', function () {
 test('authenticated users of any role can visit the documentation page', function (string $role) {
     $user = $role === 'admin'
         ? User::factory()->admin()->create()
-        : User::factory()->forShelter(Shelter::factory(), $role)->create();
+        : User::factory()->forShelter(Shelter::factory()->create(), $role)->create();
     $this->actingAs($user);
 
     $response = $this->get(route('documentation'));
 
     $response->assertOk();
     $response->assertSee('Application Instructions');
+    $response->assertSeeInOrder(['Getting Started', 'Recommended setup order', 'Status', 'Vaccinations', 'Adoptions', 'Sponsorships', 'Volunteers', 'Facilities', 'Administration', 'Settings']);
 })->with(['admin', 'manager', 'staff']);
 
 test('the documentation content follows the active locale', function () {
@@ -30,6 +31,8 @@ test('the documentation content follows the active locale', function () {
 
     $response->assertOk();
     $response->assertSee('Instruções da Aplicação');
+    $response->assertSee('Ordem de configuração recomendada');
+    $response->assertDontSee('Recommended setup order');
 
     app()->setLocale('en');
 });
