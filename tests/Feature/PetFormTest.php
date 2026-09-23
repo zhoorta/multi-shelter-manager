@@ -688,6 +688,51 @@ test('cannot assign a pet to a cage belonging to another shelter', function () {
     expect(Pet::query()->where('name', 'Rex')->exists())->toBeFalse();
 });
 
+test('only offers cages destined to the pet\'s species or to any species', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $dogs = Species::factory()->create();
+    $cats = Species::factory()->create();
+    $wing = Wing::factory()->for(Facility::factory()->for($shelter))->create();
+    $dogCage = Cage::factory()->for($wing)->create(['species_id' => $dogs->id]);
+    $catCage = Cage::factory()->for($wing)->create(['species_id' => $cats->id]);
+    $anySpeciesCage = Cage::factory()->for($wing)->create();
+
+    $component = Livewire::test(PetForm::class)
+        ->set('petSpeciesId', $dogs->id)
+        ->set('petCageId', $dogCage->id);
+
+    expect($component->instance()->cages->pluck('id')->sort()->values()->all())
+        ->toBe(collect([$dogCage->id, $anySpeciesCage->id])->sort()->values()->all());
+
+    $component->set('petSpeciesId', $cats->id)
+        ->assertSet('petCageId', null);
+
+    expect($component->instance()->cages->pluck('id'))->toContain($catCage->id)->not->toContain($dogCage->id);
+});
+
+test('cannot assign a pet to a cage destined to another species', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $dogs = Species::factory()->create();
+    $cats = Species::factory()->create();
+    $breed = Breed::factory()->for($dogs)->create();
+    $catCage = Cage::factory()->for(Wing::factory()->for(Facility::factory()->for($shelter)))->create(['species_id' => $cats->id]);
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $dogs->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petCageId', $catCage->id)
+        ->call('savePet')
+        ->assertHasErrors(['petCageId' => 'exists']);
+
+    expect(Pet::query()->where('name', 'Rex')->exists())->toBeFalse();
+});
+
 test('cage options are sorted hierarchically by facility, wing, then code', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());

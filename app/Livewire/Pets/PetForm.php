@@ -230,7 +230,8 @@ class PetForm extends Component
      * Cages available to house the pet, grouped hierarchically for the
      * form's select: Facility -> Wing -> Cage. Each cage is annotated with
      * available_space and availability_color (green/yellow/red) so the
-     * select can flag how full it is.
+     * select can flag how full it is. Once a species is chosen, only cages
+     * destined to it (or to any species) are offered.
      *
      * @return Collection<int, Cage>
      */
@@ -238,6 +239,7 @@ class PetForm extends Component
     public function cages(): Collection
     {
         return $this->scopedCageQuery()
+            ->when($this->petSpeciesId !== null, fn (Builder $query) => $query->accepting($this->petSpeciesId))
             ->with('wing.facility')
             ->withCount(['pets as active_pets_count' => function (Builder $query): void {
                 $query->where('status', '!=', 'adopted')->whereNull('date_of_death');
@@ -294,7 +296,11 @@ class PetForm extends Component
         $this->petSizeId = null;
         $this->petSicknessIds = [];
 
-        unset($this->breeds, $this->sizes, $this->sicknesses, $this->currentSpecies);
+        unset($this->breeds, $this->sizes, $this->sicknesses, $this->currentSpecies, $this->cages);
+
+        if ($this->petCageId !== null && ! $this->cages->contains('id', $this->petCageId)) {
+            $this->petCageId = null;
+        }
     }
 
     /**
@@ -349,7 +355,11 @@ class PetForm extends Component
             'petIsSponsorable' => ['boolean'],
             'petPublishToPortal' => ['boolean'],
             'petIsFeatured' => ['boolean'],
-            'petCageId' => ['nullable', 'integer', 'exists:cages,id'],
+            'petCageId' => [
+                'nullable',
+                'integer',
+                Rule::exists('cages', 'id')->where(fn ($query) => $query->where('species_id', $this->petSpeciesId)->orWhereNull('species_id')),
+            ],
             'petCheckinDate' => ['nullable', 'date'],
             'petDescription' => ['nullable', 'string'],
             'petNotes' => ['nullable', 'string'],
@@ -544,6 +554,8 @@ class PetForm extends Component
     /**
      * Cage has no shelter scope of its own, so scope it transitively
      * through its wing's facility (see .ai/rules/facilities.md).
+     *
+     * @return Builder<Cage>
      */
     protected function scopedCageQuery(): Builder
     {

@@ -7,6 +7,8 @@ namespace App\Models;
 use App\Traits\Blameable;
 use Database\Factories\CageFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +19,7 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property int $wing_id
+ * @property int|null $species_id
  * @property string $code
  * @property int $capacity
  * @property Carbon|null $created_at
@@ -26,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['wing_id', 'code', 'capacity'])]
+#[Fillable(['wing_id', 'species_id', 'code', 'capacity'])]
 class Cage extends Model
 {
     /** @use HasFactory<CageFactory> */
@@ -40,6 +43,29 @@ class Cage extends Model
     public function wing(): BelongsTo
     {
         return $this->belongsTo(Wing::class);
+    }
+
+    /**
+     * Get the species the cage is destined to. Null means any species.
+     * Uses withTrashed() so a soft-deleted species still resolves.
+     *
+     * @return BelongsTo<Species, $this>
+     */
+    public function species(): BelongsTo
+    {
+        return $this->belongsTo(Species::class)->withTrashed();
+    }
+
+    /**
+     * Limit to cages that can house the given species: those destined to it
+     * and those with no species assigned.
+     *
+     * @param  Builder<Cage>  $query
+     */
+    #[Scope]
+    protected function accepting(Builder $query, int $speciesId): void
+    {
+        $query->where(fn (Builder $query) => $query->where('species_id', $speciesId)->orWhereNull('species_id'));
     }
 
     /**

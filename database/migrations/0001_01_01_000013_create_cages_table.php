@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('cages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('wing_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('species_id')->nullable()->constrained()->nullOnDelete();
             $table->string('code');
             $table->integer('capacity')->default(1);
             $table->timestamps();

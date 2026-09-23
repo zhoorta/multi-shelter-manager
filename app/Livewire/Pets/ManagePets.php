@@ -56,6 +56,33 @@ class ManagePets extends Component
         $this->resetPage();
     }
 
+    /**
+     * Drop a location that no longer appears in the species-filtered
+     * location select, so the list isn't silently narrowed by a hidden option.
+     */
+    public function updatedSpeciesFilter(): void
+    {
+        unset($this->facilities);
+
+        if ($this->locationFilter === '') {
+            return;
+        }
+
+        [$level, $id] = explode(':', $this->locationFilter, 2);
+        $facilities = $this->facilities();
+
+        $isStillListed = match ($level) {
+            'facility' => $facilities->contains('id', (int) $id),
+            'wing' => $facilities->flatMap->wings->contains('id', (int) $id),
+            'cage' => $facilities->flatMap->wings->flatMap->cages->contains('id', (int) $id),
+            default => false,
+        };
+
+        if (! $isStillListed) {
+            $this->locationFilter = '';
+        }
+    }
+
     public function updatingMissingDataFilter(): void
     {
         $this->resetPage();
@@ -82,16 +109,29 @@ class ManagePets extends Component
      * .ai/rules/views-livewire-pets.md), so the select can show how full it
      * is.
      *
+     * When a species is selected, only cages destined to it (or to any
+     * species) are listed, and wings/facilities left without cages are hidden.
+     *
      * @return Collection<int, Facility>
      */
     #[Computed]
     public function facilities(): Collection
     {
-        return Facility::query()
+        $isFilteringBySpecies = $this->speciesFilter !== '';
+
+        $loadCages = function (HasMany $query) use ($isFilteringBySpecies): void {
+            $query->orderBy('code')
+                ->withCount(['pets as active_pets_count' => fn (Builder $query) => $query->where('status', '!=', 'adopted')->whereNull('date_of_death')]);
+
+            if ($isFilteringBySpecies) {
+                $query->whereIn('cages.id', Cage::query()->accepting((int) $this->speciesFilter)->select('id'));
+            }
+        };
+
+        $facilities = Facility::query()
             ->with([
                 'wings' => fn (HasMany $query) => $query->orderBy('name'),
-                'wings.cages' => fn (HasMany $query) => $query->orderBy('code')
-                    ->withCount(['pets as active_pets_count' => fn (Builder $query) => $query->where('status', '!=', 'adopted')->whereNull('date_of_death')]),
+                'wings.cages' => $loadCages,
             ])
             ->orderBy('name')
             ->get()
@@ -109,6 +149,15 @@ class ManagePets extends Component
                     });
                 });
             });
+
+        if (! $isFilteringBySpecies) {
+            return $facilities;
+        }
+
+        return $facilities
+            ->each(fn (Facility $facility) => $facility->setRelation('wings', $facility->wings->filter(fn (Wing $wing) => $wing->cages->isNotEmpty())->values()))
+            ->filter(fn (Facility $facility) => $facility->wings->isNotEmpty())
+            ->values();
     }
 
     /**

@@ -187,7 +187,10 @@
                                     <ul class="divide-y divide-neutral-200 overflow-hidden rounded-lg border border-neutral-200 dark:divide-neutral-700 dark:border-neutral-700">
                                         @forelse ($wing->cages as $cage)
                                             <li wire:key="cage-{{ $cage->id }}" class="flex items-center justify-between gap-2 px-4 py-2 text-sm">
-                                                <span class="font-medium text-neutral-900 dark:text-white">{{ $cage->code }}</span>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="font-medium text-neutral-900 dark:text-white">{{ $cage->code }}</span>
+                                                    <flux:badge size="sm" color="zinc">{{ $cage->species?->name ?? __('Any species') }}</flux:badge>
+                                                </div>
 
                                                 <div class="flex items-center gap-2">
                                                     <flux:badge size="sm" :color="$cage->availability_color">{{ __(':available of :capacity free', ['available' => $cage->available_space, 'capacity' => $cage->capacity]) }}</flux:badge>
@@ -370,6 +373,13 @@
             <flux:input wire:model="cageCode" :label="__('Code')" />
 
             <flux:input type="number" min="1" wire:model="cageCapacity" :label="__('Capacity')" />
+
+            <flux:select wire:model="cageSpeciesId" :label="__('Species')">
+                <flux:select.option value="">{{ __('Any species') }}</flux:select.option>
+                @foreach ($this->species as $item)
+                    <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
+                @endforeach
+            </flux:select>
 
             <div class="flex justify-end gap-2">
                 <flux:modal.close>

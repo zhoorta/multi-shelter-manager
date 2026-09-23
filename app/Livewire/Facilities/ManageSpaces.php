@@ -6,6 +6,7 @@ namespace App\Livewire\Facilities;
 
 use App\Models\Cage;
 use App\Models\Facility;
+use App\Models\Species;
 use App\Models\Wing;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -48,6 +49,8 @@ class ManageSpaces extends Component
 
     public int $cageCapacity = 1;
 
+    public ?int $cageSpeciesId = null;
+
     public ?int $viewingCageId = null;
 
     public function mount(): void
@@ -74,6 +77,7 @@ class ManageSpaces extends Component
             ->with([
                 'wings' => fn ($query) => $query->orderBy('name'),
                 'wings.cages' => fn ($query) => $query->orderBy('code')
+                    ->with('species')
                     ->withCount(['pets as active_pets_count' => fn (Builder $query) => $query->where('status', '!=', 'adopted')->whereNull('date_of_death')]),
             ])
             ->orderBy('name')
@@ -92,6 +96,18 @@ class ManageSpaces extends Component
                     });
                 });
             });
+    }
+
+    /**
+     * Species enabled for the acting user's shelter, offered in the cage
+     * form so a cage can be destined to one of them.
+     *
+     * @return Collection<int, Species>
+     */
+    #[Computed]
+    public function species(): Collection
+    {
+        return Auth::user()->currentShelter?->species()->orderBy('name')->get() ?? new Collection;
     }
 
     /**
@@ -336,6 +352,7 @@ class ManageSpaces extends Component
         $this->cageWingId = $cage->wing_id;
         $this->cageCode = $cage->code;
         $this->cageCapacity = $cage->capacity;
+        $this->cageSpeciesId = $cage->species_id;
     }
 
     public function saveCage(): void
@@ -346,10 +363,16 @@ class ManageSpaces extends Component
             'cageWingId' => ['required', 'integer', 'exists:wings,id'],
             'cageCode' => ['required', 'string', 'max:255'],
             'cageCapacity' => ['required', 'integer', 'min:1'],
+            'cageSpeciesId' => [
+                'nullable',
+                'integer',
+                Rule::exists('shelter_species', 'species_id')->where('shelter_id', Auth::user()->current_shelter_id),
+            ],
         ], [], [
             'cageWingId' => __('Wing'),
             'cageCode' => __('Code'),
             'cageCapacity' => __('Capacity'),
+            'cageSpeciesId' => __('Species'),
         ]);
 
         // Re-fetch through the scoped query (not just the exists rule above)
@@ -361,6 +384,7 @@ class ManageSpaces extends Component
                 'wing_id' => $wing->id,
                 'code' => $validated['cageCode'],
                 'capacity' => $validated['cageCapacity'],
+                'species_id' => $validated['cageSpeciesId'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record updated successfully'));
@@ -369,6 +393,7 @@ class ManageSpaces extends Component
                 'wing_id' => $wing->id,
                 'code' => $validated['cageCode'],
                 'capacity' => $validated['cageCapacity'],
+                'species_id' => $validated['cageSpeciesId'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record created successfully'));
@@ -409,7 +434,7 @@ class ManageSpaces extends Component
 
     protected function resetCageForm(): void
     {
-        $this->reset(['editingCageId', 'cageWingId', 'cageCode', 'cageCapacity']);
+        $this->reset(['editingCageId', 'cageWingId', 'cageCode', 'cageCapacity', 'cageSpeciesId']);
         $this->resetErrorBag();
     }
 

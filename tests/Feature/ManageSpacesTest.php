@@ -5,6 +5,7 @@ use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
+use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -334,6 +335,44 @@ test('adds a cage to a wing and closes the modal', function () {
     expect($cage)->not->toBeNull();
     expect($cage->wing_id)->toBe($wing->id);
     expect($cage->capacity)->toBe(3);
+});
+
+test('destines a cage to one of the shelter\'s species and loads it back when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create(['name' => 'Cão']);
+    $shelter->species()->attach($species);
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
+
+    $component = Livewire::test(ManageSpaces::class)
+        ->call('createCage', $wing->id)
+        ->set('cageCode', 'C-01')
+        ->set('cageSpeciesId', $species->id)
+        ->call('saveCage')
+        ->assertHasNoErrors()
+        ->assertSee('Cão');
+
+    $cage = Cage::query()->where('code', 'C-01')->firstOrFail();
+    expect($cage->species_id)->toBe($species->id);
+
+    $component->call('editCage', $cage->id)
+        ->assertSet('cageSpeciesId', $species->id);
+});
+
+test('cannot destine a cage to a species not enabled for the shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $species = Species::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $wing = Wing::factory()->for($facility)->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
+
+    Livewire::test(ManageSpaces::class)
+        ->call('createCage', $wing->id)
+        ->set('cageCode', 'C-01')
+        ->set('cageSpeciesId', $species->id)
+        ->call('saveCage')
+        ->assertHasErrors(['cageSpeciesId' => 'exists']);
 });
 
 test('requires a code and a valid capacity to add a cage', function () {

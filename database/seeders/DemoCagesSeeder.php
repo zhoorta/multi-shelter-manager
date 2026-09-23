@@ -56,7 +56,7 @@ class DemoCagesSeeder extends Seeder
                     ['description' => 'Ala destinada a '.mb_strtolower($speciesName).'.'],
                 );
 
-                $cages = $this->ensureCages($wing, chr(ord('A') + $wingIndex), $pets->count());
+                $cages = $this->ensureCages($wing, $pets->first()->species_id, chr(ord('A') + $wingIndex), $pets->count());
 
                 $this->housePets($pets->whereNull('cage_id'), $cages);
             });
@@ -64,17 +64,18 @@ class DemoCagesSeeder extends Seeder
     }
 
     /**
-     * Create enough cages in the wing to house the given number of pets plus spares.
+     * Create enough cages in the wing, destined to the given species, to
+     * house the given number of pets plus spares.
      *
      * @return Collection<int, Cage>
      */
-    private function ensureCages(Wing $wing, string $codePrefix, int $petCount): Collection
+    private function ensureCages(Wing $wing, int $speciesId, string $codePrefix, int $petCount): Collection
     {
         $cageCount = (int) ceil($petCount / self::CAGE_CAPACITY) + self::SPARE_CAGES_PER_WING;
 
         return collect(range(1, $cageCount))->map(fn (int $number) => Cage::query()->firstOrCreate(
             ['wing_id' => $wing->id, 'code' => $codePrefix.'-'.str_pad((string) $number, 2, '0', STR_PAD_LEFT)],
-            ['capacity' => self::CAGE_CAPACITY],
+            ['capacity' => self::CAGE_CAPACITY, 'species_id' => $speciesId],
         ));
     }
 

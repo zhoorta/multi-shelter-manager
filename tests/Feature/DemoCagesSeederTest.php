@@ -6,7 +6,7 @@ use App\Models\Shelter;
 use App\Models\Species;
 use Database\Seeders\DemoCagesSeeder;
 
-test('houses every non-adopted pet in a cage of its own species wing within the shelter', function () {
+test('houses every non-adopted pet in a cage destined to its species, in its species wing within the shelter', function () {
     $shelter = Shelter::factory()->create();
     $dogs = Species::factory()->create(['name_plural' => 'Cães']);
     $cats = Species::factory()->create(['name_plural' => 'Gatos']);
@@ -22,6 +22,7 @@ test('houses every non-adopted pet in a cage of its own species wing within the 
 
         expect($cage)->not->toBeNull()
             ->and($cage->wing->facility->shelter_id)->toBe($shelter->id)
+            ->and($cage->species_id)->toBe($pet->species_id)
             ->and($cage->wing->name)->toBe($pet->species_id === $dogs->id ? 'Ala - Cães' : 'Ala - Gatos');
     }
 

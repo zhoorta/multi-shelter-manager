@@ -125,6 +125,30 @@ test('filters pets by cage', function () {
         ->assertDontSee('Bella');
 });
 
+test('location filter only lists cages for the selected species, hiding emptied wings', function () {
+    $shelter = Shelter::factory()->create();
+    $dogs = Species::factory()->create();
+    $cats = Species::factory()->create();
+    $facility = Facility::factory()->for($shelter)->create();
+    $dogWing = Wing::factory()->for($facility)->create();
+    $catWing = Wing::factory()->for($facility)->create();
+    $dogCage = Cage::factory()->for($dogWing)->create(['species_id' => $dogs->id]);
+    $anySpeciesCage = Cage::factory()->for($dogWing)->create();
+    $catCage = Cage::factory()->for($catWing)->create(['species_id' => $cats->id]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $component = Livewire::test(ManagePets::class)
+        ->set('locationFilter', 'cage:'.$catCage->id)
+        ->set('speciesFilter', (string) $dogs->id)
+        ->assertSet('locationFilter', '');
+
+    $wings = $component->instance()->facilities->flatMap->wings;
+
+    expect($wings->pluck('id')->all())->toBe([$dogWing->id])
+        ->and($wings->flatMap->cages->pluck('id')->sort()->values()->all())->toBe(collect([$dogCage->id, $anySpeciesCage->id])->sort()->values()->all());
+});
+
 test('filters pets by every cage under a wing', function () {
     $shelter = Shelter::factory()->create();
     $facility = Facility::factory()->for($shelter)->create();

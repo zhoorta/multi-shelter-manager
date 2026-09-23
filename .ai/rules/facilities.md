@@ -24,3 +24,6 @@ Testing trap: Livewire's test harness (`RequestBroker::temporarilyDisableExcepti
 
 ## Facilities page shows cage availability and a cage-pets modal
 ManageSpaces::facilities() withCount()s each cage's 'active_pets_count' (status != adopted AND date_of_death IS NULL) and annotates available_space/availability_color with the same formula as ManagePets::facilities() and PetForm::cages() (see views-livewire-pets.md) — keep all three in sync. Wing/facility badges are sums over their cages. The eye button on each cage (visible to staff too, not manager-only) calls viewCagePets(), which goes through scopedCageQuery()->findOrFail() for tenancy; the `cage-pets` modal lists only active pets (same filter as the count) and sits outside the manager-only @if block.
+
+## Cages are destined to one species (nullable cages.species_id)
+cages.species_id is a nullable FK to species; null means the cage accepts any species. ManageSpaces only offers/validates species enabled for the current shelter (shelter_species). PetForm::cages() uses the Cage::accepting($speciesId) scope (species match OR null), resets petCageId when the species changes to one the cage doesn't accept, and petCageId's exists rule rejects a mismatched cage. The species migration was renumbered to 000012 (cages to 000013) so the FK can be created — keep species before cages.

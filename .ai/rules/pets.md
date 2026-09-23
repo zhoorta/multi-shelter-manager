@@ -53,3 +53,6 @@ Superseding the earlier note here: 'no_location' is now `whereNull('cage_id')->w
 
 ## New pets auto-select the species' default (SRD) breed
 When creating a pet (`$this->pet === null`), selecting a species auto-selects that species' default breed (Breed.is_default) into petBreedId, via `PetForm::defaultBreedIdFor()`, called both from `mount()` (lockedSpeciesId path) and `updatedPetSpeciesId()`. Falls back to null if the species has no default breed. When editing an existing pet, changing species still resets petBreedId to null (no auto-select) — the guard is `$this->pet === null`, don't drop it. See tests/Feature/PetFormTest.php ("auto-selects the species default breed...").
+
+## Pets list location filter follows the species filter
+When speciesFilter is set, ManagePets::facilities() only loads cages accepted by that species (Cage::accepting via a whereIn subquery, since Larastan can't resolve the scope on an untyped HasMany in an eager-load closure) and drops wings/facilities left with no cages. updatedSpeciesFilter() clears locationFilter if the selected facility/wing/cage is no longer listed.
