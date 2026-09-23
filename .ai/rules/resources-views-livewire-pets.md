@@ -29,3 +29,6 @@ Superseding the earlier note here: the "(Deceased at d/m/Y)"/"(Adopted at d/m/Y)
 
 ## pet-show header shows "(Adopted at date)"/"(Deceased at date)" next to the name
 Superseding the earlier note here (the font-matching change was undone): the "(Deceased at d/m/Y)"/"(Adopted at d/m/Y)" text is wrapped in a `<span class="text-base font-normal text-neutral-500 dark:text-neutral-400">` inside the `<flux:heading size="xl">` — smaller/muted relative to the name, matching manage-pets.blade.php's list-row styling for the same info. Deceased takes priority over adopted; uses $pet->adoptions->first() (eager-loaded ->latest('adoption_date') in PetShow::mount()), not latestAdoption(). Reuses existing __('Adopted')/__('Deceased')/__('at') keys.
+
+## Pets list hides age for deceased pets
+manage-pets.blade.php's Characteristics column shows "Age …" only when date_of_death is null — deceased pets get a blank age span. pet-show.blade.php still shows age for deceased pets (age at death, via Pet::age_in_words stopping at date_of_death).

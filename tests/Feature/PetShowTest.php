@@ -243,7 +243,7 @@ test('does not show "(Pure)" when the species has pure breeds enabled but the pe
         ->assertDontSee(__('Pure'));
 });
 
-test('shows the birth date and death date', function () {
+test('shows the birth date, death date and age at death', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create([
         'birth_date' => '2018-05-01',
@@ -254,7 +254,7 @@ test('shows the birth date and death date', function () {
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
-        ->assertSeeInOrder(['Birth Date', '01/05/2018', 'Death Date', '15/03/2024']);
+        ->assertSeeInOrder(['Birth Date', '01/05/2018', 'Death Date', '15/03/2024', 'Age', 'Died with 5 years and 10 months']);
 });
 
 test('shows the checkin date', function () {

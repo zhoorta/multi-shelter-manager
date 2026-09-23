@@ -357,6 +357,25 @@ test('shows the death date instead of the adoption date for deceased pets', func
         ->assertDontSee('10/02/2026');
 });
 
+test('does not show the age of deceased pets', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create([
+        'name' => 'Rex',
+        'birth_date' => now()->subYears(5),
+        'date_of_death' => now()->subYears(2),
+    ]);
+    Pet::factory()->for($shelter)->create([
+        'name' => 'Bella',
+        'birth_date' => now()->subYears(4),
+    ]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManagePets::class)
+        ->assertSee('Age 4 years')
+        ->assertDontSee('Age 3 years');
+});
+
 test('filters pets by species', function () {
     $shelter = Shelter::factory()->create();
     $species = Species::factory()->create();

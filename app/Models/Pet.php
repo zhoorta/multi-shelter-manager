@@ -109,13 +109,14 @@ class Pet extends Model
     }
 
     /**
-     * The pet's current age, in whole years and months, as a translated
-     * string (e.g. "1 ano e 3 meses"). Null when birth_date is unknown.
+     * The pet's age, in whole years and months, as a translated string
+     * (e.g. "1 ano e 3 meses"), measured up to date_of_death when the pet
+     * is deceased. Null when birth_date is unknown.
      */
     protected function ageInWords(): Attribute
     {
         return Attribute::make(
-            get: fn (): ?string => $this->birth_date === null ? null : self::periodInWords($this->birth_date),
+            get: fn (): ?string => $this->birth_date === null ? null : self::periodInWords($this->birth_date, $this->date_of_death),
         );
     }
 
@@ -131,12 +132,12 @@ class Pet extends Model
     }
 
     /**
-     * The elapsed time between $from and now, in whole years and months,
-     * as a translated string (e.g. "1 ano e 3 meses").
+     * The elapsed time between $from and $to (defaults to now), in whole
+     * years and months, as a translated string (e.g. "1 ano e 3 meses").
      */
-    private static function periodInWords(CarbonInterface $from): string
+    private static function periodInWords(CarbonInterface $from, ?CarbonInterface $to = null): string
     {
-        $diff = $from->diff(now());
+        $diff = $from->diff($to ?? now());
 
         $parts = [];
 

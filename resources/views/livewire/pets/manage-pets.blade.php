@@ -150,7 +150,7 @@
                                         <span>{{ $pet->size?->name }}</span>
                                         <span>{{ $pet->furType?->name }}</span>
                                         <span>{{ $colors }}</span>
-                                        <span>{{ $pet->age_in_words !== null ? __('Age').' '.$pet->age_in_words : '' }}</span>
+                                        <span>{{ $pet->age_in_words !== null && $pet->date_of_death === null ? __('Age').' '.$pet->age_in_words : '' }}</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-3">

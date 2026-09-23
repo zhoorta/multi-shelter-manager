@@ -175,6 +175,10 @@
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Death Date') }}</flux:text>
                         <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->date_of_death?->format('d/m/Y') ?? '—' }}</flux:text>
                     </div>
+                    <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Age') }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->age_in_words !== null && $pet->date_of_death !== null ? __('Died with').' '.$pet->age_in_words : ($pet->age_in_words ?? '—') }}</flux:text>
+                    </div>
                 </div>
             </div>
 

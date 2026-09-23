@@ -121,6 +121,15 @@ test('age in words combines years and months', function () {
     expect($pet->age_in_words)->toBe('1 year and 3 months');
 });
 
+test('age in words stops counting at the date of death', function () {
+    $pet = Pet::factory()->create([
+        'birth_date' => now()->subYears(5),
+        'date_of_death' => now()->subYears(3)->subMonths(2),
+    ]);
+
+    expect($pet->age_in_words)->toBe('1 year and 10 months');
+});
+
 test('age in words omits years when the pet is under a year old', function () {
     $pet = Pet::factory()->create(['birth_date' => now()->subMonths(5)]);
 
