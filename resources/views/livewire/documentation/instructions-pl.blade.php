@@ -1,0 +1,128 @@
+<div class="flex flex-col gap-8 text-neutral-700 dark:text-neutral-300">
+    <div>
+        <h1 class="text-2xl font-semibold text-neutral-900 dark:text-white">Instrukcja aplikacji</h1>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Przewodnik po głównych obszarach {{ config('app.name') }} i ich codziennym użytkowaniu.</p>
+    </div>
+
+    <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+        <a href="#getting-started" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Pierwsze kroki</a>
+        <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Pulpit</a>
+        <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Zwierzęta</a>
+        <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Szczepienia</a>
+        <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopcje</a>
+        <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopcje wirtualne</a>
+        <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Wolontariusze</a>
+        <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Obiekty</a>
+        <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Użytkownicy</a>
+        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administracja</a>
+        <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Ustawienia</a>
+    </nav>
+
+    <section id="getting-started" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Pierwsze kroki</h2>
+        <p>Przy pierwszym uruchomieniu aplikacja prosi o utworzenie początkowego konta administratora. Od tej chwili nowe konta są tworzone wyłącznie na zaproszenie.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Role</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Administrator</strong> &mdash; zarządza całą platformą: schroniskami, wspólnymi tabelami słownikowymi i kontami użytkowników. Administratorzy nie zarządzają zwierzętami ani obiektami.</li>
+            <li><strong>Kierownik</strong> &mdash; prowadzi schronisko: może wszystko to, co pracownik, a dodatkowo zaprasza użytkowników tego schroniska i nimi zarządza.</li>
+            <li><strong>Pracownik</strong> &mdash; zajmuje się codzienną pracą schroniska: zwierzętami, szczepieniami, adopcjami, adopcjami wirtualnymi, wolontariuszami i obiektami.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Praca z kilkoma schroniskami</h3>
+        <p>Użytkownik może należeć do więcej niż jednego schroniska, z inną rolą w każdym z nich. Aktywne schronisko zmienisz przełącznikiem schronisk; każda lista, licznik i formularz pokazuje wtedy tylko dane tego schroniska. Dane nigdy nie są współdzielone między schroniskami.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zalecana kolejność konfiguracji</h3>
+        <ol class="list-decimal space-y-1 ps-6">
+            <li>Administrator tworzy schronisko i wypełnia tabele słownikowe (gatunki, rasy, wielkości, rodzaje sierści, szczepionki, choroby, zajęcia).</li>
+            <li>Administrator zaprasza kierownika schroniska.</li>
+            <li>Kierownik konfiguruje obiekty, skrzydła i kojce oraz zaprasza pracowników.</li>
+            <li>Zespół zaczyna rejestrować zwierzęta.</li>
+        </ol>
+    </section>
+
+    <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Pulpit</h2>
+        <p>Pulpit daje przegląd aktywnego schroniska:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Liczniki zwierząt w schronisku, adopcji, wolnych miejsc w kojcach i pracowników.</li>
+            <li>Najnowsze przyjęcia, adopcje, adopcje wirtualne i zgony.</li>
+            <li>Zwierzęta bez znanej lokalizacji, aby można je było przypisać do kojca.</li>
+            <li>Ostrzeżenia, gdy czegoś jeszcze brakuje, np. nie zdefiniowano kojców lub gatunki nie mają ras.</li>
+        </ul>
+    </section>
+
+    <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Zwierzęta</h2>
+        <p>Menu Zwierzęta wyświetla zwierzęta schroniska według gatunku. Każda karta zawiera identyfikację (numer, imię, mikroczip), opis wyglądu (rasa, kolory, rodzaj sierści, wielkość, płeć, kastracja), daty (urodzenia, przyjęcia, wyjścia, śmierci), zdjęcia, opis publiczny, notatki wewnętrzne i notatki kliniczne.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Status</h3>
+        <p>Status zwierzęcia jest ustalany automatycznie, więc nigdy nie ustawiasz go ręcznie:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Zmarły</strong> &mdash; wpisano datę śmierci.</li>
+            <li><strong>Adoptowany</strong> &mdash; zwierzę ma adopcję bez daty zwrotu.</li>
+            <li><strong>Do adopcji</strong> / <strong>Niedostępny</strong> &mdash; w pozostałych przypadkach, zależnie od tego, czy zwierzę jest oznaczone jako gotowe do adopcji.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wyszukiwanie i filtrowanie</h3>
+        <p>Szukaj po imieniu, numerze, mikroczipie lub notatkach wewnętrznych i filtruj według statusu, gatunku lub lokalizacji (obiekt, skrzydło lub kojec). Filtr <em>brakujące dane</em> wyszukuje zwierzęta bez wieku, bez zdjęcia, bez daty przyjęcia lub bez lokalizacji, co pomaga utrzymać kompletne karty.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Drukowanie</h3>
+        <p>Możesz wydrukować kartę pojedynczego zwierzęcia z jego strony albo listę zwierząt; wydrukowana lista używa tych samych filtrów, które są aktywne na ekranie.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zdrowie</h3>
+        <p>Rejestruj przy każdym zwierzęciu choroby (z datą diagnozy, statusem i notatkami o leczeniu), szczepienia i notatki kliniczne. Wielkości są dostępne tylko dla gatunków, dla których je skonfigurowano.</p>
+    </section>
+
+    <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Szczepienia</h2>
+        <p>Każde szczepienie zapisuje szczepionkę, datę podania lub planowaną datę, numer serii, lekarza weterynarii i notatki. Strona Szczepienia wyświetla je dla wszystkich zwierząt schroniska.</p>
+        <p>Codziennie użytkownicy, którzy mają włączone powiadomienia o szczepieniach dla danego schroniska, otrzymują e-mail z listą szczepień tego schroniska zaplanowanych na najbliższe siedem dni, które nie zostały jeszcze podane. O każdym szczepieniu powiadamia się tylko raz. Ikona dzwonka na liście użytkowników pokazuje, kto otrzymuje te wiadomości.</p>
+    </section>
+
+    <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adopcje</h2>
+        <p>Adopcja zapisuje dane kontaktowe adoptującego, datę adopcji, opłatę, notatki i status wniosku (Oczekujący, Zatwierdzony lub Odrzucony). Rozpocznij ją ze strony zwierzęcia.</p>
+        <p>Jeśli adoptowane zwierzę wraca do schroniska, wpisz w adopcji <strong>datę zwrotu</strong>: zwierzę znów staje się dostępne, a adopcja pozostaje w jego historii.</p>
+    </section>
+
+    <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adopcje wirtualne</h2>
+        <p>Wirtualni opiekunowie wspierają utrzymanie zwierzęcia bez jego adopcji. Adopcja wirtualna przechowuje dane kontaktowe opiekuna oraz informację, czy chce otrzymywać wiadomości o zwierzęciu lub newsletter.</p>
+        <p>Każda adopcja wirtualna ma listę wpłat. Wpłata zapisuje okres, który obejmuje (daty rozpoczęcia i zakończenia), datę wpłaty i kwotę, dzięki czemu obsługiwane są zarówno wpłaty jednorazowe, jak i cykliczne.</p>
+    </section>
+
+    <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Wolontariusze</h2>
+        <p>Prowadź ewidencję osób, które pomagają Twojemu schronisku, niezależnie od kont użytkowników. Dla każdego wolontariusza możesz zapisać dane osobowe i kontaktowe, zdjęcie, daty rozpoczęcia i zakończenia, środek transportu i preferencję dotyczącą newslettera, a także:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Zajęcia, w których pomaga, i gatunki, z którymi woli pracować.</li>
+            <li>Dostępność w poszczególne dni tygodnia (rano i/lub po południu, okazjonalnie, co dwa tygodnie lub co tydzień).</li>
+            <li>Oceny obecności i pracy.</li>
+        </ul>
+    </section>
+
+    <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Obiekty</h2>
+        <p>Schronisko jest zorganizowane na trzech poziomach: <strong>obiekty</strong> (fizyczne lokalizacje z adresem) zawierają <strong>skrzydła</strong>, a skrzydła zawierają <strong>kojce</strong>. Każdy kojec ma kod i pojemność.</p>
+        <p>Łączna pojemność kojców określa, ile zwierząt może przyjąć schronisko, a zwierzęta przypisuje się właśnie do kojców. Skonfiguruj co najmniej jeden kojec przed rejestracją zwierząt, aby można im było przypisać lokalizację.</p>
+    </section>
+
+    <section id="users" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Użytkownicy</h2>
+        <p>Kierownicy i administratorzy zapraszają nowych użytkowników e-mailem; zaproszona osoba otrzymuje link do ustawienia hasła. Dla każdego schroniska, do którego należy użytkownik, wybierasz rolę (kierownik lub pracownik) oraz to, czy otrzymuje powiadomienia o szczepieniach.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Kierownik może dodawać użytkowników tylko do schronisk, którymi zarządza.</li>
+            <li>Administrator może dodawać użytkowników do dowolnego schroniska i tworzyć innych administratorów.</li>
+        </ul>
+    </section>
+
+    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administracja</h2>
+        <p>To menu widzą tylko administratorzy. Służy do utrzymywania schronisk i tabel słownikowych wspólnych dla wszystkich schronisk:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Schroniska</strong> &mdash; tworzenie, edycja i usuwanie schronisk.</li>
+            <li><strong>Gatunki</strong>, <strong>Rasy</strong>, <strong>Wielkości</strong> i <strong>Rodzaje sierści</strong> &mdash; opcje używane do opisu zwierząt.</li>
+            <li><strong>Szczepionki</strong> i <strong>Choroby</strong> &mdash; opcje używane w dokumentacji zdrowotnej zwierząt.</li>
+            <li><strong>Zajęcia</strong> &mdash; zadania, w których mogą pomagać wolontariusze.</li>
+        </ul>
+    </section>
+
+    <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Ustawienia</h2>
+        <p>Z menu użytkownika otwórz Ustawienia, aby zobaczyć swój profil, zmienić hasło i wybrać wygląd (jasny, ciemny lub systemowy). Imię może zmienić tylko administrator lub kierownik, a adresu e-mail nie można zmienić.</p>
+    </section>
+</div>

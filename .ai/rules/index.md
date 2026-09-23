@@ -12,6 +12,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Documentation.php,resources/views/livewire/documentation.blade.php,resources/views/livewire/documentation/*.blade.php | .ai/rules/documentation.md |
 | app/Livewire/Facilities/** | .ai/rules/facilities.md |
 | app/Livewire/Dashboard.php,resources/views/livewire/dashboard.blade.php,tests/Feature/DashboardTest.php | .ai/rules/feature.md |
+| lang/** | .ai/rules/lang.md |
 | app/Livewire/Admin/ManageUsers.php,resources/views/livewire/admin/manage-users.blade.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/layouts-app.md |
 | app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php,resources/views/layouts/print.blade.php | .ai/rules/layouts.md |
 | app/Livewire/Admin/ManageUsers.php,resources/views/livewire/admin/manage-users.blade.php, app/Livewire/Admin/UserForm.php,resources/views/livewire/admin/user-form.blade.php | .ai/rules/livewire-admin.md |

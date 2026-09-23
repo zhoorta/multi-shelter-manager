@@ -1,0 +1,128 @@
+<div class="flex flex-col gap-8 text-neutral-700 dark:text-neutral-300">
+    <div>
+        <h1 class="text-2xl font-semibold text-neutral-900 dark:text-white">Instrucciones de la Aplicación</h1>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Una guía de las principales áreas de {{ config('app.name') }} y de cómo usarlas en el día a día.</p>
+    </div>
+
+    <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+        <a href="#getting-started" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Primeros Pasos</a>
+        <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Panel de Control</a>
+        <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Animales</a>
+        <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vacunaciones</a>
+        <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopciones</a>
+        <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Apadrinamientos</a>
+        <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntarios</a>
+        <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instalaciones</a>
+        <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Usuarios</a>
+        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administración</a>
+        <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Ajustes</a>
+    </nav>
+
+    <section id="getting-started" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Primeros Pasos</h2>
+        <p>En la primera ejecución, la aplicación le pide que cree la cuenta de administrador inicial. A partir de ese momento, las nuevas cuentas solo se crean por invitación.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Funciones</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Administrador</strong> &mdash; gestiona toda la plataforma: los refugios, las tablas de referencia compartidas y las cuentas de usuario. Los administradores no gestionan animales ni instalaciones.</li>
+            <li><strong>Gestor</strong> &mdash; dirige un refugio: todo lo que puede hacer un empleado, además de invitar y gestionar a los usuarios de ese refugio.</li>
+            <li><strong>Empleado</strong> &mdash; se encarga del trabajo diario del refugio: animales, vacunaciones, adopciones, apadrinamientos, voluntarios e instalaciones.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Trabajar con varios refugios</h3>
+        <p>Un usuario puede pertenecer a más de un refugio, con una función distinta en cada uno. Use el selector de refugio para cambiar el refugio activo; a partir de ese momento, todas las listas, recuentos y formularios muestran solo los datos de ese refugio. Los datos nunca se comparten entre refugios.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orden de configuración recomendado</h3>
+        <ol class="list-decimal space-y-1 ps-6">
+            <li>Un administrador crea el refugio y rellena las tablas de referencia (especies, razas, tamaños, tipos de pelo, vacunas, enfermedades, actividades).</li>
+            <li>El administrador invita al gestor del refugio.</li>
+            <li>El gestor configura las instalaciones, alas y jaulas, e invita a los empleados.</li>
+            <li>El equipo empieza a registrar animales.</li>
+        </ol>
+    </section>
+
+    <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Panel de Control</h2>
+        <p>El panel de control le ofrece una visión general del refugio activo:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Contadores de animales activos, adopciones, capacidad disponible en las jaulas y empleados.</li>
+            <li>Los ingresos, adopciones, apadrinamientos y fallecimientos más recientes.</li>
+            <li>Animales sin ubicación conocida, para que puedan asignarse a una jaula.</li>
+            <li>Avisos cuando todavía falta algo, como no tener jaulas definidas o especies sin razas.</li>
+        </ul>
+    </section>
+
+    <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Animales</h2>
+        <p>El menú Animales muestra los animales del refugio por especie. Cada ficha incluye la identificación (referencia, nombre, microchip), la descripción física (raza, colores, tipo de pelo, tamaño, sexo, esterilizado), las fechas (nacimiento, ingreso, salida, fallecimiento), fotografías, una descripción pública, notas internas y notas clínicas.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Estado</h3>
+        <p>El estado de un animal se calcula automáticamente, por lo que nunca se establece a mano:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Fallecido</strong> &mdash; se ha rellenado una fecha de fallecimiento.</li>
+            <li><strong>Adoptado</strong> &mdash; el animal tiene una adopción sin fecha de devolución.</li>
+            <li><strong>Disponible</strong> / <strong>No disponible</strong> &mdash; en los demás casos, según si el animal está marcado como adoptable.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Búsqueda y filtros</h3>
+        <p>Busque por nombre, referencia, microchip o notas internas, y filtre por estado, especie o ubicación (instalación, ala o jaula). El filtro de <em>datos en falta</em> encuentra animales sin edad, sin fotografía, sin fecha de ingreso o sin ubicación, lo que ayuda a mantener las fichas completas.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impresión</h3>
+        <p>Puede imprimir la ficha de un animal desde su página, o imprimir la lista de animales; la lista impresa usa los mismos filtros que están activos en pantalla.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Salud</h3>
+        <p>Registre en cada animal las enfermedades (con fecha de diagnóstico, estado y notas de tratamiento), las vacunaciones y las notas clínicas. Los tamaños solo se ofrecen para las especies que tienen tamaños configurados.</p>
+    </section>
+
+    <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vacunaciones</h2>
+        <p>Cada vacunación registra la vacuna, la fecha en que se administró o en que está prevista, el número de lote, el veterinario y notas. La página Vacunaciones las muestra para todos los animales del refugio.</p>
+        <p>Cada día, los usuarios que tienen activadas las notificaciones de vacunación para un refugio reciben un email con las vacunaciones de ese refugio previstas para los próximos siete días que aún no se han administrado. Cada vacunación solo se notifica una vez. Un icono de campana en la lista de usuarios indica quién recibe estos emails.</p>
+    </section>
+
+    <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adopciones</h2>
+        <p>Una adopción registra los datos de contacto del adoptante, la fecha de adopción, la tasa, notas y el estado de la solicitud (Pendiente, Aprobada o Rechazada). Iníciela desde la página del animal.</p>
+        <p>Si un animal adoptado vuelve al refugio, rellene la <strong>fecha de devolución</strong> en la adopción: el animal vuelve a estar disponible y la adopción se mantiene en su historial.</p>
+    </section>
+
+    <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Apadrinamientos</h2>
+        <p>Los padrinos contribuyen al cuidado de un animal sin adoptarlo. Un apadrinamiento guarda los datos de contacto del padrino y si desea recibir novedades sobre el animal o el boletín.</p>
+        <p>Cada apadrinamiento tiene una lista de pagos. Un pago registra el periodo que cubre (fechas de inicio y fin), la fecha de pago y el importe, por lo que se admiten tanto contribuciones puntuales como periódicas.</p>
+    </section>
+
+    <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Voluntarios</h2>
+        <p>Lleve un registro de las personas que ayudan a su refugio, de forma independiente a las cuentas de usuario. Para cada voluntario puede guardar datos personales y de contacto, una fotografía, fechas de inicio y fin, medio de transporte y preferencia de boletín, además de:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Las actividades en las que ayuda y las especies con las que prefiere trabajar.</li>
+            <li>Su disponibilidad por día de la semana (mañanas y/o tardes, ocasionalmente, cada dos semanas o semanalmente).</li>
+            <li>Evaluaciones de asistencia y desempeño.</li>
+        </ul>
+    </section>
+
+    <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Instalaciones</h2>
+        <p>Un refugio se organiza en tres niveles: las <strong>instalaciones</strong> (ubicaciones físicas, con dirección) contienen <strong>alas</strong>, y las alas contienen <strong>jaulas</strong>. Cada jaula tiene un código y una capacidad.</p>
+        <p>La capacidad total de las jaulas determina cuántos animales puede alojar el refugio, y las jaulas son donde se asignan los animales. Configure al menos una jaula antes de registrar animales para que se les pueda asignar una ubicación.</p>
+    </section>
+
+    <section id="users" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Usuarios</h2>
+        <p>Los gestores y administradores invitan a nuevos usuarios por email; la persona invitada recibe un enlace para crear su contraseña. Para cada refugio al que pertenece se elige la función (gestor o empleado) y si el usuario recibe notificaciones de vacunación.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Un gestor solo puede añadir usuarios a los refugios que gestiona.</li>
+            <li>Un administrador puede añadir usuarios a cualquier refugio y puede crear otros administradores.</li>
+        </ul>
+    </section>
+
+    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administración</h2>
+        <p>Solo los administradores ven este menú. En él se mantienen los refugios y las tablas de referencia compartidas por todos los refugios:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Refugios</strong> &mdash; crear, editar y eliminar refugios.</li>
+            <li><strong>Especies</strong>, <strong>Razas</strong>, <strong>Tamaños</strong> y <strong>Tipos de Pelo</strong> &mdash; las opciones usadas para describir a los animales.</li>
+            <li><strong>Vacunas</strong> y <strong>Enfermedades</strong> &mdash; las opciones usadas en los registros de salud de los animales.</li>
+            <li><strong>Actividades</strong> &mdash; las tareas en las que pueden ayudar los voluntarios.</li>
+        </ul>
+    </section>
+
+    <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Ajustes</h2>
+        <p>Desde el menú de usuario, abra Ajustes para ver su perfil, cambiar su contraseña y elegir la apariencia (clara, oscura o del sistema). Su nombre solo puede cambiarlo un administrador o gestor, y su email no se puede cambiar.</p>
+    </section>
+</div>

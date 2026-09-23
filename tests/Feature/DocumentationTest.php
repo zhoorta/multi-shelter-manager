@@ -36,3 +36,131 @@ test('the documentation content follows the active locale', function () {
 
     app()->setLocale('en');
 });
+
+test('the documentation content is available in spanish', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    app()->setLocale('es');
+
+    $response = $this->get(route('documentation'));
+
+    $response->assertOk();
+    $response->assertSee('Instrucciones de la Aplicación');
+    $response->assertSee('Orden de configuración recomendado');
+    $response->assertDontSee('Recommended setup order');
+
+    app()->setLocale('en');
+});
+
+test('the documentation content is available in french', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    app()->setLocale('fr');
+
+    $response = $this->get(route('documentation'));
+
+    $response->assertOk();
+    $response->assertSee("Instructions de l'Application", false);
+    $response->assertSee('Ordre de configuration recommandé');
+    $response->assertDontSee('Recommended setup order');
+
+    app()->setLocale('en');
+});
+
+test('the documentation content is available in german', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    app()->setLocale('de');
+
+    $response = $this->get(route('documentation'));
+
+    $response->assertOk();
+    $response->assertSee('Anleitung zur Anwendung');
+    $response->assertSee('Empfohlene Reihenfolge der Einrichtung');
+    $response->assertDontSee('Recommended setup order');
+
+    app()->setLocale('en');
+});
+
+test('the documentation content is available in dutch', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    app()->setLocale('nl');
+
+    $response = $this->get(route('documentation'));
+
+    $response->assertOk();
+    $response->assertSee('Handleiding van de applicatie');
+    $response->assertSee('Aanbevolen volgorde van inrichting');
+    $response->assertDontSee('Recommended setup order');
+
+    app()->setLocale('en');
+});
+
+test('the documentation content is available in polish', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    app()->setLocale('pl');
+
+    $response = $this->get(route('documentation'));
+
+    $response->assertOk();
+    $response->assertSee('Instrukcja aplikacji');
+    $response->assertSee('Zalecana kolejność konfiguracji');
+    $response->assertDontSee('Recommended setup order');
+
+    app()->setLocale('en');
+});
+
+test('the documentation content is available in italian', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    app()->setLocale('it');
+
+    $response = $this->get(route('documentation'));
+
+    $response->assertOk();
+    $response->assertSee("Istruzioni dell'Applicazione", false);
+    $response->assertSee('Ordine di configurazione consigliato');
+    $response->assertDontSee('Recommended setup order');
+
+    app()->setLocale('en');
+});
+
+test('the documentation content is available in swedish', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    app()->setLocale('sv');
+
+    $response = $this->get(route('documentation'));
+
+    $response->assertOk();
+    $response->assertSee('Instruktioner för applikationen');
+    $response->assertSee('Rekommenderad ordning för uppstart');
+    $response->assertDontSee('Recommended setup order');
+
+    app()->setLocale('en');
+});
+
+test('the documentation content is available in danish', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    app()->setLocale('da');
+
+    $response = $this->get(route('documentation'));
+
+    $response->assertOk();
+    $response->assertSee('Vejledning til applikationen');
+    $response->assertSee('Anbefalet rækkefølge for opsætning');
+    $response->assertDontSee('Recommended setup order');
+
+    app()->setLocale('en');
+});

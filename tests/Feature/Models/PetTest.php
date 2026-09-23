@@ -133,6 +133,20 @@ test('age in words uses singular forms for one year and one month', function () 
     expect($pet->age_in_words)->toBe('1 year and 1 month');
 });
 
+test('age in words uses the three polish plural forms', function (int $years, int $months, string $expected) {
+    app()->setLocale('pl');
+
+    $pet = Pet::factory()->create(['birth_date' => now()->subYears($years)->subMonths($months)]);
+
+    expect($pet->age_in_words)->toBe($expected);
+
+    app()->setLocale('en');
+})->with([
+    [1, 1, '1 rok i 1 miesiąc'],
+    [2, 3, '2 lata i 3 miesiące'],
+    [5, 5, '5 lat i 5 miesięcy'],
+]);
+
 test('stamps created_by on the sickness pivot record when authenticated', function () {
     $user = User::factory()->create();
     $this->actingAs($user);
