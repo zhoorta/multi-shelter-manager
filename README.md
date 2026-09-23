@@ -75,6 +75,14 @@ composer run test     # Pint (style) + PHPStan (static analysis) + Pest (tests)
 composer run lint     # fix code style
 ```
 
+## Contributing
+
+Contributions are welcome: bug reports, ideas, translations, documentation and code. Read the [contributing guide](CONTRIBUTING.md) to get started.
+
+## Code of Conduct
+
+To keep this community welcoming to everyone, please read and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## License
 
 Multi Shelter Manager is open-source software licensed under the [MIT license](LICENSE).
