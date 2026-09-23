@@ -500,6 +500,19 @@ test('publishes and features a pet on the public portal and loads the flags when
         ->assertSet('petIsFeatured', true);
 });
 
+test('shows the portal switches only when the public portal is enabled', function (bool $isPortalEnabled) {
+    config(['app.public_portal_enabled' => $isPortalEnabled]);
+    $this->actingAs(User::factory()->forShelter(Shelter::factory()->create(), 'staff')->create());
+
+    $component = Livewire::test(PetForm::class);
+
+    if ($isPortalEnabled) {
+        $component->assertSee(__('Publish to Portal'))->assertSee(__('Is Featured'));
+    } else {
+        $component->assertDontSee(__('Publish to Portal'))->assertDontSee(__('Is Featured'));
+    }
+})->with(['enabled' => true, 'disabled' => false]);
+
 test('creates a pet marked as neutered', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());

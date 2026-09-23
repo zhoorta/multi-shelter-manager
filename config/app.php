@@ -86,6 +86,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Public Portal
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, the home page shows the public adoption portal. When
+    | disabled, the installation is backoffice only and "/" redirects to
+    | the login page.
+    |
+    */
+
+    'public_portal_enabled' => (bool) env('PUBLIC_PORTAL_ENABLED', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Privacy Contact
     |--------------------------------------------------------------------------
     |

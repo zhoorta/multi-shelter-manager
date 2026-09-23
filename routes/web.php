@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Middleware\EnsurePublicPortalEnabled;
 use App\Livewire\Admin\ManageActivities;
 use App\Livewire\Admin\ManageBreeds;
 use App\Livewire\Admin\ManageFurTypes;
@@ -38,8 +39,8 @@ use App\Livewire\Volunteers\VolunteerShow;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
-// Public welcome page, open to guests and logged-in users alike.
-Route::livewire('/', Welcome::class)->name('home');
+// Public welcome page, open to guests and logged-in users alike; redirects to login when the portal is disabled.
+Route::livewire('/', Welcome::class)->middleware(EnsurePublicPortalEnabled::class)->name('home');
 Route::livewire('privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
 
 // Public guest routes.

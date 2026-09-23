@@ -40,9 +40,19 @@ test('lists the session cookie by its configured name', function () {
 });
 
 test('the public pages load no fonts from google', function () {
+    config(['app.public_portal_enabled' => true]);
+
     $this->get(route('home'))->assertDontSee('fonts.googleapis.com', false);
 });
 
 test('the public footer links to the privacy policy', function () {
+    config(['app.public_portal_enabled' => true]);
+
     $this->get(route('home'))->assertSee(route('privacy-policy'), false);
+});
+
+test('the privacy policy stays available when the public portal is disabled', function () {
+    config(['app.public_portal_enabled' => false]);
+
+    $this->get(route('privacy-policy'))->assertOk();
 });

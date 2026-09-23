@@ -12,6 +12,10 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
+beforeEach(function () {
+    config(['app.public_portal_enabled' => true]);
+});
+
 /**
  * @param  array<string, mixed>  $attributes
  */

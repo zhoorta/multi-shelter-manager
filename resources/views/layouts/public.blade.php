@@ -14,9 +14,11 @@
                 </a>
 
                 <nav class="flex items-center gap-2">
-                    <a href="{{ route('home') }}#adopt" class="hidden rounded-full px-4 py-2 text-sm font-semibold text-stone-600 transition hover:bg-amber-100 hover:text-stone-900 sm:inline-block dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white">
-                        {{ __('Adopt') }}
-                    </a>
+                    @if (config('app.public_portal_enabled'))
+                        <a href="{{ route('home') }}#adopt" class="hidden rounded-full px-4 py-2 text-sm font-semibold text-stone-600 transition hover:bg-amber-100 hover:text-stone-900 sm:inline-block dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white">
+                            {{ __('Adopt') }}
+                        </a>
+                    @endif
                     @auth
                         <a href="{{ route('dashboard') }}" class="rounded-full bg-stone-900 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-stone-700 dark:bg-white dark:text-stone-900 dark:hover:bg-stone-200" wire:navigate>
                             {{ __('Dashboard') }}
