@@ -74,3 +74,7 @@ The full step-by-step guide, with screenshots, is in the [`docs`](docs/README.md
 composer run test     # Pint (style) + PHPStan (static analysis) + Pest (tests)
 composer run lint     # fix code style
 ```
+
+## License
+
+Multi Shelter Manager is open-source software licensed under the [MIT license](LICENSE).
