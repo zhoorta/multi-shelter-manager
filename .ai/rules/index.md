@@ -41,6 +41,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Settings/Profile.php,resources/views/livewire/settings/profile.blade.php | .ai/rules/settings.md |
 | tests/** | .ai/rules/tests.md |
 | app/Traits/MultiShelterTrait.php | .ai/rules/traits.md |
+| resources/views/layouts/app.blade.php | .ai/rules/views-layouts.md |
 | app/Livewire/Admin/ManageUsers.php,app/Livewire/Admin/UserForm.php,resources/views/livewire/admin/manage-users.blade.php,resources/views/livewire/admin/user-form.blade.php | .ai/rules/views-livewire-admin.md |
 | app/Models/PetVaccine.php,app/Livewire/Pets/VaccinationForm.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/ManageVaccinations.php,resources/views/livewire/pets/pet-show.blade.php,resources/views/livewire/pets/manage-vaccinations.blade.php | .ai/rules/views-livewire-pets-views-livewire-pets.md |
 | app/Livewire/Pets/PetShow.php,resources/views/livewire/pets/pet-show.blade.php, app/Livewire/Pets/ManagePets.php,resources/views/livewire/pets/manage-pets.blade.php, app/Livewire/Pets/AdoptionForm.php,resources/views/livewire/pets/adoption-form.blade.php, app/Livewire/Pets/SponsorshipForm.php,resources/views/livewire/pets/sponsorship-form.blade.php, app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php | .ai/rules/views-livewire-pets.md |

@@ -26,6 +26,14 @@ test('authenticated users can visit the dashboard', function () {
     $response->assertOk();
 });
 
+test('the layout renders the decorative backdrop behind the content area', function () {
+    $this->actingAs(User::factory()->create());
+
+    $this->get(route('dashboard'))
+        ->assertOk()
+        ->assertSee('data-test="app-backdrop"', false);
+});
+
 test('the layout shows the navigation links and the user shelter name', function () {
     $shelter = Shelter::factory()->create(['name' => 'Happy Paws Shelter']);
     $user = User::factory()->forShelter($shelter, 'staff')->create();
