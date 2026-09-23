@@ -56,6 +56,39 @@ test('returns 404 when viewing a pet belonging to another shelter', function () 
     $this->get(route('pets.show', $pet))->assertNotFound();
 });
 
+test('shows the public portal publication, featured flag and view count', function () {
+    config(['app.public_portal_enabled' => true]);
+
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['publish_to_portal' => true, 'is_featured' => false, 'view_count' => 37]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder([
+            __('Public Portal'),
+            __('Publish to Portal'), __('Yes'),
+            __('Is Featured'), __('No'),
+            __('View Count'), '37',
+            __('Accommodation'),
+        ]);
+});
+
+test('hides the public portal section when the public portal is disabled', function () {
+    config(['app.public_portal_enabled' => false]);
+
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertDontSee(__('Public Portal'))
+        ->assertDontSee(__('View Count'));
+});
+
 test('links to the edit page', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();

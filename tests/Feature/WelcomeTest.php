@@ -133,6 +133,20 @@ test('shows every photo of the pet in the details slider', function () {
         ->assertSee(__('Next photo'));
 });
 
+test('opening the pet details adds one view without touching its audit columns', function () {
+    $pet = publishedPet(['view_count' => 4]);
+    $updatedAt = $pet->updated_at;
+
+    $this->travel(1)->hour();
+
+    Livewire::test(Welcome::class)->call('showPet', $pet->id);
+
+    $pet->refresh();
+
+    expect($pet->view_count)->toBe(5)
+        ->and($pet->updated_at->equalTo($updatedAt))->toBeTrue();
+});
+
 test('cannot open the details of an unpublished pet', function () {
     $pet = publishedPet(['publish_to_portal' => false]);
 

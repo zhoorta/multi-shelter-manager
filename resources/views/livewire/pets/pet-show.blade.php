@@ -253,6 +253,26 @@
                 </div>
             </div>
 
+            @if (config('app.public_portal_enabled'))
+                <div>
+                    <flux:heading>{{ __('Public Portal') }}</flux:heading>
+                    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Publish to Portal') }}</flux:text>
+                            <flux:badge size="sm" :color="$pet->publish_to_portal ? 'lime' : 'zinc'">{{ $pet->publish_to_portal ? __('Yes') : __('No') }}</flux:badge>
+                        </div>
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Is Featured') }}</flux:text>
+                            <flux:badge size="sm" :color="$pet->is_featured ? 'lime' : 'zinc'">{{ $pet->is_featured ? __('Yes') : __('No') }}</flux:badge>
+                        </div>
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('View Count') }}</flux:text>
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->view_count }}</flux:text>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div>
                 <flux:heading>{{ __('Accommodation') }}</flux:heading>
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

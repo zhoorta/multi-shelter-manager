@@ -18,9 +18,16 @@ trait ShowsPublicPets
 {
     public ?int $selectedPetId = null;
 
+    /**
+     * Open a published pet's details and count it as one portal view. The
+     * count is incremented on the base query so a view does not touch the
+     * pet's updated_at/updated_by audit columns.
+     */
     public function showPet(int $petId): void
     {
         $this->selectedPetId = $this->publicPetsQuery()->findOrFail($petId)->id;
+
+        Pet::query()->withoutGlobalScopes()->whereKey($this->selectedPetId)->toBase()->increment('view_count');
 
         Flux::modal('public-pet-details')->show();
     }
