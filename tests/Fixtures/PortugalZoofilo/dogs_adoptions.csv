@@ -1,0 +1,4 @@
+animal_id;animal_nome;animal_chip_id;animal_tipo;animal_data_entrada_inst;animal_data_obito;animal_data_saida_inst;adopc_id;adopc_nome_dono;adopc_telefone_casa;adopc_telefone_emprego;adopc_telemovel;adopc_email;adopc_morada;adopc_codpostal_4;adopc_codpostal_3;adopc_locpostal;adopc_data_adopcao;adopc_data_devolucao;visita_data_ultima;visita_nome_visitante;visita_opiniao;visita_notas
+102;Toby;;Cão;2019-01-10;;2020-01-10;5001;??;292391555;-1;912345678;toby.owner@example.com;Rua Direita 2;9900;89;HORTA;2020-01-10;;2020-02-01;Paulo Melo;BEM_ENTREGUE;Tudo bem.
+103;Gipsy;;Cão;2011-06-15;2025-04-28;;5002;Alemanha;-1;-1;-1;;;-1;-1;;2012-03-01;2012-05-01;;;;
+999;Fantasma;;Cão;2018-11-03;;;5003;Emanuel Rosa;-1;-1;961111111;;;-1;-1;;2018-11-09;2019-02-15;;;;

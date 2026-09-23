@@ -1,0 +1,3 @@
+animal_id;animal_nome;animal_chip_id;animal_tipo;animal_data_entrada_inst;animal_data_obito;animal_data_saida_inst;apad_id;apad_nif;apad_nome_padrinho;apad_telefone_casa;apad_telefone_emprego;apad_telemovel;apad_email;apad_divulgar_site;apad_envio_feedback;apad_morada;apad_codpostal_4;apad_codpostal_3;apad_locpostal;apad_data_criacao;valido_ate;ultimo_feedback
+101;Lana;900085000279337;Cão;2017-05-30;;;7001;-1;Luísa Narigao;-1;9009;967375999;luisa@example.com;Divulgado;Não Enviar;;-1;-1;;2021-01-30 09:35:00;2026-12-02;
+103;Gipsy;963007000042431;Cão;2011-06-15;2025-04-28;;7002;-1;Luísa Narigão;-1;9009;-1;luisa@example.com;Divulgado;Enviar;;-1;-1;;2021-01-30 09:35:00;2025-03-01;

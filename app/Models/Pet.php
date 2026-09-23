@@ -109,6 +109,24 @@ class Pet extends Model
     }
 
     /**
+     * Reduce the description editor's HTML to a small formatting-only
+     * allowlist and strip attributes from the surviving tags, since both the
+     * client-side rich text editor and imported portal pages send raw HTML
+     * that could otherwise carry stray attributes (e.g. onclick) into the
+     * stored value. Returns null when only empty markup remains.
+     */
+    public static function sanitizeDescription(string $html): ?string
+    {
+        $allowedTags = '<p><br><b><strong><i><em><u><ul><ol><li>';
+
+        $stripped = strip_tags($html, $allowedTags);
+        $stripped = preg_replace('/<(\w+)[^>]*>/', '<$1>', $stripped) ?? $stripped;
+        $stripped = trim($stripped);
+
+        return trim(strip_tags($stripped)) !== '' ? $stripped : null;
+    }
+
+    /**
      * The pet's age, in whole years and months, as a translated string
      * (e.g. "1 ano e 3 meses"), measured up to date_of_death when the pet
      * is deceased. Null when birth_date is unknown.

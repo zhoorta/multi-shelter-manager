@@ -1,0 +1,6 @@
+Table 1
+animal_id;animal_nome;animal_chip_id;animal_sexo;raca_nome;tippelo_nome;cor_primaria;cor_secundaria;porte_nome;animal_esterilizado;animal_doenca_1;animal_doenca_2;animal_para_adopcao;animal_para_apadrinhar;animal_divulgar_portal;animal_em_destaque;animal_data_entrada_inst;animal_data_nascimento;idade;animal_data_obito;animal_data_saida_inst;instal_nome;ala_nome;jaula_referencia;notas_internas;nr_visualizacoes;ficha_pz
+101;Lana;900085000279337;Fêmea;Cão Rafeiro;Médio e Ondulado;Tigrado;Castanho;Médio;Castrado/Esterilizado;;;Adoptável;Não Apadrinhável;Divulgado;Destacado;2017-05-30;2016-05-30;10 years;;;Canil Afama;E;04;"Resgatada do Canil Municipal.
+Muito assustada.";3710;http://www.portugalzoofilo.net/caes/cao.jsp?animal_id=101
+102;Toby;---;Macho;Labrador Retriever;Curto;Preto;;Grande;;;;Adoptável;Apadrinhável;Divulgado;Destacado;2019-01-10;2018-06-01;8 years;;2020-01-10;Canil Afama;A;01;;131;http://www.portugalzoofilo.net/caes/cao.jsp?animal_id=102
+103;Gipsy;963007000042431;Fêmea;Cão Rafeiro;Curto;Castanho;;Médio;Castrado/Esterilizado;;;Adoptável;Apadrinhável;Divulgado;;2011-06-15;2010-06-15;16 years;2025-04-28;;Sem Instalação Indicada;Sem Ala Indicada;Sem Jaula Indicada;;3275;http://www.portugalzoofilo.net/caes/cao.jsp?animal_id=103

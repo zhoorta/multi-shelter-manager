@@ -3,6 +3,7 @@ paths:
   - 'app/Models/*.php'
   - app/Models/Pet.php
   - app/Models/FurType.php
+  - app/Models/Cage.php
 ---
 
 # Models
@@ -36,3 +37,6 @@ Species, Breed, FurType, and Size all use SoftDeletes, but their FKs on pets (sp
 
 ## Pet age_in_words stops at date_of_death
 Pet::ageInWords() measures birth_date → date_of_death when the pet is deceased, else birth_date → now (periodInWords() takes an optional $to). Every view using age_in_words (manage-pets, pet-show, pet-print, pet-print-list, public card/modal) therefore shows age at death for deceased pets. pet-show.blade.php shows an "Age" row right after "Death Date" in the Identification subsection.
+
+## Cage capacity is indicative, never a hard limit
+cages.capacity is only a guideline: a cage can hold more animals than its capacity. Never block assignments or warn about "over capacity" (e.g. in PetForm, imports, or reports) based on it.
