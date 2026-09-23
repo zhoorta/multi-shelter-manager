@@ -343,5 +343,19 @@
     "No shelters found in this region.": "Não foram encontrados abrigos neste distrito.",
     "See all animals from this shelter": "Ver todos os animais deste abrigo",
     "This shelter has no animals for adoption right now": "Este abrigo não tem animais para adoção neste momento",
-    "New animals arrive all the time — come back soon!": "Chegam novos animais a toda a hora — volte em breve!"
+    "New animals arrive all the time — come back soon!": "Chegam novos animais a toda a hora — volte em breve!",
+    "Forgot password": "Recuperar palavra-passe",
+    "Enter your email to receive a password reset link": "Introduza o seu email para receber um link de redefinição da palavra-passe",
+    "Email password reset link": "Enviar link de redefinição",
+    "Or, return to": "Ou, voltar para",
+    "log in": "iniciar sessão",
+    "Reset password": "Redefinir palavra-passe",
+    "Please enter your new password below": "Introduza a sua nova palavra-passe abaixo",
+    "Reset your password": "Redefina a sua palavra-passe",
+    "You are receiving this email because we received a password reset request for your account.": "Está a receber este email porque recebemos um pedido de redefinição da palavra-passe da sua conta.",
+    "Reset Password": "Redefinir palavra-passe",
+    "This password reset link will expire in :count minutes.": "Este link de redefinição da palavra-passe expira dentro de :count minutos.",
+    "If you did not request a password reset, no further action is required.": "Se não pediu a redefinição da palavra-passe, não é necessária qualquer ação.",
+    "Hello!": "Olá!",
+    "Whoops!": "Ups!"
 }
