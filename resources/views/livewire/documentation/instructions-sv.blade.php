@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontärer</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Anläggningar</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Användare</a>
+        <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Öppen portal</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Inställningar</a>
     </nav>
@@ -31,11 +32,15 @@
         <p>En användare kan tillhöra fler än ett djurhem, med olika roll i vart och ett. Använd djurhemsväljaren för att byta aktivt djurhem; varje lista, räknare och formulär visar då bara det djurhemmets data. Data delas aldrig mellan djurhem.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Rekommenderad ordning för uppstart</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>En administratör skapar djurhemmet och fyller i referenstabellerna (arter, raser, storlekar, pälstyper, vacciner, sjukdomar, aktiviteter).</li>
+            <li>En administratör fyller i grunddatatabellerna (regioner, djurarter, raser, storlekar, pälstyper, vacciner, sjukdomar, aktiviteter).</li>
+            <li>Administratören skapar djurhemmet, fyller i dess profil (kontaktuppgifter, region, beskrivning, logotyp) och väljer vilka djurarter det arbetar med.</li>
             <li>Administratören bjuder in djurhemmets föreståndare.</li>
             <li>Föreståndaren konfigurerar anläggningar, flyglar och burar och bjuder in personalen.</li>
             <li>Teamet börjar registrera djur.</li>
+            <li>Om den öppna portalen är aktiverad publicerar teamet de djur som är redo för adoption.</li>
         </ol>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hitta rätt i applikationen</h3>
+        <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner och Vaccinationer), Volontärer och Anläggningar; chefer ser även Användare. Administratörer ser i stället Användare och menyn Administration. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -51,7 +56,7 @@
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Djur</h2>
-        <p>Menyn Djur visar djurhemmets djur per art. Varje djurkort innehåller identifiering (referens, namn, mikrochip), utseende (ras, färger, pälstyp, storlek, kön, kastrering), datum (födelse, intag, utskrivning, död), foton, en offentlig beskrivning, interna anteckningar och kliniska anteckningar.</p>
+        <p>Menyn Djur visar djurhemmets djur per art. Varje djurkort innehåller identifiering (referens, namn, mikrochip), utseende (ras, färger, pälstyp, storlek, kön, kastrering), datum (födelse, intag, utskrivning, död), foton, en offentlig beskrivning, interna anteckningar och kliniska anteckningar. Endast de djurarter som administratören har aktiverat för ditt djurhem visas där.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Status</h3>
         <p>Ett djurs status räknas ut automatiskt, så du ställer aldrig in den för hand:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -59,6 +64,13 @@
             <li><strong>Adopterad</strong> &mdash; djuret har en adoption utan returdatum.</li>
             <li><strong>Tillgänglig</strong> / <strong>Inte tillgänglig</strong> &mdash; i övriga fall, beroende på om djuret är markerat som adopterbart.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Alternativ och placering</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Tillgänglig för adoption</strong> &mdash; djuret kan adopteras; det avgör om statusen är tillgänglig eller inte tillgänglig.</li>
+            <li><strong>Tillgänglig för fadderskap</strong> &mdash; djuret kan få faddrar. Åtgärden för fadderskap erbjuds bara för djur med detta alternativ påslaget och finns kvar även efter att djuret har adopterats.</li>
+            <li><strong>Bur</strong> &mdash; burlistan är grupperad per anläggning och flygel och visar hur många platser som är lediga i varje bur, med en grön, gul eller röd markering när den fylls.</li>
+        </ul>
+        <p>När den öppna portalen är aktiverad visas ytterligare två alternativ: <strong>Publicera på den öppna portalen</strong> och <strong>Utvald</strong>. Se <a href="#public-portal" class="underline underline-offset-2">Öppen portal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sökning och filtrering</h3>
         <p>Sök på namn, referens, mikrochip eller interna anteckningar och filtrera på status, art eller placering (anläggning, flygel eller bur). Filtret <em>saknade uppgifter</em> hittar djur utan ålder, foto, intagsdatum eller placering, vilket hjälper dig att hålla djurkorten kompletta.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Utskrift</h3>
@@ -76,12 +88,14 @@
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adoptioner</h2>
         <p>En adoption registrerar adoptantens kontaktuppgifter, adoptionsdatum, avgift, anteckningar och ansökningsstatus (Väntande, Godkänd eller Avslagen). Påbörja den från djurets sida.</p>
+        <p>Sidan Adoptioner (under Djur i sidomenyn) visar djurhemmets alla adoptioner; sök på adoptantens namn, telefon, e-post eller anteckningar, eller på djurets namn eller referens.</p>
         <p>Om ett adopterat djur kommer tillbaka till djurhemmet fyller du i <strong>returdatumet</strong> på adoptionen: djuret blir tillgängligt igen och adoptionen finns kvar i dess historik.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Fadderskap</h2>
         <p>Faddrar stöder ett djurs omvårdnad utan att adoptera det. Ett fadderskap sparar fadderns kontaktuppgifter och om hen vill få nyheter om djuret eller nyhetsbrevet.</p>
+        <p>Fadderskap kan bara skapas för djur som är markerade som <strong>Tillgänglig för fadderskap</strong>. Sidan Fadderskap (under Djur i sidomenyn) visar alla, med samma sökning som för adoptioner: fadderns namn, telefon, e-post eller anteckningar, eller djurets namn eller referens.</p>
         <p>Varje fadderskap har en lista med betalningar. En betalning registrerar perioden den gäller (start- och slutdatum), betalningsdatum och belopp, så både engångsbidrag och återkommande bidrag stöds.</p>
     </section>
 
@@ -93,6 +107,7 @@
             <li>Tillgänglighet per veckodag (förmiddag och/eller eftermiddag, ibland, varannan vecka eller varje vecka).</li>
             <li>Bedömningar av närvaro och insats.</li>
         </ul>
+        <p>Volontärlistan kan sökas på namn, telefon, e-post, personnummer eller anteckningar och filtreras på föredragen djurart, tillgänglig dag och aktivitet &mdash; praktiskt för att se vem som kan hjälpa till en viss dag.</p>
     </section>
 
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,11 +125,37 @@
         </ul>
     </section>
 
+    <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Öppen portal</h2>
+        <p>En installation kan som tillval ha en öppen webbplats bredvid backoffice. Den aktiveras av den som driver servern; när den är avstängd skickas besökare från startsidan till inloggningssidan och alternativen nedan är dolda.</p>
+        <p>När den är påslagen kan vem som helst (utan inloggning):</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Bläddra bland djur från alla djurhem som är redo för adoption, filtrerat på djurart, kön, storlek, ras och region.</li>
+            <li>Öppna ett djurs kort för att se foton, den offentliga beskrivningen och djurhemmet där det bor.</li>
+            <li>Se listan över partnerdjurhem, vart och ett med en egen sida med kontaktuppgifter, beskrivning, logotyp och djur.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vad som visas offentligt</h3>
+        <p>Ett djur visas bara på portalen när <strong>alla</strong> dessa villkor är uppfyllda:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Publicera på den öppna portalen</strong> är påslaget (avstängt som standard, så att inget publiceras av misstag).</li>
+            <li>Djuret är tillgängligt för adoption (adopterade eller avlidna djur försvinner automatiskt).</li>
+            <li>Djurhemmet har inte tagits bort.</li>
+        </ul>
+        <p>Djur markerade som <strong>Utvald</strong> visas först, med ett märke. Endast namn, referens, foton, offentlig beskrivning och beskrivande uppgifter (djurart, ras, storlek, kön, ålder, pälstyp, kastrerad) visas &mdash; interna anteckningar, kliniska anteckningar, chip och bur publiceras aldrig.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tips för bra annonser</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Lägg till minst ett bra foto och en vänlig offentlig beskrivning &mdash; det är det adoptanter ser först.</li>
+            <li>Håll djurhemmets profil (kontaktuppgifter, beskrivning, logotyp) uppdaterad: den visas på djurhemmets offentliga sida, i sökresultat och i länkförhandsvisningar.</li>
+            <li>De offentliga sidorna är förberedda för sökmotorer (Google med flera) och en webbplatskarta (sitemap) skapas automatiskt; backoffice indexeras aldrig.</li>
+        </ul>
+    </section>
+
     <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administration</h2>
         <p>Endast administratörer ser denna meny. Här underhålls djurhemmen och de referenstabeller som delas av alla djurhem:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Djurhem</strong> &mdash; skapa, redigera och ta bort djurhem.</li>
+            <li><strong>Djurhem</strong> &mdash; skapa, redigera och ta bort djurhem. Förutom namn och ort har ett djurhem ett kortnamn, kontaktuppgifter (e-post, telefon, webbplats), adress, region, en beskrivning och en logotyp &mdash; som används på den öppna portalen när den är aktiverad. Listan <strong>Djurarter</strong> i djurhemsformuläret styr vilka djurarter som visas i menyn Djur för djurhemmets chef och personal.</li>
+            <li><strong>Regioner</strong> &mdash; de regioner som djurhemmen tillhör, används även som filter på den öppna portalen.</li>
             <li><strong>Djurarter</strong>, <strong>Raser</strong>, <strong>Storlekar</strong> och <strong>Pälstyper</strong> &mdash; alternativen som används för att beskriva djuren.</li>
             <li><strong>Vacciner</strong> och <strong>Sjukdomar</strong> &mdash; alternativen som används i djurens hälsojournaler.</li>
             <li><strong>Aktiviteter</strong> &mdash; uppgifterna som volontärer kan hjälpa till med.</li>

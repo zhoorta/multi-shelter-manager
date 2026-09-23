@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntarios</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instalaciones</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Usuarios</a>
+        <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal Público</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administración</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Ajustes</a>
     </nav>
@@ -31,11 +32,15 @@
         <p>Un usuario puede pertenecer a más de un refugio, con una función distinta en cada uno. Use el selector de refugio para cambiar el refugio activo; a partir de ese momento, todas las listas, recuentos y formularios muestran solo los datos de ese refugio. Los datos nunca se comparten entre refugios.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orden de configuración recomendado</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>Un administrador crea el refugio y rellena las tablas de referencia (especies, razas, tamaños, tipos de pelo, vacunas, enfermedades, actividades).</li>
+            <li>Un administrador completa las tablas de referencia (regiones, especies, razas, tamaños, tipos de pelo, vacunas, enfermedades, actividades).</li>
+            <li>El administrador crea el refugio, completa su perfil (contactos, región, descripción, logotipo) y elige las especies con las que trabaja.</li>
             <li>El administrador invita al gestor del refugio.</li>
             <li>El gestor configura las instalaciones, alas y jaulas, e invita a los empleados.</li>
             <li>El equipo empieza a registrar animales.</li>
+            <li>Si el portal público está activado, el equipo publica los animales que están listos para ser adoptados.</li>
         </ol>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarse en la aplicación</h3>
+        <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones y Vacunaciones), Voluntarios e Instalaciones; los gestores ven también Usuarios. Los administradores ven, en su lugar, Usuarios y el menú Administración. Esta documentación está siempre disponible al final del menú lateral.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -51,7 +56,7 @@
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Animales</h2>
-        <p>El menú Animales muestra los animales del refugio por especie. Cada ficha incluye la identificación (referencia, nombre, microchip), la descripción física (raza, colores, tipo de pelo, tamaño, sexo, esterilizado), las fechas (nacimiento, ingreso, salida, fallecimiento), fotografías, una descripción pública, notas internas y notas clínicas.</p>
+        <p>El menú Animales muestra los animales del refugio por especie. Cada ficha incluye la identificación (referencia, nombre, microchip), la descripción física (raza, colores, tipo de pelo, tamaño, sexo, esterilizado), las fechas (nacimiento, ingreso, salida, fallecimiento), fotografías, una descripción pública, notas internas y notas clínicas. Solo aparecen las especies que el administrador ha activado para tu refugio.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Estado</h3>
         <p>El estado de un animal se calcula automáticamente, por lo que nunca se establece a mano:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -59,6 +64,13 @@
             <li><strong>Adoptado</strong> &mdash; el animal tiene una adopción sin fecha de devolución.</li>
             <li><strong>Disponible</strong> / <strong>No disponible</strong> &mdash; en los demás casos, según si el animal está marcado como adoptable.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Opciones y ubicación</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Disponible para Adopción</strong> &mdash; el animal puede ser adoptado; determina si su estado es disponible o no disponible.</li>
+            <li><strong>Disponible para Apadrinamiento</strong> &mdash; el animal puede recibir apadrinamientos. La acción de apadrinar solo se ofrece para animales con esta opción activada, y sigue disponible incluso después de que el animal sea adoptado.</li>
+            <li><strong>Jaula</strong> &mdash; la lista de jaulas se agrupa por instalación y ala y muestra cuántas plazas libres tiene cada jaula, con un indicador verde, amarillo o rojo a medida que se llena.</li>
+        </ul>
+        <p>Cuando el portal público está activado, aparecen dos opciones más: <strong>Publicar en el Portal Público</strong> y <strong>Destacado</strong>. Consulta <a href="#public-portal" class="underline underline-offset-2">Portal Público</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Búsqueda y filtros</h3>
         <p>Busque por nombre, referencia, microchip o notas internas, y filtre por estado, especie o ubicación (instalación, ala o jaula). El filtro de <em>datos en falta</em> encuentra animales sin edad, sin fotografía, sin fecha de ingreso o sin ubicación, lo que ayuda a mantener las fichas completas.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impresión</h3>
@@ -76,12 +88,14 @@
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adopciones</h2>
         <p>Una adopción registra los datos de contacto del adoptante, la fecha de adopción, la tasa, notas y el estado de la solicitud (Pendiente, Aprobada o Rechazada). Iníciela desde la página del animal.</p>
+        <p>La página Adopciones (en Animales, en el menú lateral) lista todas las adopciones del refugio; busca por nombre, teléfono, email o notas del adoptante, o por el nombre o la referencia del animal.</p>
         <p>Si un animal adoptado vuelve al refugio, rellene la <strong>fecha de devolución</strong> en la adopción: el animal vuelve a estar disponible y la adopción se mantiene en su historial.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Apadrinamientos</h2>
         <p>Los padrinos contribuyen al cuidado de un animal sin adoptarlo. Un apadrinamiento guarda los datos de contacto del padrino y si desea recibir novedades sobre el animal o el boletín.</p>
+        <p>Solo se pueden crear apadrinamientos para animales marcados como <strong>Disponible para Apadrinamiento</strong>. La página Apadrinamientos (en Animales, en el menú lateral) los lista todos, con la misma búsqueda que las adopciones: nombre, teléfono, email o notas del padrino, o el nombre o la referencia del animal.</p>
         <p>Cada apadrinamiento tiene una lista de pagos. Un pago registra el periodo que cubre (fechas de inicio y fin), la fecha de pago y el importe, por lo que se admiten tanto contribuciones puntuales como periódicas.</p>
     </section>
 
@@ -93,6 +107,7 @@
             <li>Su disponibilidad por día de la semana (mañanas y/o tardes, ocasionalmente, cada dos semanas o semanalmente).</li>
             <li>Evaluaciones de asistencia y desempeño.</li>
         </ul>
+        <p>La lista de voluntarios se puede buscar por nombre, teléfono, email, NIF o notas, y filtrar por especie preferida, día de disponibilidad y actividad &mdash; útil para saber quién puede ayudar un día concreto.</p>
     </section>
 
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,11 +125,37 @@
         </ul>
     </section>
 
+    <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Portal Público</h2>
+        <p>Una instalación puede tener, opcionalmente, un sitio web público junto al backoffice. Lo activa quien gestiona el servidor; cuando está desactivado, la página de inicio envía a los visitantes a la página de inicio de sesión y las opciones siguientes quedan ocultas.</p>
+        <p>Cuando está activado, cualquier persona (sin iniciar sesión) puede:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Ver los animales de todos los refugios que están listos para adopción, filtrando por especie, sexo, tamaño, raza y región.</li>
+            <li>Abrir la ficha de un animal para ver sus fotos, su descripción pública y el refugio donde está.</li>
+            <li>Ver la lista de refugios colaboradores, cada uno con su propia página con contactos, descripción, logotipo y animales.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Qué se muestra públicamente</h3>
+        <p>Un animal solo aparece en el portal cuando se cumplen <strong>todas</strong> estas condiciones:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Publicar en el Portal Público</strong> está activado (viene desactivado por defecto, para que nada se publique por error).</li>
+            <li>El animal está disponible para adopción (los animales adoptados o fallecidos desaparecen automáticamente).</li>
+            <li>Su refugio no ha sido eliminado.</li>
+        </ul>
+        <p>Los animales marcados como <strong>Destacado</strong> se muestran primero, con una insignia de destacado. Solo se muestran el nombre, la referencia, las fotos, la descripción pública y los datos descriptivos (especie, raza, tamaño, sexo, edad, tipo de pelo, esterilización) &mdash; las notas internas, notas clínicas, microchip y jaula nunca se publican.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Consejos para buenos anuncios</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Añade al menos una buena foto y una descripción pública cercana &mdash; es lo primero que ven los adoptantes.</li>
+            <li>Mantén actualizado el perfil del refugio (contactos, descripción, logotipo): aparece en la página pública del refugio, en los resultados de los buscadores y en las vistas previas de enlaces.</li>
+            <li>Las páginas públicas están preparadas para los buscadores (Google y otros) y se genera automáticamente un sitemap; el backoffice nunca se indexa.</li>
+        </ul>
+    </section>
+
     <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administración</h2>
         <p>Solo los administradores ven este menú. En él se mantienen los refugios y las tablas de referencia compartidas por todos los refugios:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Refugios</strong> &mdash; crear, editar y eliminar refugios.</li>
+            <li><strong>Refugios</strong> &mdash; crear, editar y eliminar refugios. Además del nombre y la ciudad, un refugio tiene un nombre corto, contactos (email, teléfono, web), dirección, región, una descripción y un logotipo &mdash; usados en el portal público cuando está activado. La lista de <strong>Especies</strong> del formulario del refugio define qué especies aparecen en el menú Animales para el gestor y el personal de ese refugio.</li>
+            <li><strong>Regiones</strong> &mdash; las regiones a las que pertenecen los refugios, también usadas como filtro en el portal público.</li>
             <li><strong>Especies</strong>, <strong>Razas</strong>, <strong>Tamaños</strong> y <strong>Tipos de Pelo</strong> &mdash; las opciones usadas para describir a los animales.</li>
             <li><strong>Vacunas</strong> y <strong>Enfermedades</strong> &mdash; las opciones usadas en los registros de salud de los animales.</li>
             <li><strong>Actividades</strong> &mdash; las tareas en las que pueden ayudar los voluntarios.</li>

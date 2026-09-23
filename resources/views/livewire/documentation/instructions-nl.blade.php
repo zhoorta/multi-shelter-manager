@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vrijwilligers</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Locaties</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Gebruikers</a>
+        <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Openbaar portaal</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Beheer</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instellingen</a>
     </nav>
@@ -31,11 +32,15 @@
         <p>Een gebruiker kan bij meer dan één asiel horen, met in elk asiel een andere rol. Gebruik de asielkiezer om het actieve asiel te wisselen; elke lijst, telling en elk formulier toont dan alleen de gegevens van dat asiel. Gegevens worden nooit tussen asielen gedeeld.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Aanbevolen volgorde van inrichting</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>Een beheerder maakt het asiel aan en vult de referentietabellen in (diersoorten, rassen, formaten, vachttypes, vaccins, ziektes, activiteiten).</li>
+            <li>Een beheerder vult de referentietabellen in (regio's, diersoorten, rassen, maten, vachttypes, vaccins, ziektes, activiteiten).</li>
+            <li>De beheerder maakt het asiel aan, vult het profiel aan (contactgegevens, regio, beschrijving, logo) en kiest met welke diersoorten het werkt.</li>
             <li>De beheerder nodigt de asielbeheerder uit.</li>
             <li>De asielbeheerder stelt de locaties, vleugels en hokken in en nodigt de medewerkers uit.</li>
             <li>Het team begint met het registreren van dieren.</li>
+            <li>Als het openbare portaal is ingeschakeld, publiceert het team de dieren die klaar zijn voor adoptie.</li>
         </ol>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Je weg vinden</h3>
+        <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties en Vaccinaties), Vrijwilligers en Locaties; managers zien daarnaast Gebruikers. Beheerders zien in plaats daarvan Gebruikers en het menu Beheer. Deze documentatie staat altijd onderaan de zijbalk.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -51,7 +56,7 @@
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Dieren</h2>
-        <p>Het menu Dieren toont de dieren van het asiel per diersoort. Elk dossier bevat identificatie (referentie, naam, chip), uiterlijke beschrijving (ras, kleuren, vachttype, formaat, geslacht, gecastreerd), datums (geboorte, opname, vertrek, overlijden), foto's, een openbare beschrijving, interne notities en klinische notities.</p>
+        <p>Het menu Dieren toont de dieren van het asiel per diersoort. Elk dossier bevat identificatie (referentie, naam, chip), uiterlijke beschrijving (ras, kleuren, vachttype, formaat, geslacht, gecastreerd), datums (geboorte, opname, vertrek, overlijden), foto's, een openbare beschrijving, interne notities en klinische notities. Alleen de diersoorten die de beheerder voor jouw asiel heeft ingeschakeld verschijnen daar.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Status</h3>
         <p>De status van een dier wordt automatisch bepaald, dus u stelt die nooit handmatig in:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -59,6 +64,13 @@
             <li><strong>Geadopteerd</strong> &mdash; het dier heeft een adoptie zonder terugbrengdatum.</li>
             <li><strong>Beschikbaar</strong> / <strong>Niet beschikbaar</strong> &mdash; in alle andere gevallen, afhankelijk van of het dier als adopteerbaar is gemarkeerd.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Opties en locatie</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Beschikbaar voor adoptie</strong> &mdash; het dier kan geadopteerd worden; dit bepaalt of de status beschikbaar of niet beschikbaar is.</li>
+            <li><strong>Beschikbaar voor sponsoring</strong> &mdash; het dier kan sponsors krijgen. De actie om te sponsoren wordt alleen aangeboden bij dieren met deze optie, en blijft ook na adoptie beschikbaar.</li>
+            <li><strong>Hok</strong> &mdash; de lijst met hokken is gegroepeerd per locatie en vleugel en toont hoeveel plaatsen er in elk hok vrij zijn, met een groene, gele of rode markering naarmate het voller wordt.</li>
+        </ul>
+        <p>Als het openbare portaal is ingeschakeld, verschijnen er twee extra opties: <strong>Publiceren op het openbare portaal</strong> en <strong>Uitgelicht</strong>. Zie <a href="#public-portal" class="underline underline-offset-2">Openbaar portaal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zoeken en filteren</h3>
         <p>Zoek op naam, referentie, chip of interne notities en filter op status, diersoort of locatie (locatie, vleugel of hok). Het filter <em>ontbrekende gegevens</em> vindt dieren zonder leeftijd, zonder foto, zonder opnamedatum of zonder locatie, zodat de dossiers compleet blijven.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Afdrukken</h3>
@@ -76,12 +88,14 @@
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adopties</h2>
         <p>Een adoptie legt de contactgegevens van de adoptant vast, de adoptiedatum, de bijdrage, notities en de status van de aanvraag (In behandeling, Goedgekeurd of Afgewezen). Start een adoptie vanaf de pagina van het dier.</p>
+        <p>De pagina Adopties (onder Dieren in de zijbalk) toont alle adopties van het asiel; zoek op naam, telefoon, e-mail of notities van de adoptant, of op naam of referentie van het dier.</p>
         <p>Als een geadopteerd dier terugkomt in het asiel, vul dan de <strong>terugbrengdatum</strong> in bij de adoptie: het dier wordt weer beschikbaar en de adoptie blijft in de geschiedenis bewaard.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Sponsorschappen</h2>
         <p>Sponsors dragen bij aan de verzorging van een dier zonder het te adopteren. Een sponsorschap bewaart de contactgegevens van de sponsor en of die nieuws over het dier of de nieuwsbrief wil ontvangen.</p>
+        <p>Sponsorschappen kunnen alleen worden aangemaakt voor dieren die als <strong>Beschikbaar voor sponsoring</strong> zijn gemarkeerd. De pagina Sponsorschappen (onder Dieren in de zijbalk) toont ze allemaal, met dezelfde zoekfunctie als adopties: naam, telefoon, e-mail of notities van de sponsor, of naam of referentie van het dier.</p>
         <p>Elk sponsorschap heeft een lijst met betalingen. Een betaling legt de periode vast die ze dekt (begin- en einddatum), de betaaldatum en het bedrag, zodat zowel eenmalige als terugkerende bijdragen mogelijk zijn.</p>
     </section>
 
@@ -93,6 +107,7 @@
             <li>De beschikbaarheid per dag van de week (ochtend en/of middag, af en toe, om de twee weken of wekelijks).</li>
             <li>Beoordelingen van aanwezigheid en prestaties.</li>
         </ul>
+        <p>De vrijwilligerslijst is doorzoekbaar op naam, telefoon, e-mail, fiscaal nummer of notities, en te filteren op voorkeursdiersoort, beschikbare dag en activiteit &mdash; handig om te zien wie op een bepaalde dag kan helpen.</p>
     </section>
 
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,11 +125,37 @@
         </ul>
     </section>
 
+    <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Openbaar portaal</h2>
+        <p>Een installatie kan optioneel een openbare website naast de backoffice hebben. Die wordt ingeschakeld door wie de server beheert; staat hij uit, dan stuurt de startpagina bezoekers naar de inlogpagina en zijn de opties hieronder verborgen.</p>
+        <p>Staat hij aan, dan kan iedereen (zonder in te loggen):</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>De dieren van alle asielen bekijken die klaar zijn voor adoptie, gefilterd op diersoort, geslacht, maat, ras en regio.</li>
+            <li>De kaart van een dier openen om de foto's, de openbare beschrijving en het asiel waar het verblijft te zien.</li>
+            <li>De lijst met partnerasielen bekijken, elk met een eigen pagina met contactgegevens, beschrijving, logo en dieren.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wat openbaar wordt getoond</h3>
+        <p>Een dier verschijnt alleen op het portaal als aan <strong>al</strong> deze voorwaarden is voldaan:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Publiceren op het openbare portaal</strong> staat aan (standaard uit, zodat er niets per ongeluk wordt gepubliceerd).</li>
+            <li>Het dier is beschikbaar voor adoptie (geadopteerde of overleden dieren verdwijnen automatisch).</li>
+            <li>Het asiel is niet verwijderd.</li>
+        </ul>
+        <p>Dieren die als <strong>Uitgelicht</strong> zijn gemarkeerd worden eerst getoond, met een badge. Alleen naam, referentie, foto's, openbare beschrijving en beschrijvende gegevens (diersoort, ras, maat, geslacht, leeftijd, vachttype, gecastreerd) worden getoond &mdash; interne notities, klinische notities, chip en hok worden nooit gepubliceerd.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tips voor goede advertenties</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Voeg minstens één goede foto en een vriendelijke openbare beschrijving toe &mdash; dat zien adoptanten als eerste.</li>
+            <li>Houd het asielprofiel (contactgegevens, beschrijving, logo) actueel: het staat op de openbare pagina van het asiel, in zoekresultaten en in linkvoorbeelden.</li>
+            <li>De openbare pagina's zijn voorbereid op zoekmachines (Google en andere) en er wordt automatisch een sitemap gemaakt; de backoffice wordt nooit geïndexeerd.</li>
+        </ul>
+    </section>
+
     <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Beheer</h2>
         <p>Alleen beheerders zien dit menu. Hier worden de asielen en de referentietabellen onderhouden die door alle asielen worden gedeeld:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Asielen</strong> &mdash; asielen aanmaken, bewerken en verwijderen.</li>
+            <li><strong>Asielen</strong> &mdash; asielen aanmaken, bewerken en verwijderen. Naast naam en plaats heeft een asiel een korte naam, contactgegevens (e-mail, telefoon, website), adres, regio, een beschrijving en een logo &mdash; gebruikt op het openbare portaal als dat is ingeschakeld. De lijst <strong>Diersoorten</strong> in het asielformulier bepaalt welke diersoorten in het menu Dieren verschijnen voor de manager en medewerkers van dat asiel.</li>
+            <li><strong>Regio's</strong> &mdash; de regio's waartoe de asielen behoren, ook gebruikt als filter op het openbare portaal.</li>
             <li><strong>Diersoorten</strong>, <strong>Rassen</strong>, <strong>Formaten</strong> en <strong>Vachttypes</strong> &mdash; de opties om dieren te beschrijven.</li>
             <li><strong>Vaccins</strong> en <strong>Ziektes</strong> &mdash; de opties in de gezondheidsdossiers van de dieren.</li>
             <li><strong>Activiteiten</strong> &mdash; de taken waarbij vrijwilligers kunnen helpen.</li>
