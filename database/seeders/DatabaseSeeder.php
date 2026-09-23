@@ -17,49 +17,14 @@ class DatabaseSeeder extends Seeder
         $catId = DB::table('species')->insertGetId(['name' => 'Gato', 'name_plural' => 'Gatos', 'created_at' => now(), 'updated_at' => now()]);
 
         // 2. SEED BREEDS (Raças)
-        // Global defaults (SRD / Indefinida)
-        DB::table('breeds')->insert([
-            ['species_id' => $dogId, 'name' => 'Indefinida', 'is_default' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $catId, 'name' => 'Indefinida', 'is_default' => true, 'created_at' => now(), 'updated_at' => now()],
-        ]);
+        // Defaults: Cão Rafeiro (dogs), Europeu Comum (cats)
+        $this->call([DogBreedSeeder::class, CatBreedSeeder::class]);
 
-        // Common Portuguese Dog Breeds
-        DB::table('breeds')->insert([
-            ['species_id' => $dogId, 'name' => 'Podengo Português', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $dogId, 'name' => 'Cão de Serra da Estrela', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $dogId, 'name' => 'Rafeiro do Alentejo', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $dogId, 'name' => 'Cão de Água Português', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $dogId, 'name' => 'Pastor Alemão', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $dogId, 'name' => 'Labrador Retriever', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-        ]);
-
-        // Common Cat Breeds
-        DB::table('breeds')->insert([
-            ['species_id' => $catId, 'name' => 'Europeu Comum', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $catId, 'name' => 'Siamês', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $catId, 'name' => 'Persa', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $catId, 'name' => 'Angorá', 'is_default' => false, 'created_at' => now(), 'updated_at' => now()],
-        ]);
-
-        // 3. SEED COLORS (Cores)
-        $colors = ['Preto', 'Branco', 'Castanho', 'Cinzento', 'Bege', 'Laranja / Ruivo', 'Mel', 'Tigrado', 'Bicolor', 'Tricolor'];
-        foreach ($colors as $color) {
-            DB::table('colors')->insert(['name' => $color, 'created_at' => now(), 'updated_at' => now()]);
-        }
-
-        // 4. SEED FUR TYPES (Tipos de Pelo)
-        $furTypes = ['Curto', 'Longo', 'Sem Pelo', 'Cerdoso / Cerda', 'Ondulado'];
-        foreach ($furTypes as $fur) {
-            DB::table('fur_types')->insert(['name' => $fur, 'created_at' => now(), 'updated_at' => now()]);
-        }
+        // 3. SEED COLORS (Cores) & 4. FUR TYPES (Tipos de Pelo)
+        $this->call([ColorSeeder::class, FurTypeSeeder::class]);
 
         // Common Dog Sizes
-        DB::table('sizes')->insert([
-            ['species_id' => $dogId, 'name' => 'Pequeno', 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $dogId, 'name' => 'Médio', 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $dogId, 'name' => 'Grande', 'created_at' => now(), 'updated_at' => now()],
-            ['species_id' => $dogId, 'name' => 'Gigante', 'created_at' => now(), 'updated_at' => now()],
-        ]);
+        $this->call(DogSizeSeeder::class);
 
         // 5. SEED VACCINES (Vacinas) & LINK TO SPECIES
         $vacRaiva = DB::table('vaccines')->insertGetId(['name' => 'Antirrábica (Raiva)', 'created_at' => now(), 'updated_at' => now()]);

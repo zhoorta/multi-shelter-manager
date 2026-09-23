@@ -49,12 +49,12 @@ class PublicPortalDemoSeeder extends Seeder
      * @var array<string, string>
      */
     private const DOG_PHOTO_BREEDS = [
-        'Indefinida' => 'mix',
-        'Podengo Português' => 'hound/ibizan',
-        'Cão de Serra da Estrela' => 'pyrenees',
+        'Cão Rafeiro' => 'mix',
+        'Podengo Médio Português' => 'hound/ibizan',
+        'Cão da Serra da Estrela' => 'pyrenees',
         'Rafeiro do Alentejo' => 'mastiff/english',
         'Cão de Água Português' => 'waterdog/spanish',
-        'Pastor Alemão' => 'german/shepherd',
+        'Cão Pastor Alemão' => 'german/shepherd',
         'Labrador Retriever' => 'labrador',
     ];
 
@@ -64,7 +64,6 @@ class PublicPortalDemoSeeder extends Seeder
      * @var array<string, string|null>
      */
     private const CAT_PHOTO_BREEDS = [
-        'Indefinida' => null,
         'Europeu Comum' => null,
         'Siamês' => 'siam',
         'Persa' => 'pers',
