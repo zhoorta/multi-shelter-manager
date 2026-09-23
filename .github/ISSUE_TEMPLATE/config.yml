@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/zhoorta/multi-shelter-manager/security/policy
+    about: Please report security problems privately, never in a public issue.
+  - name: 📖 Read the documentation
+    url: https://github.com/zhoorta/multi-shelter-manager/blob/main/docs/README.md
+    about: Step-by-step guide to installing and using Multi Shelter Manager. Your question may already be answered there.

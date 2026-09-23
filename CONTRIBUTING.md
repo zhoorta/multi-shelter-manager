@@ -39,7 +39,7 @@ The user guide is in the [`docs`](docs/README.md) folder. Fixes, clarifications 
 
 ### 🔒 Report a security issue
 
-**Do not open a public issue for security problems.** E-mail **zhoorta@hotmail.com** with a description and, if possible, the steps to reproduce it. You will get a reply as soon as possible, and the problem will be fixed before it is made public.
+**Do not open a public issue for security problems.** Report them privately as explained in the [security policy](SECURITY.md): use the repository's **Security → Report a vulnerability** button, or e-mail **zhoorta@hotmail.com**.
 
 ## Development setup
 

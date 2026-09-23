@@ -1,0 +1,109 @@
+name: 🐞 Bug report
+description: Something is not working as expected.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug! 🐾
+
+        Before you start, please search the [existing issues](https://github.com/zhoorta/multi-shelter-manager/issues) to check it hasn't been reported yet.
+
+        ⚠️ **Security problem?** Don't report it here. Follow the [security policy](https://github.com/zhoorta/multi-shelter-manager/security/policy) instead.
+        ⚠️ **Never paste real personal data** (adopters, sponsors, volunteers) or your `.env` file.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+      placeholder: When I save a vaccination without an administered date, the pet page shows an error.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: If possible, start from the demo data (`php artisan migrate:fresh --seeder=DocumentationDemoSeeder`).
+      placeholder: |
+        1. Log in as manager@example.com
+        2. Go to Pets → Dogs and open "Max"
+        3. Click "New Vaccination"
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error message or logs
+      description: Copy the error shown on screen, or the relevant lines from `storage/logs/laravel.log`.
+      render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag and drop images here, if they help explain the problem.
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: Role of the user who hit the bug
+      options:
+        - Admin
+        - Manager
+        - Staff
+        - Visitor of the public portal (not logged in)
+        - Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area of the application
+      multiple: true
+      options:
+        - Installation / setup
+        - Login / invitations / passwords
+        - Dashboard
+        - Pets
+        - Vaccinations
+        - Adoptions
+        - Sponsorships
+        - Volunteers
+        - Facilities, wings and cages
+        - Users
+        - Administration (shelters, lookup tables)
+        - Public portal
+        - Printing
+        - Translations
+        - Other
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The commit you are running (`git rev-parse --short HEAD`).
+      placeholder: bc2d911
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Fill in what you know.
+      value: |
+        - PHP version:
+        - Database (MySQL / MariaDB / SQLite …) and version:
+        - Browser and version:
+        - Language (APP_LOCALE):
+        - Operating system / hosting:

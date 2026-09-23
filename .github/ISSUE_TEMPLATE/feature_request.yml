@@ -1,0 +1,76 @@
+name: 💡 Feature request
+description: Suggest an idea or improvement.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Multi Shelter Manager! 🐾
+
+        Please search the [existing issues](https://github.com/zhoorta/multi-shelter-manager/issues) first: someone may already have suggested it. If so, add a 👍 and your use case there.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the situation at your shelter, not only the solution. Knowing how shelters really work helps us design features that fit everyone.
+      placeholder: We weigh our dogs every month, and there is nowhere to record the weight or see how it changes over time.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: How would you like it to work?
+      description: Describe the solution you imagine. Mock-ups or sketches are very welcome.
+      placeholder: A "Weight" section on the pet page with a list of dated weights and a small chart.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What do you do today instead?
+      description: Workarounds you currently use, or other solutions you considered.
+      placeholder: We write it in the operational notes, but it's hard to follow.
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: Who would use it?
+      multiple: true
+      options:
+        - Admin
+        - Manager
+        - Staff
+        - Visitors of the public portal
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area of the application
+      multiple: true
+      options:
+        - Dashboard
+        - Pets
+        - Vaccinations
+        - Adoptions
+        - Sponsorships
+        - Volunteers
+        - Facilities, wings and cages
+        - Users and invitations
+        - Administration (shelters, lookup tables)
+        - Public portal
+        - Printing / reports
+        - Translations
+        - Something new
+        - Other
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contributing
+      options:
+        - label: I would like to help build this feature (see the [contributing guide](https://github.com/zhoorta/multi-shelter-manager/blob/main/CONTRIBUTING.md)).
