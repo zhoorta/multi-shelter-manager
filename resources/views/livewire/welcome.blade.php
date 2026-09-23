@@ -77,17 +77,24 @@
         <div class="relative mx-auto max-w-5xl px-4 pb-16 sm:px-6">
             <div class="grid gap-4 sm:grid-cols-3">
                 @foreach ([
-                    ['value' => $this->stats['shelters'], 'label' => __('Partner shelters'), 'icon' => '🏠', 'tint' => 'text-orange-500'],
-                    ['value' => $this->stats['pets'], 'label' => __('Animals waiting for a home'), 'icon' => '🐾', 'tint' => 'text-pink-500'],
-                    ['value' => $this->stats['regions'], 'label' => __('Regions covered'), 'icon' => '📍', 'tint' => 'text-sky-500'],
+                    ['value' => $this->stats['shelters'], 'label' => __('Partner shelters'), 'icon' => '🏠', 'tint' => 'text-orange-500', 'url' => route('shelters')],
+                    ['value' => $this->stats['pets'], 'label' => __('Animals waiting for a home'), 'icon' => '🐾', 'tint' => 'text-pink-500', 'url' => null],
+                    ['value' => $this->stats['regions'], 'label' => __('Regions covered'), 'icon' => '📍', 'tint' => 'text-sky-500', 'url' => null],
                 ] as $stat)
-                    <div wire:key="stat-{{ $loop->index }}" class="flex items-center gap-4 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-amber-100 dark:bg-stone-900 dark:ring-stone-800">
+                    <{{ $stat['url'] ? 'a' : 'div' }}
+                        wire:key="stat-{{ $loop->index }}"
+                        @if ($stat['url']) href="{{ $stat['url'] }}" wire:navigate @endif
+                        @class([
+                            'flex items-center gap-4 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-amber-100 dark:bg-stone-900 dark:ring-stone-800',
+                            'transition hover:-translate-y-1 hover:shadow-lg hover:ring-orange-300 dark:hover:ring-orange-800' => $stat['url'],
+                        ])
+                    >
                         <span class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-amber-50 text-3xl dark:bg-stone-800">{{ $stat['icon'] }}</span>
                         <div>
                             <div class="font-display text-3xl font-bold {{ $stat['tint'] }}">{{ $stat['value'] }}</div>
                             <div class="text-sm font-medium text-stone-500 dark:text-stone-400">{{ $stat['label'] }}</div>
                         </div>
-                    </div>
+                    </{{ $stat['url'] ? 'a' : 'div' }}>
                 @endforeach
             </div>
         </div>

@@ -138,3 +138,9 @@ test('cannot open the details of an unpublished pet', function () {
 
     Livewire::test(Welcome::class)->call('showPet', $pet->id);
 })->throws(ModelNotFoundException::class);
+
+test('the partner shelters count links to the shelters page', function () {
+    $html = $this->get(route('home'))->assertOk()->getContent();
+
+    expect($html)->toMatch('#<a[^>]*href="'.preg_quote(route('shelters'), '#').'"[^>]*>(?:(?!</a>).)*'.__('Partner shelters').'#s');
+});

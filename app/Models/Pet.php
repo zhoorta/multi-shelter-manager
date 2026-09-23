@@ -9,6 +9,8 @@ use App\Traits\MultiShelterTrait;
 use Carbon\CarbonInterface;
 use Database\Factories\PetFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -87,6 +89,23 @@ class Pet extends Model
             'checkout_date' => 'date',
             'date_of_death' => 'date',
         ];
+    }
+
+    /**
+     * Pets a shelter has explicitly published for adoption on the public
+     * portal. Does not remove the shelter global scope; public pages must
+     * call withoutGlobalScope('shelter') themselves.
+     *
+     * @param  Builder<Pet>  $query
+     */
+    #[Scope]
+    protected function publishedToPortal(Builder $query): void
+    {
+        $query->where('publish_to_portal', true)
+            ->where('is_adoptable', true)
+            ->where('status', 'available')
+            ->whereNull('date_of_death')
+            ->whereHas('shelter');
     }
 
     /**

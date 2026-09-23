@@ -192,11 +192,7 @@ class Welcome extends Component
     {
         return Pet::query()
             ->withoutGlobalScope('shelter')
-            ->where('publish_to_portal', true)
-            ->where('is_adoptable', true)
-            ->where('status', 'available')
-            ->whereNull('date_of_death')
-            ->whereHas('shelter');
+            ->publishedToPortal();
     }
 
     #[Layout('layouts::public')]

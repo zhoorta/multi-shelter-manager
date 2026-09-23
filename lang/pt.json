@@ -336,5 +336,8 @@
     "I want to adopt": "Quero adotar",
     "Show this pet on the public adoption page": "Mostrar este animal na página pública de adoção",
     "Shown first on the public adoption page": "Mostrado em primeiro lugar na página pública de adoção",
-    "Privacy Policy": "Política de Privacidade"
+    "Privacy Policy": "Política de Privacidade",
+    "Meet the shelters that care for the animals on :app. Get in touch to visit, volunteer or adopt.": "Conheça os abrigos que cuidam dos animais no :app. Entre em contacto para visitar, fazer voluntariado ou adotar.",
+    ":count animal waiting for a home|:count animals waiting for a home": ":count animal à espera de um lar|:count animais à espera de um lar",
+    "No shelters found in this region.": "Não foram encontrados abrigos neste distrito."
 }
