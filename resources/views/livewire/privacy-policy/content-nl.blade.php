@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privacybeleid</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Laatst bijgewerkt: 23 september 2026</p>
-        <p>{{ config('app.name') }} is een platform dat verschillende dierenasielen samenbrengt. We nemen de bescherming van uw persoonsgegevens serieus en verwerken ze in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG) en de toepasselijke Portugese wetgeving. Dit beleid legt uit welke gegevens we verwerken, waarom, hoe lang en wat uw rechten zijn.</p>
+        <p>{{ config('app.name') }} is een platform dat verschillende dierenasielen samenbrengt. We nemen de bescherming van uw persoonsgegevens serieus en verwerken ze in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG) en de Uitvoeringswet Algemene verordening gegevensbescherming (UAVG). Dit beleid legt uit welke gegevens we verwerken, waarom, hoe lang en wat uw rechten zijn.</p>
     </header>
 
     <section id="responsible">
@@ -43,7 +43,7 @@
         <h3>Vrijwilligers</h3>
         <ul>
             <li>Naam, geslacht, geboortedatum en foto;</li>
-            <li>Nummer van het identiteitsbewijs en fiscaal identificatienummer (NIF);</li>
+            <li>Nummer van het identiteitsbewijs en fiscaal identificatienummer;</li>
             <li>Contactgegevens, adres, beroep en vervoermiddel;</li>
             <li>Beschikbaarheid, begin- en einddatum van de samenwerking, en beoordelingen van aanwezigheid en prestaties;</li>
             <li>Nieuwsbriefvoorkeur.</li>
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Cookies</h2>
-        <p>We gebruiken alleen cookies en lokale opslag die <strong>strikt noodzakelijk</strong> zijn voor de werking van de site of voor een functie waar u uitdrukkelijk om heeft gevraagd; volgens de Portugese wet (Lei n.º 41/2004) is uw toestemming daarom niet vereist. We gebruiken geen advertentie-, analyse- of cookies van derden, en alle lettertypen en bestanden worden vanaf onze eigen servers geleverd.</p>
+        <p>We gebruiken alleen cookies en lokale opslag die <strong>strikt noodzakelijk</strong> zijn voor de werking van de site of voor een functie waar u uitdrukkelijk om heeft gevraagd; volgens artikel 11.7a van de Telecommunicatiewet is uw toestemming daarom niet vereist. We gebruiken geen advertentie-, analyse- of cookies van derden, en alle lettertypen en bestanden worden vanaf onze eigen servers geleverd.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. Uw rechten</h2>
         <p>U kunt op elk moment <strong>inzage</strong> in uw gegevens vragen, of om <strong>rectificatie</strong> of <strong>wissing</strong> ervan, <strong>beperking</strong> van de verwerking of <strong>overdraagbaarheid</strong> van de gegevens; u kunt <strong>bezwaar maken</strong> tegen verwerking op basis van gerechtvaardigd belang en <strong>elke gegeven toestemming intrekken</strong>, zonder dat dit gevolgen heeft voor de verwerking die daarvoor heeft plaatsgevonden.</p>
         <p>Om deze rechten uit te oefenen, neemt u rechtstreeks contact op met het asiel waarmee u te maken had (de contactgegevens staan op de pagina van elk dier)@if ($contactEmail), of schrijft u ons op <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. We antwoorden uiterlijk binnen een maand.</p>
-        <p>U heeft ook het recht een klacht in te dienen bij de Portugese toezichthouder voor gegevensbescherming (CNPD) via <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a>.</p>
+        <p>U heeft ook het recht een klacht in te dienen bij de Autoriteit Persoonsgegevens via <a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank" rel="noopener">www.autoriteitpersoonsgegevens.nl</a>.</p>
     </section>
 
     <section id="security">

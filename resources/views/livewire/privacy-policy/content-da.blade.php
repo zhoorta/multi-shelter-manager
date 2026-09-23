@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privatlivspolitik</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Senest opdateret: 23. september 2026</p>
-        <p>{{ config('app.name') }} er en platform, der samler flere dyreinternater. Vi tager beskyttelsen af dine personoplysninger alvorligt og behandler dem i overensstemmelse med databeskyttelsesforordningen (GDPR) og gældende portugisisk lovgivning. Denne politik forklarer, hvilke oplysninger vi behandler, hvorfor, hvor længe, og hvilke rettigheder du har.</p>
+        <p>{{ config('app.name') }} er en platform, der samler flere dyreinternater. Vi tager beskyttelsen af dine personoplysninger alvorligt og behandler dem i overensstemmelse med databeskyttelsesforordningen (GDPR) og databeskyttelsesloven (lov nr. 502 af 23. maj 2018). Denne politik forklarer, hvilke oplysninger vi behandler, hvorfor, hvor længe, og hvilke rettigheder du har.</p>
     </header>
 
     <section id="responsible">
@@ -43,7 +43,7 @@
         <h3>Frivillige</h3>
         <ul>
             <li>Navn, køn, fødselsdato og foto;</li>
-            <li>Nummer på identitetsdokument og skatteidentifikationsnummer (NIF);</li>
+            <li>Nummer på identitetsdokument og skatteidentifikationsnummer;</li>
             <li>Kontaktoplysninger, adresse, erhverv og transportmiddel;</li>
             <li>Tilgængelighed, start- og slutdato for samarbejdet samt vurderinger af fremmøde og indsats;</li>
             <li>Ønske om nyhedsbrev.</li>
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Cookies</h2>
-        <p>Vi bruger kun cookies og lokal lagring, der er <strong>strengt nødvendige</strong> for, at siden fungerer, eller for en funktion, du udtrykkeligt har bedt om; efter portugisisk lov (Lei n.º 41/2004) kræves dit samtykke derfor ikke. Vi bruger ingen reklame-, statistik- eller tredjepartscookies, og alle skrifttyper og ressourcer leveres fra vores egne servere.</p>
+        <p>Vi bruger kun cookies og lokal lagring, der er <strong>strengt nødvendige</strong> for, at siden fungerer, eller for en funktion, du udtrykkeligt har bedt om; efter cookiebekendtgørelsen (bekendtgørelse nr. 1148 af 9. december 2011) kræves dit samtykke derfor ikke. Vi bruger ingen reklame-, statistik- eller tredjepartscookies, og alle skrifttyper og ressourcer leveres fra vores egne servere.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. Dine rettigheder</h2>
         <p>Du kan til enhver tid anmode om <strong>indsigt</strong> i dine oplysninger, <strong>berigtigelse</strong> eller <strong>sletning</strong> af dem, <strong>begrænsning</strong> af behandlingen eller <strong>dataportabilitet</strong>, gøre <strong>indsigelse</strong> mod behandling baseret på legitim interesse og <strong>trække ethvert samtykke tilbage</strong> uden at påvirke den behandling, der er sket forinden.</p>
         <p>For at udøve disse rettigheder skal du kontakte det internat, du har været i kontakt med, direkte (dets kontaktoplysninger står på hvert dyrs side)@if ($contactEmail), eller skrive til os på <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. Vi svarer senest inden for en måned.</p>
-        <p>Du har også ret til at klage til den portugisiske databeskyttelsesmyndighed (CNPD) på <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a>.</p>
+        <p>Du har også ret til at klage til Datatilsynet på <a href="https://www.datatilsynet.dk" target="_blank" rel="noopener">www.datatilsynet.dk</a>.</p>
     </section>
 
     <section id="security">

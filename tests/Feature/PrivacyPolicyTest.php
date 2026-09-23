@@ -89,6 +89,26 @@ test('shows the danish policy when the locale is da', function () {
         ->assertSee('Hvem der er ansvarlig for dine oplysninger');
 });
 
+test('each translated policy links to the data protection authority of its country', function (string $locale, string $authorityUrl) {
+    app()->setLocale($locale);
+
+    $this->get(route('privacy-policy'))
+        ->assertOk()
+        ->assertSee($authorityUrl, false)
+        ->assertDontSee('www.cnpd.pt', false)
+        ->assertDontSee('41/2004', false);
+})->with([
+    'english (generic EU)' => ['en', 'https://www.edpb.europa.eu/about-edpb/about-edpb/members_en'],
+    'spanish' => ['es', 'https://www.aepd.es'],
+    'french' => ['fr', 'https://www.cnil.fr'],
+    'german' => ['de', 'https://www.bfdi.bund.de'],
+    'dutch' => ['nl', 'https://www.autoriteitpersoonsgegevens.nl'],
+    'polish' => ['pl', 'https://uodo.gov.pl'],
+    'italian' => ['it', 'https://www.garanteprivacy.it'],
+    'swedish' => ['sv', 'https://www.imy.se'],
+    'danish' => ['da', 'https://www.datatilsynet.dk'],
+]);
+
 test('falls back to the english policy for a locale without its own text', function () {
     app()->setLocale('fi');
 

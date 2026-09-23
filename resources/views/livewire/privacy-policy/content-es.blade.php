@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Política de Privacidad</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Última actualización: 23 de septiembre de 2026</p>
-        <p>{{ config('app.name') }} es una plataforma que reúne a varios refugios de animales. Nos tomamos en serio la protección de sus datos personales y los tratamos de acuerdo con el Reglamento General de Protección de Datos (RGPD) y la legislación portuguesa aplicable. Esta política explica qué datos tratamos, por qué, durante cuánto tiempo y cuáles son sus derechos.</p>
+        <p>{{ config('app.name') }} es una plataforma que reúne a varios refugios de animales. Nos tomamos en serio la protección de sus datos personales y los tratamos de acuerdo con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Esta política explica qué datos tratamos, por qué, durante cuánto tiempo y cuáles son sus derechos.</p>
     </header>
 
     <section id="responsible">
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Cookies</h2>
-        <p>Solo utilizamos cookies y almacenamiento local <strong>estrictamente necesarios</strong> para el funcionamiento del sitio o para una funcionalidad que usted haya solicitado expresamente, por lo que, según la legislación portuguesa (Lei n.º 41/2004), no se requiere su consentimiento. No utilizamos cookies publicitarias, analíticas ni de terceros, y todas las fuentes y recursos se sirven desde nuestros propios servidores.</p>
+        <p>Solo utilizamos cookies y almacenamiento local <strong>estrictamente necesarios</strong> para el funcionamiento del sitio o para una funcionalidad que usted haya solicitado expresamente, por lo que, según el artículo 22.2 de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), no se requiere su consentimiento. No utilizamos cookies publicitarias, analíticas ni de terceros, y todas las fuentes y recursos se sirven desde nuestros propios servidores.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. Sus derechos</h2>
         <p>Puede solicitar en cualquier momento el <strong>acceso</strong>, la <strong>rectificación</strong> o la <strong>supresión</strong> de sus datos, la <strong>limitación</strong> del tratamiento o la <strong>portabilidad</strong> de los datos, <strong>oponerse</strong> al tratamiento basado en el interés legítimo y <strong>retirar cualquier consentimiento</strong> que haya dado, sin que ello afecte al tratamiento realizado con anterioridad.</p>
         <p>Para ejercer estos derechos, póngase en contacto directamente con el refugio con el que trató (sus datos de contacto aparecen en la página de cada animal)@if ($contactEmail), o escríbanos a <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. Le responderemos en el plazo máximo de un mes.</p>
-        <p>También tiene derecho a presentar una reclamación ante la autoridad portuguesa de protección de datos (CNPD) en <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a>.</p>
+        <p>También tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) en <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>.</p>
     </section>
 
     <section id="security">

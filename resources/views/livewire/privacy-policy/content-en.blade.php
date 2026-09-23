@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privacy Policy</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Last updated: 23 September 2026</p>
-        <p>{{ config('app.name') }} is a platform that brings several animal shelters together. We take the protection of your personal data seriously and process it in accordance with the General Data Protection Regulation (GDPR) and applicable Portuguese law. This policy explains what data we process, why, for how long, and what your rights are.</p>
+        <p>{{ config('app.name') }} is a platform that brings several animal shelters together. We take the protection of your personal data seriously and process it in accordance with the General Data Protection Regulation (GDPR) and the national data protection laws of the European Union member states. This policy explains what data we process, why, for how long, and what your rights are.</p>
     </header>
 
     <section id="responsible">
@@ -43,7 +43,7 @@
         <h3>Volunteers</h3>
         <ul>
             <li>Name, gender, date of birth and photo;</li>
-            <li>ID document number and tax identification number (NIF);</li>
+            <li>ID document number and tax identification number;</li>
             <li>Contact details, address, occupation and means of transport;</li>
             <li>Availability, collaboration start and end dates, and attendance and performance evaluations;</li>
             <li>Newsletter preference.</li>
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Cookies</h2>
-        <p>We only use cookies and local storage that are <strong>strictly necessary</strong> for the site to work or for a feature you have explicitly requested, so under Portuguese law (Lei n.º 41/2004) your consent is not required. We do not use advertising, analytics or third-party cookies, and all fonts and assets are served from our own servers.</p>
+        <p>We only use cookies and local storage that are <strong>strictly necessary</strong> for the site to work or for a feature you have explicitly requested, so under the EU ePrivacy Directive (Directive 2002/58/EC, Art. 5(3)) and the national laws that implement it, your consent is not required. We do not use advertising, analytics or third-party cookies, and all fonts and assets are served from our own servers.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. Your rights</h2>
         <p>You may at any time request <strong>access</strong> to, <strong>rectification</strong> or <strong>erasure</strong> of your data, <strong>restriction</strong> of processing or data <strong>portability</strong>, <strong>object</strong> to processing based on legitimate interest, and <strong>withdraw any consent</strong> you have given, without affecting processing carried out before then.</p>
         <p>To exercise these rights, contact the shelter you dealt with directly (its contact details are shown on each animal's page)@if ($contactEmail), or write to us at <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. We will reply within one month at the latest.</p>
-        <p>You also have the right to lodge a complaint with the Portuguese data protection authority (CNPD) at <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a>.</p>
+        <p>You also have the right to lodge a complaint with the data protection authority of the EU member state where you live or work, or where the alleged infringement took place (Art. 77 GDPR). The European Data Protection Board lists every national authority at <a href="https://www.edpb.europa.eu/about-edpb/about-edpb/members_en" target="_blank" rel="noopener">www.edpb.europa.eu</a>.</p>
     </section>
 
     <section id="security">

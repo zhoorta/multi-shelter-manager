@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Datenschutzerklärung</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Zuletzt aktualisiert: 23. September 2026</p>
-        <p>{{ config('app.name') }} ist eine Plattform, die mehrere Tierheime zusammenbringt. Wir nehmen den Schutz Ihrer personenbezogenen Daten ernst und verarbeiten sie gemäß der Datenschutz-Grundverordnung (DSGVO) und dem geltenden portugiesischen Recht. Diese Erklärung beschreibt, welche Daten wir verarbeiten, warum, wie lange und welche Rechte Sie haben.</p>
+        <p>{{ config('app.name') }} ist eine Plattform, die mehrere Tierheime zusammenbringt. Wir nehmen den Schutz Ihrer personenbezogenen Daten ernst und verarbeiten sie gemäß der Datenschutz-Grundverordnung (DSGVO) und dem Bundesdatenschutzgesetz (BDSG). Diese Erklärung beschreibt, welche Daten wir verarbeiten, warum, wie lange und welche Rechte Sie haben.</p>
     </header>
 
     <section id="responsible">
@@ -43,7 +43,7 @@
         <h3>Ehrenamtliche</h3>
         <ul>
             <li>Name, Geschlecht, Geburtsdatum und Foto;</li>
-            <li>Ausweisnummer und Steuer-Identifikationsnummer (NIF);</li>
+            <li>Ausweisnummer und Steuer-Identifikationsnummer;</li>
             <li>Kontaktdaten, Adresse, Beruf und Verkehrsmittel;</li>
             <li>Verfügbarkeit, Beginn und Ende der Mitarbeit sowie Bewertungen von Anwesenheit und Leistung;</li>
             <li>Newsletter-Wunsch.</li>
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Cookies</h2>
-        <p>Wir verwenden nur Cookies und lokalen Speicher, die für den Betrieb der Website oder für eine von Ihnen ausdrücklich angeforderte Funktion <strong>unbedingt erforderlich</strong> sind; nach portugiesischem Recht (Lei n.º 41/2004) ist daher keine Einwilligung erforderlich. Wir verwenden keine Werbe-, Analyse- oder Drittanbieter-Cookies, und alle Schriftarten und Ressourcen werden von unseren eigenen Servern ausgeliefert.</p>
+        <p>Wir verwenden nur Cookies und lokalen Speicher, die für den Betrieb der Website oder für eine von Ihnen ausdrücklich angeforderte Funktion <strong>unbedingt erforderlich</strong> sind; nach § 25 Abs. 2 des Telekommunikation-Digitale-Dienste-Datenschutz-Gesetzes (TDDDG) ist daher keine Einwilligung erforderlich. Wir verwenden keine Werbe-, Analyse- oder Drittanbieter-Cookies, und alle Schriftarten und Ressourcen werden von unseren eigenen Servern ausgeliefert.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. Ihre Rechte</h2>
         <p>Sie können jederzeit <strong>Auskunft</strong> über Ihre Daten, deren <strong>Berichtigung</strong> oder <strong>Löschung</strong>, die <strong>Einschränkung</strong> der Verarbeitung oder die <strong>Übertragbarkeit</strong> der Daten verlangen, der auf berechtigtem Interesse beruhenden Verarbeitung <strong>widersprechen</strong> und <strong>jede erteilte Einwilligung widerrufen</strong>, ohne dass die zuvor erfolgte Verarbeitung davon berührt wird.</p>
         <p>Um diese Rechte auszuüben, wenden Sie sich direkt an das Tierheim, mit dem Sie zu tun hatten (seine Kontaktdaten stehen auf der Seite jedes Tieres)@if ($contactEmail), oder schreiben Sie uns an <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. Wir antworten spätestens innerhalb eines Monats.</p>
-        <p>Sie haben außerdem das Recht, bei der portugiesischen Datenschutzbehörde (CNPD) unter <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a> Beschwerde einzulegen.</p>
+        <p>Sie haben außerdem das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren, insbesondere bei der Aufsichtsbehörde des Bundeslandes, in dem Sie wohnen. Eine Übersicht der Aufsichtsbehörden finden Sie bei der Bundesbeauftragten für den Datenschutz und die Informationsfreiheit (BfDI) unter <a href="https://www.bfdi.bund.de" target="_blank" rel="noopener">www.bfdi.bund.de</a>.</p>
     </section>
 
     <section id="security">

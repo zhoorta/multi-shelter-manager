@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Politique de Confidentialité</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Dernière mise à jour : 23 septembre 2026</p>
-        <p>{{ config('app.name') }} est une plateforme qui réunit plusieurs refuges pour animaux. Nous prenons au sérieux la protection de vos données personnelles et les traitons conformément au Règlement Général sur la Protection des Données (RGPD) et à la législation portugaise applicable. Cette politique explique quelles données nous traitons, pourquoi, pendant combien de temps et quels sont vos droits.</p>
+        <p>{{ config('app.name') }} est une plateforme qui réunit plusieurs refuges pour animaux. Nous prenons au sérieux la protection de vos données personnelles et les traitons conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés (loi Informatique et Libertés). Cette politique explique quelles données nous traitons, pourquoi, pendant combien de temps et quels sont vos droits.</p>
     </header>
 
     <section id="responsible">
@@ -43,7 +43,7 @@
         <h3>Bénévoles</h3>
         <ul>
             <li>Nom, sexe, date de naissance et photo ;</li>
-            <li>Numéro de pièce d'identité et numéro d'identification fiscale (NIF) ;</li>
+            <li>Numéro de pièce d'identité et numéro fiscal de référence ;</li>
             <li>Coordonnées, adresse, profession et moyen de transport ;</li>
             <li>Disponibilité, dates de début et de fin de la collaboration, et évaluations d'assiduité et de performance ;</li>
             <li>Préférence de newsletter.</li>
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Cookies</h2>
-        <p>Nous n'utilisons que des cookies et un stockage local <strong>strictement nécessaires</strong> au fonctionnement du site ou à une fonctionnalité que vous avez expressément demandée ; en vertu de la loi portugaise (Lei n.º 41/2004), votre consentement n'est donc pas requis. Nous n'utilisons aucun cookie publicitaire, analytique ou tiers, et toutes les polices et ressources sont servies depuis nos propres serveurs.</p>
+        <p>Nous n'utilisons que des cookies et un stockage local <strong>strictement nécessaires</strong> au fonctionnement du site ou à une fonctionnalité que vous avez expressément demandée ; en vertu de l'article 82 de la loi Informatique et Libertés, votre consentement n'est donc pas requis. Nous n'utilisons aucun cookie publicitaire, analytique ou tiers, et toutes les polices et ressources sont servies depuis nos propres serveurs.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. Vos droits</h2>
         <p>Vous pouvez à tout moment demander l'<strong>accès</strong> à vos données, leur <strong>rectification</strong> ou leur <strong>effacement</strong>, la <strong>limitation</strong> du traitement ou la <strong>portabilité</strong> des données, vous <strong>opposer</strong> au traitement fondé sur l'intérêt légitime et <strong>retirer tout consentement</strong> donné, sans que cela n'affecte le traitement effectué auparavant.</p>
         <p>Pour exercer ces droits, contactez directement le refuge avec lequel vous avez été en relation (ses coordonnées figurent sur la page de chaque animal)@if ($contactEmail), ou écrivez-nous à <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. Nous vous répondrons dans un délai d'un mois au maximum.</p>
-        <p>Vous avez également le droit d'introduire une réclamation auprès de l'autorité portugaise de protection des données (CNPD) sur <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a>.</p>
+        <p>Vous avez également le droit d'introduire une réclamation auprès de la Commission nationale de l'informatique et des libertés (CNIL) sur <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
     </section>
 
     <section id="security">

@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Polityka prywatności</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Ostatnia aktualizacja: 23 września 2026</p>
-        <p>{{ config('app.name') }} to platforma skupiająca wiele schronisk dla zwierząt. Poważnie traktujemy ochronę Twoich danych osobowych i przetwarzamy je zgodnie z Ogólnym rozporządzeniem o ochronie danych (RODO) oraz obowiązującym prawem portugalskim. Niniejsza polityka wyjaśnia, jakie dane przetwarzamy, dlaczego, jak długo i jakie przysługują Ci prawa.</p>
+        <p>{{ config('app.name') }} to platforma skupiająca wiele schronisk dla zwierząt. Poważnie traktujemy ochronę Twoich danych osobowych i przetwarzamy je zgodnie z Ogólnym rozporządzeniem o ochronie danych (RODO) oraz ustawą z dnia 10 maja 2018 r. o ochronie danych osobowych. Niniejsza polityka wyjaśnia, jakie dane przetwarzamy, dlaczego, jak długo i jakie przysługują Ci prawa.</p>
     </header>
 
     <section id="responsible">
@@ -43,7 +43,7 @@
         <h3>Wolontariusze</h3>
         <ul>
             <li>Imię i nazwisko, płeć, data urodzenia i zdjęcie;</li>
-            <li>Numer dokumentu tożsamości i numer identyfikacji podatkowej (NIF);</li>
+            <li>Numer dokumentu tożsamości i numer identyfikacji podatkowej (NIP);</li>
             <li>Dane kontaktowe, adres, zawód i środek transportu;</li>
             <li>Dostępność, daty rozpoczęcia i zakończenia współpracy oraz oceny obecności i pracy;</li>
             <li>Preferencja dotycząca newslettera.</li>
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Pliki cookie</h2>
-        <p>Używamy wyłącznie plików cookie i pamięci lokalnej, które są <strong>niezbędne</strong> do działania serwisu lub funkcji, o którą wyraźnie poprosiłeś, dlatego zgodnie z prawem portugalskim (Lei n.º 41/2004) Twoja zgoda nie jest wymagana. Nie używamy reklamowych, analitycznych ani zewnętrznych plików cookie, a wszystkie czcionki i zasoby są dostarczane z naszych własnych serwerów.</p>
+        <p>Używamy wyłącznie plików cookie i pamięci lokalnej, które są <strong>niezbędne</strong> do działania serwisu lub funkcji, o którą wyraźnie poprosiłeś, dlatego zgodnie z art. 399 ustawy z dnia 12 lipca 2024 r. – Prawo komunikacji elektronicznej Twoja zgoda nie jest wymagana. Nie używamy reklamowych, analitycznych ani zewnętrznych plików cookie, a wszystkie czcionki i zasoby są dostarczane z naszych własnych serwerów.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. Twoje prawa</h2>
         <p>W każdej chwili możesz zażądać <strong>dostępu</strong> do swoich danych, ich <strong>sprostowania</strong> lub <strong>usunięcia</strong>, <strong>ograniczenia</strong> przetwarzania lub <strong>przeniesienia</strong> danych, <strong>wnieść sprzeciw</strong> wobec przetwarzania opartego na prawnie uzasadnionym interesie oraz <strong>wycofać każdą udzieloną zgodę</strong>, bez wpływu na przetwarzanie dokonane wcześniej.</p>
         <p>Aby skorzystać z tych praw, skontaktuj się bezpośrednio ze schroniskiem, z którym miałeś kontakt (jego dane kontaktowe znajdują się na stronie każdego zwierzęcia)@if ($contactEmail), lub napisz do nas na adres <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. Odpowiemy najpóźniej w ciągu miesiąca.</p>
-        <p>Masz również prawo wnieść skargę do portugalskiego organu ochrony danych (CNPD) na stronie <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a>.</p>
+        <p>Masz również prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych (UODO) na stronie <a href="https://uodo.gov.pl" target="_blank" rel="noopener">uodo.gov.pl</a>.</p>
     </section>
 
     <section id="security">

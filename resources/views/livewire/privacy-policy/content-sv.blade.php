@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Integritetspolicy</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Senast uppdaterad: 23 september 2026</p>
-        <p>{{ config('app.name') }} är en plattform som samlar flera djurhem. Vi tar skyddet av dina personuppgifter på allvar och behandlar dem i enlighet med dataskyddsförordningen (GDPR) och tillämplig portugisisk lag. Denna policy förklarar vilka uppgifter vi behandlar, varför, hur länge och vilka rättigheter du har.</p>
+        <p>{{ config('app.name') }} är en plattform som samlar flera djurhem. Vi tar skyddet av dina personuppgifter på allvar och behandlar dem i enlighet med dataskyddsförordningen (GDPR) och lagen (2018:218) med kompletterande bestämmelser till EU:s dataskyddsförordning (dataskyddslagen). Denna policy förklarar vilka uppgifter vi behandlar, varför, hur länge och vilka rättigheter du har.</p>
     </header>
 
     <section id="responsible">
@@ -43,7 +43,7 @@
         <h3>Volontärer</h3>
         <ul>
             <li>Namn, kön, födelsedatum och foto;</li>
-            <li>Nummer på identitetshandling och skatteregistreringsnummer (NIF);</li>
+            <li>Nummer på identitetshandling och skatteregistreringsnummer;</li>
             <li>Kontaktuppgifter, adress, yrke och färdmedel;</li>
             <li>Tillgänglighet, start- och slutdatum för samarbetet samt bedömningar av närvaro och insats;</li>
             <li>Önskemål om nyhetsbrev.</li>
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Cookies</h2>
-        <p>Vi använder endast cookies och lokal lagring som är <strong>strikt nödvändiga</strong> för att webbplatsen ska fungera eller för en funktion du uttryckligen har begärt, och enligt portugisisk lag (Lei n.º 41/2004) krävs därför inte ditt samtycke. Vi använder inga reklam-, analys- eller tredjepartscookies, och alla typsnitt och resurser levereras från våra egna servrar.</p>
+        <p>Vi använder endast cookies och lokal lagring som är <strong>strikt nödvändiga</strong> för att webbplatsen ska fungera eller för en funktion du uttryckligen har begärt, och enligt 9 kap. 28 § lagen (2022:482) om elektronisk kommunikation krävs därför inte ditt samtycke. Vi använder inga reklam-, analys- eller tredjepartscookies, och alla typsnitt och resurser levereras från våra egna servrar.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. Dina rättigheter</h2>
         <p>Du kan när som helst begära <strong>tillgång</strong> till dina uppgifter, <strong>rättelse</strong> eller <strong>radering</strong> av dem, <strong>begränsning</strong> av behandlingen eller <strong>dataportabilitet</strong>, <strong>invända</strong> mot behandling som grundas på berättigat intresse och <strong>återkalla ett lämnat samtycke</strong>, utan att det påverkar behandling som skett dessförinnan.</p>
         <p>För att utöva dessa rättigheter kontaktar du direkt det djurhem du har haft kontakt med (dess kontaktuppgifter finns på varje djurs sida)@if ($contactEmail), eller skriver till oss på <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. Vi svarar senast inom en månad.</p>
-        <p>Du har också rätt att lämna in klagomål till den portugisiska dataskyddsmyndigheten (CNPD) på <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a>.</p>
+        <p>Du har också rätt att lämna in klagomål till Integritetsskyddsmyndigheten (IMY) på <a href="https://www.imy.se" target="_blank" rel="noopener">www.imy.se</a>.</p>
     </section>
 
     <section id="security">

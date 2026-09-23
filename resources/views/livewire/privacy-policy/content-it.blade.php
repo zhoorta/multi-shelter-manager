@@ -3,7 +3,7 @@
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Informativa sulla Privacy</h1>
         <p class="text-sm text-stone-500 dark:text-stone-400">Ultimo aggiornamento: 23 settembre 2026</p>
-        <p>{{ config('app.name') }} è una piattaforma che riunisce diversi rifugi per animali. Prendiamo sul serio la protezione dei tuoi dati personali e li trattiamo in conformità al Regolamento Generale sulla Protezione dei Dati (GDPR) e alla legislazione portoghese applicabile. Questa informativa spiega quali dati trattiamo, perché, per quanto tempo e quali sono i tuoi diritti.</p>
+        <p>{{ config('app.name') }} è una piattaforma che riunisce diversi rifugi per animali. Prendiamo sul serio la protezione dei tuoi dati personali e li trattiamo in conformità al Regolamento Generale sulla Protezione dei Dati (GDPR) e al Codice in materia di protezione dei dati personali (D.Lgs. 196/2003, come modificato dal D.Lgs. 101/2018). Questa informativa spiega quali dati trattiamo, perché, per quanto tempo e quali sono i tuoi diritti.</p>
     </header>
 
     <section id="responsible">
@@ -43,7 +43,7 @@
         <h3>Volontari</h3>
         <ul>
             <li>Nome, sesso, data di nascita e foto;</li>
-            <li>Numero del documento d'identità e numero di identificazione fiscale (NIF);</li>
+            <li>Numero del documento d'identità e codice fiscale;</li>
             <li>Contatti, indirizzo, professione e mezzo di trasporto;</li>
             <li>Disponibilità, date di inizio e fine della collaborazione e valutazioni di presenza e prestazioni;</li>
             <li>Preferenza per la newsletter.</li>
@@ -65,7 +65,7 @@
 
     <section id="cookies">
         <h2>4. Cookie</h2>
-        <p>Utilizziamo solo cookie e archiviazione locale <strong>strettamente necessari</strong> al funzionamento del sito o a una funzione da te espressamente richiesta; ai sensi della legge portoghese (Lei n.º 41/2004) non è quindi richiesto il tuo consenso. Non utilizziamo cookie pubblicitari, analitici o di terze parti, e tutti i font e le risorse sono serviti dai nostri server.</p>
+        <p>Utilizziamo solo cookie e archiviazione locale <strong>strettamente necessari</strong> al funzionamento del sito o a una funzione da te espressamente richiesta; ai sensi dell'art. 122 del Codice in materia di protezione dei dati personali non è quindi richiesto il tuo consenso. Non utilizziamo cookie pubblicitari, analitici o di terze parti, e tutti i font e le risorse sono serviti dai nostri server.</p>
         <div class="overflow-x-auto rounded-2xl ring-1 ring-amber-100 dark:ring-stone-800">
             <table class="w-full text-left text-sm">
                 <thead class="bg-amber-50 text-xs font-bold tracking-wide text-stone-500 uppercase dark:bg-stone-800 dark:text-stone-400">
@@ -127,7 +127,7 @@
         <h2>7. I tuoi diritti</h2>
         <p>Puoi in qualsiasi momento richiedere l'<strong>accesso</strong> ai tuoi dati, la loro <strong>rettifica</strong> o <strong>cancellazione</strong>, la <strong>limitazione</strong> del trattamento o la <strong>portabilità</strong> dei dati, <strong>opporti</strong> al trattamento basato sul legittimo interesse e <strong>revocare qualsiasi consenso</strong> prestato, senza pregiudicare il trattamento effettuato in precedenza.</p>
         <p>Per esercitare questi diritti, contatta direttamente il rifugio con cui hai avuto a che fare (i suoi contatti sono indicati nella pagina di ogni animale)@if ($contactEmail), oppure scrivici all'indirizzo <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>@endif. Ti risponderemo entro un mese al massimo.</p>
-        <p>Hai inoltre il diritto di proporre reclamo all'autorità portoghese per la protezione dei dati (CNPD) su <a href="https://www.cnpd.pt" target="_blank" rel="noopener">www.cnpd.pt</a>.</p>
+        <p>Hai inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali su <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">www.garanteprivacy.it</a>.</p>
     </section>
 
     <section id="security">
