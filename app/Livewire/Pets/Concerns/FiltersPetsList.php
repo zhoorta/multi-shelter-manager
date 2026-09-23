@@ -12,8 +12,9 @@ use Illuminate\Database\Eloquent\Builder;
  * filters) for the two pages that browse the shelter's pet list: ManagePets
  * (the interactive table) and PetPrintList (its printable counterpart,
  * which reads the same filters from the query string so the printout
- * matches whatever was on screen). Consumers must expose the five filter
- * properties below (same names/types as ManagePets already had).
+ * matches whatever was on screen). Pets are listed by most recent
+ * checkin_date first (unknown dates last), then by name. Consumers must
+ * expose the five filter properties below (same names/types as ManagePets already had).
  */
 trait FiltersPetsList
 {
@@ -76,6 +77,7 @@ trait FiltersPetsList
                     };
                 },
             )
+            ->orderByDesc('checkin_date')
             ->orderBy('name');
     }
 }

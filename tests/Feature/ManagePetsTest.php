@@ -542,3 +542,15 @@ test('cannot delete a pet belonging to another shelter', function () {
 
     expect($pet->fresh()->trashed())->toBeFalse();
 });
+
+test('lists pets by most recent checkin date first, with unknown checkin dates last', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Alpha', 'checkin_date' => '2025-01-10']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bravo', 'checkin_date' => null]);
+    Pet::factory()->for($shelter)->create(['name' => 'Charlie', 'checkin_date' => '2026-03-05']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManagePets::class)
+        ->assertSeeInOrder(['Charlie', 'Alpha', 'Bravo']);
+});
