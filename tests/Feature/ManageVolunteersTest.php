@@ -94,21 +94,18 @@ test('shows the end date only when the volunteer has one', function () {
         ->assertSeeText(__('Ended at').' 15/01/2026');
 });
 
-test('only managers see the create and edit links', function () {
+test('only managers see the create link', function () {
     $shelter = Shelter::factory()->create();
-    $volunteer = Volunteer::factory()->for($shelter)->create();
 
     $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
     $this->get(route('volunteers.index'))
-        ->assertSee(route('volunteers.create'), false)
-        ->assertSee(route('volunteers.edit', $volunteer), false);
+        ->assertSee(route('volunteers.create'), false);
 
     $staff = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($staff);
     $this->get(route('volunteers.index'))
-        ->assertDontSee(route('volunteers.create'), false)
-        ->assertDontSee(route('volunteers.edit', $volunteer), false);
+        ->assertDontSee(route('volunteers.create'), false);
 });
 
 test('staff cannot delete a volunteer', function () {

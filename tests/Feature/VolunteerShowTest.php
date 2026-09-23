@@ -34,6 +34,21 @@ test('managers and staff can view a volunteer belonging to their shelter', funct
     $this->get(route('volunteers.show', $volunteer))->assertOk()->assertSee('Maria Silva');
 });
 
+test('only managers see the edit link', function () {
+    $shelter = Shelter::factory()->create();
+    $volunteer = Volunteer::factory()->for($shelter)->create();
+
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
+    $this->actingAs($manager);
+    $this->get(route('volunteers.show', $volunteer))
+        ->assertSee(route('volunteers.edit', $volunteer), false);
+
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
+    $this->actingAs($staff);
+    $this->get(route('volunteers.show', $volunteer))
+        ->assertDontSee(route('volunteers.edit', $volunteer), false);
+});
+
 test('shows only the activities assigned to the volunteer', function () {
     $shelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($shelter)->create();
