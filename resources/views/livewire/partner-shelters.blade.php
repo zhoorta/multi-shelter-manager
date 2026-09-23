@@ -41,19 +41,19 @@
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" wire:loading.class="opacity-60">
             @forelse ($this->shelters as $shelter)
                 <article wire:key="shelter-{{ $shelter->id }}" class="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-amber-100 transition hover:-translate-y-1 hover:shadow-lg dark:bg-stone-900 dark:ring-stone-800">
-                    <div class="flex items-center gap-4 p-6 {{ $cardTints[$loop->index % count($cardTints)] }}">
+                    <a href="{{ route('shelters.show', $shelter) }}" class="group flex items-center gap-4 p-6 {{ $cardTints[$loop->index % count($cardTints)] }}" wire:navigate>
                         @if ($shelter->logo_path)
                             <img src="{{ Storage::url($shelter->logo_path) }}" alt="{{ $shelter->name }}" loading="lazy" class="size-16 shrink-0 rounded-2xl bg-white object-contain p-1 shadow-sm">
                         @else
                             <span class="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm dark:bg-stone-900">🏠</span>
                         @endif
                         <div class="min-w-0">
-                            <h2 class="font-display text-xl leading-tight font-semibold text-stone-900 dark:text-white">{{ $shelter->name }}</h2>
+                            <h2 class="font-display text-xl leading-tight font-semibold text-stone-900 group-hover:text-orange-500 dark:text-white">{{ $shelter->name }}</h2>
                             <p class="mt-1 truncate text-sm font-medium text-stone-600 dark:text-stone-300">
                                 📍 {{ collect([$shelter->city, $shelter->region?->name])->filter()->unique()->implode(', ') }}
                             </p>
                         </div>
-                    </div>
+                    </a>
 
                     <div class="flex flex-1 flex-col gap-4 p-6">
                         @if ($shelter->description)
@@ -66,15 +66,15 @@
                             </p>
                         @endif
 
-                        <p class="mt-auto inline-flex items-center gap-2 font-display text-lg font-semibold text-pink-500">
-                            🐾 {{ trans_choice(':count animal waiting for a home|:count animals waiting for a home', $shelter->available_pets_count) }}
-                        </p>
+                        <a href="{{ route('shelters.show', $shelter) }}" class="mt-auto self-start font-display text-lg font-semibold text-pink-500 transition hover:text-pink-600 hover:underline" wire:navigate>
+                            🐾 {{ trans_choice(':count animal waiting for a home|:count animals waiting for a home', $shelter->published_pets_count) }} →
+                        </a>
 
                         @if ($shelter->email || $shelter->phone || $shelter->website)
                             <div class="flex flex-wrap gap-2">
                                 @if ($shelter->email)
-                                    <a href="mailto:{{ $shelter->email }}" class="rounded-full bg-orange-500 px-4 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-600">
-                                        ✉️ {{ __('Email') }}
+                                    <a href="mailto:{{ $shelter->email }}" class="max-w-full truncate rounded-full bg-orange-500 px-4 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-600">
+                                        ✉️ {{ $shelter->email }}
                                     </a>
                                 @endif
                                 @if ($shelter->phone)

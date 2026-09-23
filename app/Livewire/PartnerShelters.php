@@ -24,10 +24,6 @@ class PartnerShelters extends Component
     public string $regionFilter = '';
 
     /**
-     * The pets count removes the shelter global scope on purpose: a logged-in
-     * staff member must see the same counts as a guest, not zero for every
-     * shelter other than their own.
-     *
      * @return Collection<int, Shelter>
      */
     #[Computed]
@@ -35,7 +31,7 @@ class PartnerShelters extends Component
     {
         return Shelter::query()
             ->with('region')
-            ->withCount(['pets as available_pets_count' => fn (Builder $query) => $query->withoutGlobalScope('shelter')->publishedToPortal()])
+            ->withCount('publishedPets')
             ->when($this->regionFilter !== '', fn (Builder $query) => $query->where('region_id', $this->regionFilter))
             ->orderBy('name')
             ->get();

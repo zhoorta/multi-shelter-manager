@@ -19,6 +19,7 @@ use App\Livewire\Dashboard;
 use App\Livewire\Documentation;
 use App\Livewire\Facilities\ManageSpaces;
 use App\Livewire\PartnerShelters;
+use App\Livewire\PartnerShelterShow;
 use App\Livewire\Pets\AdoptionForm;
 use App\Livewire\Pets\AdoptionShow;
 use App\Livewire\Pets\ManageAdoptions;
@@ -43,6 +44,7 @@ use Illuminate\Support\Facades\Route;
 // Public welcome page, open to guests and logged-in users alike; redirects to login when the portal is disabled.
 Route::livewire('/', Welcome::class)->middleware(EnsurePublicPortalEnabled::class)->name('home');
 Route::livewire('shelters', PartnerShelters::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters');
+Route::livewire('shelters/{shelter}', PartnerShelterShow::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.show');
 Route::livewire('privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
 
 // Public guest routes.

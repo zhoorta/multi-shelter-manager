@@ -144,3 +144,11 @@ test('the partner shelters count links to the shelters page', function () {
 
     expect($html)->toMatch('#<a[^>]*href="'.preg_quote(route('shelters'), '#').'"[^>]*>(?:(?!</a>).)*'.__('Partner shelters').'#s');
 });
+
+test('the pet details link to the shelter page', function () {
+    $pet = publishedPet();
+
+    Livewire::test(Welcome::class)
+        ->call('showPet', $pet->id)
+        ->assertSee(route('shelters.show', $pet->shelter_id));
+});

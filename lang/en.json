@@ -339,5 +339,8 @@
     "Privacy Policy": "Privacy Policy",
     "Meet the shelters that care for the animals on :app. Get in touch to visit, volunteer or adopt.": "Meet the shelters that care for the animals on :app. Get in touch to visit, volunteer or adopt.",
     ":count animal waiting for a home|:count animals waiting for a home": ":count animal waiting for a home|:count animals waiting for a home",
-    "No shelters found in this region.": "No shelters found in this region."
+    "No shelters found in this region.": "No shelters found in this region.",
+    "See all animals from this shelter": "See all animals from this shelter",
+    "This shelter has no animals for adoption right now": "This shelter has no animals for adoption right now",
+    "New animals arrive all the time — come back soon!": "New animals arrive all the time — come back soon!"
 }

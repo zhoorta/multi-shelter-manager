@@ -83,6 +83,18 @@ class Shelter extends Model
     }
 
     /**
+     * Get the pets the shelter has published for adoption on the public
+     * portal. Removes the shelter global scope so a logged-in user of another
+     * shelter sees the same pets as a guest.
+     *
+     * @return HasMany<Pet, $this>
+     */
+    public function publishedPets(): HasMany
+    {
+        return $this->pets()->withoutGlobalScope('shelter')->publishedToPortal();
+    }
+
+    /**
      * Get the species enabled for the shelter. Controls which species
      * appear on the sidebar for the shelter's manager and staff users.
      *

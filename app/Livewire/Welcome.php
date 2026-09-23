@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Livewire\Concerns\ShowsPublicPets;
 use App\Models\Breed;
 use App\Models\Pet;
 use App\Models\Region;
 use App\Models\Shelter;
 use App\Models\Size;
 use App\Models\Species;
-use Flux\Flux;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,7 +27,7 @@ use Livewire\WithPagination;
  */
 class Welcome extends Component
 {
-    use WithPagination;
+    use ShowsPublicPets, WithPagination;
 
     #[Url(as: 'species')]
     public string $speciesFilter = '';
@@ -43,8 +43,6 @@ class Welcome extends Component
 
     #[Url(as: 'region')]
     public string $regionFilter = '';
-
-    public ?int $selectedPetId = null;
 
     /**
      * Breeds and sizes belong to a species, so a species change clears them.
@@ -82,13 +80,6 @@ class Welcome extends Component
         $this->resetPage();
     }
 
-    public function showPet(int $petId): void
-    {
-        $this->selectedPetId = $this->publicPetsQuery()->findOrFail($petId)->id;
-
-        Flux::modal('public-pet-details')->show();
-    }
-
     /**
      * @return LengthAwarePaginator<int, Pet>
      */
@@ -106,18 +97,6 @@ class Welcome extends Component
             ->latest('checkin_date')
             ->latest('id')
             ->paginate(12);
-    }
-
-    #[Computed]
-    public function selectedPet(): ?Pet
-    {
-        if ($this->selectedPetId === null) {
-            return null;
-        }
-
-        return $this->publicPetsQuery()
-            ->with(['species', 'breed', 'size', 'furType', 'shelter.region', 'images'])
-            ->find($this->selectedPetId);
     }
 
     /**
@@ -178,21 +157,6 @@ class Welcome extends Component
             'pets' => $this->publicPetsQuery()->count(),
             'regions' => Shelter::query()->whereNotNull('region_id')->distinct()->count('region_id'),
         ];
-    }
-
-    /**
-     * Pets every shelter has explicitly published for adoption. The shelter
-     * global scope is removed on purpose: this is a cross-shelter public
-     * portal, and a logged-in staff member visiting it must see the same
-     * list as a guest, not only their own shelter's pets.
-     *
-     * @return Builder<Pet>
-     */
-    private function publicPetsQuery(): Builder
-    {
-        return Pet::query()
-            ->withoutGlobalScope('shelter')
-            ->publishedToPortal();
     }
 
     #[Layout('layouts::public')]
