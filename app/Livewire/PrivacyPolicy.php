@@ -18,6 +18,8 @@ class PrivacyPolicy extends Component
     #[Layout('layouts::public')]
     public function render(): View
     {
-        return view('livewire.privacy-policy')->title(__('Privacy Policy'));
+        return view('livewire.privacy-policy')
+            ->title(__('Privacy Policy'))
+            ->layoutData(['description' => __('How we collect, use and protect personal data on this platform.')]);
     }
 }

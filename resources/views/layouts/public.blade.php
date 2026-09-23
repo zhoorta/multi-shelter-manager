@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        @include('partials.head')
+        @include('partials.head', ['indexable' => true])
     </head>
     <body class="min-h-screen bg-amber-50 text-stone-800 antialiased dark:bg-stone-950 dark:text-stone-100">
         <header class="sticky top-0 z-30 border-b border-amber-100 bg-amber-50/85 backdrop-blur dark:border-stone-800 dark:bg-stone-950/85">

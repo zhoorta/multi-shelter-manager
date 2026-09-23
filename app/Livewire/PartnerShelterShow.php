@@ -9,6 +9,7 @@ use App\Models\Pet;
 use App\Models\Shelter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -46,6 +47,44 @@ class PartnerShelterShow extends Component
     #[Layout('layouts::public')]
     public function render(): View
     {
-        return view('livewire.partner-shelter-show')->title($this->shelter->name);
+        $logoUrl = $this->shelter->logo_path ? url(Storage::url($this->shelter->logo_path)) : null;
+
+        return view('livewire.partner-shelter-show')
+            ->title($this->shelter->name)
+            ->layoutData([
+                'description' => filled($this->shelter->description)
+                    ? $this->shelter->description
+                    : __(':name in :city: meet the animals waiting for adoption.', ['name' => $this->shelter->name, 'city' => $this->shelter->city]),
+                'image' => $logoUrl,
+                'structuredData' => $this->structuredData($logoUrl),
+            ]);
+    }
+
+    /**
+     * Schema.org AnimalShelter data so search engines can show the shelter's
+     * address and contacts.
+     *
+     * @return array<string, mixed>
+     */
+    private function structuredData(?string $logoUrl): array
+    {
+        return array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'AnimalShelter',
+            'name' => $this->shelter->name,
+            'url' => route('shelters.show', $this->shelter),
+            'description' => $this->shelter->description,
+            'logo' => $logoUrl,
+            'telephone' => $this->shelter->phone,
+            'email' => $this->shelter->email,
+            'sameAs' => $this->shelter->website,
+            'address' => array_filter([
+                '@type' => 'PostalAddress',
+                'streetAddress' => $this->shelter->address,
+                'postalCode' => $this->shelter->postal_code,
+                'addressLocality' => $this->shelter->city,
+                'addressRegion' => $this->shelter->region?->name,
+            ]),
+        ]);
     }
 }

@@ -162,6 +162,17 @@ class Welcome extends Component
     #[Layout('layouts::public')]
     public function render(): View
     {
-        return view('livewire.welcome')->title(__('Adopt a friend'));
+        return view('livewire.welcome')
+            ->title(__('Adopt a friend'))
+            ->layoutData([
+                'description' => __('Find a shelter animal waiting for a home. Browse the dogs and cats of our partner shelters and adopt your new best friend.'),
+                'structuredData' => [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'WebSite',
+                    'name' => config('app.name'),
+                    'url' => route('home'),
+                    'inLanguage' => app()->getLocale(),
+                ],
+            ]);
     }
 }

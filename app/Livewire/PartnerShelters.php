@@ -52,6 +52,8 @@ class PartnerShelters extends Component
     #[Layout('layouts::public')]
     public function render(): View
     {
-        return view('livewire.partner-shelters')->title(__('Partner shelters'));
+        return view('livewire.partner-shelters')
+            ->title(__('Partner shelters'))
+            ->layoutData(['description' => __('Meet the animal shelters that are part of our network, their contacts and how many animals each one has waiting for adoption.')]);
     }
 }

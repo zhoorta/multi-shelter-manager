@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\RobotsController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\EnsurePublicPortalEnabled;
 use App\Livewire\Admin\ManageActivities;
 use App\Livewire\Admin\ManageBreeds;
@@ -46,6 +48,8 @@ Route::livewire('/', Welcome::class)->middleware(EnsurePublicPortalEnabled::clas
 Route::livewire('shelters', PartnerShelters::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters');
 Route::livewire('shelters/{shelter}', PartnerShelterShow::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.show');
 Route::livewire('privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
+Route::get('robots.txt', RobotsController::class)->name('robots');
+Route::get('sitemap.xml', SitemapController::class)->middleware(EnsurePublicPortalEnabled::class)->name('sitemap');
 
 // Public guest routes.
 Route::middleware(['guest'])->group(function (): void {
