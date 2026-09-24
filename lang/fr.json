@@ -83,6 +83,7 @@
     "Admin": "Administrateur Global",
     "Manager": "Gestionnaire de Refuge",
     "Staff": "Employé / Opérationnel",
+    "Viewer": "Consultation (lecture seule)",
     "Save": "Enregistrer",
     "Cancel": "Annuler",
     "Edit": "Modifier",

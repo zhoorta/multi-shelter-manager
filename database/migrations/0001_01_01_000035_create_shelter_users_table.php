@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('shelter_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->enum('role', ['manager', 'staff'])->default('staff');
+            $table->enum('role', ['manager', 'staff', 'viewer'])->default('staff');
             $table->boolean('vaccination_notifications')->default(false);
             $table->timestamps();
             $table->unique(['shelter_id', 'user_id']);

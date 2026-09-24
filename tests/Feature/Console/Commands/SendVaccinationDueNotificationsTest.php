@@ -185,3 +185,18 @@ test('sets notification_date and notification_recipients on the notified vaccina
         ->and($otherPetVaccine->fresh()->notification_date)->toBeNull()
         ->and($otherPetVaccine->fresh()->notification_recipients)->toBeNull();
 });
+
+test('emails viewers who have vaccination notifications enabled', function () {
+    Notification::fake();
+
+    $shelter = Shelter::factory()->create();
+    $viewer = User::factory()->forShelter($shelter, 'viewer', true)->create();
+
+    $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
+    $vaccine = Vaccine::factory()->create();
+    $pet->vaccines()->attach($vaccine, ['due_date' => today()->addDays(3), 'status' => 'scheduled']);
+
+    $this->artisan('app:send-vaccination-due-notifications')->assertSuccessful();
+
+    Notification::assertSentTo($viewer, VaccinationDueNotification::class);
+});

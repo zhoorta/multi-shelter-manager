@@ -124,3 +124,11 @@ test('shows the death date and hides the age field when the pet is deceased', fu
         ->assertDontSee(__('Adopted at'))
         ->assertDontSee(__('Age'));
 });
+
+test('viewers can print a pet', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.print', $pet))->assertOk()->assertSee('Rex');
+});

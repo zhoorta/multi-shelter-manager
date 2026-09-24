@@ -329,3 +329,10 @@ test('cannot delete an adoption belonging to another shelter\'s pet', function (
 
     expect($adoption->fresh()->trashed())->toBeFalse();
 });
+
+test('viewers are forbidden from viewing adopter and sponsor personal data', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.adoptions.index'))->assertForbidden();
+});

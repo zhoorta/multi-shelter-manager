@@ -83,6 +83,7 @@
     "Admin": "System Administrator",
     "Manager": "Shelter Manager",
     "Staff": "Staff / Worker",
+    "Viewer": "Viewer (read-only)",
     "Save": "Save",
     "Cancel": "Cancel",
     "Edit": "Edit",

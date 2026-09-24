@@ -98,6 +98,7 @@ class PetShow extends Component
 
     public function deleteVaccination(int $petVaccineId): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         $this->scopedPetVaccineQuery()->findOrFail($petVaccineId)->delete();
 
         $this->refreshVaccines();

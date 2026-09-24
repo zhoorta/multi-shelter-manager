@@ -26,20 +26,22 @@
                                     {{ $sidebarSpecies->name_plural }}
                                 </flux:sidebar.item>
                             @endforeach
-                            <flux:sidebar.item
-                                :href="route('pets.sponsorships.index')"
-                                :current="request()->routeIs('pets.sponsorships.index')"
-                                wire:navigate
-                            >
-                                {{ __('Sponsorships') }}
-                            </flux:sidebar.item>
-                            <flux:sidebar.item
-                                :href="route('pets.adoptions.index')"
-                                :current="request()->routeIs('pets.adoptions.index')"
-                                wire:navigate
-                            >
-                                {{ __('Adoptions') }}
-                            </flux:sidebar.item>
+                            @unless (auth()->user()->isViewerOfCurrentShelter())
+                                <flux:sidebar.item
+                                    :href="route('pets.sponsorships.index')"
+                                    :current="request()->routeIs('pets.sponsorships.index')"
+                                    wire:navigate
+                                >
+                                    {{ __('Sponsorships') }}
+                                </flux:sidebar.item>
+                                <flux:sidebar.item
+                                    :href="route('pets.adoptions.index')"
+                                    :current="request()->routeIs('pets.adoptions.index')"
+                                    wire:navigate
+                                >
+                                    {{ __('Adoptions') }}
+                                </flux:sidebar.item>
+                            @endunless
                             <flux:sidebar.item
                                 :href="route('pets.vaccinations.index')"
                                 :current="request()->routeIs('pets.vaccinations.index')"

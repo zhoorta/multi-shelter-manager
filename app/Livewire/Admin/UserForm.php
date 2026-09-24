@@ -165,7 +165,7 @@ class UserForm extends Component
                 'distinct',
                 $viewer->is_admin ? 'exists:shelters,id' : Rule::in($viewer->managedShelterIds()),
             ],
-            'userMemberships.*.role' => ['required', Rule::in(['staff', 'manager'])],
+            'userMemberships.*.role' => ['required', Rule::in(['staff', 'manager', 'viewer'])],
             'userMemberships.*.vaccination_notifications' => ['boolean'],
         ], [
             'userMemberships.*.shelter_id.distinct' => __('This shelter has already been selected.'),

@@ -112,6 +112,11 @@ class User extends Authenticatable
         return $this->roleForShelter($shelterId) === 'staff';
     }
 
+    public function isViewerOf(int $shelterId): bool
+    {
+        return $this->roleForShelter($shelterId) === 'viewer';
+    }
+
     public function belongsToShelter(int $shelterId): bool
     {
         return $this->roleForShelter($shelterId) !== null;
@@ -124,6 +129,27 @@ class User extends Authenticatable
     public function isManagerOfCurrentShelter(): bool
     {
         return $this->current_shelter_id !== null && $this->isManagerOf($this->current_shelter_id);
+    }
+
+    /**
+     * Whether this user is a read-only viewer of the shelter they are
+     * currently acting within. Viewers cannot see adopter or sponsor
+     * personal data.
+     */
+    public function isViewerOfCurrentShelter(): bool
+    {
+        return $this->current_shelter_id !== null && $this->isViewerOf($this->current_shelter_id);
+    }
+
+    /**
+     * Whether this user may change the daily operations data (pets,
+     * adoptions, sponsorships, vaccinations) of the shelter they are
+     * currently acting within: managers and staff can, viewers cannot.
+     */
+    public function canEditCurrentShelter(): bool
+    {
+        return $this->current_shelter_id !== null
+            && in_array($this->roleForShelter($this->current_shelter_id), ['manager', 'staff'], true);
     }
 
     /**

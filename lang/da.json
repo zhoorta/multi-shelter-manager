@@ -83,6 +83,7 @@
     "Admin": "Global administrator",
     "Manager": "Internatleder",
     "Staff": "Medarbejder",
+    "Viewer": "Læser (kun læseadgang)",
     "Save": "Gem",
     "Cancel": "Annuller",
     "Edit": "Rediger",

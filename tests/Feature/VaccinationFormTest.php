@@ -284,3 +284,11 @@ test('returns 404 when editing a vaccination that does not belong to the given p
 
     $this->get(route('pets.vaccinate.edit', [$pet, $otherPetVaccine]))->assertNotFound();
 });
+
+test('viewers are forbidden from viewing the form', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.vaccinate', $pet))->assertForbidden();
+});

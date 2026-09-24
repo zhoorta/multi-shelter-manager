@@ -24,6 +24,7 @@ class SponsorshipShow extends Component
     public function mount(Pet $pet, Sponsorship $sponsorship): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
+        abort_if(Auth::user()->isViewerOfCurrentShelter(), 403);
         abort_if($sponsorship->pet_id !== $pet->id, 404);
 
         $this->pet = $pet;

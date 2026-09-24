@@ -294,3 +294,10 @@ test('cannot delete a sponsorship belonging to another shelter\'s pet', function
 
     expect($sponsorship->fresh()->trashed())->toBeFalse();
 });
+
+test('viewers are forbidden from viewing adopter and sponsor personal data', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.sponsorships.index'))->assertForbidden();
+});

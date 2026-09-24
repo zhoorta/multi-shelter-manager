@@ -80,6 +80,7 @@ class ManageVaccinations extends Component
 
     public function deleteVaccination(int $petVaccineId): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         PetVaccine::query()->whereHas('pet')->findOrFail($petVaccineId)->delete();
 
         unset($this->vaccinations);

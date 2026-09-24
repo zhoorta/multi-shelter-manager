@@ -301,3 +301,24 @@ test('cannot delete a vaccination belonging to another shelter\'s pet', function
 
     expect($petVaccine->fresh()->trashed())->toBeFalse();
 });
+
+test('viewers can view the list but cannot edit or delete vaccinations', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create(['name' => 'Rabies']);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
+    $petVaccine = $pet->vaccines()->first()->pivot;
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.vaccinations.index'))
+        ->assertOk()
+        ->assertSee('Rabies')
+        ->assertDontSee(route('pets.vaccinate.edit', [$pet, $petVaccine]))
+        ->assertDontSee('confirm-vaccination-deletion-'.$petVaccine->id);
+
+    Livewire::test(ManageVaccinations::class)
+        ->call('deleteVaccination', $petVaccine->id)
+        ->assertForbidden();
+
+    expect($petVaccine->fresh()->trashed())->toBeFalse();
+});

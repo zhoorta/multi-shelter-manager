@@ -6,6 +6,7 @@ namespace App\Livewire\Pets\Concerns;
 
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Shared SponsorshipPayment CRUD for the two pages that render the
@@ -38,6 +39,7 @@ trait ManagesSponsorshipPayments
 
     public function createPayment(int $sponsorshipId): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         $this->scopedSponsorshipQuery()->findOrFail($sponsorshipId);
 
         $this->resetPaymentForm();
@@ -56,6 +58,7 @@ trait ManagesSponsorshipPayments
 
     public function editPayment(int $paymentId): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         $payment = $this->scopedSponsorshipPaymentQuery()->findOrFail($paymentId);
 
         $this->editingPaymentId = $payment->id;
@@ -69,6 +72,7 @@ trait ManagesSponsorshipPayments
 
     public function savePayment(): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         $validated = $this->validate([
             'paymentStartDate' => ['required', 'date'],
             'paymentEndDate' => ['required', 'date', 'after_or_equal:paymentStartDate'],
@@ -111,6 +115,7 @@ trait ManagesSponsorshipPayments
 
     public function deletePayment(int $paymentId): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         $this->scopedSponsorshipPaymentQuery()->findOrFail($paymentId)->delete();
 
         $this->refreshSponsorships();

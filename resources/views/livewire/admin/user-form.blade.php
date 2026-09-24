@@ -60,6 +60,7 @@
                             <flux:select wire:model="userMemberships.{{ $i }}.role" :label="__('Role')" :disabled="$this->isManagerEditingOwnAccount">
                                 <flux:select.option value="staff">{{ __('Staff') }}</flux:select.option>
                                 <flux:select.option value="manager">{{ __('Manager') }}</flux:select.option>
+                                <flux:select.option value="viewer">{{ __('Viewer') }}</flux:select.option>
                             </flux:select>
                         </div>
 

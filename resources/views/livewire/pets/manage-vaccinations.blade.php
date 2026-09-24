@@ -1,3 +1,7 @@
+@php
+    $canEdit = auth()->user()->canEditCurrentShelter();
+@endphp
+
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Vaccinations') }}</flux:heading>
@@ -76,18 +80,20 @@
                                             <flux:button size="sm" variant="subtle" icon="eye" :aria-label="__('Show')" />
                                         </flux:modal.trigger>
 
-                                        <flux:button
-                                            :href="route('pets.vaccinate.edit', [$vaccination->pet, $vaccination])"
-                                            size="sm"
-                                            variant="subtle"
-                                            icon="pencil"
-                                            :aria-label="__('Edit')"
-                                            wire:navigate
-                                        />
+                                        @if ($canEdit)
+                                            <flux:button
+                                                :href="route('pets.vaccinate.edit', [$vaccination->pet, $vaccination])"
+                                                size="sm"
+                                                variant="subtle"
+                                                icon="pencil"
+                                                :aria-label="__('Edit')"
+                                                wire:navigate
+                                            />
 
-                                        <flux:modal.trigger name="confirm-vaccination-deletion-{{ $vaccination->id }}">
-                                            <flux:button size="sm" variant="subtle" icon="trash" :aria-label="__('Delete')" />
-                                        </flux:modal.trigger>
+                                            <flux:modal.trigger name="confirm-vaccination-deletion-{{ $vaccination->id }}">
+                                                <flux:button size="sm" variant="subtle" icon="trash" :aria-label="__('Delete')" />
+                                            </flux:modal.trigger>
+                                        @endif
 
                                         <flux:modal name="vaccination-show-{{ $vaccination->id }}" class="max-w-lg">
                                             <div class="space-y-6">
@@ -125,24 +131,26 @@
                                             </div>
                                         </flux:modal>
 
-                                        <flux:modal name="confirm-vaccination-deletion-{{ $vaccination->id }}" class="max-w-lg">
-                                            <div class="space-y-6">
-                                                <div>
-                                                    <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
-                                                    <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
-                                                </div>
+                                        @if ($canEdit)
+                                            <flux:modal name="confirm-vaccination-deletion-{{ $vaccination->id }}" class="max-w-lg">
+                                                <div class="space-y-6">
+                                                    <div>
+                                                        <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                        <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                    </div>
 
-                                                <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                                                    <flux:modal.close>
-                                                        <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                                                    </flux:modal.close>
+                                                    <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                                        <flux:modal.close>
+                                                            <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                                        </flux:modal.close>
 
-                                                    <flux:button variant="danger" wire:click="deleteVaccination({{ $vaccination->id }})">
-                                                        {{ __('Delete') }}
-                                                    </flux:button>
+                                                        <flux:button variant="danger" wire:click="deleteVaccination({{ $vaccination->id }})">
+                                                            {{ __('Delete') }}
+                                                        </flux:button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </flux:modal>
+                                            </flux:modal>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

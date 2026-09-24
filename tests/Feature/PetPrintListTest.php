@@ -81,3 +81,11 @@ test('links to the print list page from the manage pets page', function () {
 
     $this->get(route('pets.index'))->assertSee(route('pets.print.list'), false);
 });
+
+test('viewers can print the pets list', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.print.list'))->assertOk()->assertSee('Rex');
+});

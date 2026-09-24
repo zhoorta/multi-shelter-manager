@@ -131,3 +131,11 @@ test('returns 404 when the sponsorship does not belong to the given pet', functi
 
     $this->get(route('pets.sponsor.edit', [$pet, $sponsorship]))->assertNotFound();
 });
+
+test('viewers are forbidden from viewing the form', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.sponsor', $pet))->assertForbidden();
+});

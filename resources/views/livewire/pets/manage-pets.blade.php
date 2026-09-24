@@ -1,20 +1,26 @@
+@php
+    $canEdit = auth()->user()->canEditCurrentShelter();
+@endphp
+
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ $this->selectedSpecies?->name_plural ?? __('Pets') }}</flux:heading>
 
         <div class="flex items-center gap-2">
-            {{-- A full page load (no wire:navigate) here is deliberate: navigate morphs
-                 the previous page's DOM into the new one, and a native <select> can keep
-                 its browser-side selected option across that morph even though the fresh
-                 component's bound property is null — a fresh request guarantees a clean
-                 form every time. --}}
-            <flux:button
-                :href="route('pets.create', $this->selectedSpecies ? ['species' => $this->selectedSpecies->id] : [])"
-                variant="primary"
-                icon="plus"
-            >
-                {{ __('Create') }}
-            </flux:button>
+            @if ($canEdit)
+                {{-- A full page load (no wire:navigate) here is deliberate: navigate morphs
+                     the previous page's DOM into the new one, and a native <select> can keep
+                     its browser-side selected option across that morph even though the fresh
+                     component's bound property is null — a fresh request guarantees a clean
+                     form every time. --}}
+                <flux:button
+                    :href="route('pets.create', $this->selectedSpecies ? ['species' => $this->selectedSpecies->id] : [])"
+                    variant="primary"
+                    icon="plus"
+                >
+                    {{ __('Create') }}
+                </flux:button>
+            @endif
 
             {{-- Opens in a new tab, carrying the currently applied filters as query
                  params, so the printout matches whatever the list is showing on screen. --}}
@@ -175,33 +181,35 @@
                                             wire:navigate
                                         />
 
-                                        <flux:modal.trigger name="confirm-pet-deletion-{{ $pet->id }}">
-                                            <flux:button
-                                                size="sm"
-                                                variant="subtle"
-                                                icon="trash"
-                                                :aria-label="__('Delete')"
-                                            />
-                                        </flux:modal.trigger>
+                                        @if ($canEdit)
+                                            <flux:modal.trigger name="confirm-pet-deletion-{{ $pet->id }}">
+                                                <flux:button
+                                                    size="sm"
+                                                    variant="subtle"
+                                                    icon="trash"
+                                                    :aria-label="__('Delete')"
+                                                />
+                                            </flux:modal.trigger>
 
-                                        <flux:modal name="confirm-pet-deletion-{{ $pet->id }}" class="max-w-lg">
-                                            <div class="space-y-6">
-                                                <div>
-                                                    <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
-                                                    <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                            <flux:modal name="confirm-pet-deletion-{{ $pet->id }}" class="max-w-lg">
+                                                <div class="space-y-6">
+                                                    <div>
+                                                        <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                        <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                    </div>
+
+                                                    <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                                        <flux:modal.close>
+                                                            <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                                        </flux:modal.close>
+
+                                                        <flux:button variant="danger" wire:click="deletePet({{ $pet->id }})">
+                                                            {{ __('Delete') }}
+                                                        </flux:button>
+                                                    </div>
                                                 </div>
-
-                                                <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                                                    <flux:modal.close>
-                                                        <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                                                    </flux:modal.close>
-
-                                                    <flux:button variant="danger" wire:click="deletePet({{ $pet->id }})">
-                                                        {{ __('Delete') }}
-                                                    </flux:button>
-                                                </div>
-                                            </div>
-                                        </flux:modal>
+                                            </flux:modal>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

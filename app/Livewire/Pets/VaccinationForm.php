@@ -37,6 +37,7 @@ class VaccinationForm extends Component
     public function mount(Pet $pet, ?PetVaccine $petVaccine = null): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         abort_if($petVaccine !== null && $petVaccine->pet_id !== $pet->id, 404);
 
         $this->pet = $pet;

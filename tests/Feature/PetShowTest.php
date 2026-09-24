@@ -906,3 +906,48 @@ test('cannot delete a vaccination belonging to another pet', function () {
     expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteVaccination', $otherPetVaccine->id))
         ->toThrow(ModelNotFoundException::class);
 });
+
+test('viewers see the pet without edit controls or adopter and sponsor details', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex', 'is_sponsorable' => true]);
+    Adoption::factory()->for($pet)->create(['name' => 'Adopter Person']);
+    Sponsorship::factory()->for($pet)->create(['name' => 'Sponsor Person']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSee('Rex')
+        ->assertSee(route('pets.print', $pet))
+        ->assertDontSee(route('pets.edit', $pet))
+        ->assertDontSee(route('pets.adopt', $pet))
+        ->assertDontSee(route('pets.sponsor', $pet))
+        ->assertDontSee(route('pets.vaccinate', $pet))
+        ->assertDontSeeText('Adopter Person')
+        ->assertDontSeeText('Sponsor Person');
+});
+
+test('viewers cannot delete vaccinations or manage sponsorship payments', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $vaccine = Vaccine::factory()->create();
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
+    $petVaccine = $pet->vaccines()->first()->pivot;
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+    $payment = SponsorshipPayment::factory()->for($sponsorship)->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $calls = [
+        ['deleteVaccination', $petVaccine->id],
+        ['createPayment', $sponsorship->id],
+        ['editPayment', $payment->id],
+        ['savePayment'],
+        ['deletePayment', $payment->id],
+    ];
+
+    foreach ($calls as $call) {
+        Livewire::test(PetShow::class, ['pet' => $pet])->call(...$call)->assertForbidden();
+    }
+
+    expect($petVaccine->fresh()->trashed())->toBeFalse()
+        ->and($payment->fresh()->trashed())->toBeFalse();
+});

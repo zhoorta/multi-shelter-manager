@@ -83,6 +83,7 @@
     "Admin": "Administrator globalny",
     "Manager": "Kierownik schroniska",
     "Staff": "Pracownik",
+    "Viewer": "Podgląd (tylko odczyt)",
     "Save": "Zapisz",
     "Cancel": "Anuluj",
     "Edit": "Edytuj",

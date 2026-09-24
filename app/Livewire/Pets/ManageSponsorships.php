@@ -25,6 +25,7 @@ class ManageSponsorships extends Component
     public function mount(): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
+        abort_if(Auth::user()->isViewerOfCurrentShelter(), 403);
     }
 
     public function updatingSearch(): void
@@ -61,6 +62,7 @@ class ManageSponsorships extends Component
 
     public function deleteSponsorship(int $sponsorshipId): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         Sponsorship::query()->whereHas('pet')->findOrFail($sponsorshipId)->delete();
 
         unset($this->sponsorships);

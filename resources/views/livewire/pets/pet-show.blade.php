@@ -1,3 +1,7 @@
+@php
+    $canEdit = auth()->user()->canEditCurrentShelter();
+@endphp
+
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
@@ -17,11 +21,13 @@
                 {{ $pet->species->name_plural }}
             </flux:button>
 
-            <flux:button :href="route('pets.edit', $pet)" variant="primary" icon="pencil" wire:navigate>
-                {{ __('Edit') }}
-            </flux:button>
+            @if ($canEdit)
+                <flux:button :href="route('pets.edit', $pet)" variant="primary" icon="pencil" wire:navigate>
+                    {{ __('Edit') }}
+                </flux:button>
+            @endif
 
-            @if ($pet->status !== 'adopted' || $pet->is_sponsorable)
+            @if ($canEdit && ($pet->status !== 'adopted' || $pet->is_sponsorable))
                 <flux:dropdown position="bottom" align="end">
                     <flux:button
                         icon="heart"
@@ -318,25 +324,30 @@
             @endif
         </div>
 
-        @foreach ($pet->adoptions as $adoption)
-            @include('livewire.pets.partials.adoption-box', ['pet' => $pet, 'adoption' => $adoption])
-        @endforeach
+        {{-- Viewers are read-only and must not see adopter or sponsor personal data. --}}
+        @if ($canEdit)
+            @foreach ($pet->adoptions as $adoption)
+                @include('livewire.pets.partials.adoption-box', ['pet' => $pet, 'adoption' => $adoption])
+            @endforeach
 
-        @foreach ($pet->sponsorships as $sponsorship)
-            @include('livewire.pets.partials.sponsorship-box', ['pet' => $pet, 'sponsorship' => $sponsorship])
-        @endforeach
+            @foreach ($pet->sponsorships as $sponsorship)
+                @include('livewire.pets.partials.sponsorship-box', ['pet' => $pet, 'sponsorship' => $sponsorship])
+            @endforeach
 
-        @if ($pet->sponsorships->isNotEmpty())
-            @include('livewire.pets.partials.sponsorship-payment-modal')
+            @if ($pet->sponsorships->isNotEmpty())
+                @include('livewire.pets.partials.sponsorship-payment-modal')
+            @endif
         @endif
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <div class="flex w-full items-center justify-between">
                 <flux:label>{{ __('Vaccinations') }}</flux:label>
 
-                <flux:button :href="route('pets.vaccinate', $pet)" variant="filled" size="sm" icon="plus" wire:navigate>
-                    {{ __('New Vaccination') }}
-                </flux:button>
+                @if ($canEdit)
+                    <flux:button :href="route('pets.vaccinate', $pet)" variant="filled" size="sm" icon="plus" wire:navigate>
+                        {{ __('New Vaccination') }}
+                    </flux:button>
+                @endif
             </div>
 
             <div class="w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
@@ -378,18 +389,20 @@
                                                 <flux:button size="sm" variant="subtle" icon="eye" :aria-label="__('Show')" />
                                             </flux:modal.trigger>
 
-                                            <flux:button
-                                                :href="route('pets.vaccinate.edit', [$pet, $vaccine->pivot])"
-                                                size="sm"
-                                                variant="subtle"
-                                                icon="pencil"
-                                                :aria-label="__('Edit')"
-                                                wire:navigate
-                                            />
+                                            @if ($canEdit)
+                                                <flux:button
+                                                    :href="route('pets.vaccinate.edit', [$pet, $vaccine->pivot])"
+                                                    size="sm"
+                                                    variant="subtle"
+                                                    icon="pencil"
+                                                    :aria-label="__('Edit')"
+                                                    wire:navigate
+                                                />
 
-                                            <flux:modal.trigger name="confirm-vaccination-deletion-{{ $vaccine->pivot->id }}">
-                                                <flux:button size="sm" variant="subtle" icon="trash" :aria-label="__('Delete')" />
-                                            </flux:modal.trigger>
+                                                <flux:modal.trigger name="confirm-vaccination-deletion-{{ $vaccine->pivot->id }}">
+                                                    <flux:button size="sm" variant="subtle" icon="trash" :aria-label="__('Delete')" />
+                                                </flux:modal.trigger>
+                                            @endif
 
                                             <flux:modal name="vaccination-show-{{ $vaccine->pivot->id }}" class="max-w-lg">
                                                 <div class="space-y-6">
@@ -427,24 +440,26 @@
                                                 </div>
                                             </flux:modal>
 
-                                            <flux:modal name="confirm-vaccination-deletion-{{ $vaccine->pivot->id }}" class="max-w-lg">
-                                                <div class="space-y-6">
-                                                    <div>
-                                                        <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
-                                                        <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
-                                                    </div>
+                                            @if ($canEdit)
+                                                <flux:modal name="confirm-vaccination-deletion-{{ $vaccine->pivot->id }}" class="max-w-lg">
+                                                    <div class="space-y-6">
+                                                        <div>
+                                                            <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                            <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                        </div>
 
-                                                    <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                                                        <flux:modal.close>
-                                                            <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                                                        </flux:modal.close>
+                                                        <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                                            <flux:modal.close>
+                                                                <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                                            </flux:modal.close>
 
-                                                        <flux:button variant="danger" wire:click="deleteVaccination({{ $vaccine->pivot->id }})">
-                                                            {{ __('Delete') }}
-                                                        </flux:button>
+                                                            <flux:button variant="danger" wire:click="deleteVaccination({{ $vaccine->pivot->id }})">
+                                                                {{ __('Delete') }}
+                                                            </flux:button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </flux:modal>
+                                                </flux:modal>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

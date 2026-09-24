@@ -26,6 +26,7 @@ class ManageAdoptions extends Component
     public function mount(): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
+        abort_if(Auth::user()->isViewerOfCurrentShelter(), 403);
     }
 
     public function updatingSearch(): void
@@ -62,6 +63,7 @@ class ManageAdoptions extends Component
 
     public function deleteAdoption(int $adoptionId): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         $adoption = Adoption::query()->whereHas('pet')->with('pet')->findOrFail($adoptionId);
 
         DB::transaction(function () use ($adoption): void {

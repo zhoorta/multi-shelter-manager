@@ -359,3 +359,11 @@ test('the back and cancel buttons link to the adoption show page when editing vi
         ->assertSeeHtml('href="'.route('pets.adopt.show', [$pet, $adoption]).'"')
         ->assertSee('Maria Silva');
 });
+
+test('viewers are forbidden from viewing the form', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.adopt', $pet))->assertForbidden();
+});

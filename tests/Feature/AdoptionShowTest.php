@@ -85,3 +85,12 @@ test('the edit link sends the form back to the adoptions list', function () {
         ->assertOk()
         ->assertSeeHtml('href="'.route('pets.adopt.edit', [$pet, $adoption]).'?from=adoptions"');
 });
+
+test('viewers are forbidden from viewing adopter and sponsor personal data', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $adoption = Adoption::factory()->for($pet)->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.adopt.show', [$pet, $adoption]))->assertForbidden();
+});

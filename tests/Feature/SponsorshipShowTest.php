@@ -114,3 +114,12 @@ test('cannot edit a payment belonging to a different sponsorship', function () {
         ->call('editPayment', $otherPayment->id))
         ->toThrow(ModelNotFoundException::class);
 });
+
+test('viewers are forbidden from viewing adopter and sponsor personal data', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.sponsor.show', [$pet, $sponsorship]))->assertForbidden();
+});

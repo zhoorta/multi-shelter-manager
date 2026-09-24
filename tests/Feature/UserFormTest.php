@@ -451,3 +451,17 @@ test('admin editing a manager can still change their name and shelters', functio
     expect($manager->fresh()->name)->toBe('Nome Pelo Admin')
         ->and($manager->fresh()->roleForShelter($shelter->id))->toBe('staff');
 });
+
+test('admin can assign the viewer role to a membership', function () {
+    $admin = User::factory()->admin()->create();
+    $shelter = Shelter::factory()->create();
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
+    $this->actingAs($admin);
+
+    Livewire::test(UserForm::class, ['user' => $staff])
+        ->set('userMemberships.0.role', 'viewer')
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    expect($staff->fresh()->roleForShelter($shelter->id))->toBe('viewer');
+});

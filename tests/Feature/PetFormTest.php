@@ -1249,3 +1249,10 @@ test('cannot set as main or delete a photo belonging to another shelter\'s pet',
 
     expect(PetImage::query()->find($image->id))->not->toBeNull();
 });
+
+test('viewers are forbidden from viewing the form', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.create'))->assertForbidden();
+});

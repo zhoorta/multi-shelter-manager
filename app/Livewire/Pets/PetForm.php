@@ -98,6 +98,7 @@ class PetForm extends Component
     public function mount(?Pet $pet = null): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
 
         if ($pet === null) {
             if ($this->lockedSpeciesId !== '') {

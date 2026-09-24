@@ -177,6 +177,7 @@ class ManagePets extends Component
 
     public function deletePet(int $petId): void
     {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         // findOrFail relies on MultiShelterTrait's global scope, so a
         // tampered pet id from another shelter 404s (see .ai/rules/models.md).
         Pet::query()->findOrFail($petId)->delete();

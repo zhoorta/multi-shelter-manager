@@ -554,3 +554,27 @@ test('lists pets by most recent checkin date first, with unknown checkin dates l
     Livewire::test(ManagePets::class)
         ->assertSeeInOrder(['Charlie', 'Alpha', 'Bravo']);
 });
+
+test('viewers can view the list without create or delete controls', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.index'))
+        ->assertOk()
+        ->assertSee('Rex')
+        ->assertDontSee(route('pets.create'))
+        ->assertDontSee('confirm-pet-deletion-'.$pet->id);
+});
+
+test('viewers cannot delete a pet', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    Livewire::test(ManagePets::class)
+        ->call('deletePet', $pet->id)
+        ->assertForbidden();
+
+    expect($pet->fresh()->trashed())->toBeFalse();
+});
