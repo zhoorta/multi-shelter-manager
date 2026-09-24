@@ -59,6 +59,7 @@ test('sitemap lists the public pages and every shelter', function () {
         ->assertOk()
         ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')
         ->assertSee('<loc>'.route('home').'</loc>', false)
+        ->assertSee('<loc>'.route('about').'</loc>', false)
         ->assertSee('<loc>'.route('shelters.show', $shelter).'</loc>', false);
 });
 

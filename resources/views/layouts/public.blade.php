@@ -22,6 +22,9 @@
                             {{ __('Shelters') }}
                         </a>
                     @endif
+                    <a href="{{ route('about') }}" class="hidden rounded-full px-4 py-2 text-sm font-semibold text-stone-600 transition hover:bg-amber-100 hover:text-stone-900 sm:inline-block dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white" wire:navigate>
+                        {{ __('About') }}
+                    </a>
                     @auth
                         <a href="{{ route('dashboard') }}" class="rounded-full bg-stone-900 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-stone-700 dark:bg-white dark:text-stone-900 dark:hover:bg-stone-200" wire:navigate>
                             {{ __('Dashboard') }}
@@ -43,6 +46,7 @@
             <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm text-stone-500 sm:flex-row sm:px-6 dark:text-stone-400">
                 <p>&copy; {{ now()->year }} {{ config('app.name') }} &middot; {{ __('Made with love for animals') }} 🐾</p>
                 <nav class="flex items-center gap-4">
+                    <a href="{{ route('about') }}" class="font-medium hover:text-orange-500" wire:navigate>{{ __('About') }}</a>
                     <a href="{{ route('privacy-policy') }}" class="font-medium hover:text-orange-500" wire:navigate>{{ __('Privacy Policy') }}</a>
                     <a href="{{ route('login') }}" class="font-medium hover:text-orange-500" wire:navigate>{{ __('Shelter area') }}</a>
                 </nav>
