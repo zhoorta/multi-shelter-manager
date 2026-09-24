@@ -2,7 +2,7 @@
 
 [← Facilities, wings and cages](05-facilities.md) · [Documentation index](README.md) · [Next: Pets →](07-pets.md)
 
-> **Who:** Manager and Staff.
+> **Who:** Manager, Staff and Viewer.
 
 The dashboard is the first page you see after logging in. It gives you a summary of the **active shelter**, whose name is shown at the top.
 

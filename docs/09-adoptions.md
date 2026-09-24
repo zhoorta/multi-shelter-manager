@@ -2,7 +2,7 @@
 
 [← Vaccinations](08-vaccinations.md) · [Documentation index](README.md) · [Next: Sponsorships →](10-sponsorships.md)
 
-> **Who:** Manager and Staff.
+> **Who:** Manager and Staff. Viewers cannot open these pages, because they hold personal data.
 
 An adoption records who adopted an animal, when, and for what fee. It also records the application's progress: *Pending*, *Approved* or *Rejected*.
 

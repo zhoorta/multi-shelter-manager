@@ -163,6 +163,7 @@ It creates 4 shelters, dogs and cats with real photos, facilities with wings and
 | Admin | `admin@example.com` |
 | Manager of *Happy Paws Animal Shelter* | `manager@example.com` |
 | Staff of *Happy Paws Animal Shelter* | `staff@example.com` |
+| Viewer (read-only) of *Happy Paws Animal Shelter* | `viewer@example.com` |
 
 If you load the demo data you can skip the setup wizard described in the next chapter and log in directly.
 

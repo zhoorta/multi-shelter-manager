@@ -19,7 +19,7 @@ test('authenticated users of any role can visit the documentation page', functio
     $response->assertOk();
     $response->assertSee('Application Instructions');
     $response->assertSeeInOrder(['Getting Started', 'Recommended setup order', 'Finding your way around', 'Status', 'Options and location', 'Vaccinations', 'Adoptions', 'Sponsorships', 'Volunteers', 'Facilities', 'Public Portal', 'What is shown publicly', 'Administration', 'Regions', 'Settings']);
-})->with(['admin', 'manager', 'staff']);
+})->with(['admin', 'manager', 'staff', 'viewer']);
 
 test('the documentation content follows the active locale', function () {
     $user = User::factory()->create();
@@ -164,4 +164,12 @@ test('the documentation content is available in danish', function () {
     $response->assertDontSee('Recommended setup order');
 
     app()->setLocale('en');
+});
+
+test('describes the viewer role', function () {
+    $this->actingAs(User::factory()->create());
+
+    $this->get(route('documentation'))
+        ->assertOk()
+        ->assertSeeInOrder(['Roles', 'Staff', 'Viewer', 'read-only access']);
 });

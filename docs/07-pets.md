@@ -2,7 +2,7 @@
 
 [← The dashboard](06-dashboard.md) · [Documentation index](README.md) · [Next: Vaccinations →](08-vaccinations.md)
 
-> **Who:** Manager and Staff.
+> **Who:** Manager and Staff. Viewers can open these pages but cannot change anything.
 
 Pets are at the heart of the application. Each animal has one record holding its identification, physical description, health, photos, location, adoption and sponsorship history, and vaccinations.
 

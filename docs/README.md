@@ -10,13 +10,13 @@ Read the chapters in order the first time. Each one builds on the previous.
 | 2 | [First run, login and roles](02-first-run-and-roles.md) | Everyone |
 | 3 | [Administration: shelters and lookup tables](03-administration.md) | Admin |
 | 4 | [Inviting users](04-users-and-invitations.md) | Admin, Manager |
-| 5 | [Facilities, wings and cages](05-facilities.md) | Manager, Staff |
-| 6 | [The dashboard](06-dashboard.md) | Manager, Staff |
-| 7 | [Pets](07-pets.md) | Manager, Staff |
-| 8 | [Vaccinations](08-vaccinations.md) | Manager, Staff |
+| 5 | [Facilities, wings and cages](05-facilities.md) | Manager, Staff, Viewer (read-only) |
+| 6 | [The dashboard](06-dashboard.md) | Manager, Staff, Viewer |
+| 7 | [Pets](07-pets.md) | Manager, Staff, Viewer (read-only) |
+| 8 | [Vaccinations](08-vaccinations.md) | Manager, Staff, Viewer (read-only) |
 | 9 | [Adoptions](09-adoptions.md) | Manager, Staff |
 | 10 | [Sponsorships](10-sponsorships.md) | Manager, Staff |
-| 11 | [Volunteers](11-volunteers.md) | Manager, Staff |
+| 11 | [Volunteers](11-volunteers.md) | Manager, Staff, Viewer (read-only) |
 | 12 | [The public adoption portal](12-public-portal.md) | Everyone |
 | 13 | [Personal settings](13-settings.md) | Everyone |
 
@@ -29,19 +29,20 @@ Platform (Admin)
  ├── Lookup tables shared by every shelter
  │     species · breeds · sizes · fur types · vaccines · sicknesses · activities · regions
  └── Shelters
-       ├── Users (Managers and Staff)
+       ├── Users (Managers, Staff and Viewers)
        ├── Facilities ─► Wings ─► Cages ─► Pets
        ├── Pets ─► photos · vaccinations · sicknesses · adoptions · sponsorships
        └── Volunteers
 ```
 
-There are three roles:
+There are four roles:
 
 | Role | What they do |
 |------|--------------|
 | **Admin** | Runs the platform: creates shelters, maintains the shared lookup tables, invites users. Does **not** manage pets or facilities. |
 | **Manager** | Runs one (or more) shelters: everything Staff can do, plus inviting and managing that shelter's users. |
 | **Staff** | Does the daily work of a shelter: pets, vaccinations, adoptions, sponsorships, volunteers and facilities. |
+| **Viewer** | Read-only access to a shelter: sees pets, vaccinations, volunteers and facilities and can print pet sheets, but cannot change anything and does not see adopters' or sponsors' personal data. |
 
 ## The recommended order to get started
 

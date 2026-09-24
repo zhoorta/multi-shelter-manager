@@ -41,7 +41,8 @@ use Throwable;
  *
  *   php artisan migrate:fresh --seeder=DocumentationDemoSeeder
  *
- * Logins (password "password"): admin@example.com, manager@example.com, staff@example.com.
+ * Logins (password "password"): admin@example.com, manager@example.com, staff@example.com,
+ *         viewer@example.com.
  */
 class DocumentationDemoSeeder extends Seeder
 {
@@ -321,6 +322,7 @@ class DocumentationDemoSeeder extends Seeder
             ['David Miller', 'staff@example.com', 0, 'staff'],
             ['Laura Costa', 'laura.costa@example.com', 0, 'staff'],
             ['James Wilson', 'james.wilson@example.com', 0, 'staff'],
+            ['Emma Reed', 'viewer@example.com', 0, 'viewer'],
             ['Ana Ferreira', 'ana.ferreira@example.com', 1, 'manager'],
             ['Tom Harris', 'tom.harris@example.com', 1, 'staff'],
             ['Rita Sousa', 'rita.sousa@example.com', 2, 'manager'],

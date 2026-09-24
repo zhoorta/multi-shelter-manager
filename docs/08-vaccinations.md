@@ -2,7 +2,7 @@
 
 [← Pets](07-pets.md) · [Documentation index](README.md) · [Next: Adoptions →](09-adoptions.md)
 
-> **Who:** Manager and Staff.
+> **Who:** Manager and Staff. Viewers can open these pages but cannot change anything.
 
 Record every vaccine given to a pet and every vaccine that is due, so nothing is forgotten. The application can also e-mail the team every day about vaccinations due soon.
 

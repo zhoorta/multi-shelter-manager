@@ -27,6 +27,7 @@
             <li><strong>Administrator</strong> &mdash; styrer hele platformen: internaterne, de fælles referencetabeller og brugerkontiene. Administratorer håndterer ikke dyr eller anlæg.</li>
             <li><strong>Internatleder</strong> &mdash; leder et internat: alt, hvad en medarbejder kan, plus at invitere og administrere internatets brugere.</li>
             <li><strong>Medarbejder</strong> &mdash; står for internatets daglige arbejde: dyr, vaccinationer, adoptioner, fadderskaber, frivillige og anlæg.</li>
+            <li><strong>Læser</strong> &mdash; kun læseadgang til internatet: kan se dyr, vaccinationer, frivillige og anlæg og udskrive dyreark og dyrelister, men kan ikke oprette, redigere eller slette noget og ser ikke personoplysninger om adoptanter eller faddere.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Arbejde med flere internater</h3>
         <p>En bruger kan høre til mere end ét internat, med forskellig rolle i hvert. Brug internatvælgeren til at skifte aktivt internat; alle lister, tællere og formularer viser derefter kun data fra det internat. Data deles aldrig mellem internater.</p>
@@ -40,7 +41,7 @@
             <li>Hvis den offentlige portal er slået til, udgiver teamet de dyr, der er klar til adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Find rundt i applikationen</h3>
-        <p>Sidemenuen viser kun det, din rolle kan bruge. Ledere og personale ser menuen Dyr (ét punkt pr. dyreart, der er slået til for internatet, samt Fadderskaber, Adoptioner og Vaccinationer), Frivillige og Anlæg; ledere ser også Brugere. Administratorer ser i stedet Brugere og menuen Administration. Denne dokumentation findes altid nederst i sidemenuen.</p>
+        <p>Sidemenuen viser kun det, din rolle kan bruge. Ledere og personale ser menuen Dyr (ét punkt pr. dyreart, der er slået til for internatet, samt Fadderskaber, Adoptioner og Vaccinationer), Frivillige og Anlæg; ledere ser også Brugere. Administratorer ser i stedet Brugere og menuen Administration. Læsere ser de samme menuer som medarbejdere, undtagen Fadderskaber og Adoptioner, og siderne viser ingen knapper til at oprette, redigere eller slette. Denne dokumentation findes altid nederst i sidemenuen.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -118,7 +119,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Brugere</h2>
-        <p>Internatledere og administratorer inviterer nye brugere via e-mail; den inviterede person modtager et link til at vælge sin adgangskode. For hvert internat, brugeren hører til, vælger du rollen (internatleder eller medarbejder), og om brugeren skal modtage vaccinationsnotifikationer.</p>
+        <p>Internatledere og administratorer inviterer nye brugere via e-mail; den inviterede person modtager et link til at vælge sin adgangskode. For hvert internat, brugeren hører til, vælger du rollen (internatleder, medarbejder eller læser), og om brugeren skal modtage vaccinationsnotifikationer.</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>En internatleder kan kun tilføje brugere til de internater, vedkommende leder.</li>
             <li>En administrator kan tilføje brugere til ethvert internat og kan oprette andre administratorer.</li>

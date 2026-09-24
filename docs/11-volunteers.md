@@ -2,7 +2,7 @@
 
 [← Sponsorships](10-sponsorships.md) · [Documentation index](README.md) · [Next: The public adoption portal →](12-public-portal.md)
 
-> **Who:** Manager and Staff.
+> **Who:** Manager and Staff. Viewers can open these pages but cannot change anything.
 
 Keep a record of the people who help your shelter: what they do, which animals they prefer, and when they are available. Volunteers are **not** user accounts. They don't log in to the application.
 

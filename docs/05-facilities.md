@@ -2,7 +2,7 @@
 
 [← Inviting users](04-users-and-invitations.md) · [Documentation index](README.md) · [Next: The dashboard →](06-dashboard.md)
 
-> **Who:** Manager and Staff.
+> **Who:** Manager and Staff. Viewers can open these pages but cannot change anything.
 
 Before you register animals, describe where they will live. A shelter's space is organised in three levels:
 

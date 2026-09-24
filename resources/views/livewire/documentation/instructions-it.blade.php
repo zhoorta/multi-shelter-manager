@@ -27,6 +27,7 @@
             <li><strong>Amministratore</strong> &mdash; gestisce l'intera piattaforma: i rifugi, le tabelle di riferimento condivise e gli account utente. Gli amministratori non gestiscono animali né strutture.</li>
             <li><strong>Responsabile</strong> &mdash; dirige un rifugio: tutto ciò che può fare un operatore, più l'invito e la gestione degli utenti di quel rifugio.</li>
             <li><strong>Operatore</strong> &mdash; si occupa del lavoro quotidiano del rifugio: animali, vaccinazioni, adozioni, adozioni a distanza, volontari e strutture.</li>
+            <li><strong>Consultazione</strong> &mdash; accesso in sola lettura al rifugio: può vedere animali, vaccinazioni, volontari e strutture e stampare schede ed elenchi degli animali, ma non può creare, modificare né eliminare nulla e non vede i dati personali di adottanti e sostenitori.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Lavorare con più rifugi</h3>
         <p>Un utente può appartenere a più di un rifugio, con un ruolo diverso in ciascuno. Usa il selettore del rifugio per cambiare il rifugio attivo; ogni elenco, conteggio e modulo mostra quindi solo i dati di quel rifugio. I dati non vengono mai condivisi tra rifugi.</p>
@@ -40,7 +41,7 @@
             <li>Se il portale pubblico è attivo, il team pubblica gli animali pronti per l'adozione.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarsi nell'applicazione</h3>
-        <p>La barra laterale mostra solo ciò che il tuo ruolo può usare. Responsabili e staff vedono il menu Animali (una voce per ogni specie attivata per il rifugio, più Adozioni a Distanza, Adozioni e Vaccinazioni), Volontari e Strutture; i responsabili vedono anche Utenti. Gli amministratori vedono invece Utenti e il menu Amministrazione. Questa documentazione è sempre disponibile in fondo alla barra laterale.</p>
+        <p>La barra laterale mostra solo ciò che il tuo ruolo può usare. Responsabili e staff vedono il menu Animali (una voce per ogni specie attivata per il rifugio, più Adozioni a Distanza, Adozioni e Vaccinazioni), Volontari e Strutture; i responsabili vedono anche Utenti. Gli amministratori vedono invece Utenti e il menu Amministrazione. Gli utenti in consultazione vedono gli stessi menu dello staff, tranne Adozioni a Distanza e Adozioni, e le pagine non mostrano loro pulsanti per creare, modificare o eliminare. Questa documentazione è sempre disponibile in fondo alla barra laterale.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -118,7 +119,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Utenti</h2>
-        <p>Responsabili e amministratori invitano i nuovi utenti via email; la persona invitata riceve un link per impostare la propria password. Per ogni rifugio di appartenenza scegli il ruolo (responsabile o operatore) e se l'utente riceve le notifiche di vaccinazione.</p>
+        <p>Responsabili e amministratori invitano i nuovi utenti via email; la persona invitata riceve un link per impostare la propria password. Per ogni rifugio di appartenenza scegli il ruolo (responsabile, operatore o consultazione) e se l'utente riceve le notifiche di vaccinazione.</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Un responsabile può aggiungere utenti solo ai rifugi che gestisce.</li>
             <li>Un amministratore può aggiungere utenti a qualsiasi rifugio e può creare altri amministratori.</li>

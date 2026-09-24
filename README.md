@@ -7,7 +7,7 @@
 ## Features
 
 - 🏠 **Multi-shelter** — any number of shelters on one installation, with strict data isolation. Users can belong to several shelters, with a different role in each.
-- 👥 **Roles** — *Admin* (the platform), *Manager* (a shelter and its team) and *Staff* (daily work). Accounts are created by e-mail invitation.
+- 👥 **Roles** — *Admin* (the platform), *Manager* (a shelter and its team), *Staff* (daily work) and *Viewer* (read-only, without adopters' or sponsors' personal data). Accounts are created by e-mail invitation.
 - 🐾 **Pets** — identification, microchip, breed, colours, fur type, size, age, photos, health, clinical and internal notes. Status (available / not available / adopted / deceased) is worked out automatically.
 - 🏢 **Facilities → Wings → Cages** — model your physical space, see occupancy at a glance and always know where every animal is.
 - 💉 **Vaccinations** — given and scheduled vaccines, overdue filters and **daily e-mail reminders**.
@@ -44,7 +44,7 @@ Want to explore with sample data first? Load the demo data into an **empty** dat
 php artisan migrate:fresh --seeder=DocumentationDemoSeeder
 ```
 
-Then log in as `admin@example.com`, `manager@example.com` or `staff@example.com` (password: `password`).
+Then log in as `admin@example.com`, `manager@example.com`, `staff@example.com` or `viewer@example.com` (password: `password`).
 
 ## Documentation
 

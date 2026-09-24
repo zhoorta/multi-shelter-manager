@@ -2,7 +2,7 @@
 
 [← Adoptions](09-adoptions.md) · [Documentation index](README.md) · [Next: Volunteers →](11-volunteers.md)
 
-> **Who:** Manager and Staff.
+> **Who:** Manager and Staff. Viewers cannot open these pages, because they hold personal data.
 
 A sponsor helps pay for an animal's care without adopting it. The application keeps the sponsor's details and every payment they make, whether it is a one-off gift or a monthly contribution.
 

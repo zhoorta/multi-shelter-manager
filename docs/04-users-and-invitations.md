@@ -21,7 +21,7 @@ Open **Users** in the sidebar.
 For each user the list shows:
 
 - **Name** and **Email**;
-- **Shelters** — each shelter the user belongs to, with their role there (*Shelter Manager* or *Staff / Worker*). Admins show *System Administrator*;
+- **Shelters** — each shelter the user belongs to, with their role there (*Shelter Manager*, *Staff / Worker* or *Viewer (read-only)*). Admins show *System Administrator*;
 - the 🔔 **bell icon** — this user receives the daily vaccination reminder e-mails for that shelter;
 - **Last Login** — when the user last signed in;
 - **Actions** — edit (pencil) or remove (bin).
@@ -32,7 +32,8 @@ For each user the list shows:
 2. Fill in the **Email** and the **Name** of the person.
 3. In the **Shelters** section, choose the **Shelter** and the **Role**:
    - **Shelter Manager** — can do everything in that shelter, including inviting users;
-   - **Staff / Worker** — can do the daily work, but cannot manage users.
+   - **Staff / Worker** — can do the daily work, but cannot manage users;
+   - **Viewer (read-only)** — can see the shelter's pets, vaccinations, volunteers and facilities and print pet sheets, but cannot change anything or see adopters' and sponsors' personal data.
 4. Switch on **Vaccination Notifications** if this person should receive the daily e-mail about vaccinations due soon (see [chapter 8](08-vaccinations.md)).
 5. To give the person access to **more shelters**, click **Add shelter** and repeat step 3. The bin icon removes a row.
 6. Click **Invite User**.

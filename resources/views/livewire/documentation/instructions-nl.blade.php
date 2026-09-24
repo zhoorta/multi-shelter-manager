@@ -27,6 +27,7 @@
             <li><strong>Beheerder</strong> &mdash; beheert het hele platform: de asielen, de gedeelde referentietabellen en de gebruikersaccounts. Beheerders beheren geen dieren of locaties.</li>
             <li><strong>Asielbeheerder</strong> &mdash; leidt een asiel: alles wat een medewerker kan, plus het uitnodigen en beheren van de gebruikers van dat asiel.</li>
             <li><strong>Medewerker</strong> &mdash; verzorgt het dagelijkse werk van het asiel: dieren, vaccinaties, adopties, sponsorschappen, vrijwilligers en locaties.</li>
+            <li><strong>Kijker</strong> &mdash; alleen-lezen toegang tot het asiel: kan dieren, vaccinaties, vrijwilligers en locaties bekijken en dierenfiches en -lijsten afdrukken, maar kan niets aanmaken, bewerken of verwijderen, en ziet geen persoonsgegevens van adoptanten of sponsors.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Werken met meerdere asielen</h3>
         <p>Een gebruiker kan bij meer dan één asiel horen, met in elk asiel een andere rol. Gebruik de asielkiezer om het actieve asiel te wisselen; elke lijst, telling en elk formulier toont dan alleen de gegevens van dat asiel. Gegevens worden nooit tussen asielen gedeeld.</p>
@@ -40,7 +41,7 @@
             <li>Als het openbare portaal is ingeschakeld, publiceert het team de dieren die klaar zijn voor adoptie.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Je weg vinden</h3>
-        <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties en Vaccinaties), Vrijwilligers en Locaties; managers zien daarnaast Gebruikers. Beheerders zien in plaats daarvan Gebruikers en het menu Beheer. Deze documentatie staat altijd onderaan de zijbalk.</p>
+        <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties en Vaccinaties), Vrijwilligers en Locaties; managers zien daarnaast Gebruikers. Beheerders zien in plaats daarvan Gebruikers en het menu Beheer. Kijkers zien dezelfde menu's als medewerkers, behalve Sponsorschappen en Adopties, en de pagina's tonen hun geen knoppen om iets aan te maken, te bewerken of te verwijderen. Deze documentatie staat altijd onderaan de zijbalk.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -118,7 +119,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Gebruikers</h2>
-        <p>Asielbeheerders en beheerders nodigen nieuwe gebruikers uit per e-mail; de uitgenodigde persoon ontvangt een link om een wachtwoord in te stellen. Voor elk asiel waar de gebruiker bij hoort, kiest u de rol (asielbeheerder of medewerker) en of de gebruiker vaccinatiemeldingen ontvangt.</p>
+        <p>Asielbeheerders en beheerders nodigen nieuwe gebruikers uit per e-mail; de uitgenodigde persoon ontvangt een link om een wachtwoord in te stellen. Voor elk asiel waar de gebruiker bij hoort, kiest u de rol (asielbeheerder, medewerker of kijker) en of de gebruiker vaccinatiemeldingen ontvangt.</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Een asielbeheerder kan alleen gebruikers toevoegen aan de asielen die hij of zij beheert.</li>
             <li>Een beheerder kan gebruikers toevoegen aan elk asiel en kan andere beheerders aanmaken.</li>

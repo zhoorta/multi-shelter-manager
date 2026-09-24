@@ -31,7 +31,7 @@ Forgot your password? Click **Forgot your password?**, enter your e-mail address
 
 ## 2.3 Roles: who sees what
 
-Every account has one of three roles. The role decides which menus appear in the sidebar on the left.
+Every account has one of four roles. The role decides which menus appear in the sidebar on the left.
 
 ### Admin
 
@@ -73,9 +73,18 @@ A manager runs a shelter. The sidebar shows the shelter's work plus **Users**, s
 
 Staff see the same menus as a manager, **except Users**. They handle the daily work: pets, vaccinations, adoptions, sponsorships, volunteers and facilities.
 
+### Viewer
+
+A viewer has **read-only** access to a shelter. They see the same menus as staff, **except Sponsorships and Adoptions**, and:
+
+- can view pets, vaccinations, volunteers and facilities, and print pet sheets and the pets list;
+- cannot create, edit or delete anything: the **Create**, **Edit** and **Delete** buttons are hidden;
+- do not see adopters' or sponsors' personal data, so the adoption and sponsorship boxes are hidden on a pet's page;
+- can still receive the daily vaccination reminder e-mails, if **Vaccination Notifications** is switched on for them.
+
 ## 2.4 Working with more than one shelter
 
-A person can belong to several shelters, with a different role in each (for example Manager in one and Staff in another). The name of the **active shelter** is shown at the top of every page. When you belong to more than one shelter, use the **shelter switcher** there to change it.
+A person can belong to several shelters, with a different role in each (for example Manager in one and Viewer in another). The name of the **active shelter** is shown at the top of every page. When you belong to more than one shelter, use the **shelter switcher** there to change it.
 
 Every list, counter and form only shows the **active shelter's** data. Data is never shared between shelters.
 

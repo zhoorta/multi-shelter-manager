@@ -27,6 +27,7 @@
             <li><strong>Administrador</strong> &mdash; gestiona toda la plataforma: los refugios, las tablas de referencia compartidas y las cuentas de usuario. Los administradores no gestionan animales ni instalaciones.</li>
             <li><strong>Gestor</strong> &mdash; dirige un refugio: todo lo que puede hacer un empleado, además de invitar y gestionar a los usuarios de ese refugio.</li>
             <li><strong>Empleado</strong> &mdash; se encarga del trabajo diario del refugio: animales, vacunaciones, adopciones, apadrinamientos, voluntarios e instalaciones.</li>
+            <li><strong>Consulta</strong> &mdash; acceso de solo lectura al refugio: puede ver animales, vacunaciones, voluntarios e instalaciones e imprimir fichas y listas de animales, pero no puede crear, editar ni eliminar nada, y no ve los datos personales de adoptantes ni de padrinos.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Trabajar con varios refugios</h3>
         <p>Un usuario puede pertenecer a más de un refugio, con una función distinta en cada uno. Use el selector de refugio para cambiar el refugio activo; a partir de ese momento, todas las listas, recuentos y formularios muestran solo los datos de ese refugio. Los datos nunca se comparten entre refugios.</p>
@@ -40,7 +41,7 @@
             <li>Si el portal público está activado, el equipo publica los animales que están listos para ser adoptados.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarse en la aplicación</h3>
-        <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones y Vacunaciones), Voluntarios e Instalaciones; los gestores ven también Usuarios. Los administradores ven, en su lugar, Usuarios y el menú Administración. Esta documentación está siempre disponible al final del menú lateral.</p>
+        <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones y Vacunaciones), Voluntarios e Instalaciones; los gestores ven también Usuarios. Los administradores ven, en su lugar, Usuarios y el menú Administración. Los usuarios de consulta ven los mismos menús que los empleados, salvo Apadrinamientos y Adopciones, y las páginas no les muestran botones para crear, editar o eliminar. Esta documentación está siempre disponible al final del menú lateral.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -118,7 +119,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Usuarios</h2>
-        <p>Los gestores y administradores invitan a nuevos usuarios por email; la persona invitada recibe un enlace para crear su contraseña. Para cada refugio al que pertenece se elige la función (gestor o empleado) y si el usuario recibe notificaciones de vacunación.</p>
+        <p>Los gestores y administradores invitan a nuevos usuarios por email; la persona invitada recibe un enlace para crear su contraseña. Para cada refugio al que pertenece se elige la función (gestor, empleado o consulta) y si el usuario recibe notificaciones de vacunación.</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Un gestor solo puede añadir usuarios a los refugios que gestiona.</li>
             <li>Un administrador puede añadir usuarios a cualquier refugio y puede crear otros administradores.</li>
