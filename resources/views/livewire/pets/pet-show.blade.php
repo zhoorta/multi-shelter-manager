@@ -147,6 +147,10 @@
                         <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->name }}</flux:text>
                     </div>
                     <div>
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Reference') }}</flux:text>
+                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->ref ?: '—' }}</flux:text>
+                    </div>
+                    <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Microchip / Chip') }}</flux:text>
                         <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->chip ?? '—' }}</flux:text>
                     </div>

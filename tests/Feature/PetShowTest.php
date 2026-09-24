@@ -165,6 +165,17 @@ test('does not display placeholder text when color and fur type are not assigned
         ->assertDontSee('No Fur Type Assigned');
 });
 
+test('shows the pet reference after the name in the identification section', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSeeInOrder([__('Identification'), __('Name'), 'Rex', __('Reference'), $pet->fresh()->ref]);
+});
+
 test('shows the pet\'s size when assigned', function () {
     $shelter = Shelter::factory()->create();
     $species = Species::factory()->create();
