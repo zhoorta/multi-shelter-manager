@@ -32,3 +32,10 @@ Superseding the earlier note here (the font-matching change was undone): the "(D
 
 ## Pets list hides age for deceased pets
 manage-pets.blade.php's Characteristics column shows "Age …" only when date_of_death is null — deceased pets get a blank age span. pet-show.blade.php still shows age for deceased pets (age at death, via Pet::age_in_words stopping at date_of_death).
+
+## Share modal Instagram button: plain link to instagram.com that copies the caption
+Instagram has no web URL that pre-fills a post (unlike facebook.com/sharer or api.whatsapp.com/send), so the share-pet modal's Instagram button (only when the pet has a photo) is a plain link to https://www.instagram.com/ that copies the caption on click; the user posts the downloaded photo and pastes the text. Sharing the photo through navigator.share was tried and removed (2026-09-25): the system share sheet listed other apps/extensions instead of going to Instagram, which the user didn't want.
+
+
+## WhatsApp share link must be api.whatsapp.com/send, never wa.me
+The share-pet modal's WhatsApp button links to https://api.whatsapp.com/send?text=<rawurlencoded caption>. wa.me 302-redirects to that URL and the redirect corrupts emojis (🐶, 🏠 in the caption) into the � replacement character (reported 2026-09-25).

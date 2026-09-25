@@ -169,6 +169,7 @@ Pets that are **adoptable and available** have a 🔗 **Share** button at the to
 - a ready-made **text** with the pet's name, species, breed, gender, age and size, the start of its description, the shelter's name and contacts, and a few hashtags. Click **Copy text** to copy it;
 - **Download photo**, to save the pet's main photo and attach it to the post;
 - **WhatsApp**, to send the text straight away;
+- **Instagram** (when the pet has a photo). Instagram does not accept ready-made posts from a link, so the button copies the text and opens Instagram, where you create a post with the downloaded photo and paste the text as the caption;
 - when the [public portal](13-public-portal.md) is on and the pet is published there, the text also includes a **link to the pet**, and a **Facebook** button shares that link directly.
 
 If the portal is on but the pet is not published yet, the panel reminds you to switch on **Publish to Portal** so the text can include the link.

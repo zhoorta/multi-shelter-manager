@@ -6,6 +6,7 @@ use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
+use App\Models\PetImage;
 use App\Models\Shelter;
 use App\Models\Sickness;
 use App\Models\Size;
@@ -964,8 +965,20 @@ test('share panel offers a caption with the pet public link when the pet is publ
         ->assertSee('Share on social media')
         ->assertSee('Bolinha is looking for a family!')
         ->assertSee('Find out more and adopt: '.route('shelters.show', ['shelter' => $shelter, 'animal' => $pet]), false)
-        ->assertDontSee('Publish this pet to the portal to include a link');
+        ->assertDontSee('Publish this pet to the portal to include a link')
+        ->assertSeeHtml('https://api.whatsapp.com/send?text='.rawurlencode($pet->shareCaption($pet->publicUrl())))
+        ->assertDontSeeHtml('https://wa.me/');
 });
+
+test('every shelter role can open the share panel', function (string $role) {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Bolinha', 'is_adoptable' => true]);
+    $this->actingAs(User::factory()->forShelter($shelter, $role)->create());
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->assertSee('Share on social media')
+        ->assertSee('Bolinha is looking for a family!');
+})->with(['manager', 'staff', 'viewer']);
 
 test('share panel leaves out the link and says why when the pet is not published', function () {
     config(['app.public_portal_enabled' => true]);
@@ -976,6 +989,22 @@ test('share panel leaves out the link and says why when the pet is not published
     Livewire::test(PetShow::class, ['pet' => $pet])
         ->assertSee('Publish this pet to the portal to include a link')
         ->assertDontSee('Find out more and adopt');
+});
+
+test('share panel offers instagram only when the pet has a photo to post', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Bolinha', 'is_adoptable' => true]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->assertDontSeeHtml('https://www.instagram.com/');
+
+    PetImage::factory()->for($pet)->create(['image_path' => 'pets/bolinha.jpg', 'is_main' => true]);
+
+    Livewire::test(PetShow::class, ['pet' => $pet->fresh()])
+        ->assertSeeHtml('https://www.instagram.com/')
+        ->assertSeeHtml('/storage/pets/bolinha.jpg')
+        ->assertSee('Instagram: the text is copied');
 });
 
 test('share panel is hidden for pets that are not waiting for adoption', function (array $attributes) {

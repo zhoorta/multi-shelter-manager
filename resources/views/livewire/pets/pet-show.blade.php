@@ -100,10 +100,28 @@
                             Facebook
                         </flux:button>
                     @endif
-                    <flux:button size="sm" :href="'https://wa.me/?text='.rawurlencode($this->shareCaption)" target="_blank" rel="noopener">
+                    {{-- api.whatsapp.com, not wa.me: wa.me redirects there and the redirect turns emojis into �. --}}
+                    <flux:button size="sm" :href="'https://api.whatsapp.com/send?text='.rawurlencode($this->shareCaption)" target="_blank" rel="noopener">
                         WhatsApp
                     </flux:button>
+                    @if ($shareImage)
+                        {{-- Instagram has no web link that pre-fills a post: copy the caption and open Instagram,
+                             where the downloaded photo is posted by hand. --}}
+                        <flux:button
+                            size="sm"
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noopener"
+                            x-on:click="navigator.clipboard?.writeText(@js($this->shareCaption)).catch(() => {})"
+                        >
+                            Instagram
+                        </flux:button>
+                    @endif
                 </div>
+
+                @if ($shareImage)
+                    <flux:text size="sm">{{ __('Instagram: the text is copied so you can paste it as the caption of a new post with the downloaded photo.') }}</flux:text>
+                @endif
             </div>
         </flux:modal>
     @endif
