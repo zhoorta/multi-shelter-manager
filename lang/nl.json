@@ -497,5 +497,11 @@
     "1 to 3 years": "1 tot 3 jaar",
     "3 to 7 years": "3 tot 7 jaar",
     "Over 7 years": "Ouder dan 7 jaar",
-    "Unknown age": "Leeftijd onbekend"
+    "Unknown age": "Leeftijd onbekend",
+    "Activity report": "Activiteitenverslag",
+    "Activity report :year": "Activiteitenverslag :year",
+    "Intakes by species": "Opnames per diersoort",
+    "By species": "Per diersoort",
+    "Total": "Totaal",
+    "Generated on :date by :app": "Gegenereerd op :date door :app"
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Reports\ShelterReportPrint;
 use App\Livewire\Reports\ShelterReports;
 use App\Models\Adoption;
 use App\Models\Pet;
@@ -110,12 +111,12 @@ test('choosing a custom period starts from the range on screen and swaps reverse
         ->and($report['buckets'])->toHaveCount(2);
 });
 
-test('an invalid custom date falls back to the last 12 months', function () {
-    $report = Livewire::actingAs($this->manager)
-        ->test(ShelterReports::class, ['period' => 'custom', 'from' => '2026-02-30', 'to' => '2026-03-31'])
-        ->get('report');
-
-    expect($report['start']->toDateString())->toBe('2025-10-01');
+test('an invalid custom date falls back to the last 12 months and fills the date inputs', function () {
+    Livewire::withQueryParams(['period' => 'custom', 'from' => '2026-02-30', 'to' => '2026-03-31'])
+        ->actingAs($this->manager)
+        ->test(ShelterReports::class)
+        ->assertSet('from', '2025-10-01')
+        ->assertSet('to', '2026-09-25');
 });
 
 test('adoptions are grouped by age at adoption with the median wait of each group', function () {
@@ -152,4 +153,51 @@ test('the longest waiting list only shows available pets of the shelter, oldest 
         ->get('report')['longestWaiting'];
 
     expect($longestWaiting->pluck('name')->all())->toBe(['Veteran', 'Newcomer']);
+});
+
+test('intakes and adoptions are counted per species', function () {
+    $cat = Pet::factory()->for($this->shelter)->create(['checkin_date' => '2026-02-01']);
+    Adoption::factory()->for($cat)->create(['adoption_date' => '2026-03-01']);
+    Pet::factory()->for($this->shelter)->create(['species_id' => $cat->species_id, 'breed_id' => $cat->breed_id, 'checkin_date' => '2026-04-01']);
+
+    $report = Livewire::actingAs($this->manager)
+        ->test(ShelterReports::class, ['period' => '2026'])
+        ->get('report');
+
+    expect($report['intakesBySpecies'])->toBe([['label' => $cat->species->name_plural, 'value' => 2]])
+        ->and($report['adoptionsBySpecies'])->toBe([['label' => $cat->species->name_plural, 'value' => 1]]);
+});
+
+test('the print button carries the period on screen', function () {
+    Livewire::actingAs($this->manager)
+        ->test(ShelterReports::class, ['period' => '2025'])
+        ->assertSee(route('reports.print', ['period' => '2025']))
+        ->set('period', 'custom')
+        ->set('from', '2025-02-01')
+        ->assertSee(route('reports.print', ['period' => 'custom', 'from' => '2025-02-01', 'to' => '2025-12-31']));
+});
+
+test('managers can print the activity report of the chosen year', function () {
+    $pet = Pet::factory()->for($this->shelter)->create(['checkin_date' => '2025-03-10']);
+    Adoption::factory()->for($pet)->create(['adoption_date' => '2025-06-10']);
+
+    $this->actingAs($this->manager)
+        ->get(route('reports.print', ['period' => '2025']))
+        ->assertOk()
+        ->assertSee('Activity report 2025')
+        ->assertSee('01/01/2025 – 31/12/2025')
+        ->assertSee($this->shelter->name);
+
+    $totals = Livewire::withQueryParams(['period' => '2025'])
+        ->actingAs($this->manager)
+        ->test(ShelterReportPrint::class)
+        ->get('report')['totals'];
+
+    expect($totals)->toMatchArray(['intakes' => 1, 'adoptions' => 1]);
+});
+
+test('staff cannot print the activity report', function () {
+    $staff = User::factory()->forShelter($this->shelter, 'staff')->create();
+
+    $this->actingAs($staff)->get(route('reports.print'))->assertForbidden();
 });

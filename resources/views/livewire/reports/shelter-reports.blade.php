@@ -1,32 +1,5 @@
 <div class="shelter-report flex h-full w-full flex-1 flex-col gap-6">
-    <style>
-        .shelter-report {
-            --chart-series-1: #2a78d6;
-            --chart-series-2: #eb6834;
-            --chart-series-3: #1baf7a;
-            --chart-grid: #e5e5e5;
-            --chart-axis: #d4d4d4;
-            --chart-muted: #737373;
-            --chart-ink: #171717;
-            --chart-surface: #ffffff;
-        }
-
-        .dark .shelter-report {
-            --chart-series-1: #3987e5;
-            --chart-series-2: #d95926;
-            --chart-series-3: #199e70;
-            --chart-grid: #2c2c2a;
-            --chart-axis: #404040;
-            --chart-muted: #a3a3a3;
-            --chart-ink: #ffffff;
-            --chart-surface: #171717;
-        }
-
-        .shelter-report .chart-hover { fill: transparent; }
-        .shelter-report .chart-group:hover .chart-hover { fill: var(--chart-grid); fill-opacity: 0.5; }
-        .shelter-report .chart-hover-dot { opacity: 0; }
-        .shelter-report .chart-group:hover .chart-hover-dot { opacity: 1; }
-    </style>
+    <x-charts.styles />
 
     @php
         $report = $this->report;
@@ -58,6 +31,14 @@
                 <flux:input type="date" wire:model.live.blur="from" :label="__('From')" />
                 <flux:input type="date" wire:model.live.blur="to" :label="__('To')" />
             @endif
+
+            {{-- Opens in a new tab with the period on screen, so the printout shows the same figures. --}}
+            <flux:button
+                :href="route('reports.print', array_filter(['period' => $period, 'from' => $period === 'custom' ? $from : '', 'to' => $period === 'custom' ? $to : '']))"
+                icon="printer"
+                target="_blank"
+                :aria-label="__('Print')"
+            />
         </div>
     </div>
 
@@ -105,7 +86,12 @@
         />
     </div>
 
-    <div class="grid gap-6 lg:grid-cols-2">
+    <div class="grid gap-6 lg:grid-cols-3">
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <h2 class="text-base font-semibold text-neutral-900 dark:text-white">{{ __('Intakes by species') }}</h2>
+            <x-charts.bars :items="$report['intakesBySpecies']" />
+        </div>
+
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <h2 class="text-base font-semibold text-neutral-900 dark:text-white">{{ __('Adoptions by species') }}</h2>
             <x-charts.bars :items="$report['adoptionsBySpecies']" />

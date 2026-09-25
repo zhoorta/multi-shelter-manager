@@ -497,5 +497,11 @@
     "1 to 3 years": "1 à 3 ans",
     "3 to 7 years": "3 à 7 ans",
     "Over 7 years": "Plus de 7 ans",
-    "Unknown age": "Âge inconnu"
+    "Unknown age": "Âge inconnu",
+    "Activity report": "Rapport d'activité",
+    "Activity report :year": "Rapport d'activité :year",
+    "Intakes by species": "Entrées par espèce",
+    "By species": "Par espèce",
+    "Total": "Total",
+    "Generated on :date by :app": "Généré le :date par :app"
 }

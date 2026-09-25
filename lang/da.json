@@ -497,5 +497,11 @@
     "1 to 3 years": "1 til 3 år",
     "3 to 7 years": "3 til 7 år",
     "Over 7 years": "Over 7 år",
-    "Unknown age": "Ukendt alder"
+    "Unknown age": "Ukendt alder",
+    "Activity report": "Aktivitetsrapport",
+    "Activity report :year": "Aktivitetsrapport :year",
+    "Intakes by species": "Indtag pr. art",
+    "By species": "Pr. art",
+    "Total": "I alt",
+    "Generated on :date by :app": "Oprettet :date af :app"
 }
