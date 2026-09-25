@@ -9,6 +9,7 @@ use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Color;
 use App\Models\FurType;
+use App\Models\Member;
 use App\Models\Pet;
 use App\Models\PetImage;
 use App\Models\Shelter;
@@ -33,10 +34,11 @@ use Throwable;
     {--animals= : Animals CSV exported from Portugal Zoófilo}
     {--adoptions= : Adoptions CSV (optional)}
     {--sponsorships= : Sponsorships CSV (optional)}
+    {--members= : Members (sócios) CSV, which can be imported on its own without --animal and --animals}
     {--with-portal : Also download each animal\'s biography and photos from portugalzoofilo.net}
     {--institution= : The shelter\'s Portugal Zoófilo institution id, required by --with-portal}
     {--dry-run : Import inside a transaction that is rolled back, only reporting the result}')]
-#[Description('Import dogs or cats, their adoptions and sponsorships exported from Portugal Zoófilo into a shelter')]
+#[Description('Import dogs or cats, their adoptions and sponsorships, and the members exported from Portugal Zoófilo into a shelter')]
 class ImportPortugalZoofilo extends Command
 {
     private const string PORTAL_URL = 'http://www.portugalzoofilo.net';
@@ -60,6 +62,12 @@ class ImportPortugalZoofilo extends Command
      */
     private const array COUNTRY_NAMES = ['Alemanha'];
 
+    /**
+     * The export's file header columns: the first column of the header
+     * line of each kind of file.
+     */
+    private const array HEADER_COLUMNS = ['animal_id', 'pessoa_id'];
+
     /** @var array<int, array{0: string, 1: string}> */
     private array $warnings = [];
 
@@ -76,29 +84,38 @@ class ImportPortugalZoofilo extends Command
             return self::FAILURE;
         }
 
+        $memberRows = $this->readCsv($this->option('members'));
+
+        if ($this->option('members') !== null && $memberRows === null) {
+            $this->error("Members file not found: {$this->option('members')}");
+
+            return self::FAILURE;
+        }
+
+        $importsAnimals = $memberRows === null || $this->option('animals') !== null;
         $animal = self::ANIMALS[$this->option('animal')] ?? null;
 
-        if ($animal === null) {
+        if ($importsAnimals && $animal === null) {
             $this->error('Pass the kind of animal with --animal='.implode(' or --animal=', array_keys(self::ANIMALS)).'.');
 
             return self::FAILURE;
         }
 
-        $species = Species::query()->where('name', $animal['species'])->first();
+        $species = $importsAnimals ? Species::query()->where('name', $animal['species'])->first() : null;
 
-        if ($species === null) {
+        if ($importsAnimals && $species === null) {
             $this->error("Species \"{$animal['species']}\" not found.");
 
             return self::FAILURE;
         }
 
-        if ($this->option('with-portal') && ! $this->option('institution')) {
+        if ($importsAnimals && $this->option('with-portal') && ! $this->option('institution')) {
             $this->error('--with-portal needs the shelter\'s Portugal Zoófilo --institution id.');
 
             return self::FAILURE;
         }
 
-        $animalRows = $this->readCsv($this->option('animals'));
+        $animalRows = $importsAnimals ? $this->readCsv($this->option('animals')) : [];
 
         if ($animalRows === null) {
             $this->error("Animals file not found: {$this->option('animals')}");
@@ -112,10 +129,11 @@ class ImportPortugalZoofilo extends Command
         DB::beginTransaction();
 
         try {
-            $pets = $this->importAnimals($shelter, $species, $animalRows);
+            $pets = $importsAnimals ? $this->importAnimals($shelter, $species, $animalRows) : [];
             $adoptionCount = $this->importAdoptions($pets, $adoptionRows);
             $sponsorshipCount = $this->importSponsorships($pets, $sponsorshipRows);
             $this->refreshStatuses($pets);
+            $memberCount = $this->importMembers($shelter, $memberRows ?? []);
 
             $this->option('dry-run') ? DB::rollBack() : DB::commit();
         } catch (Throwable $exception) {
@@ -124,18 +142,18 @@ class ImportPortugalZoofilo extends Command
             throw $exception;
         }
 
-        if ($this->option('with-portal') && ! $this->option('dry-run')) {
+        if ($importsAnimals && $this->option('with-portal') && ! $this->option('dry-run')) {
             $this->importPortalContent($pets, $animal['page'], (string) $this->option('institution'));
         }
 
-        $this->reportResult($pets, $adoptionCount, $sponsorshipCount);
+        $this->reportResult($pets, $adoptionCount, $sponsorshipCount, $memberCount);
 
         return self::SUCCESS;
     }
 
     /**
      * Read a semicolon-separated export into rows keyed by column name.
-     * Lines before the "animal_id" header (e.g. a "Table 1" title added by
+     * Lines before the "animal_id" or "pessoa_id" header (e.g. a "Table 1" title added by
      * spreadsheet exports) are skipped. Returns null when no file is given
      * or it is missing.
      *
@@ -163,7 +181,7 @@ class ImportPortugalZoofilo extends Command
             if ($header === null) {
                 $cells[0] = preg_replace('/^\xEF\xBB\xBF/', '', $cells[0]);
 
-                if ($cells[0] === 'animal_id') {
+                if (in_array($cells[0], self::HEADER_COLUMNS, true)) {
                     $header = $cells;
                 }
 
@@ -398,6 +416,169 @@ class ImportPortugalZoofilo extends Command
     }
 
     /**
+     * Create or update each member, matched on the export's person id kept as
+     * a marker in the notes. The PZ reference (usually free text) becomes the
+     * member number when it is a number still free in the shelter; otherwise
+     * the next number is given and the reference is kept in the notes. A cancellation date makes the member "left". The joia is not in
+     * the export, so it is 0 (never owed). A "quota paga" that is a year gets
+     * a placeholder yearly payment for that year; any other value is kept in
+     * the notes, as its meaning is unknown.
+     *
+     * @param  array<int, array<string, string>>  $rows
+     */
+    private function importMembers(Shelter $shelter, array $rows): int
+    {
+        $count = 0;
+
+        foreach ($rows as $row) {
+            $ref = 'Sócio '.$row['pessoa_id'];
+            $marker = "[PZ socio {$row['pessoa_id']}]";
+            $name = $this->value($row, 'pessoa_nome');
+
+            if ($name === null) {
+                $this->addWarning($ref, 'Skipped: no name');
+
+                continue;
+            }
+
+            $member = Member::query()->withoutGlobalScope('shelter')
+                ->where('shelter_id', $shelter->id)
+                ->where('notes', 'like', "%{$marker}%")
+                ->first() ?? new Member(['shelter_id' => $shelter->id]);
+
+            $joinDate = $this->joinDate($row, $ref);
+            $cancellationDate = $this->value($row, 'socio_data_cancelamento');
+            $paidYear = $this->value($row, 'socio_quota_paga');
+            $isPaidYear = $paidYear !== null && preg_match('/^(19|20)\d{2}$/', $paidYear) === 1;
+            $phones = $this->phones($row, ['pessoa_telemovel', 'pessoa_telefone_casa']);
+            $reference = $this->value($row, 'socio_referencia');
+
+            if (! $member->exists) {
+                $member->member_number = $this->memberNumber($shelter, $reference, $ref);
+            }
+
+            if ($paidYear !== null && ! $isPaidYear) {
+                $this->addWarning($ref, "Unrecognised quota paga \"{$paidYear}\" kept in the notes");
+            }
+
+            $notes = array_filter([
+                $this->multilineValue($row, 'socio_notas'),
+                $reference !== null && (string) $member->member_number !== $reference ? "Referência Portugal Zoófilo: {$reference}" : null,
+                $cancellationDate !== null ? "Saída: {$cancellationDate}" : null,
+                $paidYear !== null && ! $isPaidYear ? "Quota paga (Portugal Zoófilo): {$paidYear}" : null,
+                count($phones) > 1 ? 'Outros contactos: '.implode(', ', array_slice($phones, 1)) : null,
+                $marker,
+            ]);
+
+            $member->fill([
+                'name' => $name,
+                'tin' => $this->value($row, 'pessoa_nif'),
+                'email' => $this->value($row, 'pessoa_email'),
+                'phone' => $phones[0] ?? null,
+                'address' => $this->value($row, 'pessoa_morada'),
+                'postal_code' => $this->postalCode($row, 'pessoa_codpostal_4', 'pessoa_codpostal_3'),
+                'city' => $this->city($this->value($row, 'pessoa_locpostal')),
+                'join_date' => $joinDate,
+                'status' => $cancellationDate !== null ? 'left' : 'active',
+                'joining_fee' => $member->exists ? $member->joining_fee : 0,
+                'membership_fee' => $this->amount($row, 'socio_quota_definida', $ref) ?? 0,
+                'membership_fee_frequency' => 'yearly',
+                'notes' => implode("\n", $notes),
+            ]);
+
+            $member->save();
+
+            if ($isPaidYear && ! $member->payments()->exists()) {
+                $member->payments()->create([
+                    'type' => 'membership_fee',
+                    'start_date' => "{$paidYear}-01-01",
+                    'end_date' => "{$paidYear}-12-31",
+                    'payment_date' => "{$paidYear}-01-01",
+                    'payment_value' => 0,
+                    'notes' => self::DEFAULT_PAYMENT_NOTE,
+                ]);
+            }
+
+            $count++;
+        }
+
+        return $count;
+    }
+
+    /**
+     * The join date, or 1 January of the join year when only the year is
+     * given, or today when neither is.
+     *
+     * @param  array<string, string>  $row
+     */
+    private function joinDate(array $row, string $ref): string
+    {
+        $date = $this->value($row, 'socio_data_adesao');
+
+        if ($date !== null) {
+            return Str::before($date, ' ');
+        }
+
+        $year = $this->value($row, 'socio_ano_adesao');
+
+        if ($year !== null && preg_match('/^(19|20)\d{2}$/', $year) === 1) {
+            return "{$year}-01-01";
+        }
+
+        $this->addWarning($ref, 'No join date, set to today');
+
+        return today()->toDateString();
+    }
+
+    /**
+     * The PZ member reference when it is a number not yet used in the shelter
+     * (trashed members included), or null to number the member automatically.
+     */
+    private function memberNumber(Shelter $shelter, ?string $reference, string $ref): ?int
+    {
+        if ($reference === null) {
+            return null;
+        }
+
+        $isTaken = ctype_digit($reference) && Member::query()->withoutGlobalScope('shelter')->withTrashed()
+            ->where('shelter_id', $shelter->id)
+            ->where('member_number', (int) $reference)
+            ->exists();
+
+        if (! ctype_digit($reference) || $isTaken || (int) $reference === 0) {
+            $this->addWarning($ref, "Member reference \"{$reference}\" is not a free number, numbered automatically");
+
+            return null;
+        }
+
+        return (int) $reference;
+    }
+
+    /**
+     * A money amount written as "12,50", "12.50" or "12 €", or null when empty.
+     *
+     * @param  array<string, string>  $row
+     */
+    private function amount(array $row, string $column, string $ref): ?string
+    {
+        $value = $this->value($row, $column);
+
+        if ($value === null) {
+            return null;
+        }
+
+        $amount = str_replace(',', '.', preg_replace('/[^\d,.]/u', '', $value) ?? '');
+
+        if (! is_numeric($amount)) {
+            $this->addWarning($ref, "Invalid {$column} \"{$value}\" ignored");
+
+            return null;
+        }
+
+        return $amount;
+    }
+
+    /**
      * Recalculate every imported pet's status from its dates and adoptions.
      *
      * @param  array<string, Pet>  $pets
@@ -526,7 +707,7 @@ class ImportPortugalZoofilo extends Command
     /**
      * @param  array<string, Pet>  $pets
      */
-    private function reportResult(array $pets, int $adoptionCount, int $sponsorshipCount): void
+    private function reportResult(array $pets, int $adoptionCount, int $sponsorshipCount, int $memberCount): void
     {
         if ($this->warnings !== []) {
             $this->table(['Ref', 'Warning'], $this->warnings);
@@ -535,12 +716,13 @@ class ImportPortugalZoofilo extends Command
         $statuses = collect($pets)->countBy('status')->map(fn (int $count, string $status): string => "{$status}: {$count}")->implode(', ');
 
         $this->info(sprintf(
-            '%s%d animals (%s), %d adoptions, %d sponsorships, %d warnings.',
+            '%s%d animals (%s), %d adoptions, %d sponsorships, %d members, %d warnings.',
             $this->option('dry-run') ? '[Dry run, nothing saved] ' : 'Imported ',
             count($pets),
             $statuses,
             $adoptionCount,
             $sponsorshipCount,
+            $memberCount,
             count($this->warnings),
         ));
     }

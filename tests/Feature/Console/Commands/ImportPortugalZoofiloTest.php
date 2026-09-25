@@ -6,6 +6,8 @@ use App\Models\Cage;
 use App\Models\Color;
 use App\Models\Facility;
 use App\Models\FurType;
+use App\Models\Member;
+use App\Models\MemberPayment;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Size;
@@ -282,4 +284,64 @@ test('fails when the kind of animal is not given', function () {
     $this->artisan('app:import-portugal-zoofilo', ['--shelter' => $shelter->id])
         ->expectsOutputToContain('--animal=cao or --animal=gato')
         ->assertFailed();
+});
+
+/**
+ * @return array<string, mixed>
+ */
+function portugalZoofiloMemberOptions(Shelter $shelter): array
+{
+    return ['--shelter' => $shelter->id, '--members' => base_path('tests/Fixtures/PortugalZoofilo/members.csv')];
+}
+
+test('imports members on their own with their PZ number, fee and a placeholder payment for the paid year', function () {
+    $shelter = Shelter::factory()->create();
+
+    $this->artisan('app:import-portugal-zoofilo', portugalZoofiloMemberOptions($shelter))
+        ->expectsOutputToContain('0 animals')
+        ->assertSuccessful();
+
+    $member = Member::query()->where('name', 'Ana Silva')->sole();
+    expect($member)
+        ->shelter_id->toBe($shelter->id)
+        ->member_number->toBe(12)
+        ->tin->toBe('123456789')
+        ->phone->toBe('912345678')
+        ->postal_code->toBe('9900-089')
+        ->city->toBe('Horta')
+        ->status->toBe('active')
+        ->joining_fee->toBe('0.00')
+        ->membership_fee->toBe('12.50')
+        ->membership_fee_frequency->toBe('yearly')
+        ->notes->toBe("Sócia fundadora.\nOutros contactos: 292391555\n[PZ socio 9001]")
+        ->and($member->join_date->toDateString())->toBe('2019-03-15')
+        ->and($member->feesPaidUntil()->toDateString())->toBe('2025-12-31');
+});
+
+test('imports a cancelled member as left, keeping a non-numeric reference and an unrecognised paid quota in the notes', function () {
+    $shelter = Shelter::factory()->create();
+
+    $this->artisan('app:import-portugal-zoofilo', portugalZoofiloMemberOptions($shelter))
+        ->expectsOutputToContain('Unrecognised quota paga "Sim" kept in the notes')
+        ->expectsOutputToContain('Member reference "A7" is not a free number')
+        ->assertSuccessful();
+
+    $member = Member::query()->where('name', 'João Costa')->sole();
+    expect($member)
+        ->member_number->toBe(13)
+        ->status->toBe('left')
+        ->notes->toBe("Referência Portugal Zoófilo: A7\nSaída: 2024-06-30\nQuota paga (Portugal Zoófilo): Sim\n[PZ socio 9002]")
+        ->and($member->join_date->toDateString())->toBe('2021-01-01')
+        ->and($member->payments()->exists())->toBeFalse();
+});
+
+test('updates existing members instead of duplicating them when run again', function () {
+    $shelter = Shelter::factory()->create();
+
+    $this->artisan('app:import-portugal-zoofilo', portugalZoofiloMemberOptions($shelter))->assertSuccessful();
+    $this->artisan('app:import-portugal-zoofilo', portugalZoofiloMemberOptions($shelter))->assertSuccessful();
+
+    expect(Member::query()->count())->toBe(2)
+        ->and(Member::query()->pluck('member_number')->sort()->values()->all())->toBe([12, 13])
+        ->and(MemberPayment::query()->count())->toBe(1);
 });

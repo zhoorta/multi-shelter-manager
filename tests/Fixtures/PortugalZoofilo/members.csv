@@ -1,0 +1,4 @@
+Table 1
+pessoa_id;pessoa_nome;socio_referencia;auth_code;socio_ano_adesao;socio_quota_paga;pessoa_bi;pessoa_nif;socio_data_adesao;socio_quota_definida;socio_data_cancelamento;pessoa_telefone_casa;pessoa_telemovel;pessoa_email;pessoa_morada;pessoa_codpostal_4;pessoa_codpostal_3;pessoa_locpostal;socio_notas
+9001;Ana Silva;12;X7K2;2019;2025;12345678;123456789;2019-03-15;12,50;-1;292391555;912345678;ana@example.com;Rua do Pico 3;9900;89;HORTA;Sócia fundadora.
+9002;João Costa;A7;P9Q1;2021;Sim;-1;-1;-1;10;2024-06-30;-1;-1;-1;;-1;-1;;
