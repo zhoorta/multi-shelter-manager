@@ -13,6 +13,8 @@ use App\Models\Shelter;
 use App\Models\Size;
 use App\Models\Species;
 use App\Models\Sponsorship;
+use App\Models\Volunteer;
+use App\Models\VolunteerAvailability;
 use App\Models\Wing;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -344,4 +346,69 @@ test('updates existing members instead of duplicating them when run again', func
     expect(Member::query()->count())->toBe(2)
         ->and(Member::query()->pluck('member_number')->sort()->values()->all())->toBe([12, 13])
         ->and(MemberPayment::query()->count())->toBe(1);
+});
+
+test('imports volunteers on their own with their sectors, availability, transport and ratings', function () {
+    $dogs = Species::factory()->create(['name' => 'Cão']);
+    $cats = Species::factory()->create(['name' => 'Gato']);
+    $shelter = Shelter::factory()->create();
+
+    $this->artisan('app:import-portugal-zoofilo', ['--shelter' => $shelter->id, '--volunteers' => base_path('tests/Fixtures/PortugalZoofilo/volunteers.csv')])
+        ->expectsOutputToContain('Unknown nota_assiduidade "Muito Boa" kept in the notes')
+        ->assertSuccessful();
+
+    $ana = Volunteer::query()->where('name', 'ana')->sole();
+    expect($ana)
+        ->gender->toBeNull()
+        ->transport_mode->toBeNull()
+        ->attendance_evaluation->toBeNull()
+        ->and($ana->start_date->toDateString())->toBe('2007-12-31')
+        ->and($ana->species()->pluck('species.id')->sort()->values()->all())->toBe([$dogs->id, $cats->id])
+        ->and($ana->availabilities()->count())->toBe(0);
+
+    $volunteer = Volunteer::query()->where('name', 'Teste 1')->sole();
+    expect($volunteer)
+        ->shelter_id->toBe($shelter->id)
+        ->id_card->toBe('12345678')
+        ->tin->toBe('123456789')
+        ->phone->toBe('912345678')
+        ->postal_code->toBe('9900-089')
+        ->city->toBe('Horta')
+        ->transport_mode->toBe('own vehicule')
+        ->attendance_evaluation->toBeNull()
+        ->performance_evaluation->toBe('excellent')
+        ->notes->toBe("Prefere gatos.\nAssiduidade: Muito Boa\nOutros contactos: 292391555\n[PZ vol 6122]")
+        ->and($volunteer->birth_date->toDateString())->toBe('1990-05-01')
+        ->and($volunteer->end_date->toDateString())->toBe('2024-06-30')
+        ->and($volunteer->species()->pluck('species.id')->all())->toBe([$cats->id])
+        ->and($volunteer->availabilities()->get()->map->only('day_index', 'mornings', 'afternoons')->all())->toBe([
+            ['day_index' => 0, 'mornings' => false, 'afternoons' => true],
+            ['day_index' => 1, 'mornings' => false, 'afternoons' => true],
+            ['day_index' => 5, 'mornings' => false, 'afternoons' => true],
+            ['day_index' => 6, 'mornings' => true, 'afternoons' => false],
+        ]);
+});
+
+test('links a volunteer to the member imported with the same PZ reference', function () {
+    $shelter = Shelter::factory()->create();
+
+    $this->artisan('app:import-portugal-zoofilo', [
+        ...portugalZoofiloMemberOptions($shelter),
+        '--volunteers' => base_path('tests/Fixtures/PortugalZoofilo/volunteers.csv'),
+    ])->assertSuccessful();
+
+    expect(Member::query()->where('name', 'João Costa')->sole()->volunteer_id)
+        ->toBe(Volunteer::query()->where('name', 'Teste 1')->value('id'));
+});
+
+test('updates existing volunteers instead of duplicating them when run again', function () {
+    Species::factory()->create(['name' => 'Gato']);
+    $shelter = Shelter::factory()->create();
+    $options = ['--shelter' => $shelter->id, '--volunteers' => base_path('tests/Fixtures/PortugalZoofilo/volunteers.csv')];
+
+    $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
+    $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
+
+    expect(Volunteer::query()->count())->toBe(2)
+        ->and(VolunteerAvailability::query()->count())->toBe(4);
 });

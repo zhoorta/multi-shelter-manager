@@ -115,6 +115,15 @@ test('shows a dash when the volunteer has no availability set', function () {
         ->assertDontSeeText('Present on');
 });
 
+test('shows a volunteer without a gender and opens them for editing', function () {
+    $shelter = Shelter::factory()->create();
+    $volunteer = Volunteer::factory()->for($shelter)->create(['gender' => null]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
+
+    $this->get(route('volunteers.show', $volunteer))->assertOk();
+    $this->get(route('volunteers.edit', $volunteer))->assertOk();
+});
+
 test('returns 404 when viewing a volunteer belonging to another shelter', function () {
     $otherShelter = Shelter::factory()->create();
     $volunteer = Volunteer::factory()->for($otherShelter)->create();

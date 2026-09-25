@@ -98,7 +98,7 @@ class VolunteerForm extends Component
 
         $this->volunteer = $volunteer;
         $this->volunteerName = $volunteer->name;
-        $this->volunteerGender = $volunteer->gender;
+        $this->volunteerGender = $volunteer->gender ?? '';
         $this->volunteerIdCard = (string) $volunteer->id_card;
         $this->volunteerTin = (string) $volunteer->tin;
         $this->volunteerBirthDate = (string) $volunteer->birth_date?->format('Y-m-d');
@@ -172,7 +172,7 @@ class VolunteerForm extends Component
     {
         $validated = $this->validate([
             'volunteerName' => ['required', 'string', 'max:255'],
-            'volunteerGender' => ['required', 'in:male,female'],
+            'volunteerGender' => ['nullable', 'in:male,female'],
             'volunteerIdCard' => ['nullable', 'string', 'max:255'],
             'volunteerTin' => ['nullable', 'string', 'max:255'],
             'volunteerBirthDate' => ['nullable', 'date'],
@@ -225,7 +225,7 @@ class VolunteerForm extends Component
 
         $attributes = [
             'name' => $validated['volunteerName'],
-            'gender' => $validated['volunteerGender'],
+            'gender' => $validated['volunteerGender'] ?: null,
             'id_card' => $validated['volunteerIdCard'] !== '' ? $validated['volunteerIdCard'] : null,
             'tin' => $validated['volunteerTin'] !== '' ? $validated['volunteerTin'] : null,
             'birth_date' => $validated['volunteerBirthDate'] !== '' ? $validated['volunteerBirthDate'] : null,

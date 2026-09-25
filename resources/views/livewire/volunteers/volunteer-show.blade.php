@@ -38,7 +38,7 @@
                 </div>
                 <div>
                     <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Gender') }}</flux:text>
-                    <flux:text class="text-neutral-700 dark:text-neutral-300">{{ __($volunteer->gender) }}</flux:text>
+                    <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $volunteer->gender ? __($volunteer->gender) : '—' }}</flux:text>
                 </div>
                 <div>
                     <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('ID Card') }}</flux:text>

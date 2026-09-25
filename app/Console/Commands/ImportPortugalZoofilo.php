@@ -16,6 +16,7 @@ use App\Models\Shelter;
 use App\Models\Size;
 use App\Models\Species;
 use App\Models\Sponsorship;
+use App\Models\Volunteer;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
@@ -35,10 +36,11 @@ use Throwable;
     {--adoptions= : Adoptions CSV (optional)}
     {--sponsorships= : Sponsorships CSV (optional)}
     {--members= : Members (sócios) CSV, which can be imported on its own without --animal and --animals}
+    {--volunteers= : Volunteers CSV, which can be imported on its own without --animal and --animals}
     {--with-portal : Also download each animal\'s biography and photos from portugalzoofilo.net}
     {--institution= : The shelter\'s Portugal Zoófilo institution id, required by --with-portal}
     {--dry-run : Import inside a transaction that is rolled back, only reporting the result}')]
-#[Description('Import dogs or cats, their adoptions and sponsorships, and the members exported from Portugal Zoófilo into a shelter')]
+#[Description('Import dogs or cats, their adoptions and sponsorships, and the members and volunteers exported from Portugal Zoófilo into a shelter')]
 class ImportPortugalZoofilo extends Command
 {
     private const string PORTAL_URL = 'http://www.portugalzoofilo.net';
@@ -68,6 +70,55 @@ class ImportPortugalZoofilo extends Command
      */
     private const array HEADER_COLUMNS = ['animal_id', 'pessoa_id'];
 
+    /**
+     * The export's availability column prefix for each day, Monday first,
+     * matching VolunteerAvailability::DAYS.
+     */
+    private const array VOLUNTEER_DAYS = ['vol_2', 'vol_3', 'vol_4', 'vol_5', 'vol_6', 'vol_s', 'vol_d'];
+
+    /**
+     * The export's volunteer sector columns and the kind of animal each one
+     * stands for.
+     */
+    private const array VOLUNTEER_SECTORS = ['vol_caes' => 'cao', 'vol_gatos' => 'gato'];
+
+    /**
+     * The export's means of transport, lowercased, and the volunteer's
+     * transport_mode for each; null means unknown.
+     *
+     * @var array<string, string|null>
+     */
+    private const array TRANSPORT_MODES = [
+        'desconhecido' => null,
+        'a pé' => 'foot',
+        'bicicleta' => 'bycicle',
+        'boleia' => 'hitchhike',
+        'transporte público' => 'public transportation',
+        'transportes públicos' => 'public transportation',
+        'viatura própria' => 'own vehicule',
+        'veículo próprio' => 'own vehicule',
+    ];
+
+    /**
+     * The export's attendance and performance ratings, lowercased, and the
+     * volunteer's evaluation for each; null means not rated.
+     *
+     * @var array<string, string|null>
+     */
+    private const array EVALUATIONS = [
+        'não avaliado' => null,
+        'muito baixa' => 'very low',
+        'muito baixo' => 'very low',
+        'baixa' => 'low',
+        'baixo' => 'low',
+        'regular' => 'regular',
+        'alta' => 'high',
+        'alto' => 'high',
+        'muito alta' => 'very high',
+        'muito alto' => 'very high',
+        'excelente' => 'excellent',
+    ];
+
     /** @var array<int, array{0: string, 1: string}> */
     private array $warnings = [];
 
@@ -92,7 +143,15 @@ class ImportPortugalZoofilo extends Command
             return self::FAILURE;
         }
 
-        $importsAnimals = $memberRows === null || $this->option('animals') !== null;
+        $volunteerRows = $this->readCsv($this->option('volunteers'));
+
+        if ($this->option('volunteers') !== null && $volunteerRows === null) {
+            $this->error("Volunteers file not found: {$this->option('volunteers')}");
+
+            return self::FAILURE;
+        }
+
+        $importsAnimals = $this->option('animals') !== null || ($memberRows === null && $volunteerRows === null);
         $animal = self::ANIMALS[$this->option('animal')] ?? null;
 
         if ($importsAnimals && $animal === null) {
@@ -134,6 +193,7 @@ class ImportPortugalZoofilo extends Command
             $sponsorshipCount = $this->importSponsorships($pets, $sponsorshipRows);
             $this->refreshStatuses($pets);
             $memberCount = $this->importMembers($shelter, $memberRows ?? []);
+            $volunteerCount = $this->importVolunteers($shelter, $volunteerRows ?? []);
 
             $this->option('dry-run') ? DB::rollBack() : DB::commit();
         } catch (Throwable $exception) {
@@ -146,7 +206,7 @@ class ImportPortugalZoofilo extends Command
             $this->importPortalContent($pets, $animal['page'], (string) $this->option('institution'));
         }
 
-        $this->reportResult($pets, $adoptionCount, $sponsorshipCount, $memberCount);
+        $this->reportResult($pets, $adoptionCount, $sponsorshipCount, $memberCount, $volunteerCount);
 
         return self::SUCCESS;
     }
@@ -506,6 +566,169 @@ class ImportPortugalZoofilo extends Command
     }
 
     /**
+     * Create or update each volunteer, matched on the export's person id kept
+     * as a marker in the notes. The export has no gender, so it stays empty.
+     * The date the person was created in the portal is the start date. The
+     * dog and cat columns become the sectors, and each day's morning and
+     * afternoon flags become an availability (frequency "occasionally" unless
+     * already set). Transport and ratings the app doesn't know are kept in the
+     * notes. A member reference links the volunteer to that imported member.
+     *
+     * @param  array<int, array<string, string>>  $rows
+     */
+    private function importVolunteers(Shelter $shelter, array $rows): int
+    {
+        $speciesIds = Species::query()
+            ->whereIn('name', array_column(self::ANIMALS, 'species'))
+            ->pluck('id', 'name');
+        $count = 0;
+
+        foreach ($rows as $row) {
+            $ref = 'Voluntário '.$row['pessoa_id'];
+            $marker = "[PZ vol {$row['pessoa_id']}]";
+            $name = $this->value($row, 'pessoa_nome');
+
+            if ($name === null) {
+                $this->addWarning($ref, 'Skipped: no name');
+
+                continue;
+            }
+
+            $volunteer = Volunteer::query()->withoutGlobalScope('shelter')
+                ->where('shelter_id', $shelter->id)
+                ->where('notes', 'like', "%{$marker}%")
+                ->first() ?? new Volunteer(['shelter_id' => $shelter->id]);
+
+            $transport = $this->value($row, 'meio_locomocao');
+            $attendance = $this->value($row, 'nota_assiduidade');
+            $performance = $this->value($row, 'nota_desempenho');
+            $transportMode = $this->mapped(self::TRANSPORT_MODES, $transport, 'meio_locomocao', $ref);
+            $attendanceEvaluation = $this->mapped(self::EVALUATIONS, $attendance, 'nota_assiduidade', $ref);
+            $performanceEvaluation = $this->mapped(self::EVALUATIONS, $performance, 'nota_desempenho', $ref);
+            $phones = $this->phones($row, ['pessoa_telemovel', 'pessoa_telefone_casa']);
+
+            $notes = array_filter([
+                $this->multilineValue($row, 'vol_notas'),
+                $transportMode === false ? "Meio de locomoção: {$transport}" : null,
+                $attendanceEvaluation === false ? "Assiduidade: {$attendance}" : null,
+                $performanceEvaluation === false ? "Desempenho: {$performance}" : null,
+                count($phones) > 1 ? 'Outros contactos: '.implode(', ', array_slice($phones, 1)) : null,
+                $marker,
+            ]);
+
+            $volunteer->fill([
+                'name' => $name,
+                'id_card' => $this->value($row, 'pessoa_bi'),
+                'tin' => $this->value($row, 'pessoa_nif'),
+                'birth_date' => $this->dateValue($row, 'pessoa_data_nascimento'),
+                'email' => $this->value($row, 'pessoa_email'),
+                'phone' => $phones[0] ?? null,
+                'address' => $this->value($row, 'pessoa_morada'),
+                'postal_code' => $this->postalCode($row, 'pessoa_codpostal_4', 'pessoa_codpostal_3'),
+                'city' => $this->city($this->value($row, 'pessoa_locpostal')),
+                'transport_mode' => $transportMode ?: null,
+                'attendance_evaluation' => $attendanceEvaluation ?: null,
+                'performance_evaluation' => $performanceEvaluation ?: null,
+                'start_date' => $this->dateValue($row, 'pessoa_data_criacao'),
+                'end_date' => $this->dateValue($row, 'vol_data_saida'),
+                'notes' => implode("\n", $notes),
+            ])->save();
+
+            $volunteer->species()->sync(collect(self::VOLUNTEER_SECTORS)
+                ->filter(fn (string $animal, string $column): bool => $row[$column] === 't')
+                ->map(fn (string $animal): ?int => $speciesIds->get(self::ANIMALS[$animal]['species']))
+                ->filter()
+                ->values()
+                ->all());
+
+            foreach (self::VOLUNTEER_DAYS as $dayIndex => $column) {
+                $mornings = $row["{$column}_manha"] === 't';
+                $afternoons = $row["{$column}_tarde"] === 't';
+
+                if ($mornings || $afternoons) {
+                    $volunteer->availabilities()->updateOrCreate(['day_index' => $dayIndex], [
+                        'mornings' => $mornings,
+                        'afternoons' => $afternoons,
+                    ]);
+                } else {
+                    $volunteer->availabilities()->where('day_index', $dayIndex)->delete();
+                }
+            }
+
+            $this->linkMember($shelter, $volunteer, $row, $ref);
+
+            $count++;
+        }
+
+        return $count;
+    }
+
+    /**
+     * The app's value for an export label, null for a known "unknown" label,
+     * or false (with a warning) for a label the app doesn't know.
+     *
+     * @param  array<string, string|null>  $map
+     */
+    private function mapped(array $map, ?string $label, string $column, string $ref): string|false|null
+    {
+        if ($label === null) {
+            return null;
+        }
+
+        $key = mb_strtolower($label);
+
+        if (! array_key_exists($key, $map)) {
+            $this->addWarning($ref, "Unknown {$column} \"{$label}\" kept in the notes");
+
+            return false;
+        }
+
+        return $map[$key];
+    }
+
+    /**
+     * Link the volunteer to the member imported from the same PZ member
+     * reference: the member whose notes keep that reference, or else an
+     * imported member numbered with it.
+     *
+     * @param  array<string, string>  $row
+     */
+    private function linkMember(Shelter $shelter, Volunteer $volunteer, array $row, string $ref): void
+    {
+        $reference = $this->value($row, 'socio_referencia');
+
+        if ($reference === null) {
+            return;
+        }
+
+        $members = Member::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelter->id);
+        $member = (clone $members)->where('notes', 'like', "%Referência Portugal Zoófilo: {$reference}\n%")->first()
+            ?? (ctype_digit($reference)
+                ? (clone $members)->where('member_number', (int) $reference)->where('notes', 'like', '%[PZ socio %')->first()
+                : null);
+
+        if ($member === null) {
+            $this->addWarning($ref, "Member reference \"{$reference}\" not found among the imported members");
+
+            return;
+        }
+
+        $member->update(['volunteer_id' => $volunteer->id]);
+    }
+
+    /**
+     * The date part of a date or date-time cell.
+     *
+     * @param  array<string, string>  $row
+     */
+    private function dateValue(array $row, string $column): ?string
+    {
+        $value = $this->value($row, $column);
+
+        return $value !== null ? Str::before($value, ' ') : null;
+    }
+
+    /**
      * The join date, or 1 January of the join year when only the year is
      * given, or today when neither is.
      *
@@ -513,10 +736,10 @@ class ImportPortugalZoofilo extends Command
      */
     private function joinDate(array $row, string $ref): string
     {
-        $date = $this->value($row, 'socio_data_adesao');
+        $date = $this->dateValue($row, 'socio_data_adesao');
 
         if ($date !== null) {
-            return Str::before($date, ' ');
+            return $date;
         }
 
         $year = $this->value($row, 'socio_ano_adesao');
@@ -707,7 +930,7 @@ class ImportPortugalZoofilo extends Command
     /**
      * @param  array<string, Pet>  $pets
      */
-    private function reportResult(array $pets, int $adoptionCount, int $sponsorshipCount, int $memberCount): void
+    private function reportResult(array $pets, int $adoptionCount, int $sponsorshipCount, int $memberCount, int $volunteerCount): void
     {
         if ($this->warnings !== []) {
             $this->table(['Ref', 'Warning'], $this->warnings);
@@ -716,13 +939,14 @@ class ImportPortugalZoofilo extends Command
         $statuses = collect($pets)->countBy('status')->map(fn (int $count, string $status): string => "{$status}: {$count}")->implode(', ');
 
         $this->info(sprintf(
-            '%s%d animals (%s), %d adoptions, %d sponsorships, %d members, %d warnings.',
+            '%s%d animals (%s), %d adoptions, %d sponsorships, %d members, %d volunteers, %d warnings.',
             $this->option('dry-run') ? '[Dry run, nothing saved] ' : 'Imported ',
             count($pets),
             $statuses,
             $adoptionCount,
             $sponsorshipCount,
             $memberCount,
+            $volunteerCount,
             count($this->warnings),
         ));
     }

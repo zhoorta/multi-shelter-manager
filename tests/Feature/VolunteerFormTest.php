@@ -55,15 +55,27 @@ test('creates a new volunteer scoped to the acting manager\'s shelter and redire
     expect($volunteer->email)->toBe('maria@example.com');
 });
 
-test('requires a name and gender to create a volunteer', function () {
+test('requires a name to create a volunteer', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
     Livewire::test(VolunteerForm::class)
         ->set('volunteerName', '')
+        ->call('saveVolunteer')
+        ->assertHasErrors(['volunteerName' => 'required']);
+});
+
+test('creates a volunteer without a gender, as volunteers imported from Portugal Zoófilo have none', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
+
+    Livewire::test(VolunteerForm::class)
+        ->set('volunteerName', 'Maria Silva')
         ->set('volunteerGender', '')
         ->call('saveVolunteer')
-        ->assertHasErrors(['volunteerName' => 'required', 'volunteerGender' => 'required']);
+        ->assertHasNoErrors();
+
+    expect(Volunteer::query()->where('name', 'Maria Silva')->sole()->gender)->toBeNull();
 });
 
 test('validates email format and that the end date is not before the start date', function () {
