@@ -29,15 +29,10 @@
         </div>
     @endif
 
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Total Pets') }}</span>
+            <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Pets in Shelter') }}</span>
             <span class="text-3xl font-semibold text-neutral-900 dark:text-white">{{ $activePetsCount }}</span>
-        </div>
-
-        <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Adoptions') }}</span>
-            <span class="text-3xl font-semibold text-neutral-900 dark:text-white">{{ $adoptionsPetsCount }}</span>
         </div>
 
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
@@ -46,9 +41,31 @@
         </div>
 
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Total Staff') }}</span>
-            <span class="text-3xl font-semibold text-neutral-900 dark:text-white">{{ $staffCount }}</span>
+            <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Adoptions This Year') }}</span>
+            <span class="text-3xl font-semibold text-neutral-900 dark:text-white">{{ $adoptionsThisYearCount }}</span>
         </div>
+
+        @if ($showsActionCounters)
+            @foreach ([
+                ['label' => __('Pending Applications'), 'count' => $pendingApplicationsCount, 'href' => route('pets.applications.index')],
+                ['label' => __('Overdue Vaccinations'), 'count' => $overdueVaccinationsCount, 'href' => route('pets.vaccinations.index', ['nextDueFilter' => 'overdue'])],
+                ['label' => __('Fees overdue'), 'count' => $membersInArrearsCount, 'href' => route('members.index', ['inArrearsOnly' => 1])],
+            ] as $counter)
+                <a
+                    wire:key="action-counter-{{ $loop->index }}"
+                    href="{{ $counter['href'] }}"
+                    wire:navigate
+                    class="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+                >
+                    <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ $counter['label'] }}</span>
+                    <span @class([
+                        'text-3xl font-semibold',
+                        'text-amber-600 dark:text-amber-400' => $counter['count'] > 0,
+                        'text-neutral-900 dark:text-white' => $counter['count'] === 0,
+                    ])>{{ $counter['count'] }}</span>
+                </a>
+            @endforeach
+        @endif
     </div>
 
     <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900">

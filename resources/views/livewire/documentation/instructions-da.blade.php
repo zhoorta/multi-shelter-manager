@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Oversigt</h2>
         <p>Oversigten giver dig et billede af det aktive internat:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Tællere for aktuelle dyr, adoptioner, ledig burkapacitet og medarbejdere.</li>
+            <li>Tællere for dyr på internatet, ledig burkapacitet og adoptioner i år. Ledere og medarbejdere ser også afventende adoptionsansøgninger, forsinkede vaccinationer og skyldige medlemskontingenter, hver med link til sin liste.</li>
             <li>De seneste indtag, adoptioner, fadderskaber og dødsfald.</li>
             <li>Dyr uden kendt placering, så de kan tildeles et bur.</li>
             <li>Advarsler, når noget stadig mangler, fx ingen bure eller arter uden racer.</li>

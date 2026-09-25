@@ -2,14 +2,18 @@
 
 use App\Livewire\Dashboard;
 use App\Models\Adoption;
+use App\Models\AdoptionApplication;
 use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Facility;
+use App\Models\Member;
+use App\Models\MemberPayment;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\Sponsorship;
 use App\Models\User;
+use App\Models\Vaccine;
 use App\Models\Wing;
 use Livewire\Livewire;
 
@@ -97,12 +101,10 @@ test('only admins see the administration navigation links', function () {
     $response->assertSee('Users');
 });
 
-test('shows accurate active pets, adoptions, capacity, and staff counts for the current shelter', function () {
+test('shows accurate active pets, capacity, and pending applications counts for the current shelter', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
-
-    User::factory()->count(3)->forShelter($shelter, 'staff')->create();
 
     $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
     $wing = Wing::factory()->create(['facility_id' => $facility->id]);
@@ -114,14 +116,18 @@ test('shows accurate active pets, adoptions, capacity, and staff counts for the 
     Pet::factory()->count(2)->create(['shelter_id' => $shelter->id, 'status' => 'adopted']);
     Pet::factory()->create(['shelter_id' => $shelter->id, 'status' => 'available', 'date_of_death' => now()->subDay()]);
 
+    $applicationPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'status' => 'adopted']);
+    AdoptionApplication::factory()->count(2)->create(['pet_id' => $applicationPet->id]);
+    AdoptionApplication::factory()->rejected()->create(['pet_id' => $applicationPet->id]);
+
     Livewire::test(Dashboard::class)
         ->assertSet('activePetsCount', 3)
-        ->assertSet('adoptionsPetsCount', 2)
         ->assertSet('availableCapacity', 2)
-        ->assertSet('staffCount', 4);
+        ->assertSet('pendingApplicationsCount', 2)
+        ->assertSee(route('pets.applications.index'));
 });
 
-test('excludes other shelters pets, cages, and staff from the statistics', function () {
+test('excludes other shelters pets, cages, and applications from the statistics', function () {
     $shelter = Shelter::factory()->create();
     $otherShelter = Shelter::factory()->create();
 
@@ -137,13 +143,62 @@ test('excludes other shelters pets, cages, and staff from the statistics', funct
     $otherWing = Wing::factory()->create(['facility_id' => $otherFacility->id]);
     Cage::factory()->create(['wing_id' => $otherWing->id, 'capacity' => 10]);
     Pet::factory()->count(2)->create(['shelter_id' => $otherShelter->id, 'status' => 'adopted']);
-    User::factory()->count(2)->forShelter($otherShelter, 'staff')->create();
+    AdoptionApplication::factory()->create([
+        'pet_id' => Pet::factory()->create(['shelter_id' => $otherShelter->id, 'status' => 'adopted'])->id,
+    ]);
 
     Livewire::test(Dashboard::class)
         ->assertSet('activePetsCount', 1)
-        ->assertSet('adoptionsPetsCount', 0)
         ->assertSet('availableCapacity', 4)
-        ->assertSet('staffCount', 1);
+        ->assertSet('pendingApplicationsCount', 0);
+});
+
+test('counts only this year\'s approved adoptions that were not returned', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Adoption::factory()->count(2)->for(Pet::factory()->for($shelter))->create(['adoption_date' => today()]);
+    Adoption::factory()->for(Pet::factory()->for($shelter))->create(['adoption_date' => today()->subYear()]);
+    Adoption::factory()->for(Pet::factory()->for($shelter))->create(['adoption_date' => today(), 'return_date' => today()]);
+    Adoption::factory()->for(Pet::factory()->for($shelter))->create(['adoption_date' => today(), 'application_status' => 'Pending']);
+    Adoption::factory()->for(Pet::factory()->for(Shelter::factory()))->create(['adoption_date' => today()]);
+
+    Livewire::test(Dashboard::class)->assertSet('adoptionsThisYearCount', 2);
+});
+
+test('counts overdue vaccinations and members with overdue fees for the current shelter, linking to the filtered lists', function () {
+    $shelter = Shelter::factory()->create();
+    $otherShelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $vaccine = Vaccine::factory()->create();
+    Pet::factory()->for($shelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->subDay(), 'status' => 'scheduled']);
+    Pet::factory()->for($shelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->addDay(), 'status' => 'scheduled']);
+    Pet::factory()->for($shelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->subDay(), 'status' => 'administered', 'administered_date' => today()]);
+    Pet::factory()->for($otherShelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->subDay(), 'status' => 'scheduled']);
+
+    Member::factory()->for($shelter)->create();
+    MemberPayment::factory()->for(Member::factory()->for($shelter))->create(['start_date' => today()->subMonth(), 'end_date' => today()->addMonths(11)]);
+    Member::factory()->for($otherShelter)->create();
+
+    Livewire::test(Dashboard::class)
+        ->assertSet('overdueVaccinationsCount', 1)
+        ->assertSet('membersInArrearsCount', 1)
+        ->assertSee(route('pets.vaccinations.index', ['nextDueFilter' => 'overdue']))
+        ->assertSee(route('members.index', ['inArrearsOnly' => 1]));
+});
+
+test('viewers do not see the counters that call for action', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    AdoptionApplication::factory()->for(Pet::factory()->for($shelter))->create();
+
+    Livewire::test(Dashboard::class)
+        ->assertSet('showsActionCounters', false)
+        ->assertSet('pendingApplicationsCount', 0)
+        ->assertDontSee(__('Pending Applications'))
+        ->assertDontSee(route('pets.applications.index'));
 });
 
 test('lists the five most recent intakes with their species, ref, and a link to the pet', function () {

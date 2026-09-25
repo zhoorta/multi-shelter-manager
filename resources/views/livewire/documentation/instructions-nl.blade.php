@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Dashboard</h2>
         <p>Het dashboard geeft u een overzicht van het actieve asiel:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Tellers voor aanwezige dieren, adopties, beschikbare hokcapaciteit en medewerkers.</li>
+            <li>Tellers voor dieren in het asiel, beschikbare hokcapaciteit en adopties dit jaar. Beheerders en medewerkers zien ook openstaande adoptieaanvragen, achterstallige vaccinaties en achterstallige contributies, elk met een link naar de lijst.</li>
             <li>De meest recente opnames, adopties, sponsorschappen en overlijdens.</li>
             <li>Dieren zonder bekende locatie, zodat ze aan een hok kunnen worden toegewezen.</li>
             <li>Waarschuwingen wanneer er nog iets ontbreekt, zoals geen hokken ingesteld of diersoorten zonder rassen.</li>

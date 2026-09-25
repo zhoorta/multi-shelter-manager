@@ -238,6 +238,22 @@ test('filters the vaccinations by overdue vaccines', function () {
         ->assertDontSee('Not Yet Due Vaccine');
 });
 
+test('reads the due date filter from the query string', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $overdue = Vaccine::factory()->create(['name' => 'Overdue Vaccine']);
+    $notYetDue = Vaccine::factory()->create(['name' => 'Not Yet Due Vaccine']);
+    $pet->vaccines()->attach($overdue, ['due_date' => today()->subDay(), 'status' => 'scheduled']);
+    $pet->vaccines()->attach($notYetDue, ['due_date' => today()->addDays(3), 'status' => 'scheduled']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::withQueryParams(['nextDueFilter' => 'overdue'])
+        ->test(ManageVaccinations::class)
+        ->assertSee('Overdue Vaccine')
+        ->assertDontSee('Not Yet Due Vaccine');
+});
+
 test('the overdue filter excludes vaccines that have already been administered', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();

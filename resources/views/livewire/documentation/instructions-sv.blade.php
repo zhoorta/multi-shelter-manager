@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Översikt</h2>
         <p>Översikten ger dig en bild av det aktiva djurhemmet:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Räknare för aktuella djur, adoptioner, ledig burkapacitet och personal.</li>
+            <li>Räknare för djur på hemmet, ledig burkapacitet och adoptioner i år. Ansvariga och personal ser också väntande adoptionsansökningar, försenade vaccinationer och obetalda medlemsavgifter, var och en med länk till sin lista.</li>
             <li>De senaste intagen, adoptionerna, fadderskapen och dödsfallen.</li>
             <li>Djur utan känd placering, så att de kan tilldelas en bur.</li>
             <li>Varningar när något fortfarande saknas, till exempel inga burar eller arter utan raser.</li>

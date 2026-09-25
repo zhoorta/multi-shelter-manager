@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Dashboard</h2>
         <p>The dashboard gives you an overview of the active shelter:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Counters for active pets, adoptions, available cage capacity and staff.</li>
+            <li>Counters for pets in the shelter, available cage capacity and adoptions this year. Managers and staff also see pending adoption applications, overdue vaccinations and overdue member fees, each linking to its list.</li>
             <li>The most recent intakes, adoptions, sponsorships and deaths.</li>
             <li>Pets with no known location, so they can be assigned to a cage.</li>
             <li>Warnings when something is still missing, such as no cages defined or species without breeds.</li>

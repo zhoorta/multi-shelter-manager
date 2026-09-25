@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Übersicht</h2>
         <p>Die Übersicht zeigt Ihnen den Stand des aktiven Tierheims:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Zähler für aktuelle Tiere, Vermittlungen, freie Zwingerkapazität und Mitarbeiter.</li>
+            <li>Zähler für Tiere im Tierheim, freie Zwingerkapazität und Vermittlungen in diesem Jahr. Leitung und Mitarbeiter sehen außerdem offene Adoptionsanfragen, überfällige Impfungen und überfällige Mitgliedsbeiträge, jeweils mit Link zur Liste.</li>
             <li>Die neuesten Aufnahmen, Vermittlungen, Patenschaften und Todesfälle.</li>
             <li>Tiere ohne bekannten Standort, damit sie einem Zwinger zugewiesen werden können.</li>
             <li>Hinweise, wenn noch etwas fehlt, etwa wenn keine Zwinger definiert sind oder Tierarten keine Rassen haben.</li>

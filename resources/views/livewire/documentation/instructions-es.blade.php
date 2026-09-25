@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Panel de Control</h2>
         <p>El panel de control le ofrece una visión general del refugio activo:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Contadores de animales activos, adopciones, capacidad disponible en las jaulas y empleados.</li>
+            <li>Contadores de animales en el refugio, capacidad disponible en las jaulas y adopciones de este año. Los gestores y empleados ven también las solicitudes de adopción pendientes, las vacunas atrasadas y las cuotas atrasadas, cada una con enlace a su lista.</li>
             <li>Los ingresos, adopciones, apadrinamientos y fallecimientos más recientes.</li>
             <li>Animales sin ubicación conocida, para que puedan asignarse a una jaula.</li>
             <li>Avisos cuando todavía falta algo, como no tener jaulas definidas o especies sin razas.</li>

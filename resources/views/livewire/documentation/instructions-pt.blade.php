@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Painel de Controlo</h2>
         <p>O painel de controlo dá-lhe uma visão geral do abrigo ativo:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Contadores de animais ativos, adoções, capacidade disponível nas jaulas e funcionários.</li>
+            <li>Contadores de animais no abrigo, capacidade disponível nas jaulas e adoções deste ano. Gestores e funcionários veem também as candidaturas de adoção pendentes, as vacinas em atraso e as quotas em atraso, cada uma com ligação para a respetiva lista.</li>
             <li>As entradas, adoções, apadrinhamentos e óbitos mais recentes.</li>
             <li>Animais sem localização conhecida, para que possam ser atribuídos a uma jaula.</li>
             <li>Avisos quando algo ainda falta, como não haver jaulas definidas ou espécies sem raças.</li>

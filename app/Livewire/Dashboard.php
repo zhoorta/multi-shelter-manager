@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire;
 
 use App\Models\Adoption;
+use App\Models\AdoptionApplication;
 use App\Models\Cage;
+use App\Models\Member;
 use App\Models\Pet;
+use App\Models\PetVaccine;
 use App\Models\Shelter;
 use App\Models\Sponsorship;
-use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
@@ -23,11 +25,21 @@ class Dashboard extends Component
 {
     public int $activePetsCount = 0;
 
-    public int $adoptionsPetsCount = 0;
+    public int $adoptionsThisYearCount = 0;
 
     public int $availableCapacity = 0;
 
-    public int $staffCount = 0;
+    /**
+     * Whether the user sees the counters that call for action; viewers and
+     * admins can't open the lists they link to.
+     */
+    public bool $showsActionCounters = false;
+
+    public int $pendingApplicationsCount = 0;
+
+    public int $overdueVaccinationsCount = 0;
+
+    public int $membersInArrearsCount = 0;
 
     public bool $hasCages = true;
 
@@ -68,9 +80,11 @@ class Dashboard extends Component
             ->whereNull('date_of_death')
             ->count();
 
-        $this->adoptionsPetsCount = Pet::query()
-            ->where('shelter_id', $shelterId)
-            ->where('status', 'adopted')
+        $this->adoptionsThisYearCount = Adoption::query()
+            ->whereHas('pet', fn ($query) => $query->where('shelter_id', $shelterId))
+            ->where('application_status', 'Approved')
+            ->whereYear('adoption_date', today()->year)
+            ->whereNull('return_date')
             ->count();
 
         $totalCapacity = (int) Cage::query()
@@ -79,9 +93,25 @@ class Dashboard extends Component
 
         $this->availableCapacity = max(0, $totalCapacity - $this->activePetsCount);
 
-        $this->staffCount = User::query()
-            ->whereHas('shelters', fn ($query) => $query->whereKey($shelterId))
-            ->count();
+        $this->showsActionCounters = ! Auth::user()->is_admin && ! Auth::user()->isViewerOfCurrentShelter();
+
+        if ($this->showsActionCounters) {
+            $this->pendingApplicationsCount = AdoptionApplication::query()
+                ->where('status', 'pending')
+                ->whereHas('pet', fn ($query) => $query->where('shelter_id', $shelterId))
+                ->count();
+
+            $this->overdueVaccinationsCount = PetVaccine::query()
+                ->where('status', 'scheduled')
+                ->where('due_date', '<', today())
+                ->whereHas('pet', fn ($query) => $query->where('shelter_id', $shelterId))
+                ->count();
+
+            $this->membersInArrearsCount = Member::query()
+                ->where('shelter_id', $shelterId)
+                ->inArrears()
+                ->count();
+        }
 
         $this->hasCages = Cage::query()
             ->whereHas('wing.facility', fn ($query) => $query->where('shelter_id', $shelterId))

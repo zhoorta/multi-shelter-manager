@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Pulpit</h2>
         <p>Pulpit daje przegląd aktywnego schroniska:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Liczniki zwierząt w schronisku, adopcji, wolnych miejsc w kojcach i pracowników.</li>
+            <li>Liczniki zwierząt w schronisku, wolnych miejsc w kojcach i adopcji w tym roku. Kierownicy i pracownicy widzą też oczekujące wnioski adopcyjne, zaległe szczepienia i zaległe składki członkowskie, każdy z linkiem do listy.</li>
             <li>Najnowsze przyjęcia, adopcje, adopcje wirtualne i zgony.</li>
             <li>Zwierzęta bez znanej lokalizacji, aby można je było przypisać do kojca.</li>
             <li>Ostrzeżenia, gdy czegoś jeszcze brakuje, np. nie zdefiniowano kojców lub gatunki nie mają ras.</li>

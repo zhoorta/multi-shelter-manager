@@ -33,7 +33,9 @@
             <flux:select.option value="left">{{ __('member_left') }}</flux:select.option>
         </flux:select>
 
-        <flux:switch wire:model.live="inArrearsOnly" :label="__('Fees overdue only')" align="left" class="sm:pb-2" />
+        <div class="flex items-center sm:h-10">
+            <flux:switch wire:model.live="inArrearsOnly" :label="__('Fees overdue only')" align="left" />
+        </div>
     </div>
 
     <div class="rounded-xl bg-white shadow-sm dark:bg-neutral-900">

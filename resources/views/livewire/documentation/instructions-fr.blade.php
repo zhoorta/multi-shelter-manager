@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Tableau de Bord</h2>
         <p>Le tableau de bord vous donne une vue d'ensemble du refuge actif :</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Des compteurs d'animaux présents, d'adoptions, de capacité disponible dans les cages et de personnel.</li>
+            <li>Des compteurs d'animaux au refuge, de capacité disponible dans les cages et d'adoptions de l'année. Les responsables et le personnel voient aussi les candidatures d'adoption en attente, les vaccins en retard et les cotisations en retard, chacun avec un lien vers sa liste.</li>
             <li>Les arrivées, adoptions, parrainages et décès les plus récents.</li>
             <li>Les animaux sans emplacement connu, afin de pouvoir les attribuer à une cage.</li>
             <li>Des avertissements lorsqu'il manque encore quelque chose, comme l'absence de cages ou des espèces sans races.</li>

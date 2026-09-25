@@ -49,7 +49,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Pannello di Controllo</h2>
         <p>Il pannello di controllo offre una panoramica del rifugio attivo:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Contatori di animali presenti, adozioni, capienza disponibile nelle gabbie e personale.</li>
+            <li>Contatori di animali nel rifugio, capienza disponibile nelle gabbie e adozioni dell'anno. Responsabili e personale vedono anche le richieste di adozione in attesa, le vaccinazioni scadute e le quote associative arretrate, ciascuno con un link alla relativa lista.</li>
             <li>Gli ingressi, le adozioni, le adozioni a distanza e i decessi più recenti.</li>
             <li>Gli animali senza una posizione nota, così da poterli assegnare a una gabbia.</li>
             <li>Avvisi quando manca ancora qualcosa, ad esempio nessuna gabbia definita o specie senza razze.</li>
