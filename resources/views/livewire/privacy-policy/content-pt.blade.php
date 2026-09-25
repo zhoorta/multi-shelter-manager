@@ -23,6 +23,7 @@
             <li>Nome e endereço de e-mail;</li>
             <li>Palavra-passe (guardada apenas de forma cifrada, nunca em texto legível);</li>
             <li>Abrigo(s) a que pertence e respetivo perfil (administrador, gestor ou funcionário);</li>
+            <li>Preferências de notificação por e-mail (vacinas a vencer e novas candidaturas de adoção);</li>
             <li>Data do último acesso e dados de sessão (endereço IP e navegador).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Número de documento de identificação e número de identificação fiscal (NIF);</li>
             <li>Contactos, morada, profissão e meio de transporte;</li>
             <li>Disponibilidade, datas de início e fim da colaboração e avaliações de assiduidade e desempenho;</li>
+            <li>Se acolhem animais como família de acolhimento e quais os animais ao seu cuidado;</li>
             <li>Preferência de receção de newsletter.</li>
         </ul>
 
-        <p>A página pública mostra apenas informação sobre os animais (fotografias, características e descrição) e os contactos do abrigo. <strong>Nunca</strong> publica dados de adotantes, padrinhos, voluntários ou utilizadores.</p>
+        <h3>Sócios</h3>
+        <ul>
+            <li>Nome, número de identificação fiscal (NIF), e-mail, telefone, morada, código postal e localidade;</li>
+            <li>Número de sócio, data de admissão, estado (ativo, suspenso ou saiu) e eventual ligação à ficha de voluntário;</li>
+            <li>Joia e quotas, histórico de pagamentos (datas, períodos abrangidos, valores e meio de pagamento) e observações registadas pelo abrigo.</li>
+        </ul>
+
+        <p>A página pública mostra apenas informação sobre os animais (fotografias, características e descrição) e os contactos do abrigo. <strong>Nunca</strong> publica dados de adotantes, padrinhos, voluntários ou utilizadores. Os animais que estão numa família de acolhimento são apenas assinalados como tal, sem qualquer dado sobre a família. A mesma informação sobre os animais é publicada no feed de novidades (RSS) de cada abrigo e pode ser partilhada pelo abrigo nas redes sociais.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Para que usamos os dados e com que fundamento</h2>
         <ul>
             <li><strong>Gerir adoções, apadrinhamentos e voluntariado</strong> &mdash; execução do acordo celebrado consigo ou diligências pré-contratuais a seu pedido (art.º 6.º, n.º 1, al. b) do RGPD);</li>
+            <li><strong>Gerir sócios e respetivas quotas</strong> &mdash; execução do acordo celebrado consigo ou diligências pré-contratuais a seu pedido (art.º 6.º, n.º 1, al. b) do RGPD);</li>
             <li><strong>Avaliar candidaturas de adoção</strong> &mdash; diligências pré-contratuais a seu pedido (art.º 6.º, n.º 1, al. b) do RGPD), com o consentimento que dá no formulário; o endereço IP é guardado para proteger o formulário contra abusos &mdash; interesse legítimo (art.º 6.º, n.º 1, al. f));</li>
             <li><strong>Acompanhar o bem-estar dos animais após a adoção</strong> &mdash; interesse legítimo do abrigo na proteção animal (al. f));</li>
             <li><strong>Cumprir obrigações legais</strong>, como as fiscais e as relativas ao registo e identificação de animais de companhia (al. c));</li>
@@ -127,6 +137,7 @@
             <li><strong>Contas de utilizador:</strong> enquanto a conta estiver ativa;</li>
             <li><strong>Candidaturas de adoção:</strong> apagadas automaticamente 6 meses após a última alteração;</li>
             <li><strong>Adoções e apadrinhamentos:</strong> durante o tempo necessário ao acompanhamento do animal e ao cumprimento das obrigações legais aplicáveis;</li>
+            <li><strong>Sócios:</strong> enquanto durar a qualidade de sócio e, depois dela, apenas pelo período exigido por lei (por exemplo, para os registos de quotas);</li>
             <li><strong>Voluntários:</strong> durante a colaboração e, depois dela, apenas pelo período exigido por lei;</li>
             <li><strong>Sessões:</strong> expiram automaticamente após um período de inatividade.</li>
         </ul>

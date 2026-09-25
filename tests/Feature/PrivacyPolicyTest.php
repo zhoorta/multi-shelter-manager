@@ -109,6 +109,25 @@ test('each translated policy links to the data protection authority of its count
     'danish' => ['da', 'https://www.datatilsynet.dk'],
 ]);
 
+test('each policy lists the personal data kept about members', function (string $locale, string $heading) {
+    app()->setLocale($locale);
+
+    $this->get(route('privacy-policy'))
+        ->assertOk()
+        ->assertSee("<h3>{$heading}</h3>", false);
+})->with([
+    ['en', 'Members'],
+    ['pt', 'Sócios'],
+    ['es', 'Socios'],
+    ['fr', 'Membres'],
+    ['de', 'Mitglieder'],
+    ['nl', 'Leden'],
+    ['pl', 'Członkowie'],
+    ['it', 'Soci'],
+    ['sv', 'Medlemmar'],
+    ['da', 'Medlemmer'],
+]);
+
 test('falls back to the english policy for a locale without its own text', function () {
     app()->setLocale('fi');
 

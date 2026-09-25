@@ -23,6 +23,7 @@
             <li>Nom et adresse email ;</li>
             <li>Mot de passe (stocké uniquement sous forme hachée, jamais en clair) ;</li>
             <li>Le ou les refuges auxquels vous appartenez et votre rôle (administrateur, gestionnaire ou employé) ;</li>
+            <li>Préférences de notification par e-mail (vaccins à échéance et nouvelles demandes d'adoption) ;</li>
             <li>Date de dernière connexion et données de session (adresse IP et navigateur).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Numéro de pièce d'identité et numéro fiscal de référence ;</li>
             <li>Coordonnées, adresse, profession et moyen de transport ;</li>
             <li>Disponibilité, dates de début et de fin de la collaboration, et évaluations d'assiduité et de performance ;</li>
+            <li>S'ils accueillent des animaux en tant que famille d'accueil, et quels animaux sont sous leur garde ;</li>
             <li>Préférence de newsletter.</li>
         </ul>
 
-        <p>La page publique n'affiche que des informations sur les animaux (photos, caractéristiques et description) et les coordonnées du refuge. Elle ne publie <strong>jamais</strong> de données sur les adoptants, parrains, bénévoles ou utilisateurs.</p>
+        <h3>Membres</h3>
+        <ul>
+            <li>Nom, numéro d'identification fiscale, e-mail, téléphone, adresse, code postal et ville ;</li>
+            <li>Numéro de membre, date d'adhésion, statut (actif, suspendu ou parti) et éventuel lien avec sa fiche de bénévole ;</li>
+            <li>Droit d'entrée et cotisations, historique des paiements (dates, périodes couvertes, montants et moyen de paiement) et notes enregistrées par le refuge.</li>
+        </ul>
+
+        <p>La page publique n'affiche que des informations sur les animaux (photos, caractéristiques et description) et les coordonnées du refuge. Elle ne publie <strong>jamais</strong> de données sur les adoptants, parrains, bénévoles ou utilisateurs. Les animaux vivant dans une famille d'accueil sont seulement signalés comme tels, sans aucune information sur la famille. Les mêmes informations sur les animaux sont publiées dans le fil d'actualités (RSS) de chaque refuge et peuvent être partagées par le refuge sur les réseaux sociaux.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Pourquoi nous utilisons les données et sur quelle base juridique</h2>
         <ul>
             <li><strong>Gérer les adoptions, parrainages et le bénévolat</strong> &mdash; exécution de l'accord conclu avec vous ou mesures précontractuelles prises à votre demande (art. 6, par. 1, point b) du RGPD) ;</li>
+            <li><strong>Gérer les membres et leurs cotisations</strong> &mdash; exécution de l'accord conclu avec vous ou mesures précontractuelles prises à votre demande (art. 6, par. 1, point b) du RGPD) ;</li>
             <li><strong>Évaluer les demandes d'adoption</strong> &mdash; mesures précontractuelles prises à votre demande (art. 6, par. 1, point b) du RGPD), avec le consentement que vous donnez dans le formulaire ; l'adresse IP est conservée pour protéger le formulaire contre les abus &mdash; intérêt légitime (art. 6, par. 1, point f)) ;</li>
             <li><strong>Suivre le bien-être des animaux après l'adoption</strong> &mdash; intérêt légitime du refuge à la protection animale (art. 6, par. 1, point f)) ;</li>
             <li><strong>Respecter les obligations légales</strong>, telles que les règles fiscales et l'enregistrement et l'identification des animaux de compagnie (art. 6, par. 1, point c)) ;</li>
@@ -127,6 +137,7 @@
             <li><strong>Comptes utilisateurs :</strong> tant que le compte est actif ;</li>
             <li><strong>Demandes d'adoption :</strong> supprimées automatiquement 6 mois après leur dernière modification ;</li>
             <li><strong>Adoptions et parrainages :</strong> aussi longtemps que nécessaire pour le suivi de l'animal et le respect des obligations légales applicables ;</li>
+            <li><strong>Membres :</strong> pendant toute la durée de l'adhésion puis, ensuite, uniquement pendant la durée exigée par la loi (par exemple, pour les registres de cotisations) ;</li>
             <li><strong>Bénévoles :</strong> pendant la collaboration puis, ensuite, uniquement pendant la durée exigée par la loi ;</li>
             <li><strong>Sessions :</strong> expirent automatiquement après une période d'inactivité.</li>
         </ul>

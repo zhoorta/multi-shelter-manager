@@ -23,6 +23,7 @@
             <li>Namn och e-postadress;</li>
             <li>Lösenord (lagras endast som hash, aldrig i läsbar text);</li>
             <li>Det eller de djurhem du tillhör och din roll (administratör, föreståndare eller personal);</li>
+            <li>Inställningar för e-postaviseringar (vaccinationer som förfaller och nya adoptionsansökningar);</li>
             <li>Datum för senaste inloggning och sessionsuppgifter (IP-adress och webbläsare).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Nummer på identitetshandling och skatteregistreringsnummer;</li>
             <li>Kontaktuppgifter, adress, yrke och färdmedel;</li>
             <li>Tillgänglighet, start- och slutdatum för samarbetet samt bedömningar av närvaro och insats;</li>
+            <li>Om de tar emot djur som jourhem och vilka djur de har hand om;</li>
             <li>Önskemål om nyhetsbrev.</li>
         </ul>
 
-        <p>Den offentliga sidan visar endast information om djuren (foton, egenskaper och beskrivning) och djurhemmets kontaktuppgifter. Den publicerar <strong>aldrig</strong> uppgifter om adoptanter, faddrar, volontärer eller användare.</p>
+        <h3>Medlemmar</h3>
+        <ul>
+            <li>Namn, skatteregistreringsnummer, e-post, telefon, adress, postnummer och ort;</li>
+            <li>Medlemsnummer, inträdesdatum, status (aktiv, vilande eller utträdd) och eventuell koppling till volontärsuppgifterna;</li>
+            <li>Inträdesavgift och medlemsavgifter, betalningshistorik (datum, perioder, belopp och betalningssätt) samt anteckningar som härbärget gjort.</li>
+        </ul>
+
+        <p>Den offentliga sidan visar endast information om djuren (foton, egenskaper och beskrivning) och djurhemmets kontaktuppgifter. Den publicerar <strong>aldrig</strong> uppgifter om adoptanter, faddrar, volontärer eller användare. Djur som bor i ett jourhem markeras endast som sådana, utan några uppgifter om familjen. Samma information om djuren publiceras i varje härbärges nyhetsflöde (RSS) och kan delas av härbärget i sociala medier.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Varför vi använder uppgifterna och med vilken rättslig grund</h2>
         <ul>
             <li><strong>Hantera adoptioner, fadderskap och volontärarbete</strong> &mdash; fullgörande av avtalet med dig eller åtgärder före avtalet på din begäran (art. 6.1 b GDPR);</li>
+            <li><strong>Hantera medlemmar och deras avgifter</strong> &mdash; fullgörande av avtalet med dig eller åtgärder före avtalet på din begäran (art. 6.1 b GDPR);</li>
             <li><strong>Bedöma adoptionsansökningar</strong> &mdash; åtgärder före avtalet på din begäran (art. 6.1 b GDPR), med det samtycke du lämnar i formuläret; IP-adressen sparas för att skydda formuläret mot missbruk &mdash; berättigat intresse (art. 6.1 f GDPR);</li>
             <li><strong>Följa upp djurens välbefinnande efter adoptionen</strong> &mdash; djurhemmets berättigade intresse av djurskydd (art. 6.1 f);</li>
             <li><strong>Fullgöra rättsliga förpliktelser</strong>, såsom skatteregler samt registrering och märkning av sällskapsdjur (art. 6.1 c);</li>
@@ -127,6 +137,7 @@
             <li><strong>Användarkonton:</strong> så länge kontot är aktivt;</li>
             <li><strong>Adoptionsansökningar:</strong> raderas automatiskt 6 månader efter den senaste ändringen;</li>
             <li><strong>Adoptioner och fadderskap:</strong> så länge det behövs för att följa upp djuret och fullgöra tillämpliga rättsliga förpliktelser;</li>
+            <li><strong>Medlemmar:</strong> så länge medlemskapet varar och därefter endast under den tid som lagen kräver (till exempel för avgiftsuppgifter);</li>
             <li><strong>Volontärer:</strong> under samarbetet och därefter endast under den tid som lagen kräver;</li>
             <li><strong>Sessioner:</strong> upphör automatiskt efter en tids inaktivitet.</li>
         </ul>

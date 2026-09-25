@@ -23,6 +23,7 @@
             <li>Navn og e-mailadresse;</li>
             <li>Adgangskode (gemmes kun som hash, aldrig i læsbar tekst);</li>
             <li>Det eller de internater, du hører til, og din rolle (administrator, internatleder eller medarbejder);</li>
+            <li>Præferencer for e-mailnotifikationer (vaccinationer der forfalder og nye adoptionsansøgninger);</li>
             <li>Dato for seneste login og sessionsoplysninger (IP-adresse og browser).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Nummer på identitetsdokument og skatteidentifikationsnummer;</li>
             <li>Kontaktoplysninger, adresse, erhverv og transportmiddel;</li>
             <li>Tilgængelighed, start- og slutdato for samarbejdet samt vurderinger af fremmøde og indsats;</li>
+            <li>Om de har dyr i pleje som plejefamilie, og hvilke dyr de passer;</li>
             <li>Ønske om nyhedsbrev.</li>
         </ul>
 
-        <p>Den offentlige side viser kun oplysninger om dyrene (fotos, kendetegn og beskrivelse) og internatets kontaktoplysninger. Den offentliggør <strong>aldrig</strong> oplysninger om adoptanter, faddere, frivillige eller brugere.</p>
+        <h3>Medlemmer</h3>
+        <ul>
+            <li>Navn, skatteidentifikationsnummer, e-mail, telefon, adresse, postnummer og by;</li>
+            <li>Medlemsnummer, indmeldelsesdato, status (aktiv, suspenderet eller udmeldt) og eventuel tilknytning til deres frivilligoplysninger;</li>
+            <li>Indmeldelsesgebyr og kontingenter, betalingshistorik (datoer, perioder, beløb og betalingsmåde) samt noter registreret af internatet.</li>
+        </ul>
+
+        <p>Den offentlige side viser kun oplysninger om dyrene (fotos, kendetegn og beskrivelse) og internatets kontaktoplysninger. Den offentliggør <strong>aldrig</strong> oplysninger om adoptanter, faddere, frivillige eller brugere. Dyr, der bor hos en plejefamilie, markeres kun som sådan uden oplysninger om familien. De samme oplysninger om dyrene offentliggøres i hvert internats nyhedsfeed (RSS) og kan deles af internatet på sociale medier.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Hvorfor vi bruger oplysningerne og med hvilket retsgrundlag</h2>
         <ul>
             <li><strong>Håndtering af adoptioner, fadderskaber og frivilligt arbejde</strong> &mdash; opfyldelse af aftalen med dig eller foranstaltninger forud for aftalen på din anmodning (art. 6, stk. 1, litra b, GDPR);</li>
+            <li><strong>Håndtering af medlemmer og deres kontingenter</strong> &mdash; opfyldelse af aftalen med dig eller foranstaltninger forud for aftalen på din anmodning (art. 6, stk. 1, litra b, GDPR);</li>
             <li><strong>Vurdering af adoptionsansøgninger</strong> &mdash; foranstaltninger forud for aftalen på din anmodning (art. 6, stk. 1, litra b, GDPR) med det samtykke, du giver i formularen; IP-adressen gemmes for at beskytte formularen mod misbrug &mdash; legitim interesse (art. 6, stk. 1, litra f, GDPR);</li>
             <li><strong>Opfølgning på dyrenes trivsel efter adoption</strong> &mdash; internatets legitime interesse i dyrebeskyttelse (art. 6, stk. 1, litra f);</li>
             <li><strong>Overholdelse af retlige forpligtelser</strong>, fx skatteregler og registrering og mærkning af selskabsdyr (art. 6, stk. 1, litra c);</li>
@@ -127,6 +137,7 @@
             <li><strong>Brugerkonti:</strong> så længe kontoen er aktiv;</li>
             <li><strong>Adoptionsansøgninger:</strong> slettes automatisk 6 måneder efter den seneste ændring;</li>
             <li><strong>Adoptioner og fadderskaber:</strong> så længe det er nødvendigt for at følge op på dyret og overholde gældende retlige forpligtelser;</li>
+            <li><strong>Medlemmer:</strong> så længe medlemskabet varer og derefter kun i den periode, loven kræver (for eksempel for kontingentoplysninger);</li>
             <li><strong>Frivillige:</strong> under samarbejdet og derefter kun i den periode, loven kræver;</li>
             <li><strong>Sessioner:</strong> udløber automatisk efter en periode med inaktivitet.</li>
         </ul>

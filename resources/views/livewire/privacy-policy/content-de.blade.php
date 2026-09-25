@@ -23,6 +23,7 @@
             <li>Name und E-Mail-Adresse;</li>
             <li>Passwort (nur als Hash gespeichert, niemals im Klartext);</li>
             <li>Das bzw. die Tierheime, denen Sie angehören, und Ihre Rolle (Administrator, Tierheimleitung oder Mitarbeiter);</li>
+            <li>E-Mail-Benachrichtigungseinstellungen (fällige Impfungen und neue Adoptionsanfragen);</li>
             <li>Datum der letzten Anmeldung und Sitzungsdaten (IP-Adresse und Browser).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Ausweisnummer und Steuer-Identifikationsnummer;</li>
             <li>Kontaktdaten, Adresse, Beruf und Verkehrsmittel;</li>
             <li>Verfügbarkeit, Beginn und Ende der Mitarbeit sowie Bewertungen von Anwesenheit und Leistung;</li>
+            <li>Ob sie Tiere als Pflegefamilie aufnehmen und welche Tiere sich in ihrer Obhut befinden;</li>
             <li>Newsletter-Wunsch.</li>
         </ul>
 
-        <p>Die öffentliche Seite zeigt nur Informationen über die Tiere (Fotos, Merkmale und Beschreibung) und die Kontaktdaten des Tierheims. Sie veröffentlicht <strong>niemals</strong> Daten von Adoptierenden, Paten, Ehrenamtlichen oder Benutzern.</p>
+        <h3>Mitglieder</h3>
+        <ul>
+            <li>Name, Steuer-Identifikationsnummer, E-Mail, Telefon, Anschrift, Postleitzahl und Ort;</li>
+            <li>Mitgliedsnummer, Eintrittsdatum, Status (aktiv, ruhend oder ausgetreten) und eine etwaige Verknüpfung mit dem Ehrenamtlichen-Datensatz;</li>
+            <li>Aufnahmegebühr und Mitgliedsbeiträge, Zahlungsverlauf (Daten, abgedeckte Zeiträume, Beträge und Zahlungsart) sowie vom Tierheim erfasste Notizen.</li>
+        </ul>
+
+        <p>Die öffentliche Seite zeigt nur Informationen über die Tiere (Fotos, Merkmale und Beschreibung) und die Kontaktdaten des Tierheims. Sie veröffentlicht <strong>niemals</strong> Daten von Adoptierenden, Paten, Ehrenamtlichen oder Benutzern. Tiere, die in einer Pflegefamilie leben, werden nur als solche gekennzeichnet, ohne Angaben zur Familie. Dieselben Tierinformationen werden im Nachrichten-Feed (RSS) jedes Tierheims veröffentlicht und können vom Tierheim in sozialen Netzwerken geteilt werden.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Wofür wir die Daten verwenden und auf welcher Rechtsgrundlage</h2>
         <ul>
             <li><strong>Verwaltung von Vermittlungen, Patenschaften und Ehrenamt</strong> &mdash; Erfüllung der Vereinbarung mit Ihnen oder vorvertragliche Maßnahmen auf Ihre Anfrage (Art. 6 Abs. 1 lit. b DSGVO);</li>
+            <li><strong>Verwaltung der Mitglieder und ihrer Beiträge</strong> &mdash; Erfüllung der Vereinbarung mit Ihnen oder vorvertragliche Maßnahmen auf Ihre Anfrage (Art. 6 Abs. 1 lit. b DSGVO);</li>
             <li><strong>Prüfung von Adoptionsanfragen</strong> &mdash; vorvertragliche Maßnahmen auf Ihre Anfrage (Art. 6 Abs. 1 lit. b DSGVO) mit der im Formular erteilten Einwilligung; die IP-Adresse wird zum Schutz des Formulars vor Missbrauch gespeichert &mdash; berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO);</li>
             <li><strong>Nachbetreuung des Wohlergehens der Tiere nach der Adoption</strong> &mdash; berechtigtes Interesse des Tierheims am Tierschutz (Art. 6 Abs. 1 lit. f);</li>
             <li><strong>Erfüllung rechtlicher Pflichten</strong>, etwa steuerlicher Vorschriften und der Registrierung und Kennzeichnung von Heimtieren (Art. 6 Abs. 1 lit. c);</li>
@@ -127,6 +137,7 @@
             <li><strong>Benutzerkonten:</strong> solange das Konto aktiv ist;</li>
             <li><strong>Adoptionsanfragen:</strong> werden 6 Monate nach ihrer letzten Änderung automatisch gelöscht;</li>
             <li><strong>Vermittlungen und Patenschaften:</strong> so lange, wie es für die Nachbetreuung des Tieres und die Erfüllung geltender rechtlicher Pflichten erforderlich ist;</li>
+            <li><strong>Mitglieder:</strong> für die Dauer der Mitgliedschaft und danach nur für den gesetzlich vorgeschriebenen Zeitraum (zum Beispiel für Beitragsunterlagen);</li>
             <li><strong>Ehrenamtliche:</strong> während der Mitarbeit und danach nur für den gesetzlich vorgeschriebenen Zeitraum;</li>
             <li><strong>Sitzungen:</strong> laufen nach einer Zeit der Inaktivität automatisch ab.</li>
         </ul>

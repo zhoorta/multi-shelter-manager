@@ -23,6 +23,7 @@
             <li>Nome e indirizzo email;</li>
             <li>Password (conservata solo in forma di hash, mai in chiaro);</li>
             <li>Il rifugio o i rifugi a cui appartieni e il tuo ruolo (amministratore, responsabile o operatore);</li>
+            <li>Preferenze di notifica via e-mail (vaccinazioni in scadenza e nuove richieste di adozione);</li>
             <li>Data dell'ultimo accesso e dati di sessione (indirizzo IP e browser).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Numero del documento d'identità e codice fiscale;</li>
             <li>Contatti, indirizzo, professione e mezzo di trasporto;</li>
             <li>Disponibilità, date di inizio e fine della collaborazione e valutazioni di presenza e prestazioni;</li>
+            <li>Se accolgono animali come famiglia affidataria e quali animali sono affidati alle loro cure;</li>
             <li>Preferenza per la newsletter.</li>
         </ul>
 
-        <p>La pagina pubblica mostra solo informazioni sugli animali (foto, caratteristiche e descrizione) e i contatti del rifugio. <strong>Non</strong> pubblica <strong>mai</strong> dati di adottanti, sostenitori, volontari o utenti.</p>
+        <h3>Soci</h3>
+        <ul>
+            <li>Nome, codice fiscale, e-mail, telefono, indirizzo, codice postale e città;</li>
+            <li>Numero di socio, data di iscrizione, stato (attivo, sospeso o uscito) ed eventuale collegamento alla scheda di volontario;</li>
+            <li>Quota di iscrizione e quote associative, storico dei pagamenti (date, periodi coperti, importi e metodo di pagamento) e note registrate dal rifugio.</li>
+        </ul>
+
+        <p>La pagina pubblica mostra solo informazioni sugli animali (foto, caratteristiche e descrizione) e i contatti del rifugio. <strong>Non</strong> pubblica <strong>mai</strong> dati di adottanti, sostenitori, volontari o utenti. Gli animali che vivono presso una famiglia affidataria sono solo indicati come tali, senza alcun dato sulla famiglia. Le stesse informazioni sugli animali sono pubblicate nel feed delle novità (RSS) di ciascun rifugio e possono essere condivise dal rifugio sui social network.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Per quali finalità usiamo i dati e su quale base giuridica</h2>
         <ul>
             <li><strong>Gestire adozioni, adozioni a distanza e volontariato</strong> &mdash; esecuzione dell'accordo con te o misure precontrattuali adottate su tua richiesta (art. 6, par. 1, lett. b) GDPR);</li>
+            <li><strong>Gestire i soci e le loro quote</strong> &mdash; esecuzione dell'accordo con te o misure precontrattuali adottate su tua richiesta (art. 6, par. 1, lett. b) GDPR);</li>
             <li><strong>Valutare le richieste di adozione</strong> &mdash; misure precontrattuali adottate su tua richiesta (art. 6, par. 1, lett. b) GDPR), con il consenso che dai nel modulo; l'indirizzo IP è conservato per proteggere il modulo da abusi &mdash; legittimo interesse (art. 6, par. 1, lett. f));</li>
             <li><strong>Seguire il benessere degli animali dopo l'adozione</strong> &mdash; legittimo interesse del rifugio alla tutela degli animali (art. 6, par. 1, lett. f));</li>
             <li><strong>Adempiere agli obblighi di legge</strong>, come le norme fiscali e la registrazione e identificazione degli animali da compagnia (art. 6, par. 1, lett. c));</li>
@@ -127,6 +137,7 @@
             <li><strong>Account utente:</strong> finché l'account è attivo;</li>
             <li><strong>Richieste di adozione:</strong> cancellate automaticamente 6 mesi dopo l'ultima modifica;</li>
             <li><strong>Adozioni e adozioni a distanza:</strong> per il tempo necessario a seguire l'animale e ad adempiere agli obblighi di legge applicabili;</li>
+            <li><strong>Soci:</strong> per tutta la durata dell'iscrizione e, successivamente, solo per il periodo previsto dalla legge (ad esempio per le registrazioni delle quote);</li>
             <li><strong>Volontari:</strong> durante la collaborazione e, successivamente, solo per il periodo previsto dalla legge;</li>
             <li><strong>Sessioni:</strong> scadono automaticamente dopo un periodo di inattività.</li>
         </ul>

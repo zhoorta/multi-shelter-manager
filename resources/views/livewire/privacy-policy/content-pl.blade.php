@@ -23,6 +23,7 @@
             <li>Imię i nazwisko oraz adres e-mail;</li>
             <li>Hasło (przechowywane wyłącznie w postaci skrótu, nigdy jawnym tekstem);</li>
             <li>Schronisko lub schroniska, do których należysz, i Twoja rola (administrator, kierownik lub pracownik);</li>
+            <li>Preferencje powiadomień e-mail (zbliżające się szczepienia i nowe wnioski adopcyjne);</li>
             <li>Data ostatniego logowania i dane sesji (adres IP i przeglądarka).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Numer dokumentu tożsamości i numer identyfikacji podatkowej (NIP);</li>
             <li>Dane kontaktowe, adres, zawód i środek transportu;</li>
             <li>Dostępność, daty rozpoczęcia i zakończenia współpracy oraz oceny obecności i pracy;</li>
+            <li>Informacja, czy prowadzą dom tymczasowy dla zwierząt, oraz które zwierzęta są pod ich opieką;</li>
             <li>Preferencja dotycząca newslettera.</li>
         </ul>
 
-        <p>Strona publiczna pokazuje wyłącznie informacje o zwierzętach (zdjęcia, cechy i opis) oraz dane kontaktowe schroniska. <strong>Nigdy</strong> nie publikuje danych adoptujących, opiekunów wirtualnych, wolontariuszy ani użytkowników.</p>
+        <h3>Członkowie</h3>
+        <ul>
+            <li>Imię i nazwisko, numer identyfikacji podatkowej, e-mail, telefon, adres, kod pocztowy i miejscowość;</li>
+            <li>Numer członkowski, data przystąpienia, status (aktywny, zawieszony lub wystąpił) i ewentualne powiązanie z kartą wolontariusza;</li>
+            <li>Wpisowe i składki członkowskie, historia płatności (daty, okresy, kwoty i forma płatności) oraz uwagi zapisane przez schronisko.</li>
+        </ul>
+
+        <p>Strona publiczna pokazuje wyłącznie informacje o zwierzętach (zdjęcia, cechy i opis) oraz dane kontaktowe schroniska. <strong>Nigdy</strong> nie publikuje danych adoptujących, opiekunów wirtualnych, wolontariuszy ani użytkowników. Zwierzęta przebywające w domu tymczasowym są jedynie oznaczone jako takie, bez żadnych danych o rodzinie. Te same informacje o zwierzętach są publikowane w kanale aktualności (RSS) każdego schroniska i mogą być udostępniane przez schronisko w mediach społecznościowych.</p>
     </section>
 
     <section id="purposes">
         <h2>3. W jakim celu i na jakiej podstawie prawnej wykorzystujemy dane</h2>
         <ul>
             <li><strong>Obsługa adopcji, adopcji wirtualnych i wolontariatu</strong> &mdash; wykonanie umowy z Tobą lub działania przed jej zawarciem podejmowane na Twoje żądanie (art. 6 ust. 1 lit. b RODO);</li>
+            <li><strong>Obsługa członków i ich składek</strong> &mdash; wykonanie umowy z Tobą lub działania przed jej zawarciem podejmowane na Twoje żądanie (art. 6 ust. 1 lit. b RODO);</li>
             <li><strong>Ocena wniosków adopcyjnych</strong> &mdash; działania przed zawarciem umowy podejmowane na Twoje żądanie (art. 6 ust. 1 lit. b RODO), na podstawie zgody wyrażonej w formularzu; adres IP jest przechowywany w celu ochrony formularza przed nadużyciami &mdash; prawnie uzasadniony interes (art. 6 ust. 1 lit. f RODO);</li>
             <li><strong>Monitorowanie dobrostanu zwierząt po adopcji</strong> &mdash; prawnie uzasadniony interes schroniska w ochronie zwierząt (art. 6 ust. 1 lit. f);</li>
             <li><strong>Wypełnianie obowiązków prawnych</strong>, takich jak przepisy podatkowe oraz rejestracja i identyfikacja zwierząt domowych (art. 6 ust. 1 lit. c);</li>
@@ -127,6 +137,7 @@
             <li><strong>Konta użytkowników:</strong> dopóki konto jest aktywne;</li>
             <li><strong>Wnioski adopcyjne:</strong> usuwane automatycznie 6 miesięcy po ostatniej zmianie;</li>
             <li><strong>Adopcje i adopcje wirtualne:</strong> tak długo, jak jest to potrzebne do monitorowania zwierzęcia i wypełnienia obowiązujących obowiązków prawnych;</li>
+            <li><strong>Członkowie:</strong> przez czas trwania członkostwa, a następnie tylko przez okres wymagany przepisami (na przykład dla ewidencji składek);</li>
             <li><strong>Wolontariusze:</strong> w trakcie współpracy, a następnie tylko przez okres wymagany przepisami;</li>
             <li><strong>Sesje:</strong> wygasają automatycznie po okresie bezczynności.</li>
         </ul>

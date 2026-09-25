@@ -6,6 +6,7 @@ test('guests can view the about page with the contact e-mail', function () {
     $this->get(route('about'))
         ->assertOk()
         ->assertSee('nonprofit')
+        ->assertSee('foster families')
         ->assertSee('mailto:hello@shelters.test', false);
 });
 
@@ -28,5 +29,6 @@ test('shows the portuguese text when the locale is pt', function () {
 
     $this->get(route('about'))
         ->assertOk()
-        ->assertSee('sem fins lucrativos');
+        ->assertSee('sem fins lucrativos')
+        ->assertSee('candidatar-se à adoção online');
 });

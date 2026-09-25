@@ -23,6 +23,7 @@
             <li>Nombre y dirección de email;</li>
             <li>Contraseña (guardada únicamente de forma cifrada, nunca en texto legible);</li>
             <li>El refugio o refugios a los que pertenece y su función (administrador, gestor o empleado);</li>
+            <li>Preferencias de notificación por correo electrónico (vacunas pendientes y nuevas solicitudes de adopción);</li>
             <li>Fecha del último acceso y datos de sesión (dirección IP y navegador).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Número de documento de identidad y número de identificación fiscal (NIF);</li>
             <li>Datos de contacto, dirección, profesión y medio de transporte;</li>
             <li>Disponibilidad, fechas de inicio y fin de la colaboración, y evaluaciones de asistencia y desempeño;</li>
+            <li>Si acogen animales como familia de acogida y qué animales están a su cuidado;</li>
             <li>Preferencia de boletín.</li>
         </ul>
 
-        <p>La página pública solo muestra información sobre los animales (fotografías, características y descripción) y los datos de contacto del refugio. <strong>Nunca</strong> publica datos de adoptantes, padrinos, voluntarios o usuarios.</p>
+        <h3>Socios</h3>
+        <ul>
+            <li>Nombre, número de identificación fiscal, correo electrónico, teléfono, dirección, código postal y localidad;</li>
+            <li>Número de socio, fecha de alta, estado (activo, suspendido o baja) y posible vínculo con su ficha de voluntario;</li>
+            <li>Cuota de inscripción y cuotas periódicas, historial de pagos (fechas, periodos cubiertos, importes y forma de pago) y observaciones registradas por el refugio.</li>
+        </ul>
+
+        <p>La página pública solo muestra información sobre los animales (fotografías, características y descripción) y los datos de contacto del refugio. <strong>Nunca</strong> publica datos de adoptantes, padrinos, voluntarios o usuarios. Los animales que viven con una familia de acogida solo se indican como tales, sin ningún dato sobre la familia. La misma información sobre los animales se publica en el canal de novedades (RSS) de cada refugio y el refugio puede compartirla en redes sociales.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Para qué usamos los datos y con qué base jurídica</h2>
         <ul>
             <li><strong>Gestionar adopciones, apadrinamientos y voluntariado</strong> &mdash; ejecución del acuerdo con usted o aplicación de medidas precontractuales a petición suya (art. 6.1.b) RGPD);</li>
+            <li><strong>Gestionar los socios y sus cuotas</strong> &mdash; ejecución del acuerdo con usted o aplicación de medidas precontractuales a petición suya (art. 6.1.b) RGPD);</li>
             <li><strong>Valorar las solicitudes de adopción</strong> &mdash; aplicación de medidas precontractuales a petición suya (art. 6.1.b) RGPD), con el consentimiento que da en el formulario; la dirección IP se conserva para proteger el formulario contra abusos &mdash; interés legítimo (art. 6.1.f));</li>
             <li><strong>Hacer el seguimiento del bienestar de los animales tras la adopción</strong> &mdash; interés legítimo del refugio en la protección animal (art. 6.1.f));</li>
             <li><strong>Cumplir obligaciones legales</strong>, como las normas fiscales y el registro e identificación de animales de compañía (art. 6.1.c));</li>
@@ -127,6 +137,7 @@
             <li><strong>Cuentas de usuario:</strong> mientras la cuenta esté activa;</li>
             <li><strong>Solicitudes de adopción:</strong> se eliminan automáticamente 6 meses después de su última modificación;</li>
             <li><strong>Adopciones y apadrinamientos:</strong> durante el tiempo necesario para el seguimiento del animal y para cumplir las obligaciones legales aplicables;</li>
+            <li><strong>Socios:</strong> mientras dure la condición de socio y, después, solo durante el periodo exigido por la ley (por ejemplo, para los registros de cuotas);</li>
             <li><strong>Voluntarios:</strong> durante la colaboración y, después, solo durante el periodo exigido por la ley;</li>
             <li><strong>Sesiones:</strong> caducan automáticamente tras un periodo de inactividad.</li>
         </ul>

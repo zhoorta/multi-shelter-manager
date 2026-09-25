@@ -23,6 +23,7 @@
             <li>Name and e-mail address;</li>
             <li>Password (stored only in hashed form, never in readable text);</li>
             <li>The shelter(s) you belong to and your role (administrator, manager or staff);</li>
+            <li>E-mail notification preferences (vaccinations due and new adoption applications);</li>
             <li>Date of last login and session data (IP address and browser).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>ID document number and tax identification number;</li>
             <li>Contact details, address, occupation and means of transport;</li>
             <li>Availability, collaboration start and end dates, and attendance and performance evaluations;</li>
+            <li>Whether they host animals as a foster family, and which animals are in their care;</li>
             <li>Newsletter preference.</li>
         </ul>
 
-        <p>The public page only shows information about the animals (photos, characteristics and description) and the shelter's contact details. It <strong>never</strong> publishes data about adopters, sponsors, volunteers or users.</p>
+        <h3>Members</h3>
+        <ul>
+            <li>Name, tax identification number, e-mail, phone, address, postal code and city;</li>
+            <li>Member number, join date, status (active, suspended or left) and any link to their volunteer record;</li>
+            <li>Joining and membership fees, payment history (dates, periods covered, amounts and payment method) and notes recorded by the shelter.</li>
+        </ul>
+
+        <p>The public page only shows information about the animals (photos, characteristics and description) and the shelter's contact details. It <strong>never</strong> publishes data about adopters, sponsors, volunteers or users. Animals living with a foster family are only marked as such, without any details about the family. The same animal information is published in each shelter's news feed (RSS) and may be shared by the shelter on social networks.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Why we use the data and on what legal basis</h2>
         <ul>
             <li><strong>Managing adoptions, sponsorships and volunteering</strong> &mdash; performance of the agreement with you or pre-contractual steps at your request (Art. 6(1)(b) GDPR);</li>
+            <li><strong>Managing members and their fees</strong> &mdash; performance of the agreement with you or pre-contractual steps at your request (Art. 6(1)(b) GDPR);</li>
             <li><strong>Assessing adoption applications</strong> &mdash; steps taken at your request before an adoption (Art. 6(1)(b) GDPR), with the consent you give on the form; the IP address is kept to protect the form from abuse &mdash; legitimate interest (Art. 6(1)(f));</li>
             <li><strong>Following up on the animals' welfare after adoption</strong> &mdash; the shelter's legitimate interest in animal protection (Art. 6(1)(f));</li>
             <li><strong>Complying with legal obligations</strong>, such as tax rules and the registration and identification of companion animals (Art. 6(1)(c));</li>
@@ -127,6 +137,7 @@
             <li><strong>User accounts:</strong> while the account is active;</li>
             <li><strong>Adoption applications:</strong> deleted automatically 6 months after their last update;</li>
             <li><strong>Adoptions and sponsorships:</strong> for as long as needed to follow up on the animal and to meet applicable legal obligations;</li>
+            <li><strong>Members:</strong> while the membership lasts and, afterwards, only for the period required by law (for example, for fee records);</li>
             <li><strong>Volunteers:</strong> during the collaboration and, afterwards, only for the period required by law;</li>
             <li><strong>Sessions:</strong> expire automatically after a period of inactivity.</li>
         </ul>

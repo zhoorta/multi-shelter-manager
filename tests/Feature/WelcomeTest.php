@@ -166,3 +166,9 @@ test('the pet details link to the shelter page', function () {
         ->call('showPet', $pet->id)
         ->assertSee(route('shelters.show', $pet->shelter_id));
 });
+
+test('how it works points visitors to the online adoption application', function () {
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertSee('Send your adoption application online');
+});

@@ -1,8 +1,8 @@
 @php
     $cards = [
         ['icon' => '💛', 'tint' => 'bg-orange-100 dark:bg-orange-950/60', 'title' => __('Nonprofit'), 'text' => __('We have no commercial goals: no ads, no selling of data. Every feature exists to help shelters and their animals.')],
-        ['icon' => '🏡', 'tint' => 'bg-sky-100 dark:bg-sky-950/60', 'title' => __('Built for shelters'), 'text' => __('Shelters use it to manage their animals, spaces, vaccinations, adoptions, sponsorships and volunteers, each one keeping its own data private.')],
-        ['icon' => '🐾', 'tint' => 'bg-pink-100 dark:bg-pink-950/60', 'title' => __('One place to adopt'), 'text' => __('Animals from every partner shelter are shown together, making it easier for families to find their new best friend.')],
+        ['icon' => '🏡', 'tint' => 'bg-sky-100 dark:bg-sky-950/60', 'title' => __('Built for shelters'), 'text' => __('Shelters use it to manage their animals, spaces, foster families, vaccinations, adoptions, sponsorships, volunteers and members, and to follow their work in reports, each one keeping its own data private.')],
+        ['icon' => '🐾', 'tint' => 'bg-pink-100 dark:bg-pink-950/60', 'title' => __('One place to adopt'), 'text' => __('Animals from every partner shelter are shown together, and families can apply to adopt online, straight to the shelter caring for the animal.')],
     ];
 @endphp
 

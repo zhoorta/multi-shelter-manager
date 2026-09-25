@@ -93,9 +93,9 @@
 
             <div class="mt-12 grid gap-6 md:grid-cols-3">
                 @foreach ([
-                    ['icon' => '🏠', 'bg' => 'bg-orange-100 dark:bg-orange-950/50', 'title' => __('Shelters join in'), 'text' => __('Each shelter manages its animals, spaces, vaccines and volunteers in its own private area.')],
+                    ['icon' => '🏠', 'bg' => 'bg-orange-100 dark:bg-orange-950/50', 'title' => __('Shelters join in'), 'text' => __('Each shelter manages its animals, spaces, foster families, vaccines and volunteers in its own private area.')],
                     ['icon' => '🔎', 'bg' => 'bg-sky-100 dark:bg-sky-950/50', 'title' => __('You search in one place'), 'text' => __('Animals ready for adoption from every shelter appear together here. Filter by species, gender, size and breed.')],
-                    ['icon' => '💌', 'bg' => 'bg-pink-100 dark:bg-pink-950/50', 'title' => __('You meet your new friend'), 'text' => __('Found a match? Contact the shelter directly to arrange a visit and start the adoption.')],
+                    ['icon' => '💌', 'bg' => 'bg-pink-100 dark:bg-pink-950/50', 'title' => __('You meet your new friend'), 'text' => __('Found a match? Send your adoption application online and the shelter will contact you to arrange a visit.')],
                 ] as $step)
                     <div wire:key="step-{{ $loop->index }}" class="rounded-[2rem] {{ $step['bg'] }} p-8 transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">

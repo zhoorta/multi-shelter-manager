@@ -23,6 +23,7 @@
             <li>Naam en e-mailadres;</li>
             <li>Wachtwoord (alleen gehasht opgeslagen, nooit in leesbare tekst);</li>
             <li>Het asiel of de asielen waar u bij hoort en uw rol (beheerder, asielbeheerder of medewerker);</li>
+            <li>Voorkeuren voor e-mailmeldingen (verlopende vaccinaties en nieuwe adoptieaanvragen);</li>
             <li>Datum van de laatste login en sessiegegevens (IP-adres en browser).</li>
         </ul>
 
@@ -54,16 +55,25 @@
             <li>Nummer van het identiteitsbewijs en fiscaal identificatienummer;</li>
             <li>Contactgegevens, adres, beroep en vervoermiddel;</li>
             <li>Beschikbaarheid, begin- en einddatum van de samenwerking, en beoordelingen van aanwezigheid en prestaties;</li>
+            <li>Of zij dieren opvangen als pleeggezin en welke dieren onder hun zorg zijn;</li>
             <li>Nieuwsbriefvoorkeur.</li>
         </ul>
 
-        <p>De openbare pagina toont alleen informatie over de dieren (foto's, kenmerken en beschrijving) en de contactgegevens van het asiel. Er worden <strong>nooit</strong> gegevens van adoptanten, sponsors, vrijwilligers of gebruikers gepubliceerd.</p>
+        <h3>Leden</h3>
+        <ul>
+            <li>Naam, fiscaal identificatienummer, e-mail, telefoon, adres, postcode en woonplaats;</li>
+            <li>Lidnummer, datum van toetreding, status (actief, geschorst of vertrokken) en een eventuele koppeling met hun vrijwilligersgegevens;</li>
+            <li>Inschrijfgeld en contributie, betalingsgeschiedenis (data, gedekte periodes, bedragen en betaalwijze) en notities van het asiel.</li>
+        </ul>
+
+        <p>De openbare pagina toont alleen informatie over de dieren (foto's, kenmerken en beschrijving) en de contactgegevens van het asiel. Er worden <strong>nooit</strong> gegevens van adoptanten, sponsors, vrijwilligers of gebruikers gepubliceerd. Dieren die bij een pleeggezin verblijven, worden alleen als zodanig aangeduid, zonder gegevens over het gezin. Dezelfde informatie over de dieren wordt gepubliceerd in de nieuwsfeed (RSS) van elk asiel en kan door het asiel op sociale netwerken worden gedeeld.</p>
     </section>
 
     <section id="purposes">
         <h2>3. Waarvoor we de gegevens gebruiken en op welke rechtsgrond</h2>
         <ul>
             <li><strong>Beheren van adopties, sponsorschappen en vrijwilligerswerk</strong> &mdash; uitvoering van de overeenkomst met u of precontractuele maatregelen op uw verzoek (art. 6, lid 1, onder b, AVG);</li>
+            <li><strong>Beheren van leden en hun contributie</strong> &mdash; uitvoering van de overeenkomst met u of precontractuele maatregelen op uw verzoek (art. 6, lid 1, onder b, AVG);</li>
             <li><strong>Beoordelen van adoptieaanvragen</strong> &mdash; precontractuele maatregelen op uw verzoek (art. 6, lid 1, onder b, AVG), met de toestemming die u in het formulier geeft; het IP-adres wordt bewaard om het formulier tegen misbruik te beschermen &mdash; gerechtvaardigd belang (art. 6, lid 1, onder f, AVG);</li>
             <li><strong>Opvolgen van het welzijn van de dieren na adoptie</strong> &mdash; gerechtvaardigd belang van het asiel bij dierenbescherming (art. 6, lid 1, onder f);</li>
             <li><strong>Voldoen aan wettelijke verplichtingen</strong>, zoals fiscale regels en de registratie en identificatie van gezelschapsdieren (art. 6, lid 1, onder c);</li>
@@ -127,6 +137,7 @@
             <li><strong>Gebruikersaccounts:</strong> zolang het account actief is;</li>
             <li><strong>Adoptieaanvragen:</strong> worden 6 maanden na de laatste wijziging automatisch verwijderd;</li>
             <li><strong>Adopties en sponsorschappen:</strong> zolang nodig is om het dier op te volgen en aan de toepasselijke wettelijke verplichtingen te voldoen;</li>
+            <li><strong>Leden:</strong> zolang het lidmaatschap duurt en daarna alleen gedurende de wettelijk vereiste periode (bijvoorbeeld voor contributiegegevens);</li>
             <li><strong>Vrijwilligers:</strong> tijdens de samenwerking en daarna alleen gedurende de wettelijk vereiste periode;</li>
             <li><strong>Sessies:</strong> verlopen automatisch na een periode van inactiviteit.</li>
         </ul>
