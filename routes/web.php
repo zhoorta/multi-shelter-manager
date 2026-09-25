@@ -43,6 +43,7 @@ use App\Livewire\Pets\SponsorshipForm;
 use App\Livewire\Pets\SponsorshipShow;
 use App\Livewire\Pets\VaccinationForm;
 use App\Livewire\PrivacyPolicy;
+use App\Livewire\Reports\ShelterReports;
 use App\Livewire\Setup;
 use App\Livewire\Volunteers\ManageVolunteers;
 use App\Livewire\Volunteers\VolunteerForm;
@@ -106,6 +107,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('members/{member}', MemberShow::class)->name('members.show');
 
     Route::livewire('facilities', ManageSpaces::class)->name('facilities.index');
+
+    Route::livewire('reports', ShelterReports::class)->name('reports.index');
 
     // Administration routes.
     Route::livewire('admin/users', ManageUsers::class)->name('admin.users.index');

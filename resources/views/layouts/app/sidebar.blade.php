@@ -72,6 +72,11 @@
                         <flux:sidebar.item icon="building-office-2" :href="route('facilities.index')" :current="request()->routeIs('facilities.index')" wire:navigate>
                             {{ __('Facilities') }}
                         </flux:sidebar.item>
+                        @if (auth()->user()->isManagerOfCurrentShelter())
+                            <flux:sidebar.item icon="chart-bar" :href="route('reports.index')" :current="request()->routeIs('reports.*')" wire:navigate>
+                                {{ __('Reports') }}
+                            </flux:sidebar.item>
+                        @endif
                     @endif
                     @if (auth()->user()->is_admin || auth()->user()->isManagerOfCurrentShelter())
                         <flux:sidebar.item icon="users" :href="route('admin.users.index')" :current="request()->routeIs('admin.users.index')" wire:navigate>
