@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Livewire\Reports;
 
+use App\Livewire\Reports\Concerns\BuildsFinanceReport;
+use App\Livewire\Reports\Concerns\BuildsHealthReport;
+use App\Livewire\Reports\Concerns\BuildsOccupancyReport;
 use App\Livewire\Reports\Concerns\BuildsShelterReport;
 use App\Models\Shelter;
 use Illuminate\Contracts\View\View;
@@ -13,7 +16,7 @@ use Livewire\Component;
 
 class ShelterReportPrint extends Component
 {
-    use BuildsShelterReport;
+    use BuildsFinanceReport, BuildsHealthReport, BuildsOccupancyReport, BuildsShelterReport;
 
     public Shelter $shelter;
 
@@ -25,14 +28,19 @@ class ShelterReportPrint extends Component
     }
 
     /**
-     * "Activity report 2025" for a calendar year, "Activity report" otherwise
-     * (the dates are printed underneath).
+     * The printed section's title, followed by the year for a calendar-year
+     * period ("Activity report 2025"); other periods print their dates below.
      */
     public function reportTitle(): string
     {
-        return preg_match('/^\d{4}$/', $this->period) === 1
-            ? __('Activity report :year', ['year' => $this->period])
-            : __('Activity report');
+        $title = match ($this->activeTab()) {
+            'finances' => __('Financial report'),
+            'occupancy' => __('Occupancy report'),
+            'health' => __('Health report'),
+            default => __('Activity report'),
+        };
+
+        return preg_match('/^\d{4}$/', $this->period) === 1 ? $title.' '.$this->period : $title;
     }
 
     #[Layout('layouts.print')]

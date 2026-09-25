@@ -2,12 +2,14 @@
     'labels' => [],
     'series' => [],
     'title' => '',
+    'money' => false,
 ])
 
 {{--
     Grouped column chart drawn as SVG.
     labels: list of ['label' => string, 'fullLabel' => ?string, 'sublabel' => ?string]
-    series: list of ['name' => string, 'color' => css color, 'values' => list<int>]
+    series: list of ['name' => string, 'color' => css color, 'values' => list<int|float>]
+    money: format values as euros in tooltips and the table
 --}}
 
 @php
@@ -21,7 +23,8 @@
     $plotHeight = $height - $paddingTop - $paddingBottom;
     $baseline = $paddingTop + $plotHeight;
 
-    $maxValue = max(1, ...array_map(fn (array $serie): int => max([0, ...$serie['values']]), $series ?: [['values' => [0]]]));
+    $maxValue = max(1, ...array_map(fn (array $serie): float => (float) max([0, ...$serie['values']]), $series ?: [['values' => [0]]]));
+    $formatValue = fn (int|float $value): string => $money ? number_format((float) $value, 2, ',', '.').' €' : (string) $value;
     $magnitude = 10 ** floor(log10($maxValue / 4));
     $tickStep = collect([1, 2, 5, 10])->map(fn (int $multiplier): float => $multiplier * $magnitude)->first(fn (float $step): bool => $step * 4 >= $maxValue);
     $tickStep = max(1, (int) $tickStep);
@@ -36,7 +39,7 @@
     $groupInnerWidth = $seriesCount * $barWidth + ($seriesCount - 1) * $barGap;
     $labelEvery = $groupWidth >= 30 ? 1 : (int) ceil(30 / $groupWidth);
 
-    $toY = fn (int $value): float => $baseline - ($value / $topValue) * $plotHeight;
+    $toY = fn (int|float $value): float => $baseline - ($value / $topValue) * $plotHeight;
     $barPath = function (float $x, float $y, float $barWidth, float $barHeight): string {
         $radius = min(4, $barWidth / 2, $barHeight);
 
@@ -70,7 +73,7 @@
                     $firstBarX = $groupX + ($groupWidth - $groupInnerWidth) / 2;
                 @endphp
                 <g class="chart-group">
-                    <title>{{ $label['fullLabel'] ?? $label['label'] }}&#10;@foreach ($series as $serie){{ $serie['name'] }}: {{ $serie['values'][$index] ?? 0 }}&#10;@endforeach</title>
+                    <title>{{ $label['fullLabel'] ?? $label['label'] }}&#10;@foreach ($series as $serie){{ $serie['name'] }}: {{ $formatValue($serie['values'][$index] ?? 0) }}&#10;@endforeach</title>
                     <rect class="chart-hover" x="{{ $groupX }}" y="{{ $paddingTop }}" width="{{ $groupWidth }}" height="{{ $plotHeight }}" rx="4" />
                     @foreach ($series as $serieIndex => $serie)
                         @php
@@ -108,7 +111,7 @@
                         <tr>
                             <td class="py-1 pe-4">{{ $label['fullLabel'] ?? $label['label'] }}</td>
                             @foreach ($series as $serie)
-                                <td class="py-1 pe-4 text-right">{{ $serie['values'][$index] ?? 0 }}</td>
+                                <td class="py-1 pe-4 text-right">{{ $formatValue($serie['values'][$index] ?? 0) }}</td>
                             @endforeach
                         </tr>
                     @endforeach

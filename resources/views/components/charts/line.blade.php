@@ -3,6 +3,7 @@
     'values' => [],
     'name' => '',
     'color' => 'var(--chart-series-1)',
+    'unit' => '',
 ])
 
 {{--
@@ -53,19 +54,19 @@
         <svg viewBox="0 0 {{ $width }} {{ $height }}" role="img" aria-label="{{ $name }}" style="width: 100%; min-width: 720px; height: auto;">
             @foreach ($ticks as $tick)
                 <line x1="{{ $paddingLeft }}" x2="{{ $width - $paddingRight }}" y1="{{ $toY($tick) }}" y2="{{ $toY($tick) }}" stroke="{{ $tick === 0 ? 'var(--chart-axis)' : 'var(--chart-grid)' }}" stroke-width="1" />
-                <text x="{{ $paddingLeft - 8 }}" y="{{ $toY($tick) + 4 }}" text-anchor="end" font-size="12" fill="var(--chart-muted)" style="font-variant-numeric: tabular-nums">{{ number_format($tick, 0, ',', '.') }}</text>
+                <text x="{{ $paddingLeft - 8 }}" y="{{ $toY($tick) + 4 }}" text-anchor="end" font-size="12" fill="var(--chart-muted)" style="font-variant-numeric: tabular-nums">{{ number_format($tick, 0, ',', '.') }}{{ $unit }}</text>
             @endforeach
 
             @if ($points->isNotEmpty())
                 <path d="{{ $areaPath }}" fill="{{ $color }}" fill-opacity="0.1" />
                 <path d="{{ $linePath }}" fill="none" stroke="{{ $color }}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
                 <circle cx="{{ $lastPoint['x'] }}" cy="{{ $lastPoint['y'] }}" r="4" fill="{{ $color }}" stroke="var(--chart-surface)" stroke-width="2" />
-                <text x="{{ $lastPoint['x'] + 8 }}" y="{{ $lastPoint['y'] + 4 }}" font-size="12" font-weight="600" fill="var(--chart-ink)">{{ $lastPoint['value'] }}</text>
+                <text x="{{ $lastPoint['x'] + 8 }}" y="{{ $lastPoint['y'] + 4 }}" font-size="12" font-weight="600" fill="var(--chart-ink)">{{ $lastPoint['value'] }}{{ $unit }}</text>
             @endif
 
             @foreach ($labels as $index => $label)
                 <g class="chart-group">
-                    <title>{{ $label['fullLabel'] ?? $label['label'] }}&#10;{{ $name }}: {{ $values[$index] ?? '—' }}</title>
+                    <title>{{ $label['fullLabel'] ?? $label['label'] }}&#10;{{ $name }}: {{ ($values[$index] ?? null) === null ? '—' : $values[$index].$unit }}</title>
                     <rect class="chart-hover" x="{{ $paddingLeft + $index * $groupWidth }}" y="{{ $paddingTop }}" width="{{ $groupWidth }}" height="{{ $plotHeight }}" rx="4" />
                     @if (($values[$index] ?? null) !== null)
                         <circle class="chart-hover-dot" cx="{{ $toX($index) }}" cy="{{ $toY($values[$index]) }}" r="4" fill="{{ $color }}" stroke="var(--chart-surface)" stroke-width="2" />
@@ -96,7 +97,7 @@
                         @if (($values[$index] ?? null) !== null)
                             <tr>
                                 <td class="py-1 pe-4">{{ $label['fullLabel'] ?? $label['label'] }}</td>
-                                <td class="py-1 pe-4 text-right">{{ $values[$index] }}</td>
+                                <td class="py-1 pe-4 text-right">{{ $values[$index] }}{{ $unit }}</td>
                             </tr>
                         @endif
                     @endforeach

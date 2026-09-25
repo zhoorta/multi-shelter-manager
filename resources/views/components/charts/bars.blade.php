@@ -7,7 +7,8 @@
 
 {{--
     Horizontal bar list, one series, value at the bar tip.
-    items: list of ['label' => string, 'value' => int]
+    items: list of ['label' => string, 'value' => int|float, 'display' => ?string]
+    display: optional text shown instead of the value (e.g. "12 / 20 (60%)" or a formatted amount)
     unit: optional suffix shown after each value (e.g. "days")
 --}}
 
@@ -17,11 +18,11 @@
 
 <div {{ $attributes->class('flex flex-col gap-3') }}>
     @forelse ($items as $item)
-        <div class="flex flex-col gap-1 text-sm" title="{{ $item['label'] }}: {{ $item['value'] }}{{ $unit ? ' '.$unit : '' }}">
+        <div class="flex flex-col gap-1 text-sm" title="{{ $item['label'] }}: {{ $item['display'] ?? $item['value'].($unit ? ' '.$unit : '') }}">
             <span class="truncate text-neutral-600 dark:text-neutral-300">{{ $item['label'] }}</span>
             <div class="flex items-center gap-2">
                 <div class="shrink-0" style="height: 14px; width: {{ max(0.5, $item['value'] / $maxValue * 85) }}%; background: {{ $color }}; border-radius: 0 4px 4px 0;"></div>
-                <span class="shrink-0 text-xs font-medium" style="color: var(--chart-ink); font-variant-numeric: tabular-nums">{{ $item['value'] }}{{ $unit ? ' '.$unit : '' }}</span>
+                <span class="shrink-0 text-xs font-medium" style="color: var(--chart-ink); font-variant-numeric: tabular-nums">{{ $item['display'] ?? $item['value'].($unit ? ' '.$unit : '') }}</span>
             </div>
         </div>
     @empty

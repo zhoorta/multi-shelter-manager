@@ -38,6 +38,12 @@ trait BuildsShelterReport
     public string $to = '';
 
     /**
+     * The report section on screen and printed: 'animals', 'finances', 'occupancy' or 'health'.
+     */
+    #[Url]
+    public string $tab = 'animals';
+
+    /**
      * @var Collection<int, Pet>|null
      */
     private ?Collection $loadedPets = null;
@@ -53,14 +59,37 @@ trait BuildsShelterReport
     {
         return $this->loadedPets ??= Pet::query()
             ->where('shelter_id', Auth::user()->current_shelter_id)
-            ->select(['id', 'shelter_id', 'species_id', 'ref', 'name', 'status', 'birth_date', 'checkin_date', 'date_of_death'])
+            ->select(['id', 'shelter_id', 'species_id', 'ref', 'name', 'status', 'is_neutered', 'birth_date', 'checkin_date', 'date_of_death'])
             ->with([
                 'species:id,name,name_plural',
                 'adoptions' => fn ($query) => $query
-                    ->select(['id', 'pet_id', 'adoption_date', 'return_date'])
+                    ->select(['id', 'pet_id', 'adoption_date', 'return_date', 'adoption_fee'])
                     ->where('application_status', 'Approved'),
             ])
             ->get();
+    }
+
+    /**
+     * The report sections, in tab order.
+     *
+     * @return array<string, string>
+     */
+    public function reportTabs(): array
+    {
+        return [
+            'animals' => __('Animals'),
+            'finances' => __('Finances'),
+            'occupancy' => __('Occupancy'),
+            'health' => __('Health'),
+        ];
+    }
+
+    /**
+     * The section to show; an unknown tab in the URL falls back to animals.
+     */
+    public function activeTab(): string
+    {
+        return array_key_exists($this->tab, $this->reportTabs()) ? $this->tab : 'animals';
     }
 
     /**
@@ -110,6 +139,63 @@ trait BuildsShelterReport
     }
 
     /**
+     * The months (or years, for long ranges) the selected period is split into.
+     *
+     * @return list<array{key: string, label: string, fullLabel: string, sublabel: ?string, start: CarbonImmutable, end: CarbonImmutable}>
+     */
+    protected function periodBuckets(): array
+    {
+        [$start, $end] = $this->dateRange();
+        $groupedByYear = $this->isGroupedByYear();
+        $buckets = [];
+
+        for ($bucketStart = $start; $bucketStart->lessThanOrEqualTo($end);) {
+            $buckets[] = [
+                'key' => $bucketStart->format($this->bucketFormat()),
+                'label' => $groupedByYear ? $bucketStart->format('Y') : $bucketStart->translatedFormat('M'),
+                'fullLabel' => $groupedByYear ? $bucketStart->format('Y') : $bucketStart->translatedFormat('M Y'),
+                'sublabel' => ! $groupedByYear && ($buckets === [] || $bucketStart->month === 1) ? $bucketStart->format('Y') : null,
+                'start' => $bucketStart,
+                'end' => ($groupedByYear ? $bucketStart->endOfYear() : $bucketStart->endOfMonth())->startOfDay()->min($end),
+            ];
+
+            $bucketStart = $groupedByYear ? $bucketStart->addYear()->startOfYear() : $bucketStart->addMonthNoOverflow()->startOfMonth();
+        }
+
+        return $buckets;
+    }
+
+    public function isGroupedByYear(): bool
+    {
+        [$start, $end] = $this->dateRange();
+
+        return $start->diffInMonths($end) >= self::MAX_MONTHLY_BUCKETS;
+    }
+
+    /**
+     * The date format that turns a date into its bucket key.
+     */
+    protected function bucketFormat(): string
+    {
+        return $this->isGroupedByYear() ? 'Y' : 'Y-m';
+    }
+
+    /**
+     * Labels of the period buckets, as the chart components expect them.
+     *
+     * @return list<array{label: string, fullLabel: string, sublabel: ?string}>
+     */
+    #[Computed]
+    public function periodLabels(): array
+    {
+        return array_map(fn (array $bucket): array => [
+            'label' => $bucket['label'],
+            'fullLabel' => $bucket['fullLabel'],
+            'sublabel' => $bucket['sublabel'],
+        ], $this->periodBuckets());
+    }
+
+    /**
      * All the figures shown on the page for the selected period.
      *
      * @return array{
@@ -130,8 +216,8 @@ trait BuildsShelterReport
     {
         [$start, $end] = $this->dateRange();
         $pets = $this->shelterPets();
-        $groupedByYear = $start->diffInMonths($end) >= self::MAX_MONTHLY_BUCKETS;
-        $bucketFormat = $groupedByYear ? 'Y' : 'Y-m';
+        $groupedByYear = $this->isGroupedByYear();
+        $bucketFormat = $this->bucketFormat();
         $countsByBucket = ['intakes' => [], 'adoptions' => [], 'deaths' => []];
         $timelines = array_values($pets->map(fn (Pet $pet): array => [
             'checkin' => $pet->checkin_date?->toDateString(),
@@ -191,24 +277,15 @@ trait BuildsShelterReport
         arsort($intakesBySpecies);
         arsort($adoptionsBySpecies);
         $allDaysToAdoption = array_merge(...array_values($daysToAdoptionByAge));
-        $buckets = [];
-
-        for ($bucketStart = $start; $bucketStart->lessThanOrEqualTo($end);) {
-            $bucketKey = $bucketStart->format($bucketFormat);
-            $bucketEnd = $groupedByYear ? $bucketStart->endOfYear()->startOfDay() : $bucketStart->endOfMonth()->startOfDay();
-
-            $buckets[] = [
-                'label' => $groupedByYear ? $bucketStart->format('Y') : $bucketStart->translatedFormat('M'),
-                'fullLabel' => $groupedByYear ? $bucketStart->format('Y') : $bucketStart->translatedFormat('M Y'),
-                'sublabel' => ! $groupedByYear && ($buckets === [] || $bucketStart->month === 1) ? $bucketStart->format('Y') : null,
-                'intakes' => $countsByBucket['intakes'][$bucketKey] ?? 0,
-                'adoptions' => $countsByBucket['adoptions'][$bucketKey] ?? 0,
-                'deaths' => $countsByBucket['deaths'][$bucketKey] ?? 0,
-                'population' => $bucketStart->isFuture() ? null : $this->populationOn($timelines, $bucketEnd->min($end)->min(CarbonImmutable::today())->toDateString()),
-            ];
-
-            $bucketStart = $groupedByYear ? $bucketStart->addYear()->startOfYear() : $bucketStart->addMonthNoOverflow()->startOfMonth();
-        }
+        $buckets = array_map(fn (array $bucket): array => [
+            'label' => $bucket['label'],
+            'fullLabel' => $bucket['fullLabel'],
+            'sublabel' => $bucket['sublabel'],
+            'intakes' => $countsByBucket['intakes'][$bucket['key']] ?? 0,
+            'adoptions' => $countsByBucket['adoptions'][$bucket['key']] ?? 0,
+            'deaths' => $countsByBucket['deaths'][$bucket['key']] ?? 0,
+            'population' => $bucket['start']->isFuture() ? null : $this->populationOn($timelines, $bucket['end']->min(CarbonImmutable::today())->toDateString()),
+        ], $this->periodBuckets());
 
         return [
             'start' => $start,

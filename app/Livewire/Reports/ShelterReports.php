@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Livewire\Reports;
 
+use App\Livewire\Reports\Concerns\BuildsFinanceReport;
+use App\Livewire\Reports\Concerns\BuildsHealthReport;
+use App\Livewire\Reports\Concerns\BuildsOccupancyReport;
 use App\Livewire\Reports\Concerns\BuildsShelterReport;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +16,7 @@ use Livewire\Component;
 #[Title('Reports')]
 class ShelterReports extends Component
 {
-    use BuildsShelterReport;
+    use BuildsFinanceReport, BuildsHealthReport, BuildsOccupancyReport, BuildsShelterReport;
 
     public function mount(): void
     {
