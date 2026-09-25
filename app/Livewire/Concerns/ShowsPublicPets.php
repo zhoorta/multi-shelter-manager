@@ -25,11 +25,19 @@ trait ShowsPublicPets
      */
     public function showPet(int $petId): void
     {
-        $this->selectedPetId = $this->publicPetsQuery()->findOrFail($petId)->id;
-
-        Pet::query()->withoutGlobalScopes()->whereKey($this->selectedPetId)->toBase()->increment('view_count');
+        $this->selectPet($this->publicPetsQuery()->findOrFail($petId));
 
         Flux::modal('public-pet-details')->show();
+    }
+
+    /**
+     * Select a published pet for the details modal and count the view.
+     */
+    protected function selectPet(Pet $pet): void
+    {
+        $this->selectedPetId = $pet->id;
+
+        Pet::query()->withoutGlobalScopes()->whereKey($this->selectedPetId)->toBase()->increment('view_count');
     }
 
     #[Computed]

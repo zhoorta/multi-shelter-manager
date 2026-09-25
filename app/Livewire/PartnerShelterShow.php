@@ -25,9 +25,24 @@ class PartnerShelterShow extends Component
 
     public Shelter $shelter;
 
+    /**
+     * Set only on the initial request of a shared pet link (?animal=), so
+     * the view opens the details modal once the page has loaded.
+     */
+    protected bool $opensSharedPetOnLoad = false;
+
     public function mount(Shelter $shelter): void
     {
         $this->shelter = $shelter->load('region');
+
+        $sharedPet = request()->filled('animal')
+            ? $this->shelter->publishedPets()->find(request()->integer('animal'))
+            : null;
+
+        if ($sharedPet !== null) {
+            $this->selectPet($sharedPet);
+            $this->opensSharedPetOnLoad = true;
+        }
     }
 
     /**
@@ -49,9 +64,24 @@ class PartnerShelterShow extends Component
     {
         $logoUrl = $this->shelter->logo_path ? url(Storage::url($this->shelter->logo_path)) : null;
 
-        return view('livewire.partner-shelter-show')
+        // A shared pet link (?animal=) previews that pet, not the shelter, on social media.
+        if ($pet = $this->selectedPet()) {
+            $petImage = $pet->images->firstWhere('is_main', true) ?? $pet->images->first();
+
+            return view('livewire.partner-shelter-show', ['opensSharedPetOnLoad' => $this->opensSharedPetOnLoad])
+                ->title($pet->name.' - '.$this->shelter->name)
+                ->layoutData([
+                    'description' => __(':name is looking for a family!', ['name' => $pet->name]).' '.strip_tags((string) $pet->description),
+                    'image' => $petImage ? url(Storage::url($petImage->image_path)) : $logoUrl,
+                    'canonicalUrl' => route('shelters.show', ['shelter' => $this->shelter, 'animal' => $pet->id]),
+                    'feedUrl' => route('shelters.feed', $this->shelter),
+                ]);
+        }
+
+        return view('livewire.partner-shelter-show', ['opensSharedPetOnLoad' => false])
             ->title($this->shelter->name)
             ->layoutData([
+                'feedUrl' => route('shelters.feed', $this->shelter),
                 'description' => filled($this->shelter->description)
                     ? $this->shelter->description
                     : __(':name in :city: meet the animals waiting for adoption.', ['name' => $this->shelter->name, 'city' => $this->shelter->city]),

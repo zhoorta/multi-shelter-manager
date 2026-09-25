@@ -176,3 +176,33 @@ test('clinical notes are mass assignable and persisted', function () {
 
     expect($pet->fresh()->clinical_notes)->toBe('Allergic to penicillin');
 });
+
+test('share caption announces the pet with its facts, plain-text description, link, shelter contacts and hashtags', function () {
+    $shelter = Shelter::factory()->create(['name' => 'Abrigo Feliz', 'phone' => '912345678', 'email' => 'ola@abrigo.test']);
+    $species = Species::factory()->create(['name' => 'Cão']);
+    $breed = Breed::factory()->for($species)->create(['name' => 'Rafeiro']);
+    $pet = Pet::factory()->for($shelter)->create([
+        'species_id' => $species->id,
+        'breed_id' => $breed->id,
+        'name' => 'Bolinha',
+        'gender' => 'male',
+        'description' => '<p>Muito <b>meiga</b>.</p><p>Gosta de &amp; brincar.</p>',
+    ]);
+
+    $caption = $pet->shareCaption('https://focinhos.test/shelters/1?animal=2');
+
+    expect($caption)->toBe(implode("\n\n", [
+        '🐶 Bolinha is looking for a family!',
+        'Cão · Rafeiro · Male',
+        "Muito meiga.\nGosta de & brincar.",
+        'Find out more and adopt: https://focinhos.test/shelters/1?animal=2',
+        "🏠 Abrigo Feliz\n912345678 · ola@abrigo.test",
+        '#adoptdontshop #adoptapet',
+    ]));
+});
+
+test('share caption leaves out the link line when there is no link', function () {
+    $pet = Pet::factory()->create();
+
+    expect($pet->shareCaption())->not->toContain('Find out more and adopt');
+});

@@ -50,6 +50,12 @@
                 </flux:dropdown>
             @endif
 
+            @if ($this->isShareable)
+                <flux:modal.trigger name="share-pet">
+                    <flux:button icon="share" :aria-label="__('Share on social media')" />
+                </flux:modal.trigger>
+            @endif
+
             <flux:button
                 :href="route('pets.print', $pet)"
                 icon="printer"
@@ -58,6 +64,49 @@
             />
         </div>
     </div>
+
+    @if ($this->isShareable)
+        @php
+            $shareImage = $pet->images->firstWhere('is_main', true) ?? $pet->images->first();
+        @endphp
+        <flux:modal name="share-pet" class="w-full max-w-xl">
+            <div class="flex flex-col gap-5">
+                <div>
+                    <flux:heading size="lg">{{ __('Share on social media') }}</flux:heading>
+                    <flux:text class="mt-1">{{ __('Copy the text and the photo to post on Facebook, Instagram or WhatsApp.') }}</flux:text>
+                </div>
+
+                @if (config('app.public_portal_enabled') && $this->shareUrl === null)
+                    <flux:callout icon="information-circle" variant="warning" :text="__('Publish this pet to the portal to include a link to its page in the text.')" />
+                @endif
+
+                <div x-data="{ copied: false }" class="flex flex-col gap-2">
+                    <flux:textarea x-ref="caption" :label="__('Text')" rows="12" readonly>{{ $this->shareCaption }}</flux:textarea>
+                    <div>
+                        <flux:button size="sm" icon="clipboard-document" x-on:click="navigator.clipboard.writeText($refs.caption.value); copied = true; setTimeout(() => copied = false, 2000)">
+                            <span x-text="copied ? @js(__('Copied!')) : @js(__('Copy text'))">{{ __('Copy text') }}</span>
+                        </flux:button>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                    @if ($shareImage)
+                        <flux:button size="sm" icon="arrow-down-tray" :href="\Illuminate\Support\Facades\Storage::url($shareImage->image_path)" download>
+                            {{ __('Download photo') }}
+                        </flux:button>
+                    @endif
+                    @if ($this->shareUrl)
+                        <flux:button size="sm" :href="'https://www.facebook.com/sharer/sharer.php?u='.rawurlencode($this->shareUrl)" target="_blank" rel="noopener">
+                            Facebook
+                        </flux:button>
+                    @endif
+                    <flux:button size="sm" :href="'https://wa.me/?text='.rawurlencode($this->shareCaption)" target="_blank" rel="noopener">
+                        WhatsApp
+                    </flux:button>
+                </div>
+            </div>
+        </flux:modal>
+    @endif
 
     @php
         $mainImage = $pet->images->firstWhere('is_main', true) ?? $pet->images->first();

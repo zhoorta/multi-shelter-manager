@@ -951,3 +951,41 @@ test('viewers cannot delete vaccinations or manage sponsorship payments', functi
     expect($petVaccine->fresh()->trashed())->toBeFalse()
         ->and($payment->fresh()->trashed())->toBeFalse();
 });
+
+test('share panel offers a caption with the pet public link when the pet is published', function () {
+    config(['app.public_portal_enabled' => true]);
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Bolinha', 'publish_to_portal' => true, 'is_adoptable' => true]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $component = Livewire::test(PetShow::class, ['pet' => $pet]);
+
+    $component
+        ->assertSee('Share on social media')
+        ->assertSee('Bolinha is looking for a family!')
+        ->assertSee('Find out more and adopt: '.route('shelters.show', ['shelter' => $shelter, 'animal' => $pet]), false)
+        ->assertDontSee('Publish this pet to the portal to include a link');
+});
+
+test('share panel leaves out the link and says why when the pet is not published', function () {
+    config(['app.public_portal_enabled' => true]);
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['publish_to_portal' => false, 'is_adoptable' => true]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->assertSee('Publish this pet to the portal to include a link')
+        ->assertDontSee('Find out more and adopt');
+});
+
+test('share panel is hidden for pets that are not waiting for adoption', function (array $attributes) {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_adoptable' => true, ...$attributes]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(PetShow::class, ['pet' => $pet])->assertDontSee('Share on social media');
+})->with([
+    'adopted' => [['status' => 'adopted']],
+    'deceased' => [['date_of_death' => '2026-01-10']],
+    'not adoptable' => [['is_adoptable' => false]],
+]);

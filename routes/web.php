@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\RobotsController;
+use App\Http\Controllers\ShelterFeedController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\EnsurePublicPortalEnabled;
 use App\Livewire\About;
@@ -48,6 +49,7 @@ use Illuminate\Support\Facades\Route;
 Route::livewire('/', Welcome::class)->middleware(EnsurePublicPortalEnabled::class)->name('home');
 Route::livewire('shelters', PartnerShelters::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters');
 Route::livewire('shelters/{shelter}', PartnerShelterShow::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.show');
+Route::get('shelters/{shelter}/feed', ShelterFeedController::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.feed');
 Route::livewire('about', About::class)->name('about');
 Route::livewire('privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
 Route::get('robots.txt', RobotsController::class)->name('robots');

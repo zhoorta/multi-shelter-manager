@@ -64,6 +64,32 @@ class PetShow extends Component
     }
 
     /**
+     * Whether the pet can be announced for adoption on social media: only
+     * adoptable pets still waiting for a family.
+     */
+    #[Computed]
+    public function isShareable(): bool
+    {
+        return $this->pet->is_adoptable && $this->pet->status === 'available' && $this->pet->date_of_death === null;
+    }
+
+    /**
+     * Public portal link included in the share caption; null when the pet
+     * is not published to the portal (see Pet::publicUrl()).
+     */
+    #[Computed]
+    public function shareUrl(): ?string
+    {
+        return $this->pet->publicUrl();
+    }
+
+    #[Computed]
+    public function shareCaption(): string
+    {
+        return $this->pet->shareCaption($this->shareUrl());
+    }
+
+    /**
      * Reload the pet's sponsorships and their payments after a payment is
      * created, edited or deleted, so the sponsorship box reflects the
      * change without a full page reload.

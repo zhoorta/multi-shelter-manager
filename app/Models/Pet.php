@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -52,6 +53,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $internal_notes
  * @property string|null $clinical_notes
  * @property int $view_count
+ * @property-read string|null $age_in_words
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int|null $created_by
@@ -124,6 +126,58 @@ class Pet extends Model
         $stripped = trim($stripped);
 
         return trim(strip_tags($stripped)) !== '' ? $stripped : null;
+    }
+
+    /**
+     * Public portal link that opens this pet on its shelter's page, for
+     * sharing on social media. Null when the portal is disabled or the pet
+     * is not published there, since the link would lead nowhere.
+     */
+    public function publicUrl(): ?string
+    {
+        if (! config('app.public_portal_enabled')) {
+            return null;
+        }
+
+        $isPublished = self::query()
+            ->withoutGlobalScope('shelter')
+            ->publishedToPortal()
+            ->whereKey($this->id)
+            ->exists();
+
+        return $isPublished ? route('shelters.show', ['shelter' => $this->shelter_id, 'animal' => $this->id]) : null;
+    }
+
+    /**
+     * Ready-to-post social media text announcing the pet for adoption:
+     * headline, key facts, a plain-text excerpt of the description, the
+     * public link (when given), the shelter's contacts and hashtags.
+     */
+    public function shareCaption(?string $link = null): string
+    {
+        $this->loadMissing(['species', 'breed', 'size', 'shelter']);
+
+        $facts = implode(' · ', array_filter([
+            $this->species->name,
+            $this->breed->name,
+            __(Str::ucfirst($this->gender)),
+            $this->age_in_words,
+            $this->size?->name,
+        ]));
+
+        $description = preg_replace('/<\/(p|li)>|<br\s*\/?>/i', "\n", (string) $this->description) ?? '';
+        $description = trim(preg_replace("/\n{2,}/", "\n", html_entity_decode(strip_tags($description))) ?? '');
+
+        $shelterContacts = collect([$this->shelter->phone, $this->shelter->email])->filter()->implode(' · ');
+
+        return collect([
+            $this->species->emoji.' '.__(':name is looking for a family!', ['name' => $this->name]),
+            $facts,
+            Str::limit($description, 400),
+            $link !== null ? __('Find out more and adopt: :url', ['url' => $link]) : null,
+            '🏠 '.$this->shelter->name.($shelterContacts !== '' ? "\n".$shelterContacts : ''),
+            __('#adoptdontshop #adoptapet'),
+        ])->filter()->implode("\n\n");
     }
 
     /**

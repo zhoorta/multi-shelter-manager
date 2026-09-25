@@ -3,6 +3,8 @@
     $pageDescription = Str::limit(trim(strip_tags($description ?? __('Find a shelter animal waiting for a home. Browse the dogs and cats of our partner shelters and adopt your new best friend.'))), 160);
     // Only the public portal pages opt in to indexing; the backoffice, auth and print pages stay out of search engines.
     $isIndexable = ($indexable ?? false) === true;
+    // Pages whose content depends on a query string (e.g. a shared pet link) pass their own canonical URL.
+    $pageUrl = $canonicalUrl ?? url()->current();
 @endphp
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,13 +19,13 @@
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 
 @if ($isIndexable)
-    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="canonical" href="{{ $pageUrl }}">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
-    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:url" content="{{ $pageUrl }}">
     <meta property="og:locale" content="{{ str_replace('-', '_', app()->getLocale()) }}">
     @if (filled($image ?? null))
         <meta property="og:image" content="{{ $image }}">
@@ -35,6 +37,10 @@
     <meta name="twitter:description" content="{{ $pageDescription }}">
     @if (filled($image ?? null))
         <meta name="twitter:image" content="{{ $image }}">
+    @endif
+
+    @if (filled($feedUrl ?? null))
+        <link rel="alternate" type="application/rss+xml" title="{{ $pageTitle }}" href="{{ $feedUrl }}">
     @endif
 
     @if (filled($structuredData ?? null))
