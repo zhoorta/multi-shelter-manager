@@ -183,7 +183,7 @@ class Member extends Model
 
     /**
      * The next membership fee period to pay: from the day after the last paid
-     * period (or the join date) for one month, quarter or year.
+     * period (or the join date) for one month, quarter, half-year or year.
      *
      * @return array{0: Carbon, 1: Carbon}
      */
@@ -194,6 +194,7 @@ class Member extends Model
         $months = match ($this->membership_fee_frequency) {
             'monthly' => 1,
             'quarterly' => 3,
+            'semiannual' => 6,
             default => 12,
         };
 

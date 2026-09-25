@@ -417,11 +417,12 @@
     "member_active": "Aktiv",
     "member_left": "Ehemaliges Mitglied",
     "member_suspended": "Gesperrt",
-    "monthly": "monatlich",
+    "monthly": "Monatlich",
     "payment_bank_transfer": "Banküberweisung",
     "payment_cash": "Bar",
     "payment_mobile": "Mobile Zahlung",
     "payment_other": "Sonstiges",
-    "quarterly": "vierteljährlich",
-    "yearly": "jährlich"
+    "quarterly": "Vierteljährlich",
+    "yearly": "Jährlich",
+    "semiannual": "Halbjährlich"
 }

@@ -85,6 +85,7 @@
                 <flux:select wire:model="memberMembershipFeeFrequency" :label="__('Frequency')">
                     <flux:select.option value="monthly">{{ __('monthly') }}</flux:select.option>
                     <flux:select.option value="quarterly">{{ __('quarterly') }}</flux:select.option>
+                    <flux:select.option value="semiannual">{{ __('semiannual') }}</flux:select.option>
                     <flux:select.option value="yearly">{{ __('yearly') }}</flux:select.option>
                 </flux:select>
             </div>

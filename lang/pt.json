@@ -417,11 +417,12 @@
     "member_active": "Ativo",
     "member_left": "Ex-sócio",
     "member_suspended": "Suspenso",
-    "monthly": "mensal",
+    "monthly": "Mensal",
     "payment_bank_transfer": "Transferência bancária",
     "payment_cash": "Numerário",
     "payment_mobile": "Pagamento móvel (MB Way)",
     "payment_other": "Outro",
-    "quarterly": "trimestral",
-    "yearly": "anual"
+    "quarterly": "Trimestral",
+    "yearly": "Anual",
+    "semiannual": "Semestral"
 }

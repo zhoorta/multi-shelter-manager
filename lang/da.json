@@ -417,11 +417,12 @@
     "member_active": "Aktiv",
     "member_left": "Tidligere medlem",
     "member_suspended": "Suspenderet",
-    "monthly": "månedlig",
+    "monthly": "Månedlig",
     "payment_bank_transfer": "Bankoverførsel",
     "payment_cash": "Kontant",
     "payment_mobile": "Mobilbetaling",
     "payment_other": "Andet",
-    "quarterly": "kvartalsvis",
-    "yearly": "årlig"
+    "quarterly": "Kvartalsvis",
+    "yearly": "Årlig",
+    "semiannual": "Halvårlig"
 }

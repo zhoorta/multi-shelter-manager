@@ -417,11 +417,12 @@
     "member_active": "Actief",
     "member_left": "Oud-lid",
     "member_suspended": "Geschorst",
-    "monthly": "maandelijks",
+    "monthly": "Maandelijks",
     "payment_bank_transfer": "Bankoverschrijving",
     "payment_cash": "Contant",
     "payment_mobile": "Mobiele betaling",
     "payment_other": "Overig",
-    "quarterly": "per kwartaal",
-    "yearly": "jaarlijks"
+    "quarterly": "Per kwartaal",
+    "yearly": "Jaarlijks",
+    "semiannual": "Halfjaarlijks"
 }

@@ -417,11 +417,12 @@
     "member_active": "Activo",
     "member_left": "Antiguo socio",
     "member_suspended": "Suspendido",
-    "monthly": "mensual",
+    "monthly": "Mensual",
     "payment_bank_transfer": "Transferencia bancaria",
     "payment_cash": "Efectivo",
     "payment_mobile": "Pago móvil",
     "payment_other": "Otro",
-    "quarterly": "trimestral",
-    "yearly": "anual"
+    "quarterly": "Trimestral",
+    "yearly": "Anual",
+    "semiannual": "Semestral"
 }

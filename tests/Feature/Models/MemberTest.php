@@ -145,4 +145,5 @@ test('the next fee period starts after the last paid period and lasts the fee fr
     'first yearly fee starts on the join date' => ['yearly', null, '2026-01-15', '2027-01-14'],
     'monthly fee after a paid month' => ['monthly', '2026-01-31', '2026-02-01', '2026-02-28'],
     'quarterly fee after a paid quarter' => ['quarterly', '2026-03-31', '2026-04-01', '2026-06-30'],
+    'semiannual fee after a paid half-year' => ['semiannual', '2026-06-30', '2026-07-01', '2026-12-31'],
 ]);

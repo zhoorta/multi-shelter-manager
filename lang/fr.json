@@ -417,11 +417,12 @@
     "member_active": "Actif",
     "member_left": "Ancien membre",
     "member_suspended": "Suspendu",
-    "monthly": "mensuelle",
+    "monthly": "Mensuelle",
     "payment_bank_transfer": "Virement bancaire",
     "payment_cash": "Espèces",
     "payment_mobile": "Paiement mobile",
     "payment_other": "Autre",
-    "quarterly": "trimestrielle",
-    "yearly": "annuelle"
+    "quarterly": "Trimestrielle",
+    "yearly": "Annuelle",
+    "semiannual": "Semestrielle"
 }

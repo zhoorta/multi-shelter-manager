@@ -134,11 +134,13 @@ test('populates and updates an existing member', function () {
         ->assertSet('memberName', 'Maria Silva')
         ->assertSet('memberNumber', '4')
         ->set('memberStatus', 'suspended')
+        ->set('memberMembershipFeeFrequency', 'semiannual')
         ->call('saveMember')
         ->assertHasNoErrors()
         ->assertRedirect(route('members.show', $member));
 
     expect($member->fresh())
         ->status->toBe('suspended')
+        ->membership_fee_frequency->toBe('semiannual')
         ->member_number->toBe(4);
 });

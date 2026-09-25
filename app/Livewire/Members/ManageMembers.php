@@ -119,7 +119,7 @@ class ManageMembers extends Component
         $validated = $this->validate([
             'defaultJoiningFee' => ['required', 'numeric', 'min:0', 'max:999999'],
             'defaultMembershipFee' => ['required', 'numeric', 'min:0', 'max:999999'],
-            'defaultMembershipFeeFrequency' => ['required', 'in:monthly,quarterly,yearly'],
+            'defaultMembershipFeeFrequency' => ['required', 'in:monthly,quarterly,semiannual,yearly'],
         ], [], [
             'defaultJoiningFee' => __('Joining Fee'),
             'defaultMembershipFee' => __('Membership Fee'),

@@ -111,7 +111,7 @@ class MemberForm extends Component
             'memberStatus' => ['required', 'in:active,suspended,left'],
             'memberJoiningFee' => ['required', 'numeric', 'min:0', 'max:999999'],
             'memberMembershipFee' => ['required', 'numeric', 'min:0', 'max:999999'],
-            'memberMembershipFeeFrequency' => ['required', 'in:monthly,quarterly,yearly'],
+            'memberMembershipFeeFrequency' => ['required', 'in:monthly,quarterly,semiannual,yearly'],
             'memberVolunteerId' => [
                 'nullable', 'integer',
                 Rule::exists('volunteers', 'id')->where('shelter_id', $shelterId)->withoutTrashed(),
