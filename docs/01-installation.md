@@ -103,7 +103,7 @@ While testing, `MAIL_MAILER=log` writes the e-mails to `storage/logs/laravel.log
 PUBLIC_PORTAL_ENABLED=true
 ```
 
-- `true` — the home page is a public website where visitors can browse the animals available for adoption in every shelter (see [chapter 12](12-public-portal.md)).
+- `true` — the home page is a public website where visitors can browse the animals available for adoption in every shelter (see [chapter 13](13-public-portal.md)).
 - `false` — the application is a back-office only; visiting the home page goes straight to the login page.
 
 ## 1.5 Create the database tables
@@ -194,7 +194,7 @@ These variables are specific to this application.
 
 | Variable | What it does | Default | Production |
 |----------|--------------|---------|------------|
-| `PUBLIC_PORTAL_ENABLED` | `true` shows the public adoption website on the home page ([chapter 12](12-public-portal.md)). `false` makes the app back-office only: the home page redirects to the login page | `false` | Your choice |
+| `PUBLIC_PORTAL_ENABLED` | `true` shows the public adoption website on the home page ([chapter 13](13-public-portal.md)). `false` makes the app back-office only: the home page redirects to the login page | `false` | Your choice |
 | `PRIVACY_CONTACT_EMAIL` | Contact e-mail shown on the **Privacy Policy** page for data-protection requests | Falls back to `MAIL_FROM_ADDRESS` | The e-mail of the person responsible for data protection |
 
 ### Database

@@ -123,6 +123,7 @@ The buttons at the top right are:
 | ✏️ **Edit** | Open the edit form |
 | ❤️ **Heart** | Menu with **Adoption Registration** (hidden once the pet is adopted) and **Sponsorship Registration** (only if the pet is sponsorable) |
 | 🖨 **Printer** | Print the pet's sheet |
+| 🔗 **Share** | Prepare a social media post (only for adoptable, available pets) — see [7.9](#79-sharing-on-social-media) |
 
 ## 7.4 Status is automatic
 
@@ -158,6 +159,17 @@ Edit the pet and fill in the **Death Date**. The pet's status becomes *Deceased*
 ## 7.8 Deleting a pet
 
 The 🗑 icon in the list deletes a pet. Only use it for records created by mistake. For animals that were adopted or died, keep the record so the history is preserved.
+
+## 7.9 Sharing on social media
+
+Pets that are **adoptable and available** have a 🔗 **Share** button at the top of their record. It opens a panel with everything needed to post the pet on Facebook, Instagram or WhatsApp:
+
+- a ready-made **text** with the pet's name, species, breed, gender, age and size, the start of its description, the shelter's name and contacts, and a few hashtags. Click **Copy text** to copy it;
+- **Download photo**, to save the pet's main photo and attach it to the post;
+- **WhatsApp**, to send the text straight away;
+- when the [public portal](13-public-portal.md) is on and the pet is published there, the text also includes a **link to the pet**, and a **Facebook** button shares that link directly.
+
+If the portal is on but the pet is not published yet, the panel reminds you to switch on **Publish to Portal** so the text can include the link.
 
 ---
 

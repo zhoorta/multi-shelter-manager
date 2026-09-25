@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopties</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sponsorschappen</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vrijwilligers</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Leden</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Locaties</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Gebruikers</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Openbaar portaal</a>
@@ -76,6 +77,8 @@
         <p>Zoek op naam, referentie, chip of interne notities en filter op status, diersoort of locatie (locatie, vleugel of hok). Het filter <em>ontbrekende gegevens</em> vindt dieren zonder leeftijd, zonder foto, zonder opnamedatum of zonder locatie, zodat de dossiers compleet blijven.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Afdrukken</h3>
         <p>U kunt het dossier van één dier afdrukken vanaf de pagina van dat dier, of de dierenlijst afdrukken; de afgedrukte lijst gebruikt dezelfde filters die op het scherm actief zijn.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Delen op sociale media</h3>
+        <p>Adopteerbare en beschikbare dieren hebben bovenaan hun pagina een deelknop. Die maakt een tekst met de gegevens van het dier en de contactgegevens van het asiel, klaar om te kopiëren, en laat u de hoofdfoto downloaden om te posten op Facebook, Instagram of WhatsApp. Als het dier op het openbare portaal staat, bevat de tekst een link naar het dier en kunt u het ook rechtstreeks delen op Facebook of WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gezondheid</h3>
         <p>Registreer bij elk dier ziektes (met diagnosedatum, status en behandelnotities), vaccinaties en klinische notities. Formaten worden alleen aangeboden voor diersoorten waarvoor formaten zijn ingesteld.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>De vrijwilligerslijst is doorzoekbaar op naam, telefoon, e-mail, fiscaal nummer of notities, en te filteren op voorkeursdiersoort, beschikbare dag en activiteit &mdash; handig om te zien wie op een bepaalde dag kan helpen.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Leden</h2>
+        <p>Houd de leden van uw vereniging en hun contributie bij. Elk lid heeft een lidnummer, persoons- en contactgegevens, een datum van toetreding, een status en zijn contributie, en kan worden gekoppeld aan zijn vrijwilligersrecord als het om dezelfde persoon gaat.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Contributies</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Inschrijfgeld</strong> &mdash; wordt één keer betaald bij toetreding. Het kan 0 zijn; dan is er niets verschuldigd.</li>
+            <li><strong>Contributie</strong> &mdash; het terugkerende bedrag: Maandelijks, Per kwartaal, Halfjaarlijks of Jaarlijks.</li>
+        </ul>
+        <p>Managers stellen de standaardwaarden van het asiel in met de knop <strong>Contributies</strong> in de ledenlijst. Nieuwe leden krijgen deze waarden, die daarna per lid kunnen worden aangepast.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Lidnummers</h3>
+        <p>Laat het nummer leeg en het volgende wordt automatisch toegekend, of vul er een in om uw bestaande nummering te behouden. Een nummer kan maar één keer per asiel worden gebruikt, en nummers van verwijderde leden worden nooit hergebruikt.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Betalingen</h3>
+        <p>Registreer het inschrijfgeld of een contributie op de pagina van het lid. Een contributie wordt vooraf ingevuld met de volgende te betalen periode (vanaf de dag na de laatst betaalde periode, of vanaf de datum van toetreding) en de contributie van het lid. Elke betaling registreert ook de betaaldatum, het bedrag, de methode (Contant, Bankoverschrijving, Mobiele betaling of Overig) en notities.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Contributie achterstallig</h3>
+        <p>Een actief lid wordt gemarkeerd als <strong>Contributie achterstallig</strong> wanneer het inschrijfgeld niet betaald is of geen contributie vandaag dekt; de markering verdwijnt zodra de betaling is geregistreerd. Zet <strong>Alleen achterstallige contributie</strong> aan in de lijst om te zien wie een herinnering nodig heeft.</p>
+        <p>De status (Actief, Geschorst of Oud-lid) verandert nooit automatisch: pas hem aan in het formulier van het lid, volgens de regels van uw vereniging. De lijst toont standaard actieve leden; gebruik het filter Status om de andere te zien.</p>
+        <p>Managers en medewerkers kunnen leden toevoegen en bewerken en betalingen registreren; alleen managers kunnen leden verwijderen of de standaardwaarden wijzigen. Kijkers hebben geen toegang tot leden.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Locaties</h2>
         <p>Een asiel is in drie niveaus ingedeeld: <strong>locaties</strong> (fysieke vestigingen, met een adres) bevatten <strong>vleugels</strong>, en vleugels bevatten <strong>hokken</strong>. Elk hok heeft een code en een capaciteit.</p>
@@ -134,6 +156,7 @@
             <li>De dieren van alle asielen bekijken die klaar zijn voor adoptie, gefilterd op diersoort, geslacht, maat, ras en regio.</li>
             <li>De kaart van een dier openen om de foto's, de openbare beschrijving en het asiel waar het verblijft te zien.</li>
             <li>De lijst met partnerasielen bekijken, elk met een eigen pagina met contactgegevens, beschrijving, logo en dieren.</li>
+            <li>De link van één dier openen die vanuit de backoffice is gedeeld: die opent direct de fiche van dat dier, en linkvoorbeelden op sociale netwerken tonen de naam, foto en beschrijving.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wat openbaar wordt getoond</h3>
         <p>Een dier verschijnt alleen op het portaal als aan <strong>al</strong> deze voorwaarden is voldaan:</p>

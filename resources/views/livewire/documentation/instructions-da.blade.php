@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptioner</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Fadderskaber</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Frivillige</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Medlemmer</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Anlæg</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Brugere</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Offentlig portal</a>
@@ -76,6 +77,8 @@
         <p>Søg efter navn, reference, mikrochip eller interne noter, og filtrer efter status, art eller placering (anlæg, fløj eller bur). Filteret <em>manglende data</em> finder dyr uden alder, foto, indtagsdato eller placering, så dyrekortene holdes komplette.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Udskrivning</h3>
         <p>Du kan udskrive et enkelt dyrs kort fra dets side eller udskrive dyrelisten; den udskrevne liste bruger de samme filtre, som er aktive på skærmen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Del på sociale medier</h3>
+        <p>Dyr, der kan adopteres og er tilgængelige, har en deleknap øverst på deres side. Den laver en tekst med dyrets oplysninger og internatets kontaktoplysninger, klar til at kopiere, og lader dig downloade hovedbilledet for at poste på Facebook, Instagram eller WhatsApp. Når dyret er offentliggjort på den offentlige portal, indeholder teksten et link til dyret, og du kan også dele det direkte på Facebook eller WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Helbred</h3>
         <p>Registrer sygdomme (med diagnosedato, status og behandlingsnoter), vaccinationer og kliniske noter for hvert dyr. Størrelser tilbydes kun for arter, der har størrelser konfigureret.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>Listen over frivillige kan søges på navn, telefon, e-mail, CPR-/skattenummer eller noter og filtreres efter foretrukken dyreart, ledig dag og aktivitet &mdash; praktisk til at se, hvem der kan hjælpe en bestemt dag.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Medlemmer</h2>
+        <p>Hold styr på foreningens medlemmer og deres kontingent. Hvert medlem har et medlemsnummer, person- og kontaktoplysninger, en indmeldelsesdato, en status og sit kontingent og kan knyttes til sin frivilligpost, når det er samme person.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kontingenter</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Indmeldelsesgebyr</strong> &mdash; betales én gang ved indmeldelse. Det kan være 0, og så skyldes der intet.</li>
+            <li><strong>Kontingent</strong> &mdash; det tilbagevendende beløb: Månedlig, Kvartalsvis, Halvårlig eller Årlig.</li>
+        </ul>
+        <p>Ledere angiver internatets standardværdier med knappen <strong>Kontingenter</strong> i medlemslisten. Nye medlemmer får disse værdier, som derefter kan ændres for hvert medlem.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Medlemsnumre</h3>
+        <p>Lad nummeret stå tomt, så tildeles det næste automatisk, eller skriv et nummer for at beholde den nummerering, du allerede bruger. Et nummer kan kun bruges én gang pr. internat, og slettede medlemmers numre genbruges aldrig.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Betalinger</h3>
+        <p>Registrér indmeldelsesgebyret eller et kontingent på medlemmets side. Et kontingent er udfyldt på forhånd med den næste periode, der skal betales (fra dagen efter den sidst betalte periode eller fra indmeldelsesdatoen), og medlemmets kontingent. Hver betaling registrerer også betalingsdato, beløb, metode (Kontant, Bankoverførsel, Mobilbetaling eller Andet) og noter.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kontingent i restance</h3>
+        <p>Et aktivt medlem markeres med <strong>Kontingent i restance</strong>, når indmeldelsesgebyret ikke er betalt, eller intet kontingent dækker dags dato; markeringen forsvinder, så snart betalingen er registreret. Slå <strong>Kun kontingent i restance</strong> til i listen for at se, hvem der skal have en påmindelse.</p>
+        <p>Status (Aktiv, Suspenderet eller Tidligere medlem) ændres aldrig automatisk: ret den i medlemmets formular efter foreningens regler. Listen viser som standard aktive medlemmer; brug filteret Status for at se de andre.</p>
+        <p>Ledere og personale kan tilføje og redigere medlemmer og registrere betalinger; kun ledere kan slette medlemmer eller ændre standardværdierne. Læsere har ingen adgang til medlemmer.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Anlæg</h2>
         <p>Et internat er organiseret i tre niveauer: <strong>anlæg</strong> (fysiske steder med en adresse) indeholder <strong>fløje</strong>, og fløje indeholder <strong>bure</strong>. Hvert bur har en kode og en kapacitet.</p>
@@ -134,6 +156,7 @@
             <li>Se dyr fra alle internater, der er klar til adoption, filtreret efter dyreart, køn, størrelse, race og region.</li>
             <li>Åbne et dyrs kort for at se billeder, den offentlige beskrivelse og det internat, hvor det bor.</li>
             <li>Se listen over partnerinternater, hver med sin egen side med kontaktoplysninger, beskrivelse, logo og dyr.</li>
+            <li>Åbne et link til et enkelt dyr, der er delt fra backoffice: det åbner dyrets kort direkte, og linkforhåndsvisninger på sociale medier viser navn, billede og beskrivelse.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hvad der vises offentligt</h3>
         <p>Et dyr vises kun på portalen, når <strong>alle</strong> disse betingelser er opfyldt:</p>

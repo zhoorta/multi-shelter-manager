@@ -1,19 +1,21 @@
 # Multi Shelter Manager
 
-**A web application for animal shelters.** Several shelters share one platform, each completely isolated. Manage animals, cages, vaccinations, adoptions, sponsorships and volunteers, and publish your animals on a public adoption website.
+**A web application for animal shelters.** Several shelters share one platform, each completely isolated. Manage animals, cages, vaccinations, adoptions, sponsorships, volunteers and members, and publish your animals on a public adoption website.
 
 ![Dashboard](docs/screenshots/30-dashboard.png)
 
 ## Features
 
 - 🏠 **Multi-shelter** — any number of shelters on one installation, with strict data isolation. Users can belong to several shelters, with a different role in each.
-- 👥 **Roles** — *Admin* (the platform), *Manager* (a shelter and its team), *Staff* (daily work) and *Viewer* (read-only, without adopters' or sponsors' personal data). Accounts are created by e-mail invitation.
+- 👥 **Roles** — *Admin* (the platform), *Manager* (a shelter and its team), *Staff* (daily work) and *Viewer* (read-only, without people's personal data). Accounts are created by e-mail invitation.
 - 🐾 **Pets** — identification, microchip, breed, colours, fur type, size, age, photos, health, clinical and internal notes. Status (available / not available / adopted / deceased) is worked out automatically.
 - 🏢 **Facilities → Wings → Cages** — model your physical space, see occupancy at a glance and always know where every animal is.
 - 💉 **Vaccinations** — given and scheduled vaccines, overdue filters and **daily e-mail reminders**.
 - ❤️ **Adoptions** — adopter details, fee, application status and returns.
 - 🎁 **Sponsorships** — sponsors and their one-off or recurring payments.
 - 🙋 **Volunteers** — skills, preferred species, weekly availability and evaluations.
+- 🪪 **Members** — the association's members, with a one-off joining fee and monthly, quarterly, semiannual or yearly membership fees, payment history and an overdue-fees filter.
+- 📣 **Social media sharing** — a ready-to-post text and photo for each adoptable animal, with a link to its own page on the public portal.
 - 🖨 **Printing** — a sheet per animal and printable filtered lists.
 - 🌍 **Public adoption portal** — a website listing adoptable animals from every shelter, with filters, featured animals and shelter pages. Off by default: turn it on with `PUBLIC_PORTAL_ENABLED=true` in `.env`.
 - 🗣 **10 languages** — English, Portuguese, Spanish, French, German, Italian, Dutch, Polish, Swedish, Danish.
@@ -61,8 +63,9 @@ The full step-by-step guide, with screenshots, is in the [`docs`](docs/README.md
 9. [Adoptions](docs/09-adoptions.md)
 10. [Sponsorships](docs/10-sponsorships.md)
 11. [Volunteers](docs/11-volunteers.md)
-12. [The public adoption portal](docs/12-public-portal.md)
-13. [Personal settings](docs/13-settings.md)
+12. [Members](docs/12-members.md)
+13. [The public adoption portal](docs/13-public-portal.md)
+14. [Personal settings](docs/14-settings.md)
 
 ## Built with
 

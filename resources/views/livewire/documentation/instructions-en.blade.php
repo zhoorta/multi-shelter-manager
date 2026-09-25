@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptions</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sponsorships</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volunteers</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Members</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Facilities</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Users</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Public Portal</a>
@@ -76,6 +77,8 @@
         <p>Search by name, reference, microchip or internal notes, and filter by status, species or location (facility, wing or cage). The <em>missing data</em> filter finds pets with no age, no photo, no check-in date or no location, which helps keep records complete.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Printing</h3>
         <p>You can print a single pet's sheet from its page, or print the pet list; the printed list uses the same filters that are active on screen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sharing on social media</h3>
+        <p>Pets that are adoptable and available have a share button at the top of their page. It prepares a text with the pet's details and your shelter's contacts, ready to copy, and lets you download the main photo to post on Facebook, Instagram or WhatsApp. When the pet is published on the public portal, the text includes a link to the pet, and you can also share it straight to Facebook or WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Health</h3>
         <p>Record sicknesses (with diagnosis date, status and treatment notes), vaccinations and clinical notes on each pet. Sizes are only offered for species that have sizes configured.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>The volunteers list can be searched by name, phone, email, tax number or notes, and filtered by preferred species, day of availability and activity &mdash; handy to find who can help on a given day.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Members</h2>
+        <p>Keep a record of your association's members and their fees. Each member has a member number, personal and contact details, a join date, a status and their fees, and can be linked to their volunteer record when they are the same person.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Fees</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Joining Fee</strong> &mdash; paid once, when joining. It can be 0, in which case nothing is owed.</li>
+            <li><strong>Membership Fee</strong> &mdash; the recurring fee: Monthly, Quarterly, Semiannual or Yearly.</li>
+        </ul>
+        <p>Managers set the shelter's default values with the <strong>Fees</strong> button on the members list. New members start with these values, which can then be changed for each member.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Member numbers</h3>
+        <p>Leave the number empty and the next one is assigned automatically, or type one to keep the numbering you already use. A number can only be used once per shelter, and the numbers of deleted members are never reused.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Payments</h3>
+        <p>Record the joining fee or a membership fee on the member's page. A membership fee comes pre-filled with the next period to pay (from the day after the last paid period, or from the join date) and the member's fee. Each payment also records the payment date, the amount, the method (Cash, Bank transfer, Mobile payment or Other) and notes.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Fees overdue</h3>
+        <p>An active member is marked <strong>Fees overdue</strong> when the joining fee is unpaid or no membership fee covers today; the mark disappears as soon as the payment is recorded. Turn on <strong>Fees overdue only</strong> on the list to see who needs a reminder.</p>
+        <p>The status (Active, Suspended or Former member) never changes automatically: change it in the member's form, following your association's rules. The list shows active members by default; use the Status filter to see the others.</p>
+        <p>Managers and staff can add and edit members and record payments; only managers can delete members or change the default fees. Viewers have no access to members.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Facilities</h2>
         <p>A shelter is organized in three levels: <strong>facilities</strong> (physical sites, with an address) contain <strong>wings</strong>, and wings contain <strong>cages</strong>. Each cage has a code and a capacity.</p>
@@ -134,6 +156,7 @@
             <li>Browse the pets of every shelter that are ready for adoption, filtered by species, gender, size, breed and region.</li>
             <li>Open a pet's card to see its photos, public description and the shelter that houses it.</li>
             <li>See the list of partner shelters, each with its own page showing its contacts, description, logo and pets.</li>
+            <li>Open a link to a single pet shared from the backoffice: it opens that pet's card directly, and link previews on social networks show its name, photo and description.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">What is shown publicly</h3>
         <p>A pet only appears on the portal when <strong>all</strong> of these are true:</p>

@@ -52,7 +52,7 @@ The admin runs the **platform**, not the shelters. The sidebar shows **Dashboard
 | Sicknesses | Diseases, per species |
 | Activities | Tasks volunteers can help with |
 
-The admin does **not** see Pets, Volunteers or Facilities. Those belong to the shelters.
+The admin does **not** see Pets, Volunteers, Members or Facilities. Those belong to the shelters.
 
 ### Manager
 
@@ -66,20 +66,21 @@ A manager runs a shelter. The sidebar shows the shelter's work plus **Users**, s
 | Pets → *one entry per species* (Cats, Dogs, …) | The shelter's animals |
 | Pets → Sponsorships / Adoptions / Vaccinations | Lists across all the shelter's pets |
 | Volunteers | People who help the shelter |
+| Members | The association's members and their fees |
 | Facilities | Buildings, wings and cages |
 | Users | The shelter's team (manager only) |
 
 ### Staff
 
-Staff see the same menus as a manager, **except Users**. They handle the daily work: pets, vaccinations, adoptions, sponsorships, volunteers and facilities.
+Staff see the same menus as a manager, **except Users**. They handle the daily work: pets, vaccinations, adoptions, sponsorships, volunteers, members and facilities.
 
 ### Viewer
 
-A viewer has **read-only** access to a shelter. They see the same menus as staff, **except Sponsorships and Adoptions**, and:
+A viewer has **read-only** access to a shelter. They see the same menus as staff, **except Sponsorships, Adoptions, Volunteers and Members**, and:
 
-- can view pets, vaccinations, volunteers and facilities, and print pet sheets and the pets list;
+- can view pets, vaccinations and facilities, and print pet sheets and the pets list;
 - cannot create, edit or delete anything: the **Create**, **Edit** and **Delete** buttons are hidden;
-- do not see adopters' or sponsors' personal data, so the adoption and sponsorship boxes are hidden on a pet's page;
+- do not see people's personal data: adopters, sponsors, volunteers and members. The adoption and sponsorship boxes are hidden on a pet's page;
 - can still receive the daily vaccination reminder e-mails, if **Vaccination Notifications** is switched on for them.
 
 ## 2.4 Working with more than one shelter
@@ -92,7 +93,7 @@ Every list, counter and form only shows the **active shelter's** data. Data is n
 
 Click your name at the bottom of the sidebar (or the avatar in the top-right corner) to open the user menu:
 
-- **Settings** — your profile, password and appearance (see [chapter 13](13-settings.md)).
+- **Settings** — your profile, password and appearance (see [chapter 14](14-settings.md)).
 - **Log out**.
 
 ---

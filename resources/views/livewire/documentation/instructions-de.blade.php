@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vermittlungen</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Patenschaften</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Ehrenamtliche</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Mitglieder</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Einrichtungen</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Benutzer</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Öffentliches Portal</a>
@@ -76,6 +77,8 @@
         <p>Suchen Sie nach Name, Referenz, Mikrochip oder internen Notizen und filtern Sie nach Status, Tierart oder Standort (Einrichtung, Trakt oder Zwinger). Der Filter <em>fehlende Daten</em> findet Tiere ohne Alter, ohne Foto, ohne Aufnahmedatum oder ohne Standort und hilft so, die Einträge vollständig zu halten.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Drucken</h3>
         <p>Sie können das Datenblatt eines einzelnen Tieres von seiner Seite aus drucken oder die Tierliste drucken; die gedruckte Liste verwendet dieselben Filter, die auf dem Bildschirm aktiv sind.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">In sozialen Medien teilen</h3>
+        <p>Vermittelbare und verfügbare Tiere haben oben auf ihrer Seite eine Teilen-Schaltfläche. Sie bereitet einen Text mit den Angaben zum Tier und den Kontaktdaten des Tierheims zum Kopieren vor und lässt Sie das Hauptfoto herunterladen, um es auf Facebook, Instagram oder WhatsApp zu posten. Ist das Tier im öffentlichen Portal veröffentlicht, enthält der Text einen Link zum Tier, und Sie können es auch direkt auf Facebook oder WhatsApp teilen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gesundheit</h3>
         <p>Erfassen Sie bei jedem Tier Krankheiten (mit Diagnosedatum, Status und Behandlungsnotizen), Impfungen und klinische Notizen. Größen werden nur für Tierarten angeboten, für die Größen eingerichtet sind.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>Die Liste der Ehrenamtlichen lässt sich nach Name, Telefon, E-Mail, Steuernummer oder Notizen durchsuchen und nach bevorzugter Tierart, Verfügbarkeitstag und Tätigkeit filtern &mdash; praktisch, um zu sehen, wer an einem bestimmten Tag helfen kann.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Mitglieder</h2>
+        <p>Führen Sie die Mitglieder Ihres Vereins und ihre Beiträge. Jedes Mitglied hat eine Mitgliedsnummer, persönliche und Kontaktdaten, ein Beitrittsdatum, einen Status und seine Beiträge und kann mit seinem Ehrenamtlichen-Eintrag verknüpft werden, wenn es dieselbe Person ist.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Beiträge</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Aufnahmegebühr</strong> &mdash; wird einmal beim Beitritt gezahlt. Sie kann 0 sein; dann ist nichts geschuldet.</li>
+            <li><strong>Mitgliedsbeitrag</strong> &mdash; der wiederkehrende Betrag: Monatlich, Vierteljährlich, Halbjährlich oder Jährlich.</li>
+        </ul>
+        <p>Manager legen die Standardwerte des Tierheims über die Schaltfläche <strong>Beiträge</strong> in der Mitgliederliste fest. Neue Mitglieder erhalten diese Werte, die danach für jedes Mitglied geändert werden können.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Mitgliedsnummern</h3>
+        <p>Lassen Sie die Nummer leer, wird automatisch die nächste vergeben; oder geben Sie eine ein, um Ihre bisherige Nummerierung beizubehalten. Jede Nummer kann pro Tierheim nur einmal verwendet werden, und Nummern gelöschter Mitglieder werden nie wiederverwendet.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zahlungen</h3>
+        <p>Erfassen Sie die Aufnahmegebühr oder einen Mitgliedsbeitrag auf der Seite des Mitglieds. Ein Mitgliedsbeitrag ist mit dem nächsten zu zahlenden Zeitraum (ab dem Tag nach dem zuletzt bezahlten Zeitraum oder ab dem Beitrittsdatum) und dem Beitrag des Mitglieds vorausgefüllt. Jede Zahlung erfasst außerdem Zahlungsdatum, Betrag, Zahlungsart (Bar, Banküberweisung, Mobile Zahlung oder Sonstiges) und Notizen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Beiträge überfällig</h3>
+        <p>Ein aktives Mitglied wird als <strong>Beiträge überfällig</strong> markiert, wenn die Aufnahmegebühr nicht bezahlt ist oder kein Beitrag den heutigen Tag abdeckt; die Markierung verschwindet, sobald die Zahlung erfasst ist. Aktivieren Sie <strong>Nur überfällige Beiträge</strong> in der Liste, um zu sehen, wer eine Erinnerung braucht.</p>
+        <p>Der Status (Aktiv, Gesperrt oder Ehemaliges Mitglied) ändert sich nie automatisch: Ändern Sie ihn im Formular des Mitglieds, gemäß den Regeln Ihres Vereins. Die Liste zeigt standardmäßig aktive Mitglieder; mit dem Filter Status sehen Sie die anderen.</p>
+        <p>Manager und Mitarbeitende können Mitglieder anlegen und bearbeiten und Zahlungen erfassen; nur Manager können Mitglieder löschen oder die Standardwerte ändern. Leser haben keinen Zugriff auf Mitglieder.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Einrichtungen</h2>
         <p>Ein Tierheim ist in drei Ebenen gegliedert: <strong>Einrichtungen</strong> (physische Standorte mit Adresse) enthalten <strong>Trakte</strong>, und Trakte enthalten <strong>Zwinger</strong>. Jeder Zwinger hat einen Code und eine Kapazität.</p>
@@ -134,6 +156,7 @@
             <li>Die vermittlungsbereiten Tiere aller Tierheime durchsuchen, gefiltert nach Tierart, Geschlecht, Größe, Rasse und Region.</li>
             <li>Die Karte eines Tieres öffnen, um Fotos, öffentliche Beschreibung und das betreuende Tierheim zu sehen.</li>
             <li>Die Liste der Partner-Tierheime ansehen, jedes mit einer eigenen Seite mit Kontakt, Beschreibung, Logo und Tieren.</li>
+            <li>Den aus dem Backoffice geteilten Link eines einzelnen Tieres öffnen: Er öffnet direkt die Karte dieses Tieres, und Linkvorschauen in sozialen Netzwerken zeigen Name, Foto und Beschreibung.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Was öffentlich angezeigt wird</h3>
         <p>Ein Tier erscheint nur dann im Portal, wenn <strong>alle</strong> diese Bedingungen erfüllt sind:</p>

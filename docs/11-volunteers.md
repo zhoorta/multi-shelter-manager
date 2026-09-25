@@ -1,8 +1,8 @@
 # 11. Volunteers
 
-[← Sponsorships](10-sponsorships.md) · [Documentation index](README.md) · [Next: The public adoption portal →](12-public-portal.md)
+[← Sponsorships](10-sponsorships.md) · [Documentation index](README.md) · [Next: Members →](12-members.md)
 
-> **Who:** Manager and Staff. Viewers can open these pages but cannot change anything.
+> **Who:** Manager and Staff; only managers can add, edit or delete volunteers. Viewers cannot open these pages, because they hold personal data.
 
 Keep a record of the people who help your shelter: what they do, which animals they prefer, and when they are available. Volunteers are **not** user accounts. They don't log in to the application.
 
@@ -74,4 +74,4 @@ Click 👁 on the list to open the record. **Edit** changes it.
 
 ---
 
-[← Sponsorships](10-sponsorships.md) · [Documentation index](README.md) · [Next: The public adoption portal →](12-public-portal.md)
+[← Sponsorships](10-sponsorships.md) · [Documentation index](README.md) · [Next: Members →](12-members.md)

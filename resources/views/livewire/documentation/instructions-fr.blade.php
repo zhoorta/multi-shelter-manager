@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptions</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Parrainages</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Bénévoles</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Membres</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Installations</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utilisateurs</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portail Public</a>
@@ -76,6 +77,8 @@
         <p>Recherchez par nom, référence, puce ou notes internes, et filtrez par statut, espèce ou emplacement (installation, aile ou cage). Le filtre <em>données manquantes</em> trouve les animaux sans âge, sans photo, sans date d'arrivée ou sans emplacement, ce qui aide à garder les fiches complètes.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impression</h3>
         <p>Vous pouvez imprimer la fiche d'un animal depuis sa page, ou imprimer la liste des animaux ; la liste imprimée utilise les mêmes filtres que ceux actifs à l'écran.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Partager sur les réseaux sociaux</h3>
+        <p>Les animaux adoptables et disponibles ont un bouton de partage en haut de leur page. Il prépare un texte avec les informations de l'animal et les coordonnées du refuge, prêt à copier, et permet de télécharger la photo principale pour publier sur Facebook, Instagram ou WhatsApp. Quand l'animal est publié sur le portail public, le texte inclut un lien vers l'animal, et vous pouvez aussi le partager directement sur Facebook ou WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Santé</h3>
         <p>Enregistrez pour chaque animal les maladies (avec date de diagnostic, statut et notes de traitement), les vaccinations et les notes cliniques. Les tailles ne sont proposées que pour les espèces qui ont des tailles configurées.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>La liste des bénévoles peut être recherchée par nom, téléphone, email, numéro fiscal ou notes, et filtrée par espèce préférée, jour de disponibilité et activité &mdash; pratique pour savoir qui peut aider un jour donné.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Membres</h2>
+        <p>Tenez le registre des membres de l'association et de leurs cotisations. Chaque membre a un numéro de membre, des coordonnées personnelles, une date d'adhésion, un statut et ses cotisations, et peut être relié à sa fiche de bénévole lorsqu'il s'agit de la même personne.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Cotisations</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Droit d'entrée</strong> &mdash; payé une seule fois, à l'adhésion. Il peut être de 0, et dans ce cas rien n'est dû.</li>
+            <li><strong>Cotisation</strong> &mdash; le montant périodique : Mensuelle, Trimestrielle, Semestrielle ou Annuelle.</li>
+        </ul>
+        <p>Les gestionnaires définissent les valeurs par défaut du refuge avec le bouton <strong>Cotisations</strong> de la liste des membres. Les nouveaux membres reçoivent ces valeurs, qui peuvent ensuite être modifiées pour chaque membre.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Numéros de membre</h3>
+        <p>Laissez le numéro vide pour attribuer automatiquement le suivant, ou saisissez-en un pour garder la numérotation que vous utilisez déjà. Un numéro ne peut être utilisé qu'une fois par refuge, et les numéros des membres supprimés ne sont jamais réutilisés.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Paiements</h3>
+        <p>Enregistrez le droit d'entrée ou une cotisation sur la page du membre. Une cotisation est préremplie avec la prochaine période à payer (à partir du lendemain de la dernière période payée, ou de la date d'adhésion) et avec la cotisation du membre. Chaque paiement enregistre aussi la date de paiement, le montant, le mode (Espèces, Virement bancaire, Paiement mobile ou Autre) et des notes.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Cotisations en retard</h3>
+        <p>Un membre actif est marqué <strong>Cotisations en retard</strong> quand le droit d'entrée n'est pas payé ou qu'aucune cotisation ne couvre la date du jour ; la marque disparaît dès que le paiement est enregistré. Activez <strong>Cotisations en retard uniquement</strong> dans la liste pour voir à qui envoyer un rappel.</p>
+        <p>Le statut (Actif, Suspendu ou Ancien membre) ne change jamais automatiquement : modifiez-le dans le formulaire du membre, selon les règles de l'association. La liste affiche les membres actifs par défaut ; utilisez le filtre Statut pour voir les autres.</p>
+        <p>Les gestionnaires et le personnel peuvent ajouter et modifier des membres et enregistrer des paiements ; seuls les gestionnaires peuvent supprimer des membres ou modifier les valeurs par défaut. Les utilisateurs en consultation n'ont pas accès aux membres.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Installations</h2>
         <p>Un refuge est organisé en trois niveaux : les <strong>installations</strong> (sites physiques, avec une adresse) contiennent des <strong>ailes</strong>, et les ailes contiennent des <strong>cages</strong>. Chaque cage a un code et une capacité.</p>
@@ -134,6 +156,7 @@
             <li>Parcourir les animaux de tous les refuges prêts à être adoptés, filtrés par espèce, sexe, taille, race et région.</li>
             <li>Ouvrir la fiche d'un animal pour voir ses photos, sa description publique et le refuge qui l'accueille.</li>
             <li>Consulter la liste des refuges partenaires, chacun avec sa propre page présentant ses coordonnées, sa description, son logo et ses animaux.</li>
+            <li>Ouvrir le lien d'un animal partagé depuis le backoffice : il ouvre directement la fiche de cet animal, et les aperçus sur les réseaux sociaux affichent son nom, sa photo et sa description.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ce qui est affiché publiquement</h3>
         <p>Un animal n'apparaît sur le portail que si <strong>toutes</strong> ces conditions sont réunies :</p>

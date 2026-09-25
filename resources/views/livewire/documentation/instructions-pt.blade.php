@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoções</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Apadrinhamentos</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntários</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sócios</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instalações</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utilizadores</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal Público</a>
@@ -76,6 +77,8 @@
         <p>Pesquise por nome, referência, microchip ou notas internas, e filtre por estado, espécie ou localização (instalação, ala ou jaula). O filtro de <em>dados em falta</em> encontra animais sem idade, sem fotografia, sem data de entrada ou sem localização, o que ajuda a manter as fichas completas.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impressão</h3>
         <p>Pode imprimir a ficha de um animal a partir da sua página, ou imprimir a lista de animais; a lista impressa usa os mesmos filtros que estão ativos no ecrã.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Partilhar nas redes sociais</h3>
+        <p>Os animais adotáveis e disponíveis têm um botão de partilha no topo da sua página. Prepara um texto com os dados do animal e os contactos do abrigo, pronto a copiar, e permite descarregar a fotografia principal para publicar no Facebook, Instagram ou WhatsApp. Quando o animal está publicado no portal público, o texto inclui uma ligação para o animal, e também pode partilhá-lo diretamente no Facebook ou no WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Saúde</h3>
         <p>Registe doenças (com data de diagnóstico, estado e notas de tratamento), vacinações e notas clínicas em cada animal. Os tamanhos só são apresentados para espécies que tenham tamanhos configurados.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>A lista de voluntários pode ser pesquisada por nome, telefone, email, NIF ou notas, e filtrada por espécie preferida, dia de disponibilidade e atividade &mdash; útil para saber quem pode ajudar num determinado dia.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Sócios</h2>
+        <p>Mantenha o registo dos sócios da associação e das suas quotas. Cada sócio tem um número de sócio, dados pessoais e de contacto, uma data de adesão, um estado e as suas quotas, e pode ser ligado ao seu registo de voluntário quando é a mesma pessoa.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Quotas e joia</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Joia</strong> &mdash; paga uma única vez, na adesão. Pode ser 0, e nesse caso não há nada a pagar.</li>
+            <li><strong>Quota</strong> &mdash; o valor periódico: Mensal, Trimestral, Semestral ou Anual.</li>
+        </ul>
+        <p>Os gestores definem os valores por omissão do abrigo no botão <strong>Quotas e joia</strong> da lista de sócios. Os novos sócios começam com esses valores, que depois podem ser alterados em cada sócio.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Números de sócio</h3>
+        <p>Deixe o número vazio e é atribuído automaticamente o seguinte, ou escreva um número para manter a numeração que já usa. Cada número só pode ser usado uma vez no abrigo, e os números de sócios apagados nunca são reutilizados.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pagamentos</h3>
+        <p>Registe a joia ou uma quota na página do sócio. A quota vem preenchida com o próximo período a pagar (a partir do dia seguinte ao último período pago, ou da data de adesão) e com o valor da quota do sócio. Cada pagamento regista também a data de pagamento, o valor, o método (Numerário, Transferência bancária, Pagamento móvel (MB Way) ou Outro) e notas.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Quotas em atraso</h3>
+        <p>Um sócio ativo fica marcado com <strong>Quotas em atraso</strong> quando a joia não está paga ou nenhuma quota cobre o dia de hoje; a marca desaparece assim que o pagamento é registado. Ative <strong>Só quotas em atraso</strong> na lista para ver a quem enviar um lembrete.</p>
+        <p>O estado (Ativo, Suspenso ou Ex-sócio) nunca muda automaticamente: altere-o no formulário do sócio, de acordo com as regras da associação. A lista mostra os sócios ativos por omissão; use o filtro Estado para ver os restantes.</p>
+        <p>Gestores e funcionários podem adicionar e editar sócios e registar pagamentos; só os gestores podem apagar sócios ou alterar os valores por omissão. Os utilizadores de consulta não têm acesso aos sócios.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Instalações</h2>
         <p>Um abrigo está organizado em três níveis: as <strong>instalações</strong> (locais físicos, com morada) contêm <strong>alas</strong>, e as alas contêm <strong>jaulas</strong>. Cada jaula tem um código e uma capacidade.</p>
@@ -134,6 +156,7 @@
             <li>Ver os animais de todos os abrigos que estão prontos para adoção, filtrando por espécie, género, tamanho, raça e distrito.</li>
             <li>Abrir a ficha de um animal para ver as fotografias, a descrição pública e o abrigo onde está.</li>
             <li>Ver a lista de abrigos parceiros, cada um com a sua página com contactos, descrição, logótipo e animais.</li>
+            <li>Abrir a ligação de um animal partilhada a partir do backoffice: abre diretamente a ficha desse animal, e as pré-visualizações nas redes sociais mostram o nome, a fotografia e a descrição.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">O que é mostrado publicamente</h3>
         <p>Um animal só aparece no portal quando <strong>todas</strong> estas condições se verificam:</p>

@@ -33,7 +33,7 @@ For each user the list shows:
 3. In the **Shelters** section, choose the **Shelter** and the **Role**:
    - **Shelter Manager** — can do everything in that shelter, including inviting users;
    - **Staff / Worker** — can do the daily work, but cannot manage users;
-   - **Viewer (read-only)** — can see the shelter's pets, vaccinations, volunteers and facilities and print pet sheets, but cannot change anything or see adopters' and sponsors' personal data.
+   - **Viewer (read-only)** — can see the shelter's pets, vaccinations and facilities and print pet sheets, but cannot change anything or see people's personal data (adopters, sponsors, volunteers and members).
 4. Switch on **Vaccination Notifications** if this person should receive the daily e-mail about vaccinations due soon (see [chapter 8](08-vaccinations.md)).
 5. To give the person access to **more shelters**, click **Add shelter** and repeat step 3. The bin icon removes a row.
 6. Click **Invite User**.

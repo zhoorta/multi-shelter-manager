@@ -16,13 +16,14 @@ Read the chapters in order the first time. Each one builds on the previous.
 | 8 | [Vaccinations](08-vaccinations.md) | Manager, Staff, Viewer (read-only) |
 | 9 | [Adoptions](09-adoptions.md) | Manager, Staff |
 | 10 | [Sponsorships](10-sponsorships.md) | Manager, Staff |
-| 11 | [Volunteers](11-volunteers.md) | Manager, Staff, Viewer (read-only) |
-| 12 | [The public adoption portal](12-public-portal.md) | Everyone |
-| 13 | [Personal settings](13-settings.md) | Everyone |
+| 11 | [Volunteers](11-volunteers.md) | Manager, Staff |
+| 12 | [Members](12-members.md) | Manager, Staff |
+| 13 | [The public adoption portal](13-public-portal.md) | Everyone |
+| 14 | [Personal settings](14-settings.md) | Everyone |
 
 ## The big picture
 
-Multi Shelter Manager is a web application that lets **several animal shelters** work on the same platform, each one completely isolated from the others. A shelter only ever sees its own animals, facilities, volunteers and records.
+Multi Shelter Manager is a web application that lets **several animal shelters** work on the same platform, each one completely isolated from the others. A shelter only ever sees its own animals, facilities, volunteers, members and records.
 
 ```
 Platform (Admin)
@@ -32,7 +33,8 @@ Platform (Admin)
        ├── Users (Managers, Staff and Viewers)
        ├── Facilities ─► Wings ─► Cages ─► Pets
        ├── Pets ─► photos · vaccinations · sicknesses · adoptions · sponsorships
-       └── Volunteers
+       ├── Volunteers
+       └── Members ─► joining fee · membership fee payments
 ```
 
 There are four roles:
@@ -41,8 +43,8 @@ There are four roles:
 |------|--------------|
 | **Admin** | Runs the platform: creates shelters, maintains the shared lookup tables, invites users. Does **not** manage pets or facilities. |
 | **Manager** | Runs one (or more) shelters: everything Staff can do, plus inviting and managing that shelter's users. |
-| **Staff** | Does the daily work of a shelter: pets, vaccinations, adoptions, sponsorships, volunteers and facilities. |
-| **Viewer** | Read-only access to a shelter: sees pets, vaccinations, volunteers and facilities and can print pet sheets, but cannot change anything and does not see adopters' or sponsors' personal data. |
+| **Staff** | Does the daily work of a shelter: pets, vaccinations, adoptions, sponsorships, volunteers, members and facilities. |
+| **Viewer** | Read-only access to a shelter: sees pets, vaccinations and facilities and can print pet sheets, but cannot change anything and does not see people's personal data (adopters, sponsors, volunteers and members). |
 
 ## The recommended order to get started
 
@@ -51,7 +53,7 @@ There are four roles:
 3. The admin **creates the shelters** and fills in the **lookup tables** ([chapter 3](03-administration.md)).
 4. The admin **invites each shelter's manager** ([chapter 4](04-users-and-invitations.md)).
 5. The manager **builds the facilities, wings and cages** ([chapter 5](05-facilities.md)) and invites the staff.
-6. The team **registers the pets** ([chapter 7](07-pets.md)) and starts recording vaccinations, adoptions, sponsorships and volunteers.
+6. The team **registers the pets** ([chapter 7](07-pets.md)) and starts recording vaccinations, adoptions, sponsorships, volunteers and members.
 
 > **Tip:** The same guide, in short form, is available inside the application under **Documentation** in the sidebar, in every supported language.
 >

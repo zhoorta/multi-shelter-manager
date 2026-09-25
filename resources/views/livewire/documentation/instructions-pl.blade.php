@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopcje</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopcje wirtualne</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Wolontariusze</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Członkowie</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Obiekty</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Użytkownicy</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal publiczny</a>
@@ -76,6 +77,8 @@
         <p>Szukaj po imieniu, numerze, mikroczipie lub notatkach wewnętrznych i filtruj według statusu, gatunku lub lokalizacji (obiekt, skrzydło lub kojec). Filtr <em>brakujące dane</em> wyszukuje zwierzęta bez wieku, bez zdjęcia, bez daty przyjęcia lub bez lokalizacji, co pomaga utrzymać kompletne karty.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Drukowanie</h3>
         <p>Możesz wydrukować kartę pojedynczego zwierzęcia z jego strony albo listę zwierząt; wydrukowana lista używa tych samych filtrów, które są aktywne na ekranie.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Udostępnianie w mediach społecznościowych</h3>
+        <p>Zwierzęta, które można adoptować i są dostępne, mają u góry swojej strony przycisk udostępniania. Przygotowuje on tekst z danymi zwierzęcia i kontaktami schroniska, gotowy do skopiowania, i pozwala pobrać główne zdjęcie, aby opublikować je na Facebooku, Instagramie lub WhatsAppie. Gdy zwierzę jest opublikowane na portalu publicznym, tekst zawiera link do zwierzęcia, a ponadto możesz udostępnić je bezpośrednio na Facebooku lub WhatsAppie.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zdrowie</h3>
         <p>Rejestruj przy każdym zwierzęciu choroby (z datą diagnozy, statusem i notatkami o leczeniu), szczepienia i notatki kliniczne. Wielkości są dostępne tylko dla gatunków, dla których je skonfigurowano.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>Listę wolontariuszy można przeszukiwać po imieniu i nazwisku, telefonie, e-mailu, numerze podatkowym lub notatkach oraz filtrować według preferowanego gatunku, dnia dostępności i zajęcia &mdash; przydatne, by sprawdzić, kto może pomóc danego dnia.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Członkowie</h2>
+        <p>Prowadź ewidencję członków stowarzyszenia i ich składek. Każdy członek ma numer członkowski, dane osobowe i kontaktowe, datę przystąpienia, status i swoje składki, a jeśli jest tą samą osobą co wolontariusz, można go powiązać z jego kartą wolontariusza.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Składki</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Wpisowe</strong> &mdash; płacone jednorazowo przy przystąpieniu. Może wynosić 0 i wtedy nic nie jest należne.</li>
+            <li><strong>Składka członkowska</strong> &mdash; kwota okresowa: Miesięcznie, Kwartalnie, Półrocznie lub Rocznie.</li>
+        </ul>
+        <p>Kierownicy ustawiają wartości domyślne schroniska przyciskiem <strong>Składki</strong> na liście członków. Nowi członkowie otrzymują te wartości, które później można zmienić dla każdego członka.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Numery członkowskie</h3>
+        <p>Pozostaw numer pusty, a kolejny zostanie nadany automatycznie, albo wpisz numer, aby zachować dotychczasową numerację. Każdy numer może być użyty w schronisku tylko raz, a numery usuniętych członków nigdy nie są używane ponownie.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Płatności</h3>
+        <p>Zarejestruj wpisowe lub składkę na stronie członka. Składka jest wstępnie wypełniona kolejnym okresem do opłacenia (od dnia po ostatnim opłaconym okresie lub od daty przystąpienia) i kwotą składki członka. Każda płatność zapisuje też datę płatności, kwotę, metodę (Gotówka, Przelew bankowy, Płatność mobilna lub Inne) i notatki.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zaległe składki</h3>
+        <p>Aktywny członek jest oznaczany jako <strong>Zaległe składki</strong>, gdy wpisowe nie jest opłacone lub żadna składka nie obejmuje dnia dzisiejszego; oznaczenie znika, gdy tylko płatność zostanie zarejestrowana. Włącz <strong>Tylko zaległe składki</strong> na liście, aby zobaczyć, komu wysłać przypomnienie.</p>
+        <p>Status (Aktywny, Zawieszony lub Były członek) nigdy nie zmienia się automatycznie: zmień go w formularzu członka, zgodnie z zasadami stowarzyszenia. Lista domyślnie pokazuje aktywnych członków; użyj filtra Status, aby zobaczyć pozostałych.</p>
+        <p>Kierownicy i pracownicy mogą dodawać i edytować członków oraz rejestrować płatności; tylko kierownicy mogą usuwać członków lub zmieniać wartości domyślne. Użytkownicy z rolą podglądu nie mają dostępu do członków.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Obiekty</h2>
         <p>Schronisko jest zorganizowane na trzech poziomach: <strong>obiekty</strong> (fizyczne lokalizacje z adresem) zawierają <strong>skrzydła</strong>, a skrzydła zawierają <strong>kojce</strong>. Każdy kojec ma kod i pojemność.</p>
@@ -134,6 +156,7 @@
             <li>Przeglądać zwierzęta ze wszystkich schronisk gotowe do adopcji, filtrując według gatunku, płci, rozmiaru, rasy i regionu.</li>
             <li>Otworzyć kartę zwierzęcia, by zobaczyć zdjęcia, publiczny opis i schronisko, w którym przebywa.</li>
             <li>Zobaczyć listę schronisk partnerskich, każde z własną stroną z kontaktem, opisem, logo i zwierzętami.</li>
+            <li>Otworzyć link do pojedynczego zwierzęcia udostępniony z panelu: otwiera on bezpośrednio kartę tego zwierzęcia, a podglądy linków w mediach społecznościowych pokazują jego imię, zdjęcie i opis.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Co jest widoczne publicznie</h3>
         <p>Zwierzę pojawia się w portalu tylko wtedy, gdy spełnione są <strong>wszystkie</strong> te warunki:</p>

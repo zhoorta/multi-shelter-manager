@@ -18,7 +18,7 @@ test('authenticated users of any role can visit the documentation page', functio
 
     $response->assertOk();
     $response->assertSee('Application Instructions');
-    $response->assertSeeInOrder(['Getting Started', 'Recommended setup order', 'Finding your way around', 'Status', 'Options and location', 'Vaccinations', 'Adoptions', 'Sponsorships', 'Volunteers', 'Facilities', 'Public Portal', 'What is shown publicly', 'Administration', 'Regions', 'Settings']);
+    $response->assertSeeInOrder(['Getting Started', 'Recommended setup order', 'Finding your way around', 'Status', 'Options and location', 'Sharing on social media', 'Vaccinations', 'Adoptions', 'Sponsorships', 'Volunteers', 'Members', 'Member numbers', 'Fees overdue', 'Facilities', 'Public Portal', 'What is shown publicly', 'Administration', 'Regions', 'Settings']);
 })->with(['admin', 'manager', 'staff', 'viewer']);
 
 test('the documentation content follows the active locale', function () {
@@ -33,6 +33,8 @@ test('the documentation content follows the active locale', function () {
     $response->assertSee('Instruções da Aplicação');
     $response->assertSee('Ordem de configuração recomendada');
     $response->assertSee('O que é mostrado publicamente');
+    $response->assertSee('Quotas em atraso');
+    $response->assertSee('Partilhar nas redes sociais');
     $response->assertDontSee('Recommended setup order');
 
     app()->setLocale('en');

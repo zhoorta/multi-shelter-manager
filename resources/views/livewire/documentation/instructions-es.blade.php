@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopciones</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Apadrinamientos</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntarios</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Socios</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instalaciones</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Usuarios</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal Público</a>
@@ -76,6 +77,8 @@
         <p>Busque por nombre, referencia, microchip o notas internas, y filtre por estado, especie o ubicación (instalación, ala o jaula). El filtro de <em>datos en falta</em> encuentra animales sin edad, sin fotografía, sin fecha de ingreso o sin ubicación, lo que ayuda a mantener las fichas completas.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impresión</h3>
         <p>Puede imprimir la ficha de un animal desde su página, o imprimir la lista de animales; la lista impresa usa los mismos filtros que están activos en pantalla.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Compartir en redes sociales</h3>
+        <p>Los animales adoptables y disponibles tienen un botón de compartir en la parte superior de su página. Prepara un texto con los datos del animal y los contactos del refugio, listo para copiar, y permite descargar la foto principal para publicar en Facebook, Instagram o WhatsApp. Cuando el animal está publicado en el portal público, el texto incluye un enlace al animal y también puede compartirlo directamente en Facebook o WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Salud</h3>
         <p>Registre en cada animal las enfermedades (con fecha de diagnóstico, estado y notas de tratamiento), las vacunaciones y las notas clínicas. Los tamaños solo se ofrecen para las especies que tienen tamaños configurados.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>La lista de voluntarios se puede buscar por nombre, teléfono, email, NIF o notas, y filtrar por especie preferida, día de disponibilidad y actividad &mdash; útil para saber quién puede ayudar un día concreto.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Socios</h2>
+        <p>Lleve el registro de los socios de la asociación y de sus cuotas. Cada socio tiene un número de socio, datos personales y de contacto, una fecha de alta, un estado y sus cuotas, y puede vincularse a su ficha de voluntario cuando es la misma persona.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Cuotas</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Cuota de inscripción</strong> &mdash; se paga una sola vez, al darse de alta. Puede ser 0, y en ese caso no se debe nada.</li>
+            <li><strong>Cuota</strong> &mdash; el importe periódico: Mensual, Trimestral, Semestral o Anual.</li>
+        </ul>
+        <p>Los gestores definen los valores por defecto del refugio con el botón <strong>Cuotas</strong> de la lista de socios. Los nuevos socios empiezan con esos valores, que luego se pueden cambiar en cada socio.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Números de socio</h3>
+        <p>Deje el número vacío y se asigna automáticamente el siguiente, o escriba uno para mantener la numeración que ya usa. Cada número solo puede usarse una vez en el refugio, y los números de socios eliminados nunca se reutilizan.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pagos</h3>
+        <p>Registre la cuota de inscripción o una cuota en la página del socio. La cuota viene rellenada con el próximo periodo a pagar (desde el día siguiente al último periodo pagado, o desde la fecha de alta) y con la cuota del socio. Cada pago registra también la fecha de pago, el importe, el método (Efectivo, Transferencia bancaria, Pago móvil u Otro) y notas.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Cuotas pendientes</h3>
+        <p>Un socio activo queda marcado con <strong>Cuotas pendientes</strong> cuando la cuota de inscripción no está pagada o ninguna cuota cubre el día de hoy; la marca desaparece en cuanto se registra el pago. Active <strong>Solo cuotas pendientes</strong> en la lista para ver a quién enviar un recordatorio.</p>
+        <p>El estado (Activo, Suspendido o Antiguo socio) nunca cambia automáticamente: cámbielo en el formulario del socio, según las normas de la asociación. La lista muestra los socios activos por defecto; use el filtro Estado para ver los demás.</p>
+        <p>Gestores y personal pueden añadir y editar socios y registrar pagos; solo los gestores pueden eliminar socios o cambiar los valores por defecto. Los usuarios de consulta no tienen acceso a los socios.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Instalaciones</h2>
         <p>Un refugio se organiza en tres niveles: las <strong>instalaciones</strong> (ubicaciones físicas, con dirección) contienen <strong>alas</strong>, y las alas contienen <strong>jaulas</strong>. Cada jaula tiene un código y una capacidad.</p>
@@ -134,6 +156,7 @@
             <li>Ver los animales de todos los refugios que están listos para adopción, filtrando por especie, sexo, tamaño, raza y región.</li>
             <li>Abrir la ficha de un animal para ver sus fotos, su descripción pública y el refugio donde está.</li>
             <li>Ver la lista de refugios colaboradores, cada uno con su propia página con contactos, descripción, logotipo y animales.</li>
+            <li>Abrir el enlace de un animal compartido desde el backoffice: abre directamente la ficha de ese animal, y las vistas previas en las redes sociales muestran su nombre, foto y descripción.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Qué se muestra públicamente</h3>
         <p>Un animal solo aparece en el portal cuando se cumplen <strong>todas</strong> estas condiciones:</p>

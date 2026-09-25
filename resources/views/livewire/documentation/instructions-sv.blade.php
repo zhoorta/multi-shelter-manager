@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptioner</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Fadderskap</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontärer</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Medlemmar</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Anläggningar</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Användare</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Öppen portal</a>
@@ -76,6 +77,8 @@
         <p>Sök på namn, referens, mikrochip eller interna anteckningar och filtrera på status, art eller placering (anläggning, flygel eller bur). Filtret <em>saknade uppgifter</em> hittar djur utan ålder, foto, intagsdatum eller placering, vilket hjälper dig att hålla djurkorten kompletta.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Utskrift</h3>
         <p>Du kan skriva ut ett enskilt djurs kort från dess sida, eller skriva ut djurlistan; den utskrivna listan använder samma filter som är aktiva på skärmen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Dela i sociala medier</h3>
+        <p>Djur som kan adopteras och är tillgängliga har en delningsknapp högst upp på sin sida. Den förbereder en text med djurets uppgifter och djurhemmets kontaktuppgifter, klar att kopiera, och låter dig ladda ner huvudfotot för att publicera på Facebook, Instagram eller WhatsApp. När djuret är publicerat på den offentliga portalen innehåller texten en länk till djuret, och du kan även dela det direkt på Facebook eller WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hälsa</h3>
         <p>Registrera sjukdomar (med diagnosdatum, status och behandlingsanteckningar), vaccinationer och kliniska anteckningar för varje djur. Storlekar erbjuds bara för arter som har storlekar konfigurerade.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>Volontärlistan kan sökas på namn, telefon, e-post, personnummer eller anteckningar och filtreras på föredragen djurart, tillgänglig dag och aktivitet &mdash; praktiskt för att se vem som kan hjälpa till en viss dag.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Medlemmar</h2>
+        <p>För register över föreningens medlemmar och deras avgifter. Varje medlem har ett medlemsnummer, person- och kontaktuppgifter, ett anslutningsdatum, en status och sina avgifter, och kan kopplas till sin volontärpost när det är samma person.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Avgifter</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Inträdesavgift</strong> &mdash; betalas en gång, vid anslutning. Den kan vara 0, och då är ingenting skyldigt.</li>
+            <li><strong>Medlemsavgift</strong> &mdash; den återkommande avgiften: Månadsvis, Kvartalsvis, Halvårsvis eller Årligen.</li>
+        </ul>
+        <p>Chefer anger djurhemmets standardvärden med knappen <strong>Avgifter</strong> i medlemslistan. Nya medlemmar får dessa värden, som sedan kan ändras för varje medlem.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Medlemsnummer</h3>
+        <p>Lämna numret tomt så tilldelas nästa automatiskt, eller skriv ett nummer för att behålla den numrering du redan använder. Ett nummer kan bara användas en gång per djurhem, och borttagna medlemmars nummer återanvänds aldrig.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Betalningar</h3>
+        <p>Registrera inträdesavgiften eller en medlemsavgift på medlemmens sida. En medlemsavgift är förifylld med nästa period att betala (från dagen efter den senast betalda perioden, eller från anslutningsdatumet) och medlemmens avgift. Varje betalning registrerar även betalningsdatum, belopp, metod (Kontant, Banköverföring, Mobilbetalning eller Annat) och anteckningar.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Förfallna avgifter</h3>
+        <p>En aktiv medlem markeras med <strong>Förfallna avgifter</strong> när inträdesavgiften inte är betald eller ingen medlemsavgift täcker dagens datum; markeringen försvinner så snart betalningen registreras. Slå på <strong>Endast förfallna avgifter</strong> i listan för att se vem som behöver en påminnelse.</p>
+        <p>Statusen (Aktiv, Avstängd eller Tidigare medlem) ändras aldrig automatiskt: ändra den i medlemmens formulär, enligt föreningens regler. Listan visar aktiva medlemmar som standard; använd filtret Status för att se de andra.</p>
+        <p>Chefer och personal kan lägga till och redigera medlemmar och registrera betalningar; bara chefer kan ta bort medlemmar eller ändra standardvärdena. Läsare har ingen åtkomst till medlemmar.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Anläggningar</h2>
         <p>Ett djurhem är organiserat i tre nivåer: <strong>anläggningar</strong> (fysiska platser med en adress) innehåller <strong>flyglar</strong>, och flyglar innehåller <strong>burar</strong>. Varje bur har en kod och en kapacitet.</p>
@@ -134,6 +156,7 @@
             <li>Bläddra bland djur från alla djurhem som är redo för adoption, filtrerat på djurart, kön, storlek, ras och region.</li>
             <li>Öppna ett djurs kort för att se foton, den offentliga beskrivningen och djurhemmet där det bor.</li>
             <li>Se listan över partnerdjurhem, vart och ett med en egen sida med kontaktuppgifter, beskrivning, logotyp och djur.</li>
+            <li>Öppna en länk till ett enskilt djur som delats från backoffice: den öppnar djurets kort direkt, och länkförhandsvisningar i sociala medier visar namn, foto och beskrivning.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vad som visas offentligt</h3>
         <p>Ett djur visas bara på portalen när <strong>alla</strong> dessa villkor är uppfyllda:</p>

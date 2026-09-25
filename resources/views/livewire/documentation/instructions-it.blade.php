@@ -12,6 +12,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adozioni</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adozioni a Distanza</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontari</a>
+        <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Soci</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Strutture</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utenti</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portale Pubblico</a>
@@ -76,6 +77,8 @@
         <p>Cerca per nome, riferimento, microchip o note interne e filtra per stato, specie o posizione (struttura, ala o gabbia). Il filtro <em>dati mancanti</em> trova gli animali senza età, senza foto, senza data di ingresso o senza posizione, aiutando a mantenere le schede complete.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Stampa</h3>
         <p>Puoi stampare la scheda di un singolo animale dalla sua pagina, oppure stampare l'elenco degli animali; l'elenco stampato usa gli stessi filtri attivi sullo schermo.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Condividere sui social</h3>
+        <p>Gli animali adottabili e disponibili hanno in alto nella loro pagina un pulsante di condivisione. Prepara un testo con i dati dell'animale e i contatti del rifugio, pronto da copiare, e permette di scaricare la foto principale per pubblicarla su Facebook, Instagram o WhatsApp. Quando l'animale è pubblicato sul portale pubblico, il testo include un link all'animale e puoi anche condividerlo direttamente su Facebook o WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Salute</h3>
         <p>Registra per ogni animale le malattie (con data di diagnosi, stato e note sul trattamento), le vaccinazioni e le note cliniche. Le taglie sono proposte solo per le specie che hanno taglie configurate.</p>
     </section>
@@ -111,6 +114,25 @@
         <p>L'elenco dei volontari si può cercare per nome, telefono, email, codice fiscale o note, e filtrare per specie preferita, giorno di disponibilità e attività &mdash; utile per sapere chi può aiutare in un certo giorno.</p>
     </section>
 
+    <section id="members" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Soci</h2>
+        <p>Tieni il registro dei soci dell'associazione e delle loro quote. Ogni socio ha un numero di socio, dati personali e di contatto, una data di adesione, uno stato e le sue quote, e può essere collegato alla sua scheda di volontario quando si tratta della stessa persona.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Quote</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Quota d'ingresso</strong> &mdash; si paga una sola volta, all'adesione. Può essere 0, e in quel caso non è dovuto nulla.</li>
+            <li><strong>Quota associativa</strong> &mdash; l'importo periodico: Mensile, Trimestrale, Semestrale o Annuale.</li>
+        </ul>
+        <p>I responsabili impostano i valori predefiniti del rifugio con il pulsante <strong>Quote</strong> dell'elenco dei soci. I nuovi soci partono da questi valori, che poi si possono modificare per ogni socio.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Numeri di socio</h3>
+        <p>Lascia il numero vuoto e viene assegnato automaticamente il successivo, oppure scrivine uno per mantenere la numerazione che usi già. Ogni numero può essere usato una sola volta per rifugio, e i numeri dei soci eliminati non vengono mai riutilizzati.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pagamenti</h3>
+        <p>Registra la quota d'ingresso o una quota associativa nella pagina del socio. La quota associativa è precompilata con il prossimo periodo da pagare (dal giorno dopo l'ultimo periodo pagato, o dalla data di adesione) e con la quota del socio. Ogni pagamento registra anche la data di pagamento, l'importo, il metodo (Contanti, Bonifico bancario, Pagamento mobile o Altro) e le note.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Quote arretrate</h3>
+        <p>Un socio attivo viene segnato con <strong>Quote arretrate</strong> quando la quota d'ingresso non è pagata o nessuna quota copre la data di oggi; il segno scompare appena il pagamento viene registrato. Attiva <strong>Solo quote arretrate</strong> nell'elenco per vedere a chi mandare un promemoria.</p>
+        <p>Lo stato (Attivo, Sospeso o Ex socio) non cambia mai automaticamente: modificalo nel modulo del socio, secondo le regole dell'associazione. L'elenco mostra i soci attivi per impostazione predefinita; usa il filtro Stato per vedere gli altri.</p>
+        <p>Responsabili e staff possono aggiungere e modificare soci e registrare pagamenti; solo i responsabili possono eliminare soci o cambiare i valori predefiniti. Gli utenti in consultazione non hanno accesso ai soci.</p>
+    </section>
+
     <section id="facilities" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Strutture</h2>
         <p>Un rifugio è organizzato su tre livelli: le <strong>strutture</strong> (sedi fisiche, con un indirizzo) contengono le <strong>ali</strong>, e le ali contengono le <strong>gabbie</strong>. Ogni gabbia ha un codice e una capienza.</p>
@@ -134,6 +156,7 @@
             <li>Sfogliare gli animali di tutti i rifugi pronti per l'adozione, filtrando per specie, sesso, taglia, razza e regione.</li>
             <li>Aprire la scheda di un animale per vedere foto, descrizione pubblica e il rifugio che lo ospita.</li>
             <li>Vedere l'elenco dei rifugi partner, ciascuno con una propria pagina con contatti, descrizione, logo e animali.</li>
+            <li>Aprire il link di un singolo animale condiviso dal backoffice: apre direttamente la scheda di quell'animale, e le anteprime dei link sui social mostrano nome, foto e descrizione.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Cosa viene mostrato pubblicamente</h3>
         <p>Un animale compare sul portale solo quando sono vere <strong>tutte</strong> queste condizioni:</p>
