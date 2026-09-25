@@ -27,7 +27,7 @@
             <li><strong>Administrator</strong> &mdash; zarządza całą platformą: schroniskami, wspólnymi tabelami słownikowymi i kontami użytkowników. Administratorzy nie zarządzają zwierzętami ani obiektami.</li>
             <li><strong>Kierownik</strong> &mdash; prowadzi schronisko: może wszystko to, co pracownik, a dodatkowo zaprasza użytkowników tego schroniska i nimi zarządza.</li>
             <li><strong>Pracownik</strong> &mdash; zajmuje się codzienną pracą schroniska: zwierzętami, szczepieniami, adopcjami, adopcjami wirtualnymi, wolontariuszami i obiektami.</li>
-            <li><strong>Podgląd</strong> &mdash; dostęp tylko do odczytu: może przeglądać zwierzęta, szczepienia, wolontariuszy i obiekty oraz drukować karty i listy zwierząt, ale nie może niczego tworzyć, edytować ani usuwać i nie widzi danych osobowych adoptujących ani opiekunów wirtualnych.</li>
+            <li><strong>Podgląd</strong> &mdash; dostęp tylko do odczytu: może przeglądać zwierzęta, szczepienia i obiekty oraz drukować karty i listy zwierząt, ale nie może niczego tworzyć, edytować ani usuwać i nie widzi danych osobowych adoptujących, opiekunów wirtualnych, wolontariuszy ani członków.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Praca z kilkoma schroniskami</h3>
         <p>Użytkownik może należeć do więcej niż jednego schroniska, z inną rolą w każdym z nich. Aktywne schronisko zmienisz przełącznikiem schronisk; każda lista, licznik i formularz pokazuje wtedy tylko dane tego schroniska. Dane nigdy nie są współdzielone między schroniskami.</p>
@@ -41,7 +41,7 @@
             <li>Jeśli portal publiczny jest włączony, zespół publikuje zwierzęta gotowe do adopcji.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Poruszanie się po aplikacji</h3>
-        <p>Panel boczny pokazuje tylko to, z czego może korzystać Twoja rola. Kierownicy i pracownicy widzą menu Zwierzęta (po jednej pozycji dla każdego gatunku włączonego w schronisku oraz Adopcje wirtualne, Adopcje i Szczepienia), Wolontariusze i Obiekty; kierownicy widzą też Użytkownicy. Administratorzy widzą zamiast tego Użytkownicy i menu Administracja. Użytkownicy z rolą podglądu widzą te same menu co pracownicy, z wyjątkiem Adopcji wirtualnych i Adopcji, a na stronach nie mają przycisków tworzenia, edycji ani usuwania. Ta dokumentacja jest zawsze dostępna na dole panelu bocznego.</p>
+        <p>Panel boczny pokazuje tylko to, z czego może korzystać Twoja rola. Kierownicy i pracownicy widzą menu Zwierzęta (po jednej pozycji dla każdego gatunku włączonego w schronisku oraz Adopcje wirtualne, Adopcje i Szczepienia), Wolontariusze, Członkowie i Obiekty; kierownicy widzą też Użytkownicy. Administratorzy widzą zamiast tego Użytkownicy i menu Administracja. Użytkownicy z rolą podglądu widzą te same menu co pracownicy, z wyjątkiem Adopcji wirtualnych, Adopcji, Wolontariuszy i Członków, a na stronach nie mają przycisków tworzenia, edycji ani usuwania. Ta dokumentacja jest zawsze dostępna na dole panelu bocznego.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">

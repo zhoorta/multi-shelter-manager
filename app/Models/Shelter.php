@@ -27,15 +27,31 @@ use Illuminate\Support\Carbon;
  * @property string|null $email
  * @property string|null $website
  * @property string|null $description
+ * @property string $joining_fee
+ * @property string $membership_fee
+ * @property string $membership_fee_frequency
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'short_name', 'city', 'region_id', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description'])]
+#[Fillable(['name', 'short_name', 'city', 'region_id', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description', 'joining_fee', 'membership_fee', 'membership_fee_frequency'])]
 class Shelter extends Model
 {
     /** @use HasFactory<ShelterFactory> */
     use HasFactory, SoftDeletes;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'joining_fee' => 'decimal:2',
+            'membership_fee' => 'decimal:2',
+        ];
+    }
 
     /**
      * Get the region (distrito) the shelter is located in. Includes
@@ -103,5 +119,15 @@ class Shelter extends Model
     public function species(): BelongsToMany
     {
         return $this->belongsToMany(Species::class, 'shelter_species')->withTimestamps();
+    }
+
+    /**
+     * Get the members (sócios) of the shelter's association.
+     *
+     * @return HasMany<Member, $this>
+     */
+    public function members(): HasMany
+    {
+        return $this->hasMany(Member::class);
     }
 }

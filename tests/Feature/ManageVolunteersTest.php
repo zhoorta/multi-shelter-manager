@@ -20,6 +20,12 @@ test('admins are forbidden from viewing the page', function () {
     $this->get(route('volunteers.index'))->assertForbidden();
 });
 
+test('viewers are forbidden from viewing volunteers\' personal data', function () {
+    $this->actingAs(User::factory()->forShelter(Shelter::factory()->create(), 'viewer')->create());
+
+    $this->get(route('volunteers.index'))->assertForbidden();
+});
+
 test('managers and staff can view the page', function () {
     $shelter = Shelter::factory()->create();
 

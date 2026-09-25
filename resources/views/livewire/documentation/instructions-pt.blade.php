@@ -27,7 +27,7 @@
             <li><strong>Administrador</strong> &mdash; gere toda a plataforma: abrigos, tabelas de referência partilhadas e contas de utilizador. Os administradores não gerem animais nem instalações.</li>
             <li><strong>Gestor</strong> &mdash; gere um abrigo: tudo o que um funcionário pode fazer, mais convidar e gerir os utilizadores desse abrigo.</li>
             <li><strong>Funcionário</strong> &mdash; trata do trabalho diário do abrigo: animais, vacinações, adoções, apadrinhamentos, voluntários e instalações.</li>
-            <li><strong>Consulta</strong> &mdash; acesso só de leitura ao abrigo: pode ver animais, vacinações, voluntários e instalações e imprimir fichas e listas de animais, mas não pode criar, editar nem apagar nada, e não vê os dados pessoais de adotantes nem de padrinhos.</li>
+            <li><strong>Consulta</strong> &mdash; acesso só de leitura ao abrigo: pode ver animais, vacinações e instalações e imprimir fichas e listas de animais, mas não pode criar, editar nem apagar nada, e não vê os dados pessoais de adotantes, padrinhos, voluntários nem sócios.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Trabalhar com vários abrigos</h3>
         <p>Um utilizador pode pertencer a mais do que um abrigo, com um perfil diferente em cada um. Use o seletor de abrigo para mudar o abrigo ativo; todas as listas, contagens e formulários passam a mostrar apenas os dados desse abrigo. Os dados nunca são partilhados entre abrigos.</p>
@@ -41,7 +41,7 @@
             <li>Se o portal público estiver ativo, a equipa publica os animais que estão prontos para adoção.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientar-se na aplicação</h3>
-        <p>O menu lateral mostra apenas o que o seu perfil pode usar. Gestores e funcionários veem o menu Animais (uma entrada por cada espécie ativa no abrigo, mais Apadrinhamentos, Adoções e Vacinações), Voluntários e Instalações; os gestores veem também Utilizadores. Os administradores veem, em vez disso, Utilizadores e o menu Administração. Os utilizadores de consulta veem os mesmos menus que os funcionários, exceto Apadrinhamentos e Adoções, e as páginas não lhes mostram botões para criar, editar ou apagar. Esta documentação está sempre disponível no fundo do menu lateral.</p>
+        <p>O menu lateral mostra apenas o que o seu perfil pode usar. Gestores e funcionários veem o menu Animais (uma entrada por cada espécie ativa no abrigo, mais Apadrinhamentos, Adoções e Vacinações), Voluntários, Sócios e Instalações; os gestores veem também Utilizadores. Os administradores veem, em vez disso, Utilizadores e o menu Administração. Os utilizadores de consulta veem os mesmos menus que os funcionários, exceto Apadrinhamentos, Adoções, Voluntários e Sócios, e as páginas não lhes mostram botões para criar, editar ou apagar. Esta documentação está sempre disponível no fundo do menu lateral.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">

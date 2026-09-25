@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -108,5 +109,15 @@ class Volunteer extends Model
     public function species(): BelongsToMany
     {
         return $this->belongsToMany(Species::class, 'volunteer_species')->withTimestamps();
+    }
+
+    /**
+     * Get the member (sócio) record of the same person, if any.
+     *
+     * @return HasOne<Member, $this>
+     */
+    public function member(): HasOne
+    {
+        return $this->hasOne(Member::class);
     }
 }

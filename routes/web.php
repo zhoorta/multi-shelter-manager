@@ -22,6 +22,9 @@ use App\Livewire\Admin\UserForm;
 use App\Livewire\Dashboard;
 use App\Livewire\Documentation;
 use App\Livewire\Facilities\ManageSpaces;
+use App\Livewire\Members\ManageMembers;
+use App\Livewire\Members\MemberForm;
+use App\Livewire\Members\MemberShow;
 use App\Livewire\PartnerShelters;
 use App\Livewire\PartnerShelterShow;
 use App\Livewire\Pets\AdoptionForm;
@@ -92,6 +95,11 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('volunteers/create', VolunteerForm::class)->name('volunteers.create');
     Route::livewire('volunteers/{volunteer}/edit', VolunteerForm::class)->name('volunteers.edit');
     Route::livewire('volunteers/{volunteer}', VolunteerShow::class)->name('volunteers.show');
+
+    Route::livewire('members', ManageMembers::class)->name('members.index');
+    Route::livewire('members/create', MemberForm::class)->name('members.create');
+    Route::livewire('members/{member}/edit', MemberForm::class)->name('members.edit');
+    Route::livewire('members/{member}', MemberShow::class)->name('members.show');
 
     Route::livewire('facilities', ManageSpaces::class)->name('facilities.index');
 

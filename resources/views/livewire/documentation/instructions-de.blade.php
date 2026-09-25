@@ -27,7 +27,7 @@
             <li><strong>Administrator</strong> &mdash; verwaltet die gesamte Plattform: Tierheime, die gemeinsamen Stammdatentabellen und Benutzerkonten. Administratoren verwalten keine Tiere oder Einrichtungen.</li>
             <li><strong>Tierheimleitung</strong> &mdash; führt ein Tierheim: alles, was ein Mitarbeiter tun kann, plus das Einladen und Verwalten der Benutzer dieses Tierheims.</li>
             <li><strong>Mitarbeiter</strong> &mdash; erledigt die tägliche Arbeit des Tierheims: Tiere, Impfungen, Vermittlungen, Patenschaften, Ehrenamtliche und Einrichtungen.</li>
-            <li><strong>Leser</strong> &mdash; Nur-Lese-Zugriff auf das Tierheim: kann Tiere, Impfungen, Ehrenamtliche und Einrichtungen sehen und Tierblätter und -listen drucken, aber nichts anlegen, bearbeiten oder löschen, und sieht keine personenbezogenen Daten von Adoptanten oder Paten.</li>
+            <li><strong>Leser</strong> &mdash; Nur-Lese-Zugriff auf das Tierheim: kann Tiere, Impfungen und Einrichtungen sehen und Tierblätter und -listen drucken, aber nichts anlegen, bearbeiten oder löschen, und sieht keine personenbezogenen Daten von Adoptanten, Paten, Ehrenamtlichen oder Mitgliedern.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Arbeiten mit mehreren Tierheimen</h3>
         <p>Ein Benutzer kann mehreren Tierheimen angehören, mit jeweils unterschiedlicher Rolle. Wechseln Sie das aktive Tierheim über die Tierheimauswahl; jede Liste, jeder Zähler und jedes Formular zeigt dann nur die Daten dieses Tierheims. Daten werden niemals zwischen Tierheimen geteilt.</p>
@@ -41,7 +41,7 @@
             <li>Ist das öffentliche Portal aktiviert, veröffentlicht das Team die Tiere, die zur Vermittlung bereit sind.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientierung in der Anwendung</h3>
-        <p>Die Seitenleiste zeigt nur, was Ihre Rolle nutzen darf. Manager und Mitarbeitende sehen das Menü Tiere (ein Eintrag pro für das Tierheim aktivierter Tierart, dazu Patenschaften, Vermittlungen und Impfungen), Ehrenamtliche und Einrichtungen; Manager sehen zusätzlich Benutzer. Administratoren sehen stattdessen Benutzer und das Menü Verwaltung. Leser sehen dieselben Menüs wie Mitarbeitende, außer Patenschaften und Vermittlungen, und die Seiten zeigen ihnen keine Schaltflächen zum Anlegen, Bearbeiten oder Löschen. Diese Dokumentation ist immer unten in der Seitenleiste erreichbar.</p>
+        <p>Die Seitenleiste zeigt nur, was Ihre Rolle nutzen darf. Manager und Mitarbeitende sehen das Menü Tiere (ein Eintrag pro für das Tierheim aktivierter Tierart, dazu Patenschaften, Vermittlungen und Impfungen), Ehrenamtliche, Mitglieder und Einrichtungen; Manager sehen zusätzlich Benutzer. Administratoren sehen stattdessen Benutzer und das Menü Verwaltung. Leser sehen dieselben Menüs wie Mitarbeitende, außer Patenschaften, Vermittlungen, Ehrenamtliche und Mitglieder, und die Seiten zeigen ihnen keine Schaltflächen zum Anlegen, Bearbeiten oder Löschen. Diese Dokumentation ist immer unten in der Seitenleiste erreichbar.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">

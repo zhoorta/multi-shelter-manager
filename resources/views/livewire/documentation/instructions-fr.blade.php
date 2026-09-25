@@ -27,7 +27,7 @@
             <li><strong>Administrateur</strong> &mdash; gère toute la plateforme : les refuges, les tables de référence partagées et les comptes utilisateurs. Les administrateurs ne gèrent ni les animaux ni les installations.</li>
             <li><strong>Gestionnaire</strong> &mdash; dirige un refuge : tout ce que peut faire un employé, plus l'invitation et la gestion des utilisateurs de ce refuge.</li>
             <li><strong>Employé</strong> &mdash; s'occupe du travail quotidien du refuge : animaux, vaccinations, adoptions, parrainages, bénévoles et installations.</li>
-            <li><strong>Consultation</strong> &mdash; accès en lecture seule au refuge : peut voir les animaux, les vaccinations, les bénévoles et les installations et imprimer les fiches et listes d'animaux, mais ne peut rien créer, modifier ni supprimer, et ne voit pas les données personnelles des adoptants ni des parrains.</li>
+            <li><strong>Consultation</strong> &mdash; accès en lecture seule au refuge : peut voir les animaux, les vaccinations et les installations et imprimer les fiches et listes d'animaux, mais ne peut rien créer, modifier ni supprimer, et ne voit pas les données personnelles des adoptants, des parrains, des bénévoles ni des membres.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Travailler avec plusieurs refuges</h3>
         <p>Un utilisateur peut appartenir à plusieurs refuges, avec un rôle différent dans chacun. Utilisez le sélecteur de refuge pour changer de refuge actif ; chaque liste, compteur et formulaire n'affiche alors que les données de ce refuge. Les données ne sont jamais partagées entre refuges.</p>
@@ -41,7 +41,7 @@
             <li>Si le portail public est activé, l'équipe publie les animaux prêts à être adoptés.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">S'orienter dans l'application</h3>
-        <p>La barre latérale n'affiche que ce que votre rôle peut utiliser. Les gestionnaires et le personnel voient le menu Animaux (une entrée par espèce activée pour le refuge, plus Parrainages, Adoptions et Vaccinations), Bénévoles et Installations ; les gestionnaires voient aussi Utilisateurs. Les administrateurs voient à la place Utilisateurs et le menu Administration. Les utilisateurs en consultation voient les mêmes menus que les employés, sauf Parrainages et Adoptions, et les pages ne leur affichent aucun bouton de création, de modification ou de suppression. Cette documentation est toujours disponible en bas de la barre latérale.</p>
+        <p>La barre latérale n'affiche que ce que votre rôle peut utiliser. Les gestionnaires et le personnel voient le menu Animaux (une entrée par espèce activée pour le refuge, plus Parrainages, Adoptions et Vaccinations), Bénévoles, Membres et Installations ; les gestionnaires voient aussi Utilisateurs. Les administrateurs voient à la place Utilisateurs et le menu Administration. Les utilisateurs en consultation voient les mêmes menus que les employés, sauf Parrainages, Adoptions, Bénévoles et Membres, et les pages ne leur affichent aucun bouton de création, de modification ou de suppression. Cette documentation est toujours disponible en bas de la barre latérale.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">

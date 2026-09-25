@@ -50,9 +50,14 @@
                                 {{ __('Vaccinations') }}
                             </flux:sidebar.item>
                         </flux:sidebar.group>
-                        <flux:sidebar.item icon="user-group" :href="route('volunteers.index')" :current="request()->routeIs('volunteers.*')" wire:navigate>
-                            {{ __('Volunteers') }}
-                        </flux:sidebar.item>
+                        @unless (auth()->user()->isViewerOfCurrentShelter())
+                            <flux:sidebar.item icon="user-group" :href="route('volunteers.index')" :current="request()->routeIs('volunteers.*')" wire:navigate>
+                                {{ __('Volunteers') }}
+                            </flux:sidebar.item>
+                            <flux:sidebar.item icon="identification" :href="route('members.index')" :current="request()->routeIs('members.*')" wire:navigate>
+                                {{ __('Members') }}
+                            </flux:sidebar.item>
+                        @endunless
                         <flux:sidebar.item icon="building-office-2" :href="route('facilities.index')" :current="request()->routeIs('facilities.index')" wire:navigate>
                             {{ __('Facilities') }}
                         </flux:sidebar.item>

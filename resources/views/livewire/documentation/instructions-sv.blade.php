@@ -27,7 +27,7 @@
             <li><strong>Administratör</strong> &mdash; hanterar hela plattformen: djurhemmen, de gemensamma referenstabellerna och användarkontona. Administratörer hanterar inte djur eller anläggningar.</li>
             <li><strong>Föreståndare</strong> &mdash; driver ett djurhem: allt som personalen kan göra, plus att bjuda in och hantera djurhemmets användare.</li>
             <li><strong>Personal</strong> &mdash; sköter djurhemmets dagliga arbete: djur, vaccinationer, adoptioner, fadderskap, volontärer och anläggningar.</li>
-            <li><strong>Läsare</strong> &mdash; endast läsbehörighet till djurhemmet: kan se djur, vaccinationer, volontärer och anläggningar och skriva ut djurblad och djurlistor, men kan inte skapa, redigera eller ta bort något och ser inte personuppgifter om adoptanter eller faddrar.</li>
+            <li><strong>Läsare</strong> &mdash; endast läsbehörighet till djurhemmet: kan se djur, vaccinationer och anläggningar och skriva ut djurblad och djurlistor, men kan inte skapa, redigera eller ta bort något och ser inte personuppgifter om adoptanter, faddrar, volontärer eller medlemmar.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Arbeta med flera djurhem</h3>
         <p>En användare kan tillhöra fler än ett djurhem, med olika roll i vart och ett. Använd djurhemsväljaren för att byta aktivt djurhem; varje lista, räknare och formulär visar då bara det djurhemmets data. Data delas aldrig mellan djurhem.</p>
@@ -41,7 +41,7 @@
             <li>Om den öppna portalen är aktiverad publicerar teamet de djur som är redo för adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hitta rätt i applikationen</h3>
-        <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner och Vaccinationer), Volontärer och Anläggningar; chefer ser även Användare. Administratörer ser i stället Användare och menyn Administration. Läsare ser samma menyer som personal, utom Fadderskap och Adoptioner, och sidorna visar inga knappar för att skapa, redigera eller ta bort. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
+        <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner och Vaccinationer), Volontärer, Medlemmar och Anläggningar; chefer ser även Användare. Administratörer ser i stället Användare och menyn Administration. Läsare ser samma menyer som personal, utom Fadderskap, Adoptioner, Volontärer och Medlemmar, och sidorna visar inga knappar för att skapa, redigera eller ta bort. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">

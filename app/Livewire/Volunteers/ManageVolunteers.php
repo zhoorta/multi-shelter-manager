@@ -34,6 +34,7 @@ class ManageVolunteers extends Component
     public function mount(): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
+        abort_if(Auth::user()->isViewerOfCurrentShelter(), 403);
     }
 
     protected function isManager(): bool

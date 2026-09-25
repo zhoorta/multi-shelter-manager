@@ -721,7 +721,7 @@ test('admins do not see the missing breeds warning', function () {
     $response->assertDontSee(__('No breeds of :species exist. Please contact the site administrator to configure the breeds.', ['species' => 'Dog']));
 });
 
-test('viewers do not see the sponsorships and adoptions navigation links', function () {
+test('viewers do not see the navigation links to people\'s personal data', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
 
@@ -729,5 +729,7 @@ test('viewers do not see the sponsorships and adoptions navigation links', funct
         ->assertOk()
         ->assertDontSee(route('pets.sponsorships.index'))
         ->assertDontSee(route('pets.adoptions.index'))
+        ->assertDontSee(route('volunteers.index'))
+        ->assertDontSee(route('members.index'))
         ->assertSee(route('pets.vaccinations.index'));
 });

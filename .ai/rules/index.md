@@ -22,10 +22,12 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Models/Sponsorship.php,app/Models/SponsorshipPayment.php,app/Livewire/Pets/SponsorshipForm.php | .ai/rules/livewire-pets.md |
 | resources/views/livewire/volunteers/volunteer-show.blade.php | .ai/rules/livewire-volunteers.md |
 | app/Livewire/**, app/Livewire/Welcome.php | .ai/rules/livewire.md |
+| app/Livewire/Members/**,resources/views/livewire/members/** | .ai/rules/members.md |
 | database/migrations/** | .ai/rules/migrations.md |
 | app/Models/Region.php,app/Models/Shelter.php,app/Livewire/Admin/ShelterForm.php | .ai/rules/models-livewire-admin.md |
 | app/Models/PetVaccine.php,app/Models/Vaccine.php,app/Livewire/Pets/VaccinationForm.php,app/Livewire/Pets/PetShow.php | .ai/rules/models-livewire-pets-livewire-pets.md |
 | app/Models/Pet.php,app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php | .ai/rules/models-livewire-pets-views-livewire-pets.md |
+| app/Models/Member.php,app/Models/MemberPayment.php,app/Models/Shelter.php | .ai/rules/models-models-models.md |
 | app/Models/User.php,app/Models/Shelter.php | .ai/rules/models-models.md |
 | app/Models/*.php, app/Models/Pet.php, app/Models/FurType.php, app/Models/Cage.php | .ai/rules/models.md |
 | app/Console/Commands/SendVaccinationDueNotifications.php,app/Models/PetVaccine.php,app/Notifications/VaccinationDueNotification.php | .ai/rules/notifications.md |

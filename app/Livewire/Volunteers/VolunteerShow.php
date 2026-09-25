@@ -16,6 +16,7 @@ class VolunteerShow extends Component
     public function mount(Volunteer $volunteer): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
+        abort_if(Auth::user()->isViewerOfCurrentShelter(), 403);
 
         $this->volunteer = $volunteer->load('activities', 'availabilities', 'species');
     }

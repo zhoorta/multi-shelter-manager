@@ -27,7 +27,7 @@
             <li><strong>Admin</strong> &mdash; manages the whole platform: shelters, the shared lookup tables and user accounts. Admins do not manage pets or facilities.</li>
             <li><strong>Manager</strong> &mdash; runs a shelter: everything a staff member can do, plus inviting and managing that shelter's users.</li>
             <li><strong>Staff</strong> &mdash; handles the shelter's daily work: pets, vaccinations, adoptions, sponsorships, volunteers and facilities.</li>
-            <li><strong>Viewer</strong> &mdash; read-only access to the shelter: can see pets, vaccinations, volunteers and facilities and print pet sheets and lists, but cannot create, edit or delete anything, and does not see adopters' or sponsors' personal data.</li>
+            <li><strong>Viewer</strong> &mdash; read-only access to the shelter: can see pets, vaccinations and facilities and print pet sheets and lists, but cannot create, edit or delete anything, and does not see the personal data of adopters, sponsors, volunteers or members.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Working with several shelters</h3>
         <p>A user can belong to more than one shelter, with a different role in each. Use the shelter switcher to change the active shelter; every list, count and form then shows only that shelter's data. Data is never shared between shelters.</p>
@@ -41,7 +41,7 @@
             <li>If the public portal is enabled, the team publishes the pets that are ready for adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Finding your way around</h3>
-        <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions and Vaccinations), Volunteers and Facilities; managers also see Users. Admins see Users and the Administration menu instead. Viewers see the same menus as staff, except Sponsorships and Adoptions, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
+        <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions and Vaccinations), Volunteers, Members and Facilities; managers also see Users. Admins see Users and the Administration menu instead. Viewers see the same menus as staff, except Sponsorships, Adoptions, Volunteers and Members, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
