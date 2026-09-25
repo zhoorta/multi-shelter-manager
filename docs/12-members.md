@@ -24,10 +24,13 @@ Each member has two fees:
 3. Fill in the **Joining Fee** (use 0 if there is none), the **Membership Fee** and its **Frequency**.
 4. Click **Save**.
 
+![Default fees](screenshots/73-member-fees.png)
+
 New members start with these values. They can then be changed for each member, for example for a member who is exempt from the joining fee.
 
 ## 12.2 The members list
 
+![Members list](screenshots/70-members.png)
 
 Each row shows the **member number**, the name, phone, e-mail and join date, the membership fee and how long it is **paid until**, and the member's **status**. A red **Fees overdue** badge marks members who owe money (see [12.5](#125-fees-overdue)).
 
@@ -49,11 +52,13 @@ Each row shows the **member number**, the name, phone, e-mail and join date, the
    - **Notes**.
 3. Click **Create New**.
 
+![Member form](screenshots/72-member-form.png)
 
 ## 12.4 The member record and payments
 
 Click 👁 on the list (or the member's name) to open the record. It shows the member's details, whether the joining fee is paid, the **Paid until** date and the payment history. **Edit** changes the member's details.
 
+![Member record](screenshots/71-member-show.png)
 
 ### Step by step: record a payment
 

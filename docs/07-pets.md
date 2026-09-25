@@ -164,6 +164,8 @@ The 🗑 icon in the list deletes a pet. Only use it for records created by mist
 
 Pets that are **adoptable and available** have a 🔗 **Share** button at the top of their record. It opens a panel with everything needed to post the pet on Facebook, Instagram or WhatsApp:
 
+![Share on social media](screenshots/39-pet-share.png)
+
 - a ready-made **text** with the pet's name, species, breed, gender, age and size, the start of its description, the shelter's name and contacts, and a few hashtags. Click **Copy text** to copy it;
 - **Download photo**, to save the pet's main photo and attach it to the post;
 - **WhatsApp**, to send the text straight away;

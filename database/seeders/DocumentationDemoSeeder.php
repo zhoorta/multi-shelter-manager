@@ -9,6 +9,8 @@ use App\Models\Cage;
 use App\Models\Color;
 use App\Models\Facility;
 use App\Models\FurType;
+use App\Models\Member;
+use App\Models\MemberPayment;
 use App\Models\Pet;
 use App\Models\PetImage;
 use App\Models\PetVaccine;
@@ -37,7 +39,8 @@ use Throwable;
  * (species, breeds, colors, fur types, sizes, vaccines, sicknesses, activities,
  * regions), four shelters with facilities, wings and cages, dogs and cats with
  * real photos (dog.ceo / thecatapi.com), vaccinations, sicknesses, adoptions,
- * sponsorships and volunteers. Meant for an empty database:
+ * sponsorships, volunteers and members (sócios) with their fee payments.
+ * Meant for an empty database:
  *
  *   php artisan migrate:fresh --seeder=DocumentationDemoSeeder
  *
@@ -235,6 +238,7 @@ class DocumentationDemoSeeder extends Seeder
         $this->seedAdoptions($mainPets);
         $this->seedSponsorships($mainPets);
         $this->seedVolunteers($mainShelter);
+        $this->seedMembers($mainShelter);
     }
 
     private function seedLookups(): void
@@ -700,6 +704,88 @@ class DocumentationDemoSeeder extends Seeder
                     'frequency' => ['weekly', 'biweekly', 'occasionally'][random_int(0, 2)],
                     'mornings' => (bool) random_int(0, 1),
                     'afternoons' => true,
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Members of the main shelter's association, with the shelter's default fees
+     * (10 joining fee, 24 yearly) and a mix of frequencies, statuses and arrears.
+     */
+    private function seedMembers(Shelter $shelter): void
+    {
+        $shelter->update(['joining_fee' => 10, 'membership_fee' => 24, 'membership_fee_frequency' => 'yearly']);
+
+        // [name, city, joined months ago, fee, frequency, status, months left unpaid, joining fee paid]
+        $members = [
+            ['Helen Morris', 'Lisbon', 40, 24, 'yearly', 'active', 0, true],
+            ['George Wilson', 'Porto', 30, 2, 'monthly', 'active', 0, true],
+            ['Emma Carter', 'Lisbon', 26, 24, 'yearly', 'active', 0, true],
+            ['Ana Ferreira', 'Sintra', 22, 6, 'quarterly', 'active', 0, true],
+            ['Daniel Brooks', 'Cascais', 18, 12, 'semiannual', 'active', 7, true],
+            ['Rita Almeida', 'Amadora', 14, 24, 'yearly', 'active', 0, true],
+            ['Thomas Green', 'Oeiras', 9, 2, 'monthly', 'active', 3, true],
+            ['Laura Pinto', 'Lisbon', 5, 24, 'yearly', 'active', 0, false],
+            ['Peter Collins', 'Setúbal', 36, 24, 'yearly', 'suspended', 14, true],
+            ['Maria Lopes', 'Braga', 48, 24, 'yearly', 'left', 20, true],
+            ['Sam Turner', 'Lisbon', 1, 0, 'yearly', 'active', 0, false],
+        ];
+
+        $volunteerIds = Volunteer::query()->where('shelter_id', $shelter->id)->pluck('id', 'name');
+
+        foreach ($members as [$name, $city, $joinedMonthsAgo, $fee, $frequency, $status, $monthsUnpaid, $joiningFeePaid]) {
+            $joinDate = now()->subMonths($joinedMonthsAgo)->startOfMonth()->addDays(random_int(0, 20));
+
+            $member = Member::query()->create([
+                'shelter_id' => $shelter->id,
+                'volunteer_id' => $volunteerIds[$name] ?? null,
+                'name' => $name,
+                'tin' => (string) random_int(100000000, 299999999),
+                'email' => Str::slug($name, '.').'@example.com',
+                'phone' => '+351 91'.random_int(1000000, 9999999),
+                'address' => 'Rua '.fake()->lastName().', '.random_int(1, 200),
+                'postal_code' => '1'.random_int(100, 999).'-'.random_int(100, 999),
+                'city' => $city,
+                'join_date' => $joinDate->toDateString(),
+                'status' => $status,
+                'joining_fee' => $name === 'Sam Turner' ? 0 : 10,
+                'membership_fee' => $fee,
+                'membership_fee_frequency' => $frequency,
+            ]);
+
+            if ($joiningFeePaid) {
+                MemberPayment::query()->create([
+                    'member_id' => $member->id,
+                    'type' => 'joining_fee',
+                    'payment_date' => $joinDate->toDateString(),
+                    'payment_value' => 10,
+                    'payment_method' => 'cash',
+                ]);
+            }
+
+            if ($fee <= 0) {
+                continue;
+            }
+
+            // Pay period after period from the join date, stopping $monthsUnpaid months before today.
+            $paidUntilLimit = now()->subMonths($monthsUnpaid);
+
+            while (true) {
+                [$start, $end] = $member->nextFeePeriod();
+
+                if ($start->isAfter($paidUntilLimit)) {
+                    break;
+                }
+
+                MemberPayment::query()->create([
+                    'member_id' => $member->id,
+                    'type' => 'membership_fee',
+                    'start_date' => $start->toDateString(),
+                    'end_date' => $end->toDateString(),
+                    'payment_date' => $start->copy()->addDays(random_int(0, 10))->toDateString(),
+                    'payment_value' => $fee,
+                    'payment_method' => ['bank_transfer', 'mobile', 'cash', 'bank_transfer'][random_int(0, 3)],
                 ]);
             }
         }
