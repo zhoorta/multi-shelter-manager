@@ -48,7 +48,7 @@ trait ShowsPublicPets
         }
 
         return $this->publicPetsQuery()
-            ->with(['species', 'breed', 'size', 'furType', 'shelter.region', 'images'])
+            ->with(['species', 'breed', 'size', 'furType', 'shelter.region', 'images', 'cage:id,wing_id', 'cage.wing:id,is_foster'])
             ->find($this->selectedPetId);
     }
 

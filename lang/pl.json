@@ -541,5 +541,16 @@
     "Open cases (active or chronic)": "Otwarte przypadki (aktywne lub przewlekłe)",
     "Sterilised animals in the shelter": "Wysterylizowane zwierzęta w schronisku",
     "Vaccinations by vaccine": "Szczepienia według szczepionki",
-    "Diagnoses by sickness": "Diagnozy według choroby"
+    "Diagnoses by sickness": "Diagnozy według choroby",
+    "Foster families": "Domy tymczasowe",
+    "Foster families wing": "Skrzydło domów tymczasowych",
+    "Foster family": "Dom tymczasowy",
+    "Contact (volunteer)": "Kontakt (wolontariusz)",
+    "None": "Brak",
+    "In a foster family": "W domu tymczasowym",
+    "Pets in foster families": "Zwierzęta w domach tymczasowych",
+    "No animals at the moment": "Obecnie brak zwierząt",
+    "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Każdy boks tego skrzydła to jeden dom tymczasowy. Jego zwierzęta są pokazywane jako przebywające w domu tymczasowym i nie wliczają się do pojemności schroniska.",
+    "Optional. The volunteer record holds the family's phone and address.": "Opcjonalne. Karta wolontariusza zawiera telefon i adres rodziny.",
+    "This animal is living with a foster family while it waits for adoption.": "To zwierzę mieszka w domu tymczasowym, czekając na adopcję."
 }

@@ -128,7 +128,7 @@ test('occupancy compares the pets in the shelter with the capacity of its cages'
         ->assertSee('Occupancy by wing')
         ->get('occupancyReport');
 
-    expect($occupancy['totals'])->toBe(['capacity' => 4, 'housed' => 2, 'withoutCage' => 1, 'rate' => 75])
+    expect($occupancy['totals'])->toBe(['capacity' => 4, 'housed' => 2, 'withoutCage' => 1, 'inFosterFamilies' => 0, 'rate' => 75])
         ->and($occupancy['wings'])->toBe([['label' => 'Main · Dogs', 'value' => 50, 'display' => '2 / 4 (50%)']])
         ->and(array_slice($occupancy['rateBuckets'], 0, 2))->toBe([100, 75]);
 });

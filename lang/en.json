@@ -541,5 +541,16 @@
     "Open cases (active or chronic)": "Open cases (active or chronic)",
     "Sterilised animals in the shelter": "Sterilised animals in the shelter",
     "Vaccinations by vaccine": "Vaccinations by vaccine",
-    "Diagnoses by sickness": "Diagnoses by sickness"
+    "Diagnoses by sickness": "Diagnoses by sickness",
+    "Foster families": "Foster families",
+    "Foster families wing": "Foster families wing",
+    "Foster family": "Foster family",
+    "Contact (volunteer)": "Contact (volunteer)",
+    "None": "None",
+    "In a foster family": "In a foster family",
+    "Pets in foster families": "Pets in foster families",
+    "No animals at the moment": "No animals at the moment",
+    "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.",
+    "Optional. The volunteer record holds the family's phone and address.": "Optional. The volunteer record holds the family's phone and address.",
+    "This animal is living with a foster family while it waits for adoption.": "This animal is living with a foster family while it waits for adoption."
 }

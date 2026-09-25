@@ -87,11 +87,20 @@ class Dashboard extends Component
             ->whereNull('return_date')
             ->count();
 
+        // Foster families are not shelter space: their cages don't add
+        // capacity and the animals with them don't take any up.
         $totalCapacity = (int) Cage::query()
-            ->whereHas('wing.facility', fn ($query) => $query->where('shelter_id', $shelterId))
+            ->whereHas('wing', fn ($query) => $query->where('is_foster', false)->whereHas('facility', fn ($query) => $query->where('shelter_id', $shelterId)))
             ->sum('capacity');
 
-        $this->availableCapacity = max(0, $totalCapacity - $this->activePetsCount);
+        $petsInFosterFamilies = Pet::query()
+            ->where('shelter_id', $shelterId)
+            ->where('status', '!=', 'adopted')
+            ->whereNull('date_of_death')
+            ->whereHas('cage.wing', fn ($query) => $query->where('is_foster', true))
+            ->count();
+
+        $this->availableCapacity = max(0, $totalCapacity - ($this->activePetsCount - $petsInFosterFamilies));
 
         $this->showsActionCounters = ! Auth::user()->is_admin && ! Auth::user()->isViewerOfCurrentShelter();
 

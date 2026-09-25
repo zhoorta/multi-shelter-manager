@@ -92,7 +92,7 @@ class Welcome extends Component
             ->when($this->sizeFilter !== '', fn (Builder $query) => $query->where('size_id', $this->sizeFilter))
             ->when($this->breedFilter !== '', fn (Builder $query) => $query->where('breed_id', $this->breedFilter))
             ->when($this->regionFilter !== '', fn (Builder $query) => $query->whereHas('shelter', fn (Builder $query) => $query->where('region_id', $this->regionFilter)))
-            ->with(['species', 'breed', 'size', 'shelter.region', 'images'])
+            ->with(['species', 'breed', 'size', 'shelter.region', 'images', 'cage:id,wing_id', 'cage.wing:id,is_foster'])
             ->orderByDesc('is_featured')
             ->latest('checkin_date')
             ->latest('id')

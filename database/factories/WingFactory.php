@@ -24,4 +24,14 @@ class WingFactory extends Factory
             'description' => fake()->sentence(),
         ];
     }
+
+    /**
+     * A wing of foster families: each cage is one family.
+     */
+    public function foster(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_foster' => true,
+        ]);
+    }
 }

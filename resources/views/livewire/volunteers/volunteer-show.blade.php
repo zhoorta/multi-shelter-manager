@@ -140,6 +140,24 @@
             </flux:text>
         </div>
 
+        @if ($volunteer->fosterCages->isNotEmpty())
+            <div>
+                <flux:heading>{{ __('Foster family') }}</flux:heading>
+                @foreach ($volunteer->fosterCages as $fosterCage)
+                    <div wire:key="foster-cage-{{ $fosterCage->id }}" class="mt-2 flex flex-col gap-1">
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">🏠 {{ $fosterCage->code }}</flux:text>
+                        @forelse ($fosterCage->pets as $fosterPet)
+                            <a href="{{ route('pets.show', $fosterPet) }}" wire:navigate class="text-sm text-neutral-700 hover:underline dark:text-neutral-300">
+                                {{ $fosterPet->species?->emoji }} {{ $fosterPet->name }} &middot; {{ $fosterPet->ref }}
+                            </a>
+                        @empty
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ __('No animals at the moment') }}</flux:text>
+                        @endforelse
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
         @if ($volunteer->notes)
             <div>
                 <flux:heading>{{ __('Notes') }}</flux:heading>

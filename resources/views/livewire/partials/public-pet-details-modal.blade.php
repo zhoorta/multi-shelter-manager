@@ -136,6 +136,9 @@
                     <p class="text-sm text-stone-600 dark:text-stone-300">
                         {{ collect([$pet->shelter->address, $pet->shelter->postal_code, $pet->shelter->city, $pet->shelter->region?->name])->filter()->implode(', ') }}
                     </p>
+                    @if ($pet->isInFosterFamily())
+                        <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">🏡 {{ __('This animal is living with a foster family while it waits for adoption.') }}</p>
+                    @endif
                     <div class="flex flex-wrap gap-2">
                         <a href="{{ route('adoption-applications.create', $pet->ref) }}" class="rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-600" wire:navigate>
                             💌 {{ __('I want to adopt') }}

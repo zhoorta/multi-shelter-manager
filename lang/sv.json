@@ -541,5 +541,16 @@
     "Open cases (active or chronic)": "Öppna fall (aktiva eller kroniska)",
     "Sterilised animals in the shelter": "Kastrerade djur på härbärget",
     "Vaccinations by vaccine": "Vaccinationer per vaccin",
-    "Diagnoses by sickness": "Diagnoser per sjukdom"
+    "Diagnoses by sickness": "Diagnoser per sjukdom",
+    "Foster families": "Jourhem",
+    "Foster families wing": "Flygel för jourhem",
+    "Foster family": "Jourhem",
+    "Contact (volunteer)": "Kontakt (volontär)",
+    "None": "Ingen",
+    "In a foster family": "I jourhem",
+    "Pets in foster families": "Djur i jourhem",
+    "No animals at the moment": "Inga djur för närvarande",
+    "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Varje bur i denna flygel är ett jourhem. Djuren visas som placerade i jourhem och räknas inte in i härbärgets kapacitet.",
+    "Optional. The volunteer record holds the family's phone and address.": "Valfritt. Volontärkortet innehåller familjens telefon och adress.",
+    "This animal is living with a foster family while it waits for adoption.": "Det här djuret bor i ett jourhem medan det väntar på adoption."
 }

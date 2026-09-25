@@ -541,5 +541,16 @@
     "Open cases (active or chronic)": "Åbne sager (aktive eller kroniske)",
     "Sterilised animals in the shelter": "Steriliserede dyr på internatet",
     "Vaccinations by vaccine": "Vaccinationer pr. vaccine",
-    "Diagnoses by sickness": "Diagnoser pr. sygdom"
+    "Diagnoses by sickness": "Diagnoser pr. sygdom",
+    "Foster families": "Plejefamilier",
+    "Foster families wing": "Fløj for plejefamilier",
+    "Foster family": "Plejefamilie",
+    "Contact (volunteer)": "Kontakt (frivillig)",
+    "None": "Ingen",
+    "In a foster family": "I plejefamilie",
+    "Pets in foster families": "Dyr i plejefamilier",
+    "No animals at the moment": "Ingen dyr i øjeblikket",
+    "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Hvert bur i denne fløj er en plejefamilie. Dyrene vises som værende i plejefamilie og tæller ikke med i internatets kapacitet.",
+    "Optional. The volunteer record holds the family's phone and address.": "Valgfrit. Frivilligkortet indeholder familiens telefon og adresse.",
+    "This animal is living with a foster family while it waits for adoption.": "Dette dyr bor hos en plejefamilie, mens det venter på at blive adopteret."
 }

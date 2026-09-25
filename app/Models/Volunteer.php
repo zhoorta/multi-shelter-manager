@@ -120,4 +120,14 @@ class Volunteer extends Model
     {
         return $this->hasOne(Member::class);
     }
+
+    /**
+     * Get the foster family cages this volunteer is the contact of.
+     *
+     * @return HasMany<Cage, $this>
+     */
+    public function fosterCages(): HasMany
+    {
+        return $this->hasMany(Cage::class)->whereHas('wing', fn ($query) => $query->where('is_foster', true));
+    }
 }

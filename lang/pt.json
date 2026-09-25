@@ -541,5 +541,16 @@
     "Open cases (active or chronic)": "Casos em aberto (ativos ou crónicos)",
     "Sterilised animals in the shelter": "Animais esterilizados no abrigo",
     "Vaccinations by vaccine": "Vacinas por tipo",
-    "Diagnoses by sickness": "Diagnósticos por doença"
+    "Diagnoses by sickness": "Diagnósticos por doença",
+    "Foster families": "Famílias de acolhimento",
+    "Foster families wing": "Ala de famílias de acolhimento",
+    "Foster family": "Família de acolhimento",
+    "Contact (volunteer)": "Contacto (voluntário)",
+    "None": "Nenhum",
+    "In a foster family": "Em família de acolhimento",
+    "Pets in foster families": "Animais em famílias de acolhimento",
+    "No animals at the moment": "Sem animais neste momento",
+    "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Cada jaula / box desta ala é uma família de acolhimento. Os seus animais aparecem como estando em família de acolhimento e não contam para a capacidade do abrigo.",
+    "Optional. The volunteer record holds the family's phone and address.": "Opcional. A ficha do voluntário guarda o telefone e a morada da família.",
+    "This animal is living with a foster family while it waits for adoption.": "Este animal está a viver com uma família de acolhimento enquanto espera pela adoção."
 }

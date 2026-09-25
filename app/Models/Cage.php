@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $wing_id
  * @property int|null $species_id
+ * @property int|null $volunteer_id
  * @property string $code
  * @property int $capacity
  * @property Carbon|null $created_at
@@ -29,7 +30,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['wing_id', 'species_id', 'code', 'capacity'])]
+#[Fillable(['wing_id', 'species_id', 'volunteer_id', 'code', 'capacity'])]
 class Cage extends Model
 {
     /** @use HasFactory<CageFactory> */
@@ -54,6 +55,17 @@ class Cage extends Model
     public function species(): BelongsTo
     {
         return $this->belongsTo(Species::class)->withTrashed();
+    }
+
+    /**
+     * Get the volunteer who is the contact of a foster family cage (in a
+     * foster wing, each cage is one family).
+     *
+     * @return BelongsTo<Volunteer, $this>
+     */
+    public function volunteer(): BelongsTo
+    {
+        return $this->belongsTo(Volunteer::class);
     }
 
     /**

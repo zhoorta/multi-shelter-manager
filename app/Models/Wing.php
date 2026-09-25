@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int $facility_id
  * @property string $name
  * @property string|null $description
+ * @property bool $is_foster
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int|null $created_by
@@ -26,11 +27,23 @@ use Illuminate\Support\Carbon;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['facility_id', 'name', 'description'])]
+#[Fillable(['facility_id', 'name', 'description', 'is_foster'])]
 class Wing extends Model
 {
     /** @use HasFactory<WingFactory> */
     use Blameable, HasFactory, SoftDeletes;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_foster' => 'boolean',
+        ];
+    }
 
     /**
      * Get the facility the wing belongs to.

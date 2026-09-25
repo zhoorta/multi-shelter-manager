@@ -52,7 +52,7 @@ class PartnerShelterShow extends Component
     public function pets(): LengthAwarePaginator
     {
         return $this->shelter->publishedPets()
-            ->with(['species', 'breed', 'size', 'shelter.region', 'images'])
+            ->with(['species', 'breed', 'size', 'shelter.region', 'images', 'cage:id,wing_id', 'cage.wing:id,is_foster'])
             ->orderByDesc('is_featured')
             ->latest('checkin_date')
             ->latest('id')

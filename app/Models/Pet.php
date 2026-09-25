@@ -384,6 +384,15 @@ class Pet extends Model
     }
 
     /**
+     * Whether the pet is with a foster family: its cage is in a foster wing.
+     * Needs cage.wing loaded to avoid extra queries.
+     */
+    public function isInFosterFamily(): bool
+    {
+        return (bool) $this->cage?->wing?->is_foster;
+    }
+
+    /**
      * Derive the pet's status from its current attributes and adoption
      * records, rather than trusting a manually set value: 'deceased' when
      * date_of_death is filled, else 'adopted' when it has an adoption with

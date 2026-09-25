@@ -114,6 +114,10 @@
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <flux:heading size="sm">{{ $wing->name }}</flux:heading>
 
+                                                @if ($wing->is_foster)
+                                                    <flux:badge size="sm" color="amber" icon="home">{{ __('Foster families') }}</flux:badge>
+                                                @endif
+
                                                 @if ($wing->cages->isNotEmpty())
                                                     <flux:badge size="sm">{{ __(':available of :capacity free', ['available' => $wing->cages->sum('available_space'), 'capacity' => $wing->cages->sum('capacity')]) }}</flux:badge>
                                                 @endif
@@ -187,9 +191,18 @@
                                     <ul class="divide-y divide-neutral-200 overflow-hidden rounded-lg border border-neutral-200 dark:divide-neutral-700 dark:border-neutral-700">
                                         @forelse ($wing->cages as $cage)
                                             <li wire:key="cage-{{ $cage->id }}" class="flex items-center justify-between gap-2 px-4 py-2 text-sm">
-                                                <div class="flex items-center gap-2">
-                                                    <span class="font-medium text-neutral-900 dark:text-white">{{ $cage->code }}</span>
-                                                    <flux:badge size="sm" color="zinc">{{ $cage->species?->name ?? __('Any species') }}</flux:badge>
+                                                <div class="flex flex-col gap-1">
+                                                    <div class="flex items-center gap-2">
+                                                        <span class="font-medium text-neutral-900 dark:text-white">{{ $cage->code }}</span>
+                                                        <flux:badge size="sm" color="zinc">{{ $cage->species?->name ?? __('Any species') }}</flux:badge>
+                                                    </div>
+
+                                                    {{-- Viewers never see people's data, so the family's contact stays hidden from them. --}}
+                                                    @if ($wing->is_foster && $cage->volunteer && ! auth()->user()->isViewerOfCurrentShelter())
+                                                        <a href="{{ route('volunteers.show', $cage->volunteer) }}" wire:navigate class="text-xs text-neutral-500 hover:underline dark:text-neutral-400">
+                                                            {{ $cage->volunteer->name }}@if ($cage->volunteer->phone) &middot; {{ $cage->volunteer->phone }}@endif
+                                                        </a>
+                                                    @endif
                                                 </div>
 
                                                 <div class="flex items-center gap-2">
@@ -346,6 +359,13 @@
 
             <flux:textarea wire:model="wingDescription" :label="__('Notes')" rows="3" />
 
+            <flux:switch
+                wire:model="wingIsFoster"
+                :label="__('Foster families wing')"
+                :description="__('Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.')"
+                align="left"
+            />
+
             <div class="flex justify-end gap-2">
                 <flux:modal.close>
                     <flux:button type="button" variant="filled">{{ __('Cancel') }}</flux:button>
@@ -370,7 +390,7 @@
                 </flux:text>
             </div>
 
-            <flux:input wire:model="cageCode" :label="__('Code')" />
+            <flux:input wire:model="cageCode" :label="$this->cageWingIsFoster ? __('Foster family') : __('Code')" />
 
             <flux:input type="number" min="1" wire:model="cageCapacity" :label="__('Capacity')" />
 
@@ -380,6 +400,15 @@
                     <flux:select.option value="{{ $item->id }}">{{ $item->name }}</flux:select.option>
                 @endforeach
             </flux:select>
+
+            @if ($this->cageWingIsFoster)
+                <flux:select wire:model="cageVolunteerId" :label="__('Contact (volunteer)')" :description="__('Optional. The volunteer record holds the family\'s phone and address.')">
+                    <flux:select.option value="">{{ __('None') }}</flux:select.option>
+                    @foreach ($this->volunteers as $volunteer)
+                        <flux:select.option value="{{ $volunteer->id }}">{{ $volunteer->name }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+            @endif
 
             <div class="flex justify-end gap-2">
                 <flux:modal.close>

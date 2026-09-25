@@ -357,10 +357,23 @@
             <div>
                 <flux:heading>{{ __('Accommodation') }}</flux:heading>
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <div>
-                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Cage') }}</flux:text>
-                        <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }} &middot; {{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
-                    </div>
+                    @if ($pet->isInFosterFamily())
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Foster family') }}</flux:text>
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">🏠 {{ $pet->cage->code }}</flux:text>
+                            {{-- Viewers never see people's data, so the family's contact stays hidden from them. --}}
+                            @if ($canEdit && $pet->cage->volunteer)
+                                <flux:text class="text-neutral-700 dark:text-neutral-300">
+                                    <a href="{{ route('volunteers.show', $pet->cage->volunteer) }}" wire:navigate class="hover:underline">{{ $pet->cage->volunteer->name }}</a>@if ($pet->cage->volunteer->phone) &middot; <a href="tel:{{ $pet->cage->volunteer->phone }}" class="hover:underline">{{ $pet->cage->volunteer->phone }}</a>@endif
+                                </flux:text>
+                            @endif
+                        </div>
+                    @else
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Cage') }}</flux:text>
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }} &middot; {{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
+                        </div>
+                    @endif
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}</flux:text>
                         <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>

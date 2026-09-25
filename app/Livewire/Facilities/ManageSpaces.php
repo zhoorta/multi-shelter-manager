@@ -7,6 +7,7 @@ namespace App\Livewire\Facilities;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Species;
+use App\Models\Volunteer;
 use App\Models\Wing;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -41,6 +42,11 @@ class ManageSpaces extends Component
 
     public string $wingDescription = '';
 
+    /**
+     * A foster wing holds foster families: each cage is one family.
+     */
+    public bool $wingIsFoster = false;
+
     public ?int $editingCageId = null;
 
     public ?int $cageWingId = null;
@@ -50,6 +56,11 @@ class ManageSpaces extends Component
     public int $cageCapacity = 1;
 
     public ?int $cageSpeciesId = null;
+
+    /**
+     * The contact volunteer of a foster family cage; ignored for other wings.
+     */
+    public ?int $cageVolunteerId = null;
 
     public ?int $viewingCageId = null;
 
@@ -77,7 +88,7 @@ class ManageSpaces extends Component
             ->with([
                 'wings' => fn ($query) => $query->orderBy('name'),
                 'wings.cages' => fn ($query) => $query->orderBy('code')
-                    ->with('species')
+                    ->with('species', 'volunteer')
                     ->withCount(['pets as active_pets_count' => fn (Builder $query) => $query->where('status', '!=', 'adopted')->whereNull('date_of_death')]),
             ])
             ->orderBy('name')
@@ -108,6 +119,27 @@ class ManageSpaces extends Component
     public function species(): Collection
     {
         return Auth::user()->currentShelter?->species()->orderBy('name')->get() ?? new Collection;
+    }
+
+    /**
+     * The shelter's volunteers, offered as the contact of a foster family cage.
+     *
+     * @return Collection<int, Volunteer>
+     */
+    #[Computed]
+    public function volunteers(): Collection
+    {
+        return Volunteer::query()->orderBy('name')->get(['id', 'shelter_id', 'name', 'phone']);
+    }
+
+    /**
+     * Whether the wing of the cage being created or edited is a foster wing.
+     */
+    #[Computed]
+    public function cageWingIsFoster(): bool
+    {
+        return $this->cageWingId !== null
+            && (bool) $this->scopedWingQuery()->whereKey($this->cageWingId)->value('is_foster');
     }
 
     /**
@@ -254,6 +286,7 @@ class ManageSpaces extends Component
         $this->wingFacilityId = $wing->facility_id;
         $this->wingName = $wing->name;
         $this->wingDescription = (string) $wing->description;
+        $this->wingIsFoster = $wing->is_foster;
     }
 
     public function saveWing(): void
@@ -271,6 +304,7 @@ class ManageSpaces extends Component
                     ->ignore($this->editingWingId),
             ],
             'wingDescription' => ['nullable', 'string'],
+            'wingIsFoster' => ['boolean'],
         ], [], [
             'wingFacilityId' => __('Facility'),
             'wingName' => __('Name'),
@@ -279,7 +313,7 @@ class ManageSpaces extends Component
 
         // Re-fetch through the scoped query (not just the exists rule above)
         // so a facility belonging to another shelter 404s instead of succeeding.
-        $facility = Facility::query()->findOrFail($validated['wingFacilityId']);
+        $facility = Facility::query()->findOrFail((int) $validated['wingFacilityId']);
 
         $description = $validated['wingDescription'] !== '' ? $validated['wingDescription'] : null;
 
@@ -287,6 +321,7 @@ class ManageSpaces extends Component
             $this->scopedWingQuery()->findOrFail($this->editingWingId)->update([
                 'facility_id' => $facility->id,
                 'name' => $validated['wingName'],
+                'is_foster' => $validated['wingIsFoster'],
                 'description' => $description,
             ]);
 
@@ -295,6 +330,7 @@ class ManageSpaces extends Component
             Wing::query()->create([
                 'facility_id' => $facility->id,
                 'name' => $validated['wingName'],
+                'is_foster' => $validated['wingIsFoster'],
                 'description' => $description,
             ]);
 
@@ -353,6 +389,7 @@ class ManageSpaces extends Component
         $this->cageCode = $cage->code;
         $this->cageCapacity = $cage->capacity;
         $this->cageSpeciesId = $cage->species_id;
+        $this->cageVolunteerId = $cage->volunteer_id;
     }
 
     public function saveCage(): void
@@ -368,16 +405,22 @@ class ManageSpaces extends Component
                 'integer',
                 Rule::exists('shelter_species', 'species_id')->where('shelter_id', Auth::user()->current_shelter_id),
             ],
+            'cageVolunteerId' => [
+                'nullable',
+                'integer',
+                Rule::exists('volunteers', 'id')->where('shelter_id', Auth::user()->current_shelter_id)->withoutTrashed(),
+            ],
         ], [], [
             'cageWingId' => __('Wing'),
             'cageCode' => __('Code'),
             'cageCapacity' => __('Capacity'),
             'cageSpeciesId' => __('Species'),
+            'cageVolunteerId' => __('Volunteer'),
         ]);
 
         // Re-fetch through the scoped query (not just the exists rule above)
         // so a wing belonging to another shelter 404s instead of succeeding.
-        $wing = $this->scopedWingQuery()->findOrFail($validated['cageWingId']);
+        $wing = $this->scopedWingQuery()->findOrFail((int) $validated['cageWingId']);
 
         if ($this->editingCageId !== null) {
             $this->scopedCageQuery()->findOrFail($this->editingCageId)->update([
@@ -385,6 +428,7 @@ class ManageSpaces extends Component
                 'code' => $validated['cageCode'],
                 'capacity' => $validated['cageCapacity'],
                 'species_id' => $validated['cageSpeciesId'],
+                'volunteer_id' => $wing->is_foster ? $validated['cageVolunteerId'] : null,
             ]);
 
             Flux::toast(variant: 'success', text: __('Record updated successfully'));
@@ -394,6 +438,7 @@ class ManageSpaces extends Component
                 'code' => $validated['cageCode'],
                 'capacity' => $validated['cageCapacity'],
                 'species_id' => $validated['cageSpeciesId'],
+                'volunteer_id' => $wing->is_foster ? $validated['cageVolunteerId'] : null,
             ]);
 
             Flux::toast(variant: 'success', text: __('Record created successfully'));
@@ -428,19 +473,21 @@ class ManageSpaces extends Component
 
     protected function resetWingForm(): void
     {
-        $this->reset(['editingWingId', 'wingFacilityId', 'wingName', 'wingDescription']);
+        $this->reset(['editingWingId', 'wingFacilityId', 'wingName', 'wingDescription', 'wingIsFoster']);
         $this->resetErrorBag();
     }
 
     protected function resetCageForm(): void
     {
-        $this->reset(['editingCageId', 'cageWingId', 'cageCode', 'cageCapacity', 'cageSpeciesId']);
+        $this->reset(['editingCageId', 'cageWingId', 'cageCode', 'cageCapacity', 'cageSpeciesId', 'cageVolunteerId']);
         $this->resetErrorBag();
     }
 
     /**
      * Wing has no shelter_id of its own, so scope it transitively through
      * its facility (see [[models]] note on MultiShelterTrait).
+     *
+     * @return Builder<Wing>
      */
     protected function scopedWingQuery(): Builder
     {
@@ -453,6 +500,8 @@ class ManageSpaces extends Component
     /**
      * Cage has no shelter_id of its own either, so scope it transitively
      * through its wing's facility.
+     *
+     * @return Builder<Cage>
      */
     protected function scopedCageQuery(): Builder
     {

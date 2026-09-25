@@ -30,7 +30,7 @@ class PetShow extends Component
         abort_unless(! Auth::user()->is_admin, 403);
 
         $this->pet = $pet->load([
-            'species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'sicknesses',
+            'species', 'breed', 'cage.wing.facility', 'cage.volunteer', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'sicknesses',
             'adoptions' => fn ($query) => $query->latest('adoption_date'),
             'sponsorships' => fn ($query) => $query->latest()->with(['payments' => fn ($paymentsQuery) => $paymentsQuery->orderByDesc('payment_date')]),
             'vaccines' => fn ($query) => $query->orderByRaw('COALESCE(pet_vaccines.administered_date, pet_vaccines.due_date) desc'),

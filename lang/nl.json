@@ -541,5 +541,16 @@
     "Open cases (active or chronic)": "Open gevallen (actief of chronisch)",
     "Sterilised animals in the shelter": "Gesteriliseerde dieren in het asiel",
     "Vaccinations by vaccine": "Vaccinaties per vaccin",
-    "Diagnoses by sickness": "Diagnoses per ziekte"
+    "Diagnoses by sickness": "Diagnoses per ziekte",
+    "Foster families": "Pleeggezinnen",
+    "Foster families wing": "Vleugel voor pleeggezinnen",
+    "Foster family": "Pleeggezin",
+    "Contact (volunteer)": "Contact (vrijwilliger)",
+    "None": "Geen",
+    "In a foster family": "In een pleeggezin",
+    "Pets in foster families": "Dieren in pleeggezinnen",
+    "No animals at the moment": "Momenteel geen dieren",
+    "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Elk hok van deze vleugel is een pleeggezin. De dieren worden getoond als in een pleeggezin en tellen niet mee voor de capaciteit van het asiel.",
+    "Optional. The volunteer record holds the family's phone and address.": "Optioneel. De vrijwilligersfiche bevat het telefoonnummer en adres van het gezin.",
+    "This animal is living with a foster family while it waits for adoption.": "Dit dier woont bij een pleeggezin terwijl het op adoptie wacht."
 }

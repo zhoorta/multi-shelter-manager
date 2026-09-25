@@ -14,13 +14,15 @@ use Livewire\Attributes\Computed;
  * The Occupancy section of the reports. Cage capacity is only a guideline
  * (a cage may hold more), so occupancy is a neutral percentage, never an
  * "over capacity" warning. Capacity has no history: past months are
- * compared with today's capacity. Needs BuildsShelterReport.
+ * compared with today's capacity. Foster family wings are not shelter
+ * space: their cages are left out of the capacity and the wing list, and
+ * their animals are counted apart. Needs BuildsShelterReport.
  */
 trait BuildsOccupancyReport
 {
     /**
      * @return array{
-     *     totals: array{capacity: int, housed: int, withoutCage: int, rate: ?int},
+     *     totals: array{capacity: int, housed: int, withoutCage: int, inFosterFamilies: int, rate: ?int},
      *     wings: list<array{label: string, value: int, display: string}>,
      *     rateBuckets: list<?int>
      * }
@@ -31,7 +33,7 @@ trait BuildsOccupancyReport
         $shelterId = Auth::user()->current_shelter_id;
 
         $cages = Cage::query()
-            ->whereHas('wing.facility', fn (Builder $query) => $query->where('shelter_id', $shelterId))
+            ->whereHas('wing', fn (Builder $query) => $query->where('is_foster', false)->whereHas('facility', fn (Builder $query) => $query->where('shelter_id', $shelterId)))
             ->with('wing:id,facility_id,name', 'wing.facility:id,shelter_id,name')
             ->withCount(['pets as active_pets_count' => fn (Builder $query) => $query->where('status', '!=', 'adopted')->whereNull('date_of_death')])
             ->get(['id', 'wing_id', 'capacity']);
@@ -62,11 +64,19 @@ trait BuildsOccupancyReport
             ->whereNull('cage_id')
             ->count();
 
+        $inFosterFamilies = Pet::query()
+            ->where('shelter_id', $shelterId)
+            ->where('status', '!=', 'adopted')
+            ->whereNull('date_of_death')
+            ->whereHas('cage.wing', fn (Builder $query) => $query->where('is_foster', true))
+            ->count();
+
         return [
             'totals' => [
                 'capacity' => $capacity,
                 'housed' => $housed,
                 'withoutCage' => $withoutCage,
+                'inFosterFamilies' => $inFosterFamilies,
                 'rate' => $capacity > 0 ? (int) round(($housed + $withoutCage) / $capacity * 100) : null,
             ],
             'wings' => $wings,

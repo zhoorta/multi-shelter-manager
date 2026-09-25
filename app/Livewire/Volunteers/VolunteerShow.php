@@ -18,7 +18,10 @@ class VolunteerShow extends Component
         abort_unless(! Auth::user()->is_admin, 403);
         abort_if(Auth::user()->isViewerOfCurrentShelter(), 403);
 
-        $this->volunteer = $volunteer->load('activities', 'availabilities', 'species');
+        $this->volunteer = $volunteer->load([
+            'activities', 'availabilities', 'species',
+            'fosterCages.pets' => fn ($query) => $query->where('status', '!=', 'adopted')->whereNull('date_of_death')->with('species')->orderBy('name'),
+        ]);
     }
 
     public function render(): View

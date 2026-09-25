@@ -1,4 +1,4 @@
-{{-- Public portal pet card; expects $pet (with species, breed, size, shelter.region, images). Opens the details modal via showPet(). --}}
+{{-- Public portal pet card; expects $pet (with species, breed, size, shelter.region, images, cage.wing). Opens the details modal via showPet(). Only the foster flag of the cage is used: never show the family or the cage. --}}
 @php
     $cardTints = ['bg-orange-100 dark:bg-orange-950/60', 'bg-sky-100 dark:bg-sky-950/60', 'bg-lime-100 dark:bg-lime-950/60', 'bg-pink-100 dark:bg-pink-950/60', 'bg-violet-100 dark:bg-violet-950/60'];
     $mainImage = $pet->images->firstWhere('is_main', true) ?? $pet->images->first();
@@ -18,6 +18,10 @@
 
         @if ($pet->is_featured)
             <span class="absolute top-3 left-3 rounded-full bg-yellow-300 px-3 py-1 text-xs font-bold text-yellow-900 shadow-sm">⭐ {{ __('Featured') }}</span>
+        @endif
+
+        @if ($pet->isInFosterFamily())
+            <span class="absolute bottom-3 left-3 rounded-full bg-white px-3 py-1 text-xs font-bold text-amber-800 shadow-sm dark:bg-stone-900 dark:text-amber-300">🏡 {{ __('In a foster family') }}</span>
         @endif
 
         <span @class([
