@@ -27,6 +27,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Models/Region.php,app/Models/Shelter.php,app/Livewire/Admin/ShelterForm.php | .ai/rules/models-livewire-admin.md |
 | app/Models/PetVaccine.php,app/Models/Vaccine.php,app/Livewire/Pets/VaccinationForm.php,app/Livewire/Pets/PetShow.php | .ai/rules/models-livewire-pets-livewire-pets.md |
 | app/Models/Pet.php,app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php | .ai/rules/models-livewire-pets-views-livewire-pets.md |
+| app/Livewire/AdoptionApplicationForm.php,app/Livewire/Pets/ManageAdoptionApplications.php,app/Models/AdoptionApplication.php,app/Livewire/Pets/AdoptionForm.php | .ai/rules/models-livewire-pets.md |
 | app/Models/Member.php,app/Models/MemberPayment.php,app/Models/Shelter.php | .ai/rules/models-models-models.md |
 | app/Models/User.php,app/Models/Shelter.php | .ai/rules/models-models.md |
 | app/Models/*.php, app/Models/Pet.php, app/Models/FurType.php, app/Models/Cage.php | .ai/rules/models.md |

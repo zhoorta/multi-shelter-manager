@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privacy Policy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Last updated: 23 September 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Last updated: 25 September 2026</p>
         <p>{{ config('app.name') }} is a platform that brings several animal shelters together. We take the protection of your personal data seriously and process it in accordance with the General Data Protection Regulation (GDPR) and the national data protection laws of the European Union member states. This policy explains what data we process, why, for how long, and what your rights are.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. What data we process</h2>
 
         <h3>Visitors of the public page</h3>
-        <p>You can browse the animals up for adoption without creating an account or filling in any form. We only process the technical data needed for the site to work: IP address, browser and device type, and a session cookie.</p>
+        <p>You can browse the animals up for adoption without creating an account. We only process the technical data needed for the site to work: IP address, browser and device type, and a session cookie. If you send an adoption application, we also process the data described below.</p>
 
         <h3>Platform users (shelter teams)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>The shelter(s) you belong to and your role (administrator, manager or staff);</li>
             <li>Date of last login and session data (IP address and browser).</li>
         </ul>
+
+        <h3>Adoption applicants</h3>
+        <ul>
+            <li>Name, e-mail, phone, postal code and city;</li>
+            <li>The animal you applied for, your answers about your home (housing type, garden, children and other animals) and your motivation;</li>
+            <li>The date you gave your consent and the IP address the application was sent from, kept only to protect the form from abuse.</li>
+        </ul>
+        <p>An application is only sent to the shelter caring for that animal, which uses it to assess the adoption. If it is approved, your contact details become part of the adoption record.</p>
 
         <h3>Adopters</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Why we use the data and on what legal basis</h2>
         <ul>
             <li><strong>Managing adoptions, sponsorships and volunteering</strong> &mdash; performance of the agreement with you or pre-contractual steps at your request (Art. 6(1)(b) GDPR);</li>
+            <li><strong>Assessing adoption applications</strong> &mdash; steps taken at your request before an adoption (Art. 6(1)(b) GDPR), with the consent you give on the form; the IP address is kept to protect the form from abuse &mdash; legitimate interest (Art. 6(1)(f));</li>
             <li><strong>Following up on the animals' welfare after adoption</strong> &mdash; the shelter's legitimate interest in animal protection (Art. 6(1)(f));</li>
             <li><strong>Complying with legal obligations</strong>, such as tax rules and the registration and identification of companion animals (Art. 6(1)(c));</li>
             <li><strong>Sending newsletters and news about a sponsored animal</strong> &mdash; your consent, which you may withdraw at any time (Art. 6(1)(a));</li>
@@ -116,6 +125,7 @@
         <h2>6. How long we keep the data</h2>
         <ul>
             <li><strong>User accounts:</strong> while the account is active;</li>
+            <li><strong>Adoption applications:</strong> deleted automatically 6 months after their last update;</li>
             <li><strong>Adoptions and sponsorships:</strong> for as long as needed to follow up on the animal and to meet applicable legal obligations;</li>
             <li><strong>Volunteers:</strong> during the collaboration and, afterwards, only for the period required by law;</li>
             <li><strong>Sessions:</strong> expire automatically after a period of inactivity.</li>

@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privatlivspolitik</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Senest opdateret: 23. september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Senest opdateret: 25. september 2026</p>
         <p>{{ config('app.name') }} er en platform, der samler flere dyreinternater. Vi tager beskyttelsen af dine personoplysninger alvorligt og behandler dem i overensstemmelse med databeskyttelsesforordningen (GDPR) og databeskyttelsesloven (lov nr. 502 af 23. maj 2018). Denne politik forklarer, hvilke oplysninger vi behandler, hvorfor, hvor længe, og hvilke rettigheder du har.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Hvilke oplysninger vi behandler</h2>
 
         <h3>Besøgende på den offentlige side</h3>
-        <p>Du kan se de dyr, der søger et hjem, uden at oprette en konto eller udfylde en formular. Vi behandler kun de tekniske oplysninger, der er nødvendige for, at siden fungerer: IP-adresse, browser- og enhedstype samt en sessionscookie.</p>
+        <p>Du kan se de dyr, der søger et hjem, uden at oprette en konto. Vi behandler kun de tekniske oplysninger, der er nødvendige for, at siden fungerer: IP-adresse, browser- og enhedstype samt en sessionscookie. Hvis du sender en adoptionsansøgning, behandler vi også de oplysninger, der er beskrevet nedenfor.</p>
 
         <h3>Platformens brugere (internaternes teams)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>Det eller de internater, du hører til, og din rolle (administrator, internatleder eller medarbejder);</li>
             <li>Dato for seneste login og sessionsoplysninger (IP-adresse og browser).</li>
         </ul>
+
+        <h3>Adoptionsansøgere</h3>
+        <ul>
+            <li>Navn, e-mail, telefon, postnummer og by;</li>
+            <li>Det dyr, du søger om, dine svar om dit hjem (boligtype, have, børn og andre dyr) og din motivation;</li>
+            <li>Datoen for dit samtykke og den IP-adresse, ansøgningen blev sendt fra, som kun gemmes for at beskytte formularen mod misbrug.</li>
+        </ul>
+        <p>Ansøgningen sendes kun til det internat, der passer dyret, og som bruger den til at vurdere adoptionen. Hvis den godkendes, bliver dine kontaktoplysninger en del af adoptionsregistreringen.</p>
 
         <h3>Adoptanter</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Hvorfor vi bruger oplysningerne og med hvilket retsgrundlag</h2>
         <ul>
             <li><strong>Håndtering af adoptioner, fadderskaber og frivilligt arbejde</strong> &mdash; opfyldelse af aftalen med dig eller foranstaltninger forud for aftalen på din anmodning (art. 6, stk. 1, litra b, GDPR);</li>
+            <li><strong>Vurdering af adoptionsansøgninger</strong> &mdash; foranstaltninger forud for aftalen på din anmodning (art. 6, stk. 1, litra b, GDPR) med det samtykke, du giver i formularen; IP-adressen gemmes for at beskytte formularen mod misbrug &mdash; legitim interesse (art. 6, stk. 1, litra f, GDPR);</li>
             <li><strong>Opfølgning på dyrenes trivsel efter adoption</strong> &mdash; internatets legitime interesse i dyrebeskyttelse (art. 6, stk. 1, litra f);</li>
             <li><strong>Overholdelse af retlige forpligtelser</strong>, fx skatteregler og registrering og mærkning af selskabsdyr (art. 6, stk. 1, litra c);</li>
             <li><strong>Udsendelse af nyhedsbreve og nyheder om et fadderdyr</strong> &mdash; dit samtykke, som du til enhver tid kan trække tilbage (art. 6, stk. 1, litra a);</li>
@@ -116,6 +125,7 @@
         <h2>6. Hvor længe vi opbevarer oplysningerne</h2>
         <ul>
             <li><strong>Brugerkonti:</strong> så længe kontoen er aktiv;</li>
+            <li><strong>Adoptionsansøgninger:</strong> slettes automatisk 6 måneder efter den seneste ændring;</li>
             <li><strong>Adoptioner og fadderskaber:</strong> så længe det er nødvendigt for at følge op på dyret og overholde gældende retlige forpligtelser;</li>
             <li><strong>Frivillige:</strong> under samarbejdet og derefter kun i den periode, loven kræver;</li>
             <li><strong>Sessioner:</strong> udløber automatisk efter en periode med inaktivitet.</li>

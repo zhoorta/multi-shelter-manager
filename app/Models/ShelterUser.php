@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  * @property int $user_id
  * @property string $role
  * @property bool $vaccination_notifications
+ * @property bool $adoption_application_notifications
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -31,6 +32,7 @@ class ShelterUser extends Pivot
     {
         return [
             'vaccination_notifications' => 'boolean',
+            'adoption_application_notifications' => 'boolean',
         ];
     }
 }

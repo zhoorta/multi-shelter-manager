@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Politique de Confidentialité</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Dernière mise à jour : 23 septembre 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Dernière mise à jour : 25 septembre 2026</p>
         <p>{{ config('app.name') }} est une plateforme qui réunit plusieurs refuges pour animaux. Nous prenons au sérieux la protection de vos données personnelles et les traitons conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés (loi Informatique et Libertés). Cette politique explique quelles données nous traitons, pourquoi, pendant combien de temps et quels sont vos droits.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Quelles données nous traitons</h2>
 
         <h3>Visiteurs de la page publique</h3>
-        <p>Vous pouvez consulter les animaux à l'adoption sans créer de compte ni remplir de formulaire. Nous ne traitons que les données techniques nécessaires au fonctionnement du site : adresse IP, type de navigateur et d'appareil, et un cookie de session.</p>
+        <p>Vous pouvez consulter les animaux à l'adoption sans créer de compte. Nous ne traitons que les données techniques nécessaires au fonctionnement du site : adresse IP, type de navigateur et d'appareil, et un cookie de session. Si vous envoyez une demande d'adoption, nous traitons également les données décrites ci-dessous.</p>
 
         <h3>Utilisateurs de la plateforme (équipes des refuges)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>Le ou les refuges auxquels vous appartenez et votre rôle (administrateur, gestionnaire ou employé) ;</li>
             <li>Date de dernière connexion et données de session (adresse IP et navigateur).</li>
         </ul>
+
+        <h3>Demandeurs d'adoption</h3>
+        <ul>
+            <li>Nom, e-mail, téléphone, code postal et ville ;</li>
+            <li>L'animal concerné par votre demande, vos réponses sur votre logement (type de logement, jardin, enfants et autres animaux) et votre motivation ;</li>
+            <li>La date de votre consentement et l'adresse IP depuis laquelle la demande a été envoyée, conservée uniquement pour protéger le formulaire contre les abus.</li>
+        </ul>
+        <p>La demande n'est transmise qu'au refuge qui prend soin de cet animal, qui l'utilise pour évaluer l'adoption. Si elle est acceptée, vos coordonnées sont reprises dans le dossier d'adoption.</p>
 
         <h3>Adoptants</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Pourquoi nous utilisons les données et sur quelle base juridique</h2>
         <ul>
             <li><strong>Gérer les adoptions, parrainages et le bénévolat</strong> &mdash; exécution de l'accord conclu avec vous ou mesures précontractuelles prises à votre demande (art. 6, par. 1, point b) du RGPD) ;</li>
+            <li><strong>Évaluer les demandes d'adoption</strong> &mdash; mesures précontractuelles prises à votre demande (art. 6, par. 1, point b) du RGPD), avec le consentement que vous donnez dans le formulaire ; l'adresse IP est conservée pour protéger le formulaire contre les abus &mdash; intérêt légitime (art. 6, par. 1, point f)) ;</li>
             <li><strong>Suivre le bien-être des animaux après l'adoption</strong> &mdash; intérêt légitime du refuge à la protection animale (art. 6, par. 1, point f)) ;</li>
             <li><strong>Respecter les obligations légales</strong>, telles que les règles fiscales et l'enregistrement et l'identification des animaux de compagnie (art. 6, par. 1, point c)) ;</li>
             <li><strong>Envoyer des newsletters et des nouvelles d'un animal parrainé</strong> &mdash; votre consentement, que vous pouvez retirer à tout moment (art. 6, par. 1, point a)) ;</li>
@@ -116,6 +125,7 @@
         <h2>6. Combien de temps nous conservons les données</h2>
         <ul>
             <li><strong>Comptes utilisateurs :</strong> tant que le compte est actif ;</li>
+            <li><strong>Demandes d'adoption :</strong> supprimées automatiquement 6 mois après leur dernière modification ;</li>
             <li><strong>Adoptions et parrainages :</strong> aussi longtemps que nécessaire pour le suivi de l'animal et le respect des obligations légales applicables ;</li>
             <li><strong>Bénévoles :</strong> pendant la collaboration puis, ensuite, uniquement pendant la durée exigée par la loi ;</li>
             <li><strong>Sessions :</strong> expirent automatiquement après une période d'inactivité.</li>

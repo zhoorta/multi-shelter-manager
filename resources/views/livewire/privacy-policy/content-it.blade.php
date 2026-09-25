@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Informativa sulla Privacy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Ultimo aggiornamento: 23 settembre 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Ultimo aggiornamento: 25 settembre 2026</p>
         <p>{{ config('app.name') }} è una piattaforma che riunisce diversi rifugi per animali. Prendiamo sul serio la protezione dei tuoi dati personali e li trattiamo in conformità al Regolamento Generale sulla Protezione dei Dati (GDPR) e al Codice in materia di protezione dei dati personali (D.Lgs. 196/2003, come modificato dal D.Lgs. 101/2018). Questa informativa spiega quali dati trattiamo, perché, per quanto tempo e quali sono i tuoi diritti.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Quali dati trattiamo</h2>
 
         <h3>Visitatori della pagina pubblica</h3>
-        <p>Puoi consultare gli animali in adozione senza creare un account né compilare alcun modulo. Trattiamo solo i dati tecnici necessari al funzionamento del sito: indirizzo IP, tipo di browser e dispositivo, e un cookie di sessione.</p>
+        <p>Puoi consultare gli animali in adozione senza creare un account. Trattiamo solo i dati tecnici necessari al funzionamento del sito: indirizzo IP, tipo di browser e dispositivo, e un cookie di sessione. Se invii una richiesta di adozione, trattiamo anche i dati descritti di seguito.</p>
 
         <h3>Utenti della piattaforma (team dei rifugi)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>Il rifugio o i rifugi a cui appartieni e il tuo ruolo (amministratore, responsabile o operatore);</li>
             <li>Data dell'ultimo accesso e dati di sessione (indirizzo IP e browser).</li>
         </ul>
+
+        <h3>Richiedenti di adozione</h3>
+        <ul>
+            <li>Nome, e-mail, telefono, codice postale e città;</li>
+            <li>L'animale per cui fai richiesta, le tue risposte sulla tua casa (tipo di abitazione, giardino, bambini e altri animali) e la tua motivazione;</li>
+            <li>La data in cui hai dato il consenso e l'indirizzo IP da cui è stata inviata la richiesta, conservato solo per proteggere il modulo da abusi.</li>
+        </ul>
+        <p>La richiesta viene inviata solo al rifugio che si prende cura di quell'animale, che la utilizza per valutare l'adozione. Se viene approvata, i tuoi dati di contatto entrano a far parte della scheda di adozione.</p>
 
         <h3>Adottanti</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Per quali finalità usiamo i dati e su quale base giuridica</h2>
         <ul>
             <li><strong>Gestire adozioni, adozioni a distanza e volontariato</strong> &mdash; esecuzione dell'accordo con te o misure precontrattuali adottate su tua richiesta (art. 6, par. 1, lett. b) GDPR);</li>
+            <li><strong>Valutare le richieste di adozione</strong> &mdash; misure precontrattuali adottate su tua richiesta (art. 6, par. 1, lett. b) GDPR), con il consenso che dai nel modulo; l'indirizzo IP è conservato per proteggere il modulo da abusi &mdash; legittimo interesse (art. 6, par. 1, lett. f));</li>
             <li><strong>Seguire il benessere degli animali dopo l'adozione</strong> &mdash; legittimo interesse del rifugio alla tutela degli animali (art. 6, par. 1, lett. f));</li>
             <li><strong>Adempiere agli obblighi di legge</strong>, come le norme fiscali e la registrazione e identificazione degli animali da compagnia (art. 6, par. 1, lett. c));</li>
             <li><strong>Inviare newsletter e aggiornamenti su un animale sostenuto</strong> &mdash; il tuo consenso, che puoi revocare in qualsiasi momento (art. 6, par. 1, lett. a));</li>
@@ -116,6 +125,7 @@
         <h2>6. Per quanto tempo conserviamo i dati</h2>
         <ul>
             <li><strong>Account utente:</strong> finché l'account è attivo;</li>
+            <li><strong>Richieste di adozione:</strong> cancellate automaticamente 6 mesi dopo l'ultima modifica;</li>
             <li><strong>Adozioni e adozioni a distanza:</strong> per il tempo necessario a seguire l'animale e ad adempiere agli obblighi di legge applicabili;</li>
             <li><strong>Volontari:</strong> durante la collaborazione e, successivamente, solo per il periodo previsto dalla legge;</li>
             <li><strong>Sessioni:</strong> scadono automaticamente dopo un periodo di inattività.</li>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pets;
 
 use App\Models\Adoption;
+use App\Models\AdoptionApplication;
 use App\Models\Pet;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -17,6 +18,12 @@ class AdoptionForm extends Component
     public Pet $pet;
 
     public ?Adoption $adoption = null;
+
+    /**
+     * The portal application being approved, when the form was opened from
+     * the applications list (?application=). Marked approved on save.
+     */
+    public ?AdoptionApplication $application = null;
 
     public string $adopterName = '';
 
@@ -62,6 +69,10 @@ class AdoptionForm extends Component
 
         if ($adoption === null) {
             $this->adoptionDate = now()->toDateString();
+
+            if (request()->filled('application')) {
+                $this->prefillFromApplication(request()->integer('application'));
+            }
 
             return;
         }
@@ -141,7 +152,14 @@ class AdoptionForm extends Component
             if ($isEditing) {
                 $this->adoption->update($adoptionAttributes);
             } else {
-                $this->pet->adoptions()->create($adoptionAttributes);
+                $adoption = $this->pet->adoptions()->create($adoptionAttributes);
+
+                $this->application?->update([
+                    'status' => 'approved',
+                    'adoption_id' => $adoption->id,
+                    'reviewed_by' => Auth::id(),
+                    'reviewed_at' => now(),
+                ]);
             }
 
             if ($hasAnotherOpenAdoption) {
@@ -162,6 +180,24 @@ class AdoptionForm extends Component
         );
 
         $this->redirect(route('pets.show', $this->pet), navigate: true);
+    }
+
+    /**
+     * Fill the adopter's details from a pending application for this pet.
+     */
+    private function prefillFromApplication(int $applicationId): void
+    {
+        $this->application = $this->pet->adoptionApplications()
+            ->where('status', 'pending')
+            ->findOrFail($applicationId);
+
+        $this->adopterName = $this->application->name;
+        $this->adopterEmail = $this->application->email;
+        $this->adopterPhone = $this->application->phone;
+        $this->adopterPostalCode = (string) $this->application->postal_code;
+        $this->adopterCity = $this->application->city;
+        $this->backRoute = route('pets.applications.index');
+        $this->backLabel = __('Adoption Applications');
     }
 
     public function render(): View

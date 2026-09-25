@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Política de Privacidade</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Última atualização: 23 de setembro de 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Última atualização: 25 de setembro de 2026</p>
         <p>O {{ config('app.name') }} é uma plataforma que junta vários abrigos de animais. Levamos a proteção dos seus dados pessoais a sério e tratamo-los de acordo com o Regulamento Geral sobre a Proteção de Dados (RGPD) e a legislação portuguesa aplicável. Esta política explica que dados tratamos, para quê, durante quanto tempo e quais são os seus direitos.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Que dados tratamos</h2>
 
         <h3>Visitantes da página pública</h3>
-        <p>Pode consultar os animais para adoção sem criar conta nem preencher formulários. Tratamos apenas os dados técnicos necessários para o funcionamento do site: endereço IP, tipo de navegador e dispositivo, e um cookie de sessão.</p>
+        <p>Pode consultar os animais para adoção sem criar conta. Tratamos apenas os dados técnicos necessários para o funcionamento do site: endereço IP, tipo de navegador e dispositivo, e um cookie de sessão. Se enviar uma candidatura de adoção, tratamos também os dados descritos abaixo.</p>
 
         <h3>Utilizadores da plataforma (equipas dos abrigos)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>Abrigo(s) a que pertence e respetivo perfil (administrador, gestor ou funcionário);</li>
             <li>Data do último acesso e dados de sessão (endereço IP e navegador).</li>
         </ul>
+
+        <h3>Candidatos à adoção</h3>
+        <ul>
+            <li>Nome, e-mail, telefone, código postal e localidade;</li>
+            <li>O animal a que se candidata, as suas respostas sobre a sua casa (tipo de habitação, jardim, crianças e outros animais) e a sua motivação;</li>
+            <li>A data em que deu o seu consentimento e o endereço IP a partir do qual a candidatura foi enviada, guardado apenas para proteger o formulário contra abusos.</li>
+        </ul>
+        <p>A candidatura é enviada apenas ao abrigo que cuida desse animal, que a usa para avaliar a adoção. Se for aprovada, os seus contactos passam a fazer parte do registo de adoção.</p>
 
         <h3>Adotantes</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Para que usamos os dados e com que fundamento</h2>
         <ul>
             <li><strong>Gerir adoções, apadrinhamentos e voluntariado</strong> &mdash; execução do acordo celebrado consigo ou diligências pré-contratuais a seu pedido (art.º 6.º, n.º 1, al. b) do RGPD);</li>
+            <li><strong>Avaliar candidaturas de adoção</strong> &mdash; diligências pré-contratuais a seu pedido (art.º 6.º, n.º 1, al. b) do RGPD), com o consentimento que dá no formulário; o endereço IP é guardado para proteger o formulário contra abusos &mdash; interesse legítimo (art.º 6.º, n.º 1, al. f));</li>
             <li><strong>Acompanhar o bem-estar dos animais após a adoção</strong> &mdash; interesse legítimo do abrigo na proteção animal (al. f));</li>
             <li><strong>Cumprir obrigações legais</strong>, como as fiscais e as relativas ao registo e identificação de animais de companhia (al. c));</li>
             <li><strong>Enviar newsletters e notícias sobre o animal apadrinhado</strong> &mdash; o seu consentimento, que pode retirar a qualquer momento (al. a));</li>
@@ -116,6 +125,7 @@
         <h2>6. Durante quanto tempo guardamos os dados</h2>
         <ul>
             <li><strong>Contas de utilizador:</strong> enquanto a conta estiver ativa;</li>
+            <li><strong>Candidaturas de adoção:</strong> apagadas automaticamente 6 meses após a última alteração;</li>
             <li><strong>Adoções e apadrinhamentos:</strong> durante o tempo necessário ao acompanhamento do animal e ao cumprimento das obrigações legais aplicáveis;</li>
             <li><strong>Voluntários:</strong> durante a colaboração e, depois dela, apenas pelo período exigido por lei;</li>
             <li><strong>Sessões:</strong> expiram automaticamente após um período de inatividade.</li>

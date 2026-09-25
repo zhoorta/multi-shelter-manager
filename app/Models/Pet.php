@@ -364,6 +364,16 @@ class Pet extends Model
     }
 
     /**
+     * Get the adoption applications sent for the pet through the portal.
+     *
+     * @return HasMany<AdoptionApplication, $this>
+     */
+    public function adoptionApplications(): HasMany
+    {
+        return $this->hasMany(AdoptionApplication::class);
+    }
+
+    /**
      * Get the pet's most recent adoption record, by adoption date.
      *
      * @return HasOne<Adoption, $this>

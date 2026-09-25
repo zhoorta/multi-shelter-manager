@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Política de Privacidad</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Última actualización: 23 de septiembre de 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Última actualización: 25 de septiembre de 2026</p>
         <p>{{ config('app.name') }} es una plataforma que reúne a varios refugios de animales. Nos tomamos en serio la protección de sus datos personales y los tratamos de acuerdo con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Esta política explica qué datos tratamos, por qué, durante cuánto tiempo y cuáles son sus derechos.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Qué datos tratamos</h2>
 
         <h3>Visitantes de la página pública</h3>
-        <p>Puede ver los animales en adopción sin crear una cuenta ni rellenar ningún formulario. Solo tratamos los datos técnicos necesarios para que el sitio funcione: dirección IP, tipo de navegador y dispositivo, y una cookie de sesión.</p>
+        <p>Puede ver los animales en adopción sin crear una cuenta. Solo tratamos los datos técnicos necesarios para que el sitio funcione: dirección IP, tipo de navegador y dispositivo, y una cookie de sesión. Si envía una solicitud de adopción, también tratamos los datos que se describen a continuación.</p>
 
         <h3>Usuarios de la plataforma (equipos de los refugios)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>El refugio o refugios a los que pertenece y su función (administrador, gestor o empleado);</li>
             <li>Fecha del último acceso y datos de sesión (dirección IP y navegador).</li>
         </ul>
+
+        <h3>Solicitantes de adopción</h3>
+        <ul>
+            <li>Nombre, correo electrónico, teléfono, código postal y ciudad;</li>
+            <li>El animal que solicita, sus respuestas sobre su hogar (tipo de vivienda, jardín, niños y otros animales) y su motivación;</li>
+            <li>La fecha en que dio su consentimiento y la dirección IP desde la que se envió la solicitud, conservada solo para proteger el formulario contra abusos.</li>
+        </ul>
+        <p>La solicitud solo se envía al refugio que cuida de ese animal, que la utiliza para valorar la adopción. Si se aprueba, sus datos de contacto pasan a formar parte del registro de adopción.</p>
 
         <h3>Adoptantes</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Para qué usamos los datos y con qué base jurídica</h2>
         <ul>
             <li><strong>Gestionar adopciones, apadrinamientos y voluntariado</strong> &mdash; ejecución del acuerdo con usted o aplicación de medidas precontractuales a petición suya (art. 6.1.b) RGPD);</li>
+            <li><strong>Valorar las solicitudes de adopción</strong> &mdash; aplicación de medidas precontractuales a petición suya (art. 6.1.b) RGPD), con el consentimiento que da en el formulario; la dirección IP se conserva para proteger el formulario contra abusos &mdash; interés legítimo (art. 6.1.f));</li>
             <li><strong>Hacer el seguimiento del bienestar de los animales tras la adopción</strong> &mdash; interés legítimo del refugio en la protección animal (art. 6.1.f));</li>
             <li><strong>Cumplir obligaciones legales</strong>, como las normas fiscales y el registro e identificación de animales de compañía (art. 6.1.c));</li>
             <li><strong>Enviar boletines y novedades sobre un animal apadrinado</strong> &mdash; su consentimiento, que puede retirar en cualquier momento (art. 6.1.a));</li>
@@ -116,6 +125,7 @@
         <h2>6. Durante cuánto tiempo conservamos los datos</h2>
         <ul>
             <li><strong>Cuentas de usuario:</strong> mientras la cuenta esté activa;</li>
+            <li><strong>Solicitudes de adopción:</strong> se eliminan automáticamente 6 meses después de su última modificación;</li>
             <li><strong>Adopciones y apadrinamientos:</strong> durante el tiempo necesario para el seguimiento del animal y para cumplir las obligaciones legales aplicables;</li>
             <li><strong>Voluntarios:</strong> durante la colaboración y, después, solo durante el periodo exigido por la ley;</li>
             <li><strong>Sesiones:</strong> caducan automáticamente tras un periodo de inactividad.</li>

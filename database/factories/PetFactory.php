@@ -34,6 +34,18 @@ class PetFactory extends Factory
     }
 
     /**
+     * A pet shown on the public portal (see Pet::publishedToPortal()).
+     */
+    public function publishedToPortal(): static
+    {
+        return $this->state(fn (): array => [
+            'publish_to_portal' => true,
+            'is_adoptable' => true,
+            'status' => 'available',
+        ]);
+    }
+
+    /**
      * @return Factory<Pet>
      */
     public function configure(): Factory

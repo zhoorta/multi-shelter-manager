@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Polityka prywatności</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Ostatnia aktualizacja: 23 września 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Ostatnia aktualizacja: 25 września 2026</p>
         <p>{{ config('app.name') }} to platforma skupiająca wiele schronisk dla zwierząt. Poważnie traktujemy ochronę Twoich danych osobowych i przetwarzamy je zgodnie z Ogólnym rozporządzeniem o ochronie danych (RODO) oraz ustawą z dnia 10 maja 2018 r. o ochronie danych osobowych. Niniejsza polityka wyjaśnia, jakie dane przetwarzamy, dlaczego, jak długo i jakie przysługują Ci prawa.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Jakie dane przetwarzamy</h2>
 
         <h3>Osoby odwiedzające stronę publiczną</h3>
-        <p>Możesz przeglądać zwierzęta do adopcji bez zakładania konta i wypełniania formularzy. Przetwarzamy wyłącznie dane techniczne niezbędne do działania serwisu: adres IP, rodzaj przeglądarki i urządzenia oraz plik cookie sesji.</p>
+        <p>Możesz przeglądać zwierzęta do adopcji bez zakładania konta. Przetwarzamy wyłącznie dane techniczne niezbędne do działania serwisu: adres IP, rodzaj przeglądarki i urządzenia oraz plik cookie sesji. Jeśli wyślesz wniosek adopcyjny, przetwarzamy również dane opisane poniżej.</p>
 
         <h3>Użytkownicy platformy (zespoły schronisk)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>Schronisko lub schroniska, do których należysz, i Twoja rola (administrator, kierownik lub pracownik);</li>
             <li>Data ostatniego logowania i dane sesji (adres IP i przeglądarka).</li>
         </ul>
+
+        <h3>Osoby składające wniosek adopcyjny</h3>
+        <ul>
+            <li>Imię i nazwisko, e-mail, telefon, kod pocztowy i miejscowość;</li>
+            <li>Zwierzę, którego dotyczy wniosek, Twoje odpowiedzi dotyczące domu (rodzaj mieszkania, ogród, dzieci i inne zwierzęta) oraz Twoja motywacja;</li>
+            <li>Data wyrażenia zgody i adres IP, z którego wysłano wniosek, przechowywany wyłącznie w celu ochrony formularza przed nadużyciami.</li>
+        </ul>
+        <p>Wniosek trafia wyłącznie do schroniska, które opiekuje się danym zwierzęciem i wykorzystuje go do oceny adopcji. Jeśli zostanie zatwierdzony, Twoje dane kontaktowe stają się częścią dokumentacji adopcji.</p>
 
         <h3>Adoptujący</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. W jakim celu i na jakiej podstawie prawnej wykorzystujemy dane</h2>
         <ul>
             <li><strong>Obsługa adopcji, adopcji wirtualnych i wolontariatu</strong> &mdash; wykonanie umowy z Tobą lub działania przed jej zawarciem podejmowane na Twoje żądanie (art. 6 ust. 1 lit. b RODO);</li>
+            <li><strong>Ocena wniosków adopcyjnych</strong> &mdash; działania przed zawarciem umowy podejmowane na Twoje żądanie (art. 6 ust. 1 lit. b RODO), na podstawie zgody wyrażonej w formularzu; adres IP jest przechowywany w celu ochrony formularza przed nadużyciami &mdash; prawnie uzasadniony interes (art. 6 ust. 1 lit. f RODO);</li>
             <li><strong>Monitorowanie dobrostanu zwierząt po adopcji</strong> &mdash; prawnie uzasadniony interes schroniska w ochronie zwierząt (art. 6 ust. 1 lit. f);</li>
             <li><strong>Wypełnianie obowiązków prawnych</strong>, takich jak przepisy podatkowe oraz rejestracja i identyfikacja zwierząt domowych (art. 6 ust. 1 lit. c);</li>
             <li><strong>Wysyłanie newslettera i wiadomości o wspieranym zwierzęciu</strong> &mdash; Twoja zgoda, którą możesz w każdej chwili wycofać (art. 6 ust. 1 lit. a);</li>
@@ -116,6 +125,7 @@
         <h2>6. Jak długo przechowujemy dane</h2>
         <ul>
             <li><strong>Konta użytkowników:</strong> dopóki konto jest aktywne;</li>
+            <li><strong>Wnioski adopcyjne:</strong> usuwane automatycznie 6 miesięcy po ostatniej zmianie;</li>
             <li><strong>Adopcje i adopcje wirtualne:</strong> tak długo, jak jest to potrzebne do monitorowania zwierzęcia i wypełnienia obowiązujących obowiązków prawnych;</li>
             <li><strong>Wolontariusze:</strong> w trakcie współpracy, a następnie tylko przez okres wymagany przepisami;</li>
             <li><strong>Sesje:</strong> wygasają automatycznie po okresie bezczynności.</li>

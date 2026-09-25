@@ -137,9 +137,12 @@
                         {{ collect([$pet->shelter->address, $pet->shelter->postal_code, $pet->shelter->city, $pet->shelter->region?->name])->filter()->implode(', ') }}
                     </p>
                     <div class="flex flex-wrap gap-2">
+                        <a href="{{ route('adoption-applications.create', $pet->ref) }}" class="rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-600" wire:navigate>
+                            💌 {{ __('I want to adopt') }}
+                        </a>
                         @if ($pet->shelter->email)
-                            <a href="mailto:{{ $pet->shelter->email }}?subject={{ rawurlencode(__('Adoption of :name (:ref)', ['name' => $pet->name, 'ref' => $pet->ref])) }}" class="rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-600">
-                                💌 {{ __('I want to adopt') }}
+                            <a href="mailto:{{ $pet->shelter->email }}?subject={{ rawurlencode(__('Adoption of :name (:ref)', ['name' => $pet->name, 'ref' => $pet->ref])) }}" class="rounded-full bg-white px-5 py-2 text-sm font-semibold text-stone-700 ring-1 ring-orange-200 transition hover:-translate-y-0.5 dark:bg-stone-900 dark:text-stone-200 dark:ring-stone-700">
+                                ✉️ {{ __('Email') }}
                             </a>
                         @endif
                         @if ($pet->shelter->phone)

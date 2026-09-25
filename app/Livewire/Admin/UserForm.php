@@ -34,7 +34,7 @@ class UserForm extends Component
     /**
      * One row per shelter membership being created/edited.
      *
-     * @var array<int, array{shelter_id: int|null, role: string, vaccination_notifications: bool}>
+     * @var array<int, array{shelter_id: int|null, role: string, vaccination_notifications: bool, adoption_application_notifications: bool}>
      */
     public array $userMemberships = [];
 
@@ -73,6 +73,7 @@ class UserForm extends Component
             'shelter_id' => $shelter->id,
             'role' => $shelter->pivot->role,
             'vaccination_notifications' => (bool) $shelter->pivot->vaccination_notifications,
+            'adoption_application_notifications' => (bool) $shelter->pivot->adoption_application_notifications,
         ])->all();
     }
 
@@ -86,7 +87,7 @@ class UserForm extends Component
     }
 
     /**
-     * A manager editing their own account may only toggle vaccination
+     * A manager editing their own account may only toggle their
      * notifications — never their name or shelter memberships.
      */
     #[Computed]
@@ -118,6 +119,7 @@ class UserForm extends Component
             'shelter_id' => $viewer->is_admin ? null : $viewer->current_shelter_id,
             'role' => 'staff',
             'vaccination_notifications' => false,
+            'adoption_application_notifications' => false,
         ];
     }
 
@@ -167,6 +169,7 @@ class UserForm extends Component
             ],
             'userMemberships.*.role' => ['required', Rule::in(['staff', 'manager', 'viewer'])],
             'userMemberships.*.vaccination_notifications' => ['boolean'],
+            'userMemberships.*.adoption_application_notifications' => ['boolean'],
         ], [
             'userMemberships.*.shelter_id.distinct' => __('This shelter has already been selected.'),
         ], [
@@ -191,7 +194,7 @@ class UserForm extends Component
     }
 
     /**
-     * @param  array{userMemberships?: array<int, array{shelter_id: int, role: string, vaccination_notifications: bool}>}  $validated
+     * @param  array{userMemberships?: array<int, array{shelter_id: int, role: string, vaccination_notifications: bool, adoption_application_notifications: bool}>}  $validated
      */
     private function addExistingUserToShelters(array $validated): bool
     {
@@ -209,6 +212,7 @@ class UserForm extends Component
             $user->shelters()->attach($membership['shelter_id'], [
                 'role' => $membership['role'],
                 'vaccination_notifications' => $membership['vaccination_notifications'],
+                'adoption_application_notifications' => $membership['adoption_application_notifications'],
             ]);
 
             $user->notify(new ShelterMembershipAdded(Shelter::query()->findOrFail($membership['shelter_id']), $membership['role']));
@@ -224,7 +228,7 @@ class UserForm extends Component
     }
 
     /**
-     * @param  array{userName: string, userIsAdmin: bool, userMemberships?: array<int, array{shelter_id: int, role: string, vaccination_notifications: bool}>}  $validated
+     * @param  array{userName: string, userIsAdmin: bool, userMemberships?: array<int, array{shelter_id: int, role: string, vaccination_notifications: bool, adoption_application_notifications: bool}>}  $validated
      */
     private function updateExistingUser(array $validated): bool
     {
@@ -253,6 +257,7 @@ class UserForm extends Component
             $user->shelters()->attach($membership['shelter_id'], [
                 'role' => $membership['role'],
                 'vaccination_notifications' => $membership['vaccination_notifications'],
+                'adoption_application_notifications' => $membership['adoption_application_notifications'],
             ]);
         }
 
@@ -266,10 +271,10 @@ class UserForm extends Component
     }
 
     /**
-     * Only the vaccination_notifications flag of memberships the manager
-     * already has is applied; name, shelters and roles are left untouched.
+     * Only the notification flags of memberships the manager
+     * already has are applied; name, shelters and roles are left untouched.
      *
-     * @param  array{userMemberships?: array<int, array{shelter_id: int, role: string, vaccination_notifications: bool}>}  $validated
+     * @param  array{userMemberships?: array<int, array{shelter_id: int, role: string, vaccination_notifications: bool, adoption_application_notifications: bool}>}  $validated
      */
     private function updateOwnNotificationPreferences(array $validated): bool
     {
@@ -277,6 +282,7 @@ class UserForm extends Component
             if ($this->user->belongsToShelter($membership['shelter_id'])) {
                 $this->user->shelters()->updateExistingPivot($membership['shelter_id'], [
                     'vaccination_notifications' => $membership['vaccination_notifications'],
+                    'adoption_application_notifications' => $membership['adoption_application_notifications'],
                 ]);
             }
         }
@@ -287,7 +293,7 @@ class UserForm extends Component
     }
 
     /**
-     * @param  array{userName: string, userEmail: string, userIsAdmin: bool, userMemberships?: array<int, array{shelter_id: int, role: string, vaccination_notifications: bool}>}  $validated
+     * @param  array{userName: string, userEmail: string, userIsAdmin: bool, userMemberships?: array<int, array{shelter_id: int, role: string, vaccination_notifications: bool, adoption_application_notifications: bool}>}  $validated
      */
     private function createNewUser(array $validated): bool
     {
@@ -307,6 +313,7 @@ class UserForm extends Component
                 $user->shelters()->attach($membership['shelter_id'], [
                     'role' => $membership['role'],
                     'vaccination_notifications' => $membership['vaccination_notifications'],
+                    'adoption_application_notifications' => $membership['adoption_application_notifications'],
                 ]);
             }
         }

@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privacybeleid</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Laatst bijgewerkt: 23 september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Laatst bijgewerkt: 25 september 2026</p>
         <p>{{ config('app.name') }} is een platform dat verschillende dierenasielen samenbrengt. We nemen de bescherming van uw persoonsgegevens serieus en verwerken ze in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG) en de Uitvoeringswet Algemene verordening gegevensbescherming (UAVG). Dit beleid legt uit welke gegevens we verwerken, waarom, hoe lang en wat uw rechten zijn.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Welke gegevens we verwerken</h2>
 
         <h3>Bezoekers van de openbare pagina</h3>
-        <p>U kunt de dieren die ter adoptie staan bekijken zonder een account aan te maken of een formulier in te vullen. We verwerken alleen de technische gegevens die nodig zijn om de site te laten werken: IP-adres, type browser en apparaat, en een sessiecookie.</p>
+        <p>U kunt de dieren die ter adoptie staan bekijken zonder een account aan te maken. We verwerken alleen de technische gegevens die nodig zijn om de site te laten werken: IP-adres, type browser en apparaat, en een sessiecookie. Als u een adoptieaanvraag verstuurt, verwerken we ook de hieronder beschreven gegevens.</p>
 
         <h3>Gebruikers van het platform (asielteams)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>Het asiel of de asielen waar u bij hoort en uw rol (beheerder, asielbeheerder of medewerker);</li>
             <li>Datum van de laatste login en sessiegegevens (IP-adres en browser).</li>
         </ul>
+
+        <h3>Adoptieaanvragers</h3>
+        <ul>
+            <li>Naam, e-mailadres, telefoonnummer, postcode en woonplaats;</li>
+            <li>Het dier waarvoor u een aanvraag doet, uw antwoorden over uw woning (woningtype, tuin, kinderen en andere dieren) en uw motivatie;</li>
+            <li>De datum waarop u toestemming gaf en het IP-adres vanaf waar de aanvraag is verstuurd, dat alleen wordt bewaard om het formulier tegen misbruik te beschermen.</li>
+        </ul>
+        <p>De aanvraag wordt alleen verstuurd naar het asiel dat voor dat dier zorgt, dat haar gebruikt om de adoptie te beoordelen. Wordt ze goedgekeurd, dan worden uw contactgegevens onderdeel van het adoptiedossier.</p>
 
         <h3>Adoptanten</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Waarvoor we de gegevens gebruiken en op welke rechtsgrond</h2>
         <ul>
             <li><strong>Beheren van adopties, sponsorschappen en vrijwilligerswerk</strong> &mdash; uitvoering van de overeenkomst met u of precontractuele maatregelen op uw verzoek (art. 6, lid 1, onder b, AVG);</li>
+            <li><strong>Beoordelen van adoptieaanvragen</strong> &mdash; precontractuele maatregelen op uw verzoek (art. 6, lid 1, onder b, AVG), met de toestemming die u in het formulier geeft; het IP-adres wordt bewaard om het formulier tegen misbruik te beschermen &mdash; gerechtvaardigd belang (art. 6, lid 1, onder f, AVG);</li>
             <li><strong>Opvolgen van het welzijn van de dieren na adoptie</strong> &mdash; gerechtvaardigd belang van het asiel bij dierenbescherming (art. 6, lid 1, onder f);</li>
             <li><strong>Voldoen aan wettelijke verplichtingen</strong>, zoals fiscale regels en de registratie en identificatie van gezelschapsdieren (art. 6, lid 1, onder c);</li>
             <li><strong>Versturen van nieuwsbrieven en nieuws over een gesponsord dier</strong> &mdash; uw toestemming, die u op elk moment kunt intrekken (art. 6, lid 1, onder a);</li>
@@ -116,6 +125,7 @@
         <h2>6. Hoe lang we de gegevens bewaren</h2>
         <ul>
             <li><strong>Gebruikersaccounts:</strong> zolang het account actief is;</li>
+            <li><strong>Adoptieaanvragen:</strong> worden 6 maanden na de laatste wijziging automatisch verwijderd;</li>
             <li><strong>Adopties en sponsorschappen:</strong> zolang nodig is om het dier op te volgen en aan de toepasselijke wettelijke verplichtingen te voldoen;</li>
             <li><strong>Vrijwilligers:</strong> tijdens de samenwerking en daarna alleen gedurende de wettelijk vereiste periode;</li>
             <li><strong>Sessies:</strong> verlopen automatisch na een periode van inactiviteit.</li>

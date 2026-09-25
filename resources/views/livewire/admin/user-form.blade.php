@@ -70,6 +70,7 @@
                     </div>
 
                     <flux:switch wire:model="userMemberships.{{ $i }}.vaccination_notifications" :label="__('Vaccination Notifications')" align="left" />
+                    <flux:switch wire:model="userMemberships.{{ $i }}.adoption_application_notifications" :label="__('Adoption Application Notifications')" align="left" />
                 </div>
             @endforeach
 

@@ -41,6 +41,17 @@
                                 >
                                     {{ __('Adoptions') }}
                                 </flux:sidebar.item>
+                                @php
+                                    $pendingApplicationsCount = \App\Models\AdoptionApplication::query()->whereHas('pet')->where('status', 'pending')->count();
+                                @endphp
+                                <flux:sidebar.item
+                                    :href="route('pets.applications.index')"
+                                    :current="request()->routeIs('pets.applications.index')"
+                                    :badge="$pendingApplicationsCount ?: null"
+                                    wire:navigate
+                                >
+                                    {{ __('Adoption Applications') }}
+                                </flux:sidebar.item>
                             @endunless
                             <flux:sidebar.item
                                 :href="route('pets.vaccinations.index')"

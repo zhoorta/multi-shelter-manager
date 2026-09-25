@@ -95,6 +95,34 @@ test('admin can toggle vaccination notifications when editing a user', function 
     expect($staff->fresh()->shelters()->first()->pivot->vaccination_notifications)->toBeTrue();
 });
 
+test('admin can toggle adoption application notifications when editing a user', function () {
+    $admin = User::factory()->admin()->create();
+    $shelter = Shelter::factory()->create();
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
+    $this->actingAs($admin);
+
+    Livewire::test(UserForm::class, ['user' => $staff])
+        ->assertSet('userMemberships.0.adoption_application_notifications', false)
+        ->set('userMemberships.0.adoption_application_notifications', true)
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    expect($staff->fresh()->shelters()->first()->pivot->adoption_application_notifications)->toBeTrue();
+});
+
+test('a manager can toggle their own adoption application notifications', function () {
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
+    $this->actingAs($manager);
+
+    Livewire::test(UserForm::class, ['user' => $manager])
+        ->set('userMemberships.0.adoption_application_notifications', true)
+        ->call('saveUser')
+        ->assertHasNoErrors();
+
+    expect($manager->fresh()->shelters()->first()->pivot->adoption_application_notifications)->toBeTrue();
+});
+
 test('admin can invite another admin without assigning any shelter', function () {
     Notification::fake();
 

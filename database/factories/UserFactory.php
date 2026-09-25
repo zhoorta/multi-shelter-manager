@@ -63,17 +63,18 @@ class UserFactory extends Factory
 
     /**
      * Attach the created user to a shelter with the given membership role
-     * and notification preference, and set it as their active shelter.
+     * and notification preferences, and set it as their active shelter.
      */
-    public function forShelter(Shelter|int $shelter, string $role = 'staff', bool $vaccinationNotifications = false): static
+    public function forShelter(Shelter|int $shelter, string $role = 'staff', bool $vaccinationNotifications = false, bool $adoptionApplicationNotifications = false): static
     {
         $shelterId = $shelter instanceof Shelter ? $shelter->id : $shelter;
 
         return $this->state(['current_shelter_id' => $shelterId])
-            ->afterCreating(function (User $user) use ($shelterId, $role, $vaccinationNotifications): void {
+            ->afterCreating(function (User $user) use ($shelterId, $role, $vaccinationNotifications, $adoptionApplicationNotifications): void {
                 $user->shelters()->attach($shelterId, [
                     'role' => $role,
                     'vaccination_notifications' => $vaccinationNotifications,
+                    'adoption_application_notifications' => $adoptionApplicationNotifications,
                 ]);
             });
     }

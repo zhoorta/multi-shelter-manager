@@ -77,7 +77,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Shelter::class, 'shelter_users')
             ->using(ShelterUser::class)
-            ->withPivot(['role', 'vaccination_notifications'])
+            ->withPivot(['role', 'vaccination_notifications', 'adoption_application_notifications'])
             ->withTimestamps();
     }
 

@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Integritetspolicy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Senast uppdaterad: 23 september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Senast uppdaterad: 25 september 2026</p>
         <p>{{ config('app.name') }} är en plattform som samlar flera djurhem. Vi tar skyddet av dina personuppgifter på allvar och behandlar dem i enlighet med dataskyddsförordningen (GDPR) och lagen (2018:218) med kompletterande bestämmelser till EU:s dataskyddsförordning (dataskyddslagen). Denna policy förklarar vilka uppgifter vi behandlar, varför, hur länge och vilka rättigheter du har.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Vilka uppgifter vi behandlar</h2>
 
         <h3>Besökare på den offentliga sidan</h3>
-        <p>Du kan titta på djuren som söker hem utan att skapa ett konto eller fylla i något formulär. Vi behandlar endast de tekniska uppgifter som behövs för att webbplatsen ska fungera: IP-adress, typ av webbläsare och enhet samt en sessionscookie.</p>
+        <p>Du kan titta på djuren som söker hem utan att skapa ett konto. Vi behandlar endast de tekniska uppgifter som behövs för att webbplatsen ska fungera: IP-adress, typ av webbläsare och enhet samt en sessionscookie. Om du skickar en adoptionsansökan behandlar vi även de uppgifter som beskrivs nedan.</p>
 
         <h3>Plattformens användare (djurhemmens team)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>Det eller de djurhem du tillhör och din roll (administratör, föreståndare eller personal);</li>
             <li>Datum för senaste inloggning och sessionsuppgifter (IP-adress och webbläsare).</li>
         </ul>
+
+        <h3>Adoptionssökande</h3>
+        <ul>
+            <li>Namn, e-post, telefon, postnummer och ort;</li>
+            <li>Djuret du ansöker om, dina svar om ditt hem (boendeform, trädgård, barn och andra djur) och din motivering;</li>
+            <li>Datumet då du lämnade ditt samtycke och IP-adressen som ansökan skickades från, som sparas endast för att skydda formuläret mot missbruk.</li>
+        </ul>
+        <p>Ansökan skickas endast till det djurhem som tar hand om djuret, som använder den för att bedöma adoptionen. Om den godkänns blir dina kontaktuppgifter en del av adoptionsregistret.</p>
 
         <h3>Adoptanter</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Varför vi använder uppgifterna och med vilken rättslig grund</h2>
         <ul>
             <li><strong>Hantera adoptioner, fadderskap och volontärarbete</strong> &mdash; fullgörande av avtalet med dig eller åtgärder före avtalet på din begäran (art. 6.1 b GDPR);</li>
+            <li><strong>Bedöma adoptionsansökningar</strong> &mdash; åtgärder före avtalet på din begäran (art. 6.1 b GDPR), med det samtycke du lämnar i formuläret; IP-adressen sparas för att skydda formuläret mot missbruk &mdash; berättigat intresse (art. 6.1 f GDPR);</li>
             <li><strong>Följa upp djurens välbefinnande efter adoptionen</strong> &mdash; djurhemmets berättigade intresse av djurskydd (art. 6.1 f);</li>
             <li><strong>Fullgöra rättsliga förpliktelser</strong>, såsom skatteregler samt registrering och märkning av sällskapsdjur (art. 6.1 c);</li>
             <li><strong>Skicka nyhetsbrev och nyheter om ett fadderdjur</strong> &mdash; ditt samtycke, som du när som helst kan återkalla (art. 6.1 a);</li>
@@ -116,6 +125,7 @@
         <h2>6. Hur länge vi sparar uppgifterna</h2>
         <ul>
             <li><strong>Användarkonton:</strong> så länge kontot är aktivt;</li>
+            <li><strong>Adoptionsansökningar:</strong> raderas automatiskt 6 månader efter den senaste ändringen;</li>
             <li><strong>Adoptioner och fadderskap:</strong> så länge det behövs för att följa upp djuret och fullgöra tillämpliga rättsliga förpliktelser;</li>
             <li><strong>Volontärer:</strong> under samarbetet och därefter endast under den tid som lagen kräver;</li>
             <li><strong>Sessioner:</strong> upphör automatiskt efter en tids inaktivitet.</li>

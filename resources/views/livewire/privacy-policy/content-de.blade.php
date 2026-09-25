@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Datenschutzerklärung</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Zuletzt aktualisiert: 23. September 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Zuletzt aktualisiert: 25. September 2026</p>
         <p>{{ config('app.name') }} ist eine Plattform, die mehrere Tierheime zusammenbringt. Wir nehmen den Schutz Ihrer personenbezogenen Daten ernst und verarbeiten sie gemäß der Datenschutz-Grundverordnung (DSGVO) und dem Bundesdatenschutzgesetz (BDSG). Diese Erklärung beschreibt, welche Daten wir verarbeiten, warum, wie lange und welche Rechte Sie haben.</p>
     </header>
 
@@ -16,7 +16,7 @@
         <h2>2. Welche Daten wir verarbeiten</h2>
 
         <h3>Besucher der öffentlichen Seite</h3>
-        <p>Sie können die Tiere, die ein Zuhause suchen, ansehen, ohne ein Konto anzulegen oder ein Formular auszufüllen. Wir verarbeiten nur die technischen Daten, die für den Betrieb der Website erforderlich sind: IP-Adresse, Browser- und Gerätetyp sowie ein Sitzungscookie.</p>
+        <p>Sie können die Tiere, die ein Zuhause suchen, ansehen, ohne ein Konto anzulegen. Wir verarbeiten nur die technischen Daten, die für den Betrieb der Website erforderlich sind: IP-Adresse, Browser- und Gerätetyp sowie ein Sitzungscookie. Wenn Sie eine Adoptionsanfrage senden, verarbeiten wir zusätzlich die unten beschriebenen Daten.</p>
 
         <h3>Benutzer der Plattform (Tierheimteams)</h3>
         <ul>
@@ -25,6 +25,14 @@
             <li>Das bzw. die Tierheime, denen Sie angehören, und Ihre Rolle (Administrator, Tierheimleitung oder Mitarbeiter);</li>
             <li>Datum der letzten Anmeldung und Sitzungsdaten (IP-Adresse und Browser).</li>
         </ul>
+
+        <h3>Adoptionsinteressierte</h3>
+        <ul>
+            <li>Name, E-Mail-Adresse, Telefonnummer, Postleitzahl und Ort;</li>
+            <li>Das Tier, für das Sie sich interessieren, Ihre Angaben zu Ihrem Zuhause (Wohnform, Garten, Kinder und andere Tiere) und Ihre Beweggründe;</li>
+            <li>Der Zeitpunkt Ihrer Einwilligung und die IP-Adresse, von der die Anfrage gesendet wurde, die nur zum Schutz des Formulars vor Missbrauch gespeichert wird.</li>
+        </ul>
+        <p>Die Anfrage wird nur an das Tierheim übermittelt, das sich um dieses Tier kümmert, und von ihm zur Prüfung der Vermittlung verwendet. Wird sie angenommen, werden Ihre Kontaktdaten Teil des Vermittlungsdatensatzes.</p>
 
         <h3>Adoptierende</h3>
         <ul>
@@ -56,6 +64,7 @@
         <h2>3. Wofür wir die Daten verwenden und auf welcher Rechtsgrundlage</h2>
         <ul>
             <li><strong>Verwaltung von Vermittlungen, Patenschaften und Ehrenamt</strong> &mdash; Erfüllung der Vereinbarung mit Ihnen oder vorvertragliche Maßnahmen auf Ihre Anfrage (Art. 6 Abs. 1 lit. b DSGVO);</li>
+            <li><strong>Prüfung von Adoptionsanfragen</strong> &mdash; vorvertragliche Maßnahmen auf Ihre Anfrage (Art. 6 Abs. 1 lit. b DSGVO) mit der im Formular erteilten Einwilligung; die IP-Adresse wird zum Schutz des Formulars vor Missbrauch gespeichert &mdash; berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO);</li>
             <li><strong>Nachbetreuung des Wohlergehens der Tiere nach der Adoption</strong> &mdash; berechtigtes Interesse des Tierheims am Tierschutz (Art. 6 Abs. 1 lit. f);</li>
             <li><strong>Erfüllung rechtlicher Pflichten</strong>, etwa steuerlicher Vorschriften und der Registrierung und Kennzeichnung von Heimtieren (Art. 6 Abs. 1 lit. c);</li>
             <li><strong>Versand von Newslettern und Neuigkeiten über ein Patentier</strong> &mdash; Ihre Einwilligung, die Sie jederzeit widerrufen können (Art. 6 Abs. 1 lit. a);</li>
@@ -116,6 +125,7 @@
         <h2>6. Wie lange wir die Daten speichern</h2>
         <ul>
             <li><strong>Benutzerkonten:</strong> solange das Konto aktiv ist;</li>
+            <li><strong>Adoptionsanfragen:</strong> werden 6 Monate nach ihrer letzten Änderung automatisch gelöscht;</li>
             <li><strong>Vermittlungen und Patenschaften:</strong> so lange, wie es für die Nachbetreuung des Tieres und die Erfüllung geltender rechtlicher Pflichten erforderlich ist;</li>
             <li><strong>Ehrenamtliche:</strong> während der Mitarbeit und danach nur für den gesetzlich vorgeschriebenen Zeitraum;</li>
             <li><strong>Sitzungen:</strong> laufen nach einer Zeit der Inaktivität automatisch ab.</li>
