@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Activity;
 use App\Models\Adoption;
+use App\Models\AdoptionApplication;
 use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Color;
@@ -236,8 +237,10 @@ class DocumentationDemoSeeder extends Seeder
         $this->seedVaccinations($mainPets);
         $this->seedSicknesses($mainPets);
         $this->seedAdoptions($mainPets);
+        $this->seedAdoptionApplications($mainPets);
         $this->seedSponsorships($mainPets);
         $this->seedVolunteers($mainShelter);
+        $this->seedFosterFamilies($mainShelter, $mainPets);
         $this->seedMembers($mainShelter);
     }
 
@@ -342,6 +345,7 @@ class DocumentationDemoSeeder extends Seeder
                 'user_id' => $user->id,
                 'role' => $role,
                 'vaccination_notifications' => $role === 'manager',
+                'adoption_application_notifications' => $role === 'manager',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -628,6 +632,88 @@ class DocumentationDemoSeeder extends Seeder
             if ($applicationStatus === 'Approved' && $returnedDaysAgo === null) {
                 $pets[$petName]->update(['checkout_date' => now()->subDays($daysAgo)->toDateString()]);
             }
+        }
+    }
+
+    /**
+     * Applications sent from the public portal: pending ones, one approved
+     * (linked to its adoption), one rejected, and one still pending for a pet
+     * that has since been adopted, so the "reject them" banner shows.
+     *
+     * @param  Collection<string, Pet>  $pets
+     */
+    private function seedAdoptionApplications(Collection $pets): void
+    {
+        $reviewerId = User::query()->where('email', 'manager@example.com')->value('id');
+
+        // [pet, name, city, housing, garden, children, other animals, message, status, days ago]
+        $applications = [
+            ['Charlie', 'Sophie Martin', 'Lisbon', 'house', true, true, 'A 5-year-old cat', 'We have a big garden and two kids who have been asking for a dog for years. We walk every weekend.', 'pending', 1],
+            ['Luna', 'Miguel Santos', 'Amadora', 'apartment', false, false, null, 'I work from home and have time for a puppy. I have had dogs all my life.', 'pending', 2],
+            ['Luna', 'Claire Dubois', 'Oeiras', 'house', true, false, 'An older Labrador', 'Our Labrador would love a young friend. We live near the beach.', 'pending', 4],
+            ['Duke', 'Paulo Ramos', 'Setúbal', 'house', true, true, null, 'Duke looks like the dog we lost last year. We would give him a lot of love.', 'pending', 20],
+            ['Bruno', 'Catherine Lee', 'Almada', 'house', true, false, null, 'Bruno is exactly the calm companion I am looking for.', 'approved', 125],
+            ['Molly', 'Kevin Scott', 'Sintra', 'apartment', false, false, 'Two cats', 'I would like to adopt Molly to keep my cats company.', 'rejected', 12],
+        ];
+
+        foreach ($applications as [$petName, $name, $city, $housing, $garden, $children, $otherAnimals, $message, $status, $daysAgo]) {
+            $sentAt = now()->subDays($daysAgo)->setTime(random_int(9, 21), random_int(0, 59));
+
+            $application = AdoptionApplication::query()->create([
+                'pet_id' => $pets[$petName]->id,
+                'name' => $name,
+                'email' => Str::slug($name, '.').'@example.com',
+                'phone' => '+351 92'.random_int(1000000, 9999999),
+                'postal_code' => random_int(1000, 2999).'-'.random_int(100, 999),
+                'city' => $city,
+                'housing_type' => $housing,
+                'has_garden' => $garden,
+                'has_children' => $children,
+                'other_animals' => $otherAnimals,
+                'message' => $message,
+                'status' => $status,
+                'consent_at' => $sentAt,
+                'adoption_id' => $status === 'approved' ? Adoption::query()->where('pet_id', $pets[$petName]->id)->value('id') : null,
+                'reviewed_by' => $status === 'pending' ? null : $reviewerId,
+                'reviewed_at' => $status === 'pending' ? null : $sentAt->copy()->addDays(2),
+            ]);
+
+            $application->forceFill(['created_at' => $sentAt, 'updated_at' => $sentAt])->saveQuietly();
+        }
+    }
+
+    /**
+     * A wing of foster families, as shelters like Faial run it: each cage is
+     * one family, linked to a volunteer as its contact, with animals placed
+     * in it like in any other cage.
+     *
+     * @param  Collection<string, Pet>  $pets
+     */
+    private function seedFosterFamilies(Shelter $shelter, Collection $pets): void
+    {
+        $facility = Facility::query()->create([
+            'shelter_id' => $shelter->id,
+            'name' => 'Foster homes',
+            'city' => $shelter->city,
+            'notes' => 'Families who look after animals at home until they are adopted.',
+        ]);
+
+        $wing = Wing::query()->create([
+            'facility_id' => $facility->id,
+            'name' => 'Foster families',
+            'description' => 'Each cage is one foster family.',
+            'is_foster' => true,
+        ]);
+
+        foreach ([['Carter family', 'Emma Carter', 2, 'Coco'], ['Silva family', 'Lucas Silva', 1, 'Nala']] as [$family, $volunteerName, $capacity, $petName]) {
+            $cage = Cage::query()->create([
+                'wing_id' => $wing->id,
+                'volunteer_id' => Volunteer::query()->where('shelter_id', $shelter->id)->where('name', $volunteerName)->value('id'),
+                'code' => $family,
+                'capacity' => $capacity,
+            ]);
+
+            $pets[$petName]->update(['cage_id' => $cage->id]);
         }
     }
 

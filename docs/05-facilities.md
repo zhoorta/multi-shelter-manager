@@ -12,7 +12,7 @@ Facility   (a physical site with an address, e.g. "Main Building")
       └── Cage  (where the animals are placed, with a code and a capacity)
 ```
 
-The **total capacity of all cages** is the number of animals the shelter can house. It feeds the *Available Capacity* counter on the dashboard.
+The **total capacity of all cages** is the number of animals the shelter can house. It feeds the *Available Capacity* counter on the dashboard. Foster family wings are the exception: they are not shelter space (see [5.7](#57-foster-families)).
 
 ## 5.1 The Facilities page
 
@@ -75,6 +75,29 @@ Click the **eye** icon on a cage to list the animals in it. The eye icon next to
 - Use the **bin** icons to delete them. Deleting a facility also deletes its wings and cages, and deleting a wing also deletes its cages.
 
 > Animals are placed in cages from the pet form (**Cage** field), not from this page. See [Pets](07-pets.md).
+
+## 5.7 Foster families
+
+Many shelters place animals with **foster families** who look after them at home until they are adopted. The application handles them as a special wing, where **each cage is one family**.
+
+1. Create a facility for them, for example *Foster homes* (the address is optional).
+2. Add a wing, for example *Foster families*, and switch on **Foster families wing**.
+
+   ![A foster families wing](screenshots/31e-foster-wing-form.png)
+
+3. Add one cage per family. In a foster wing the cage's **Code** field is called **Foster family**: type the family's name (e.g. *Carter family*) and, as **Capacity**, how many animals it can take.
+4. Optionally choose a **Contact (volunteer)**: the volunteer record ([chapter 11](11-volunteers.md)) holds the family's phone and address.
+
+   ![A foster family](screenshots/31f-foster-cage-form.png)
+
+To place an animal with a family, choose the family's cage in the pet's **Cage** field, like any other cage. Then:
+
+- the pet's record shows **Foster family** with the family's name and, for managers and staff, the contact's name and a clickable phone number (see [7.3](07-pets.md#73-the-pet-record));
+- the contact's volunteer record lists the animals currently with the family;
+- foster families are **not counted** in the shelter's capacity on the dashboard, and the Occupancy report counts their animals separately ([13.4](13-reports.md#134-occupancy));
+- on the public portal the animal shows an **In a foster family** badge. The family itself is never shown publicly.
+
+Viewers see the family's name, but never its contact.
 
 ---
 

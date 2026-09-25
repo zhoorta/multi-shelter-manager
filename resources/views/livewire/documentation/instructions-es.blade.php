@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntarios</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Socios</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instalaciones</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Informes</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Usuarios</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal Público</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administración</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarse en la aplicación</h3>
         <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones y Vacunaciones), Voluntarios, Socios e Instalaciones; los gestores ven también Usuarios. Los administradores ven, en su lugar, Usuarios y el menú Administración. Los usuarios de consulta ven los mismos menús que los empleados, salvo Apadrinamientos, Adopciones, Voluntarios y Socios, y las páginas no les muestran botones para crear, editar o eliminar. Esta documentación está siempre disponible al final del menú lateral.</p>
+        <p>El menú Animales incluye también <strong>Solicitudes de Adopción</strong> para gestores y personal, y solo los gestores ven los <strong>Informes</strong>.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Animales sin ubicación conocida, para que puedan asignarse a una jaula.</li>
             <li>Avisos cuando todavía falta algo, como no tener jaulas definidas o especies sin razas.</li>
         </ul>
+        <p>La capacidad disponible solo cuenta las jaulas del propio refugio: las alas de familias de acogida quedan fuera, igual que los animales que viven con familias de acogida.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>Una adopción registra los datos de contacto del adoptante, la fecha de adopción, la tasa, notas y el estado de la solicitud (Pendiente, Aprobada o Rechazada). Iníciela desde la página del animal.</p>
         <p>La página Adopciones (en Animales, en el menú lateral) lista todas las adopciones del refugio; busca por nombre, teléfono, email o notas del adoptante, o por el nombre o la referencia del animal.</p>
         <p>Si un animal adoptado vuelve al refugio, rellene la <strong>fecha de devolución</strong> en la adopción: el animal vuelve a estar disponible y la adopción se mantiene en su historial.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Solicitudes de adopción</h3>
+        <p>Con el portal público activo, los visitantes pueden enviar una solicitud de adopción desde la ficha del animal con el botón <strong>Quiero adoptar</strong>. El formulario pide sus contactos, el tipo de vivienda, si hay jardín, niños u otros animales, y por qué quieren adoptar.</p>
+        <p>Las solicitudes aparecen en <strong>Solicitudes de Adopción</strong>, en el menú Animales, primero las pendientes, y la barra lateral muestra cuántas hay pendientes. En cada una puede:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Aprobar</strong> &mdash; abre el formulario de adopción ya rellenado con los datos del solicitante; al guardarlo se registra la adopción y la solicitud queda aprobada.</li>
+            <li><strong>Rechazar</strong> &mdash; la marca como rechazada.</li>
+            <li><strong>Eliminar</strong> &mdash; la borra.</li>
+        </ul>
+        <p>Cuando un animal ya ha sido adoptado o deja de estar disponible, sus solicitudes pendientes se señalan y pueden rechazarse todas a la vez. Los usuarios con las <strong>Notificaciones de Solicitudes de Adopción</strong> activadas reciben un email por cada nueva solicitud; el solicitante no recibe ningún email, así que contacte con él directamente. Las solicitudes se eliminan automáticamente seis meses después de su último cambio, como indica la política de privacidad.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Instalaciones</h2>
         <p>Un refugio se organiza en tres niveles: las <strong>instalaciones</strong> (ubicaciones físicas, con dirección) contienen <strong>alas</strong>, y las alas contienen <strong>jaulas</strong>. Cada jaula tiene un código y una capacidad.</p>
         <p>La capacidad total de las jaulas determina cuántos animales puede alojar el refugio, y las jaulas son donde se asignan los animales. Configure al menos una jaula antes de registrar animales para que se les pueda asignar una ubicación.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Familias de acogida</h3>
+        <p>Si su refugio coloca animales en familias de acogida, cree un ala para ellas (por ejemplo en una instalación llamada "Familias de acogida") y active <strong>Ala de familias de acogida</strong> en el formulario del ala. En esa ala cada jaula es una familia: use el nombre de la familia como nombre de la jaula y, como capacidad, el número de animales que puede acoger.</p>
+        <p>Opcionalmente elija un <strong>Contacto (voluntario)</strong> para cada familia; la ficha del voluntario guarda su teléfono y dirección. Para colocar un animal con una familia, elija la jaula de la familia en el formulario del animal, como con cualquier otra jaula.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>La página del animal muestra <strong>Familia de acogida</strong> con el nombre de la familia y, para gestores y personal, el nombre y el teléfono del contacto. Los usuarios con el rol <strong>Consulta</strong> ven el nombre de la familia pero no el contacto.</li>
+            <li>La página del voluntario lista los animales que están actualmente con su familia.</li>
+            <li>Las familias de acogida no cuentan para la capacidad del refugio en el panel ni en el informe de Ocupación, que cuenta aparte los animales en familias de acogida.</li>
+            <li>En el portal público el animal muestra la insignia <strong>En familia de acogida</strong>; la familia nunca se muestra públicamente.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Informes</h2>
+        <p>Solo los gestores ven los Informes. Elija el período arriba (últimos 12 meses, un año, todo el período o sus propias fechas); los períodos de dos años o más se muestran por año en lugar de por mes. Los informes se dividen en cuatro pestañas:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Animales</strong> &mdash; entradas, adopciones, devoluciones y fallecimientos; el número de animales en el refugio a lo largo del tiempo; entradas y adopciones por especie; adopciones por edad y la mediana de días hasta la adopción; y los animales disponibles que llevan más tiempo esperando.</li>
+            <li><strong>Finanzas</strong> &mdash; ingresos por origen (apadrinamientos, cuotas, cuotas de inscripción y tasas de adopción), contados por fecha de pago; apadrinamientos activos a lo largo del tiempo y su valor mensual; socios activos, nuevos y con cuotas atrasadas, con las cuotas previstas y cobradas; pagos de socios por método; y los apadrinamientos cuyo período pagado termina en los próximos 30 días.</li>
+            <li><strong>Ocupación</strong> &mdash; la ocupación de hoy, la capacidad y los animales en jaulas, sin ubicación conocida y en familias de acogida; la ocupación a lo largo del tiempo y por ala. La capacidad es solo orientativa, así que no hay avisos de exceso, y los meses pasados se comparan con la capacidad actual.</li>
+            <li><strong>Salud</strong> &mdash; vacunas administradas (por mes y por vacuna), vacunas atrasadas, diagnósticos por enfermedad, casos abiertos y el porcentaje de animales esterilizados en el refugio.</li>
+        </ul>
+        <p>Pase el ratón sobre un gráfico para ver sus valores, o abra <strong>Ver tabla</strong> debajo. El botón <strong>imprimir</strong> abre la pestaña actual como informe con los datos del refugio &mdash; por ejemplo la memoria anual de actividades para la asamblea general &mdash; lista para imprimir o guardar en PDF desde el navegador.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>Un gestor solo puede añadir usuarios a los refugios que gestiona.</li>
             <li>Un administrador puede añadir usuarios a cualquier refugio y puede crear otros administradores.</li>
         </ul>
+        <p>En cada vinculación con un refugio también se pueden activar las <strong>Notificaciones de Solicitudes de Adopción</strong>: esos usuarios reciben un email por cada nueva solicitud de adopción.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>Ver la lista de refugios colaboradores, cada uno con su propia página con contactos, descripción, logotipo y animales.</li>
             <li>Abrir el enlace de un animal compartido desde el backoffice: abre directamente la ficha de ese animal, y las vistas previas en las redes sociales muestran su nombre, foto y descripción.</li>
         </ul>
+        <p>Desde la ficha de un animal, los visitantes también pueden enviar una solicitud de adopción con el botón <strong>Quiero adoptar</strong> (ver <a href="#adoptions" class="underline underline-offset-2">Adopciones</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Qué se muestra públicamente</h3>
         <p>Un animal solo aparece en el portal cuando se cumplen <strong>todas</strong> estas condiciones:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>Su refugio no ha sido eliminado.</li>
         </ul>
         <p>Los animales marcados como <strong>Destacado</strong> se muestran primero, con una insignia de destacado. Solo se muestran el nombre, la referencia, las fotos, la descripción pública y los datos descriptivos (especie, raza, tamaño, sexo, edad, tipo de pelo, esterilización) &mdash; las notas internas, notas clínicas, microchip y jaula nunca se publican.</p>
+        <p>Los animales que viven con una familia de acogida muestran la insignia <strong>En familia de acogida</strong>; el nombre y los contactos de la familia nunca se publican.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Consejos para buenos anuncios</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Añade al menos una buena foto y una descripción pública cercana &mdash; es lo primero que ven los adoptantes.</li>

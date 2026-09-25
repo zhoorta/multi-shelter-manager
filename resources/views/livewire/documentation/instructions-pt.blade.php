@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntários</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sócios</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instalações</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Relatórios</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utilizadores</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal Público</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administração</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientar-se na aplicação</h3>
         <p>O menu lateral mostra apenas o que o seu perfil pode usar. Gestores e funcionários veem o menu Animais (uma entrada por cada espécie ativa no abrigo, mais Apadrinhamentos, Adoções e Vacinações), Voluntários, Sócios e Instalações; os gestores veem também Utilizadores. Os administradores veem, em vez disso, Utilizadores e o menu Administração. Os utilizadores de consulta veem os mesmos menus que os funcionários, exceto Apadrinhamentos, Adoções, Voluntários e Sócios, e as páginas não lhes mostram botões para criar, editar ou apagar. Esta documentação está sempre disponível no fundo do menu lateral.</p>
+        <p>O menu Animais inclui também <strong>Candidaturas de Adoção</strong> para gestores e funcionários, e só os gestores veem os <strong>Relatórios</strong>.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Animais sem localização conhecida, para que possam ser atribuídos a uma jaula.</li>
             <li>Avisos quando algo ainda falta, como não haver jaulas definidas ou espécies sem raças.</li>
         </ul>
+        <p>A capacidade disponível conta apenas as jaulas do próprio abrigo: as alas de famílias de acolhimento ficam de fora, tal como os animais que vivem com famílias de acolhimento.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>Uma adoção regista os contactos do adotante, a data de adoção, o valor, notas e o estado da candidatura (Pendente, Aprovada ou Rejeitada). Inicie-a a partir da página do animal.</p>
         <p>A página Adoções (em Animais, no menu lateral) lista todas as adoções do abrigo; pesquise pelo nome, telefone, email ou notas do adotante, ou pelo nome ou referência do animal.</p>
         <p>Se um animal adotado regressar ao abrigo, preencha a <strong>data de devolução</strong> na adoção: o animal volta a ficar disponível e a adoção fica no seu histórico.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Candidaturas de adoção</h3>
+        <p>Com o portal público ativo, os visitantes podem enviar uma candidatura de adoção a partir da ficha do animal, com o botão <strong>Quero adotar</strong>. O formulário pede os contactos, o tipo de casa, se há quintal, crianças ou outros animais, e porque querem adotar.</p>
+        <p>As candidaturas aparecem em <strong>Candidaturas de Adoção</strong>, no menu Animais, primeiro as pendentes, e a barra lateral mostra quantas estão pendentes. Em cada uma pode:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Aprovar</strong> &mdash; abre o formulário de adoção já preenchido com os dados do candidato; ao guardar, a adoção fica registada e a candidatura é marcada como aprovada.</li>
+            <li><strong>Rejeitar</strong> &mdash; marca-a como rejeitada.</li>
+            <li><strong>Eliminar</strong> &mdash; apaga-a.</li>
+        </ul>
+        <p>Quando um animal já foi adotado ou deixou de estar disponível, as suas candidaturas pendentes são assinaladas e podem ser rejeitadas de uma só vez. Os utilizadores com as <strong>Notificações de Candidaturas de Adoção</strong> ativas recebem um email por cada nova candidatura; o candidato não recebe email, por isso contacte-o diretamente. As candidaturas são apagadas automaticamente seis meses após a última alteração, como indicado na política de privacidade.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Instalações</h2>
         <p>Um abrigo está organizado em três níveis: as <strong>instalações</strong> (locais físicos, com morada) contêm <strong>alas</strong>, e as alas contêm <strong>jaulas</strong>. Cada jaula tem um código e uma capacidade.</p>
         <p>A capacidade total das jaulas determina quantos animais o abrigo pode acolher, e é nas jaulas que os animais são colocados. Configure pelo menos uma jaula antes de registar animais, para lhes poder atribuir uma localização.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Famílias de acolhimento</h3>
+        <p>Se o abrigo coloca animais em famílias de acolhimento, crie uma ala para elas (por exemplo numa instalação chamada "Famílias de acolhimento") e ative <strong>Ala de famílias de acolhimento</strong> no formulário da ala. Nessa ala, cada jaula é uma família: use o nome da família como nome da jaula e, como capacidade, o número de animais que pode acolher.</p>
+        <p>Opcionalmente, escolha um <strong>Contacto (voluntário)</strong> para cada família; a ficha do voluntário guarda o telefone e a morada. Para colocar um animal numa família, escolha a jaula da família no formulário do animal, como faria com qualquer outra jaula.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>A página do animal mostra <strong>Família de acolhimento</strong> com o nome da família e, para gestores e funcionários, o nome e o telefone do contacto. Os utilizadores com a função <strong>Consulta</strong> veem o nome da família, mas não o contacto.</li>
+            <li>A página do voluntário lista os animais que estão atualmente com a sua família.</li>
+            <li>As famílias de acolhimento não contam para a capacidade do abrigo no painel de controlo nem no relatório de Ocupação, que conta à parte os animais em famílias de acolhimento.</li>
+            <li>No portal público, o animal mostra o distintivo <strong>Em família de acolhimento</strong>; a família nunca é mostrada publicamente.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Relatórios</h2>
+        <p>Só os gestores veem os Relatórios. Escolha o período no topo (últimos 12 meses, um ano, desde sempre ou datas à sua escolha); períodos de dois anos ou mais são mostrados por ano em vez de por mês. Os relatórios estão divididos em quatro separadores:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Animais</strong> &mdash; entradas, adoções, devoluções e óbitos; o número de animais no abrigo ao longo do tempo; entradas e adoções por espécie; adoções por idade e a mediana de dias até à adoção; e os animais disponíveis que esperam há mais tempo.</li>
+            <li><strong>Finanças</strong> &mdash; receitas por origem (apadrinhamentos, quotas, joias e taxas de adoção), contadas pela data de pagamento; apadrinhamentos ativos ao longo do tempo e o seu valor mensal; sócios ativos, novos e com quotas em atraso, com as quotas previstas e recebidas; pagamentos de sócios por método; e os apadrinhamentos cujo período pago termina nos próximos 30 dias.</li>
+            <li><strong>Ocupação</strong> &mdash; a ocupação de hoje, a capacidade e os animais em jaulas, sem localização conhecida e em famílias de acolhimento; a ocupação ao longo do tempo e por ala. A capacidade é apenas indicativa, por isso não há avisos de lotação excedida, e os meses anteriores são comparados com a capacidade atual.</li>
+            <li><strong>Saúde</strong> &mdash; vacinas administradas (por mês e por vacina), vacinas em atraso, diagnósticos por doença, casos em aberto e a percentagem de animais esterilizados no abrigo.</li>
+        </ul>
+        <p>Passe o rato sobre um gráfico para ver os valores, ou abra <strong>Ver tabela</strong> por baixo dele. O botão <strong>imprimir</strong> abre o separador atual como relatório com os dados do abrigo &mdash; por exemplo o relatório de atividades anual para a assembleia geral &mdash; pronto a imprimir ou a guardar em PDF a partir do navegador.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>Um gestor só pode adicionar utilizadores aos abrigos que gere.</li>
             <li>Um administrador pode adicionar utilizadores a qualquer abrigo e criar outros administradores.</li>
         </ul>
+        <p>Em cada ligação a um abrigo também pode ativar as <strong>Notificações de Candidaturas de Adoção</strong>: esses utilizadores recebem um email por cada nova candidatura de adoção.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>Ver a lista de abrigos parceiros, cada um com a sua página com contactos, descrição, logótipo e animais.</li>
             <li>Abrir a ligação de um animal partilhada a partir do backoffice: abre diretamente a ficha desse animal, e as pré-visualizações nas redes sociais mostram o nome, a fotografia e a descrição.</li>
         </ul>
+        <p>A partir da ficha de um animal, os visitantes também podem enviar uma candidatura de adoção com o botão <strong>Quero adotar</strong> (ver <a href="#adoptions" class="underline underline-offset-2">Adoções</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">O que é mostrado publicamente</h3>
         <p>Um animal só aparece no portal quando <strong>todas</strong> estas condições se verificam:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>O seu abrigo não foi removido.</li>
         </ul>
         <p>Os animais marcados como <strong>Destaque</strong> aparecem primeiro, com um selo de destaque. Só são mostrados o nome, a referência, as fotografias, a descrição pública e os dados descritivos (espécie, raça, tamanho, género, idade, tipo de pelo, esterilização) &mdash; as notas internas, notas clínicas, microchip e jaula nunca são publicados.</p>
+        <p>Os animais que vivem com uma família de acolhimento mostram o distintivo <strong>Em família de acolhimento</strong>; o nome e os contactos da família nunca são publicados.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Dicas para bons anúncios</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Adicione pelo menos uma boa fotografia e uma descrição pública simpática &mdash; é o que os adotantes veem primeiro.</li>

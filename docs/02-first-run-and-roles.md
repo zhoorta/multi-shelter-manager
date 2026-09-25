@@ -93,7 +93,7 @@ Every list, counter and form only shows the **active shelter's** data. Data is n
 
 Click your name at the bottom of the sidebar (or the avatar in the top-right corner) to open the user menu:
 
-- **Settings** — your profile, password and appearance (see [chapter 14](14-settings.md)).
+- **Settings** — your profile, password and appearance (see [chapter 14](15-settings.md)).
 - **Log out**.
 
 ---

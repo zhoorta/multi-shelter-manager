@@ -18,8 +18,9 @@ Read the chapters in order the first time. Each one builds on the previous.
 | 10 | [Sponsorships](10-sponsorships.md) | Manager, Staff |
 | 11 | [Volunteers](11-volunteers.md) | Manager, Staff |
 | 12 | [Members](12-members.md) | Manager, Staff |
-| 13 | [The public adoption portal](13-public-portal.md) | Everyone |
-| 14 | [Personal settings](14-settings.md) | Everyone |
+| 13 | [Reports](13-reports.md) | Manager |
+| 14 | [The public adoption portal](14-public-portal.md) | Everyone |
+| 15 | [Personal settings](15-settings.md) | Everyone |
 
 ## The big picture
 
@@ -32,9 +33,12 @@ Platform (Admin)
  └── Shelters
        ├── Users (Managers, Staff and Viewers)
        ├── Facilities ─► Wings ─► Cages ─► Pets
+       │     (a foster families wing: each cage is one family)
        ├── Pets ─► photos · vaccinations · sicknesses · adoptions · sponsorships
-       ├── Volunteers
-       └── Members ─► joining fee · membership fee payments
+       │     └── adoption applications (from the public portal)
+       ├── Volunteers (also the contacts of foster families)
+       ├── Members ─► joining fee · membership fee payments
+       └── Reports ─► animals · finances · occupancy · health
 ```
 
 There are four roles:
@@ -42,7 +46,7 @@ There are four roles:
 | Role | What they do |
 |------|--------------|
 | **Admin** | Runs the platform: creates shelters, maintains the shared lookup tables, invites users. Does **not** manage pets or facilities. |
-| **Manager** | Runs one (or more) shelters: everything Staff can do, plus inviting and managing that shelter's users. |
+| **Manager** | Runs one (or more) shelters: everything Staff can do, plus inviting and managing that shelter's users and seeing the Reports. |
 | **Staff** | Does the daily work of a shelter: pets, vaccinations, adoptions, sponsorships, volunteers, members and facilities. |
 | **Viewer** | Read-only access to a shelter: sees pets, vaccinations and facilities and can print pet sheets, but cannot change anything and does not see people's personal data (adopters, sponsors, volunteers and members). |
 
@@ -54,6 +58,7 @@ There are four roles:
 4. The admin **invites each shelter's manager** ([chapter 4](04-users-and-invitations.md)).
 5. The manager **builds the facilities, wings and cages** ([chapter 5](05-facilities.md)) and invites the staff.
 6. The team **registers the pets** ([chapter 7](07-pets.md)) and starts recording vaccinations, adoptions, sponsorships, volunteers and members.
+7. The manager follows the shelter's activity in the **Reports** ([chapter 13](13-reports.md)) and prints the yearly activity report.
 
 > **Tip:** The same guide, in short form, is available inside the application under **Documentation** in the sidebar, in every supported language.
 >

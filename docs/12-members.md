@@ -1,6 +1,6 @@
 # 12. Members
 
-[← Volunteers](11-volunteers.md) · [Documentation index](README.md) · [Next: The public adoption portal →](13-public-portal.md)
+[← Volunteers](11-volunteers.md) · [Documentation index](README.md) · [Next: Reports →](13-reports.md)
 
 > **Who:** Manager and Staff. Only managers can delete members or change the default fees. Viewers cannot open these pages, because they hold personal data.
 
@@ -90,4 +90,4 @@ Managers can delete a member with the 🗑 icon on the list. Keep former members
 
 ---
 
-[← Volunteers](11-volunteers.md) · [Documentation index](README.md) · [Next: The public adoption portal →](13-public-portal.md)
+[← Volunteers](11-volunteers.md) · [Documentation index](README.md) · [Next: Reports →](13-reports.md)

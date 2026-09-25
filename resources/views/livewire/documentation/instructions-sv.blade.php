@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontärer</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Medlemmar</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Anläggningar</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapporter</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Användare</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Öppen portal</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hitta rätt i applikationen</h3>
         <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner och Vaccinationer), Volontärer, Medlemmar och Anläggningar; chefer ser även Användare. Administratörer ser i stället Användare och menyn Administration. Läsare ser samma menyer som personal, utom Fadderskap, Adoptioner, Volontärer och Medlemmar, och sidorna visar inga knappar för att skapa, redigera eller ta bort. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
+        <p>Menyn Djur innehåller också <strong>Adoptionsansökningar</strong> för chefer och personal, och bara chefer ser <strong>Rapporter</strong>.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Djur utan känd placering, så att de kan tilldelas en bur.</li>
             <li>Varningar när något fortfarande saknas, till exempel inga burar eller arter utan raser.</li>
         </ul>
+        <p>Ledig kapacitet räknar bara härbärgets egna burar: flyglar för jourhem räknas inte, och inte heller djuren som bor i jourhem.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>En adoption registrerar adoptantens kontaktuppgifter, adoptionsdatum, avgift, anteckningar och ansökningsstatus (Väntande, Godkänd eller Avslagen). Påbörja den från djurets sida.</p>
         <p>Sidan Adoptioner (under Djur i sidomenyn) visar djurhemmets alla adoptioner; sök på adoptantens namn, telefon, e-post eller anteckningar, eller på djurets namn eller referens.</p>
         <p>Om ett adopterat djur kommer tillbaka till djurhemmet fyller du i <strong>returdatumet</strong> på adoptionen: djuret blir tillgängligt igen och adoptionen finns kvar i dess historik.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Adoptionsansökningar</h3>
+        <p>När den publika portalen är på kan besökare skicka en adoptionsansökan från ett djurs kort med knappen <strong>Jag vill adoptera</strong>. Formuläret frågar efter kontaktuppgifter, typ av bostad, om det finns trädgård, barn eller andra djur, och varför de vill adoptera.</p>
+        <p>Ansökningarna visas under <strong>Adoptionsansökningar</strong> i menyn Djur, väntande först, och sidofältet visar hur många som väntar. För varje ansökan kan du:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Godkänn</strong> &mdash; öppnar adoptionsformuläret redan ifyllt med sökandens uppgifter; när det sparas registreras adoptionen och ansökan markeras som godkänd.</li>
+            <li><strong>Avslå</strong> &mdash; markerar den som avslagen.</li>
+            <li><strong>Ta bort</strong> &mdash; tar bort den.</li>
+        </ul>
+        <p>När ett djur redan har adopterats eller inte längre är tillgängligt markeras dess väntande ansökningar och kan avslås på en gång. Användare med <strong>Aviseringar om adoptionsansökningar</strong> påslagna får ett e-postmeddelande för varje ny ansökan; den sökande får inget e-postmeddelande, så kontakta hen själv. Ansökningar raderas automatiskt sex månader efter senaste ändring, enligt integritetspolicyn.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Anläggningar</h2>
         <p>Ett djurhem är organiserat i tre nivåer: <strong>anläggningar</strong> (fysiska platser med en adress) innehåller <strong>flyglar</strong>, och flyglar innehåller <strong>burar</strong>. Varje bur har en kod och en kapacitet.</p>
         <p>Burarnas totala kapacitet avgör hur många djur djurhemmet kan ta emot, och det är till burar som djuren tilldelas. Konfigurera minst en bur innan du registrerar djur, så att de kan få en placering.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Jourhem</h3>
+        <p>Om ert härbärge placerar djur i jourhem, skapa en flygel för dem (till exempel i en anläggning som heter "Jourhem") och slå på <strong>Flygel för jourhem</strong> i flygelns formulär. I den flygeln är varje bur ett jourhem: använd familjens namn som burens namn och som kapacitet antalet djur den kan ta emot.</p>
+        <p>Välj gärna en <strong>Kontakt (volontär)</strong> för varje familj; volontärkortet innehåller telefon och adress. För att placera ett djur i en familj väljer du familjens bur i djurets formulär, som med vilken annan bur som helst.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Djurets sida visar <strong>Jourhem</strong> med familjens namn och, för chefer och personal, kontaktens namn och telefon. Läsare ser familjens namn men inte kontakten.</li>
+            <li>Volontärens sida listar djuren som just nu bor hos familjen.</li>
+            <li>Jourhem räknas inte in i härbärgets kapacitet på översikten eller i beläggningsrapporten, som räknar djuren i jourhem separat.</li>
+            <li>På den publika portalen visar djuret märket <strong>I jourhem</strong>; familjen visas aldrig publikt.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Rapporter</h2>
+        <p>Bara chefer ser Rapporter. Välj period högst upp (senaste 12 månaderna, ett år, hela perioden eller egna datum); perioder på två år eller mer visas per år i stället för per månad. Rapporterna är uppdelade i fyra flikar:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Djur</strong> &mdash; intag, adoptioner, returer och dödsfall; antalet djur på härbärget över tid; intag och adoptioner per art; adoptioner efter ålder och mediantiden i dagar till adoption; samt de tillgängliga djur som väntat längst.</li>
+            <li><strong>Ekonomi</strong> &mdash; intäkter per källa (faddertjänster, medlemsavgifter, inträdesavgifter och adoptionsavgifter), räknade efter betalningsdatum; aktiva faddertjänster över tid och deras månadsvärde; aktiva, nya och efterliggande medlemmar med förväntade och inbetalda avgifter; medlemsbetalningar per metod; och de faddertjänster vars betalda period slutar inom 30 dagar.</li>
+            <li><strong>Beläggning</strong> &mdash; dagens beläggning, kapacitet och djuren i burar, utan känd plats och i jourhem; beläggning över tid och per flygel. Kapaciteten är bara riktvärde, så det finns inga varningar för överbeläggning, och tidigare månader jämförs med dagens kapacitet.</li>
+            <li><strong>Hälsa</strong> &mdash; givna vaccinationer (per månad och per vaccin), försenade vaccinationer, diagnoser per sjukdom, öppna fall och andelen kastrerade djur på härbärget.</li>
+        </ul>
+        <p>Håll muspekaren över ett diagram för att se värdena, eller öppna <strong>Visa tabell</strong> under det. Knappen <strong>skriv ut</strong> öppnar den aktuella fliken som en rapport med härbärgets uppgifter &mdash; till exempel den årliga verksamhetsberättelsen till årsmötet &mdash;, klar att skriva ut eller spara som PDF i webbläsaren.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>En föreståndare kan bara lägga till användare i de djurhem hen förestår.</li>
             <li>En administratör kan lägga till användare i vilket djurhem som helst och kan skapa andra administratörer.</li>
         </ul>
+        <p>För varje medlemskap i ett härbärge kan man också slå på <strong>Aviseringar om adoptionsansökningar</strong>: de användarna får ett e-postmeddelande för varje ny adoptionsansökan.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>Se listan över partnerdjurhem, vart och ett med en egen sida med kontaktuppgifter, beskrivning, logotyp och djur.</li>
             <li>Öppna en länk till ett enskilt djur som delats från backoffice: den öppnar djurets kort direkt, och länkförhandsvisningar i sociala medier visar namn, foto och beskrivning.</li>
         </ul>
+        <p>Från ett djurs kort kan besökare också skicka en adoptionsansökan med knappen <strong>Jag vill adoptera</strong> (se <a href="#adoptions" class="underline underline-offset-2">Adoptioner</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vad som visas offentligt</h3>
         <p>Ett djur visas bara på portalen när <strong>alla</strong> dessa villkor är uppfyllda:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>Djurhemmet har inte tagits bort.</li>
         </ul>
         <p>Djur markerade som <strong>Utvald</strong> visas först, med ett märke. Endast namn, referens, foton, offentlig beskrivning och beskrivande uppgifter (djurart, ras, storlek, kön, ålder, pälstyp, kastrerad) visas &mdash; interna anteckningar, kliniska anteckningar, chip och bur publiceras aldrig.</p>
+        <p>Djur som bor i ett jourhem visar märket <strong>I jourhem</strong>; familjens namn och kontaktuppgifter publiceras aldrig.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tips för bra annonser</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Lägg till minst ett bra foto och en vänlig offentlig beskrivning &mdash; det är det adoptanter ser först.</li>

@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vrijwilligers</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Leden</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Locaties</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapporten</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Gebruikers</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Openbaar portaal</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Beheer</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Je weg vinden</h3>
         <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties en Vaccinaties), Vrijwilligers, Leden en Locaties; managers zien daarnaast Gebruikers. Beheerders zien in plaats daarvan Gebruikers en het menu Beheer. Kijkers zien dezelfde menu's als medewerkers, behalve Sponsorschappen, Adopties, Vrijwilligers en Leden, en de pagina's tonen hun geen knoppen om iets aan te maken, te bewerken of te verwijderen. Deze documentatie staat altijd onderaan de zijbalk.</p>
+        <p>Het menu Dieren bevat voor beheerders en medewerkers ook <strong>Adoptieaanvragen</strong>, en alleen beheerders zien <strong>Rapporten</strong>.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Dieren zonder bekende locatie, zodat ze aan een hok kunnen worden toegewezen.</li>
             <li>Waarschuwingen wanneer er nog iets ontbreekt, zoals geen hokken ingesteld of diersoorten zonder rassen.</li>
         </ul>
+        <p>De beschikbare capaciteit telt alleen de eigen hokken van het asiel: vleugels voor pleeggezinnen tellen niet mee, en de dieren die bij pleeggezinnen wonen evenmin.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>Een adoptie legt de contactgegevens van de adoptant vast, de adoptiedatum, de bijdrage, notities en de status van de aanvraag (In behandeling, Goedgekeurd of Afgewezen). Start een adoptie vanaf de pagina van het dier.</p>
         <p>De pagina Adopties (onder Dieren in de zijbalk) toont alle adopties van het asiel; zoek op naam, telefoon, e-mail of notities van de adoptant, of op naam of referentie van het dier.</p>
         <p>Als een geadopteerd dier terugkomt in het asiel, vul dan de <strong>terugbrengdatum</strong> in bij de adoptie: het dier wordt weer beschikbaar en de adoptie blijft in de geschiedenis bewaard.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Adoptieaanvragen</h3>
+        <p>Als het publieke portaal aanstaat, kunnen bezoekers vanaf de kaart van een dier een adoptieaanvraag sturen met de knop <strong>Ik wil adopteren</strong>. Het formulier vraagt naar hun contactgegevens, het type woning, of er een tuin, kinderen of andere dieren zijn, en waarom ze willen adopteren.</p>
+        <p>Aanvragen verschijnen onder <strong>Adoptieaanvragen</strong> in het menu Dieren, openstaande eerst, en de zijbalk toont hoeveel er openstaan. Bij elke aanvraag kunt u:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Goedkeuren</strong> &mdash; opent het adoptieformulier, al ingevuld met de gegevens van de aanvrager; bij opslaan wordt de adoptie geregistreerd en de aanvraag goedgekeurd.</li>
+            <li><strong>Afwijzen</strong> &mdash; markeert haar als afgewezen.</li>
+            <li><strong>Verwijderen</strong> &mdash; verwijdert haar.</li>
+        </ul>
+        <p>Als een dier al geadopteerd is of niet meer beschikbaar is, worden de openstaande aanvragen gemarkeerd en kunnen ze in één keer worden afgewezen. Gebruikers met <strong>Meldingen van adoptieaanvragen</strong> ingeschakeld krijgen een e-mail bij elke nieuwe aanvraag; de aanvrager krijgt geen e-mail, neem dus zelf contact op. Aanvragen worden zes maanden na hun laatste wijziging automatisch verwijderd, zoals vermeld in het privacybeleid.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Locaties</h2>
         <p>Een asiel is in drie niveaus ingedeeld: <strong>locaties</strong> (fysieke vestigingen, met een adres) bevatten <strong>vleugels</strong>, en vleugels bevatten <strong>hokken</strong>. Elk hok heeft een code en een capaciteit.</p>
         <p>De totale capaciteit van de hokken bepaalt hoeveel dieren het asiel kan huisvesten, en dieren worden aan hokken toegewezen. Stel minstens één hok in voordat u dieren registreert, zodat ze een locatie kunnen krijgen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pleeggezinnen</h3>
+        <p>Plaatst uw asiel dieren in pleeggezinnen, maak dan een vleugel voor hen aan (bijvoorbeeld in een locatie "Pleeggezinnen") en zet <strong>Vleugel voor pleeggezinnen</strong> aan in het formulier van de vleugel. In die vleugel is elk hok één gezin: gebruik de naam van het gezin als naam van het hok en als capaciteit het aantal dieren dat het kan opvangen.</p>
+        <p>Kies eventueel een <strong>Contact (vrijwilliger)</strong> voor elk gezin; de vrijwilligersfiche bevat telefoon en adres. Om een dier bij een gezin te plaatsen, kiest u het hok van het gezin in het formulier van het dier, zoals bij elk ander hok.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>De pagina van het dier toont <strong>Pleeggezin</strong> met de naam van het gezin en, voor beheerders en medewerkers, de naam en het telefoonnummer van het contact. Kijkers zien de naam van het gezin, maar niet het contact.</li>
+            <li>De pagina van de vrijwilliger toont de dieren die nu bij het gezin zijn.</li>
+            <li>Pleeggezinnen tellen niet mee voor de capaciteit van het asiel op het dashboard of in het bezettingsrapport, dat de dieren in pleeggezinnen apart telt.</li>
+            <li>Op het publieke portaal toont het dier de badge <strong>In een pleeggezin</strong>; het gezin wordt nooit publiek getoond.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Rapporten</h2>
+        <p>Alleen beheerders zien de Rapporten. Kies bovenaan de periode (laatste 12 maanden, een jaar, altijd of eigen datums); periodes van twee jaar of langer worden per jaar in plaats van per maand getoond. De rapporten zijn verdeeld over vier tabbladen:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Dieren</strong> &mdash; opnames, adopties, terugbrengingen en overlijdens; het aantal dieren in het asiel door de tijd; opnames en adopties per diersoort; adopties per leeftijd en het mediane aantal dagen tot adoptie; en de beschikbare dieren die het langst wachten.</li>
+            <li><strong>Financiën</strong> &mdash; inkomsten per bron (peterschappen, contributies, inschrijfgelden en adoptiekosten), geteld op betaaldatum; actieve peterschappen door de tijd en hun maandelijkse waarde; actieve, nieuwe en achterstallige leden met verwachte en ontvangen contributies; betalingen van leden per methode; en de peterschappen waarvan de betaalde periode binnen 30 dagen afloopt.</li>
+            <li><strong>Bezetting</strong> &mdash; de bezetting van vandaag, de capaciteit en de dieren in hokken, zonder bekende locatie en in pleeggezinnen; de bezetting door de tijd en per vleugel. Capaciteit is slechts een richtlijn, dus er zijn geen waarschuwingen voor overbezetting, en vorige maanden worden vergeleken met de huidige capaciteit.</li>
+            <li><strong>Gezondheid</strong> &mdash; toegediende vaccinaties (per maand en per vaccin), achterstallige vaccinaties, diagnoses per ziekte, open gevallen en het aandeel gesteriliseerde dieren in het asiel.</li>
+        </ul>
+        <p>Beweeg over een grafiek om de waarden te zien, of open <strong>Tabel tonen</strong> eronder. De knop <strong>afdrukken</strong> opent het huidige tabblad als rapport met de gegevens van het asiel &mdash; bijvoorbeeld het jaarlijkse activiteitenverslag voor de algemene vergadering &mdash;, klaar om af te drukken of als PDF op te slaan in de browser.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>Een asielbeheerder kan alleen gebruikers toevoegen aan de asielen die hij of zij beheert.</li>
             <li>Een beheerder kan gebruikers toevoegen aan elk asiel en kan andere beheerders aanmaken.</li>
         </ul>
+        <p>Bij elk lidmaatschap van een asiel kunnen ook de <strong>Meldingen van adoptieaanvragen</strong> worden ingeschakeld: die gebruikers krijgen een e-mail bij elke nieuwe adoptieaanvraag.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>De lijst met partnerasielen bekijken, elk met een eigen pagina met contactgegevens, beschrijving, logo en dieren.</li>
             <li>De link van één dier openen die vanuit de backoffice is gedeeld: die opent direct de fiche van dat dier, en linkvoorbeelden op sociale netwerken tonen de naam, foto en beschrijving.</li>
         </ul>
+        <p>Vanaf de kaart van een dier kunnen bezoekers ook een adoptieaanvraag sturen met de knop <strong>Ik wil adopteren</strong> (zie <a href="#adoptions" class="underline underline-offset-2">Adopties</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wat openbaar wordt getoond</h3>
         <p>Een dier verschijnt alleen op het portaal als aan <strong>al</strong> deze voorwaarden is voldaan:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>Het asiel is niet verwijderd.</li>
         </ul>
         <p>Dieren die als <strong>Uitgelicht</strong> zijn gemarkeerd worden eerst getoond, met een badge. Alleen naam, referentie, foto's, openbare beschrijving en beschrijvende gegevens (diersoort, ras, maat, geslacht, leeftijd, vachttype, gecastreerd) worden getoond &mdash; interne notities, klinische notities, chip en hok worden nooit gepubliceerd.</p>
+        <p>Dieren die bij een pleeggezin wonen, tonen de badge <strong>In een pleeggezin</strong>; de naam en contactgegevens van het gezin worden nooit gepubliceerd.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tips voor goede advertenties</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Voeg minstens één goede foto en een vriendelijke openbare beschrijving toe &mdash; dat zien adoptanten als eerste.</li>

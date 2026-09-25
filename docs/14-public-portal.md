@@ -1,12 +1,12 @@
-# 13. The public adoption portal
+# 14. The public adoption portal
 
-[← Members](12-members.md) · [Documentation index](README.md) · [Next: Personal settings →](14-settings.md)
+[← Reports](13-reports.md) · [Documentation index](README.md) · [Next: Personal settings →](15-settings.md)
 
 > **Who:** Anyone, no login needed.
 
 The public portal is a website where anyone can browse the animals waiting for a home in **all** the shelters on the platform, and contact the shelter to adopt.
 
-## 13.0 Turning the portal on
+## 14.0 Turning the portal on
 
 The portal is **off by default**. While it is off, the home page, the **Shelters** pages and the animal pages are not available: visitors are sent straight to the login page, and the application works as a back-office only.
 
@@ -31,7 +31,7 @@ To turn it off again, set `PUBLIC_PORTAL_ENABLED=false` and repeat step 3.
 
 > The **Privacy Policy** page is always available, whether the portal is on or off. Set its contact e-mail with `PRIVACY_CONTACT_EMAIL` (see the [environment variables reference](01-installation.md#multi-shelter-manager-settings)).
 
-## 13.1 Home page
+## 14.1 Home page
 
 The home page is at the root address of the application (e.g. `https://your-domain.org/`).
 
@@ -45,17 +45,29 @@ It shows:
 
 The **Shelter area** button (top right) takes the shelter team to the login page.
 
-## 13.2 Animal details
+## 14.2 Animal details
 
 Click an animal's card to open its details: photo, species and breed, age, size, fur type, whether it is neutered, and its description. It also shows the shelter's contacts, an **I want to adopt** button, and a link to **see all animals from this shelter**.
 
 ![Animal details](screenshots/63-public-pet.png)
 
+Animals living with a foster family show an **In a foster family** badge on their card and a note in their details. The family's name and contacts are never published.
+
+![An animal with a foster family](screenshots/63a-public-pet-foster.png)
+
 Every time the details are opened, the animal's **View Count** goes up. The team can see it on the pet's record.
 
 Each published animal also has **its own link**, which the team shares from the pet's record (see [7.9](07-pets.md#79-sharing-on-social-media)). The link opens the shelter's page with that animal's details already open, and when it is posted on social media the preview shows the animal's name, photo and description.
 
-## 13.3 Partner shelters
+## 14.3 Applying to adopt
+
+**I want to adopt** opens a short application form for that animal. The visitor fills in their contacts and answers a few questions (type of home, garden, children, other animals, why they want to adopt) and accepts the privacy policy.
+
+![Adoption application form](screenshots/64-public-adoption-application.png)
+
+The application reaches the shelter's team in **Pets → Adoption Applications** (see [9.5](09-adoptions.md#95-adoption-applications)). The visitor sees a confirmation on screen; the shelter then contacts them.
+
+## 14.4 Partner shelters
 
 The **Shelters** menu lists every shelter on the platform, filterable by **region**, with its description, address, contacts, and how many animals it has waiting for a home.
 
@@ -65,7 +77,7 @@ Click a shelter to see its own page, with only its animals:
 
 ![Shelter page](screenshots/62-public-shelter.png)
 
-## 13.4 Which animals appear on the portal?
+## 14.5 Which animals appear on the portal?
 
 An animal appears on the portal only when **all** of these are true:
 
@@ -75,10 +87,10 @@ An animal appears on the portal only when **all** of these are true:
 
 To remove an animal from the portal, switch off **Publish to Public Portal** on its record. To show it first, switch on **Featured**.
 
-## 13.5 Privacy policy
+## 14.6 Privacy policy
 
 The portal footer links to a **Privacy Policy** page, available in every supported language.
 
 ---
 
-[← Members](12-members.md) · [Documentation index](README.md) · [Next: Personal settings →](14-settings.md)
+[← Reports](13-reports.md) · [Documentation index](README.md) · [Next: Personal settings →](15-settings.md)

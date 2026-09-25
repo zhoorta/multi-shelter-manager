@@ -34,7 +34,7 @@ For each user the list shows:
    - **Shelter Manager** — can do everything in that shelter, including inviting users;
    - **Staff / Worker** — can do the daily work, but cannot manage users;
    - **Viewer (read-only)** — can see the shelter's pets, vaccinations and facilities and print pet sheets, but cannot change anything or see people's personal data (adopters, sponsors, volunteers and members).
-4. Switch on **Vaccination Notifications** if this person should receive the daily e-mail about vaccinations due soon (see [chapter 8](08-vaccinations.md)).
+4. Switch on **Vaccination Notifications** if this person should receive the daily e-mail about vaccinations due soon (see [chapter 8](08-vaccinations.md)), and **Adoption Application Notifications** if they should receive an e-mail for every new adoption application (see [9.5](09-adoptions.md#95-adoption-applications)).
 5. To give the person access to **more shelters**, click **Add shelter** and repeat step 3. The bin icon removes a row.
 6. Click **Invite User**.
 
@@ -64,7 +64,7 @@ Only admins can do this. In **Invite User**, switch on **Global Admin**. Adminis
 
 ## 4.5 Editing and removing users
 
-- **Pencil** — change the user's name, their shelters and roles, and their vaccination notifications. A user's e-mail address cannot be changed.
+- **Pencil** — change the user's name, their shelters and roles, and their notifications. A user's e-mail address cannot be changed.
 - **Bin** — removes the user. They can no longer log in.
 
 Managers can only change memberships of the shelters they manage.

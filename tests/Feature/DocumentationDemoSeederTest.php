@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\AdoptionApplication;
 use App\Models\Member;
+use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
 use Database\Seeders\DocumentationDemoSeeder;
@@ -32,4 +34,19 @@ test('creates demo members of the main shelter with up-to-date and overdue fees'
         ->and(Member::query()->inArrears()->pluck('name')->sort()->values()->all())
         ->toBe(['Daniel Brooks', 'Laura Pinto', 'Thomas Green'])
         ->and(Member::query()->where('name', 'Emma Carter')->first()->volunteer?->name)->toBe('Emma Carter');
+});
+
+test('creates a foster families wing and adoption applications for the documentation', function () {
+    Http::fake();
+    Storage::fake('public');
+
+    $this->seed(DocumentationDemoSeeder::class);
+
+    $coco = Pet::query()->withoutGlobalScopes()->where('name', 'Coco')->firstOrFail();
+
+    expect($coco->isInFosterFamily())->toBeTrue()
+        ->and($coco->cage->code)->toBe('Carter family')
+        ->and($coco->cage->volunteer->name)->toBe('Emma Carter')
+        ->and(AdoptionApplication::query()->where('status', 'pending')->count())->toBe(4)
+        ->and(AdoptionApplication::query()->where('status', 'approved')->value('adoption_id'))->not->toBeNull();
 });

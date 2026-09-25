@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontari</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Soci</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Strutture</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Report</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utenti</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portale Pubblico</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Amministrazione</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarsi nell'applicazione</h3>
         <p>La barra laterale mostra solo ciò che il tuo ruolo può usare. Responsabili e staff vedono il menu Animali (una voce per ogni specie attivata per il rifugio, più Adozioni a Distanza, Adozioni e Vaccinazioni), Volontari, Soci e Strutture; i responsabili vedono anche Utenti. Gli amministratori vedono invece Utenti e il menu Amministrazione. Gli utenti in consultazione vedono gli stessi menu dello staff, tranne Adozioni a Distanza, Adozioni, Volontari e Soci, e le pagine non mostrano loro pulsanti per creare, modificare o eliminare. Questa documentazione è sempre disponibile in fondo alla barra laterale.</p>
+        <p>Il menu Animali include anche le <strong>Richieste di Adozione</strong> per responsabili e personale, e solo i responsabili vedono i <strong>Report</strong>.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Gli animali senza una posizione nota, così da poterli assegnare a una gabbia.</li>
             <li>Avvisi quando manca ancora qualcosa, ad esempio nessuna gabbia definita o specie senza razze.</li>
         </ul>
+        <p>La capacità disponibile conta solo i box del rifugio: le ali delle famiglie affidatarie sono escluse, così come gli animali che vivono in famiglia affidataria.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>Un'adozione registra i contatti dell'adottante, la data di adozione, il contributo, le note e lo stato della richiesta (In attesa, Approvata o Respinta). Avviala dalla pagina dell'animale.</p>
         <p>La pagina Adozioni (sotto Animali nella barra laterale) elenca tutte le adozioni del rifugio; cerca per nome, telefono, email o note dell'adottante, oppure per nome o riferimento dell'animale.</p>
         <p>Se un animale adottato torna al rifugio, compila la <strong>data di restituzione</strong> nell'adozione: l'animale torna disponibile e l'adozione resta nel suo storico.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Richieste di adozione</h3>
+        <p>Con il portale pubblico attivo, i visitatori possono inviare una richiesta di adozione dalla scheda di un animale con il pulsante <strong>Voglio adottare</strong>. Il modulo chiede i contatti, il tipo di casa, se ci sono giardino, bambini o altri animali, e perché vogliono adottare.</p>
+        <p>Le richieste compaiono in <strong>Richieste di Adozione</strong>, nel menu Animali, prima quelle in attesa, e la barra laterale mostra quante sono in attesa. Per ognuna puoi:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Approva</strong> &mdash; apre il modulo di adozione già compilato con i dati del richiedente; salvandolo, l'adozione viene registrata e la richiesta risulta approvata.</li>
+            <li><strong>Rifiuta</strong> &mdash; la segna come rifiutata.</li>
+            <li><strong>Elimina</strong> &mdash; la cancella.</li>
+        </ul>
+        <p>Quando un animale è già stato adottato o non è più disponibile, le sue richieste in attesa vengono segnalate e si possono rifiutare tutte insieme. Gli utenti con le <strong>Notifiche delle Richieste di Adozione</strong> attive ricevono un'email per ogni nuova richiesta; il richiedente non riceve email, quindi contattalo tu. Le richieste vengono eliminate automaticamente sei mesi dopo l'ultima modifica, come indicato nell'informativa sulla privacy.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Strutture</h2>
         <p>Un rifugio è organizzato su tre livelli: le <strong>strutture</strong> (sedi fisiche, con un indirizzo) contengono le <strong>ali</strong>, e le ali contengono le <strong>gabbie</strong>. Ogni gabbia ha un codice e una capienza.</p>
         <p>La capienza totale delle gabbie determina quanti animali può ospitare il rifugio, ed è alle gabbie che vengono assegnati gli animali. Configura almeno una gabbia prima di registrare gli animali, così da poter assegnare loro una posizione.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Famiglie affidatarie</h3>
+        <p>Se il tuo rifugio affida animali a famiglie affidatarie, crea un'ala per loro (ad esempio in una struttura chiamata "Famiglie affidatarie") e attiva <strong>Ala delle famiglie affidatarie</strong> nel modulo dell'ala. In quell'ala ogni box è una famiglia: usa il nome della famiglia come nome del box e, come capacità, il numero di animali che può accogliere.</p>
+        <p>Facoltativamente scegli un <strong>Contatto (volontario)</strong> per ogni famiglia; la scheda del volontario contiene telefono e indirizzo. Per affidare un animale a una famiglia, scegli il box della famiglia nel modulo dell'animale, come con qualsiasi altro box.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>La pagina dell'animale mostra <strong>Famiglia affidataria</strong> con il nome della famiglia e, per responsabili e personale, il nome e il telefono del contatto. Gli utenti con il ruolo <strong>Consultazione</strong> vedono il nome della famiglia ma non il contatto.</li>
+            <li>La pagina del volontario elenca gli animali attualmente con la sua famiglia.</li>
+            <li>Le famiglie affidatarie non contano nella capacità del rifugio né nella dashboard né nel report Occupazione, che conta a parte gli animali in famiglia affidataria.</li>
+            <li>Sul portale pubblico l'animale mostra il badge <strong>In famiglia affidataria</strong>; la famiglia non viene mai mostrata pubblicamente.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Report</h2>
+        <p>Solo i responsabili vedono i Report. Scegli il periodo in alto (ultimi 12 mesi, un anno, da sempre o date a scelta); i periodi di due anni o più sono mostrati per anno invece che per mese. I report sono divisi in quattro schede:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Animali</strong> &mdash; ingressi, adozioni, restituzioni e decessi; il numero di animali nel rifugio nel tempo; ingressi e adozioni per specie; adozioni per età e la mediana dei giorni fino all'adozione; e gli animali disponibili che aspettano da più tempo.</li>
+            <li><strong>Finanze</strong> &mdash; entrate per origine (adozioni a distanza, quote associative, quote di iscrizione e contributi di adozione), contate per data di pagamento; adozioni a distanza attive nel tempo e il loro valore mensile; soci attivi, nuovi e con quote arretrate, con le quote previste e incassate; pagamenti dei soci per metodo; e le adozioni a distanza il cui periodo pagato termina nei prossimi 30 giorni.</li>
+            <li><strong>Occupazione</strong> &mdash; l'occupazione di oggi, la capacità e gli animali nei box, senza posizione nota e in famiglia affidataria; l'occupazione nel tempo e per ala. La capacità è solo indicativa, quindi non ci sono avvisi di sovraffollamento, e i mesi passati sono confrontati con la capacità attuale.</li>
+            <li><strong>Salute</strong> &mdash; vaccinazioni somministrate (per mese e per vaccino), vaccinazioni in ritardo, diagnosi per malattia, casi aperti e la quota di animali sterilizzati nel rifugio.</li>
+        </ul>
+        <p>Passa il mouse su un grafico per vederne i valori, oppure apri <strong>Mostra tabella</strong> sotto di esso. Il pulsante <strong>stampa</strong> apre la scheda attuale come report con i dati del rifugio &mdash; ad esempio la relazione annuale delle attività per l'assemblea generale &mdash;, pronto da stampare o salvare in PDF dal browser.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>Un responsabile può aggiungere utenti solo ai rifugi che gestisce.</li>
             <li>Un amministratore può aggiungere utenti a qualsiasi rifugio e può creare altri amministratori.</li>
         </ul>
+        <p>Per ogni appartenenza a un rifugio si possono attivare anche le <strong>Notifiche delle Richieste di Adozione</strong>: questi utenti ricevono un'email per ogni nuova richiesta di adozione.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>Vedere l'elenco dei rifugi partner, ciascuno con una propria pagina con contatti, descrizione, logo e animali.</li>
             <li>Aprire il link di un singolo animale condiviso dal backoffice: apre direttamente la scheda di quell'animale, e le anteprime dei link sui social mostrano nome, foto e descrizione.</li>
         </ul>
+        <p>Dalla scheda di un animale, i visitatori possono anche inviare una richiesta di adozione con il pulsante <strong>Voglio adottare</strong> (vedi <a href="#adoptions" class="underline underline-offset-2">Adozioni</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Cosa viene mostrato pubblicamente</h3>
         <p>Un animale compare sul portale solo quando sono vere <strong>tutte</strong> queste condizioni:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>Il suo rifugio non è stato rimosso.</li>
         </ul>
         <p>Gli animali contrassegnati come <strong>In Evidenza</strong> vengono mostrati per primi, con un apposito badge. Vengono mostrati solo nome, riferimento, foto, descrizione pubblica e dati descrittivi (specie, razza, taglia, sesso, età, tipo di pelo, sterilizzazione) &mdash; note interne, note cliniche, microchip e gabbia non vengono mai pubblicati.</p>
+        <p>Gli animali che vivono con una famiglia affidataria mostrano il badge <strong>In famiglia affidataria</strong>; il nome e i contatti della famiglia non vengono mai pubblicati.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Consigli per buoni annunci</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Aggiungi almeno una bella foto e una descrizione pubblica accogliente &mdash; è ciò che gli adottanti vedono per primo.</li>

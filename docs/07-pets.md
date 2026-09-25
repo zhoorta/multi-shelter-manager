@@ -84,7 +84,7 @@ The 🖨 **printer** button next to **Create New** opens a printable version of 
 
 **Accommodation**
 
-- **Cage** — where the animal is housed. The list is grouped by facility and wing, shows the free places in each cage (green, yellow or red), and only offers cages for this species or for any species.
+- **Cage** — where the animal is housed. The list is grouped by facility and wing, shows the free places in each cage (green, yellow or red), and only offers cages for this species or for any species. To place the animal with a foster family, choose that family's cage in the foster families wing (see [5.7](05-facilities.md#57-foster-families)).
 - **Checkin Date** — the day the animal arrived at the shelter.
 
 **Texts**
@@ -124,6 +124,10 @@ The buttons at the top right are:
 | ❤️ **Heart** | Menu with **Adoption Registration** (hidden once the pet is adopted) and **Sponsorship Registration** (only if the pet is sponsorable) |
 | 🖨 **Printer** | Print the pet's sheet |
 | 🔗 **Share** | Prepare a social media post (only for adoptable, available pets) — see [7.9](#79-sharing-on-social-media) |
+
+When the animal is with a foster family, **Accommodation** shows **Foster family** with the family's name and, for managers and staff, the contact's name and phone:
+
+![A pet with a foster family](screenshots/35a-pet-foster.png)
 
 ## 7.4 Status is automatic
 
@@ -170,7 +174,7 @@ Pets that are **adoptable and available** have a 🔗 **Share** button at the to
 - **Download photo**, to save the pet's main photo and attach it to the post;
 - **WhatsApp**, to send the text straight away;
 - **Instagram** (when the pet has a photo). Instagram does not accept ready-made posts from a link, so the button copies the text and opens Instagram, where you create a post with the downloaded photo and paste the text as the caption;
-- when the [public portal](13-public-portal.md) is on and the pet is published there, the text also includes a **link to the pet**, and a **Facebook** button shares that link directly.
+- when the [public portal](14-public-portal.md) is on and the pet is published there, the text also includes a **link to the pet**, and a **Facebook** button shares that link directly.
 
 If the portal is on but the pet is not published yet, the panel reminds you to switch on **Publish to Portal** so the text can include the link.
 

@@ -12,10 +12,17 @@ The dashboard is the first page you see after logging in. It gives you a summary
 
 | Counter | Meaning |
 |---------|---------|
-| **Total Pets** | Animals currently in the shelter (not adopted and not deceased) |
-| **Adoptions** | Animals adopted |
-| **Available Capacity** | Free places left in the cages |
-| **Total Staff** | Users who belong to the shelter |
+| **Pets in Shelter** | Animals currently in the shelter's care (not adopted and not deceased), including those with foster families |
+| **Available Capacity** | Free places left in the shelter's cages. Foster family wings are not counted, and neither are the animals living with foster families |
+| **Adoptions This Year** | Adoptions this calendar year that were not returned |
+
+Managers and staff also see three counters that call for action. Each one opens the list it counts, and turns amber when it is above zero:
+
+| Counter | Opens |
+|---------|-------|
+| **Pending Applications** | Adoption applications waiting for a decision ([9.5](09-adoptions.md#95-adoption-applications)) |
+| **Overdue Vaccinations** | Scheduled vaccinations past their due date ([chapter 8](08-vaccinations.md)) |
+| **Fees overdue** | Members with an unpaid joining fee or no membership fee covering today ([12.5](12-members.md#125-fees-overdue)) |
 
 ## 6.2 Panels
 

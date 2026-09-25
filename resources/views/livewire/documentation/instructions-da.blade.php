@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Frivillige</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Medlemmer</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Anlæg</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapporter</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Brugere</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Offentlig portal</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Find rundt i applikationen</h3>
         <p>Sidemenuen viser kun det, din rolle kan bruge. Ledere og personale ser menuen Dyr (ét punkt pr. dyreart, der er slået til for internatet, samt Fadderskaber, Adoptioner og Vaccinationer), Frivillige, Medlemmer og Anlæg; ledere ser også Brugere. Administratorer ser i stedet Brugere og menuen Administration. Læsere ser de samme menuer som medarbejdere, undtagen Fadderskaber, Adoptioner, Frivillige og Medlemmer, og siderne viser ingen knapper til at oprette, redigere eller slette. Denne dokumentation findes altid nederst i sidemenuen.</p>
+        <p>Menuen Dyr indeholder også <strong>Adoptionsansøgninger</strong> for ledere og personale, og kun ledere ser <strong>Rapporter</strong>.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Dyr uden kendt placering, så de kan tildeles et bur.</li>
             <li>Advarsler, når noget stadig mangler, fx ingen bure eller arter uden racer.</li>
         </ul>
+        <p>Ledig kapacitet tæller kun internatets egne bure: fløje for plejefamilier tælles ikke med, og det gør dyrene, der bor hos plejefamilier, heller ikke.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>En adoption registrerer adoptantens kontaktoplysninger, adoptionsdato, gebyr, noter og ansøgningsstatus (Afventer, Godkendt eller Afvist). Start den fra dyrets side.</p>
         <p>Siden Adoptioner (under Dyr i sidemenuen) viser alle internatets adoptioner; søg på adoptantens navn, telefon, e-mail eller noter eller på dyrets navn eller reference.</p>
         <p>Hvis et adopteret dyr kommer tilbage til internatet, udfylder du <strong>returdatoen</strong> på adoptionen: dyret bliver klar til adoption igen, og adoptionen bevares i dets historik.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Adoptionsansøgninger</h3>
+        <p>Når den offentlige portal er slået til, kan besøgende sende en adoptionsansøgning fra et dyrs kort med knappen <strong>Jeg vil adoptere</strong>. Formularen spørger om kontaktoplysninger, boligtype, om der er have, børn eller andre dyr, og hvorfor de vil adoptere.</p>
+        <p>Ansøgningerne vises under <strong>Adoptionsansøgninger</strong> i menuen Dyr, afventende først, og sidepanelet viser, hvor mange der afventer. For hver ansøgning kan du:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Godkend</strong> &mdash; åbner adoptionsformularen udfyldt med ansøgerens oplysninger; når den gemmes, registreres adoptionen, og ansøgningen markeres som godkendt.</li>
+            <li><strong>Afvis</strong> &mdash; markerer den som afvist.</li>
+            <li><strong>Slet</strong> &mdash; fjerner den.</li>
+        </ul>
+        <p>Når et dyr allerede er adopteret eller ikke længere er tilgængeligt, markeres dets afventende ansøgninger og kan afvises på én gang. Brugere med <strong>Notifikationer om adoptionsansøgninger</strong> slået til får en e-mail for hver ny ansøgning; ansøgeren får ingen e-mail, så kontakt vedkommende selv. Ansøgninger slettes automatisk seks måneder efter seneste ændring, som angivet i privatlivspolitikken.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Anlæg</h2>
         <p>Et internat er organiseret i tre niveauer: <strong>anlæg</strong> (fysiske steder med en adresse) indeholder <strong>fløje</strong>, og fløje indeholder <strong>bure</strong>. Hvert bur har en kode og en kapacitet.</p>
         <p>Burenes samlede kapacitet afgør, hvor mange dyr internatet kan huse, og det er til burene, dyrene tildeles. Konfigurer mindst ét bur, før du registrerer dyr, så de kan få en placering.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Plejefamilier</h3>
+        <p>Hvis jeres internat anbringer dyr hos plejefamilier, så opret en fløj til dem (for eksempel i et anlæg kaldet "Plejefamilier") og slå <strong>Fløj for plejefamilier</strong> til i fløjens formular. I den fløj er hvert bur én familie: brug familiens navn som burets navn og som kapacitet det antal dyr, den kan tage imod.</p>
+        <p>Vælg eventuelt en <strong>Kontakt (frivillig)</strong> for hver familie; frivilligkortet indeholder telefon og adresse. For at anbringe et dyr hos en familie vælger du familiens bur i dyrets formular, som med ethvert andet bur.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Dyrets side viser <strong>Plejefamilie</strong> med familiens navn og, for ledere og personale, kontaktens navn og telefon. Læsere ser familiens navn, men ikke kontakten.</li>
+            <li>Den frivilliges side viser de dyr, der lige nu bor hos familien.</li>
+            <li>Plejefamilier tæller ikke med i internatets kapacitet på oversigten eller i belægningsrapporten, som tæller dyrene i plejefamilier for sig.</li>
+            <li>På den offentlige portal viser dyret mærket <strong>I plejefamilie</strong>; familien vises aldrig offentligt.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Rapporter</h2>
+        <p>Kun ledere ser Rapporter. Vælg perioden øverst (seneste 12 måneder, et år, hele perioden eller egne datoer); perioder på to år eller mere vises pr. år i stedet for pr. måned. Rapporterne er delt i fire faner:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Dyr</strong> &mdash; indtag, adoptioner, returneringer og dødsfald; antallet af dyr på internatet over tid; indtag og adoptioner pr. art; adoptioner efter alder og mediantallet af dage til adoption; samt de tilgængelige dyr, der har ventet længst.</li>
+            <li><strong>Økonomi</strong> &mdash; indtægter efter kilde (fadderskaber, kontingenter, indmeldelsesgebyrer og adoptionsgebyrer), talt efter betalingsdato; aktive fadderskaber over tid og deres månedlige værdi; aktive, nye og restancemedlemmer med forventede og modtagne kontingenter; medlemsbetalinger efter metode; og de fadderskaber, hvis betalte periode slutter inden for 30 dage.</li>
+            <li><strong>Belægning</strong> &mdash; dagens belægning, kapacitet og dyrene i bure, uden kendt placering og i plejefamilier; belægning over tid og pr. fløj. Kapaciteten er kun vejledende, så der er ingen advarsler om overbelægning, og tidligere måneder sammenlignes med dagens kapacitet.</li>
+            <li><strong>Helbred</strong> &mdash; givne vaccinationer (pr. måned og pr. vaccine), forsinkede vaccinationer, diagnoser efter sygdom, åbne sager og andelen af steriliserede dyr på internatet.</li>
+        </ul>
+        <p>Hold musen over et diagram for at se værdierne, eller åbn <strong>Vis tabel</strong> under det. Knappen <strong>udskriv</strong> åbner den aktuelle fane som en rapport med internatets oplysninger &mdash; for eksempel den årlige aktivitetsrapport til generalforsamlingen &mdash;, klar til at udskrive eller gemme som PDF i browseren.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>En internatleder kan kun tilføje brugere til de internater, vedkommende leder.</li>
             <li>En administrator kan tilføje brugere til ethvert internat og kan oprette andre administratorer.</li>
         </ul>
+        <p>For hvert medlemskab af et internat kan man også slå <strong>Notifikationer om adoptionsansøgninger</strong> til: de brugere får en e-mail for hver ny adoptionsansøgning.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>Se listen over partnerinternater, hver med sin egen side med kontaktoplysninger, beskrivelse, logo og dyr.</li>
             <li>Åbne et link til et enkelt dyr, der er delt fra backoffice: det åbner dyrets kort direkte, og linkforhåndsvisninger på sociale medier viser navn, billede og beskrivelse.</li>
         </ul>
+        <p>Fra et dyrs kort kan besøgende også sende en adoptionsansøgning med knappen <strong>Jeg vil adoptere</strong> (se <a href="#adoptions" class="underline underline-offset-2">Adoptioner</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hvad der vises offentligt</h3>
         <p>Et dyr vises kun på portalen, når <strong>alle</strong> disse betingelser er opfyldt:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>Dets internat er ikke fjernet.</li>
         </ul>
         <p>Dyr markeret som <strong>Fremhævet</strong> vises først, med et mærke. Kun navn, reference, billeder, offentlig beskrivelse og beskrivende oplysninger (dyreart, race, størrelse, køn, alder, pelstype, neutraliseret) vises &mdash; interne noter, kliniske noter, chip og bur udgives aldrig.</p>
+        <p>Dyr, der bor hos en plejefamilie, viser mærket <strong>I plejefamilie</strong>; familiens navn og kontaktoplysninger offentliggøres aldrig.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tips til gode opslag</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Tilføj mindst ét godt billede og en venlig offentlig beskrivelse &mdash; det er det, adoptanter ser først.</li>

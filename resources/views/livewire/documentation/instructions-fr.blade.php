@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Bénévoles</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Membres</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Installations</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapports</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utilisateurs</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portail Public</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">S'orienter dans l'application</h3>
         <p>La barre latérale n'affiche que ce que votre rôle peut utiliser. Les gestionnaires et le personnel voient le menu Animaux (une entrée par espèce activée pour le refuge, plus Parrainages, Adoptions et Vaccinations), Bénévoles, Membres et Installations ; les gestionnaires voient aussi Utilisateurs. Les administrateurs voient à la place Utilisateurs et le menu Administration. Les utilisateurs en consultation voient les mêmes menus que les employés, sauf Parrainages, Adoptions, Bénévoles et Membres, et les pages ne leur affichent aucun bouton de création, de modification ou de suppression. Cette documentation est toujours disponible en bas de la barre latérale.</p>
+        <p>Le menu Animaux comprend aussi les <strong>Demandes d'Adoption</strong> pour les gestionnaires et le personnel, et seuls les gestionnaires voient les <strong>Rapports</strong>.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Les animaux sans emplacement connu, afin de pouvoir les attribuer à une cage.</li>
             <li>Des avertissements lorsqu'il manque encore quelque chose, comme l'absence de cages ou des espèces sans races.</li>
         </ul>
+        <p>La capacité disponible ne compte que les box du refuge lui-même : les ailes de familles d'accueil en sont exclues, tout comme les animaux qui vivent en famille d'accueil.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>Une adoption enregistre les coordonnées de l'adoptant, la date d'adoption, les frais, des notes et le statut de la demande (En attente, Approuvée ou Refusée). Commencez-la depuis la page de l'animal.</p>
         <p>La page Adoptions (sous Animaux dans la barre latérale) liste toutes les adoptions du refuge ; recherchez par nom, téléphone, email ou notes de l'adoptant, ou par le nom ou la référence de l'animal.</p>
         <p>Si un animal adopté revient au refuge, renseignez la <strong>date de retour</strong> sur l'adoption : l'animal redevient disponible et l'adoption reste dans son historique.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Demandes d'adoption</h3>
+        <p>Lorsque le portail public est activé, les visiteurs peuvent envoyer une demande d'adoption depuis la fiche d'un animal avec le bouton <strong>Je veux adopter</strong>. Le formulaire demande leurs coordonnées, le type de logement, la présence d'un jardin, d'enfants ou d'autres animaux, et pourquoi ils veulent adopter.</p>
+        <p>Les demandes apparaissent dans <strong>Demandes d'Adoption</strong>, dans le menu Animaux, les demandes en attente d'abord, et la barre latérale indique combien sont en attente. Pour chacune, vous pouvez :</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Approuver</strong> &mdash; ouvre le formulaire d'adoption déjà rempli avec les données du demandeur ; en l'enregistrant, l'adoption est créée et la demande est marquée comme approuvée.</li>
+            <li><strong>Refuser</strong> &mdash; la marque comme refusée.</li>
+            <li><strong>Supprimer</strong> &mdash; la supprime.</li>
+        </ul>
+        <p>Lorsqu'un animal a été adopté ou n'est plus disponible, ses demandes en attente sont signalées et peuvent être refusées en une seule fois. Les utilisateurs ayant activé les <strong>Notifications de Demandes d'Adoption</strong> reçoivent un email pour chaque nouvelle demande ; le demandeur ne reçoit aucun email, contactez-le donc vous-même. Les demandes sont supprimées automatiquement six mois après leur dernière modification, comme l'indique la politique de confidentialité.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Installations</h2>
         <p>Un refuge est organisé en trois niveaux : les <strong>installations</strong> (sites physiques, avec une adresse) contiennent des <strong>ailes</strong>, et les ailes contiennent des <strong>cages</strong>. Chaque cage a un code et une capacité.</p>
         <p>La capacité totale des cages détermine combien d'animaux le refuge peut accueillir, et c'est aux cages que les animaux sont attribués. Configurez au moins une cage avant d'enregistrer des animaux afin de pouvoir leur attribuer un emplacement.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Familles d'accueil</h3>
+        <p>Si votre refuge place des animaux en familles d'accueil, créez une aile pour elles (par exemple dans une installation appelée « Familles d'accueil ») et activez <strong>Aile des familles d'accueil</strong> dans le formulaire de l'aile. Dans cette aile, chaque box est une famille : utilisez le nom de la famille comme nom du box et, comme capacité, le nombre d'animaux qu'elle peut accueillir.</p>
+        <p>Vous pouvez choisir un <strong>Contact (bénévole)</strong> pour chaque famille ; la fiche du bénévole contient son téléphone et son adresse. Pour placer un animal dans une famille, choisissez le box de la famille dans le formulaire de l'animal, comme pour tout autre box.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>La page de l'animal affiche <strong>Famille d'accueil</strong> avec le nom de la famille et, pour les gestionnaires et le personnel, le nom et le téléphone du contact. Les utilisateurs en <strong>Consultation</strong> voient le nom de la famille mais pas le contact.</li>
+            <li>La page du bénévole liste les animaux actuellement dans sa famille.</li>
+            <li>Les familles d'accueil ne comptent pas dans la capacité du refuge sur le tableau de bord ni dans le rapport d'Occupation, qui compte à part les animaux en familles d'accueil.</li>
+            <li>Sur le portail public, l'animal affiche le badge <strong>En famille d'accueil</strong> ; la famille n'est jamais affichée publiquement.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Rapports</h2>
+        <p>Seuls les gestionnaires voient les Rapports. Choisissez la période en haut (12 derniers mois, une année, depuis toujours ou vos propres dates) ; les périodes de deux ans ou plus sont affichées par année au lieu de par mois. Les rapports sont répartis en quatre onglets :</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Animaux</strong> &mdash; entrées, adoptions, retours et décès ; le nombre d'animaux au refuge dans le temps ; entrées et adoptions par espèce ; adoptions par âge et nombre médian de jours avant l'adoption ; et les animaux disponibles qui attendent depuis le plus longtemps.</li>
+            <li><strong>Finances</strong> &mdash; recettes par origine (parrainages, cotisations, droits d'adhésion et frais d'adoption), comptées par date de paiement ; parrainages actifs dans le temps et leur valeur mensuelle ; membres actifs, nouveaux et en retard de cotisation, avec les cotisations attendues et perçues ; paiements des membres par moyen ; et les parrainages dont la période payée se termine dans les 30 prochains jours.</li>
+            <li><strong>Occupation</strong> &mdash; l'occupation du jour, la capacité et les animaux en box, sans emplacement connu et en familles d'accueil ; l'occupation dans le temps et par aile. La capacité n'est qu'indicative, il n'y a donc pas d'alerte de dépassement, et les mois passés sont comparés à la capacité actuelle.</li>
+            <li><strong>Santé</strong> &mdash; vaccins administrés (par mois et par vaccin), vaccins en retard, diagnostics par maladie, cas ouverts et part des animaux stérilisés au refuge.</li>
+        </ul>
+        <p>Survolez un graphique pour voir ses valeurs, ou ouvrez <strong>Afficher le tableau</strong> en dessous. Le bouton <strong>imprimer</strong> ouvre l'onglet actuel sous forme de rapport avec les coordonnées du refuge &mdash; par exemple le rapport d'activité annuel pour l'assemblée générale &mdash; prêt à imprimer ou à enregistrer en PDF depuis le navigateur.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>Un gestionnaire ne peut ajouter des utilisateurs qu'aux refuges qu'il gère.</li>
             <li>Un administrateur peut ajouter des utilisateurs à n'importe quel refuge et peut créer d'autres administrateurs.</li>
         </ul>
+        <p>Chaque rattachement à un refuge peut aussi activer les <strong>Notifications de Demandes d'Adoption</strong> : ces utilisateurs reçoivent un email pour chaque nouvelle demande d'adoption.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>Consulter la liste des refuges partenaires, chacun avec sa propre page présentant ses coordonnées, sa description, son logo et ses animaux.</li>
             <li>Ouvrir le lien d'un animal partagé depuis le backoffice : il ouvre directement la fiche de cet animal, et les aperçus sur les réseaux sociaux affichent son nom, sa photo et sa description.</li>
         </ul>
+        <p>Depuis la fiche d'un animal, les visiteurs peuvent aussi envoyer une demande d'adoption avec le bouton <strong>Je veux adopter</strong> (voir <a href="#adoptions" class="underline underline-offset-2">Adoptions</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ce qui est affiché publiquement</h3>
         <p>Un animal n'apparaît sur le portail que si <strong>toutes</strong> ces conditions sont réunies :</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>Son refuge n'a pas été supprimé.</li>
         </ul>
         <p>Les animaux marqués <strong>Mis en Avant</strong> sont affichés en premier, avec un badge « À la une ». Seuls le nom, la référence, les photos, la description publique et les informations descriptives (espèce, race, taille, sexe, âge, type de pelage, stérilisation) sont affichés &mdash; les notes internes, notes cliniques, puce électronique et cage ne sont jamais publiées.</p>
+        <p>Les animaux qui vivent en famille d'accueil affichent le badge <strong>En famille d'accueil</strong> ; le nom et les coordonnées de la famille ne sont jamais publiés.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Conseils pour de bonnes annonces</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Ajoutez au moins une belle photo et une description publique chaleureuse &mdash; c'est ce que les adoptants voient en premier.</li>

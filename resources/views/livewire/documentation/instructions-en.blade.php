@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volunteers</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Members</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Facilities</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Reports</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Users</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Public Portal</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Finding your way around</h3>
         <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions and Vaccinations), Volunteers, Members and Facilities; managers also see Users. Admins see Users and the Administration menu instead. Viewers see the same menus as staff, except Sponsorships, Adoptions, Volunteers and Members, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
+        <p>The Pets menu also includes <strong>Adoption Applications</strong> for managers and staff, and only managers see <strong>Reports</strong>.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Pets with no known location, so they can be assigned to a cage.</li>
             <li>Warnings when something is still missing, such as no cages defined or species without breeds.</li>
         </ul>
+        <p>Available capacity only counts the shelter's own cages: foster family wings are left out, and so are the animals living with foster families.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>An adoption records the adopter's contact details, the adoption date, the fee, notes and the application status (Pending, Approved or Rejected). Start one from the pet's page.</p>
         <p>The Adoptions page (under Pets in the sidebar) lists every adoption of the shelter; search by adopter name, phone, email, notes, or by the pet's name or reference.</p>
         <p>If an adopted pet comes back to the shelter, fill in the <strong>return date</strong> on the adoption: the pet becomes available again and the adoption stays in its history.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Adoption applications</h3>
+        <p>When the public portal is on, visitors can send an adoption application from a pet's card with the <strong>I want to adopt</strong> button. The form asks for their contacts, the type of home, whether there is a garden, children or other animals, and why they want to adopt.</p>
+        <p>Applications appear in <strong>Adoption Applications</strong> under Pets, pending ones first, and the sidebar shows how many are pending. For each one you can:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Approve</strong> &mdash; opens the adoption form already filled in with the applicant's details; saving it registers the adoption and marks the application as approved.</li>
+            <li><strong>Reject</strong> &mdash; marks it as rejected.</li>
+            <li><strong>Delete</strong> &mdash; removes it.</li>
+        </ul>
+        <p>When a pet has been adopted or is no longer available, its pending applications are flagged and can be rejected all at once. Users with <strong>Adoption Application Notifications</strong> turned on receive an email for each new application; the applicant receives no email, so contact them yourself. Applications are deleted automatically six months after their last change, as stated in the privacy policy.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Facilities</h2>
         <p>A shelter is organized in three levels: <strong>facilities</strong> (physical sites, with an address) contain <strong>wings</strong>, and wings contain <strong>cages</strong>. Each cage has a code and a capacity.</p>
         <p>The total capacity of the cages determines how many pets the shelter can house, and cages are where pets are assigned. Configure at least one cage before registering pets so they can be given a location.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Foster families</h3>
+        <p>If your shelter places animals with foster families, create a wing for them (for example in a facility called "Foster families") and turn on <strong>Foster families wing</strong> in the wing's form. In that wing each cage is one family: use the family's name as the cage name and its capacity as the number of animals it can take.</p>
+        <p>Optionally choose a <strong>Contact (volunteer)</strong> for each family; the volunteer record holds their phone and address. To place an animal with a family, choose the family's cage on the pet's form, as with any other cage.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>The pet's page shows <strong>Foster family</strong> with the family's name and, for managers and staff, the contact's name and phone. Viewers see the family's name but not the contact.</li>
+            <li>The volunteer's page lists the animals currently with their family.</li>
+            <li>Foster families do not count towards the shelter's capacity on the dashboard or in the Occupancy report, which counts the animals in foster families separately.</li>
+            <li>On the public portal the pet shows an <strong>In a foster family</strong> badge; the family is never shown publicly.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Reports</h2>
+        <p>Only managers see Reports. Choose the period at the top (the last 12 months, a year, all time or your own dates); periods of two years or more are shown per year instead of per month. The reports are split into four tabs:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Animals</strong> &mdash; intakes, adoptions, returns and deaths; the number of animals in the shelter over time; intakes and adoptions by species; adoptions by age and the median number of days until adoption; and the available animals that have been waiting longest.</li>
+            <li><strong>Finances</strong> &mdash; income by source (sponsorships, membership fees, joining fees and adoption fees), counted by payment date; active sponsorships over time and their monthly value; active, new and overdue members, with the membership fees expected and collected; member payments by method; and the sponsorships whose paid period ends in the next 30 days.</li>
+            <li><strong>Occupancy</strong> &mdash; today's occupancy, capacity, and the animals in cages, with no known location and in foster families; occupancy over time and by wing. Capacity is only a guideline, so there are no over-capacity warnings, and past months are compared with today's capacity.</li>
+            <li><strong>Health</strong> &mdash; vaccinations given (per month and by vaccine), overdue vaccinations, diagnoses by sickness, open cases and the share of sterilised animals in the shelter.</li>
+        </ul>
+        <p>Hover over a chart to see its values, or open <strong>Show table</strong> below it. The <strong>print</strong> button opens the current tab as a report with the shelter's details &mdash; for example the yearly activity report for the general assembly &mdash; ready to print or save as PDF from the browser.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>A manager can only add users to the shelters they manage.</li>
             <li>An admin can add users to any shelter and can create other admins.</li>
         </ul>
+        <p>Each membership can also have <strong>Adoption Application Notifications</strong> turned on: those users receive an email for each new adoption application.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>See the list of partner shelters, each with its own page showing its contacts, description, logo and pets.</li>
             <li>Open a link to a single pet shared from the backoffice: it opens that pet's card directly, and link previews on social networks show its name, photo and description.</li>
         </ul>
+        <p>From a pet's card, visitors can also send an adoption application with the <strong>I want to adopt</strong> button (see <a href="#adoptions" class="underline underline-offset-2">Adoptions</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">What is shown publicly</h3>
         <p>A pet only appears on the portal when <strong>all</strong> of these are true:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>Its shelter has not been removed.</li>
         </ul>
         <p>Pets marked <strong>Is Featured</strong> are shown first, with a Featured badge. Only the name, reference, photos, public description and descriptive details (species, breed, size, gender, age, fur type, neutered) are shown &mdash; internal notes, clinical notes, microchip and cage are never published.</p>
+        <p>Pets living with a foster family show an <strong>In a foster family</strong> badge; the family's name and contacts are never published.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tips for good listings</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Add at least one good photo and a friendly public description &mdash; they are what adopters see first.</li>

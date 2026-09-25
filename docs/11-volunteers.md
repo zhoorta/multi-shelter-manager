@@ -72,6 +72,11 @@ Click 👁 on the list to open the record. **Edit** changes it.
 
 ![Volunteer record](screenshots/51-volunteer-show.png)
 
+
+## 11.4 Volunteers as foster families
+
+A volunteer can be the contact of a [foster family](05-facilities.md#57-foster-families). Their record then has a **Foster family** section listing the animals currently with that family, each linking to its record.
+
 ---
 
 [← Sponsorships](10-sponsorships.md) · [Documentation index](README.md) · [Next: Members →](12-members.md)

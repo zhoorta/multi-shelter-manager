@@ -14,6 +14,7 @@
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Wolontariusze</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Członkowie</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Obiekty</a>
+        <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Raporty</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Użytkownicy</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal publiczny</a>
         <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administracja</a>
@@ -43,6 +44,7 @@
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Poruszanie się po aplikacji</h3>
         <p>Panel boczny pokazuje tylko to, z czego może korzystać Twoja rola. Kierownicy i pracownicy widzą menu Zwierzęta (po jednej pozycji dla każdego gatunku włączonego w schronisku oraz Adopcje wirtualne, Adopcje i Szczepienia), Wolontariusze, Członkowie i Obiekty; kierownicy widzą też Użytkownicy. Administratorzy widzą zamiast tego Użytkownicy i menu Administracja. Użytkownicy z rolą podglądu widzą te same menu co pracownicy, z wyjątkiem Adopcji wirtualnych, Adopcji, Wolontariuszy i Członków, a na stronach nie mają przycisków tworzenia, edycji ani usuwania. Ta dokumentacja jest zawsze dostępna na dole panelu bocznego.</p>
+        <p>Menu Zwierzęta zawiera też <strong>Wnioski adopcyjne</strong> dla kierowników i personelu, a <strong>Raporty</strong> widzą tylko kierownicy.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -54,6 +56,7 @@
             <li>Zwierzęta bez znanej lokalizacji, aby można je było przypisać do kojca.</li>
             <li>Ostrzeżenia, gdy czegoś jeszcze brakuje, np. nie zdefiniowano kojców lub gatunki nie mają ras.</li>
         </ul>
+        <p>Dostępna pojemność liczy tylko własne boksy schroniska: skrzydła domów tymczasowych są pomijane, podobnie jak zwierzęta mieszkające w domach tymczasowych.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -94,6 +97,15 @@
         <p>Adopcja zapisuje dane kontaktowe adoptującego, datę adopcji, opłatę, notatki i status wniosku (Oczekujący, Zatwierdzony lub Odrzucony). Rozpocznij ją ze strony zwierzęcia.</p>
         <p>Strona Adopcje (w menu Zwierzęta w panelu bocznym) zawiera wszystkie adopcje schroniska; szukaj po imieniu i nazwisku, telefonie, e-mailu lub notatkach adoptującego albo po imieniu lub numerze referencyjnym zwierzęcia.</p>
         <p>Jeśli adoptowane zwierzę wraca do schroniska, wpisz w adopcji <strong>datę zwrotu</strong>: zwierzę znów staje się dostępne, a adopcja pozostaje w jego historii.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wnioski adopcyjne</h3>
+        <p>Gdy portal publiczny jest włączony, odwiedzający mogą wysłać wniosek adopcyjny z karty zwierzęcia przyciskiem <strong>Chcę adoptować</strong>. Formularz pyta o dane kontaktowe, rodzaj mieszkania, czy jest ogród, dzieci lub inne zwierzęta oraz dlaczego chcą adoptować.</p>
+        <p>Wnioski pojawiają się w <strong>Wnioski adopcyjne</strong> w menu Zwierzęta, najpierw oczekujące, a pasek boczny pokazuje, ile jest oczekujących. Przy każdym możesz:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Zatwierdź</strong> &mdash; otwiera formularz adopcji wypełniony danymi wnioskodawcy; po zapisaniu adopcja zostaje zarejestrowana, a wniosek oznaczony jako zatwierdzony.</li>
+            <li><strong>Odrzuć</strong> &mdash; oznacza go jako odrzucony.</li>
+            <li><strong>Usuń</strong> &mdash; usuwa go.</li>
+        </ul>
+        <p>Gdy zwierzę zostało już adoptowane lub nie jest już dostępne, jego oczekujące wnioski są oznaczane i można je odrzucić wszystkie naraz. Użytkownicy z włączonymi <strong>Powiadomieniami o wnioskach adopcyjnych</strong> otrzymują e-mail o każdym nowym wniosku; wnioskodawca nie otrzymuje e-maila, więc skontaktuj się z nim sam. Wnioski są usuwane automatycznie sześć miesięcy po ostatniej zmianie, zgodnie z polityką prywatności.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -137,6 +149,27 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Obiekty</h2>
         <p>Schronisko jest zorganizowane na trzech poziomach: <strong>obiekty</strong> (fizyczne lokalizacje z adresem) zawierają <strong>skrzydła</strong>, a skrzydła zawierają <strong>kojce</strong>. Każdy kojec ma kod i pojemność.</p>
         <p>Łączna pojemność kojców określa, ile zwierząt może przyjąć schronisko, a zwierzęta przypisuje się właśnie do kojców. Skonfiguruj co najmniej jeden kojec przed rejestracją zwierząt, aby można im było przypisać lokalizację.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Domy tymczasowe</h3>
+        <p>Jeśli Twoje schronisko umieszcza zwierzęta w domach tymczasowych, utwórz dla nich skrzydło (na przykład w obiekcie o nazwie „Domy tymczasowe”) i włącz <strong>Skrzydło domów tymczasowych</strong> w formularzu skrzydła. W tym skrzydle każdy boks to jedna rodzina: użyj nazwiska rodziny jako nazwy boksu, a jako pojemności liczby zwierząt, które może przyjąć.</p>
+        <p>Opcjonalnie wybierz <strong>Kontakt (wolontariusz)</strong> dla każdej rodziny; karta wolontariusza zawiera telefon i adres. Aby umieścić zwierzę w rodzinie, wybierz boks rodziny w formularzu zwierzęcia, jak każdy inny boks.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Strona zwierzęcia pokazuje <strong>Dom tymczasowy</strong> z nazwą rodziny, a kierownikom i personelowi także imię i telefon kontaktu. Użytkownicy z rolą <strong>Podgląd</strong> widzą nazwę rodziny, ale nie kontakt.</li>
+            <li>Strona wolontariusza wymienia zwierzęta, które są obecnie w jego rodzinie.</li>
+            <li>Domy tymczasowe nie wliczają się do pojemności schroniska na pulpicie ani w raporcie Obłożenie, który liczy zwierzęta w domach tymczasowych osobno.</li>
+            <li>Na portalu publicznym zwierzę ma odznakę <strong>W domu tymczasowym</strong>; rodzina nigdy nie jest pokazywana publicznie.</li>
+        </ul>
+    </section>
+
+    <section id="reports" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Raporty</h2>
+        <p>Raporty widzą tylko kierownicy. Wybierz okres na górze (ostatnie 12 miesięcy, rok, cały okres lub własne daty); okresy dwuletnie i dłuższe są pokazywane według lat zamiast miesięcy. Raporty są podzielone na cztery karty:</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Zwierzęta</strong> &mdash; przyjęcia, adopcje, zwroty i zgony; liczba zwierząt w schronisku w czasie; przyjęcia i adopcje według gatunku; adopcje według wieku i mediana dni do adopcji; oraz dostępne zwierzęta, które czekają najdłużej.</li>
+            <li><strong>Finanse</strong> &mdash; przychody według źródła (adopcje wirtualne, składki, wpisowe i opłaty adopcyjne), liczone według daty płatności; aktywne adopcje wirtualne w czasie i ich miesięczna wartość; członkowie aktywni, nowi i zalegający ze składkami, z oczekiwanymi i zebranymi składkami; płatności członków według metody; oraz adopcje wirtualne, których opłacony okres kończy się w ciągu 30 dni.</li>
+            <li><strong>Obłożenie</strong> &mdash; dzisiejsze obłożenie, pojemność oraz zwierzęta w boksach, bez znanej lokalizacji i w domach tymczasowych; obłożenie w czasie i według skrzydła. Pojemność jest tylko orientacyjna, więc nie ma ostrzeżeń o przepełnieniu, a poprzednie miesiące są porównywane z obecną pojemnością.</li>
+            <li><strong>Zdrowie</strong> &mdash; podane szczepienia (według miesiąca i szczepionki), zaległe szczepienia, diagnozy według choroby, otwarte przypadki i odsetek wysterylizowanych zwierząt w schronisku.</li>
+        </ul>
+        <p>Najedź na wykres, aby zobaczyć wartości, lub otwórz <strong>Pokaż tabelę</strong> pod nim. Przycisk <strong>drukuj</strong> otwiera bieżącą kartę jako raport z danymi schroniska &mdash; na przykład roczne sprawozdanie z działalności na walne zgromadzenie &mdash; gotowy do wydruku lub zapisania jako PDF w przeglądarce.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -146,6 +179,7 @@
             <li>Kierownik może dodawać użytkowników tylko do schronisk, którymi zarządza.</li>
             <li>Administrator może dodawać użytkowników do dowolnego schroniska i tworzyć innych administratorów.</li>
         </ul>
+        <p>Przy każdym członkostwie w schronisku można też włączyć <strong>Powiadomienia o wnioskach adopcyjnych</strong>: ci użytkownicy otrzymują e-mail o każdym nowym wniosku adopcyjnym.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
@@ -158,6 +192,7 @@
             <li>Zobaczyć listę schronisk partnerskich, każde z własną stroną z kontaktem, opisem, logo i zwierzętami.</li>
             <li>Otworzyć link do pojedynczego zwierzęcia udostępniony z panelu: otwiera on bezpośrednio kartę tego zwierzęcia, a podglądy linków w mediach społecznościowych pokazują jego imię, zdjęcie i opis.</li>
         </ul>
+        <p>Z karty zwierzęcia odwiedzający mogą też wysłać wniosek adopcyjny przyciskiem <strong>Chcę adoptować</strong> (zobacz <a href="#adoptions" class="underline underline-offset-2">Adopcje</a>).</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Co jest widoczne publicznie</h3>
         <p>Zwierzę pojawia się w portalu tylko wtedy, gdy spełnione są <strong>wszystkie</strong> te warunki:</p>
         <ul class="list-disc space-y-1 ps-6">
@@ -166,6 +201,7 @@
             <li>Jego schronisko nie zostało usunięte.</li>
         </ul>
         <p>Zwierzęta oznaczone jako <strong>Wyróżniony</strong> są pokazywane jako pierwsze, z odpowiednią plakietką. Pokazywane są tylko imię, numer referencyjny, zdjęcia, publiczny opis i dane opisowe (gatunek, rasa, rozmiar, płeć, wiek, rodzaj sierści, sterylizacja) &mdash; notatki wewnętrzne, notatki kliniczne, chip i kojec nigdy nie są publikowane.</p>
+        <p>Zwierzęta mieszkające w domu tymczasowym mają odznakę <strong>W domu tymczasowym</strong>; nazwa i dane kontaktowe rodziny nigdy nie są publikowane.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wskazówki do dobrych ogłoszeń</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li>Dodaj co najmniej jedno dobre zdjęcie i przyjazny publiczny opis &mdash; to adoptujący widzą najpierw.</li>
