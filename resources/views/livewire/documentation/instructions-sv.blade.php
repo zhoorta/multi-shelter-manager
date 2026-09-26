@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Roller</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administratör</strong> &mdash; hanterar hela plattformen: djurhemmen, de gemensamma referenstabellerna och användarkontona. Administratörer hanterar inte djur eller anläggningar.</li>
-            <li><strong>Föreståndare</strong> &mdash; driver ett djurhem: allt som personalen kan göra, plus att bjuda in och hantera djurhemmets användare.</li>
+            <li><strong>Föreståndare</strong> &mdash; driver ett djurhem: allt som personalen kan göra, plus att bjuda in och hantera djurhemmets användare. Föreståndaren håller också djurhemmets profil (kontaktuppgifter, adress, beskrivning, logotyp) uppdaterad under <strong>Inställningar &gt; Djurhem</strong>; bara en administratör kan ändra djurhemmets namn eller arter.</li>
             <li><strong>Personal</strong> &mdash; sköter djurhemmets dagliga arbete: djur, vaccinationer, adoptioner, fadderskap, volontärer och anläggningar.</li>
             <li><strong>Läsare</strong> &mdash; endast läsbehörighet till djurhemmet: kan se djur, vaccinationer och anläggningar och skriva ut djurblad och djurlistor, men kan inte skapa, redigera eller ta bort något och ser inte personuppgifter om adoptanter, faddrar, volontärer eller medlemmar.</li>
         </ul>

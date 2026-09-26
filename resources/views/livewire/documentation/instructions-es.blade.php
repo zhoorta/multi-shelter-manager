@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Funciones</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrador</strong> &mdash; gestiona toda la plataforma: los refugios, las tablas de referencia compartidas y las cuentas de usuario. Los administradores no gestionan animales ni instalaciones.</li>
-            <li><strong>Gestor</strong> &mdash; dirige un refugio: todo lo que puede hacer un empleado, además de invitar y gestionar a los usuarios de ese refugio.</li>
+            <li><strong>Gestor</strong> &mdash; dirige un refugio: todo lo que puede hacer un empleado, además de invitar y gestionar a los usuarios de ese refugio. El gestor también mantiene actualizado el perfil del refugio (contactos, dirección, descripción, logotipo) en <strong>Configuración &gt; Refugio</strong>; solo un administrador puede cambiar el nombre o las especies del refugio.</li>
             <li><strong>Empleado</strong> &mdash; se encarga del trabajo diario del refugio: animales, vacunaciones, adopciones, apadrinamientos, voluntarios e instalaciones.</li>
             <li><strong>Consulta</strong> &mdash; acceso de solo lectura al refugio: puede ver animales, vacunaciones e instalaciones e imprimir fichas y listas de animales, pero no puede crear, editar ni eliminar nada, y no ve los datos personales de adoptantes, padrinos, voluntarios ni socios.</li>
         </ul>

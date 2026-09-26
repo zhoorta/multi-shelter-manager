@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Rôles</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrateur</strong> &mdash; gère toute la plateforme : les refuges, les tables de référence partagées et les comptes utilisateurs. Les administrateurs ne gèrent ni les animaux ni les installations.</li>
-            <li><strong>Gestionnaire</strong> &mdash; dirige un refuge : tout ce que peut faire un employé, plus l'invitation et la gestion des utilisateurs de ce refuge.</li>
+            <li><strong>Gestionnaire</strong> &mdash; dirige un refuge : tout ce que peut faire un employé, plus l'invitation et la gestion des utilisateurs de ce refuge. Le gestionnaire tient aussi à jour le profil du refuge (coordonnées, adresse, description, logo) dans <strong>Paramètres &gt; Refuge</strong> ; seul un administrateur peut modifier le nom ou les espèces du refuge.</li>
             <li><strong>Employé</strong> &mdash; s'occupe du travail quotidien du refuge : animaux, vaccinations, adoptions, parrainages, bénévoles et installations.</li>
             <li><strong>Consultation</strong> &mdash; accès en lecture seule au refuge : peut voir les animaux, les vaccinations et les installations et imprimer les fiches et listes d'animaux, mais ne peut rien créer, modifier ni supprimer, et ne voit pas les données personnelles des adoptants, des parrains, des bénévoles ni des membres.</li>
         </ul>

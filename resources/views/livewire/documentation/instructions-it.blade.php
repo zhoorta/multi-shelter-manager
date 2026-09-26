@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ruoli</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Amministratore</strong> &mdash; gestisce l'intera piattaforma: i rifugi, le tabelle di riferimento condivise e gli account utente. Gli amministratori non gestiscono animali né strutture.</li>
-            <li><strong>Responsabile</strong> &mdash; dirige un rifugio: tutto ciò che può fare un operatore, più l'invito e la gestione degli utenti di quel rifugio.</li>
+            <li><strong>Responsabile</strong> &mdash; dirige un rifugio: tutto ciò che può fare un operatore, più l'invito e la gestione degli utenti di quel rifugio. Il responsabile mantiene anche aggiornato il profilo del rifugio (contatti, indirizzo, descrizione, logo) in <strong>Impostazioni &gt; Rifugio</strong>; solo un amministratore può cambiare il nome o le specie del rifugio.</li>
             <li><strong>Operatore</strong> &mdash; si occupa del lavoro quotidiano del rifugio: animali, vaccinazioni, adozioni, adozioni a distanza, volontari e strutture.</li>
             <li><strong>Consultazione</strong> &mdash; accesso in sola lettura al rifugio: può vedere animali, vaccinazioni e strutture e stampare schede ed elenchi degli animali, ma non può creare, modificare né eliminare nulla e non vede i dati personali di adottanti, sostenitori, volontari e soci.</li>
         </ul>

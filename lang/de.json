@@ -616,5 +616,7 @@
     "Go to Dashboard": "Zum Dashboard",
     "You now have access to a new shelter": "Sie haben jetzt Zugang zu einem neuen Tierheim",
     "You have been added to :shelter as a :role.": "Sie wurden :shelter als :role hinzugefügt.",
-    "Use the shelter switcher in the sidebar to access it with your existing account.": "Nutzen Sie die Tierheim-Auswahl in der Seitenleiste, um mit Ihrem bestehenden Konto darauf zuzugreifen."
+    "Use the shelter switcher in the sidebar to access it with your existing account.": "Nutzen Sie die Tierheim-Auswahl in der Seitenleiste, um mit Ihrem bestehenden Konto darauf zuzugreifen.",
+    "Shelter settings": "Tierheim-Einstellungen",
+    "Update your shelter's contacts and public profile": "Aktualisieren Sie die Kontaktdaten und das öffentliche Profil Ihres Tierheims"
 }

@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Perfis</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrador</strong> &mdash; gere toda a plataforma: abrigos, tabelas de referência partilhadas e contas de utilizador. Os administradores não gerem animais nem instalações.</li>
-            <li><strong>Gestor</strong> &mdash; gere um abrigo: tudo o que um funcionário pode fazer, mais convidar e gerir os utilizadores desse abrigo.</li>
+            <li><strong>Gestor</strong> &mdash; gere um abrigo: tudo o que um funcionário pode fazer, mais convidar e gerir os utilizadores desse abrigo. O gestor também mantém atualizado o perfil do abrigo (contactos, morada, descrição, logótipo) em <strong>Definições &gt; Abrigo</strong>; só um administrador pode alterar o nome ou as espécies do abrigo.</li>
             <li><strong>Funcionário</strong> &mdash; trata do trabalho diário do abrigo: animais, vacinações, adoções, apadrinhamentos, voluntários e instalações.</li>
             <li><strong>Consulta</strong> &mdash; acesso só de leitura ao abrigo: pode ver animais, vacinações e instalações e imprimir fichas e listas de animais, mas não pode criar, editar nem apagar nada, e não vê os dados pessoais de adotantes, padrinhos, voluntários nem sócios.</li>
         </ul>

@@ -616,5 +616,7 @@
     "Go to Dashboard": "Gå till översikten",
     "You now have access to a new shelter": "Du har nu tillgång till ett nytt djurhem",
     "You have been added to :shelter as a :role.": "Du har lagts till i :shelter som :role.",
-    "Use the shelter switcher in the sidebar to access it with your existing account.": "Använd djurhemsväljaren i sidofältet för att komma åt det med ditt befintliga konto."
+    "Use the shelter switcher in the sidebar to access it with your existing account.": "Använd djurhemsväljaren i sidofältet för att komma åt det med ditt befintliga konto.",
+    "Shelter settings": "Djurheminställningar",
+    "Update your shelter's contacts and public profile": "Uppdatera ditt djurhems kontaktuppgifter och offentliga profil"
 }

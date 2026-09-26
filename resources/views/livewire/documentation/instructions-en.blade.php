@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Roles</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Admin</strong> &mdash; manages the whole platform: shelters, the shared lookup tables and user accounts. Admins do not manage pets or facilities.</li>
-            <li><strong>Manager</strong> &mdash; runs a shelter: everything a staff member can do, plus inviting and managing that shelter's users.</li>
+            <li><strong>Manager</strong> &mdash; runs a shelter: everything a staff member can do, plus inviting and managing that shelter's users. Managers also keep the shelter's profile (contacts, address, description, logo) up to date under <strong>Settings &gt; Shelter</strong>; only an admin can change the shelter's name or species.</li>
             <li><strong>Staff</strong> &mdash; handles the shelter's daily work: pets, vaccinations, adoptions, sponsorships, volunteers and facilities.</li>
             <li><strong>Viewer</strong> &mdash; read-only access to the shelter: can see pets, vaccinations and facilities and print pet sheets and lists, but cannot create, edit or delete anything, and does not see the personal data of adopters, sponsors, volunteers or members.</li>
         </ul>

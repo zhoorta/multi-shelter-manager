@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Rollen</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrator</strong> &mdash; verwaltet die gesamte Plattform: Tierheime, die gemeinsamen Stammdatentabellen und Benutzerkonten. Administratoren verwalten keine Tiere oder Einrichtungen.</li>
-            <li><strong>Tierheimleitung</strong> &mdash; führt ein Tierheim: alles, was ein Mitarbeiter tun kann, plus das Einladen und Verwalten der Benutzer dieses Tierheims.</li>
+            <li><strong>Tierheimleitung</strong> &mdash; führt ein Tierheim: alles, was ein Mitarbeiter tun kann, plus das Einladen und Verwalten der Benutzer dieses Tierheims. Die Tierheimleitung hält außerdem das Profil des Tierheims (Kontakte, Adresse, Beschreibung, Logo) unter <strong>Einstellungen &gt; Tierheim</strong> aktuell; nur ein Administrator kann den Namen oder die Tierarten des Tierheims ändern.</li>
             <li><strong>Mitarbeiter</strong> &mdash; erledigt die tägliche Arbeit des Tierheims: Tiere, Impfungen, Vermittlungen, Patenschaften, Ehrenamtliche und Einrichtungen.</li>
             <li><strong>Leser</strong> &mdash; Nur-Lese-Zugriff auf das Tierheim: kann Tiere, Impfungen und Einrichtungen sehen und Tierblätter und -listen drucken, aber nichts anlegen, bearbeiten oder löschen, und sieht keine personenbezogenen Daten von Adoptanten, Paten, Ehrenamtlichen oder Mitgliedern.</li>
         </ul>

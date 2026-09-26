@@ -616,5 +616,7 @@
     "Go to Dashboard": "Gå til oversigten",
     "You now have access to a new shelter": "Du har nu adgang til et nyt internat",
     "You have been added to :shelter as a :role.": "Du er blevet tilføjet til :shelter som :role.",
-    "Use the shelter switcher in the sidebar to access it with your existing account.": "Brug internatvælgeren i sidebjælken for at få adgang med din eksisterende konto."
+    "Use the shelter switcher in the sidebar to access it with your existing account.": "Brug internatvælgeren i sidebjælken for at få adgang med din eksisterende konto.",
+    "Shelter settings": "Internatindstillinger",
+    "Update your shelter's contacts and public profile": "Opdater dit internats kontaktoplysninger og offentlige profil"
 }

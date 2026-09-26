@@ -4,48 +4,25 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin;
 
-use App\Models\Region;
+use App\Livewire\Concerns\EditsShelterProfile;
 use App\Models\Shelter;
 use App\Models\Species;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class ShelterForm extends Component
 {
+    use EditsShelterProfile;
     use WithFileUploads;
 
     public ?Shelter $shelter = null;
 
     public string $shelterName = '';
-
-    public string $shelterShortName = '';
-
-    public string $shelterCity = '';
-
-    public ?int $shelterRegionId = null;
-
-    public string $shelterAddress = '';
-
-    public string $shelterPostalCode = '';
-
-    public string $shelterPhone = '';
-
-    public string $shelterEmail = '';
-
-    public string $shelterWebsite = '';
-
-    public string $shelterDescription = '';
-
-    public ?string $existingLogoPath = null;
-
-    public mixed $shelterLogo = null;
 
     /**
      * @var array<int, int>
@@ -62,16 +39,7 @@ class ShelterForm extends Component
 
         $this->shelter = $shelter;
         $this->shelterName = $shelter->name;
-        $this->shelterShortName = (string) $shelter->short_name;
-        $this->shelterCity = $shelter->city;
-        $this->shelterRegionId = $shelter->region_id;
-        $this->shelterAddress = (string) $shelter->address;
-        $this->shelterPostalCode = (string) $shelter->postal_code;
-        $this->shelterPhone = (string) $shelter->phone;
-        $this->shelterEmail = (string) $shelter->email;
-        $this->shelterWebsite = (string) $shelter->website;
-        $this->shelterDescription = (string) $shelter->description;
-        $this->existingLogoPath = $shelter->logo_path;
+        $this->fillShelterProfile($shelter);
         $this->shelterSpeciesIds = $shelter->species()->pluck('species.id')->all();
     }
 
@@ -84,17 +52,6 @@ class ShelterForm extends Component
     public function species(): Collection
     {
         return Species::query()->orderBy('name')->get();
-    }
-
-    /**
-     * All regions (distritos) a shelter can be located in.
-     *
-     * @return Collection<int, Region>
-     */
-    #[Computed]
-    public function regions(): Collection
-    {
-        return Region::query()->orderBy('name')->get();
     }
 
     public function toggleSpecies(int $speciesId): void
@@ -112,53 +69,19 @@ class ShelterForm extends Component
     {
         $validated = $this->validate([
             'shelterName' => ['required', 'string', 'max:255'],
-            'shelterShortName' => ['nullable', 'string', 'max:255'],
-            'shelterCity' => ['required', 'string', 'max:255'],
-            'shelterRegionId' => ['nullable', 'integer', Rule::exists('regions', 'id')->withoutTrashed()],
-            'shelterAddress' => ['nullable', 'string', 'max:255'],
-            'shelterPostalCode' => ['nullable', 'string', 'max:255'],
-            'shelterPhone' => ['nullable', 'string', 'max:255'],
-            'shelterEmail' => ['nullable', 'string', 'email', 'max:255'],
-            'shelterWebsite' => ['nullable', 'string', 'url', 'max:255'],
-            'shelterDescription' => ['nullable', 'string'],
-            'shelterLogo' => ['nullable', 'image', 'max:2048'],
+            ...$this->shelterProfileRules(),
             'shelterSpeciesIds' => ['array'],
             'shelterSpeciesIds.*' => ['integer', 'exists:species,id'],
         ], [], [
             'shelterName' => __('Name'),
-            'shelterShortName' => __('Short Name'),
-            'shelterCity' => __('City'),
-            'shelterRegionId' => __('Region'),
-            'shelterAddress' => __('Address'),
-            'shelterPostalCode' => __('Postal Code'),
-            'shelterPhone' => __('Phone'),
-            'shelterEmail' => __('Email'),
-            'shelterWebsite' => __('Website'),
-            'shelterDescription' => __('Description'),
-            'shelterLogo' => __('Logo'),
+            ...$this->shelterProfileAttributes(),
             'shelterSpeciesIds.*' => __('Species'),
         ]);
 
         $data = [
             'name' => $validated['shelterName'],
-            'short_name' => $validated['shelterShortName'] !== '' ? $validated['shelterShortName'] : null,
-            'city' => $validated['shelterCity'],
-            'region_id' => $validated['shelterRegionId'],
-            'address' => $validated['shelterAddress'] !== '' ? $validated['shelterAddress'] : null,
-            'postal_code' => $validated['shelterPostalCode'] !== '' ? $validated['shelterPostalCode'] : null,
-            'phone' => $validated['shelterPhone'] !== '' ? $validated['shelterPhone'] : null,
-            'email' => $validated['shelterEmail'] !== '' ? $validated['shelterEmail'] : null,
-            'website' => $validated['shelterWebsite'] !== '' ? $validated['shelterWebsite'] : null,
-            'description' => $validated['shelterDescription'] !== '' ? $validated['shelterDescription'] : null,
+            ...$this->shelterProfileData($validated),
         ];
-
-        if ($this->shelterLogo !== null) {
-            if ($this->existingLogoPath !== null) {
-                Storage::delete($this->existingLogoPath);
-            }
-
-            $data['logo_path'] = $this->shelterLogo->store('shelters');
-        }
 
         $isEditing = $this->shelter !== null;
 

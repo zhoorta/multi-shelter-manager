@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Rollen</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Beheerder</strong> &mdash; beheert het hele platform: de asielen, de gedeelde referentietabellen en de gebruikersaccounts. Beheerders beheren geen dieren of locaties.</li>
-            <li><strong>Asielbeheerder</strong> &mdash; leidt een asiel: alles wat een medewerker kan, plus het uitnodigen en beheren van de gebruikers van dat asiel.</li>
+            <li><strong>Asielbeheerder</strong> &mdash; leidt een asiel: alles wat een medewerker kan, plus het uitnodigen en beheren van de gebruikers van dat asiel. De asielbeheerder houdt ook het profiel van het asiel (contactgegevens, adres, beschrijving, logo) bij via <strong>Instellingen &gt; Asiel</strong>; alleen een beheerder kan de naam of de diersoorten van het asiel wijzigen.</li>
             <li><strong>Medewerker</strong> &mdash; verzorgt het dagelijkse werk van het asiel: dieren, vaccinaties, adopties, sponsorschappen, vrijwilligers en locaties.</li>
             <li><strong>Kijker</strong> &mdash; alleen-lezen toegang tot het asiel: kan dieren, vaccinaties en locaties bekijken en dierenfiches en -lijsten afdrukken, maar kan niets aanmaken, bewerken of verwijderen, en ziet geen persoonsgegevens van adoptanten, sponsors, vrijwilligers of leden.</li>
         </ul>

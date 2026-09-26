@@ -616,5 +616,7 @@
     "Go to Dashboard": "Ir para o painel",
     "You now have access to a new shelter": "Tem agora acesso a um novo abrigo",
     "You have been added to :shelter as a :role.": "Foi adicionado(a) a :shelter como :role.",
-    "Use the shelter switcher in the sidebar to access it with your existing account.": "Use o seletor de abrigos na barra lateral para aceder com a sua conta atual."
+    "Use the shelter switcher in the sidebar to access it with your existing account.": "Use o seletor de abrigos na barra lateral para aceder com a sua conta atual.",
+    "Shelter settings": "Definições do abrigo",
+    "Update your shelter's contacts and public profile": "Atualize os contactos e o perfil público do seu abrigo"
 }

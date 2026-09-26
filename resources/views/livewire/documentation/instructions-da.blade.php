@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Roller</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrator</strong> &mdash; styrer hele platformen: internaterne, de fælles referencetabeller og brugerkontiene. Administratorer håndterer ikke dyr eller anlæg.</li>
-            <li><strong>Internatleder</strong> &mdash; leder et internat: alt, hvad en medarbejder kan, plus at invitere og administrere internatets brugere.</li>
+            <li><strong>Internatleder</strong> &mdash; leder et internat: alt, hvad en medarbejder kan, plus at invitere og administrere internatets brugere. Internatlederen holder også internatets profil (kontaktoplysninger, adresse, beskrivelse, logo) opdateret under <strong>Indstillinger &gt; Internat</strong>; kun en administrator kan ændre internatets navn eller arter.</li>
             <li><strong>Medarbejder</strong> &mdash; står for internatets daglige arbejde: dyr, vaccinationer, adoptioner, fadderskaber, frivillige og anlæg.</li>
             <li><strong>Læser</strong> &mdash; kun læseadgang til internatet: kan se dyr, vaccinationer og anlæg og udskrive dyreark og dyrelister, men kan ikke oprette, redigere eller slette noget og ser ikke personoplysninger om adoptanter, faddere, frivillige eller medlemmer.</li>
         </ul>

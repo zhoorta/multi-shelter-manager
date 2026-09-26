@@ -27,7 +27,7 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Role</h3>
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrator</strong> &mdash; zarządza całą platformą: schroniskami, wspólnymi tabelami słownikowymi i kontami użytkowników. Administratorzy nie zarządzają zwierzętami ani obiektami.</li>
-            <li><strong>Kierownik</strong> &mdash; prowadzi schronisko: może wszystko to, co pracownik, a dodatkowo zaprasza użytkowników tego schroniska i nimi zarządza.</li>
+            <li><strong>Kierownik</strong> &mdash; prowadzi schronisko: może wszystko to, co pracownik, a dodatkowo zaprasza użytkowników tego schroniska i nimi zarządza. Kierownik aktualizuje też profil schroniska (dane kontaktowe, adres, opis, logo) w <strong>Ustawienia &gt; Schronisko</strong>; tylko administrator może zmienić nazwę lub gatunki schroniska.</li>
             <li><strong>Pracownik</strong> &mdash; zajmuje się codzienną pracą schroniska: zwierzętami, szczepieniami, adopcjami, adopcjami wirtualnymi, wolontariuszami i obiektami.</li>
             <li><strong>Podgląd</strong> &mdash; dostęp tylko do odczytu: może przeglądać zwierzęta, szczepienia i obiekty oraz drukować karty i listy zwierząt, ale nie może niczego tworzyć, edytować ani usuwać i nie widzi danych osobowych adoptujących, opiekunów wirtualnych, wolontariuszy ani członków.</li>
         </ul>

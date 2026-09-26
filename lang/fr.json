@@ -616,5 +616,7 @@
     "Go to Dashboard": "Aller au tableau de bord",
     "You now have access to a new shelter": "Vous avez maintenant accès à un nouveau refuge",
     "You have been added to :shelter as a :role.": "Vous avez été ajouté(e) à :shelter en tant que :role.",
-    "Use the shelter switcher in the sidebar to access it with your existing account.": "Utilisez le sélecteur de refuges dans la barre latérale pour y accéder avec votre compte actuel."
+    "Use the shelter switcher in the sidebar to access it with your existing account.": "Utilisez le sélecteur de refuges dans la barre latérale pour y accéder avec votre compte actuel.",
+    "Shelter settings": "Paramètres du refuge",
+    "Update your shelter's contacts and public profile": "Mettez à jour les coordonnées et le profil public de votre refuge"
 }

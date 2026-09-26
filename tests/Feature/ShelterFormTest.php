@@ -44,6 +44,7 @@ test('creates a new shelter and redirects to the shelters list', function () {
         ->set('shelterShortName', 'HP')
         ->set('shelterCity', 'Lisbon')
         ->set('shelterRegionId', $region->id)
+        ->set('shelterEmail', 'geral@happypaws.pt')
         ->call('saveShelter')
         ->assertHasNoErrors()
         ->assertRedirect(route('admin.shelters.index'));
@@ -51,7 +52,7 @@ test('creates a new shelter and redirects to the shelters list', function () {
     expect(Shelter::query()->where('name', 'Happy Paws')->where('short_name', 'HP')->where('city', 'Lisbon')->where('region_id', $region->id)->exists())->toBeTrue();
 });
 
-test('requires a name and city to create a shelter', function () {
+test('requires a name, city and email to create a shelter', function () {
     $admin = User::factory()->admin()->create();
     $this->actingAs($admin);
 
@@ -59,7 +60,7 @@ test('requires a name and city to create a shelter', function () {
         ->set('shelterName', '')
         ->set('shelterCity', '')
         ->call('saveShelter')
-        ->assertHasErrors(['shelterName' => 'required', 'shelterCity' => 'required'])
+        ->assertHasErrors(['shelterName' => 'required', 'shelterCity' => 'required', 'shelterEmail' => 'required'])
         ->assertHasNoErrors('shelterRegionId');
 });
 
@@ -85,6 +86,7 @@ test('creates a shelter without a region', function () {
     Livewire::test(ShelterForm::class)
         ->set('shelterName', 'Happy Paws')
         ->set('shelterCity', 'Lisbon')
+        ->set('shelterEmail', 'geral@happypaws.pt')
         ->call('saveShelter')
         ->assertHasNoErrors();
 
@@ -220,6 +222,7 @@ test('saves the enabled species for the shelter', function () {
         ->set('shelterName', 'Happy Paws')
         ->set('shelterCity', 'Lisbon')
         ->set('shelterRegionId', Region::factory()->create()->id)
+        ->set('shelterEmail', 'geral@happypaws.pt')
         ->call('toggleSpecies', $dog->id)
         ->call('saveShelter')
         ->assertHasNoErrors();
