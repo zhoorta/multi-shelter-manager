@@ -27,13 +27,21 @@ Change your password. For your protection, the application first asks you to typ
 
 ## 15.3 Appearance
 
-Choose how the application looks on this device: **Light**, **Dark**, or **System** (follows your computer's or phone's setting).
+Choose how the application looks on this device: **Light**, **Dark**, or **System** (follows your computer's or phone's setting). This page also has the **Language** setting (see below).
 
 ![Appearance](screenshots/56-settings-appearance.png)
 
 ## 15.4 Language
 
-The interface language is set for the whole installation by the `APP_LOCALE` setting (see [Installation](01-installation.md#application-name-url-and-language)). English, Portuguese, Spanish, French, German, Italian, Dutch, Polish, Swedish and Danish are available.
+Each user chooses their own language in **Settings → Appearance → Language**. The page reloads in the new language straight away.
+
+- The choice is saved to your account, so it follows you to other computers and phones.
+- The e-mails you receive (invitations, vaccination reminders, adoption applications) are also sent in your language.
+- Until you choose one, you see the installation's default language, set by `APP_LOCALE` (see [Installation](01-installation.md#application-name-url-and-language)). The application does not guess the language from your browser.
+
+On the public pages and the login page, a language menu at the top (e.g. **PT**) lets anyone switch without logging in. If you are logged in, switching there also saves it to your account.
+
+English, Portuguese, Spanish, French, German, Italian, Dutch, Polish, Swedish and Danish are available.
 
 ---
 

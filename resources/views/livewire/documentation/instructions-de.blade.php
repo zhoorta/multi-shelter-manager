@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Einstellungen</h2>
-        <p>Öffnen Sie über das Benutzermenü die Einstellungen, um Ihr Profil anzusehen, Ihr Passwort zu ändern und das Erscheinungsbild zu wählen (hell, dunkel oder System). Ihr Name kann nur von einem Administrator oder der Tierheimleitung geändert werden, Ihre E-Mail-Adresse kann nicht geändert werden.</p>
+        <p>Öffnen Sie über das Benutzermenü die Einstellungen, um Ihr Profil anzusehen, Ihr Passwort zu ändern und das Erscheinungsbild (hell, dunkel oder System) sowie Ihre Sprache zu wählen. Ihr Name kann nur von einem Administrator oder der Tierheimleitung geändert werden, Ihre E-Mail-Adresse kann nicht geändert werden. Die Sprache wird in Ihrem Konto gespeichert und auch für die E-Mails verwendet, die Sie erhalten. Auf den öffentlichen Seiten und der Anmeldeseite kann jeder die Sprache über das Menü oben wechseln.</p>
     </section>
 </div>

@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Paramètres</h2>
-        <p>Depuis le menu utilisateur, ouvrez Paramètres pour consulter votre profil, changer votre mot de passe et choisir l'apparence (claire, sombre ou système). Votre nom ne peut être modifié que par un administrateur ou un gestionnaire, et votre email ne peut pas être modifié.</p>
+        <p>Depuis le menu utilisateur, ouvrez Paramètres pour consulter votre profil, changer votre mot de passe et choisir l'apparence (claire, sombre ou système) ainsi que votre langue. Votre nom ne peut être modifié que par un administrateur ou un gestionnaire, et votre email ne peut pas être modifié. La langue est enregistrée dans votre compte et utilisée aussi pour les emails que vous recevez. Sur les pages publiques et la page de connexion, chacun peut changer de langue dans le menu en haut.</p>
     </section>
 </div>

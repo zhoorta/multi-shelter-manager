@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Ajustes</h2>
-        <p>Desde el menú de usuario, abra Ajustes para ver su perfil, cambiar su contraseña y elegir la apariencia (clara, oscura o del sistema). Su nombre solo puede cambiarlo un administrador o gestor, y su email no se puede cambiar.</p>
+        <p>Desde el menú de usuario, abra Ajustes para ver su perfil, cambiar su contraseña y elegir la apariencia (clara, oscura o del sistema) y su idioma. Su nombre solo puede cambiarlo un administrador o gestor, y su email no se puede cambiar. El idioma se guarda en su cuenta y también se usa en los emails que recibe. En las páginas públicas y en la de inicio de sesión, cualquiera puede cambiar el idioma en el menú superior.</p>
     </section>
 </div>

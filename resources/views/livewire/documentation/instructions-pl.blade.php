@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Ustawienia</h2>
-        <p>Z menu użytkownika otwórz Ustawienia, aby zobaczyć swój profil, zmienić hasło i wybrać wygląd (jasny, ciemny lub systemowy). Imię może zmienić tylko administrator lub kierownik, a adresu e-mail nie można zmienić.</p>
+        <p>Z menu użytkownika otwórz Ustawienia, aby zobaczyć swój profil, zmienić hasło i wybrać wygląd (jasny, ciemny lub systemowy) oraz język. Imię może zmienić tylko administrator lub kierownik, a adresu e-mail nie można zmienić. Język jest zapisywany na Twoim koncie i używany również w otrzymywanych e-mailach. Na stronach publicznych i stronie logowania każdy może zmienić język w menu u góry.</p>
     </section>
 </div>

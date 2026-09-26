@@ -10,7 +10,7 @@
             <flux:radio value="system" icon="computer-desktop">{{ __('System') }}</flux:radio>
         </flux:radio.group>
 
-        <flux:select wire:model.live="locale" :label="__('Language')" class="mt-6" data-test="locale-select">
+        <flux:select wire:model.live="locale" :label="__('Language')" field:class="mt-6" data-test="locale-select">
             @foreach (config('app.available_locales') as $code => $language)
                 <flux:select.option value="{{ $code }}" lang="{{ $code }}">{{ $language }}</flux:select.option>
             @endforeach

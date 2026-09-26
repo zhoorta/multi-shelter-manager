@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Indstillinger</h2>
-        <p>Åbn Indstillinger fra brugermenuen for at se din profil, skifte adgangskode og vælge udseende (lyst, mørkt eller system). Dit navn kan kun ændres af en administrator eller internatleder, og din e-mailadresse kan ikke ændres.</p>
+        <p>Åbn Indstillinger fra brugermenuen for at se din profil, skifte adgangskode og vælge udseende (lyst, mørkt eller system) og sprog. Dit navn kan kun ændres af en administrator eller internatleder, og din e-mailadresse kan ikke ændres. Sproget gemmes på din konto og bruges også i de e-mails, du modtager. På de offentlige sider og login-siden kan alle skifte sprog i menuen øverst.</p>
     </section>
 </div>

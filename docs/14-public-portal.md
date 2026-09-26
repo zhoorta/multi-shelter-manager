@@ -43,7 +43,7 @@ It shows:
 - a short **How it works** section;
 - **Looking for a family**: the animals available for adoption, with filters by **species**, **gender**, **region**, **size** and **breed**. *Featured* animals are shown first.
 
-The **Shelter area** button (top right) takes the shelter team to the login page.
+The **Shelter area** button (top right) takes the shelter team to the login page. Next to it, the language menu (e.g. **PT**) lets visitors read the portal in any of the supported languages. It opens in the installation's default language (see [Personal settings](15-settings.md#154-language)).
 
 ## 14.2 Animal details
 

@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Settings</h2>
-        <p>From the user menu, open Settings to view your profile, change your password and choose the appearance (light, dark or system). Your name can only be changed by an admin or manager, and your email cannot be changed.</p>
+        <p>From the user menu, open Settings to view your profile, change your password and choose the appearance (light, dark or system) and your language. Your name can only be changed by an admin or manager, and your email cannot be changed. The language is saved to your account and is also used for the e-mails you receive. On the public pages and the login page, anyone can switch language in the menu at the top.</p>
     </section>
 </div>

@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Inställningar</h2>
-        <p>Öppna Inställningar från användarmenyn för att se din profil, byta lösenord och välja utseende (ljust, mörkt eller system). Ditt namn kan bara ändras av en administratör eller föreståndare, och din e-postadress kan inte ändras.</p>
+        <p>Öppna Inställningar från användarmenyn för att se din profil, byta lösenord och välja utseende (ljust, mörkt eller system) och språk. Ditt namn kan bara ändras av en administratör eller föreståndare, och din e-postadress kan inte ändras. Språket sparas på ditt konto och används även för de e-postmeddelanden du får. På de offentliga sidorna och inloggningssidan kan vem som helst byta språk i menyn högst upp.</p>
     </section>
 </div>

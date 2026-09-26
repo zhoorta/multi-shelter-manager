@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Definições</h2>
-        <p>No menu do utilizador, abra Definições para ver o seu perfil, alterar a palavra-passe e escolher a aparência (clara, escura ou do sistema). O nome só pode ser alterado por um administrador ou gestor, e o email não pode ser alterado.</p>
+        <p>No menu do utilizador, abra Definições para ver o seu perfil, alterar a palavra-passe e escolher a aparência (clara, escura ou do sistema) e o idioma. O nome só pode ser alterado por um administrador ou gestor, e o email não pode ser alterado. O idioma fica guardado na sua conta e é também usado nos emails que recebe. Nas páginas públicas e na página de entrada, qualquer pessoa pode mudar o idioma no menu no topo.</p>
     </section>
 </div>

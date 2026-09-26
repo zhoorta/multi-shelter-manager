@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Instellingen</h2>
-        <p>Open via het gebruikersmenu de Instellingen om uw profiel te bekijken, uw wachtwoord te wijzigen en de weergave te kiezen (licht, donker of systeem). Uw naam kan alleen door een beheerder of asielbeheerder worden gewijzigd, en uw e-mailadres kan niet worden gewijzigd.</p>
+        <p>Open via het gebruikersmenu de Instellingen om uw profiel te bekijken, uw wachtwoord te wijzigen en de weergave (licht, donker of systeem) en uw taal te kiezen. Uw naam kan alleen door een beheerder of asielbeheerder worden gewijzigd, en uw e-mailadres kan niet worden gewijzigd. De taal wordt in uw account opgeslagen en ook gebruikt voor de e-mails die u ontvangt. Op de openbare pagina's en de inlogpagina kan iedereen de taal wijzigen via het menu bovenaan.</p>
     </section>
 </div>
