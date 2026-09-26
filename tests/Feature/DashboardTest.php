@@ -696,6 +696,39 @@ test('shelter users see a warning when the shelter has no species configured', f
     $response->assertSee(__('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.'));
 });
 
+test('the species warning shows the site administrator e-mail', function () {
+    config(['app.contact_email' => 'admin@shelters.test']);
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
+
+    $response = $this->actingAs($user)->get(route('dashboard'));
+
+    $response->assertSee('<a href="mailto:admin@shelters.test"', false);
+});
+
+test('the missing breeds warning shows the site administrator e-mail', function () {
+    config(['app.contact_email' => 'admin@shelters.test']);
+    $shelter = Shelter::factory()->create();
+    $shelter->species()->attach(Species::factory()->create(['name' => 'Dog']));
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
+
+    $response = $this->actingAs($user)->get(route('dashboard'));
+
+    $response->assertSee(__('No breeds of :species exist. Please contact the site administrator to configure the breeds.', ['species' => 'Dog']))
+        ->assertSee('<a href="mailto:admin@shelters.test"', false);
+});
+
+test('the warnings leave out the e-mail line when no contact e-mail is configured', function () {
+    config(['app.contact_email' => null]);
+    $shelter = Shelter::factory()->create();
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
+
+    $response = $this->actingAs($user)->get(route('dashboard'));
+
+    $response->assertSee(__('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.'))
+        ->assertDontSee('data-test="administrator-email"', false);
+});
+
 test('shelter users do not see the species warning once the shelter has a species configured', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->forShelter($shelter, 'staff')->create();

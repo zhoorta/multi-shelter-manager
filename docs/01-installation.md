@@ -196,6 +196,7 @@ These variables are specific to this application.
 |----------|--------------|---------|------------|
 | `PUBLIC_PORTAL_ENABLED` | `true` shows the public adoption website on the home page ([chapter 13](14-public-portal.md)). `false` makes the app back-office only: the home page redirects to the login page | `false` | Your choice |
 | `PRIVACY_CONTACT_EMAIL` | Contact e-mail shown on the **Privacy Policy** page for data-protection requests | Falls back to `MAIL_FROM_ADDRESS` | The e-mail of the person responsible for data protection |
+| `CONTACT_EMAIL` | The platform's contact e-mail: shown on the **About** page and, as the site administrator's address, in the dashboard warnings about missing species or breeds | Falls back to `PRIVACY_CONTACT_EMAIL`, then `MAIL_FROM_ADDRESS` | The e-mail of whoever runs the platform |
 
 ### Database
 
@@ -286,6 +287,7 @@ APP_FALLBACK_LOCALE=en
 
 PUBLIC_PORTAL_ENABLED=true
 PRIVACY_CONTACT_EMAIL=privacy@example.org
+CONTACT_EMAIL=info@example.org
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1

@@ -18,12 +18,18 @@
             @if (! $speciesConfigured)
                 <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-200">
                     {{ __('No pet species defined for the shelter. Please contact the site administrator to configure the shelter species.') }}
+                    @if ($administratorEmail)
+                        <p class="mt-1">{{ __('Email') }}: <a href="mailto:{{ $administratorEmail }}" class="font-semibold underline underline-offset-2" data-test="administrator-email">{{ $administratorEmail }}</a></p>
+                    @endif
                 </div>
             @endif
 
             @foreach ($this->speciesWithoutBreeds as $speciesName)
                 <div wire:key="species-without-breeds-{{ $speciesName }}" class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-200">
                     {{ __('No breeds of :species exist. Please contact the site administrator to configure the breeds.', ['species' => $speciesName]) }}
+                    @if ($administratorEmail)
+                        <p class="mt-1">{{ __('Email') }}: <a href="mailto:{{ $administratorEmail }}" class="font-semibold underline underline-offset-2" data-test="administrator-email">{{ $administratorEmail }}</a></p>
+                    @endif
                 </div>
             @endforeach
         </div>

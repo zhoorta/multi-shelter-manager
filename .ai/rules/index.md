@@ -23,6 +23,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | resources/views/livewire/pets/sponsorship-form.blade.php,resources/views/livewire/pets/adoption-form.blade.php | .ai/rules/livewire-pets-views-livewire-pets.md |
 | app/Models/Sponsorship.php,app/Models/SponsorshipPayment.php,app/Livewire/Pets/SponsorshipForm.php | .ai/rules/livewire-pets.md |
 | app/Http/Middleware/SetLocale.php,app/Http/Controllers/LocaleController.php,app/Livewire/Settings/Appearance.php,config/app.php | .ai/rules/livewire-settings.md |
+| app/Livewire/Dashboard.php,resources/views/livewire/dashboard.blade.php | .ai/rules/livewire-views-livewire.md |
 | resources/views/livewire/volunteers/volunteer-show.blade.php | .ai/rules/livewire-volunteers.md |
 | app/Livewire/**, app/Livewire/Welcome.php | .ai/rules/livewire.md |
 | app/Livewire/Members/**,resources/views/livewire/members/** | .ai/rules/members.md |

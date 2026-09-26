@@ -190,8 +190,12 @@ class Dashboard extends Component
             : collect();
     }
 
+    /**
+     * The species/breeds warnings ask users to contact the site administrator,
+     * so they show the installation's contact e-mail when one is configured.
+     */
     public function render(): View
     {
-        return view('livewire.dashboard');
+        return view('livewire.dashboard', ['administratorEmail' => config('app.contact_email')]);
     }
 }
