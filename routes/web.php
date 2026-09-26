@@ -62,7 +62,7 @@ Route::livewire('shelters/{shelter}', PartnerShelterShow::class)->middleware(Ens
 Route::livewire('animais/{petId}/{slug?}', PublicPetShow::class)->whereNumber('petId')->middleware(EnsurePublicPortalEnabled::class)->name('animals.show');
 Route::livewire('adopt/{petRef}', AdoptionApplicationForm::class)->middleware(EnsurePublicPortalEnabled::class)->name('adoption-applications.create');
 Route::get('shelters/{shelter}/feed', ShelterFeedController::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.feed');
-Route::livewire('about', About::class)->name('about');
+Route::livewire('about', About::class)->middleware(EnsurePublicPortalEnabled::class)->name('about');
 Route::livewire('privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
 Route::post('locale', LocaleController::class)->middleware('throttle:30,1')->name('locale.update');
 Route::get('robots.txt', RobotsController::class)->name('robots');

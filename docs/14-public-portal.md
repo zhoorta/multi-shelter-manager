@@ -8,7 +8,7 @@ The public portal is a website where anyone can browse the animals waiting for a
 
 ## 14.0 Turning the portal on
 
-The portal is **off by default**. While it is off, the home page, the **Shelters** pages and the animal pages are not available: visitors are sent straight to the login page, and the application works as a back-office only.
+The portal is **off by default**. While it is off, the home page, the **Shelters** pages, the animal pages and the **About** page are not available: visitors are sent straight to the login page, and the application works as a back-office only.
 
 To turn it on:
 

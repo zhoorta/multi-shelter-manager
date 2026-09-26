@@ -1,5 +1,9 @@
 <?php
 
+beforeEach(function () {
+    config(['app.public_portal_enabled' => true]);
+});
+
 test('guests can view the about page with the contact e-mail', function () {
     config(['app.contact_email' => 'hello@shelters.test']);
 
@@ -10,10 +14,16 @@ test('guests can view the about page with the contact e-mail', function () {
         ->assertSee('mailto:hello@shelters.test', false);
 });
 
-test('stays public when the adoption portal is disabled', function () {
+test('redirects to the login page when the public portal is disabled', function () {
     config(['app.public_portal_enabled' => false]);
 
-    $this->get(route('about'))->assertOk();
+    $this->get(route('about'))->assertRedirect(route('login'));
+});
+
+test('public pages hide the about link when the public portal is disabled', function () {
+    config(['app.public_portal_enabled' => false]);
+
+    $this->get(route('privacy-policy'))->assertDontSee('href="'.route('about').'"', false);
 });
 
 test('hides the contact block when no e-mail is configured', function () {
