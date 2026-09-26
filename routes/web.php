@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\RobotsController;
 use App\Http\Controllers\ShelterFeedController;
 use App\Http\Controllers\SitemapController;
@@ -63,6 +64,7 @@ Route::livewire('adopt/{petRef}', AdoptionApplicationForm::class)->middleware(En
 Route::get('shelters/{shelter}/feed', ShelterFeedController::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.feed');
 Route::livewire('about', About::class)->name('about');
 Route::livewire('privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
+Route::post('locale', LocaleController::class)->middleware('throttle:30,1')->name('locale.update');
 Route::get('robots.txt', RobotsController::class)->name('robots');
 Route::get('sitemap.xml', SitemapController::class)->middleware(EnsurePublicPortalEnabled::class)->name('sitemap');
 

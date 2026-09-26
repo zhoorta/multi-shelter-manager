@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Datenschutzerklärung</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Zuletzt aktualisiert: 25. September 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Zuletzt aktualisiert: 26. September 2026</p>
         <p>{{ config('app.name') }} ist eine Plattform, die mehrere Tierheime zusammenbringt. Wir nehmen den Schutz Ihrer personenbezogenen Daten ernst und verarbeiten sie gemäß der Datenschutz-Grundverordnung (DSGVO) und dem Bundesdatenschutzgesetz (BDSG). Diese Erklärung beschreibt, welche Daten wir verarbeiten, warum, wie lange und welche Rechte Sie haben.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Name und E-Mail-Adresse;</li>
             <li>Passwort (nur als Hash gespeichert, niemals im Klartext);</li>
             <li>Das bzw. die Tierheime, denen Sie angehören, und Ihre Rolle (Administrator, Tierheimleitung oder Mitarbeiter);</li>
-            <li>E-Mail-Benachrichtigungseinstellungen (fällige Impfungen und neue Adoptionsanfragen);</li>
+            <li>E-Mail-Benachrichtigungseinstellungen (fällige Impfungen und neue Adoptionsanfragen) und bevorzugte Sprache;</li>
             <li>Datum der letzten Anmeldung und Sitzungsdaten (IP-Adresse und Browser).</li>
         </ul>
 

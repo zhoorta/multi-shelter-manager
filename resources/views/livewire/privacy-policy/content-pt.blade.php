@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Política de Privacidade</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Última atualização: 25 de setembro de 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Última atualização: 26 de setembro de 2026</p>
         <p>O {{ config('app.name') }} é uma plataforma que junta vários abrigos de animais. Levamos a proteção dos seus dados pessoais a sério e tratamo-los de acordo com o Regulamento Geral sobre a Proteção de Dados (RGPD) e a legislação portuguesa aplicável. Esta política explica que dados tratamos, para quê, durante quanto tempo e quais são os seus direitos.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Nome e endereço de e-mail;</li>
             <li>Palavra-passe (guardada apenas de forma cifrada, nunca em texto legível);</li>
             <li>Abrigo(s) a que pertence e respetivo perfil (administrador, gestor ou funcionário);</li>
-            <li>Preferências de notificação por e-mail (vacinas a vencer e novas candidaturas de adoção);</li>
+            <li>Preferências de notificação por e-mail (vacinas a vencer e novas candidaturas de adoção) e idioma preferido;</li>
             <li>Data do último acesso e dados de sessão (endereço IP e navegador).</li>
         </ul>
 

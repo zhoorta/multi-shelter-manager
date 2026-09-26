@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Informativa sulla Privacy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Ultimo aggiornamento: 25 settembre 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Ultimo aggiornamento: 26 settembre 2026</p>
         <p>{{ config('app.name') }} è una piattaforma che riunisce diversi rifugi per animali. Prendiamo sul serio la protezione dei tuoi dati personali e li trattiamo in conformità al Regolamento Generale sulla Protezione dei Dati (GDPR) e al Codice in materia di protezione dei dati personali (D.Lgs. 196/2003, come modificato dal D.Lgs. 101/2018). Questa informativa spiega quali dati trattiamo, perché, per quanto tempo e quali sono i tuoi diritti.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Nome e indirizzo email;</li>
             <li>Password (conservata solo in forma di hash, mai in chiaro);</li>
             <li>Il rifugio o i rifugi a cui appartieni e il tuo ruolo (amministratore, responsabile o operatore);</li>
-            <li>Preferenze di notifica via e-mail (vaccinazioni in scadenza e nuove richieste di adozione);</li>
+            <li>Preferenze di notifica via e-mail (vaccinazioni in scadenza e nuove richieste di adozione) e lingua preferita;</li>
             <li>Data dell'ultimo accesso e dati di sessione (indirizzo IP e browser).</li>
         </ul>
 

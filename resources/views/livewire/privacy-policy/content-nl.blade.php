@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privacybeleid</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Laatst bijgewerkt: 25 september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Laatst bijgewerkt: 26 september 2026</p>
         <p>{{ config('app.name') }} is een platform dat verschillende dierenasielen samenbrengt. We nemen de bescherming van uw persoonsgegevens serieus en verwerken ze in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG) en de Uitvoeringswet Algemene verordening gegevensbescherming (UAVG). Dit beleid legt uit welke gegevens we verwerken, waarom, hoe lang en wat uw rechten zijn.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Naam en e-mailadres;</li>
             <li>Wachtwoord (alleen gehasht opgeslagen, nooit in leesbare tekst);</li>
             <li>Het asiel of de asielen waar u bij hoort en uw rol (beheerder, asielbeheerder of medewerker);</li>
-            <li>Voorkeuren voor e-mailmeldingen (verlopende vaccinaties en nieuwe adoptieaanvragen);</li>
+            <li>Voorkeuren voor e-mailmeldingen (verlopende vaccinaties en nieuwe adoptieaanvragen) en voorkeurstaal;</li>
             <li>Datum van de laatste login en sessiegegevens (IP-adres en browser).</li>
         </ul>
 

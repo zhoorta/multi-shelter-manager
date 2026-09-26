@@ -15,6 +15,9 @@
                 <div class="flex flex-col gap-6">
                     {{ $slot }}
                 </div>
+                <div class="mt-4 flex justify-center">
+                    @include('partials.locale-switcher')
+                </div>
             </div>
         </div>
 

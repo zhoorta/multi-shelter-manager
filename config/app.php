@@ -86,6 +86,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Available Locales
+    |--------------------------------------------------------------------------
+    |
+    | The languages users and visitors can switch to, keyed by locale code
+    | with each language's own name as the label. Every locale here must
+    | have a lang/{locale}.json file.
+    |
+    */
+
+    'available_locales' => [
+        'pt' => 'Português',
+        'en' => 'English',
+        'es' => 'Español',
+        'fr' => 'Français',
+        'de' => 'Deutsch',
+        'it' => 'Italiano',
+        'nl' => 'Nederlands',
+        'pl' => 'Polski',
+        'sv' => 'Svenska',
+        'da' => 'Dansk',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Public Portal
     |--------------------------------------------------------------------------
     |

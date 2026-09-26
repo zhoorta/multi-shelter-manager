@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Política de Privacidad</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Última actualización: 25 de septiembre de 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Última actualización: 26 de septiembre de 2026</p>
         <p>{{ config('app.name') }} es una plataforma que reúne a varios refugios de animales. Nos tomamos en serio la protección de sus datos personales y los tratamos de acuerdo con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Esta política explica qué datos tratamos, por qué, durante cuánto tiempo y cuáles son sus derechos.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Nombre y dirección de email;</li>
             <li>Contraseña (guardada únicamente de forma cifrada, nunca en texto legible);</li>
             <li>El refugio o refugios a los que pertenece y su función (administrador, gestor o empleado);</li>
-            <li>Preferencias de notificación por correo electrónico (vacunas pendientes y nuevas solicitudes de adopción);</li>
+            <li>Preferencias de notificación por correo electrónico (vacunas pendientes y nuevas solicitudes de adopción) e idioma preferido;</li>
             <li>Fecha del último acceso y datos de sesión (dirección IP y navegador).</li>
         </ul>
 

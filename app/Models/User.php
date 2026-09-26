@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\Blameable;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +21,7 @@ use Illuminate\Support\Str;
  * @property int $id
  * @property bool $is_admin
  * @property int|null $current_shelter_id
+ * @property string|null $locale
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
@@ -33,9 +35,9 @@ use Illuminate\Support\Str;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'email', 'password', 'is_admin', 'current_shelter_id'])]
+#[Fillable(['name', 'email', 'password', 'is_admin', 'current_shelter_id', 'locale'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements HasLocalePreference
 {
     /** @use HasFactory<UserFactory> */
     use Blameable, HasFactory, Notifiable, SoftDeletes;
@@ -53,6 +55,15 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * The language notifications and mail are sent in: the user's chosen
+     * locale, or the application default when they haven't picked one.
+     */
+    public function preferredLocale(): string
+    {
+        return $this->locale ?? config('app.locale');
     }
 
     /**

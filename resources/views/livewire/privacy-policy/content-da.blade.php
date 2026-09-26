@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privatlivspolitik</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Senest opdateret: 25. september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Senest opdateret: 26. september 2026</p>
         <p>{{ config('app.name') }} er en platform, der samler flere dyreinternater. Vi tager beskyttelsen af dine personoplysninger alvorligt og behandler dem i overensstemmelse med databeskyttelsesforordningen (GDPR) og databeskyttelsesloven (lov nr. 502 af 23. maj 2018). Denne politik forklarer, hvilke oplysninger vi behandler, hvorfor, hvor længe, og hvilke rettigheder du har.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Navn og e-mailadresse;</li>
             <li>Adgangskode (gemmes kun som hash, aldrig i læsbar tekst);</li>
             <li>Det eller de internater, du hører til, og din rolle (administrator, internatleder eller medarbejder);</li>
-            <li>Præferencer for e-mailnotifikationer (vaccinationer der forfalder og nye adoptionsansøgninger);</li>
+            <li>Præferencer for e-mailnotifikationer (vaccinationer der forfalder og nye adoptionsansøgninger) og foretrukket sprog;</li>
             <li>Dato for seneste login og sessionsoplysninger (IP-adresse og browser).</li>
         </ul>
 

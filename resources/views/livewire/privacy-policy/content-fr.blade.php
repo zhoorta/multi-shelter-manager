@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Politique de Confidentialité</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Dernière mise à jour : 25 septembre 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Dernière mise à jour : 26 septembre 2026</p>
         <p>{{ config('app.name') }} est une plateforme qui réunit plusieurs refuges pour animaux. Nous prenons au sérieux la protection de vos données personnelles et les traitons conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés (loi Informatique et Libertés). Cette politique explique quelles données nous traitons, pourquoi, pendant combien de temps et quels sont vos droits.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Nom et adresse email ;</li>
             <li>Mot de passe (stocké uniquement sous forme hachée, jamais en clair) ;</li>
             <li>Le ou les refuges auxquels vous appartenez et votre rôle (administrateur, gestionnaire ou employé) ;</li>
-            <li>Préférences de notification par e-mail (vaccins à échéance et nouvelles demandes d'adoption) ;</li>
+            <li>Préférences de notification par e-mail (vaccins à échéance et nouvelles demandes d'adoption) et langue préférée ;</li>
             <li>Date de dernière connexion et données de session (adresse IP et navigateur).</li>
         </ul>
 

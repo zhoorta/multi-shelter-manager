@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privacy Policy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Last updated: 25 September 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Last updated: 26 September 2026</p>
         <p>{{ config('app.name') }} is a platform that brings several animal shelters together. We take the protection of your personal data seriously and process it in accordance with the General Data Protection Regulation (GDPR) and the national data protection laws of the European Union member states. This policy explains what data we process, why, for how long, and what your rights are.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Name and e-mail address;</li>
             <li>Password (stored only in hashed form, never in readable text);</li>
             <li>The shelter(s) you belong to and your role (administrator, manager or staff);</li>
-            <li>E-mail notification preferences (vaccinations due and new adoption applications);</li>
+            <li>E-mail notification preferences (vaccinations due and new adoption applications) and preferred language;</li>
             <li>Date of last login and session data (IP address and browser).</li>
         </ul>
 

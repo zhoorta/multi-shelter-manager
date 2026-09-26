@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Polityka prywatności</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Ostatnia aktualizacja: 25 września 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Ostatnia aktualizacja: 26 września 2026</p>
         <p>{{ config('app.name') }} to platforma skupiająca wiele schronisk dla zwierząt. Poważnie traktujemy ochronę Twoich danych osobowych i przetwarzamy je zgodnie z Ogólnym rozporządzeniem o ochronie danych (RODO) oraz ustawą z dnia 10 maja 2018 r. o ochronie danych osobowych. Niniejsza polityka wyjaśnia, jakie dane przetwarzamy, dlaczego, jak długo i jakie przysługują Ci prawa.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Imię i nazwisko oraz adres e-mail;</li>
             <li>Hasło (przechowywane wyłącznie w postaci skrótu, nigdy jawnym tekstem);</li>
             <li>Schronisko lub schroniska, do których należysz, i Twoja rola (administrator, kierownik lub pracownik);</li>
-            <li>Preferencje powiadomień e-mail (zbliżające się szczepienia i nowe wnioski adopcyjne);</li>
+            <li>Preferencje powiadomień e-mail (zbliżające się szczepienia i nowe wnioski adopcyjne) oraz preferowany język;</li>
             <li>Data ostatniego logowania i dane sesji (adres IP i przeglądarka).</li>
         </ul>
 

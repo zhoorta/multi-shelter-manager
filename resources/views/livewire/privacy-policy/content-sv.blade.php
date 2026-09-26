@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Integritetspolicy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Senast uppdaterad: 25 september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Senast uppdaterad: 26 september 2026</p>
         <p>{{ config('app.name') }} är en plattform som samlar flera djurhem. Vi tar skyddet av dina personuppgifter på allvar och behandlar dem i enlighet med dataskyddsförordningen (GDPR) och lagen (2018:218) med kompletterande bestämmelser till EU:s dataskyddsförordning (dataskyddslagen). Denna policy förklarar vilka uppgifter vi behandlar, varför, hur länge och vilka rättigheter du har.</p>
     </header>
 
@@ -23,7 +23,7 @@
             <li>Namn och e-postadress;</li>
             <li>Lösenord (lagras endast som hash, aldrig i läsbar text);</li>
             <li>Det eller de djurhem du tillhör och din roll (administratör, föreståndare eller personal);</li>
-            <li>Inställningar för e-postaviseringar (vaccinationer som förfaller och nya adoptionsansökningar);</li>
+            <li>Inställningar för e-postaviseringar (vaccinationer som förfaller och nya adoptionsansökningar) och önskat språk;</li>
             <li>Datum för senaste inloggning och sessionsuppgifter (IP-adress och webbläsare).</li>
         </ul>
 
