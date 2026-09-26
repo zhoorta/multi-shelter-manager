@@ -552,5 +552,14 @@
     "No animals at the moment": "Ingen dyr i øjeblikket",
     "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Hvert bur i denne fløj er en plejefamilie. Dyrene vises som værende i plejefamilie og tæller ikke med i internatets kapacitet.",
     "Optional. The volunteer record holds the family's phone and address.": "Valgfrit. Frivilligkortet indeholder familiens telefon og adresse.",
-    "This animal is living with a foster family while it waits for adoption.": "Dette dyr bor hos en plejefamilie, mens det venter på at blive adopteret."
+    "This animal is living with a foster family while it waits for adoption.": "Dette dyr bor hos en plejefamilie, mens det venter på at blive adopteret.",
+    ":name, :species :breed for adoption": ":name, :species :breed til adoption",
+    ":name has already found a family!": ":name har allerede fundet en familie!",
+    "Open this animal's page": "Åbn dyrets side",
+    ":name was adopted through :shelter. Meet the other animals waiting for a home.": ":name blev adopteret gennem :shelter. Mød de andre dyr, der venter på et hjem.",
+    ":name — :species for adoption in :city": ":name — :species til adoption i :city",
+    ":name (:species, :breed) is waiting for a family at :shelter, in :city.": ":name (:species, :breed) venter på en familie hos :shelter, i :city.",
+    "Breadcrumb": "Brødkrummesti",
+    "Meet other animals looking for a home": "Mød andre dyr, der søger et hjem",
+    "Dogs and cats for adoption in Portugal": "Hunde og katte til adoption i Portugal"
 }

@@ -129,9 +129,9 @@ class Pet extends Model
     }
 
     /**
-     * Public portal link that opens this pet on its shelter's page, for
-     * sharing on social media. Null when the portal is disabled or the pet
-     * is not published there, since the link would lead nowhere.
+     * Public portal page of this pet, for sharing on social media. Null when
+     * the portal is disabled or the pet is not published there, since the
+     * link would lead nowhere.
      */
     public function publicUrl(): ?string
     {
@@ -145,7 +145,44 @@ class Pet extends Model
             ->whereKey($this->id)
             ->exists();
 
-        return $isPublished ? route('shelters.show', ['shelter' => $this->shelter_id, 'animal' => $this->id]) : null;
+        return $isPublished ? $this->publicPageUrl() : null;
+    }
+
+    /**
+     * Canonical URL of the pet's public page, without checking that it is
+     * published. The id resolves the page; the slug is only descriptive.
+     */
+    public function publicPageUrl(): string
+    {
+        return route('animals.show', ['petId' => $this->id, 'slug' => $this->publicSlug()]);
+    }
+
+    /**
+     * Descriptive URL slug: name, species, shelter city and region, without
+     * repeated parts (e.g. "frozen-cao-horta-acores-faial").
+     */
+    public function publicSlug(): string
+    {
+        $this->loadMissing(['species', 'shelter.region']);
+
+        return collect([$this->name, $this->species->name, $this->shelter?->city, $this->shelter?->region?->name])
+            ->filter()
+            ->map(fn (string $part): string => Str::slug($part))
+            ->filter()
+            ->unique()
+            ->implode('-') ?: 'animal';
+    }
+
+    /**
+     * Where the pet is, for public titles and descriptions: shelter city and
+     * region, without repeating a region named like its city (e.g. "Horta,
+     * Açores - Faial").
+     */
+    public function publicLocation(): string
+    {
+        $this->loadMissing('shelter.region');
+
+        return collect([$this->shelter?->city, $this->shelter?->region?->name])->filter()->unique()->implode(', ');
     }
 
     /**

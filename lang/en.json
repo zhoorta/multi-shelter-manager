@@ -552,5 +552,14 @@
     "No animals at the moment": "No animals at the moment",
     "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.",
     "Optional. The volunteer record holds the family's phone and address.": "Optional. The volunteer record holds the family's phone and address.",
-    "This animal is living with a foster family while it waits for adoption.": "This animal is living with a foster family while it waits for adoption."
+    "This animal is living with a foster family while it waits for adoption.": "This animal is living with a foster family while it waits for adoption.",
+    ":name, :species :breed for adoption": ":name, :species :breed for adoption",
+    ":name has already found a family!": ":name has already found a family!",
+    "Open this animal's page": "Open this animal's page",
+    ":name was adopted through :shelter. Meet the other animals waiting for a home.": ":name was adopted through :shelter. Meet the other animals waiting for a home.",
+    ":name — :species for adoption in :city": ":name — :species for adoption in :city",
+    ":name (:species, :breed) is waiting for a family at :shelter, in :city.": ":name (:species, :breed) is waiting for a family at :shelter, in :city.",
+    "Breadcrumb": "Breadcrumb",
+    "Meet other animals looking for a home": "Meet other animals looking for a home",
+    "Dogs and cats for adoption in Portugal": "Dogs and cats for adoption in Portugal"
 }

@@ -552,5 +552,14 @@
     "No animals at the moment": "Derzeit keine Tiere",
     "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Jeder Zwinger dieses Trakts ist eine Pflegefamilie. Seine Tiere werden als in einer Pflegefamilie angezeigt und zählen nicht zur Kapazität des Tierheims.",
     "Optional. The volunteer record holds the family's phone and address.": "Optional. Der Freiwilligen-Eintrag enthält Telefon und Adresse der Familie.",
-    "This animal is living with a foster family while it waits for adoption.": "Dieses Tier lebt bei einer Pflegefamilie, während es auf eine Adoption wartet."
+    "This animal is living with a foster family while it waits for adoption.": "Dieses Tier lebt bei einer Pflegefamilie, während es auf eine Adoption wartet.",
+    ":name, :species :breed for adoption": ":name, :species :breed zur Adoption",
+    ":name has already found a family!": ":name hat bereits eine Familie gefunden!",
+    "Open this animal's page": "Seite dieses Tieres öffnen",
+    ":name was adopted through :shelter. Meet the other animals waiting for a home.": ":name wurde über :shelter adoptiert. Lerne die anderen Tiere kennen, die auf ein Zuhause warten.",
+    ":name — :species for adoption in :city": ":name — :species zur Adoption in :city",
+    ":name (:species, :breed) is waiting for a family at :shelter, in :city.": ":name (:species, :breed) wartet bei :shelter in :city auf eine Familie.",
+    "Breadcrumb": "Brotkrumennavigation",
+    "Meet other animals looking for a home": "Andere Tiere kennenlernen, die ein Zuhause suchen",
+    "Dogs and cats for adoption in Portugal": "Hunde und Katzen zur Adoption in Portugal"
 }

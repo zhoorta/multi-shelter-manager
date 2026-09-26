@@ -3,8 +3,15 @@
     $pageDescription = Str::limit(trim(strip_tags($description ?? __('Find a shelter animal waiting for a home. Browse the dogs and cats of our partner shelters and adopt your new best friend.'))), 160);
     // Only the public portal pages opt in to indexing; the backoffice, auth and print pages stay out of search engines.
     $isIndexable = ($indexable ?? false) === true;
-    // Pages whose content depends on a query string (e.g. a shared pet link) pass their own canonical URL.
+    // A public page can still keep itself out of the index (e.g. an adopted pet) while keeping its social previews.
+    $robots = match (true) {
+        ! $isIndexable => 'noindex, nofollow',
+        ($noindex ?? false) === true => 'noindex, follow',
+        default => 'index, follow, max-image-preview:large',
+    };
+    // Pages whose content depends on a query string (e.g. a pet page reached through an old slug) pass their own canonical URL.
     $pageUrl = $canonicalUrl ?? url()->current();
+    $shareImage = filled($image ?? null) ? $image : asset('images/share.png');
 @endphp
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,7 +21,7 @@
 </title>
 
 <meta name="description" content="{{ $pageDescription }}">
-<meta name="robots" content="{{ $isIndexable ? 'index, follow, max-image-preview:large' : 'noindex, nofollow' }}">
+<meta name="robots" content="{{ $robots }}">
 <meta name="theme-color" content="#fffbeb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 
@@ -27,17 +34,13 @@
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:url" content="{{ $pageUrl }}">
     <meta property="og:locale" content="{{ str_replace('-', '_', app()->getLocale()) }}">
-    @if (filled($image ?? null))
-        <meta property="og:image" content="{{ $image }}">
-        <meta property="og:image:alt" content="{{ $title ?? config('app.name') }}">
-    @endif
+    <meta property="og:image" content="{{ $shareImage }}">
+    <meta property="og:image:alt" content="{{ $title ?? config('app.name') }}">
 
-    <meta name="twitter:card" content="{{ filled($image ?? null) ? 'summary_large_image' : 'summary' }}">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDescription }}">
-    @if (filled($image ?? null))
-        <meta name="twitter:image" content="{{ $image }}">
-    @endif
+    <meta name="twitter:image" content="{{ $shareImage }}">
 
     @if (filled($feedUrl ?? null))
         <link rel="alternate" type="application/rss+xml" title="{{ $pageTitle }}" href="{{ $feedUrl }}">

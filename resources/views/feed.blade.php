@@ -8,7 +8,7 @@
         <atom:link href="{{ route('shelters.feed', $shelter) }}" rel="self" type="application/rss+xml" />
         @foreach ($pets as $pet)
             @php
-                $petUrl = route('shelters.show', ['shelter' => $shelter, 'animal' => $pet->id]);
+                $petUrl = $pet->publicPageUrl();
                 $mainImage = $pet->images->firstWhere('is_main', true) ?? $pet->images->first();
             @endphp
             <item>

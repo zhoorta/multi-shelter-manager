@@ -83,9 +83,4 @@
     </section>
 
     @include('livewire.partials.public-pet-details-modal', ['showShelterLink' => false])
-
-    @if ($opensSharedPetOnLoad)
-        {{-- Shared pet link (?animal=): open its details once the modal above is initialised. --}}
-        <div x-init="$nextTick(() => $flux.modal('public-pet-details').show())"></div>
-    @endif
 </div>

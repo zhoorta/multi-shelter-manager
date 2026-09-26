@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
 
@@ -14,6 +15,7 @@ test('public pages are indexable and expose description, canonical and open grap
         ->assertSee('<meta name="description" content="Find a shelter animal waiting for a home.', false)
         ->assertSee('<link rel="canonical" href="'.route('home').'">', false)
         ->assertSee('<meta property="og:title"', false)
+        ->assertSee('<meta property="og:image" content="'.asset('images/share.png').'">', false)
         ->assertSee('"@type":"WebSite"', false);
 });
 
@@ -52,15 +54,19 @@ test('structured data cannot break out of its script tag', function () {
         ->assertDontSee('</script><script>alert(1)', false);
 });
 
-test('sitemap lists the public pages and every shelter', function () {
+test('sitemap lists the public pages, every shelter and every published pet', function () {
     $shelter = Shelter::factory()->create();
+    $publishedPet = Pet::factory()->publishedToPortal()->create();
+    $unpublishedPet = Pet::factory()->create();
 
     $this->get(route('sitemap'))
         ->assertOk()
         ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')
         ->assertSee('<loc>'.route('home').'</loc>', false)
         ->assertSee('<loc>'.route('about').'</loc>', false)
-        ->assertSee('<loc>'.route('shelters.show', $shelter).'</loc>', false);
+        ->assertSee('<loc>'.route('shelters.show', $shelter).'</loc>', false)
+        ->assertSee('<loc>'.$publishedPet->publicPageUrl().'</loc>', false)
+        ->assertDontSee('<loc>'.$unpublishedPet->publicPageUrl().'</loc>', false);
 });
 
 test('robots.txt blocks the backoffice and announces the sitemap', function () {

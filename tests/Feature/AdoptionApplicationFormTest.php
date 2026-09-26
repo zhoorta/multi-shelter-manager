@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\AdoptionApplicationForm;
+use App\Livewire\Welcome;
 use App\Models\AdoptionApplication;
 use App\Models\Pet;
 use App\Models\Shelter;
@@ -37,7 +38,8 @@ function filledApplicationForm(Pet $pet, string $email = 'ana@example.com'): Tes
 test('the public pet modal links to the application form', function () {
     $pet = Pet::factory()->publishedToPortal()->create();
 
-    $this->get(route('shelters.show', [$pet->shelter, 'animal' => $pet->id]))
+    Livewire::test(Welcome::class)
+        ->call('showPet', $pet->id)
         ->assertSee(route('adoption-applications.create', $pet->ref));
 });
 

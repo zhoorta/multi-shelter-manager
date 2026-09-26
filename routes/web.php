@@ -43,6 +43,7 @@ use App\Livewire\Pets\SponsorshipForm;
 use App\Livewire\Pets\SponsorshipShow;
 use App\Livewire\Pets\VaccinationForm;
 use App\Livewire\PrivacyPolicy;
+use App\Livewire\PublicPetShow;
 use App\Livewire\Reports\ShelterReportPrint;
 use App\Livewire\Reports\ShelterReports;
 use App\Livewire\Setup;
@@ -56,6 +57,8 @@ use Illuminate\Support\Facades\Route;
 Route::livewire('/', Welcome::class)->middleware(EnsurePublicPortalEnabled::class)->name('home');
 Route::livewire('shelters', PartnerShelters::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters');
 Route::livewire('shelters/{shelter}', PartnerShelterShow::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.show');
+// Public pet page: the id resolves the pet, the slug is descriptive and redirects to the current one when stale.
+Route::livewire('animais/{petId}/{slug?}', PublicPetShow::class)->whereNumber('petId')->middleware(EnsurePublicPortalEnabled::class)->name('animals.show');
 Route::livewire('adopt/{petRef}', AdoptionApplicationForm::class)->middleware(EnsurePublicPortalEnabled::class)->name('adoption-applications.create');
 Route::get('shelters/{shelter}/feed', ShelterFeedController::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.feed');
 Route::livewire('about', About::class)->name('about');

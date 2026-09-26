@@ -20,6 +20,16 @@
             <priority>0.7</priority>
         </url>
     @endforeach
+    @foreach ($pets as $pet)
+        <url>
+            <loc>{{ $pet->publicPageUrl() }}</loc>
+            @if ($pet->updated_at)
+                <lastmod>{{ $pet->updated_at->toAtomString() }}</lastmod>
+            @endif
+            <changefreq>weekly</changefreq>
+            <priority>0.6</priority>
+        </url>
+    @endforeach
     <url>
         <loc>{{ route('about') }}</loc>
         <changefreq>monthly</changefreq>

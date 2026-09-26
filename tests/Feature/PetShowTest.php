@@ -964,7 +964,7 @@ test('share panel offers a caption with the pet public link when the pet is publ
     $component
         ->assertSee('Share on social media')
         ->assertSee('Bolinha is looking for a family!')
-        ->assertSee('Find out more and adopt: '.route('shelters.show', ['shelter' => $shelter, 'animal' => $pet]), false)
+        ->assertSee('Find out more and adopt: '.$pet->publicPageUrl(), false)
         ->assertDontSee('Publish this pet to the portal to include a link')
         ->assertSeeHtml('https://api.whatsapp.com/send?text='.rawurlencode($pet->shareCaption($pet->publicUrl())))
         ->assertDontSeeHtml('https://wa.me/');

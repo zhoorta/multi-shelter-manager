@@ -17,7 +17,7 @@ class ShelterFeedController extends Controller
     public function __invoke(Shelter $shelter): Response
     {
         $pets = $shelter->publishedPets()
-            ->with(['species', 'breed', 'size', 'shelter', 'images'])
+            ->with(['species', 'breed', 'size', 'shelter.region', 'images'])
             ->latest('checkin_date')
             ->latest('id')
             ->limit(30)

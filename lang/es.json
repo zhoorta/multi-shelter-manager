@@ -552,5 +552,14 @@
     "No animals at the moment": "Sin animales en este momento",
     "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Cada jaula de esta ala es una familia de acogida. Sus animales se muestran como en familia de acogida y no cuentan para la capacidad del refugio.",
     "Optional. The volunteer record holds the family's phone and address.": "Opcional. La ficha del voluntario guarda el teléfono y la dirección de la familia.",
-    "This animal is living with a foster family while it waits for adoption.": "Este animal vive con una familia de acogida mientras espera su adopción."
+    "This animal is living with a foster family while it waits for adoption.": "Este animal vive con una familia de acogida mientras espera su adopción.",
+    ":name, :species :breed for adoption": ":name, :species :breed en adopción",
+    ":name has already found a family!": "¡:name ya ha encontrado una familia!",
+    "Open this animal's page": "Abrir la página de este animal",
+    ":name was adopted through :shelter. Meet the other animals waiting for a home.": ":name fue adoptado a través de :shelter. Conoce a los otros animales que esperan un hogar.",
+    ":name — :species for adoption in :city": ":name — :species en adopción en :city",
+    ":name (:species, :breed) is waiting for a family at :shelter, in :city.": ":name (:species, :breed) espera una familia en :shelter, :city.",
+    "Breadcrumb": "Ruta de navegación",
+    "Meet other animals looking for a home": "Conocer otros animales que buscan un hogar",
+    "Dogs and cats for adoption in Portugal": "Perros y gatos en adopción en Portugal"
 }

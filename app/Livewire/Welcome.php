@@ -163,7 +163,7 @@ class Welcome extends Component
     public function render(): View
     {
         return view('livewire.welcome')
-            ->title(__('Adopt a friend'))
+            ->title(__('Dogs and cats for adoption in Portugal'))
             ->layoutData([
                 'description' => __('Find a shelter animal waiting for a home. Browse the dogs and cats of our partner shelters and adopt your new best friend.'),
                 'structuredData' => [

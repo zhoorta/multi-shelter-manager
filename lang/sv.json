@@ -552,5 +552,14 @@
     "No animals at the moment": "Inga djur för närvarande",
     "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Varje bur i denna flygel är ett jourhem. Djuren visas som placerade i jourhem och räknas inte in i härbärgets kapacitet.",
     "Optional. The volunteer record holds the family's phone and address.": "Valfritt. Volontärkortet innehåller familjens telefon och adress.",
-    "This animal is living with a foster family while it waits for adoption.": "Det här djuret bor i ett jourhem medan det väntar på adoption."
+    "This animal is living with a foster family while it waits for adoption.": "Det här djuret bor i ett jourhem medan det väntar på adoption.",
+    ":name, :species :breed for adoption": ":name, :species :breed för adoption",
+    ":name has already found a family!": ":name har redan hittat en familj!",
+    "Open this animal's page": "Öppna djurets sida",
+    ":name was adopted through :shelter. Meet the other animals waiting for a home.": ":name adopterades via :shelter. Träffa de andra djuren som väntar på ett hem.",
+    ":name — :species for adoption in :city": ":name — :species för adoption i :city",
+    ":name (:species, :breed) is waiting for a family at :shelter, in :city.": ":name (:species, :breed) väntar på en familj hos :shelter, i :city.",
+    "Breadcrumb": "Brödsmulor",
+    "Meet other animals looking for a home": "Träffa andra djur som söker ett hem",
+    "Dogs and cats for adoption in Portugal": "Hundar och katter för adoption i Portugal"
 }

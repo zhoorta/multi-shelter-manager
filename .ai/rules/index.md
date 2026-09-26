@@ -55,6 +55,6 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Pets/PetShow.php,resources/views/livewire/pets/pet-show.blade.php, app/Livewire/Pets/ManagePets.php,resources/views/livewire/pets/manage-pets.blade.php, app/Livewire/Pets/AdoptionForm.php,resources/views/livewire/pets/adoption-form.blade.php, app/Livewire/Pets/SponsorshipForm.php,resources/views/livewire/pets/sponsorship-form.blade.php, app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php | .ai/rules/views-livewire-pets.md |
 | app/Livewire/Volunteers/ManageVolunteers.php,resources/views/livewire/volunteers/manage-volunteers.blade.php | .ai/rules/views-livewire-volunteers.md |
 | resources/views/livewire/**/*.blade.php | .ai/rules/views-livewire.md |
-| app/Livewire/PartnerShelterShow.php,app/Livewire/Pets/PetShow.php,app/Models/Pet.php,app/Http/Controllers/ShelterFeedController.php,resources/views/partials/head.blade.php | .ai/rules/views-partials.md |
+| app/Livewire/PartnerShelterShow.php,app/Livewire/PublicPetShow.php,app/Livewire/Pets/PetShow.php,app/Models/Pet.php,app/Http/Controllers/ShelterFeedController.php,resources/views/partials/head.blade.php,resources/views/livewire/partials/public-pet-profile.blade.php | .ai/rules/views-partials.md |
 | resources/views/**/*.blade.php | .ai/rules/views.md |
 | app/Livewire/Volunteers/**, app/Livewire/Volunteers/VolunteerForm.php, app/Livewire/Volunteers/VolunteerShow.php | .ai/rules/volunteers.md |

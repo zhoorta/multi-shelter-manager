@@ -77,31 +77,3 @@ test('cannot open the details of an unpublished pet', function () {
 
     Livewire::test(PartnerShelterShow::class, ['shelter' => $shelter])->call('showPet', $pet->id);
 })->throws(ModelNotFoundException::class);
-
-test('a shared pet link opens that pet and previews it on social media', function () {
-    $shelter = Shelter::factory()->create();
-    $pet = publishedShelterPet($shelter, ['name' => 'Bolinha', 'description' => '<p>Muito meiga.</p>', 'view_count' => 3]);
-    $sharedUrl = route('shelters.show', ['shelter' => $shelter, 'animal' => $pet->id]);
-
-    $response = $this->get($sharedUrl);
-
-    $response
-        ->assertSee('<meta property="og:title" content="Bolinha - '.$shelter->name, false)
-        ->assertSee('<meta property="og:url" content="'.e($sharedUrl).'">', false)
-        ->assertSee('Muito meiga.')
-        ->assertSee("\$flux.modal('public-pet-details').show()", false);
-    expect($pet->fresh()->view_count)->toBe(4);
-});
-
-test('a shared link to a pet that is not public on this shelter page is ignored', function (Closure $makePet) {
-    $shelter = Shelter::factory()->create();
-    $pet = $makePet($shelter);
-
-    $response = $this->get(route('shelters.show', ['shelter' => $shelter, 'animal' => $pet->id]));
-
-    $response->assertOk()->assertDontSee('Hidden Pet');
-    expect($pet->fresh()->view_count)->toBe(0);
-})->with([
-    'unpublished' => fn (Shelter $shelter) => publishedShelterPet($shelter, ['name' => 'Hidden Pet', 'publish_to_portal' => false]),
-    'from another shelter' => fn (Shelter $shelter) => publishedShelterPet(Shelter::factory()->create(), ['name' => 'Hidden Pet']),
-]);

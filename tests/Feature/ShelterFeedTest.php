@@ -19,7 +19,7 @@ test('feed lists the shelter published pets with a link to each one', function (
         ->assertHeader('Content-Type', 'application/rss+xml; charset=UTF-8')
         ->assertSee('<title>Abrigo Feliz</title>', false)
         ->assertSee('<title>Bolinha is looking for a family!</title>', false)
-        ->assertSee('<link>'.e(route('shelters.show', ['shelter' => $shelter, 'animal' => $pet->id])).'</link>', false)
+        ->assertSee('<link>'.e($pet->publicPageUrl()).'</link>', false)
         ->assertDontSee('Unpublished')
         ->assertDontSee('OtherShelterPet');
 });

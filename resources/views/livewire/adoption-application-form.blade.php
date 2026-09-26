@@ -7,7 +7,7 @@
     <div aria-hidden="true" class="pointer-events-none absolute top-40 -right-24 size-96 rounded-full bg-pink-200/60 blur-3xl dark:bg-pink-900/20"></div>
 
     <section class="relative mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <a href="{{ route('shelters.show', ['shelter' => $pet->shelter, 'animal' => $pet->id]) }}" class="inline-flex items-center gap-1 text-sm font-semibold text-stone-500 transition hover:text-orange-500 dark:text-stone-400" wire:navigate>
+        <a href="{{ $pet->publicPageUrl() }}" class="inline-flex items-center gap-1 text-sm font-semibold text-stone-500 transition hover:text-orange-500 dark:text-stone-400" wire:navigate>
             ← {{ $pet->name }}
         </a>
 

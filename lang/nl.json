@@ -552,5 +552,14 @@
     "No animals at the moment": "Momenteel geen dieren",
     "Each cage of this wing is one foster family. Its animals are shown as being with a foster family and do not count towards the shelter capacity.": "Elk hok van deze vleugel is een pleeggezin. De dieren worden getoond als in een pleeggezin en tellen niet mee voor de capaciteit van het asiel.",
     "Optional. The volunteer record holds the family's phone and address.": "Optioneel. De vrijwilligersfiche bevat het telefoonnummer en adres van het gezin.",
-    "This animal is living with a foster family while it waits for adoption.": "Dit dier woont bij een pleeggezin terwijl het op adoptie wacht."
+    "This animal is living with a foster family while it waits for adoption.": "Dit dier woont bij een pleeggezin terwijl het op adoptie wacht.",
+    ":name, :species :breed for adoption": ":name, :species :breed ter adoptie",
+    ":name has already found a family!": ":name heeft al een gezin gevonden!",
+    "Open this animal's page": "Pagina van dit dier openen",
+    ":name was adopted through :shelter. Meet the other animals waiting for a home.": ":name werd geadopteerd via :shelter. Maak kennis met de andere dieren die op een thuis wachten.",
+    ":name — :species for adoption in :city": ":name — :species ter adoptie in :city",
+    ":name (:species, :breed) is waiting for a family at :shelter, in :city.": ":name (:species, :breed) wacht op een gezin bij :shelter, in :city.",
+    "Breadcrumb": "Kruimelpad",
+    "Meet other animals looking for a home": "Andere dieren ontmoeten die een thuis zoeken",
+    "Dogs and cats for adoption in Portugal": "Honden en katten ter adoptie in Portugal"
 }

@@ -1,17 +1,17 @@
-{{-- Public portal pet card; expects $pet (with species, breed, size, shelter.region, images, cage.wing). Opens the details modal via showPet(). Only the foster flag of the cage is used: never show the family or the cage. --}}
+{{-- Public portal pet card; expects $pet (with species, breed, size, shelter.region, images, cage.wing). Links to the pet's public page (followed by search engines and new tabs); a plain click opens the details modal via showPet() instead. Only the foster flag of the cage is used: never show the family or the cage. --}}
 @php
     $cardTints = ['bg-orange-100 dark:bg-orange-950/60', 'bg-sky-100 dark:bg-sky-950/60', 'bg-lime-100 dark:bg-lime-950/60', 'bg-pink-100 dark:bg-pink-950/60', 'bg-violet-100 dark:bg-violet-950/60'];
     $mainImage = $pet->images->firstWhere('is_main', true) ?? $pet->images->first();
 @endphp
-<button
-    type="button"
+<a
+    href="{{ $pet->publicPageUrl() }}"
     wire:key="public-pet-{{ $pet->id }}"
-    wire:click="showPet({{ $pet->id }})"
+    x-on:click="if (! ($event.metaKey || $event.ctrlKey || $event.shiftKey)) { $event.preventDefault(); $wire.showPet({{ $pet->id }}) }"
     class="group flex flex-col overflow-hidden rounded-[2rem] bg-white text-start shadow-sm ring-1 ring-amber-100 transition duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-orange-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-orange-300 dark:bg-stone-900 dark:ring-stone-800 dark:hover:shadow-none"
 >
     <div class="relative aspect-[4/3] overflow-hidden {{ $cardTints[$pet->id % count($cardTints)] }}">
         @if ($mainImage)
-            <img src="{{ Storage::url($mainImage->image_path) }}" alt="{{ $pet->name }}" loading="lazy" class="size-full object-cover transition duration-500 group-hover:scale-105">
+            <img src="{{ Storage::url($mainImage->image_path) }}" alt="{{ __(':name, :species :breed for adoption', ['name' => $pet->name, 'species' => Str::lower($pet->species->name), 'breed' => $pet->breed->name]) }}" loading="lazy" class="size-full object-cover transition duration-500 group-hover:scale-105">
         @else
             <div class="flex size-full items-center justify-center text-7xl transition duration-500 group-hover:scale-110 group-hover:rotate-6">{{ $pet->species->emoji }}</div>
         @endif
@@ -51,4 +51,4 @@
             📍 <span class="truncate">{{ $pet->shelter->short_name ?: $pet->shelter->name }} · {{ collect([$pet->shelter->city, $pet->shelter->region?->name])->filter()->unique()->implode(', ') }}</span>
         </p>
     </div>
-</button>
+</a>
