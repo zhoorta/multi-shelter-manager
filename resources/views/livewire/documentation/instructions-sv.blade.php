@@ -214,7 +214,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administration</h2>
         <p>Endast administratörer ser denna meny. Här underhålls djurhemmen och de referenstabeller som delas av alla djurhem:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Djurhem</strong> &mdash; skapa, redigera och ta bort djurhem. Förutom namn och ort har ett djurhem ett kortnamn, kontaktuppgifter (e-post, telefon, webbplats), adress, region, en beskrivning och en logotyp &mdash; som används på den öppna portalen när den är aktiverad. Listan <strong>Djurarter</strong> i djurhemsformuläret styr vilka djurarter som visas i menyn Djur för djurhemmets chef och personal.</li>
+            <li><strong>Djurhem</strong> &mdash; skapa, redigera och ta bort djurhem. Förutom namn och ort har ett djurhem ett kortnamn, kontaktuppgifter (e-post, telefon, webbplats), adress, region, en beskrivning och en logotyp &mdash; som används på den öppna portalen när den är aktiverad. Listan <strong>Djurarter</strong> i djurhemsformuläret styr vilka djurarter som visas i menyn Djur för djurhemmets chef och personal. E-postadressen är obligatorisk. När djurhemmet har en föreståndare kan hen själv uppdatera allt utom namn och arter under <strong>Inställningar &gt; Djurhem</strong>.</li>
             <li><strong>Regioner</strong> &mdash; de regioner som djurhemmen tillhör, används även som filter på den öppna portalen.</li>
             <li><strong>Djurarter</strong>, <strong>Raser</strong>, <strong>Storlekar</strong> och <strong>Pälstyper</strong> &mdash; alternativen som används för att beskriva djuren.</li>
             <li><strong>Vacciner</strong> och <strong>Sjukdomar</strong> &mdash; alternativen som används i djurens hälsojournaler.</li>
@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Inställningar</h2>
-        <p>Öppna Inställningar från användarmenyn för att se din profil, byta lösenord och välja utseende (ljust, mörkt eller system) och språk. Ditt namn kan bara ändras av en administratör eller föreståndare, och din e-postadress kan inte ändras. Språket sparas på ditt konto och används även för de e-postmeddelanden du får. På de offentliga sidorna och inloggningssidan kan vem som helst byta språk i menyn högst upp.</p>
+        <p>Öppna Inställningar från användarmenyn för att se din profil, byta lösenord och välja utseende (ljust, mörkt eller system) och språk. Ditt namn kan bara ändras av en administratör eller föreståndare, och din e-postadress kan inte ändras. Språket sparas på ditt konto och används även för de e-postmeddelanden du får. På de offentliga sidorna och inloggningssidan kan vem som helst byta språk i menyn högst upp. Föreståndare ser också en flik <strong>Djurhem</strong> där de uppdaterar det aktiva djurhemmets kontaktuppgifter, adress, region, beskrivning och logotyp; e-postadressen är obligatorisk, och namn och arter kan bara ändras av en administratör.</p>
     </section>
 </div>

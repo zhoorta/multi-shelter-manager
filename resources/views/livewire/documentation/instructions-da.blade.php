@@ -214,7 +214,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administration</h2>
         <p>Kun administratorer ser denne menu. Her vedligeholdes internaterne og de referencetabeller, som alle internater deler:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Internater</strong> &mdash; opret, rediger og fjern internater. Ud over navn og by har et internat et kort navn, kontaktoplysninger (e-mail, telefon, websted), adresse, region, en beskrivelse og et logo &mdash; som bruges på den offentlige portal, når den er slået til. Listen <strong>Dyrearter</strong> i internatformularen styrer, hvilke dyrearter der vises i menuen Dyr for internatets leder og personale.</li>
+            <li><strong>Internater</strong> &mdash; opret, rediger og fjern internater. Ud over navn og by har et internat et kort navn, kontaktoplysninger (e-mail, telefon, websted), adresse, region, en beskrivelse og et logo &mdash; som bruges på den offentlige portal, når den er slået til. Listen <strong>Dyrearter</strong> i internatformularen styrer, hvilke dyrearter der vises i menuen Dyr for internatets leder og personale. E-mailadressen er påkrævet. Når internatet har en internatleder, kan vedkommende selv opdatere alt undtagen navn og arter under <strong>Indstillinger &gt; Internat</strong>.</li>
             <li><strong>Regioner</strong> &mdash; de regioner, internaterne hører til, bruges også som filter på den offentlige portal.</li>
             <li><strong>Dyrearter</strong>, <strong>Racer</strong>, <strong>Størrelser</strong> og <strong>Pelstyper</strong> &mdash; de muligheder, der bruges til at beskrive dyrene.</li>
             <li><strong>Vacciner</strong> og <strong>Sygdomme</strong> &mdash; de muligheder, der bruges i dyrenes helbredsjournaler.</li>
@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Indstillinger</h2>
-        <p>Åbn Indstillinger fra brugermenuen for at se din profil, skifte adgangskode og vælge udseende (lyst, mørkt eller system) og sprog. Dit navn kan kun ændres af en administrator eller internatleder, og din e-mailadresse kan ikke ændres. Sproget gemmes på din konto og bruges også i de e-mails, du modtager. På de offentlige sider og login-siden kan alle skifte sprog i menuen øverst.</p>
+        <p>Åbn Indstillinger fra brugermenuen for at se din profil, skifte adgangskode og vælge udseende (lyst, mørkt eller system) og sprog. Dit navn kan kun ændres af en administrator eller internatleder, og din e-mailadresse kan ikke ændres. Sproget gemmes på din konto og bruges også i de e-mails, du modtager. På de offentlige sider og login-siden kan alle skifte sprog i menuen øverst. Internatledere ser også en fane <strong>Internat</strong>, hvor de opdaterer det aktive internats kontaktoplysninger, adresse, region, beskrivelse og logo; e-mailadressen er påkrævet, og navn og arter kan kun ændres af en administrator.</p>
     </section>
 </div>

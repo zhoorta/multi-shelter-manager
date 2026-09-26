@@ -70,6 +70,8 @@ A manager runs a shelter. The sidebar shows the shelter's work plus **Users**, s
 | Facilities | Buildings, wings and cages |
 | Users | The shelter's team (manager only) |
 
+The manager also keeps the shelter's contacts, address, description and logo up to date in **Settings → Shelter** (see [Personal settings](15-settings.md#155-shelter-managers-only)).
+
 ### Staff
 
 Staff see the same menus as a manager, **except Users**. They handle the daily work: pets, vaccinations, adoptions, sponsorships, volunteers, members and facilities.

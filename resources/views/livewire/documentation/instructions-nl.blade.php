@@ -214,7 +214,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Beheer</h2>
         <p>Alleen beheerders zien dit menu. Hier worden de asielen en de referentietabellen onderhouden die door alle asielen worden gedeeld:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Asielen</strong> &mdash; asielen aanmaken, bewerken en verwijderen. Naast naam en plaats heeft een asiel een korte naam, contactgegevens (e-mail, telefoon, website), adres, regio, een beschrijving en een logo &mdash; gebruikt op het openbare portaal als dat is ingeschakeld. De lijst <strong>Diersoorten</strong> in het asielformulier bepaalt welke diersoorten in het menu Dieren verschijnen voor de manager en medewerkers van dat asiel.</li>
+            <li><strong>Asielen</strong> &mdash; asielen aanmaken, bewerken en verwijderen. Naast naam en plaats heeft een asiel een korte naam, contactgegevens (e-mail, telefoon, website), adres, regio, een beschrijving en een logo &mdash; gebruikt op het openbare portaal als dat is ingeschakeld. De lijst <strong>Diersoorten</strong> in het asielformulier bepaalt welke diersoorten in het menu Dieren verschijnen voor de manager en medewerkers van dat asiel. Het e-mailadres is verplicht. Zodra het asiel een asielbeheerder heeft, kan die alles behalve de naam en de diersoorten zelf bijwerken via <strong>Instellingen &gt; Asiel</strong>.</li>
             <li><strong>Regio's</strong> &mdash; de regio's waartoe de asielen behoren, ook gebruikt als filter op het openbare portaal.</li>
             <li><strong>Diersoorten</strong>, <strong>Rassen</strong>, <strong>Formaten</strong> en <strong>Vachttypes</strong> &mdash; de opties om dieren te beschrijven.</li>
             <li><strong>Vaccins</strong> en <strong>Ziektes</strong> &mdash; de opties in de gezondheidsdossiers van de dieren.</li>
@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Instellingen</h2>
-        <p>Open via het gebruikersmenu de Instellingen om uw profiel te bekijken, uw wachtwoord te wijzigen en de weergave (licht, donker of systeem) en uw taal te kiezen. Uw naam kan alleen door een beheerder of asielbeheerder worden gewijzigd, en uw e-mailadres kan niet worden gewijzigd. De taal wordt in uw account opgeslagen en ook gebruikt voor de e-mails die u ontvangt. Op de openbare pagina's en de inlogpagina kan iedereen de taal wijzigen via het menu bovenaan.</p>
+        <p>Open via het gebruikersmenu de Instellingen om uw profiel te bekijken, uw wachtwoord te wijzigen en de weergave (licht, donker of systeem) en uw taal te kiezen. Uw naam kan alleen door een beheerder of asielbeheerder worden gewijzigd, en uw e-mailadres kan niet worden gewijzigd. De taal wordt in uw account opgeslagen en ook gebruikt voor de e-mails die u ontvangt. Op de openbare pagina's en de inlogpagina kan iedereen de taal wijzigen via het menu bovenaan. Asielbeheerders zien ook een tabblad <strong>Asiel</strong> om de contactgegevens, het adres, de regio, de beschrijving en het logo van het actieve asiel bij te werken; het e-mailadres is verplicht, en de naam en diersoorten kan alleen een beheerder wijzigen.</p>
     </section>
 </div>

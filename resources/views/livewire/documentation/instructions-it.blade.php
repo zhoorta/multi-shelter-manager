@@ -214,7 +214,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Amministrazione</h2>
         <p>Solo gli amministratori vedono questo menu. Serve a gestire i rifugi e le tabelle di riferimento condivise da tutti i rifugi:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Rifugi</strong> &mdash; creare, modificare e rimuovere rifugi. Oltre al nome e alla città, un rifugio ha un nome breve, contatti (email, telefono, sito web), indirizzo, regione, una descrizione e un logo &mdash; usati sul portale pubblico quando è attivo. L'elenco <strong>Specie</strong> nel modulo del rifugio stabilisce quali specie compaiono nel menu Animali per il responsabile e lo staff di quel rifugio.</li>
+            <li><strong>Rifugi</strong> &mdash; creare, modificare e rimuovere rifugi. Oltre al nome e alla città, un rifugio ha un nome breve, contatti (email, telefono, sito web), indirizzo, regione, una descrizione e un logo &mdash; usati sul portale pubblico quando è attivo. L'elenco <strong>Specie</strong> nel modulo del rifugio stabilisce quali specie compaiono nel menu Animali per il responsabile e lo staff di quel rifugio. L'email è obbligatoria. Quando il rifugio ha un responsabile, questi può aggiornare tutto tranne il nome e le specie in <strong>Impostazioni &gt; Rifugio</strong>.</li>
             <li><strong>Regioni</strong> &mdash; le regioni a cui appartengono i rifugi, usate anche come filtro sul portale pubblico.</li>
             <li><strong>Specie</strong>, <strong>Razze</strong>, <strong>Taglie</strong> e <strong>Tipi di Mantello</strong> &mdash; le opzioni usate per descrivere gli animali.</li>
             <li><strong>Vaccini</strong> e <strong>Malattie</strong> &mdash; le opzioni usate nelle cartelle sanitarie degli animali.</li>
@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Impostazioni</h2>
-        <p>Dal menu utente, apri Impostazioni per vedere il tuo profilo, cambiare la password e scegliere l'aspetto (chiaro, scuro o di sistema) e la lingua. Il tuo nome può essere modificato solo da un amministratore o da un responsabile, e la tua email non può essere modificata. La lingua viene salvata nel tuo account e usata anche per le email che ricevi. Nelle pagine pubbliche e nella pagina di accesso, chiunque può cambiare lingua dal menu in alto.</p>
+        <p>Dal menu utente, apri Impostazioni per vedere il tuo profilo, cambiare la password e scegliere l'aspetto (chiaro, scuro o di sistema) e la lingua. Il tuo nome può essere modificato solo da un amministratore o da un responsabile, e la tua email non può essere modificata. La lingua viene salvata nel tuo account e usata anche per le email che ricevi. Nelle pagine pubbliche e nella pagina di accesso, chiunque può cambiare lingua dal menu in alto. I responsabili vedono anche una scheda <strong>Rifugio</strong> per aggiornare contatti, indirizzo, regione, descrizione e logo del rifugio attivo; l'email è obbligatoria, e il nome e le specie può cambiarli solo un amministratore.</p>
     </section>
 </div>

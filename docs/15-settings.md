@@ -2,9 +2,9 @@
 
 [← The public adoption portal](14-public-portal.md) · [Documentation index](README.md)
 
-> **Who:** Everyone.
+> **Who:** Everyone. The **Shelter** tab is for managers only.
 
-Open the user menu (your name at the bottom of the sidebar) and choose **Settings**. There are three tabs.
+Open the user menu (your name at the bottom of the sidebar) and choose **Settings**. There are three tabs: **Profile**, **Security** and **Appearance**. Managers also see a **Shelter** tab (see [15.5](#155-shelter-managers-only)).
 
 ## 15.1 Profile
 
@@ -42,6 +42,27 @@ Each user chooses their own language in **Settings → Appearance → Language**
 On the public pages and the login page, a language menu at the top (e.g. **PT**) lets anyone switch without logging in. If you are logged in, switching there also saves it to your account.
 
 English, Portuguese, Spanish, French, German, Italian, Dutch, Polish, Swedish and Danish are available.
+
+## 15.5 Shelter (managers only)
+
+The manager keeps the profile of the **active shelter** up to date. These details appear on printed pet sheets, in the text for sharing a pet and, when the public portal is on, on the shelter's public page and in search engine results.
+
+![Shelter settings](screenshots/57a-settings-shelter.png)
+
+| Field | Meaning |
+|-------|---------|
+| Name | Shown only. Ask an admin if it needs to change |
+| Short Name | Short name used where space is limited (lists, cards, badges) |
+| Email | **Required.** The shelter's public contact e-mail |
+| Phone, Website | Public contacts |
+| Address, Postal Code, City | Location of the shelter. City is required |
+| Region | One of the regions set up by the admin |
+| Description | Short presentation, shown on the public portal |
+| Logo | PNG or JPG image up to 2 MB. Choosing a new one replaces the old one |
+
+Click **Save**.
+
+The shelter's **name** and its **species** (which species appear under **Pets**) can only be changed by an admin (see [Shelters](03-administration.md#39-shelters)). Staff and viewers do not see this tab.
 
 ---
 

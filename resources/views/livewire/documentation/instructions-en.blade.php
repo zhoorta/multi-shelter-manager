@@ -214,7 +214,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administration</h2>
         <p>Only admins see this menu. It maintains the shelters and the lookup tables shared by every shelter:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Shelters</strong> &mdash; create, edit and remove shelters. Besides the name and city, a shelter has a short name, contacts (email, phone, website), address, region, a description and a logo &mdash; used on the public portal when enabled. The <strong>Species</strong> checklist on the shelter form controls which species appear in the Pets menu for that shelter's manager and staff.</li>
+            <li><strong>Shelters</strong> &mdash; create, edit and remove shelters. Besides the name and city, a shelter has a short name, contacts (email, phone, website), address, region, a description and a logo &mdash; used on the public portal when enabled. The <strong>Species</strong> checklist on the shelter form controls which species appear in the Pets menu for that shelter's manager and staff. The email is required. Once the shelter has a manager, they can update everything except the name and species themselves in <strong>Settings &gt; Shelter</strong>.</li>
             <li><strong>Regions</strong> &mdash; the districts shelters belong to, also used as a filter on the public portal.</li>
             <li><strong>Species</strong>, <strong>Breeds</strong>, <strong>Sizes</strong> and <strong>Fur Types</strong> &mdash; the options used to describe pets.</li>
             <li><strong>Vaccines</strong> and <strong>Sicknesses</strong> &mdash; the options used in pet health records.</li>
@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Settings</h2>
-        <p>From the user menu, open Settings to view your profile, change your password and choose the appearance (light, dark or system) and your language. Your name can only be changed by an admin or manager, and your email cannot be changed. The language is saved to your account and is also used for the e-mails you receive. On the public pages and the login page, anyone can switch language in the menu at the top.</p>
+        <p>From the user menu, open Settings to view your profile, change your password and choose the appearance (light, dark or system) and your language. Your name can only be changed by an admin or manager, and your email cannot be changed. The language is saved to your account and is also used for the e-mails you receive. On the public pages and the login page, anyone can switch language in the menu at the top. Managers also see a <strong>Shelter</strong> tab to update the active shelter's contacts, address, region, description and logo; the email is required, and the name and species can only be changed by an admin.</p>
     </section>
 </div>

@@ -214,7 +214,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administração</h2>
         <p>Apenas os administradores veem este menu. Nele mantêm-se os abrigos e as tabelas de referência partilhadas por todos os abrigos:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Abrigos</strong> &mdash; criar, editar e remover abrigos. Além do nome e da localidade, um abrigo tem um nome curto, contactos (email, telefone, site), morada, distrito, uma descrição e um logótipo &mdash; usados no portal público quando ativo. A lista de <strong>Espécies</strong> no formulário do abrigo define que espécies aparecem no menu Animais para o gestor e os funcionários desse abrigo.</li>
+            <li><strong>Abrigos</strong> &mdash; criar, editar e remover abrigos. Além do nome e da localidade, um abrigo tem um nome curto, contactos (email, telefone, site), morada, distrito, uma descrição e um logótipo &mdash; usados no portal público quando ativo. A lista de <strong>Espécies</strong> no formulário do abrigo define que espécies aparecem no menu Animais para o gestor e os funcionários desse abrigo. O email é obrigatório. Depois de o abrigo ter um gestor, este pode atualizar tudo exceto o nome e as espécies em <strong>Definições &gt; Abrigo</strong>.</li>
             <li><strong>Distritos</strong> &mdash; os distritos a que os abrigos pertencem, também usados como filtro no portal público.</li>
             <li><strong>Espécies</strong>, <strong>Raças</strong>, <strong>Tamanhos</strong> e <strong>Tipos de Pelo</strong> &mdash; as opções usadas para descrever os animais.</li>
             <li><strong>Vacinas</strong> e <strong>Doenças</strong> &mdash; as opções usadas nos registos de saúde.</li>
@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Definições</h2>
-        <p>No menu do utilizador, abra Definições para ver o seu perfil, alterar a palavra-passe e escolher a aparência (clara, escura ou do sistema) e o idioma. O nome só pode ser alterado por um administrador ou gestor, e o email não pode ser alterado. O idioma fica guardado na sua conta e é também usado nos emails que recebe. Nas páginas públicas e na página de entrada, qualquer pessoa pode mudar o idioma no menu no topo.</p>
+        <p>No menu do utilizador, abra Definições para ver o seu perfil, alterar a palavra-passe e escolher a aparência (clara, escura ou do sistema) e o idioma. O nome só pode ser alterado por um administrador ou gestor, e o email não pode ser alterado. O idioma fica guardado na sua conta e é também usado nos emails que recebe. Nas páginas públicas e na página de entrada, qualquer pessoa pode mudar o idioma no menu no topo. Os gestores veem também um separador <strong>Abrigo</strong> para atualizar os contactos, a morada, o distrito, a descrição e o logótipo do abrigo ativo; o email é obrigatório, e o nome e as espécies só podem ser alterados por um administrador.</p>
     </section>
 </div>

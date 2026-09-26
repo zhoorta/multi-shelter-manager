@@ -117,7 +117,8 @@ Click **Create New** to add a shelter, or the **pencil** icon to edit one:
 |-------|---------|
 | Name | Full name of the shelter |
 | Short Name | Short name used where space is limited (lists, cards, badges) |
-| Email, Phone, Website | Public contacts, shown on printed sheets and on the public portal |
+| Email | **Required.** Public contact e-mail, shown on printed sheets and on the public portal |
+| Phone, Website | Public contacts, shown on printed sheets and on the public portal |
 | Address, Postal Code, City | Location of the shelter |
 | Region | One of the regions from section 3.1 |
 | Description | Short presentation, shown on the public portal |
@@ -125,6 +126,8 @@ Click **Create New** to add a shelter, or the **pencil** icon to edit one:
 | **Species** | The species this shelter takes in. Each species switched on here gets its own entry under **Pets** in the sidebar of the shelter's managers and staff |
 
 Click **Save**.
+
+Once the shelter has a manager, the manager can update everything except the **Name** and the **Species** in **Settings → Shelter** (see [Personal settings](15-settings.md#155-shelter-managers-only)).
 
 ## 3.10 Next step
 

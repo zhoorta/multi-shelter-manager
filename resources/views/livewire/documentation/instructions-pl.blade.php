@@ -214,7 +214,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administracja</h2>
         <p>To menu widzą tylko administratorzy. Służy do utrzymywania schronisk i tabel słownikowych wspólnych dla wszystkich schronisk:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Schroniska</strong> &mdash; tworzenie, edycja i usuwanie schronisk. Oprócz nazwy i miejscowości schronisko ma nazwę skróconą, dane kontaktowe (e-mail, telefon, strona www), adres, region, opis i logo &mdash; używane w portalu publicznym, gdy jest włączony. Lista <strong>Gatunki</strong> w formularzu schroniska określa, które gatunki pojawiają się w menu Zwierzęta dla kierownika i pracowników tego schroniska.</li>
+            <li><strong>Schroniska</strong> &mdash; tworzenie, edycja i usuwanie schronisk. Oprócz nazwy i miejscowości schronisko ma nazwę skróconą, dane kontaktowe (e-mail, telefon, strona www), adres, region, opis i logo &mdash; używane w portalu publicznym, gdy jest włączony. Lista <strong>Gatunki</strong> w formularzu schroniska określa, które gatunki pojawiają się w menu Zwierzęta dla kierownika i pracowników tego schroniska. Adres e-mail jest wymagany. Gdy schronisko ma kierownika, może on sam zaktualizować wszystko oprócz nazwy i gatunków w <strong>Ustawienia &gt; Schronisko</strong>.</li>
             <li><strong>Regiony</strong> &mdash; regiony, do których należą schroniska, używane też jako filtr w portalu publicznym.</li>
             <li><strong>Gatunki</strong>, <strong>Rasy</strong>, <strong>Wielkości</strong> i <strong>Rodzaje sierści</strong> &mdash; opcje używane do opisu zwierząt.</li>
             <li><strong>Szczepionki</strong> i <strong>Choroby</strong> &mdash; opcje używane w dokumentacji zdrowotnej zwierząt.</li>
@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Ustawienia</h2>
-        <p>Z menu użytkownika otwórz Ustawienia, aby zobaczyć swój profil, zmienić hasło i wybrać wygląd (jasny, ciemny lub systemowy) oraz język. Imię może zmienić tylko administrator lub kierownik, a adresu e-mail nie można zmienić. Język jest zapisywany na Twoim koncie i używany również w otrzymywanych e-mailach. Na stronach publicznych i stronie logowania każdy może zmienić język w menu u góry.</p>
+        <p>Z menu użytkownika otwórz Ustawienia, aby zobaczyć swój profil, zmienić hasło i wybrać wygląd (jasny, ciemny lub systemowy) oraz język. Imię może zmienić tylko administrator lub kierownik, a adresu e-mail nie można zmienić. Język jest zapisywany na Twoim koncie i używany również w otrzymywanych e-mailach. Na stronach publicznych i stronie logowania każdy może zmienić język w menu u góry. Kierownicy widzą też kartę <strong>Schronisko</strong>, w której aktualizują dane kontaktowe, adres, region, opis i logo aktywnego schroniska; adres e-mail jest wymagany, a nazwę i gatunki może zmienić tylko administrator.</p>
     </section>
 </div>

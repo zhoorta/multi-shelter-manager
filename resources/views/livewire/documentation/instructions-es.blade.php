@@ -214,7 +214,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administración</h2>
         <p>Solo los administradores ven este menú. En él se mantienen los refugios y las tablas de referencia compartidas por todos los refugios:</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Refugios</strong> &mdash; crear, editar y eliminar refugios. Además del nombre y la ciudad, un refugio tiene un nombre corto, contactos (email, teléfono, web), dirección, región, una descripción y un logotipo &mdash; usados en el portal público cuando está activado. La lista de <strong>Especies</strong> del formulario del refugio define qué especies aparecen en el menú Animales para el gestor y el personal de ese refugio.</li>
+            <li><strong>Refugios</strong> &mdash; crear, editar y eliminar refugios. Además del nombre y la ciudad, un refugio tiene un nombre corto, contactos (email, teléfono, web), dirección, región, una descripción y un logotipo &mdash; usados en el portal público cuando está activado. La lista de <strong>Especies</strong> del formulario del refugio define qué especies aparecen en el menú Animales para el gestor y el personal de ese refugio. El email es obligatorio. Cuando el refugio tiene un gestor, este puede actualizar todo excepto el nombre y las especies en <strong>Configuración &gt; Refugio</strong>.</li>
             <li><strong>Regiones</strong> &mdash; las regiones a las que pertenecen los refugios, también usadas como filtro en el portal público.</li>
             <li><strong>Especies</strong>, <strong>Razas</strong>, <strong>Tamaños</strong> y <strong>Tipos de Pelo</strong> &mdash; las opciones usadas para describir a los animales.</li>
             <li><strong>Vacunas</strong> y <strong>Enfermedades</strong> &mdash; las opciones usadas en los registros de salud de los animales.</li>
@@ -224,6 +224,6 @@
 
     <section id="settings" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Ajustes</h2>
-        <p>Desde el menú de usuario, abra Ajustes para ver su perfil, cambiar su contraseña y elegir la apariencia (clara, oscura o del sistema) y su idioma. Su nombre solo puede cambiarlo un administrador o gestor, y su email no se puede cambiar. El idioma se guarda en su cuenta y también se usa en los emails que recibe. En las páginas públicas y en la de inicio de sesión, cualquiera puede cambiar el idioma en el menú superior.</p>
+        <p>Desde el menú de usuario, abra Ajustes para ver su perfil, cambiar su contraseña y elegir la apariencia (clara, oscura o del sistema) y su idioma. Su nombre solo puede cambiarlo un administrador o gestor, y su email no se puede cambiar. El idioma se guarda en su cuenta y también se usa en los emails que recibe. En las páginas públicas y en la de inicio de sesión, cualquiera puede cambiar el idioma en el menú superior. Los gestores ven también una pestaña <strong>Refugio</strong> para actualizar los contactos, la dirección, la región, la descripción y el logotipo del refugio activo; el email es obligatorio, y el nombre y las especies solo puede cambiarlos un administrador.</p>
     </section>
 </div>
