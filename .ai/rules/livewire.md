@@ -2,6 +2,7 @@
 paths:
   - 'app/Livewire/**'
   - app/Livewire/Welcome.php
+  - app/Livewire/About.php
 ---
 
 # Livewire
@@ -21,3 +22,6 @@ The portal visibility rules (publish_to_portal, is_adoptable, status='available'
 
 ## Public pet card/modal are shared via ShowsPublicPets + livewire/partials
 Welcome and PartnerShelterShow (route shelters.show, shelters/{shelter}) share the public pet listing: App\Livewire\Concerns\ShowsPublicPets (selectedPetId, showPet(), selectedPet, publicPetsQuery()) plus the partials resources/views/livewire/partials/public-pet-card.blade.php and public-pet-details-modal.blade.php (pass showShelterLink => false on the shelter's own page). Edit the partials, not each page. Per-shelter public pets/counts go through Shelter::publishedPets() (HasMany, already withoutGlobalScope('shelter')->publishedToPortal()); prefer it over closures in withCount, which Larastan can't type. The placeholder emoji is the Species::emoji accessor.
+
+## User guide PDFs live on the public disk, not in the repo
+About::USER_GUIDES points to docs/focinhos-guia-utilizacao.pdf (pt) and docs/focinhos-user-guide.pdf (every other locale) on the public disk (storage/app/public/docs). They are uploaded by hand to production and are not committed; the About page only shows the "User guide (PDF)" button when the file for the current locale exists, so self-hosted installs without them just hide it. Replace the files in place when the guides are rebuilt; the URLs are also linked from the outreach emails, so don't rename them.

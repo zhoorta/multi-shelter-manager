@@ -37,9 +37,16 @@
             <div class="mt-12 flex flex-col items-center gap-4 rounded-[2rem] bg-white p-8 text-center shadow-sm ring-1 ring-amber-100 sm:p-10 dark:bg-stone-900 dark:ring-stone-800">
                 <h2 class="font-display text-3xl font-semibold text-stone-900 dark:text-white">{{ __('Get in touch') }}</h2>
                 <p class="max-w-xl text-stone-500 dark:text-stone-400">{{ __('Do you run a shelter and want to join, have a suggestion or want to help the project? Send us an e-mail.') }}</p>
-                <a href="mailto:{{ $contactEmail }}" class="max-w-full truncate rounded-full bg-orange-500 px-7 py-3.5 font-display text-lg font-semibold text-white shadow-lg shadow-orange-300/60 transition hover:-translate-y-0.5 hover:bg-orange-600 dark:shadow-none">
-                    ✉️ {{ $contactEmail }}
-                </a>
+                <div class="flex max-w-full flex-wrap items-center justify-center gap-4">
+                    <a href="mailto:{{ $contactEmail }}" class="max-w-full truncate rounded-full bg-orange-500 px-7 py-3.5 font-display text-lg font-semibold text-white shadow-lg shadow-orange-300/60 transition hover:-translate-y-0.5 hover:bg-orange-600 dark:shadow-none">
+                        ✉️ {{ $contactEmail }}
+                    </a>
+                    @if ($userGuideUrl)
+                        <a href="{{ $userGuideUrl }}" target="_blank" rel="noopener" class="rounded-full bg-white px-7 py-3.5 font-display text-lg font-semibold text-stone-700 shadow-sm ring-1 ring-amber-200 transition hover:-translate-y-0.5 dark:bg-stone-900 dark:text-stone-200 dark:ring-stone-700">
+                            📘 {{ __('User guide (PDF)') }}
+                        </a>
+                    @endif
+                </div>
             </div>
         @endif
     </section>
