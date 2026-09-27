@@ -11,7 +11,7 @@ Read the chapters in order the first time. Each one builds on the previous.
 | 3 | [Administration: shelters and lookup tables](03-administration.md) | Admin |
 | 4 | [Inviting users](04-users-and-invitations.md) | Admin, Manager |
 | 5 | [Facilities, wings and cages](05-facilities.md) | Manager, Staff, Viewer (read-only) |
-| 6 | [The dashboard](06-dashboard.md) | Manager, Staff, Viewer |
+| 6 | [The dashboard](06-dashboard.md) | Everyone |
 | 7 | [Pets](07-pets.md) | Manager, Staff, Viewer (read-only) |
 | 8 | [Vaccinations](08-vaccinations.md) | Manager, Staff, Viewer (read-only) |
 | 9 | [Adoptions](09-adoptions.md) | Manager, Staff |
@@ -34,7 +34,7 @@ Platform (Admin)
        ├── Users (Managers, Staff and Viewers)
        ├── Facilities ─► Wings ─► Cages ─► Pets
        │     (a foster families wing: each cage is one family)
-       ├── Pets ─► photos · vaccinations · sicknesses · adoptions · sponsorships
+       ├── Pets ─► photos · vaccinations · diagnoses · adoptions · sponsorships
        │     └── adoption applications (from the public portal)
        ├── Volunteers (also the contacts of foster families)
        ├── Members ─► joining fee · membership fee payments

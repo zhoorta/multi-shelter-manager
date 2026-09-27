@@ -52,11 +52,22 @@
         <p>Pulpit daje przegląd aktywnego schroniska:</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Liczniki zwierząt w schronisku, wolnych miejsc w kojcach i adopcji w tym roku. Kierownicy i pracownicy widzą też oczekujące wnioski adopcyjne, zaległe szczepienia i zaległe składki członkowskie, każdy z linkiem do listy.</li>
-            <li>Najnowsze przyjęcia, adopcje, adopcje wirtualne i zgony.</li>
-            <li>Zwierzęta bez znanej lokalizacji, aby można je było przypisać do kojca.</li>
             <li>Ostrzeżenia, gdy czegoś jeszcze brakuje, np. nie zdefiniowano kojców lub gatunki nie mają ras.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wymaga uwagi</h3>
+        <p>Krótkie listy zwierząt, przy których trzeba coś zrobić. Każda pokazuje do pięciu zwierząt i pojawia się tylko wtedy, gdy coś zawiera; <strong>Zobacz wszystkie</strong> otwiera listę zwierząt z odpowiednim filtrem.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Zwierzęta o nieznanej lokalizacji</strong> &mdash; zwierzęta w schronisku bez boksu, wraz z tym, od jak dawna, aby można je było umieścić.</li>
+            <li><strong>Otwarte problemy zdrowotne</strong> &mdash; zwierzęta z aktywną lub przewlekłą diagnozą, najnowsza diagnoza jako pierwsza, wraz z diagnozami.</li>
+            <li><strong>Adopcje wirtualne do odnowienia</strong> &mdash; adopcje wirtualne, których opłacony okres skończył się w ostatnich 30 dniach lub kończy się w najbliższych 30, z imieniem i nazwiskiem opiekuna, aby można było się z nim skontaktować. Tylko dla kierowników i pracowników.</li>
+            <li><strong>Zwierzęta bez zdjęcia</strong> &mdash; bez zdjęcia zwierzę źle wypada na portalu publicznym i nie można go udostępnić w mediach społecznościowych.</li>
+            <li><strong>Najdłużej w schronisku</strong> &mdash; dostępne zwierzęta, które najdłużej czekają od przyjęcia, wraz z czasem oczekiwania: dobrzy kandydaci do promowania.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ostatnia aktywność</h3>
+        <p>Ostatnie przyjęcia (z datą przyjęcia i boksem), adopcje (z datą i imieniem adoptującego, ukrytym dla użytkowników z rolą Podgląd) i zgony (z datą).</p>
         <p>Dostępna pojemność liczy tylko własne boksy schroniska: skrzydła domów tymczasowych są pomijane, podobnie jak zwierzęta mieszkające w domach tymczasowych.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pulpit administratora</h3>
+        <p>Administratorzy nie należą do żadnego schroniska, dlatego ich pulpit pokazuje całą platformę: liczniki schronisk, użytkowników aktywnych w ostatnich 30 dniach, zwierząt pod opieką i adopcji w tym roku; tabelę schronisk z ich zwierzętami, adopcjami, ostatnim logowaniem i ostatnią aktualizacją zwierząt, najrzadziej używane jako pierwsze, a dawne logowania wyróżnione; <strong>Konfiguracja do dokończenia</strong> (schroniska bez gatunków, boksów lub użytkowników oraz gatunki bez ras); oraz <strong>Niezaakceptowane zaproszenia</strong>, czyli zaproszonych użytkowników, którzy nigdy się nie zalogowali. Pokazuje tylko sumy, nigdy zwierząt ani danych osobowych.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>Gdy portal publiczny jest włączony, pojawiają się dwie dodatkowe opcje: <strong>Opublikuj w portalu publicznym</strong> i <strong>Wyróżniony</strong>. Zobacz <a href="#public-portal" class="underline underline-offset-2">Portal publiczny</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wyszukiwanie i filtrowanie</h3>
-        <p>Szukaj po imieniu, numerze, mikroczipie lub notatkach wewnętrznych i filtruj według statusu, gatunku lub lokalizacji (obiekt, skrzydło lub kojec). Filtr <em>brakujące dane</em> wyszukuje zwierzęta bez wieku, bez zdjęcia, bez daty przyjęcia lub bez lokalizacji, co pomaga utrzymać kompletne karty.</p>
+        <p>Szukaj po nazwie, numerze referencyjnym, mikroczipie lub notatkach wewnętrznych i filtruj według statusu, gatunku lub lokalizacji (obiekt, skrzydło lub boks). Ostatni filtr znajduje zwierzęta z <strong>Otwartymi problemami zdrowotnymi</strong>, według sterylizacji (<strong>Wykastrowany</strong>, <strong>Niewykastrowany</strong>, <strong>Wykastrowany, brak szczegółów</strong>) lub z brakującymi danymi (bez wieku, bez zdjęcia, bez daty przyjęcia lub bez lokalizacji), co pomaga utrzymać kompletne karty. Zwierzęta z otwartym problemem zdrowotnym mają na liście serce obok imienia.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Drukowanie</h3>
         <p>Możesz wydrukować kartę pojedynczego zwierzęcia z jego strony albo listę zwierząt; wydrukowana lista używa tych samych filtrów, które są aktywne na ekranie.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Udostępnianie w mediach społecznościowych</h3>
         <p>Zwierzęta, które można adoptować i są dostępne, mają u góry swojej strony przycisk udostępniania. Przygotowuje on tekst z danymi zwierzęcia i kontaktami schroniska, gotowy do skopiowania, i pozwala pobrać główne zdjęcie, aby opublikować je na Facebooku, Instagramie lub WhatsAppie. Gdy zwierzę jest opublikowane na portalu publicznym, tekst zawiera link do zwierzęcia, a ponadto możesz udostępnić je bezpośrednio na Facebooku lub WhatsAppie.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zdrowie</h3>
-        <p>Rejestruj przy każdym zwierzęciu choroby (z datą diagnozy, statusem i notatkami o leczeniu), szczepienia i notatki kliniczne. Wielkości są dostępne tylko dla gatunków, dla których je skonfigurowano.</p>
+        <p>Rejestruj diagnozy na stronie zwierzęcia przyciskiem <strong>Nowa diagnoza</strong>: chorobę, datę diagnozy, status (<strong>Aktywna</strong>, <strong>Przewlekła</strong> lub <strong>Wyleczona</strong>) i notatki o leczeniu. Diagnoza oznaczona jako Wyleczona otrzymuje datę wyleczenia (domyślnie dzisiejszą). Aktywne i przewlekłe diagnozy to otwarte problemy zdrowotne zwierzęcia: widać je na jego stronie, na pulpicie i w filtrze listy zwierząt. Przy każdym zwierzęciu przechowywane są też szczepienia i notatki kliniczne. Rozmiary są dostępne tylko dla gatunków, które mają skonfigurowane rozmiary.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sterylizacja</h3>
+        <p>Gdy <strong>Wykastrowany / Wysterylizowany</strong> jest włączone, wpisz <strong>Datę sterylizacji</strong> i kto ją wykonał (<strong>Schronisko</strong> lub <strong>Przed przyjęciem</strong>); zostaw puste, jeśli nie wiadomo. Gdy jest wyłączone, wybierz <strong>Status sterylizacji</strong> (Oczekujący, Zaplanowana z datą lub Niezalecana) i dodaj notatki. Nowe zwierzęta, które nie są wysterylizowane, zaczynają ze statusem Oczekujący.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Zwierzęta</strong> &mdash; przyjęcia, adopcje, zwroty i zgony; liczba zwierząt w schronisku w czasie; przyjęcia i adopcje według gatunku; adopcje według wieku i mediana dni do adopcji; oraz dostępne zwierzęta, które czekają najdłużej.</li>
             <li><strong>Finanse</strong> &mdash; przychody według źródła (adopcje wirtualne, składki, wpisowe i opłaty adopcyjne), liczone według daty płatności; aktywne adopcje wirtualne w czasie i ich miesięczna wartość; członkowie aktywni, nowi i zalegający ze składkami, z oczekiwanymi i zebranymi składkami; płatności członków według metody; oraz adopcje wirtualne, których opłacony okres kończy się w ciągu 30 dni.</li>
             <li><strong>Obłożenie</strong> &mdash; dzisiejsze obłożenie, pojemność oraz zwierzęta w boksach, bez znanej lokalizacji i w domach tymczasowych; obłożenie w czasie i według skrzydła. Pojemność jest tylko orientacyjna, więc nie ma ostrzeżeń o przepełnieniu, a poprzednie miesiące są porównywane z obecną pojemnością.</li>
-            <li><strong>Zdrowie</strong> &mdash; podane szczepienia (według miesiąca i szczepionki), zaległe szczepienia, diagnozy według choroby, otwarte przypadki i odsetek wysterylizowanych zwierząt w schronisku.</li>
+            <li><strong>Zdrowie</strong> &mdash; wykonane szczepienia (miesięcznie i według szczepionki), zaległe szczepienia, diagnozy według choroby, otwarte przypadki, sterylizacje wykonane przez schronisko w danym okresie (z datą i wykonane przez schronisko) oraz odsetek wysterylizowanych zwierząt w schronisku.</li>
         </ul>
         <p>Najedź na wykres, aby zobaczyć wartości, lub otwórz <strong>Pokaż tabelę</strong> pod nim. Przycisk <strong>drukuj</strong> otwiera bieżącą kartę jako raport z danymi schroniska &mdash; na przykład roczne sprawozdanie z działalności na walne zgromadzenie &mdash; gotowy do wydruku lub zapisania jako PDF w przeglądarce.</p>
     </section>

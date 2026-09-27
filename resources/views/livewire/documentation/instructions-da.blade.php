@@ -52,11 +52,22 @@
         <p>Oversigten giver dig et billede af det aktive internat:</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Tællere for dyr på internatet, ledig burkapacitet og adoptioner i år. Ledere og medarbejdere ser også afventende adoptionsansøgninger, forsinkede vaccinationer og skyldige medlemskontingenter, hver med link til sin liste.</li>
-            <li>De seneste indtag, adoptioner, fadderskaber og dødsfald.</li>
-            <li>Dyr uden kendt placering, så de kan tildeles et bur.</li>
             <li>Advarsler, når noget stadig mangler, fx ingen bure eller arter uden racer.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kræver opmærksomhed</h3>
+        <p>Korte lister med dyr, hvor der skal gøres noget. Hver liste viser op til fem dyr og vises kun, når den har nogen; <strong>Se alle</strong> åbner dyrelisten med det tilsvarende filter.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Dyr med ukendt placering</strong> &mdash; dyr på internatet uden bur, og hvor længe, så de kan få en plads.</li>
+            <li><strong>Åbne helbredsproblemer</strong> &mdash; dyr med en aktiv eller kronisk diagnose, den nyeste diagnose først, med diagnoserne.</li>
+            <li><strong>Fadderskaber der skal fornyes</strong> &mdash; fadderskaber, hvis betalte periode sluttede inden for de sidste 30 dage eller slutter inden for de næste 30, med fadderens navn, så du kan kontakte vedkommende. Kun for internatledere og medarbejdere.</li>
+            <li><strong>Dyr uden foto</strong> &mdash; uden foto vises et dyr dårligt på den offentlige portal og kan ikke deles på sociale medier.</li>
+            <li><strong>Længst i internatet</strong> &mdash; de ledige dyr, der har ventet længst siden indtaget, og hvor længe: gode kandidater at fremhæve.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Seneste aktivitet</h3>
+        <p>De seneste indtag (med indtagsdato og bur), adoptioner (med dato og adoptantens fornavn, skjult for læsere) og dødsfald (med dato).</p>
         <p>Ledig kapacitet tæller kun internatets egne bure: fløje for plejefamilier tælles ikke med, og det gør dyrene, der bor hos plejefamilier, heller ikke.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Oversigt for administratorer</h3>
+        <p>Administratorer hører ikke til et internat, så deres oversigt viser hele platformen: tællere for internater, brugere aktive inden for de sidste 30 dage, dyr i pleje og adoptioner i år; en tabel over internaterne med deres dyr, adoptioner, seneste login og seneste dyreopdatering, de mindst brugte først og gamle logins fremhævet; <strong>Opsætning der mangler</strong> (internater uden arter, bure eller brugere, og arter uden racer); og <strong>Ikke accepterede invitationer</strong>, de inviterede brugere, der aldrig har logget ind. Den viser kun totaler, aldrig dyr eller personoplysninger.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>Når den offentlige portal er slået til, vises yderligere to indstillinger: <strong>Udgiv på den offentlige portal</strong> og <strong>Fremhævet</strong>. Se <a href="#public-portal" class="underline underline-offset-2">Offentlig portal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Søgning og filtrering</h3>
-        <p>Søg efter navn, reference, mikrochip eller interne noter, og filtrer efter status, art eller placering (anlæg, fløj eller bur). Filteret <em>manglende data</em> finder dyr uden alder, foto, indtagsdato eller placering, så dyrekortene holdes komplette.</p>
+        <p>Søg på navn, reference, mikrochip eller interne noter, og filtrer på status, art eller placering (facilitet, fløj eller bur). Det sidste filter finder dyr med <strong>Åbne helbredsproblemer</strong>, efter kastration (<strong>Kastreret</strong>, <strong>Ikke kastreret</strong>, <strong>Kastreret, detaljer mangler</strong>) eller med manglende data (ingen alder, intet foto, ingen indtagsdato eller ingen placering), hvilket hjælper med at holde journalerne komplette. Dyr med et åbent helbredsproblem har et hjerte ved siden af navnet på listen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Udskrivning</h3>
         <p>Du kan udskrive et enkelt dyrs kort fra dets side eller udskrive dyrelisten; den udskrevne liste bruger de samme filtre, som er aktive på skærmen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Del på sociale medier</h3>
         <p>Dyr, der kan adopteres og er tilgængelige, har en deleknap øverst på deres side. Den laver en tekst med dyrets oplysninger og internatets kontaktoplysninger, klar til at kopiere, og lader dig downloade hovedbilledet for at poste på Facebook, Instagram eller WhatsApp. Når dyret er offentliggjort på den offentlige portal, indeholder teksten et link til dyret, og du kan også dele det direkte på Facebook eller WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Helbred</h3>
-        <p>Registrer sygdomme (med diagnosedato, status og behandlingsnoter), vaccinationer og kliniske noter for hvert dyr. Størrelser tilbydes kun for arter, der har størrelser konfigureret.</p>
+        <p>Registrer diagnoser på dyrets side med <strong>Ny diagnose</strong>: sygdommen, diagnosedatoen, status (<strong>Aktiv</strong>, <strong>Kronisk</strong> eller <strong>Behandlet</strong>) og behandlingsnoter. En diagnose, der markeres som Behandlet, får en dato for helbredelse (som standard i dag). Aktive og kroniske diagnoser er dyrets åbne helbredsproblemer: de vises på dyrets side, på oversigten og i dyrelistens filter. Vaccinationer og kliniske noter gemmes også for hvert dyr. Størrelser tilbydes kun for arter, der har størrelser opsat.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kastration</h3>
+        <p>Når <strong>Kastreret / Steriliseret</strong> er slået til, registrerer du <strong>Kastrationsdato</strong> og hvem der udførte den (<strong>Internatet</strong> eller <strong>Før ankomst</strong>); lad dem stå tomme, hvis det er ukendt. Når det er slået fra, vælger du <strong>Kastrationsstatus</strong> (Afventer, Planlagt med dato, eller Frarådes) og tilføjer noter. Nye dyr, der ikke er kastreret, starter som Afventer.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Dyr</strong> &mdash; indtag, adoptioner, returneringer og dødsfald; antallet af dyr på internatet over tid; indtag og adoptioner pr. art; adoptioner efter alder og mediantallet af dage til adoption; samt de tilgængelige dyr, der har ventet længst.</li>
             <li><strong>Økonomi</strong> &mdash; indtægter efter kilde (fadderskaber, kontingenter, indmeldelsesgebyrer og adoptionsgebyrer), talt efter betalingsdato; aktive fadderskaber over tid og deres månedlige værdi; aktive, nye og restancemedlemmer med forventede og modtagne kontingenter; medlemsbetalinger efter metode; og de fadderskaber, hvis betalte periode slutter inden for 30 dage.</li>
             <li><strong>Belægning</strong> &mdash; dagens belægning, kapacitet og dyrene i bure, uden kendt placering og i plejefamilier; belægning over tid og pr. fløj. Kapaciteten er kun vejledende, så der er ingen advarsler om overbelægning, og tidligere måneder sammenlignes med dagens kapacitet.</li>
-            <li><strong>Helbred</strong> &mdash; givne vaccinationer (pr. måned og pr. vaccine), forsinkede vaccinationer, diagnoser efter sygdom, åbne sager og andelen af steriliserede dyr på internatet.</li>
+            <li><strong>Helbred</strong> &mdash; givne vaccinationer (pr. måned og pr. vaccine), forsinkede vaccinationer, diagnoser pr. sygdom, åbne sager, de kastrationer internatet har udført i perioden (med dato og udført af internatet) og andelen af steriliserede dyr på internatet.</li>
         </ul>
         <p>Hold musen over et diagram for at se værdierne, eller åbn <strong>Vis tabel</strong> under det. Knappen <strong>udskriv</strong> åbner den aktuelle fane som en rapport med internatets oplysninger &mdash; for eksempel den årlige aktivitetsrapport til generalforsamlingen &mdash;, klar til at udskrive eller gemme som PDF i browseren.</p>
     </section>

@@ -52,11 +52,22 @@
         <p>The dashboard gives you an overview of the active shelter:</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Counters for pets in the shelter, available cage capacity and adoptions this year. Managers and staff also see pending adoption applications, overdue vaccinations and overdue member fees, each linking to its list.</li>
-            <li>The most recent intakes, adoptions, sponsorships and deaths.</li>
-            <li>Pets with no known location, so they can be assigned to a cage.</li>
             <li>Warnings when something is still missing, such as no cages defined or species without breeds.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Needs attention</h3>
+        <p>Short lists of animals that need something done. Each shows up to five animals and only appears when it has any; <strong>View all</strong> opens the pets list with the matching filter.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Pets with Unknown Location</strong> &mdash; animals in the shelter with no cage, and for how long, so they can be placed.</li>
+            <li><strong>Open health issues</strong> &mdash; animals with an active or chronic diagnosis, the most recent diagnosis first, with the diagnoses.</li>
+            <li><strong>Sponsorships to Renew</strong> &mdash; sponsorships whose paid period ended in the last 30 days or ends in the next 30, with the sponsor&rsquo;s name, so you can contact them. Managers and staff only.</li>
+            <li><strong>Pets without a Photo</strong> &mdash; without a photo a pet can&rsquo;t be shown well on the public portal or shared on social media.</li>
+            <li><strong>Longest in the Shelter</strong> &mdash; the available animals that have waited longest since check-in, with how long: good candidates to promote.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Recent activity</h3>
+        <p>The latest intakes (with check-in date and cage), adoptions (with the date and the adopter&rsquo;s first name, hidden from viewers) and deaths (with the date).</p>
         <p>Available capacity only counts the shelter's own cages: foster family wings are left out, and so are the animals living with foster families.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Admin dashboard</h3>
+        <p>Admins do not belong to a shelter, so their dashboard shows the whole platform instead: counters for shelters, users active in the last 30 days, animals in care and adoptions this year; a table of the shelters with their animals, adoptions, last login and last pet update, the least recently used first and old logins highlighted; <strong>Setup to complete</strong> (shelters with no species, cages or users, and species without breeds); and <strong>Invitations not accepted</strong>, the invited users who never logged in. It shows totals only, never animals or people&rsquo;s details.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>When the public portal is enabled, two more options appear: <strong>Publish to Portal</strong> and <strong>Is Featured</strong>. See <a href="#public-portal" class="underline underline-offset-2">Public Portal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Searching and filtering</h3>
-        <p>Search by name, reference, microchip or internal notes, and filter by status, species or location (facility, wing or cage). The <em>missing data</em> filter finds pets with no age, no photo, no check-in date or no location, which helps keep records complete.</p>
+        <p>Search by name, reference, microchip or internal notes, and filter by status, species or location (facility, wing or cage). The last filter finds pets with <strong>Open health issues</strong>, by sterilisation (<strong>Neutered</strong>, <strong>Not neutered</strong>, <strong>Neutered, details missing</strong>) or with missing data (no age, no photo, no check-in date or no location), which helps keep records complete. Pets with an open health issue show a heart next to their name in the list.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Printing</h3>
         <p>You can print a single pet's sheet from its page, or print the pet list; the printed list uses the same filters that are active on screen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sharing on social media</h3>
         <p>Pets that are adoptable and available have a share button at the top of their page. It prepares a text with the pet's details and your shelter's contacts, ready to copy, and lets you download the main photo to post on Facebook, Instagram or WhatsApp. When the pet is published on the public portal, the text includes a link to the pet, and you can also share it straight to Facebook or WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Health</h3>
-        <p>Record sicknesses (with diagnosis date, status and treatment notes), vaccinations and clinical notes on each pet. Sizes are only offered for species that have sizes configured.</p>
+        <p>Record diagnoses on the pet&rsquo;s page with <strong>New Diagnosis</strong>: the sickness, the diagnosis date, the status (<strong>Active</strong>, <strong>Chronic</strong> or <strong>Treated</strong>) and treatment notes. A diagnosis marked as Treated gets a resolution date (today by default). Active and chronic diagnoses are the pet&rsquo;s open health issues: they show on the pet&rsquo;s page, on the dashboard and in the pets list filter. Vaccinations and clinical notes are also kept on each pet. Sizes are only offered for species that have sizes configured.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sterilisation</h3>
+        <p>With <strong>Is Neutered</strong> on, record the <strong>Neutering Date</strong> and who did it (<strong>The shelter</strong> or <strong>Before arrival</strong>); leave them empty when unknown. With it off, choose the <strong>Neutering Status</strong> (Pending, Scheduled with its date, or Not recommended) and add notes. New animals that are not neutered start as Pending.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Animals</strong> &mdash; intakes, adoptions, returns and deaths; the number of animals in the shelter over time; intakes and adoptions by species; adoptions by age and the median number of days until adoption; and the available animals that have been waiting longest.</li>
             <li><strong>Finances</strong> &mdash; income by source (sponsorships, membership fees, joining fees and adoption fees), counted by payment date; active sponsorships over time and their monthly value; active, new and overdue members, with the membership fees expected and collected; member payments by method; and the sponsorships whose paid period ends in the next 30 days.</li>
             <li><strong>Occupancy</strong> &mdash; today's occupancy, capacity, and the animals in cages, with no known location and in foster families; occupancy over time and by wing. Capacity is only a guideline, so there are no over-capacity warnings, and past months are compared with today's capacity.</li>
-            <li><strong>Health</strong> &mdash; vaccinations given (per month and by vaccine), overdue vaccinations, diagnoses by sickness, open cases and the share of sterilised animals in the shelter.</li>
+            <li><strong>Health</strong> &mdash; vaccinations given (per month and by vaccine), overdue vaccinations, diagnoses by sickness, open cases, the sterilisations performed by the shelter in the period (those with a date and done by the shelter) and the share of sterilised animals in the shelter.</li>
         </ul>
         <p>Hover over a chart to see its values, or open <strong>Show table</strong> below it. The <strong>print</strong> button opens the current tab as a report with the shelter's details &mdash; for example the yearly activity report for the general assembly &mdash; ready to print or save as PDF from the browser.</p>
     </section>

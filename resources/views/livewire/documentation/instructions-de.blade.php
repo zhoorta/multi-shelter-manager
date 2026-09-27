@@ -52,11 +52,22 @@
         <p>Die Übersicht zeigt Ihnen den Stand des aktiven Tierheims:</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Zähler für Tiere im Tierheim, freie Zwingerkapazität und Vermittlungen in diesem Jahr. Leitung und Mitarbeiter sehen außerdem offene Adoptionsanfragen, überfällige Impfungen und überfällige Mitgliedsbeiträge, jeweils mit Link zur Liste.</li>
-            <li>Die neuesten Aufnahmen, Vermittlungen, Patenschaften und Todesfälle.</li>
-            <li>Tiere ohne bekannten Standort, damit sie einem Zwinger zugewiesen werden können.</li>
             <li>Hinweise, wenn noch etwas fehlt, etwa wenn keine Zwinger definiert sind oder Tierarten keine Rassen haben.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Braucht Aufmerksamkeit</h3>
+        <p>Kurze Listen mit Tieren, bei denen etwas zu tun ist. Jede zeigt bis zu fünf Tiere und erscheint nur, wenn sie Einträge hat; <strong>Alle anzeigen</strong> öffnet die Tierliste mit dem passenden Filter.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Tiere mit unbekanntem Standort</strong> &mdash; Tiere im Tierheim ohne Zwinger, und seit wann, damit sie untergebracht werden können.</li>
+            <li><strong>Offene Gesundheitsprobleme</strong> &mdash; Tiere mit einer aktiven oder chronischen Diagnose, die neueste Diagnose zuerst, mit den Diagnosen.</li>
+            <li><strong>Zu erneuernde Patenschaften</strong> &mdash; Patenschaften, deren bezahlter Zeitraum in den letzten 30 Tagen endete oder in den nächsten 30 endet, mit dem Namen des Paten, damit Sie ihn kontaktieren können. Nur für Tierheimleitung und Mitarbeiter.</li>
+            <li><strong>Tiere ohne Foto</strong> &mdash; ohne Foto wird ein Tier im öffentlichen Portal schlecht präsentiert und kann nicht in sozialen Netzwerken geteilt werden.</li>
+            <li><strong>Am längsten im Tierheim</strong> &mdash; die verfügbaren Tiere, die seit der Aufnahme am längsten warten, mit der Wartezeit: gute Kandidaten, um sie zu bewerben.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Letzte Aktivitäten</h3>
+        <p>Die neuesten Aufnahmen (mit Aufnahmedatum und Zwinger), Vermittlungen (mit Datum und dem Vornamen des Adoptanten, für Leser ausgeblendet) und Todesfälle (mit Datum).</p>
         <p>Die verfügbare Kapazität zählt nur die eigenen Zwinger des Tierheims: Trakte für Pflegefamilien werden nicht mitgezählt, ebenso wenig die Tiere, die bei Pflegefamilien leben.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Übersicht für Administratoren</h3>
+        <p>Administratoren gehören zu keinem Tierheim, daher zeigt ihre Übersicht die ganze Plattform: Zähler für Tierheime, in den letzten 30 Tagen aktive Benutzer, betreute Tiere und Vermittlungen in diesem Jahr; eine Tabelle der Tierheime mit ihren Tieren, Vermittlungen, letzter Anmeldung und letzter Tieraktualisierung, die am wenigsten genutzten zuerst und alte Anmeldungen hervorgehoben; <strong>Offene Einrichtung</strong> (Tierheime ohne Tierarten, Zwinger oder Benutzer sowie Tierarten ohne Rassen); und <strong>Nicht angenommene Einladungen</strong>, die eingeladenen Benutzer, die sich nie angemeldet haben. Es werden nur Summen gezeigt, nie Tiere oder personenbezogene Daten.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>Ist das öffentliche Portal aktiviert, erscheinen zwei weitere Optionen: <strong>Im öffentlichen Portal veröffentlichen</strong> und <strong>Hervorgehoben</strong>. Siehe <a href="#public-portal" class="underline underline-offset-2">Öffentliches Portal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Suchen und Filtern</h3>
-        <p>Suchen Sie nach Name, Referenz, Mikrochip oder internen Notizen und filtern Sie nach Status, Tierart oder Standort (Einrichtung, Trakt oder Zwinger). Der Filter <em>fehlende Daten</em> findet Tiere ohne Alter, ohne Foto, ohne Aufnahmedatum oder ohne Standort und hilft so, die Einträge vollständig zu halten.</p>
+        <p>Suchen Sie nach Name, Referenz, Mikrochip oder internen Notizen und filtern Sie nach Status, Tierart oder Standort (Einrichtung, Trakt oder Zwinger). Der letzte Filter findet Tiere mit <strong>Offenen Gesundheitsproblemen</strong>, nach Kastration (<strong>Kastriert</strong>, <strong>Nicht kastriert</strong>, <strong>Kastriert, Angaben fehlen</strong>) oder mit fehlenden Daten (ohne Alter, ohne Foto, ohne Aufnahmedatum oder ohne Standort), was hilft, die Datensätze vollständig zu halten. Tiere mit einem offenen Gesundheitsproblem haben in der Liste ein Herz neben dem Namen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Drucken</h3>
         <p>Sie können das Datenblatt eines einzelnen Tieres von seiner Seite aus drucken oder die Tierliste drucken; die gedruckte Liste verwendet dieselben Filter, die auf dem Bildschirm aktiv sind.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">In sozialen Medien teilen</h3>
         <p>Vermittelbare und verfügbare Tiere haben oben auf ihrer Seite eine Teilen-Schaltfläche. Sie bereitet einen Text mit den Angaben zum Tier und den Kontaktdaten des Tierheims zum Kopieren vor und lässt Sie das Hauptfoto herunterladen, um es auf Facebook, Instagram oder WhatsApp zu posten. Ist das Tier im öffentlichen Portal veröffentlicht, enthält der Text einen Link zum Tier, und Sie können es auch direkt auf Facebook oder WhatsApp teilen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gesundheit</h3>
-        <p>Erfassen Sie bei jedem Tier Krankheiten (mit Diagnosedatum, Status und Behandlungsnotizen), Impfungen und klinische Notizen. Größen werden nur für Tierarten angeboten, für die Größen eingerichtet sind.</p>
+        <p>Erfassen Sie Diagnosen auf der Seite des Tieres mit <strong>Neue Diagnose</strong>: die Krankheit, das Diagnosedatum, den Status (<strong>Aktiv</strong>, <strong>Chronisch</strong> oder <strong>Behandelt</strong>) und Behandlungsnotizen. Eine als Behandelt markierte Diagnose erhält ein Abschlussdatum (standardmäßig heute). Aktive und chronische Diagnosen sind die offenen Gesundheitsprobleme des Tieres: Sie erscheinen auf seiner Seite, in der Übersicht und im Filter der Tierliste. Impfungen und klinische Notizen werden ebenfalls bei jedem Tier geführt. Größen werden nur für Tierarten angeboten, für die Größen eingerichtet sind.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kastration</h3>
+        <p>Ist <strong>Kastriert / Sterilisiert</strong> eingeschaltet, erfassen Sie das <strong>Kastrationsdatum</strong> und wer sie durchgeführt hat (<strong>Das Tierheim</strong> oder <strong>Vor der Aufnahme</strong>); lassen Sie die Felder leer, wenn es unbekannt ist. Ist es ausgeschaltet, wählen Sie den <strong>Kastrationsstatus</strong> (Ausstehend, Geplant mit Datum oder Nicht empfohlen) und ergänzen Sie Notizen. Neue, nicht kastrierte Tiere beginnen als Ausstehend.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Tiere</strong> &mdash; Aufnahmen, Vermittlungen, Rückgaben und Todesfälle; die Zahl der Tiere im Tierheim im Zeitverlauf; Aufnahmen und Vermittlungen nach Tierart; Vermittlungen nach Alter und der Median der Tage bis zur Adoption; sowie die verfügbaren Tiere, die am längsten warten.</li>
             <li><strong>Finanzen</strong> &mdash; Einnahmen nach Quelle (Patenschaften, Mitgliedsbeiträge, Aufnahmegebühren und Adoptionsgebühren), nach Zahlungsdatum gezählt; aktive Patenschaften im Zeitverlauf und ihr Monatswert; aktive, neue und säumige Mitglieder mit erwarteten und eingenommenen Beiträgen; Mitgliederzahlungen nach Zahlungsart; und die Patenschaften, deren bezahlter Zeitraum in den nächsten 30 Tagen endet.</li>
             <li><strong>Belegung</strong> &mdash; heutige Belegung, Kapazität sowie Tiere in Zwingern, ohne bekannten Standort und in Pflegefamilien; Belegung im Zeitverlauf und nach Trakt. Die Kapazität ist nur ein Richtwert, daher gibt es keine Überbelegungswarnungen, und frühere Monate werden mit der heutigen Kapazität verglichen.</li>
-            <li><strong>Gesundheit</strong> &mdash; verabreichte Impfungen (pro Monat und nach Impfstoff), überfällige Impfungen, Diagnosen nach Krankheit, offene Fälle und der Anteil kastrierter Tiere im Tierheim.</li>
+            <li><strong>Gesundheit</strong> &mdash; durchgeführte Impfungen (pro Monat und nach Impfstoff), überfällige Impfungen, Diagnosen nach Krankheit, offene Fälle, die im Zeitraum vom Tierheim durchgeführten Kastrationen (mit Datum und vom Tierheim durchgeführt) und der Anteil kastrierter Tiere im Tierheim.</li>
         </ul>
         <p>Fahren Sie mit der Maus über ein Diagramm, um die Werte zu sehen, oder öffnen Sie darunter <strong>Tabelle anzeigen</strong>. Der <strong>Drucken</strong>-Button öffnet den aktuellen Tab als Bericht mit den Daten des Tierheims &mdash; zum Beispiel den jährlichen Tätigkeitsbericht für die Mitgliederversammlung &mdash;, bereit zum Drucken oder zum Speichern als PDF im Browser.</p>
     </section>

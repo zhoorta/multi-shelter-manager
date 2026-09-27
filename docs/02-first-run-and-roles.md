@@ -41,6 +41,7 @@ The admin runs the **platform**, not the shelters. The sidebar shows **Dashboard
 
 | Menu | Purpose |
 |------|---------|
+| Dashboard | Overview of the whole platform: shelters, usage and setup still missing ([6.5](06-dashboard.md#65-the-admin-dashboard)) |
 | Users | Invite and manage users of every shelter, and other admins |
 | Shelters | Create, edit and remove shelters |
 | Regions | Regions (districts, counties, …) where shelters are located |

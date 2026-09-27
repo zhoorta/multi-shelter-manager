@@ -52,11 +52,22 @@
         <p>Le tableau de bord vous donne une vue d'ensemble du refuge actif :</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Des compteurs d'animaux au refuge, de capacité disponible dans les cages et d'adoptions de l'année. Les responsables et le personnel voient aussi les candidatures d'adoption en attente, les vaccins en retard et les cotisations en retard, chacun avec un lien vers sa liste.</li>
-            <li>Les arrivées, adoptions, parrainages et décès les plus récents.</li>
-            <li>Les animaux sans emplacement connu, afin de pouvoir les attribuer à une cage.</li>
             <li>Des avertissements lorsqu'il manque encore quelque chose, comme l'absence de cages ou des espèces sans races.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">À traiter</h3>
+        <p>De courtes listes d&rsquo;animaux qui demandent une action. Chacune montre jusqu&rsquo;à cinq animaux et n&rsquo;apparaît que si elle en contient ; <strong>Tout voir</strong> ouvre la liste des animaux avec le filtre correspondant.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Animaux à l&rsquo;Emplacement Inconnu</strong> &mdash; les animaux du refuge sans cage, et depuis combien de temps, pour pouvoir les placer.</li>
+            <li><strong>Problèmes de santé en cours</strong> &mdash; les animaux avec un diagnostic actif ou chronique, le diagnostic le plus récent en premier, avec les diagnostics.</li>
+            <li><strong>Parrainages à Renouveler</strong> &mdash; les parrainages dont la période payée a pris fin dans les 30 derniers jours ou se termine dans les 30 prochains, avec le nom du parrain, pour pouvoir le contacter. Réservé aux gestionnaires et aux employés.</li>
+            <li><strong>Animaux sans Photo</strong> &mdash; sans photo, un animal est mal présenté sur le portail public et ne peut pas être partagé sur les réseaux sociaux.</li>
+            <li><strong>Depuis le Plus Longtemps au Refuge</strong> &mdash; les animaux disponibles qui attendent depuis le plus longtemps depuis leur arrivée, avec la durée : de bons candidats à mettre en avant.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Activité récente</h3>
+        <p>Les dernières arrivées (avec la date d&rsquo;arrivée et la cage), adoptions (avec la date et le prénom de l&rsquo;adoptant, masqué pour les utilisateurs en consultation) et décès (avec la date).</p>
         <p>La capacité disponible ne compte que les box du refuge lui-même : les ailes de familles d'accueil en sont exclues, tout comme les animaux qui vivent en famille d'accueil.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tableau de bord de l&rsquo;administrateur</h3>
+        <p>Les administrateurs n&rsquo;appartiennent à aucun refuge ; leur tableau de bord montre donc toute la plateforme : des compteurs de refuges, d&rsquo;utilisateurs actifs ces 30 derniers jours, d&rsquo;animaux pris en charge et d&rsquo;adoptions de l&rsquo;année ; un tableau des refuges avec leurs animaux, adoptions, dernière connexion et dernière mise à jour des animaux, les moins utilisés en premier et les connexions anciennes mises en évidence ; <strong>Configuration à terminer</strong> (refuges sans espèces, cages ou utilisateurs, et espèces sans races) ; et <strong>Invitations non acceptées</strong>, les utilisateurs invités qui ne se sont jamais connectés. Il n&rsquo;affiche que des totaux, jamais d&rsquo;animaux ni de données personnelles.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>Lorsque le portail public est activé, deux options supplémentaires apparaissent : <strong>Publier sur le Portail Public</strong> et <strong>Mis en Avant</strong>. Voir <a href="#public-portal" class="underline underline-offset-2">Portail Public</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Recherche et filtres</h3>
-        <p>Recherchez par nom, référence, puce ou notes internes, et filtrez par statut, espèce ou emplacement (installation, aile ou cage). Le filtre <em>données manquantes</em> trouve les animaux sans âge, sans photo, sans date d'arrivée ou sans emplacement, ce qui aide à garder les fiches complètes.</p>
+        <p>Recherchez par nom, référence, puce ou notes internes, et filtrez par statut, espèce ou emplacement (installation, aile ou cage). Le dernier filtre trouve les animaux avec des <strong>Problèmes de santé en cours</strong>, selon la stérilisation (<strong>Stérilisé</strong>, <strong>Non stérilisé</strong>, <strong>Stérilisé, détails manquants</strong>) ou avec des données manquantes (sans âge, sans photo, sans date d&rsquo;arrivée ou sans emplacement), ce qui aide à garder les fiches complètes. Les animaux avec un problème de santé en cours ont un cœur à côté de leur nom dans la liste.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impression</h3>
         <p>Vous pouvez imprimer la fiche d'un animal depuis sa page, ou imprimer la liste des animaux ; la liste imprimée utilise les mêmes filtres que ceux actifs à l'écran.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Partager sur les réseaux sociaux</h3>
         <p>Les animaux adoptables et disponibles ont un bouton de partage en haut de leur page. Il prépare un texte avec les informations de l'animal et les coordonnées du refuge, prêt à copier, et permet de télécharger la photo principale pour publier sur Facebook, Instagram ou WhatsApp. Quand l'animal est publié sur le portail public, le texte inclut un lien vers l'animal, et vous pouvez aussi le partager directement sur Facebook ou WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Santé</h3>
-        <p>Enregistrez pour chaque animal les maladies (avec date de diagnostic, statut et notes de traitement), les vaccinations et les notes cliniques. Les tailles ne sont proposées que pour les espèces qui ont des tailles configurées.</p>
+        <p>Enregistrez les diagnostics sur la page de l&rsquo;animal avec <strong>Nouveau diagnostic</strong> : la maladie, la date du diagnostic, le statut (<strong>Active</strong>, <strong>Chronique</strong> ou <strong>Traitée</strong>) et des notes de traitement. Un diagnostic marqué Traitée reçoit une date de guérison (aujourd&rsquo;hui par défaut). Les diagnostics actifs et chroniques sont les problèmes de santé en cours de l&rsquo;animal : ils apparaissent sur sa page, sur le tableau de bord et dans le filtre de la liste des animaux. Les vaccinations et les notes cliniques sont aussi conservées pour chaque animal. Les tailles ne sont proposées que pour les espèces qui en ont.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Stérilisation</h3>
+        <p>Avec <strong>Stérilisé / Castré</strong> activé, indiquez la <strong>Date de stérilisation</strong> et qui l&rsquo;a faite (<strong>Le refuge</strong> ou <strong>Avant l&rsquo;arrivée</strong>) ; laissez-les vides si vous ne savez pas. Désactivé, choisissez le <strong>Statut de la stérilisation</strong> (En attente, Prévue avec sa date, ou Déconseillée) et ajoutez des notes. Les nouveaux animaux non stérilisés commencent En attente.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Animaux</strong> &mdash; entrées, adoptions, retours et décès ; le nombre d'animaux au refuge dans le temps ; entrées et adoptions par espèce ; adoptions par âge et nombre médian de jours avant l'adoption ; et les animaux disponibles qui attendent depuis le plus longtemps.</li>
             <li><strong>Finances</strong> &mdash; recettes par origine (parrainages, cotisations, droits d'adhésion et frais d'adoption), comptées par date de paiement ; parrainages actifs dans le temps et leur valeur mensuelle ; membres actifs, nouveaux et en retard de cotisation, avec les cotisations attendues et perçues ; paiements des membres par moyen ; et les parrainages dont la période payée se termine dans les 30 prochains jours.</li>
             <li><strong>Occupation</strong> &mdash; l'occupation du jour, la capacité et les animaux en box, sans emplacement connu et en familles d'accueil ; l'occupation dans le temps et par aile. La capacité n'est qu'indicative, il n'y a donc pas d'alerte de dépassement, et les mois passés sont comparés à la capacité actuelle.</li>
-            <li><strong>Santé</strong> &mdash; vaccins administrés (par mois et par vaccin), vaccins en retard, diagnostics par maladie, cas ouverts et part des animaux stérilisés au refuge.</li>
+            <li><strong>Santé</strong> &mdash; vaccinations effectuées (par mois et par vaccin), vaccins en retard, diagnostics par maladie, cas en cours, les stérilisations effectuées par le refuge sur la période (celles qui ont une date et ont été faites par le refuge) et la part d&rsquo;animaux stérilisés au refuge.</li>
         </ul>
         <p>Survolez un graphique pour voir ses valeurs, ou ouvrez <strong>Afficher le tableau</strong> en dessous. Le bouton <strong>imprimer</strong> ouvre l'onglet actuel sous forme de rapport avec les coordonnées du refuge &mdash; par exemple le rapport d'activité annuel pour l'assemblée générale &mdash; prêt à imprimer ou à enregistrer en PDF depuis le navigateur.</p>
     </section>

@@ -52,11 +52,22 @@
         <p>O painel de controlo dá-lhe uma visão geral do abrigo ativo:</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Contadores de animais no abrigo, capacidade disponível nas jaulas e adoções deste ano. Gestores e funcionários veem também as candidaturas de adoção pendentes, as vacinas em atraso e as quotas em atraso, cada uma com ligação para a respetiva lista.</li>
-            <li>As entradas, adoções, apadrinhamentos e óbitos mais recentes.</li>
-            <li>Animais sem localização conhecida, para que possam ser atribuídos a uma jaula.</li>
             <li>Avisos quando algo ainda falta, como não haver jaulas definidas ou espécies sem raças.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Precisa de atenção</h3>
+        <p>Listas curtas de animais que precisam de alguma ação. Cada uma mostra até cinco animais e só aparece quando tem algum; <strong>Ver todos</strong> abre a lista de animais com o filtro correspondente.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Animais com Localização Desconhecida</strong> &mdash; animais no abrigo sem jaula, e há quanto tempo, para que possam ser colocados.</li>
+            <li><strong>Problemas de saúde em aberto</strong> &mdash; animais com um diagnóstico ativo ou crónico, o diagnóstico mais recente primeiro, com os diagnósticos.</li>
+            <li><strong>Apadrinhamentos a Renovar</strong> &mdash; apadrinhamentos cujo período pago terminou nos últimos 30 dias ou termina nos próximos 30, com o nome do padrinho, para o poder contactar. Só para gestores e funcionários.</li>
+            <li><strong>Animais sem Fotografia</strong> &mdash; sem fotografia, um animal não se mostra bem no portal público nem pode ser partilhado nas redes sociais.</li>
+            <li><strong>Há Mais Tempo no Abrigo</strong> &mdash; os animais disponíveis que esperam há mais tempo desde a entrada, e há quanto tempo: bons candidatos a promover.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Atividade recente</h3>
+        <p>As entradas mais recentes (com data de entrada e jaula), adoções (com a data e o primeiro nome do adotante, oculto para os utilizadores de consulta) e óbitos (com a data).</p>
         <p>A capacidade disponível conta apenas as jaulas do próprio abrigo: as alas de famílias de acolhimento ficam de fora, tal como os animais que vivem com famílias de acolhimento.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Painel do administrador</h3>
+        <p>Os administradores não pertencem a um abrigo, por isso o seu painel mostra a plataforma inteira: contadores de abrigos, utilizadores ativos nos últimos 30 dias, animais ao cuidado e adoções deste ano; uma tabela dos abrigos com os seus animais, adoções, último acesso e última atualização de animais, os menos usados primeiro e os acessos antigos destacados; <strong>Configuração por concluir</strong> (abrigos sem espécies, jaulas ou utilizadores, e espécies sem raças); e <strong>Convites por aceitar</strong>, os utilizadores convidados que nunca entraram. Mostra apenas totais, nunca animais nem dados de pessoas.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>Quando o portal público está ativo, aparecem mais duas opções: <strong>Publicar no Portal Público</strong> e <strong>Destaque</strong>. Veja <a href="#public-portal" class="underline underline-offset-2">Portal Público</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pesquisa e filtros</h3>
-        <p>Pesquise por nome, referência, microchip ou notas internas, e filtre por estado, espécie ou localização (instalação, ala ou jaula). O filtro de <em>dados em falta</em> encontra animais sem idade, sem fotografia, sem data de entrada ou sem localização, o que ajuda a manter as fichas completas.</p>
+        <p>Pesquise por nome, referência, microchip ou notas internas, e filtre por estado, espécie ou localização (instalação, ala ou jaula). O último filtro encontra animais com <strong>Problemas de saúde em aberto</strong>, pela esterilização (<strong>Esterilizado</strong>, <strong>Não esterilizado</strong>, <strong>Esterilizado, faltam detalhes</strong>) ou com dados em falta (sem idade, sem fotografia, sem data de entrada ou sem localização), o que ajuda a manter as fichas completas. Os animais com um problema de saúde em aberto têm um coração junto ao nome na lista.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impressão</h3>
         <p>Pode imprimir a ficha de um animal a partir da sua página, ou imprimir a lista de animais; a lista impressa usa os mesmos filtros que estão ativos no ecrã.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Partilhar nas redes sociais</h3>
         <p>Os animais adotáveis e disponíveis têm um botão de partilha no topo da sua página. Prepara um texto com os dados do animal e os contactos do abrigo, pronto a copiar, e permite descarregar a fotografia principal para publicar no Facebook, Instagram ou WhatsApp. Quando o animal está publicado no portal público, o texto inclui uma ligação para o animal, e também pode partilhá-lo diretamente no Facebook ou no WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Saúde</h3>
-        <p>Registe doenças (com data de diagnóstico, estado e notas de tratamento), vacinações e notas clínicas em cada animal. Os tamanhos só são apresentados para espécies que tenham tamanhos configurados.</p>
+        <p>Registe diagnósticos na página do animal com <strong>Novo diagnóstico</strong>: a doença, a data do diagnóstico, o estado (<strong>Ativa</strong>, <strong>Crónica</strong> ou <strong>Tratada</strong>) e notas de tratamento. Um diagnóstico marcado como Tratada recebe uma data de resolução (hoje, por omissão). Os diagnósticos ativos e crónicos são os problemas de saúde em aberto do animal: aparecem na página do animal, no painel de controlo e no filtro da lista de animais. As vacinações e as notas clínicas também ficam em cada animal. Os portes só são apresentados para espécies que tenham portes configurados.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Esterilização</h3>
+        <p>Com <strong>Esterilizado / Castrado</strong> ligado, registe a <strong>Data da esterilização</strong> e quem a fez (<strong>O abrigo</strong> ou <strong>Antes da entrada</strong>); deixe-os vazios quando não se sabe. Desligado, escolha o <strong>Estado da esterilização</strong> (Pendente, Agendada com a respetiva data, ou Não recomendada) e acrescente notas. Os animais novos que não estão esterilizados começam como Pendente.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Animais</strong> &mdash; entradas, adoções, devoluções e óbitos; o número de animais no abrigo ao longo do tempo; entradas e adoções por espécie; adoções por idade e a mediana de dias até à adoção; e os animais disponíveis que esperam há mais tempo.</li>
             <li><strong>Finanças</strong> &mdash; receitas por origem (apadrinhamentos, quotas, joias e taxas de adoção), contadas pela data de pagamento; apadrinhamentos ativos ao longo do tempo e o seu valor mensal; sócios ativos, novos e com quotas em atraso, com as quotas previstas e recebidas; pagamentos de sócios por método; e os apadrinhamentos cujo período pago termina nos próximos 30 dias.</li>
             <li><strong>Ocupação</strong> &mdash; a ocupação de hoje, a capacidade e os animais em jaulas, sem localização conhecida e em famílias de acolhimento; a ocupação ao longo do tempo e por ala. A capacidade é apenas indicativa, por isso não há avisos de lotação excedida, e os meses anteriores são comparados com a capacidade atual.</li>
-            <li><strong>Saúde</strong> &mdash; vacinas administradas (por mês e por vacina), vacinas em atraso, diagnósticos por doença, casos em aberto e a percentagem de animais esterilizados no abrigo.</li>
+            <li><strong>Saúde</strong> &mdash; vacinações dadas (por mês e por vacina), vacinas em atraso, diagnósticos por doença, casos em aberto, as esterilizações realizadas pelo abrigo no período (as que têm data e foram feitas pelo abrigo) e a percentagem de animais esterilizados no abrigo.</li>
         </ul>
         <p>Passe o rato sobre um gráfico para ver os valores, ou abra <strong>Ver tabela</strong> por baixo dele. O botão <strong>imprimir</strong> abre o separador atual como relatório com os dados do abrigo &mdash; por exemplo o relatório de atividades anual para a assembleia geral &mdash; pronto a imprimir ou a guardar em PDF a partir do navegador.</p>
     </section>

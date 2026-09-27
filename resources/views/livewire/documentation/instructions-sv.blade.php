@@ -52,11 +52,22 @@
         <p>Översikten ger dig en bild av det aktiva djurhemmet:</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Räknare för djur på hemmet, ledig burkapacitet och adoptioner i år. Ansvariga och personal ser också väntande adoptionsansökningar, försenade vaccinationer och obetalda medlemsavgifter, var och en med länk till sin lista.</li>
-            <li>De senaste intagen, adoptionerna, fadderskapen och dödsfallen.</li>
-            <li>Djur utan känd placering, så att de kan tilldelas en bur.</li>
             <li>Varningar när något fortfarande saknas, till exempel inga burar eller arter utan raser.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Behöver åtgärdas</h3>
+        <p>Korta listor med djur där något behöver göras. Varje lista visar upp till fem djur och syns bara när den har några; <strong>Visa alla</strong> öppnar djurlistan med motsvarande filter.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Djur med okänd placering</strong> &mdash; djur på hemmet utan bur, och sedan hur länge, så att de kan få en plats.</li>
+            <li><strong>Öppna hälsoproblem</strong> &mdash; djur med en aktiv eller kronisk diagnos, den senaste diagnosen först, med diagnoserna.</li>
+            <li><strong>Fadderskap att förnya</strong> &mdash; fadderskap vars betalda period tog slut de senaste 30 dagarna eller tar slut de kommande 30, med faddrens namn, så att du kan kontakta hen. Endast för föreståndare och personal.</li>
+            <li><strong>Djur utan foto</strong> &mdash; utan foto visas ett djur dåligt på den publika portalen och kan inte delas i sociala medier.</li>
+            <li><strong>Längst på hemmet</strong> &mdash; de tillgängliga djuren som har väntat längst sedan intaget, och hur länge: bra kandidater att lyfta fram.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Senaste aktivitet</h3>
+        <p>De senaste intagen (med intagsdatum och bur), adoptionerna (med datum och adoptantens förnamn, dolt för läsare) och dödsfallen (med datum).</p>
         <p>Ledig kapacitet räknar bara härbärgets egna burar: flyglar för jourhem räknas inte, och inte heller djuren som bor i jourhem.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Översikt för administratörer</h3>
+        <p>Administratörer hör inte till något djurhem, så deras översikt visar hela plattformen: räknare för djurhem, användare aktiva de senaste 30 dagarna, djur i vård och adoptioner i år; en tabell över djurhemmen med deras djur, adoptioner, senaste inloggning och senaste djuruppdatering, de minst använda först och gamla inloggningar markerade; <strong>Inställningar att slutföra</strong> (djurhem utan arter, burar eller användare, och arter utan raser); och <strong>Ej accepterade inbjudningar</strong>, de inbjudna användare som aldrig har loggat in. Den visar bara summor, aldrig djur eller personuppgifter.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>När den öppna portalen är aktiverad visas ytterligare två alternativ: <strong>Publicera på den öppna portalen</strong> och <strong>Utvald</strong>. Se <a href="#public-portal" class="underline underline-offset-2">Öppen portal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sökning och filtrering</h3>
-        <p>Sök på namn, referens, mikrochip eller interna anteckningar och filtrera på status, art eller placering (anläggning, flygel eller bur). Filtret <em>saknade uppgifter</em> hittar djur utan ålder, foto, intagsdatum eller placering, vilket hjälper dig att hålla djurkorten kompletta.</p>
+        <p>Sök på namn, referens, mikrochip eller interna anteckningar och filtrera på status, art eller placering (anläggning, flygel eller bur). Det sista filtret hittar djur med <strong>Öppna hälsoproblem</strong>, efter kastrering (<strong>Kastrerad</strong>, <strong>Inte kastrerad</strong>, <strong>Kastrerad, uppgifter saknas</strong>) eller med saknade uppgifter (ingen ålder, inget foto, inget intagsdatum eller ingen placering), vilket hjälper till att hålla journalerna fullständiga. Djur med ett öppet hälsoproblem har ett hjärta bredvid namnet i listan.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Utskrift</h3>
         <p>Du kan skriva ut ett enskilt djurs kort från dess sida, eller skriva ut djurlistan; den utskrivna listan använder samma filter som är aktiva på skärmen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Dela i sociala medier</h3>
         <p>Djur som kan adopteras och är tillgängliga har en delningsknapp högst upp på sin sida. Den förbereder en text med djurets uppgifter och djurhemmets kontaktuppgifter, klar att kopiera, och låter dig ladda ner huvudfotot för att publicera på Facebook, Instagram eller WhatsApp. När djuret är publicerat på den offentliga portalen innehåller texten en länk till djuret, och du kan även dela det direkt på Facebook eller WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hälsa</h3>
-        <p>Registrera sjukdomar (med diagnosdatum, status och behandlingsanteckningar), vaccinationer och kliniska anteckningar för varje djur. Storlekar erbjuds bara för arter som har storlekar konfigurerade.</p>
+        <p>Registrera diagnoser på djurets sida med <strong>Ny diagnos</strong>: sjukdomen, diagnosdatumet, statusen (<strong>Aktiv</strong>, <strong>Kronisk</strong> eller <strong>Behandlad</strong>) och behandlingsanteckningar. En diagnos som markeras som Behandlad får ett datum för tillfrisknande (i dag som standard). Aktiva och kroniska diagnoser är djurets öppna hälsoproblem: de visas på djurets sida, i översikten och i djurlistans filter. Vaccinationer och kliniska anteckningar sparas också för varje djur. Storlekar erbjuds bara för arter som har storlekar inställda.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kastrering</h3>
+        <p>När <strong>Kastrerad / Steriliserad</strong> är på fyller du i <strong>Kastreringsdatum</strong> och vem som utförde den (<strong>Härbärget</strong> eller <strong>Före ankomst</strong>); lämna dem tomma om det är okänt. När det är av väljer du <strong>Kastreringsstatus</strong> (Väntande, Planerad med datum, eller Rekommenderas inte) och lägger till anteckningar. Nya djur som inte är kastrerade börjar som Väntande.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Djur</strong> &mdash; intag, adoptioner, returer och dödsfall; antalet djur på härbärget över tid; intag och adoptioner per art; adoptioner efter ålder och mediantiden i dagar till adoption; samt de tillgängliga djur som väntat längst.</li>
             <li><strong>Ekonomi</strong> &mdash; intäkter per källa (faddertjänster, medlemsavgifter, inträdesavgifter och adoptionsavgifter), räknade efter betalningsdatum; aktiva faddertjänster över tid och deras månadsvärde; aktiva, nya och efterliggande medlemmar med förväntade och inbetalda avgifter; medlemsbetalningar per metod; och de faddertjänster vars betalda period slutar inom 30 dagar.</li>
             <li><strong>Beläggning</strong> &mdash; dagens beläggning, kapacitet och djuren i burar, utan känd plats och i jourhem; beläggning över tid och per flygel. Kapaciteten är bara riktvärde, så det finns inga varningar för överbeläggning, och tidigare månader jämförs med dagens kapacitet.</li>
-            <li><strong>Hälsa</strong> &mdash; givna vaccinationer (per månad och per vaccin), försenade vaccinationer, diagnoser per sjukdom, öppna fall och andelen kastrerade djur på härbärget.</li>
+            <li><strong>Hälsa</strong> &mdash; givna vaccinationer (per månad och per vaccin), försenade vaccinationer, diagnoser per sjukdom, öppna fall, de kastreringar som hemmet utfört under perioden (med datum och utförda av hemmet) och andelen kastrerade djur på hemmet.</li>
         </ul>
         <p>Håll muspekaren över ett diagram för att se värdena, eller öppna <strong>Visa tabell</strong> under det. Knappen <strong>skriv ut</strong> öppnar den aktuella fliken som en rapport med härbärgets uppgifter &mdash; till exempel den årliga verksamhetsberättelsen till årsmötet &mdash;, klar att skriva ut eller spara som PDF i webbläsaren.</p>
     </section>

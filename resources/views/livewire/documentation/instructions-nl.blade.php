@@ -52,11 +52,22 @@
         <p>Het dashboard geeft u een overzicht van het actieve asiel:</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Tellers voor dieren in het asiel, beschikbare hokcapaciteit en adopties dit jaar. Beheerders en medewerkers zien ook openstaande adoptieaanvragen, achterstallige vaccinaties en achterstallige contributies, elk met een link naar de lijst.</li>
-            <li>De meest recente opnames, adopties, sponsorschappen en overlijdens.</li>
-            <li>Dieren zonder bekende locatie, zodat ze aan een hok kunnen worden toegewezen.</li>
             <li>Waarschuwingen wanneer er nog iets ontbreekt, zoals geen hokken ingesteld of diersoorten zonder rassen.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vraagt aandacht</h3>
+        <p>Korte lijsten met dieren waarvoor iets moet gebeuren. Elke lijst toont tot vijf dieren en verschijnt alleen als er dieren in staan; <strong>Alles bekijken</strong> opent de dierenlijst met het bijbehorende filter.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Dieren met onbekende locatie</strong> &mdash; dieren in het asiel zonder hok, en sinds wanneer, zodat ze een plek kunnen krijgen.</li>
+            <li><strong>Openstaande gezondheidsproblemen</strong> &mdash; dieren met een actieve of chronische diagnose, de meest recente diagnose eerst, met de diagnoses.</li>
+            <li><strong>Te verlengen sponsorschappen</strong> &mdash; sponsorschappen waarvan de betaalde periode in de afgelopen 30 dagen is afgelopen of in de komende 30 afloopt, met de naam van de sponsor, zodat u contact kunt opnemen. Alleen voor asielbeheerders en medewerkers.</li>
+            <li><strong>Dieren zonder foto</strong> &mdash; zonder foto komt een dier niet goed over op het openbare portaal en kan het niet op sociale media worden gedeeld.</li>
+            <li><strong>Het langst in het asiel</strong> &mdash; de beschikbare dieren die sinds hun opname het langst wachten, met hoe lang: goede kandidaten om extra onder de aandacht te brengen.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Recente activiteit</h3>
+        <p>De laatste opnames (met opnamedatum en hok), adopties (met de datum en de voornaam van de adoptant, verborgen voor kijkers) en overlijdens (met de datum).</p>
         <p>De beschikbare capaciteit telt alleen de eigen hokken van het asiel: vleugels voor pleeggezinnen tellen niet mee, en de dieren die bij pleeggezinnen wonen evenmin.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Dashboard voor beheerders</h3>
+        <p>Beheerders horen niet bij een asiel, dus hun dashboard toont het hele platform: tellers voor asielen, gebruikers die in de laatste 30 dagen actief waren, dieren in zorg en adopties dit jaar; een tabel van de asielen met hun dieren, adopties, laatste login en laatste dierupdate, de minst gebruikte eerst en oude logins gemarkeerd; <strong>Nog in te stellen</strong> (asielen zonder diersoorten, hokken of gebruikers, en diersoorten zonder rassen); en <strong>Niet geaccepteerde uitnodigingen</strong>, de uitgenodigde gebruikers die nooit hebben ingelogd. Het toont alleen totalen, nooit dieren of persoonsgegevens.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>Als het openbare portaal is ingeschakeld, verschijnen er twee extra opties: <strong>Publiceren op het openbare portaal</strong> en <strong>Uitgelicht</strong>. Zie <a href="#public-portal" class="underline underline-offset-2">Openbaar portaal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zoeken en filteren</h3>
-        <p>Zoek op naam, referentie, chip of interne notities en filter op status, diersoort of locatie (locatie, vleugel of hok). Het filter <em>ontbrekende gegevens</em> vindt dieren zonder leeftijd, zonder foto, zonder opnamedatum of zonder locatie, zodat de dossiers compleet blijven.</p>
+        <p>Zoek op naam, referentie, microchip of interne notities, en filter op status, diersoort of locatie (locatie, vleugel of hok). Het laatste filter vindt dieren met <strong>Openstaande gezondheidsproblemen</strong>, op castratie (<strong>Gecastreerd</strong>, <strong>Niet gecastreerd</strong>, <strong>Gecastreerd, gegevens ontbreken</strong>) of met ontbrekende gegevens (geen leeftijd, geen foto, geen opnamedatum of geen locatie), wat helpt om de dossiers volledig te houden. Dieren met een openstaand gezondheidsprobleem hebben een hartje naast hun naam in de lijst.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Afdrukken</h3>
         <p>U kunt het dossier van één dier afdrukken vanaf de pagina van dat dier, of de dierenlijst afdrukken; de afgedrukte lijst gebruikt dezelfde filters die op het scherm actief zijn.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Delen op sociale media</h3>
         <p>Adopteerbare en beschikbare dieren hebben bovenaan hun pagina een deelknop. Die maakt een tekst met de gegevens van het dier en de contactgegevens van het asiel, klaar om te kopiëren, en laat u de hoofdfoto downloaden om te posten op Facebook, Instagram of WhatsApp. Als het dier op het openbare portaal staat, bevat de tekst een link naar het dier en kunt u het ook rechtstreeks delen op Facebook of WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gezondheid</h3>
-        <p>Registreer bij elk dier ziektes (met diagnosedatum, status en behandelnotities), vaccinaties en klinische notities. Formaten worden alleen aangeboden voor diersoorten waarvoor formaten zijn ingesteld.</p>
+        <p>Registreer diagnoses op de pagina van het dier met <strong>Nieuwe diagnose</strong>: de ziekte, de diagnosedatum, de status (<strong>Actief</strong>, <strong>Chronisch</strong> of <strong>Behandeld</strong>) en behandelnotities. Een diagnose die als Behandeld is gemarkeerd krijgt een datum van herstel (standaard vandaag). Actieve en chronische diagnoses zijn de openstaande gezondheidsproblemen van het dier: ze staan op de pagina van het dier, op het dashboard en in het filter van de dierenlijst. Vaccinaties en klinische notities worden ook per dier bijgehouden. Maten worden alleen aangeboden voor diersoorten waarvoor maten zijn ingesteld.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Castratie</h3>
+        <p>Staat <strong>Gecastreerd / Gesteriliseerd</strong> aan, vul dan de <strong>Castratiedatum</strong> in en wie de ingreep deed (<strong>Het asiel</strong> of <strong>Voor aankomst</strong>); laat ze leeg als het onbekend is. Staat het uit, kies dan de <strong>Castratiestatus</strong> (In behandeling, Gepland met de datum, of Niet aanbevolen) en voeg notities toe. Nieuwe dieren die niet gecastreerd zijn beginnen als In behandeling.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Dieren</strong> &mdash; opnames, adopties, terugbrengingen en overlijdens; het aantal dieren in het asiel door de tijd; opnames en adopties per diersoort; adopties per leeftijd en het mediane aantal dagen tot adoptie; en de beschikbare dieren die het langst wachten.</li>
             <li><strong>Financiën</strong> &mdash; inkomsten per bron (peterschappen, contributies, inschrijfgelden en adoptiekosten), geteld op betaaldatum; actieve peterschappen door de tijd en hun maandelijkse waarde; actieve, nieuwe en achterstallige leden met verwachte en ontvangen contributies; betalingen van leden per methode; en de peterschappen waarvan de betaalde periode binnen 30 dagen afloopt.</li>
             <li><strong>Bezetting</strong> &mdash; de bezetting van vandaag, de capaciteit en de dieren in hokken, zonder bekende locatie en in pleeggezinnen; de bezetting door de tijd en per vleugel. Capaciteit is slechts een richtlijn, dus er zijn geen waarschuwingen voor overbezetting, en vorige maanden worden vergeleken met de huidige capaciteit.</li>
-            <li><strong>Gezondheid</strong> &mdash; toegediende vaccinaties (per maand en per vaccin), achterstallige vaccinaties, diagnoses per ziekte, open gevallen en het aandeel gesteriliseerde dieren in het asiel.</li>
+            <li><strong>Gezondheid</strong> &mdash; gegeven vaccinaties (per maand en per vaccin), achterstallige vaccinaties, diagnoses per ziekte, openstaande gevallen, de castraties die het asiel in de periode heeft uitgevoerd (met een datum en door het asiel gedaan) en het aandeel gecastreerde dieren in het asiel.</li>
         </ul>
         <p>Beweeg over een grafiek om de waarden te zien, of open <strong>Tabel tonen</strong> eronder. De knop <strong>afdrukken</strong> opent het huidige tabblad als rapport met de gegevens van het asiel &mdash; bijvoorbeeld het jaarlijkse activiteitenverslag voor de algemene vergadering &mdash;, klaar om af te drukken of als PDF op te slaan in de browser.</p>
     </section>

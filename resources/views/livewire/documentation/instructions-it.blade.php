@@ -52,11 +52,22 @@
         <p>Il pannello di controllo offre una panoramica del rifugio attivo:</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Contatori di animali nel rifugio, capienza disponibile nelle gabbie e adozioni dell'anno. Responsabili e personale vedono anche le richieste di adozione in attesa, le vaccinazioni scadute e le quote associative arretrate, ciascuno con un link alla relativa lista.</li>
-            <li>Gli ingressi, le adozioni, le adozioni a distanza e i decessi più recenti.</li>
-            <li>Gli animali senza una posizione nota, così da poterli assegnare a una gabbia.</li>
             <li>Avvisi quando manca ancora qualcosa, ad esempio nessuna gabbia definita o specie senza razze.</li>
         </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Richiede attenzione</h3>
+        <p>Brevi elenchi di animali per cui c&rsquo;è qualcosa da fare. Ognuno mostra fino a cinque animali e compare solo quando ne contiene; <strong>Vedi tutti</strong> apre l&rsquo;elenco degli animali con il filtro corrispondente.</p>
+        <ul class="list-disc space-y-1 ps-6">
+            <li><strong>Animali con Posizione Sconosciuta</strong> &mdash; gli animali del rifugio senza box, e da quanto tempo, per poterli sistemare.</li>
+            <li><strong>Problemi di salute aperti</strong> &mdash; gli animali con una diagnosi attiva o cronica, la diagnosi più recente per prima, con le diagnosi.</li>
+            <li><strong>Adozioni a distanza da rinnovare</strong> &mdash; le adozioni a distanza il cui periodo pagato è terminato negli ultimi 30 giorni o termina nei prossimi 30, con il nome del sostenitore, per poterlo contattare. Solo per responsabili e operatori.</li>
+            <li><strong>Animali senza foto</strong> &mdash; senza foto un animale non si presenta bene sul portale pubblico e non può essere condiviso sui social.</li>
+            <li><strong>Da più tempo al rifugio</strong> &mdash; gli animali disponibili che aspettano da più tempo dal loro ingresso, con la durata: buoni candidati da promuovere.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Attività recente</h3>
+        <p>Gli ultimi ingressi (con data di ingresso e box), adozioni (con la data e il nome dell&rsquo;adottante, nascosto agli utenti in consultazione) e decessi (con la data).</p>
         <p>La capacità disponibile conta solo i box del rifugio: le ali delle famiglie affidatarie sono escluse, così come gli animali che vivono in famiglia affidataria.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pannello dell&rsquo;amministratore</h3>
+        <p>Gli amministratori non appartengono a un rifugio, quindi il loro pannello mostra l&rsquo;intera piattaforma: contatori di rifugi, utenti attivi negli ultimi 30 giorni, animali in carico e adozioni dell&rsquo;anno; una tabella dei rifugi con i loro animali, adozioni, ultimo accesso e ultimo aggiornamento degli animali, i meno usati per primi e gli accessi vecchi evidenziati; <strong>Configurazione da completare</strong> (rifugi senza specie, box o utenti, e specie senza razze); e <strong>Inviti non accettati</strong>, gli utenti invitati che non hanno mai effettuato l&rsquo;accesso. Mostra solo totali, mai animali o dati personali.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -77,13 +88,15 @@
         </ul>
         <p>Quando il portale pubblico è attivo, compaiono altre due opzioni: <strong>Pubblica sul Portale Pubblico</strong> e <strong>In Evidenza</strong>. Vedi <a href="#public-portal" class="underline underline-offset-2">Portale Pubblico</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ricerca e filtri</h3>
-        <p>Cerca per nome, riferimento, microchip o note interne e filtra per stato, specie o posizione (struttura, ala o gabbia). Il filtro <em>dati mancanti</em> trova gli animali senza età, senza foto, senza data di ingresso o senza posizione, aiutando a mantenere le schede complete.</p>
+        <p>Cerca per nome, riferimento, microchip o note interne, e filtra per stato, specie o posizione (struttura, ala o box). L&rsquo;ultimo filtro trova gli animali con <strong>Problemi di salute aperti</strong>, per sterilizzazione (<strong>Sterilizzato</strong>, <strong>Non sterilizzato</strong>, <strong>Sterilizzato, dettagli mancanti</strong>) o con dati mancanti (senza età, senza foto, senza data di ingresso o senza posizione), il che aiuta a mantenere complete le schede. Gli animali con un problema di salute aperto hanno un cuore accanto al nome nell&rsquo;elenco.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Stampa</h3>
         <p>Puoi stampare la scheda di un singolo animale dalla sua pagina, oppure stampare l'elenco degli animali; l'elenco stampato usa gli stessi filtri attivi sullo schermo.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Condividere sui social</h3>
         <p>Gli animali adottabili e disponibili hanno in alto nella loro pagina un pulsante di condivisione. Prepara un testo con i dati dell'animale e i contatti del rifugio, pronto da copiare, e permette di scaricare la foto principale per pubblicarla su Facebook, Instagram o WhatsApp. Quando l'animale è pubblicato sul portale pubblico, il testo include un link all'animale e puoi anche condividerlo direttamente su Facebook o WhatsApp.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Salute</h3>
-        <p>Registra per ogni animale le malattie (con data di diagnosi, stato e note sul trattamento), le vaccinazioni e le note cliniche. Le taglie sono proposte solo per le specie che hanno taglie configurate.</p>
+        <p>Registra le diagnosi nella pagina dell&rsquo;animale con <strong>Nuova diagnosi</strong>: la malattia, la data della diagnosi, lo stato (<strong>Attiva</strong>, <strong>Cronica</strong> o <strong>Trattata</strong>) e le note sul trattamento. Una diagnosi segnata come Trattata riceve una data di risoluzione (oggi, per impostazione predefinita). Le diagnosi attive e croniche sono i problemi di salute aperti dell&rsquo;animale: compaiono nella sua pagina, nel pannello di controllo e nel filtro dell&rsquo;elenco degli animali. Anche le vaccinazioni e le note cliniche sono conservate per ogni animale. Le taglie vengono proposte solo per le specie che hanno taglie configurate.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sterilizzazione</h3>
+        <p>Con <strong>Sterilizzato / Castrato</strong> attivo, indica la <strong>Data della sterilizzazione</strong> e chi l&rsquo;ha eseguita (<strong>Il rifugio</strong> o <strong>Prima dell&rsquo;ingresso</strong>); lasciali vuoti se non si sa. Disattivato, scegli lo <strong>Stato della sterilizzazione</strong> (In attesa, Programmata con la data, o Sconsigliata) e aggiungi note. I nuovi animali non sterilizzati partono In attesa.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -167,7 +180,7 @@
             <li><strong>Animali</strong> &mdash; ingressi, adozioni, restituzioni e decessi; il numero di animali nel rifugio nel tempo; ingressi e adozioni per specie; adozioni per età e la mediana dei giorni fino all'adozione; e gli animali disponibili che aspettano da più tempo.</li>
             <li><strong>Finanze</strong> &mdash; entrate per origine (adozioni a distanza, quote associative, quote di iscrizione e contributi di adozione), contate per data di pagamento; adozioni a distanza attive nel tempo e il loro valore mensile; soci attivi, nuovi e con quote arretrate, con le quote previste e incassate; pagamenti dei soci per metodo; e le adozioni a distanza il cui periodo pagato termina nei prossimi 30 giorni.</li>
             <li><strong>Occupazione</strong> &mdash; l'occupazione di oggi, la capacità e gli animali nei box, senza posizione nota e in famiglia affidataria; l'occupazione nel tempo e per ala. La capacità è solo indicativa, quindi non ci sono avvisi di sovraffollamento, e i mesi passati sono confrontati con la capacità attuale.</li>
-            <li><strong>Salute</strong> &mdash; vaccinazioni somministrate (per mese e per vaccino), vaccinazioni in ritardo, diagnosi per malattia, casi aperti e la quota di animali sterilizzati nel rifugio.</li>
+            <li><strong>Salute</strong> &mdash; vaccinazioni somministrate (per mese e per vaccino), vaccinazioni scadute, diagnosi per malattia, casi aperti, le sterilizzazioni eseguite dal rifugio nel periodo (quelle con una data ed eseguite dal rifugio) e la quota di animali sterilizzati nel rifugio.</li>
         </ul>
         <p>Passa il mouse su un grafico per vederne i valori, oppure apri <strong>Mostra tabella</strong> sotto di esso. Il pulsante <strong>stampa</strong> apre la scheda attuale come report con i dati del rifugio &mdash; ad esempio la relazione annuale delle attività per l'assemblea generale &mdash;, pronto da stampare o salvare in PDF dal browser.</p>
     </section>

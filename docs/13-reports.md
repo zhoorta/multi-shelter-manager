@@ -64,6 +64,7 @@ Cage capacity is only a guideline, so the reports never warn about a shelter bei
 - **Vaccinations given** — per month and by vaccine.
 - **Overdue vaccinations** — links to the vaccinations list, filtered.
 - **Diagnoses** by sickness and **open cases** (active or chronic).
+- **Sterilisations performed** — the sterilisations the shelter did in the period: animals marked as neutered by *The shelter* with a neutering date in the period ([7.2](07-pets.md#sterilisation)).
 - **Sterilised animals in the shelter** — the share of animals in the shelter today that are neutered or spayed.
 
 ## 13.6 Printing a report

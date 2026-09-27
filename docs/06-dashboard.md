@@ -2,7 +2,7 @@
 
 [← Facilities, wings and cages](05-facilities.md) · [Documentation index](README.md) · [Next: Pets →](07-pets.md)
 
-> **Who:** Manager, Staff and Viewer.
+> **Who:** Manager, Staff and Viewer. Admins get a platform overview instead ([6.5](#65-the-admin-dashboard)).
 
 The dashboard is the first page you see after logging in. It gives you a summary of the **active shelter**, whose name is shown at the top.
 
@@ -24,24 +24,45 @@ Managers and staff also see three counters that call for action. Each one opens 
 | **Overdue Vaccinations** | Scheduled vaccinations past their due date ([chapter 8](08-vaccinations.md)) |
 | **Fees overdue** | Members with an unpaid joining fee or no membership fee covering today ([12.5](12-members.md#125-fees-overdue)) |
 
-## 6.2 Panels
+## 6.2 Needs attention
 
-| Panel | What it shows |
-|-------|---------------|
-| **Pets with Unknown Location** | Animals in the shelter that have no cage yet. Open them and set a cage so the team always knows where every animal is |
-| **Recent Adoptions** | The latest animals to be adopted |
-| **Recent Passings** | The latest animals that have died |
-| **Recent Sponsorships** | The latest animals to get a sponsor |
-| **Recent Intakes** | The latest animals to arrive (by check-in date) |
+Short lists of animals that need something done. Each list shows up to five animals and **only appears when it has any**. **View all** opens the pets list with the matching filter already applied.
 
-Each animal is shown with its photo, species and reference. Click it to open its record.
+| List | What it shows |
+|------|---------------|
+| **Pets with Unknown Location** | Animals in the shelter that have no cage yet, and for how long (*12 days ago*). Open them and set a cage so the team always knows where every animal is |
+| **Open health issues** | Animals with an active or chronic diagnosis, the most recent diagnosis first, with the diagnoses under the name ([diagnoses](07-pets.md#diagnoses)) |
+| **Sponsorships to Renew** | Sponsorships whose paid period ended in the last 30 days or ends in the next 30, with the sponsor's name and *Valid until* / *Expired at*. Click one to open the sponsorship and contact the sponsor. Managers and staff only |
+| **Pets without a Photo** | Animals in the shelter with no photo. Without one they can't be shown well on the public portal or shared on social media |
+| **Longest in the Shelter** | The available animals that have waited longest since check-in, with how long (*1 year and 4 months*): good candidates to promote |
 
-## 6.3 Warnings
+## 6.3 Recent activity
+
+| List | Details under each animal |
+|------|---------------------------|
+| **Recent Intakes** | Check-in date and cage (*wing · cage*), or *No location defined* |
+| **Recent Adoptions** | Adoption date and the adopter's first name (viewers don't see the name) |
+| **Recent Passings** | Date of death |
+
+These lists always show, with a short message when they are empty. Each animal is shown with its photo, species and reference. Click it to open its record.
+
+## 6.4 Warnings
 
 When something important is still missing, the dashboard shows a warning to help you finish the setup. For example:
 
 - no cages have been created yet, so animals cannot be given a location;
 - a species has no breeds, so its animals cannot be registered properly (ask the admin to add them).
+
+## 6.5 The admin dashboard
+
+Admins don't belong to a shelter, so their dashboard shows the **whole platform** instead. It shows totals only, never animals or people's details.
+
+![Admin dashboard](screenshots/30a-admin-dashboard.png)
+
+- **Counters**: shelters, users who logged in during the last 30 days, animals in care and adoptions this year, across all shelters.
+- **Shelters**: each shelter with its animals in care, adoptions this year, the **last login** of any of its users and the **last pet update**. The least recently used shelters come first, and a last login that is *Never* or older than 30 days is highlighted, so shelters that went quiet stand out. Click a name to edit the shelter.
+- **Setup to complete** (only when there is something to fix): shelters with no species enabled, no cages or no users, and species used by a shelter that have no breeds.
+- **Invitations not accepted** (only when there are any): invited users who have never logged in, with their email, shelter and invitation date.
 
 ---
 

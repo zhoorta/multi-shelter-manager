@@ -19,7 +19,7 @@ Each row shows:
 | Column | Content |
 |--------|---------|
 | **Photo** | The pet's main photo |
-| **Identification** | Reference (e.g. *PET00002*), name, gender and microchip. Adopted animals also show *Adopted at* and the date |
+| **Identification** | Reference (e.g. *PET00002*), name, gender and microchip. A red ❤️ next to the name means the animal has an open health issue. Adopted animals also show *Adopted at* and the date |
 | **Characteristics** | Breed (and *Pure breed*), size, fur type, colours and age |
 | **Accommodation** | Facility, wing and cage, or *–* if the animal has no location |
 | **Actions** | 👁 open the record · 🗑 delete |
@@ -31,7 +31,12 @@ The bar above the table has four controls:
 1. **Search**: type part of a name, reference, microchip number or internal note.
 2. **Location**: show only animals in one facility, wing or cage.
 3. **Status**: *Available*, *Not available*, *Adopted* or *Deceased*.
-4. **Missing data**: find incomplete records, meaning animals with **no age** (no birth date), **no photo**, **no check-in date** or **no location**. Use it regularly to keep records complete.
+4. **Health and missing data**:
+   - **Open health issues** — animals in the shelter with an active or chronic diagnosis;
+   - **Neutered**, **Not neutered** and **Neutered, details missing** (neutered but with no date or no *Neutered by*);
+   - incomplete records: animals with **no age** (no birth date), **no photo**, **no check-in date** or **no location**. Use these regularly to keep records complete.
+
+The dashboard's **View all** links open this list with the matching filter already chosen.
 
 ### Printing the list
 
@@ -71,9 +76,10 @@ The 🖨 **printer** button next to **Create New** opens a printable version of 
 
 **Health**
 
-- **Neutered / Spayed**.
-- A switch for each **sickness** of the species (e.g. Leishmaniasis, Parvovirus). Switch one on when the animal is diagnosed; the diagnosis date is recorded automatically.
+- **Neutered / Spayed** — see [Sterilisation](#sterilisation) below for the details asked when it is on or off.
 - **Clinical Notes** — medication, diets, allergies, vet observations.
+
+Diagnoses are not part of this form: record them on the pet's page once it is saved (see [Diagnoses](#diagnoses)).
 
 **Adoption and public portal**
 
@@ -107,12 +113,13 @@ The record shows, in sections:
 - **Photos**.
 - **Identification** — name, microchip, species, breed, gender, birth date, death date.
 - **Characteristics** — colours, fur type, size.
-- **Health** — neutered/spayed and each sickness (Yes/No).
+- **Health** — neutered/spayed, with the date and who did it (or the neutering status when it isn't), and the **open health issues** (active diagnoses in red, chronic in amber).
 - **Adoption** — *Is Adoptable*, *Is Sponsorable* and the current **Status**.
 - **Public Portal** — whether it is published or featured, and the **View Count** (how many times its page was viewed on the portal).
 - **Accommodation** — cage (facility · wing · cage), check-in and check-out dates.
 - **Description**.
 - The **adoption** (if any), with its own **Edit** button — see [chapter 9](09-adoptions.md).
+- **Diagnoses**, with a **New Diagnosis** button — see [Diagnoses](#diagnoses) below.
 - **Vaccinations**, with a **New Vaccination** button — see [chapter 8](08-vaccinations.md).
 
 The buttons at the top right are:
@@ -128,6 +135,28 @@ The buttons at the top right are:
 When the animal is with a foster family, **Accommodation** shows **Foster family** with the family's name and, for managers and staff, the contact's name and phone:
 
 ![A pet with a foster family](screenshots/35a-pet-foster.png)
+
+### Diagnoses
+
+![Diagnoses on the pet record](screenshots/35b-pet-diagnoses.png)
+
+Click **New Diagnosis** on the pet's page to record an illness:
+
+![New diagnosis](screenshots/35c-pet-diagnosis-form.png)
+
+- **Sickness** — only the sicknesses the admin set up for this species.
+- **Diagnosis Date**.
+- **Status** — **Active** (being treated), **Chronic** (lifelong, e.g. Leishmaniasis or FIV) or **Treated** (cured). When you choose *Treated*, a **Resolution Date** appears, filled in with today.
+- **Treatment Notes** — medication, doses, check-ups.
+
+Active and chronic diagnoses are the animal's **open health issues**: they show on its record, on the dashboard ([6.2](06-dashboard.md#62-needs-attention)) and in the **Open health issues** filter of the list. Use the pencil to update a diagnosis (for example to mark it as treated) and the bin to delete one recorded by mistake.
+
+### Sterilisation
+
+The **Neutered / Spayed** switch on the pet form asks for different details:
+
+- **On**: **Neutering Date** and **Neutered by** (*The shelter* or *Before arrival*). Leave them empty if you don't know. Only sterilisations done by the shelter, with a date, count in the **Sterilisations performed** report ([13.5](13-reports.md#135-health)).
+- **Off**: **Neutering Status** — *Pending*, *Scheduled* (with the **Scheduled Date**) or *Not recommended* — and **Neutering Notes**. New animals that are not neutered start as *Pending*.
 
 ## 7.4 Status is automatic
 
