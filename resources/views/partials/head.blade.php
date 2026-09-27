@@ -40,6 +40,9 @@
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:url" content="{{ $pageUrl }}">
     <meta property="og:locale" content="{{ $ogLocale }}">
+    @if (filled(config('services.facebook.app_id')))
+        <meta property="fb:app_id" content="{{ config('services.facebook.app_id') }}">
+    @endif
     <meta property="og:image" content="{{ $shareImage }}">
     @if ($usesDefaultShareImage)
         <meta property="og:image:width" content="1200">

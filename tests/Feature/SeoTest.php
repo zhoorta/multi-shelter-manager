@@ -23,6 +23,14 @@ test('public pages are indexable and expose description, canonical and open grap
         ->assertSee('"@type":"Organization"', false);
 });
 
+test('the facebook app id is only announced when configured', function () {
+    config(['services.facebook.app_id' => null]);
+    $this->get(route('home'))->assertDontSee('fb:app_id', false);
+
+    config(['services.facebook.app_id' => '1234567890']);
+    $this->get(route('home'))->assertSee('<meta property="fb:app_id" content="1234567890">', false);
+});
+
 test('the about page pitches the platform to shelters', function () {
     $this->get(route('about'))
         ->assertOk()
