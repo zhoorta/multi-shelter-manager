@@ -251,3 +251,53 @@ test('editing an existing shelter reflects its currently enabled species and can
 
     expect($shelter->species()->pluck('species.id')->all())->toBe([$cat->id]);
 });
+
+test('saves the public address the admin typed, or makes one from the name when blank', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ShelterForm::class)
+        ->set('shelterName', 'Associação Faialense dos Amigos dos Animais')
+        ->set('shelterSlug', 'amigos-faial')
+        ->set('shelterCity', 'Horta')
+        ->set('shelterEmail', 'geral@affa.pt')
+        ->call('saveShelter')
+        ->assertHasNoErrors();
+
+    Livewire::test(ShelterForm::class)
+        ->set('shelterName', 'Patinhas Felizes')
+        ->set('shelterCity', 'Porto')
+        ->set('shelterEmail', 'geral@patinhas.pt')
+        ->call('saveShelter')
+        ->assertHasNoErrors();
+
+    expect(Shelter::query()->where('name', 'like', 'Associação%')->value('slug'))->toBe('amigos-faial')
+        ->and(Shelter::query()->where('name', 'Patinhas Felizes')->value('slug'))->toBe('patinhas-felizes');
+});
+
+test('keeps the public address when the shelter is renamed', function () {
+    $this->actingAs(User::factory()->admin()->create());
+    $shelter = Shelter::factory()->create(['name' => 'Patinhas', 'email' => 'geral@patinhas.pt']);
+
+    Livewire::test(ShelterForm::class, ['shelter' => $shelter])
+        ->set('shelterName', 'Patinhas Felizes')
+        ->call('saveShelter')
+        ->assertHasNoErrors();
+
+    expect($shelter->fresh()->slug)->toBe('patinhas');
+});
+
+test('rejects a public address that is taken or badly formed', function (string $slug) {
+    $this->actingAs(User::factory()->admin()->create());
+    Shelter::factory()->create(['slug' => 'patinhas'])->delete();
+
+    Livewire::test(ShelterForm::class)
+        ->set('shelterName', 'Outro Abrigo')
+        ->set('shelterSlug', $slug)
+        ->set('shelterCity', 'Porto')
+        ->set('shelterEmail', 'geral@outro.pt')
+        ->call('saveShelter')
+        ->assertHasErrors(['shelterSlug']);
+})->with([
+    'taken by a deleted shelter' => ['patinhas'],
+    'uppercase and spaces' => ['Outro Abrigo'],
+]);

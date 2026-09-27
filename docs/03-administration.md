@@ -117,6 +117,7 @@ Click **Create New** to add a shelter, or the **pencil** icon to edit one:
 |-------|---------|
 | Name | Full name of the shelter |
 | Short Name | Short name used where space is limited (lists, cards, badges) |
+| Public address | The last part of the shelter's public page URL, e.g. `amigos-faial` in `/shelters/amigos-faial`. Lowercase letters, digits and hyphens. Left blank, it is made from the name (adding the city, then a number, if another shelter already uses it). Renaming the shelter keeps it; changing it breaks links that were already shared |
 | Email | **Required.** Public contact e-mail, shown on printed sheets and on the public portal |
 | Phone, Website | Public contacts, shown on printed sheets and on the public portal |
 | Address, Postal Code, City | Location of the shelter |

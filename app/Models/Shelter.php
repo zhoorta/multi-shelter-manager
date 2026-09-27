@@ -13,11 +13,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
  * @property string $name
  * @property string|null $short_name
+ * @property string $slug
  * @property string $city
  * @property int|null $region_id
  * @property string|null $logo_path
@@ -34,11 +36,53 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'short_name', 'city', 'region_id', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description', 'joining_fee', 'membership_fee', 'membership_fee_frequency'])]
+#[Fillable(['name', 'short_name', 'slug', 'city', 'region_id', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description', 'joining_fee', 'membership_fee', 'membership_fee_frequency'])]
 class Shelter extends Model
 {
     /** @use HasFactory<ShelterFactory> */
     use HasFactory, SoftDeletes;
+
+    /**
+     * Give new shelters a public URL slug when none was chosen.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (Shelter $shelter): void {
+            if (blank($shelter->slug)) {
+                $shelter->slug = self::uniqueSlug($shelter->name, $shelter->city);
+            }
+        });
+    }
+
+    /**
+     * A free slug for the shelter's public page: the name, then the name and
+     * city, then a number. Soft-deleted shelters keep theirs reserved, so an
+     * old link never lands on another shelter.
+     */
+    public static function uniqueSlug(string $name, ?string $city = null, ?int $ignoreId = null): string
+    {
+        $isFree = fn (string $slug): bool => $slug !== '' && ! self::query()
+            ->withTrashed()
+            ->where('slug', $slug)
+            ->when($ignoreId, fn ($query) => $query->whereKeyNot($ignoreId))
+            ->exists();
+
+        $withCity = Str::slug($name.' '.$city) ?: 'shelter';
+
+        foreach ([Str::slug($name), $withCity] as $candidate) {
+            if ($isFree($candidate)) {
+                return $candidate;
+            }
+        }
+
+        $suffix = 2;
+
+        while (! $isFree($withCity.'-'.$suffix)) {
+            $suffix++;
+        }
+
+        return $withCity.'-'.$suffix;
+    }
 
     /**
      * Get the attributes that should be cast.

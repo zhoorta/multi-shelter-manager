@@ -19,7 +19,7 @@ test('a published pet has its own indexable page', function () {
 
     $response = $this->get($pet->publicPageUrl());
 
-    expect($pet->publicPageUrl())->toBe(url("animais/{$pet->id}/frozen-cao-horta-acores-faial"));
+    expect($pet->publicPageUrl())->toBe(url("animals/{$pet->id}/frozen-cao-horta-acores-faial"));
     $response->assertOk()
         ->assertSee('<title>', false)
         ->assertSee('Frozen — Cão for adoption in Horta, Açores - Faial - '.config('app.name'))
@@ -49,7 +49,7 @@ test('logged-in staff of another shelter see the same pet page', function () {
 test('a missing or outdated slug moves permanently to the current url', function (string $slug) {
     $pet = Pet::factory()->publishedToPortal()->create();
 
-    $this->get(url("animais/{$pet->id}/{$slug}"))
+    $this->get(url("animals/{$pet->id}/{$slug}"))
         ->assertStatus(301)
         ->assertRedirect($pet->publicPageUrl());
 })->with([

@@ -11,6 +11,8 @@ use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -23,6 +25,11 @@ class ShelterForm extends Component
     public ?Shelter $shelter = null;
 
     public string $shelterName = '';
+
+    /**
+     * The public page's URL slug; left blank, one is made from the name.
+     */
+    public string $shelterSlug = '';
 
     /**
      * @var array<int, int>
@@ -39,6 +46,7 @@ class ShelterForm extends Component
 
         $this->shelter = $shelter;
         $this->shelterName = $shelter->name;
+        $this->shelterSlug = $shelter->slug;
         $this->fillShelterProfile($shelter);
         $this->shelterSpeciesIds = $shelter->species()->pluck('species.id')->all();
     }
@@ -69,11 +77,14 @@ class ShelterForm extends Component
     {
         $validated = $this->validate([
             'shelterName' => ['required', 'string', 'max:255'],
+            // Lowercase words joined by hyphens.
+            'shelterSlug' => ['nullable', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('shelters', 'slug')->ignore($this->shelter?->id)],
             ...$this->shelterProfileRules(),
             'shelterSpeciesIds' => ['array'],
             'shelterSpeciesIds.*' => ['integer', 'exists:species,id'],
         ], [], [
             'shelterName' => __('Name'),
+            'shelterSlug' => __('Public address'),
             ...$this->shelterProfileAttributes(),
             'shelterSpeciesIds.*' => __('Species'),
         ]);
@@ -82,6 +93,9 @@ class ShelterForm extends Component
             'name' => $validated['shelterName'],
             ...$this->shelterProfileData($validated),
         ];
+        $data['slug'] = filled($validated['shelterSlug'])
+            ? $validated['shelterSlug']
+            : Shelter::uniqueSlug($data['name'], $data['city'], $this->shelter?->id);
 
         $isEditing = $this->shelter !== null;
 
@@ -103,7 +117,9 @@ class ShelterForm extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.shelter-form')->title(
+        return view('livewire.admin.shelter-form', [
+            'publicPagePrefix' => Str::after(route('shelters'), '://').'/',
+        ])->title(
             $this->shelter !== null ? __('Edit').' — '.$this->shelter->name : __('Create').' — '.__('Shelters'),
         );
     }

@@ -54,15 +54,25 @@ use App\Livewire\Volunteers\VolunteerShow;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
+// Public portal paths are in the installation's language (APP_LOCALE, see lang/{locale}/routes.php).
+$publicPath = fn (string $key): string => trans("routes.{$key}", [], config('app.locale'));
+
 // Public welcome page, open to guests and logged-in users alike; redirects to login when the portal is disabled.
 Route::livewire('/', Welcome::class)->middleware(EnsurePublicPortalEnabled::class)->name('home');
-Route::livewire('shelters', PartnerShelters::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters');
-Route::livewire('shelters/{shelter}', PartnerShelterShow::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.show');
+Route::livewire($publicPath('shelters'), PartnerShelters::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters');
+Route::livewire($publicPath('shelters').'/{shelter:slug}', PartnerShelterShow::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.show');
 // Public pet page: the id resolves the pet, the slug is descriptive and redirects to the current one when stale.
-Route::livewire('animais/{petId}/{slug?}', PublicPetShow::class)->whereNumber('petId')->middleware(EnsurePublicPortalEnabled::class)->name('animals.show');
-Route::livewire('adopt/{petRef}', AdoptionApplicationForm::class)->middleware(EnsurePublicPortalEnabled::class)->name('adoption-applications.create');
+Route::livewire($publicPath('animals').'/{petId}/{slug?}', PublicPetShow::class)->whereNumber('petId')->middleware(EnsurePublicPortalEnabled::class)->name('animals.show');
+Route::livewire($publicPath('adopt').'/{petRef}', AdoptionApplicationForm::class)->middleware(EnsurePublicPortalEnabled::class)->name('adoption-applications.create');
+// The feed URL is registered in social media tools, so it keeps its fixed id-based path.
 Route::get('shelters/{shelter}/feed', ShelterFeedController::class)->middleware(EnsurePublicPortalEnabled::class)->name('shelters.feed');
-Route::livewire('about', About::class)->middleware(EnsurePublicPortalEnabled::class)->name('about');
+Route::livewire($publicPath('about'), About::class)->middleware(EnsurePublicPortalEnabled::class)->name('about');
+
+// The About page was shared (outreach e-mails) under its English path before the paths were translated.
+if ($publicPath('about') !== 'about') {
+    Route::permanentRedirect('about', $publicPath('about'));
+}
+
 Route::livewire('privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
 Route::post('locale', LocaleController::class)->middleware('throttle:30,1')->name('locale.update');
 Route::get('robots.txt', RobotsController::class)->name('robots');

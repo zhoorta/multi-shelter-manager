@@ -164,7 +164,7 @@ test('the pet details link to the shelter page', function () {
 
     Livewire::test(Welcome::class)
         ->call('showPet', $pet->id)
-        ->assertSee(route('shelters.show', $pet->shelter_id));
+        ->assertSee(route('shelters.show', $pet->shelter));
 });
 
 test('how it works points visitors to the online adoption application', function () {

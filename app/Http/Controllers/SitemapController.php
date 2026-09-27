@@ -16,7 +16,7 @@ class SitemapController extends Controller
      */
     public function __invoke(): Response
     {
-        $shelters = Shelter::query()->orderBy('id')->get(['id', 'updated_at']);
+        $shelters = Shelter::query()->orderBy('id')->get(['id', 'slug', 'updated_at']);
 
         $pets = Pet::query()
             ->withoutGlobalScope('shelter')

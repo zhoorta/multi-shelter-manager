@@ -48,3 +48,19 @@ test('pets relation only returns pets belonging to the shelter', function () {
     expect($shelter->pets)->toHaveCount(1)
         ->and($shelter->pets->first()->is($ownPet))->toBeTrue();
 });
+
+test('new shelters get a slug from their name, adding the city and then a number on a clash', function () {
+    $first = Shelter::factory()->create(['name' => 'Amigos dos Animais', 'city' => 'Horta']);
+    $second = Shelter::factory()->create(['name' => 'Amigos dos Animais', 'city' => 'Horta']);
+    $third = Shelter::factory()->create(['name' => 'Amigos dos Animais', 'city' => 'Horta']);
+
+    expect($first->slug)->toBe('amigos-dos-animais')
+        ->and($second->slug)->toBe('amigos-dos-animais-horta')
+        ->and($third->slug)->toBe('amigos-dos-animais-horta-2');
+});
+
+test('soft-deleted shelters keep their slug reserved', function () {
+    Shelter::factory()->create(['name' => 'Patinhas', 'city' => 'Porto'])->delete();
+
+    expect(Shelter::factory()->create(['name' => 'Patinhas', 'city' => 'Braga'])->slug)->toBe('patinhas-braga');
+});

@@ -16,6 +16,16 @@
                 <flux:input wire:model="shelterShortName" :label="__('Short Name')" />
             </div>
 
+            <flux:field>
+                <flux:label>{{ __('Public address') }}</flux:label>
+                <flux:input.group>
+                    <flux:input.group.prefix>{{ $publicPagePrefix }}</flux:input.group.prefix>
+                    <flux:input wire:model="shelterSlug" :placeholder="__('Made from the name when left blank')" />
+                </flux:input.group>
+                <flux:description>{{ __('Changing it breaks links to the shelter page that were already shared.') }}</flux:description>
+                <flux:error name="shelterSlug" />
+            </flux:field>
+
             @include('livewire.partials.shelter-profile-fields')
         </div>
 

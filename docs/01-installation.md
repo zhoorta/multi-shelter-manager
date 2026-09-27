@@ -66,6 +66,8 @@ APP_FALLBACK_LOCALE=en
 | `fr` | French | `sv` | Swedish |
 | `de` | German | `da` | Danish |
 
+`APP_LOCALE` also sets the words in the public portal's URLs, so each country's installation gets its own, e.g. `/abrigos/amigos-faial` in Portuguese and `/protectoras/amigos-sevilla` in Spanish (the words are in `lang/{locale}/routes.php`). Pick it before sharing links: changing it later moves the pages. The old English `/about` redirects permanently to the translated About page. The backoffice URLs and the shelter feed (`/shelters/{id}/feed`) stay the same in every language.
+
 ### Database
 
 MySQL example:
