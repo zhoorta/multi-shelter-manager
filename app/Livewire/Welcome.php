@@ -165,7 +165,7 @@ class Welcome extends Component
         return view('livewire.welcome')
             ->title(__('Dogs and cats for adoption in Portugal'))
             ->layoutData([
-                'description' => __('Find a shelter animal waiting for a home. Browse the dogs and cats of our partner shelters and adopt your new best friend.'),
+                'description' => __('Free platform that helps animal shelters manage animals, health, adoptions and members, and find a home for their dogs and cats.'),
                 'structuredData' => [
                     '@context' => 'https://schema.org',
                     '@type' => 'WebSite',

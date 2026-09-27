@@ -12,7 +12,7 @@ test('public pages are indexable and expose description, canonical and open grap
     $this->get(route('home'))
         ->assertOk()
         ->assertSee('<meta name="robots" content="index, follow, max-image-preview:large">', false)
-        ->assertSee('<meta name="description" content="Find a shelter animal waiting for a home.', false)
+        ->assertSee('<meta name="description" content="Free platform that helps animal shelters manage animals', false)
         ->assertSee('<link rel="canonical" href="'.route('home').'">', false)
         ->assertSee('<meta property="og:title"', false)
         ->assertSee('<meta property="og:image" content="'.asset('images/share.png').'">', false)

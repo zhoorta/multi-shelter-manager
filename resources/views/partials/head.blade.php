@@ -1,6 +1,6 @@
 @php
     $pageTitle = filled($title ?? null) ? $title.' - '.config('app.name', 'Laravel') : config('app.name', 'Laravel');
-    $pageDescription = Str::limit(trim(strip_tags($description ?? __('Find a shelter animal waiting for a home. Browse the dogs and cats of our partner shelters and adopt your new best friend.'))), 160);
+    $pageDescription = Str::limit(trim(strip_tags($description ?? __('Free platform that helps animal shelters manage animals, health, adoptions and members, and find a home for their dogs and cats.'))), 160);
     // Only the public portal pages opt in to indexing; the backoffice, auth and print pages stay out of search engines.
     $isIndexable = ($indexable ?? false) === true;
     // A public page can still keep itself out of the index (e.g. an adopted pet) while keeping its social previews.
