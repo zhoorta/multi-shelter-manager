@@ -31,6 +31,7 @@ use App\Livewire\PartnerShelters;
 use App\Livewire\PartnerShelterShow;
 use App\Livewire\Pets\AdoptionForm;
 use App\Livewire\Pets\AdoptionShow;
+use App\Livewire\Pets\DiagnosisForm;
 use App\Livewire\Pets\ManageAdoptionApplications;
 use App\Livewire\Pets\ManageAdoptions;
 use App\Livewire\Pets\ManagePets;
@@ -111,6 +112,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets/{pet}/sponsor/{sponsorship}/edit', SponsorshipForm::class)->name('pets.sponsor.edit');
     Route::livewire('pets/{pet}/vaccinate', VaccinationForm::class)->name('pets.vaccinate');
     Route::livewire('pets/{pet}/vaccinate/{petVaccine}/edit', VaccinationForm::class)->name('pets.vaccinate.edit');
+    Route::livewire('pets/{pet}/diagnose', DiagnosisForm::class)->name('pets.diagnose');
+    Route::livewire('pets/{pet}/diagnose/{petSickness}/edit', DiagnosisForm::class)->name('pets.diagnose.edit');
 
     Route::livewire('volunteers', ManageVolunteers::class)->name('volunteers.index');
     Route::livewire('volunteers/create', VolunteerForm::class)->name('volunteers.create');

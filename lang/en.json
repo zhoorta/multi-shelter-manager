@@ -628,5 +628,17 @@
     "You have been added to :shelter as a :role.": "You have been added to :shelter as a :role.",
     "Use the shelter switcher in the sidebar to access it with your existing account.": "Use the shelter switcher in the sidebar to access it with your existing account.",
     "Shelter settings": "Shelter settings",
-    "Update your shelter's contacts and public profile": "Update your shelter's contacts and public profile"
+    "Update your shelter's contacts and public profile": "Update your shelter's contacts and public profile",
+    "Sickness": "Sickness",
+    "Diagnosis Date": "Diagnosis Date",
+    "Resolution Date": "Resolution Date",
+    "Treatment Notes": "Treatment Notes",
+    "Active": "Active",
+    "Chronic": "Chronic",
+    "Treated": "Treated",
+    "New Diagnosis": "New Diagnosis",
+    "Edit Diagnosis": "Edit Diagnosis",
+    "Select a sickness": "Select a sickness",
+    "Open health issues": "Open health issues",
+    "No diagnoses registered": "No diagnoses registered"
 }

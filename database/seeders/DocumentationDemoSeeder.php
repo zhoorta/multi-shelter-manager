@@ -593,6 +593,7 @@ class DocumentationDemoSeeder extends Seeder
             $pets[$petName]->sicknesses()->attach($sicknesses[$sicknessName], [
                 'diagnosed_at' => now()->subDays($daysAgo)->toDateString(),
                 'status' => $status,
+                'resolved_at' => $status === 'treated' ? now()->subDays($daysAgo - 14)->toDateString() : null,
                 'treatment_notes' => $notes,
             ]);
         }

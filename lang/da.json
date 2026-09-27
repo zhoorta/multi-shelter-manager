@@ -628,5 +628,17 @@
     "You have been added to :shelter as a :role.": "Du er blevet tilføjet til :shelter som :role.",
     "Use the shelter switcher in the sidebar to access it with your existing account.": "Brug internatvælgeren i sidebjælken for at få adgang med din eksisterende konto.",
     "Shelter settings": "Internatindstillinger",
-    "Update your shelter's contacts and public profile": "Opdater dit internats kontaktoplysninger og offentlige profil"
+    "Update your shelter's contacts and public profile": "Opdater dit internats kontaktoplysninger og offentlige profil",
+    "Sickness": "Sygdom",
+    "Diagnosis Date": "Diagnosedato",
+    "Resolution Date": "Dato for helbredelse",
+    "Treatment Notes": "Behandlingsnoter",
+    "Active": "Aktiv",
+    "Chronic": "Kronisk",
+    "Treated": "Behandlet",
+    "New Diagnosis": "Ny diagnose",
+    "Edit Diagnosis": "Rediger diagnose",
+    "Select a sickness": "Vælg en sygdom",
+    "Open health issues": "Åbne helbredsproblemer",
+    "No diagnoses registered": "Ingen diagnoser registreret"
 }

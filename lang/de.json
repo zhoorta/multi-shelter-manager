@@ -628,5 +628,17 @@
     "You have been added to :shelter as a :role.": "Sie wurden :shelter als :role hinzugefügt.",
     "Use the shelter switcher in the sidebar to access it with your existing account.": "Nutzen Sie die Tierheim-Auswahl in der Seitenleiste, um mit Ihrem bestehenden Konto darauf zuzugreifen.",
     "Shelter settings": "Tierheim-Einstellungen",
-    "Update your shelter's contacts and public profile": "Aktualisieren Sie die Kontaktdaten und das öffentliche Profil Ihres Tierheims"
+    "Update your shelter's contacts and public profile": "Aktualisieren Sie die Kontaktdaten und das öffentliche Profil Ihres Tierheims",
+    "Sickness": "Krankheit",
+    "Diagnosis Date": "Diagnosedatum",
+    "Resolution Date": "Abschlussdatum",
+    "Treatment Notes": "Behandlungsnotizen",
+    "Active": "Aktiv",
+    "Chronic": "Chronisch",
+    "Treated": "Behandelt",
+    "New Diagnosis": "Neue Diagnose",
+    "Edit Diagnosis": "Diagnose bearbeiten",
+    "Select a sickness": "Krankheit auswählen",
+    "Open health issues": "Offene Gesundheitsprobleme",
+    "No diagnoses registered": "Keine Diagnosen erfasst"
 }

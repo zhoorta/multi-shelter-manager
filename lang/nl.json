@@ -628,5 +628,17 @@
     "You have been added to :shelter as a :role.": "Je bent toegevoegd aan :shelter als :role.",
     "Use the shelter switcher in the sidebar to access it with your existing account.": "Gebruik de asielkiezer in de zijbalk om er met je bestaande account naartoe te gaan.",
     "Shelter settings": "Asielinstellingen",
-    "Update your shelter's contacts and public profile": "Werk de contactgegevens en het openbare profiel van uw asiel bij"
+    "Update your shelter's contacts and public profile": "Werk de contactgegevens en het openbare profiel van uw asiel bij",
+    "Sickness": "Ziekte",
+    "Diagnosis Date": "Diagnosedatum",
+    "Resolution Date": "Datum van herstel",
+    "Treatment Notes": "Behandelnotities",
+    "Active": "Actief",
+    "Chronic": "Chronisch",
+    "Treated": "Behandeld",
+    "New Diagnosis": "Nieuwe diagnose",
+    "Edit Diagnosis": "Diagnose bewerken",
+    "Select a sickness": "Selecteer een ziekte",
+    "Open health issues": "Openstaande gezondheidsproblemen",
+    "No diagnoses registered": "Geen diagnoses geregistreerd"
 }

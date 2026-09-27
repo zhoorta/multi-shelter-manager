@@ -6,15 +6,14 @@ namespace App\Livewire\Pets;
 
 use App\Livewire\Pets\Concerns\ManagesSponsorshipPayments;
 use App\Models\Pet;
+use App\Models\PetSickness;
 use App\Models\PetVaccine;
-use App\Models\Sickness;
 use App\Models\Size;
 use App\Models\Sponsorship;
 use App\Models\SponsorshipPayment;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -30,26 +29,12 @@ class PetShow extends Component
         abort_unless(! Auth::user()->is_admin, 403);
 
         $this->pet = $pet->load([
-            'species', 'breed', 'cage.wing.facility', 'cage.volunteer', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'sicknesses',
+            'species', 'breed', 'cage.wing.facility', 'cage.volunteer', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size',
             'adoptions' => fn ($query) => $query->latest('adoption_date'),
             'sponsorships' => fn ($query) => $query->latest()->with(['payments' => fn ($paymentsQuery) => $paymentsQuery->orderByDesc('payment_date')]),
             'vaccines' => fn ($query) => $query->orderByRaw('COALESCE(pet_vaccines.administered_date, pet_vaccines.due_date) desc'),
+            'sicknesses' => fn ($query) => $query->orderByPivot('diagnosed_at', 'desc'),
         ]);
-    }
-
-    /**
-     * Sicknesses that can affect the pet's species (see sickness_species
-     * pivot), each to be shown alongside whether the pet has it.
-     *
-     * @return Collection<int, Sickness>
-     */
-    #[Computed]
-    public function sicknesses(): Collection
-    {
-        return Sickness::query()
-            ->whereHas('species', fn (Builder $query) => $query->whereKey($this->pet->species_id))
-            ->orderBy('name')
-            ->get();
     }
 
     /**
@@ -150,6 +135,38 @@ class PetShow extends Component
     {
         $this->pet->load([
             'vaccines' => fn ($query) => $query->orderByRaw('COALESCE(pet_vaccines.administered_date, pet_vaccines.due_date) desc'),
+        ]);
+    }
+
+    public function deleteDiagnosis(int $petSicknessId): void
+    {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        $this->scopedPetSicknessQuery()->findOrFail($petSicknessId)->delete();
+
+        $this->refreshSicknesses();
+
+        Flux::toast(variant: 'success', text: __('Record deleted successfully'));
+    }
+
+    /**
+     * PetSickness has no shelter_id of its own, so scope it directly through
+     * its own pet_id column, like PetVaccine.
+     *
+     * @return Builder<PetSickness>
+     */
+    protected function scopedPetSicknessQuery(): Builder
+    {
+        return PetSickness::query()->where('pet_id', $this->pet->id);
+    }
+
+    /**
+     * Reload the pet's diagnoses after one is deleted, so the diagnoses
+     * table reflects the change without navigation.
+     */
+    protected function refreshSicknesses(): void
+    {
+        $this->pet->load([
+            'sicknesses' => fn ($query) => $query->orderByPivot('diagnosed_at', 'desc'),
         ]);
     }
 

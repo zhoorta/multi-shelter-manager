@@ -10,7 +10,6 @@ use App\Models\Color;
 use App\Models\FurType;
 use App\Models\Pet;
 use App\Models\PetImage;
-use App\Models\Sickness;
 use App\Models\Size;
 use App\Models\Species;
 use Flux\Flux;
@@ -67,11 +66,6 @@ class PetForm extends Component
 
     public bool $petIsNeutered = false;
 
-    /**
-     * @var array<int, int>
-     */
-    public array $petSicknessIds = [];
-
     public bool $petIsAdoptable = true;
 
     public bool $petIsSponsorable = true;
@@ -125,7 +119,6 @@ class PetForm extends Component
         $this->petDeathDate = (string) $pet->date_of_death?->format('Y-m-d');
         $this->petChip = (string) $pet->chip;
         $this->petIsNeutered = (bool) $pet->is_neutered;
-        $this->petSicknessIds = $pet->sicknesses()->pluck('sicknesses.id')->all();
         $this->petIsAdoptable = (bool) $pet->is_adoptable;
         $this->petIsSponsorable = (bool) $pet->is_sponsorable;
         $this->petPublishToPortal = (bool) $pet->publish_to_portal;
@@ -186,25 +179,6 @@ class PetForm extends Component
 
         return Size::query()
             ->where('species_id', $this->petSpeciesId)
-            ->orderBy('name')
-            ->get();
-    }
-
-    /**
-     * Sicknesses that can affect the currently selected species (see
-     * sickness_species pivot).
-     *
-     * @return Collection<int, Sickness>
-     */
-    #[Computed]
-    public function sicknesses(): Collection
-    {
-        if ($this->petSpeciesId === null) {
-            return new Collection;
-        }
-
-        return Sickness::query()
-            ->whereHas('species', fn (Builder $query) => $query->whereKey($this->petSpeciesId))
             ->orderBy('name')
             ->get();
     }
@@ -295,9 +269,8 @@ class PetForm extends Component
             : null;
         $this->petIsPureBreed = false;
         $this->petSizeId = null;
-        $this->petSicknessIds = [];
 
-        unset($this->breeds, $this->sizes, $this->sicknesses, $this->currentSpecies, $this->cages);
+        unset($this->breeds, $this->sizes, $this->currentSpecies, $this->cages);
 
         if ($this->petCageId !== null && ! $this->cages->contains('id', $this->petCageId)) {
             $this->petCageId = null;
@@ -310,17 +283,6 @@ class PetForm extends Component
     protected function defaultBreedIdFor(int $speciesId): ?int
     {
         return Breed::query()->where('species_id', $speciesId)->where('is_default', true)->value('id');
-    }
-
-    public function toggleSickness(int $sicknessId): void
-    {
-        if (in_array($sicknessId, $this->petSicknessIds, true)) {
-            $this->petSicknessIds = array_values(array_diff($this->petSicknessIds, [$sicknessId]));
-
-            return;
-        }
-
-        $this->petSicknessIds[] = $sicknessId;
     }
 
     public function savePet(): void
@@ -347,11 +309,6 @@ class PetForm extends Component
             'petDeathDate' => ['nullable', 'date'],
             'petChip' => ['nullable', 'string', 'max:255'],
             'petIsNeutered' => ['boolean'],
-            'petSicknessIds' => ['array'],
-            'petSicknessIds.*' => [
-                'integer',
-                Rule::exists('sickness_species', 'sickness_id')->where('species_id', $this->petSpeciesId),
-            ],
             'petIsAdoptable' => ['boolean'],
             'petIsSponsorable' => ['boolean'],
             'petPublishToPortal' => ['boolean'],
@@ -381,7 +338,6 @@ class PetForm extends Component
             'petDeathDate' => __('Death Date'),
             'petChip' => __('Microchip / Chip'),
             'petIsNeutered' => __('Is Neutered'),
-            'petSicknessIds.*' => __('Sicknesses'),
             'petIsAdoptable' => __('Is Adoptable'),
             'petIsSponsorable' => __('Is Sponsorable'),
             'petPublishToPortal' => __('Publish to Portal'),
@@ -429,7 +385,7 @@ class PetForm extends Component
             'is_featured' => $validated['petIsFeatured'],
         ];
 
-        DB::transaction(function () use ($petAttributes, $isEditing, $validated): void {
+        DB::transaction(function () use ($petAttributes, $isEditing): void {
             if ($isEditing) {
                 $this->pet->fill($petAttributes);
                 $petAttributes['status'] = $this->pet->determineStatus();
@@ -440,7 +396,6 @@ class PetForm extends Component
                 $this->pet->update(['ref' => $this->generatePetRef($this->pet->id)]);
             }
 
-            $this->syncPetSicknesses($this->pet, $validated['petSicknessIds'] ?? []);
             $this->storeUploadedPetPhotos($this->pet);
         });
 
@@ -459,33 +414,6 @@ class PetForm extends Component
     protected function generatePetRef(int $petId): string
     {
         return 'PET'.str_pad((string) $petId, 5, '0', STR_PAD_LEFT);
-    }
-
-    /**
-     * Toggle the pet's diagnosed sicknesses: newly checked ids are attached
-     * to pet_sicknesses with a fresh diagnosis, newly unchecked ids are
-     * detached, and already-attached ids are left untouched so an existing
-     * diagnosis's status/treatment_notes aren't reset by the toggle.
-     *
-     * @param  array<int, int>  $sicknessIds
-     */
-    protected function syncPetSicknesses(Pet $pet, array $sicknessIds): void
-    {
-        $currentIds = $pet->sicknesses()->pluck('sicknesses.id')->all();
-
-        $idsToAttach = array_diff($sicknessIds, $currentIds);
-        $idsToDetach = array_diff($currentIds, $sicknessIds);
-
-        foreach ($idsToAttach as $sicknessId) {
-            $pet->sicknesses()->attach($sicknessId, [
-                'diagnosed_at' => now()->toDateString(),
-                'status' => 'active',
-            ]);
-        }
-
-        if ($idsToDetach !== []) {
-            $pet->sicknesses()->detach($idsToDetach);
-        }
     }
 
     /**

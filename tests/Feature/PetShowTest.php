@@ -736,28 +736,59 @@ test('cannot create, edit or delete a payment for a sponsorship belonging to ano
         ->toThrow(ModelNotFoundException::class);
 });
 
-test('lists the species sicknesses next to neutered status, marking which ones the pet has', function () {
+test('lists open health issues in the health section and every diagnosis in the diagnoses table', function () {
     $shelter = Shelter::factory()->create();
-    $species = Species::factory()->create();
-    $otherSpecies = Species::factory()->create();
-    $pet = Pet::factory()->for($shelter)->create(['species_id' => $species->id, 'is_neutered' => false]);
-
-    $diagnosed = Sickness::factory()->create(['name' => 'Parvovirus']);
-    $diagnosed->species()->attach($species);
-    $pet->sicknesses()->attach($diagnosed, ['diagnosed_at' => now()]);
-
-    $notDiagnosed = Sickness::factory()->create(['name' => 'Ringworm']);
-    $notDiagnosed->species()->attach($species);
-
-    $unrelated = Sickness::factory()->create(['name' => 'Feline Leukemia']);
-    $unrelated->species()->attach($otherSpecies);
+    $pet = Pet::factory()->for($shelter)->create();
+    $pet->sicknesses()->attach(Sickness::factory()->create(['name' => 'Parvovirus']), ['diagnosed_at' => '2026-03-01', 'status' => 'active']);
+    $pet->sicknesses()->attach(Sickness::factory()->create(['name' => 'Otitis']), ['diagnosed_at' => '2026-01-10', 'status' => 'treated', 'resolved_at' => '2026-01-24']);
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
-        ->assertSeeInOrder(['Neutered / Spayed', 'No', 'Parvovirus', 'Yes', 'Ringworm', 'No'])
-        ->assertDontSee('Feline Leukemia');
+        ->assertSeeInOrder(['Open health issues', 'Parvovirus', 'Is Adoptable'])
+        ->assertSeeInOrder(['Diagnoses', 'Parvovirus', '01/03/2026', 'Active', 'Otitis', '10/01/2026', 'Treated', '24/01/2026', 'Vaccinations'])
+        ->assertSee(route('pets.diagnose', $pet));
+});
+
+test('shows an empty state when the pet has no diagnoses', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))->assertSee('No diagnoses registered');
+});
+
+test('deletes a diagnosis', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $pet->sicknesses()->attach(Sickness::factory()->create(), ['diagnosed_at' => now()]);
+    $diagnosis = $pet->sicknesses()->first()->pivot;
+
+    $user = User::factory()->forShelter($shelter, 'staff')->create();
+    $this->actingAs($user);
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('deleteDiagnosis', $diagnosis->id)
+        ->assertSee('No diagnoses registered');
+
+    expect($diagnosis->fresh()->trashed())->toBeTrue()
+        ->and($diagnosis->fresh()->deleted_by)->toBe($user->id)
+        ->and($pet->sicknesses()->count())->toBe(0);
+});
+
+test('cannot delete a diagnosis belonging to another pet', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $otherPet = Pet::factory()->for($shelter)->create();
+    $otherPet->sicknesses()->attach(Sickness::factory()->create(), ['diagnosed_at' => now()]);
+    $otherDiagnosis = $otherPet->sicknesses()->first()->pivot;
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteDiagnosis', $otherDiagnosis->id))
+        ->toThrow(ModelNotFoundException::class);
 });
 
 test('links to the vaccination form next to the vaccinations table', function () {
@@ -943,22 +974,26 @@ test('viewers see the pet without edit controls or adopter and sponsor details',
         ->assertDontSee(route('pets.adopt', $pet))
         ->assertDontSee(route('pets.sponsor', $pet))
         ->assertDontSee(route('pets.vaccinate', $pet))
+        ->assertDontSee(route('pets.diagnose', $pet))
         ->assertDontSeeText('Adopter Person')
         ->assertDontSeeText('Sponsor Person');
 });
 
-test('viewers cannot delete vaccinations or manage sponsorship payments', function () {
+test('viewers cannot delete vaccinations or diagnoses or manage sponsorship payments', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
     $vaccine = Vaccine::factory()->create();
     $pet->vaccines()->attach($vaccine, ['administered_date' => now()]);
     $petVaccine = $pet->vaccines()->first()->pivot;
+    $pet->sicknesses()->attach(Sickness::factory()->create(), ['diagnosed_at' => now()]);
+    $diagnosis = $pet->sicknesses()->first()->pivot;
     $sponsorship = Sponsorship::factory()->for($pet)->create();
     $payment = SponsorshipPayment::factory()->for($sponsorship)->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
 
     $calls = [
         ['deleteVaccination', $petVaccine->id],
+        ['deleteDiagnosis', $diagnosis->id],
         ['createPayment', $sponsorship->id],
         ['editPayment', $payment->id],
         ['savePayment'],
@@ -970,6 +1005,7 @@ test('viewers cannot delete vaccinations or manage sponsorship payments', functi
     }
 
     expect($petVaccine->fresh()->trashed())->toBeFalse()
+        ->and($diagnosis->fresh()->trashed())->toBeFalse()
         ->and($payment->fresh()->trashed())->toBeFalse();
 });
 

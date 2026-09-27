@@ -291,16 +291,21 @@
                         <flux:badge size="sm" :color="$pet->is_neutered ? 'lime' : 'zinc'">{{ $pet->is_neutered ? __('Yes') : __('No') }}</flux:badge>
                     </div>
 
-                    @foreach ($this->sicknesses as $sickness)
+                    <div class="sm:col-span-2">
+                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Open health issues') }}</flux:text>
                         @php
-                            $petHasSickness = $pet->sicknesses->contains('id', $sickness->id);
+                            $openDiagnoses = $pet->sicknesses->filter(fn ($sickness) => $sickness->pivot->status !== 'treated');
                         @endphp
-
-                        <div>
-                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ $sickness->name }}</flux:text>
-                            <flux:badge size="sm" :color="$petHasSickness ? 'lime' : 'zinc'">{{ $petHasSickness ? __('Yes') : __('No') }}</flux:badge>
-                        </div>
-                    @endforeach
+                        @if ($openDiagnoses->isEmpty())
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">—</flux:text>
+                        @else
+                            <div class="mt-1 flex flex-wrap gap-1">
+                                @foreach ($openDiagnoses as $sickness)
+                                    <flux:badge size="sm" :color="\App\Models\PetSickness::statusColor($sickness->pivot->status)">{{ $sickness->name }}</flux:badge>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
                 @if ($pet->clinical_notes)
@@ -425,6 +430,93 @@
                 @include('livewire.pets.partials.sponsorship-payment-modal')
             @endif
         @endif
+
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <div class="flex w-full items-center justify-between">
+                <flux:label>{{ __('Diagnoses') }}</flux:label>
+
+                @if ($canEdit)
+                    <flux:button :href="route('pets.diagnose', $pet)" variant="filled" size="sm" icon="plus" wire:navigate>
+                        {{ __('New Diagnosis') }}
+                    </flux:button>
+                @endif
+            </div>
+
+            <div class="w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-neutral-50 text-xs uppercase text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
+                            <tr>
+                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Sickness') }}</th>
+                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Diagnosis Date') }}</th>
+                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Status') }}</th>
+                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Resolution Date') }}</th>
+                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Treatment Notes') }}</th>
+                                @if ($canEdit)
+                                    <th scope="col" class="px-4 py-2 font-medium">{{ __('Actions') }}</th>
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
+                            @forelse ($pet->sicknesses as $sickness)
+                                <tr wire:key="pet-sickness-{{ $sickness->pivot->id }}">
+                                    <td class="px-4 py-2">{{ $sickness->name }}</td>
+                                    <td class="px-4 py-2">{{ $sickness->pivot->diagnosed_at->format('d/m/Y') }}</td>
+                                    <td class="px-4 py-2">
+                                        <flux:badge size="sm" :color="\App\Models\PetSickness::statusColor($sickness->pivot->status)">{{ \App\Models\PetSickness::statusLabel($sickness->pivot->status) }}</flux:badge>
+                                    </td>
+                                    <td class="px-4 py-2">{{ $sickness->pivot->resolved_at?->format('d/m/Y') ?? '—' }}</td>
+                                    <td class="px-4 py-2 whitespace-pre-line">{{ $sickness->pivot->treatment_notes ?? '—' }}</td>
+                                    @if ($canEdit)
+                                        <td class="px-4 py-2">
+                                            <div class="flex items-center gap-2">
+                                                <flux:button
+                                                    :href="route('pets.diagnose.edit', [$pet, $sickness->pivot])"
+                                                    size="sm"
+                                                    variant="subtle"
+                                                    icon="pencil"
+                                                    :aria-label="__('Edit')"
+                                                    wire:navigate
+                                                />
+
+                                                <flux:modal.trigger name="confirm-diagnosis-deletion-{{ $sickness->pivot->id }}">
+                                                    <flux:button size="sm" variant="subtle" icon="trash" :aria-label="__('Delete')" />
+                                                </flux:modal.trigger>
+
+                                                <flux:modal name="confirm-diagnosis-deletion-{{ $sickness->pivot->id }}" class="max-w-lg">
+                                                    <div class="space-y-6">
+                                                        <div>
+                                                            <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                            <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                        </div>
+
+                                                        <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                                            <flux:modal.close>
+                                                                <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                                            </flux:modal.close>
+
+                                                            <flux:button variant="danger" wire:click="deleteDiagnosis({{ $sickness->pivot->id }})">
+                                                                {{ __('Delete') }}
+                                                            </flux:button>
+                                                        </div>
+                                                    </div>
+                                                </flux:modal>
+                                            </div>
+                                        </td>
+                                    @endif
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="{{ $canEdit ? 6 : 5 }}" class="px-4 py-4 text-center text-neutral-500 dark:text-neutral-400">
+                                        {{ __('No diagnoses registered') }}
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <div class="flex w-full items-center justify-between">

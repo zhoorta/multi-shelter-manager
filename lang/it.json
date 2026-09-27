@@ -628,5 +628,17 @@
     "You have been added to :shelter as a :role.": "Sei stato aggiunto a :shelter come :role.",
     "Use the shelter switcher in the sidebar to access it with your existing account.": "Usa il selettore dei rifugi nella barra laterale per accedervi con il tuo account attuale.",
     "Shelter settings": "Impostazioni del rifugio",
-    "Update your shelter's contacts and public profile": "Aggiorna i contatti e il profilo pubblico del tuo rifugio"
+    "Update your shelter's contacts and public profile": "Aggiorna i contatti e il profilo pubblico del tuo rifugio",
+    "Sickness": "Malattia",
+    "Diagnosis Date": "Data della diagnosi",
+    "Resolution Date": "Data di risoluzione",
+    "Treatment Notes": "Note sul trattamento",
+    "Active": "Attiva",
+    "Chronic": "Cronica",
+    "Treated": "Trattata",
+    "New Diagnosis": "Nuova diagnosi",
+    "Edit Diagnosis": "Modifica diagnosi",
+    "Select a sickness": "Seleziona una malattia",
+    "Open health issues": "Problemi di salute aperti",
+    "No diagnoses registered": "Nessuna diagnosi registrata"
 }

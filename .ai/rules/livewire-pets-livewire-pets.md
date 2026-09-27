@@ -1,6 +1,7 @@
 ---
 paths:
   - 'app/Models/Pet.php,app/Livewire/Pets/PetForm.php,app/Livewire/Pets/AdoptionForm.php,app/Livewire/Pets/ManageAdoptions.php'
+  - 'app/Models/PetSickness.php,app/Livewire/Pets/DiagnosisForm.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/PetForm.php'
 ---
 
 # Livewire Pets Livewire Pets
@@ -16,3 +17,6 @@ Call sites that must call $pet->determineStatus() (after the relevant attributes
 - ManageAdoptions::deleteAdoption() — after soft-deleting an open adoption.
 
 Any new code path that changes is_adoptable, date_of_death, or an Adoption's return_date must also recompute status via determineStatus(), not hardcode a status string.
+
+## Diagnoses are records on the pet page, not switches in PetForm
+PetForm no longer touches pet_sicknesses (the old toggles faked diagnosed_at=today, status=active, and detached on untoggle, deleting history). Diagnoses are created/edited via App\Livewire\Pets\DiagnosisForm (routes pets.diagnose / pets.diagnose.edit, mirrors VaccinationForm) and listed/soft-deleted in PetShow's Diagnoses table (deleteDiagnosis, scoped by pet_id). pet_sicknesses gained resolved_at (only kept when status=treated; form suggests today when switching to treated) and SoftDeletes; Pet::sicknesses()/Sickness::pets() withPivot includes 'id' and 'resolved_at' and use wherePivotNull('deleted_at'). A pet can have several diagnoses of the same sickness. Status list/labels/badge colors live in PetSickness::STATUSES/statusLabel()/statusColor().

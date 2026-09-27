@@ -628,5 +628,17 @@
     "You have been added to :shelter as a :role.": "Du har lagts till i :shelter som :role.",
     "Use the shelter switcher in the sidebar to access it with your existing account.": "Använd djurhemsväljaren i sidofältet för att komma åt det med ditt befintliga konto.",
     "Shelter settings": "Djurheminställningar",
-    "Update your shelter's contacts and public profile": "Uppdatera ditt djurhems kontaktuppgifter och offentliga profil"
+    "Update your shelter's contacts and public profile": "Uppdatera ditt djurhems kontaktuppgifter och offentliga profil",
+    "Sickness": "Sjukdom",
+    "Diagnosis Date": "Diagnosdatum",
+    "Resolution Date": "Datum för tillfrisknande",
+    "Treatment Notes": "Behandlingsanteckningar",
+    "Active": "Aktiv",
+    "Chronic": "Kronisk",
+    "Treated": "Behandlad",
+    "New Diagnosis": "Ny diagnos",
+    "Edit Diagnosis": "Redigera diagnos",
+    "Select a sickness": "Välj en sjukdom",
+    "Open health issues": "Öppna hälsoproblem",
+    "No diagnoses registered": "Inga diagnoser registrerade"
 }
