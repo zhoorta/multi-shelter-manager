@@ -20,7 +20,8 @@ test('public pages are indexable and expose description, canonical and open grap
         ->assertSee('<meta property="og:image" content="'.asset('images/share.png').'">', false)
         ->assertSee('<meta property="og:image:width" content="1200">', false)
         ->assertSee('"@type":"WebSite"', false)
-        ->assertSee('"@type":"Organization"', false);
+        ->assertSee('"@type":"Organization"', false)
+        ->assertSee('<link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png">', false);
 });
 
 test('the facebook app id is only announced when configured', function () {
