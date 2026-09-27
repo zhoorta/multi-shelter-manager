@@ -75,6 +75,16 @@ class Dashboard extends Component
 
     public function mount(): void
     {
+        // Admins get the platform overview instead, which loads its own data.
+        if (Auth::user()->is_admin) {
+            $this->recentIntakes = new Collection;
+            $this->recentAdoptions = new Collection;
+            $this->unknownLocationPets = new Collection;
+            $this->recentPassings = new Collection;
+
+            return;
+        }
+
         $shelterId = Auth::user()->current_shelter_id;
 
         $this->activePetsCount = Pet::query()
@@ -105,7 +115,7 @@ class Dashboard extends Component
 
         $this->availableCapacity = max(0, $totalCapacity - ($this->activePetsCount - $petsInFosterFamilies));
 
-        $this->showsActionCounters = ! Auth::user()->is_admin && ! Auth::user()->isViewerOfCurrentShelter();
+        $this->showsActionCounters = ! Auth::user()->isViewerOfCurrentShelter();
 
         if ($this->showsActionCounters) {
             $this->pendingApplicationsCount = AdoptionApplication::query()

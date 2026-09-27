@@ -662,5 +662,16 @@
     "Pets without a Photo": "Tiere ohne Foto",
     "Longest in the Shelter": "Am längsten im Tierheim",
     "Today": "Heute",
-    ":count day ago|:count days ago": "vor :count Tag|vor :count Tagen"
+    ":count day ago|:count days ago": "vor :count Tag|vor :count Tagen",
+    "Active users (last 30 days)": "Aktive Benutzer (letzte 30 Tage)",
+    "Last login": "Letzte Anmeldung",
+    "Last pet update": "Letzte Tieraktualisierung",
+    "Never": "Nie",
+    "Setup to complete": "Offene Einrichtung",
+    "No species enabled": "Keine Tierarten aktiviert",
+    "No cages defined": "Keine Käfige angelegt",
+    "No users": "Keine Benutzer",
+    "Species without breeds": "Tierart ohne Rassen",
+    "Invitations not accepted": "Nicht angenommene Einladungen",
+    "Invited on": "Eingeladen am"
 }

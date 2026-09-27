@@ -662,5 +662,16 @@
     "Pets without a Photo": "Djur utan foto",
     "Longest in the Shelter": "Längst på hemmet",
     "Today": "Idag",
-    ":count day ago|:count days ago": ":count dag sedan|:count dagar sedan"
+    ":count day ago|:count days ago": ":count dag sedan|:count dagar sedan",
+    "Active users (last 30 days)": "Aktiva användare (senaste 30 dagarna)",
+    "Last login": "Senaste inloggning",
+    "Last pet update": "Senaste djuruppdatering",
+    "Never": "Aldrig",
+    "Setup to complete": "Inställningar att slutföra",
+    "No species enabled": "Inga arter aktiverade",
+    "No cages defined": "Inga burar angivna",
+    "No users": "Inga användare",
+    "Species without breeds": "Art utan raser",
+    "Invitations not accepted": "Ej accepterade inbjudningar",
+    "Invited on": "Inbjuden"
 }

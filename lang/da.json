@@ -662,5 +662,16 @@
     "Pets without a Photo": "Dyr uden foto",
     "Longest in the Shelter": "Længst i internatet",
     "Today": "I dag",
-    ":count day ago|:count days ago": ":count dag siden|:count dage siden"
+    ":count day ago|:count days ago": ":count dag siden|:count dage siden",
+    "Active users (last 30 days)": "Aktive brugere (seneste 30 dage)",
+    "Last login": "Seneste login",
+    "Last pet update": "Seneste dyreopdatering",
+    "Never": "Aldrig",
+    "Setup to complete": "Opsætning der mangler",
+    "No species enabled": "Ingen arter aktiveret",
+    "No cages defined": "Ingen bure oprettet",
+    "No users": "Ingen brugere",
+    "Species without breeds": "Art uden racer",
+    "Invitations not accepted": "Ikke accepterede invitationer",
+    "Invited on": "Inviteret den"
 }

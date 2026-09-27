@@ -662,5 +662,16 @@
     "Pets without a Photo": "Dieren zonder foto",
     "Longest in the Shelter": "Het langst in het asiel",
     "Today": "Vandaag",
-    ":count day ago|:count days ago": ":count dag geleden|:count dagen geleden"
+    ":count day ago|:count days ago": ":count dag geleden|:count dagen geleden",
+    "Active users (last 30 days)": "Actieve gebruikers (laatste 30 dagen)",
+    "Last login": "Laatste login",
+    "Last pet update": "Laatste dierupdate",
+    "Never": "Nooit",
+    "Setup to complete": "Nog in te stellen",
+    "No species enabled": "Geen diersoorten ingeschakeld",
+    "No cages defined": "Geen hokken ingesteld",
+    "No users": "Geen gebruikers",
+    "Species without breeds": "Diersoort zonder rassen",
+    "Invitations not accepted": "Niet geaccepteerde uitnodigingen",
+    "Invited on": "Uitgenodigd op"
 }

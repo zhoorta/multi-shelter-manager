@@ -662,5 +662,16 @@
     "Pets without a Photo": "Pets without a Photo",
     "Longest in the Shelter": "Longest in the Shelter",
     "Today": "Today",
-    ":count day ago|:count days ago": ":count day ago|:count days ago"
+    ":count day ago|:count days ago": ":count day ago|:count days ago",
+    "Active users (last 30 days)": "Active users (last 30 days)",
+    "Last login": "Last login",
+    "Last pet update": "Last pet update",
+    "Never": "Never",
+    "Setup to complete": "Setup to complete",
+    "No species enabled": "No species enabled",
+    "No cages defined": "No cages defined",
+    "No users": "No users",
+    "Species without breeds": "Species without breeds",
+    "Invitations not accepted": "Invitations not accepted",
+    "Invited on": "Invited on"
 }

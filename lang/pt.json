@@ -662,5 +662,16 @@
     "Pets without a Photo": "Animais sem Fotografia",
     "Longest in the Shelter": "Há Mais Tempo no Abrigo",
     "Today": "Hoje",
-    ":count day ago|:count days ago": "há :count dia|há :count dias"
+    ":count day ago|:count days ago": "há :count dia|há :count dias",
+    "Active users (last 30 days)": "Utilizadores ativos (últimos 30 dias)",
+    "Last login": "Último acesso",
+    "Last pet update": "Última atualização de animais",
+    "Never": "Nunca",
+    "Setup to complete": "Configuração por concluir",
+    "No species enabled": "Sem espécies ativas",
+    "No cages defined": "Sem jaulas definidas",
+    "No users": "Sem utilizadores",
+    "Species without breeds": "Espécie sem raças",
+    "Invitations not accepted": "Convites por aceitar",
+    "Invited on": "Convidado em"
 }

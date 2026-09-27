@@ -1,5 +1,8 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
-    @if (! auth()->user()->is_admin && (! $hasCages || ! $speciesConfigured || $this->speciesWithoutBreeds->isNotEmpty()))
+    @if (auth()->user()->is_admin)
+        <livewire:admin.platform-overview />
+    @else
+    @if (! $hasCages || ! $speciesConfigured || $this->speciesWithoutBreeds->isNotEmpty()))
         <div class="flex flex-col gap-3">
             @if (! $hasCages && ! auth()->user()->isManagerOfCurrentShelter())
                 <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-200">
@@ -283,4 +286,5 @@
             @endif
         </div>
     </div>
+    @endif
 </div>
