@@ -31,6 +31,9 @@ class ManagePets extends Component
     #[Url]
     public string $speciesFilter = '';
 
+    #[Url]
+    public string $missingDataFilter = '';
+
     public function mount(): void
     {
         abort_unless(! Auth::user()->is_admin, 403);

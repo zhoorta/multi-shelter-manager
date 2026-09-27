@@ -654,5 +654,13 @@
     "before arrival": "före ankomst",
     "Not neutered": "Inte kastrerad",
     "Neutered, details missing": "Kastrerad, uppgifter saknas",
-    "Sterilisations performed": "Utförda kastreringar"
+    "Sterilisations performed": "Utförda kastreringar",
+    "Needs attention": "Behöver åtgärdas",
+    "Recent activity": "Senaste aktivitet",
+    "View all": "Visa alla",
+    "Sponsorships to Renew": "Fadderskap att förnya",
+    "Pets without a Photo": "Djur utan foto",
+    "Longest in the Shelter": "Längst på hemmet",
+    "Today": "Idag",
+    ":count day ago|:count days ago": ":count dag sedan|:count dagar sedan"
 }

@@ -9,9 +9,12 @@ use App\Models\Facility;
 use App\Models\Member;
 use App\Models\MemberPayment;
 use App\Models\Pet;
+use App\Models\PetImage;
 use App\Models\Shelter;
+use App\Models\Sickness;
 use App\Models\Species;
 use App\Models\Sponsorship;
+use App\Models\SponsorshipPayment;
 use App\Models\User;
 use App\Models\Vaccine;
 use App\Models\Wing;
@@ -212,7 +215,7 @@ test('lists the five most recent intakes with their species, ref, and a link to 
     $wing = Wing::factory()->create(['facility_id' => $facility->id]);
     $cage = Cage::factory()->create(['wing_id' => $wing->id]);
 
-    Pet::factory()->create([
+    $oldest = Pet::factory()->create([
         'shelter_id' => $shelter->id,
         'species_id' => $species->id,
         'cage_id' => $cage->id,
@@ -239,9 +242,11 @@ test('lists the five most recent intakes with their species, ref, and a link to 
 
     $response->assertOk();
     $response->assertSee(['Pet A', 'Pet B', 'Pet C', 'Pet D', 'Newest Pet']);
-    $response->assertDontSee('Oldest Pet');
     $response->assertSee('Dog - '.$newest->ref);
     $response->assertSee(route('pets.show', $newest));
+    $response->assertSee([now()->format('d/m/Y'), $wing->name.' · '.$cage->code]);
+
+    expect(Livewire::test(Dashboard::class)->get('recentIntakes')->pluck('id'))->not->toContain($oldest->id);
 });
 
 test('breaks recent intakes ties on the same check-in date by created_at desc', function () {
@@ -287,11 +292,9 @@ test('excludes pets without a check-in date from recent intakes', function () {
         'checkin_date' => null,
     ]);
 
-    $response = $this->get(route('dashboard'));
-
-    $response->assertOk();
-    $response->assertDontSee('No Checkin Pet');
-    $response->assertSee(__('No Recent Intakes'));
+    Livewire::test(Dashboard::class)
+        ->assertSet('recentIntakes', fn ($recentIntakes) => $recentIntakes->isEmpty())
+        ->assertSee(__('No Recent Intakes'));
 });
 
 test('lists the five most recent adoptions with their species, ref, and a link to the pet', function () {
@@ -373,11 +376,9 @@ test('excludes adoptions whose pet is not currently adopted from recent adoption
     $returnedPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'name' => 'Returned Pet', 'status' => 'available', 'cage_id' => $cage->id]);
     Adoption::factory()->create(['pet_id' => $returnedPet->id, 'return_date' => now()]);
 
-    $response = $this->get(route('dashboard'));
-
-    $response->assertOk();
-    $response->assertDontSee('Returned Pet');
-    $response->assertSee(__('No Recent Adoptions'));
+    Livewire::test(Dashboard::class)
+        ->assertSet('recentAdoptions', fn ($recentAdoptions) => $recentAdoptions->isEmpty())
+        ->assertSee(__('No Recent Adoptions'));
 });
 
 test('lists active pets with no cage assigned, up to five, most recent first', function () {
@@ -436,7 +437,8 @@ test('excludes other shelters pets from pets with unknown location', function ()
 
     $response->assertOk();
     $response->assertDontSee('Other Shelter No Location Pet');
-    $response->assertSee(__('No Pets with Unknown Location'));
+    $response->assertDontSee(__('Pets with Unknown Location'));
+    $response->assertDontSee(__('Needs attention'));
 });
 
 test('lists the five most recent passings with their species, ref, and a link to the pet', function () {
@@ -514,11 +516,9 @@ test('excludes pets without a date of death from recent passings', function () {
 
     Pet::factory()->create(['shelter_id' => $shelter->id, 'name' => 'Alive Pet', 'date_of_death' => null, 'cage_id' => $cage->id]);
 
-    $response = $this->get(route('dashboard'));
-
-    $response->assertOk();
-    $response->assertDontSee('Alive Pet');
-    $response->assertSee(__('No Recent Passings'));
+    Livewire::test(Dashboard::class)
+        ->assertSet('recentPassings', fn ($recentPassings) => $recentPassings->isEmpty())
+        ->assertSee(__('No Recent Passings'));
 });
 
 test('excludes other shelters pets from recent passings', function () {
@@ -536,60 +536,157 @@ test('excludes other shelters pets from recent passings', function () {
     $response->assertSee(__('No Recent Passings'));
 });
 
-test('lists the five most recent sponsorships with their species, ref, and a link to the pet', function () {
+test('lists sponsorships whose last paid day is within 30 days, soonest first, with the sponsor and validity', function () {
     $shelter = Shelter::factory()->create();
-    $user = User::factory()->forShelter($shelter, 'staff')->create();
-    $this->actingAs($user);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $species = Species::factory()->create(['name' => 'Parrot']);
+    $sponsorshipFor = function (string $petName, string $sponsorName, array $endDates, array $petAttributes = []) use ($shelter): Sponsorship {
+        $sponsorship = Sponsorship::factory()
+            ->for(Pet::factory()->for($shelter)->create(['name' => $petName, ...$petAttributes]))
+            ->create(['name' => $sponsorName]);
 
-    $facility = Facility::factory()->create(['shelter_id' => $shelter->id]);
-    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
-    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
+        foreach ($endDates as $endDate) {
+            SponsorshipPayment::factory()->for($sponsorship)->create(['end_date' => $endDate]);
+        }
 
-    $oldestPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'cage_id' => $cage->id, 'name' => 'Oldest Sponsorship']);
-    Sponsorship::factory()->create(['pet_id' => $oldestPet->id, 'created_at' => now()->subDays(10)]);
+        return $sponsorship;
+    };
 
-    Pet::factory()->count(4)->sequence(
-        ['name' => 'Pet A'],
-        ['name' => 'Pet B'],
-        ['name' => 'Pet C'],
-        ['name' => 'Pet D'],
-    )->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'cage_id' => $cage->id])
-        ->each(function (Pet $pet, int $index): void {
-            Sponsorship::factory()->create(['pet_id' => $pet->id, 'created_at' => now()->subDays(4 - $index)]);
-        });
+    $expiringSoon = $sponsorshipFor('Expiring Pet', 'Ana Silva', [now()->addDays(10)]);
+    $recentlyExpired = $sponsorshipFor('Expired Pet', 'Rui Costa', [now()->subYear(), now()->subDays(5)]);
+    $renewed = $sponsorshipFor('Renewed Pet', 'Eva Lopes', [now()->addDays(10), now()->addMonths(6)]);
+    $longExpired = $sponsorshipFor('Long Expired Pet', 'Tiago Reis', [now()->subDays(40)]);
+    $adoptedPet = $sponsorshipFor('Adopted Pet', 'Maria Sousa', [now()->addDays(10)], ['status' => 'adopted']);
+    $withoutPayments = $sponsorshipFor('Unpaid Pet', 'João Dias', []);
 
-    $newestPet = Pet::factory()->create(['shelter_id' => $shelter->id, 'species_id' => $species->id, 'cage_id' => $cage->id, 'name' => 'Newest Sponsorship']);
-    Sponsorship::factory()->create(['pet_id' => $newestPet->id, 'created_at' => now()]);
+    $sponsorshipIds = Livewire::test(Dashboard::class)
+        ->assertSeeInOrder([__('Sponsorships to Renew'), 'Expired Pet', 'Rui Costa', __('Expired at :date', ['date' => now()->subDays(5)->format('d/m/Y')]), 'Expiring Pet', 'Ana Silva', __('Valid until :date', ['date' => now()->addDays(10)->format('d/m/Y')])])
+        ->assertSee(route('pets.sponsor.show', [$expiringSoon->pet, $expiringSoon]))
+        ->instance()->sponsorshipsToRenew->pluck('id');
 
-    $response = $this->get(route('dashboard'));
-
-    $response->assertOk();
-    $response->assertSee(['Pet A', 'Pet B', 'Pet C', 'Pet D', 'Newest Sponsorship']);
-    $response->assertDontSee('Oldest Sponsorship');
-    $response->assertSee('Parrot - '.$newestPet->ref);
-    $response->assertSee(route('pets.show', $newestPet));
+    expect($sponsorshipIds->all())->toBe([$recentlyExpired->id, $expiringSoon->id])
+        ->and($sponsorshipIds)->not->toContain($renewed->id, $longExpired->id, $adoptedPet->id, $withoutPayments->id);
 });
 
-test('excludes other shelters sponsorships from recent sponsorships', function () {
+test('excludes other shelters sponsorships from the sponsorships to renew', function () {
+    $this->actingAs(User::factory()->forShelter(Shelter::factory()->create(), 'staff')->create());
+
+    $sponsorship = Sponsorship::factory()->for(Pet::factory()->for(Shelter::factory())->create(['name' => 'Other Shelter Sponsorship Pet']))->create();
+    SponsorshipPayment::factory()->for($sponsorship)->create(['end_date' => now()->addDays(10)]);
+
+    Livewire::test(Dashboard::class)
+        ->assertDontSee('Other Shelter Sponsorship Pet')
+        ->assertDontSee(__('Sponsorships to Renew'));
+});
+
+test('viewers do not see the sponsorships to renew or the adopters names', function () {
     $shelter = Shelter::factory()->create();
-    $otherShelter = Shelter::factory()->create();
-    $user = User::factory()->forShelter($shelter, 'staff')->create();
-    $this->actingAs($user);
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
 
-    $facility = Facility::factory()->create(['shelter_id' => $otherShelter->id]);
-    $wing = Wing::factory()->create(['facility_id' => $facility->id]);
-    $cage = Cage::factory()->create(['wing_id' => $wing->id]);
+    $sponsorship = Sponsorship::factory()->for(Pet::factory()->for($shelter))->create(['name' => 'Ana Silva']);
+    SponsorshipPayment::factory()->for($sponsorship)->create(['end_date' => now()->addDays(10)]);
+    Adoption::factory()->for(Pet::factory()->for($shelter)->create(['name' => 'Adopted Pet', 'status' => 'adopted']))->create(['name' => 'Rui Costa']);
 
-    $otherPet = Pet::factory()->create(['shelter_id' => $otherShelter->id, 'name' => 'Other Shelter Sponsorship Pet', 'cage_id' => $cage->id]);
-    Sponsorship::factory()->create(['pet_id' => $otherPet->id]);
+    Livewire::test(Dashboard::class)
+        ->assertDontSee(__('Sponsorships to Renew'))
+        ->assertDontSee(['Ana', 'Rui'])
+        ->assertSee('Adopted Pet');
+});
 
-    $response = $this->get(route('dashboard'));
+test('shows the adoption date and the adopter first name on recent adoptions', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $response->assertOk();
-    $response->assertDontSee('Other Shelter Sponsorship Pet');
-    $response->assertSee(__('No Recent Sponsorships'));
+    Adoption::factory()->for(Pet::factory()->for($shelter)->create(['status' => 'adopted']))->create([
+        'name' => 'Rui Manuel Costa',
+        'adoption_date' => '2026-09-20',
+    ]);
+
+    Livewire::test(Dashboard::class)
+        ->assertSeeInOrder([__('Recent Adoptions'), '20/09/2026', 'Rui'])
+        ->assertDontSee('Costa');
+});
+
+test('shows the date of death on recent passings', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Pet::factory()->for($shelter)->create(['date_of_death' => '2026-09-15']);
+
+    Livewire::test(Dashboard::class)->assertSeeInOrder([__('Recent Passings'), '15/09/2026']);
+});
+
+test('shows how long each pet has been without a location, linking to the filtered pets list', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Pet::factory()->for($shelter)->create(['cage_id' => null, 'checkin_date' => now()->subDays(12)]);
+
+    Livewire::test(Dashboard::class)
+        ->assertSeeInOrder([__('Pets with Unknown Location'), '12 days ago'])
+        ->assertSeeHtml(e(route('pets.index', ['missingDataFilter' => 'no_location'])));
+});
+
+test('lists pets in care with open health issues, most recently diagnosed first, with the diagnoses', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $parvovirus = Sickness::factory()->create(['name' => 'Parvovirus']);
+    $scabies = Sickness::factory()->create(['name' => 'Scabies']);
+
+    $olderDiagnosis = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    $olderDiagnosis->sicknesses()->attach($parvovirus, ['diagnosed_at' => now()->subMonth(), 'status' => 'chronic']);
+    $newerDiagnosis = Pet::factory()->for($shelter)->create(['name' => 'Fido']);
+    $newerDiagnosis->sicknesses()->attach($scabies, ['diagnosed_at' => now()->subDay(), 'status' => 'active']);
+    $treated = Pet::factory()->for($shelter)->create();
+    $treated->sicknesses()->attach($scabies, ['diagnosed_at' => now(), 'status' => 'treated']);
+    $adopted = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
+    $adopted->sicknesses()->attach($scabies, ['diagnosed_at' => now(), 'status' => 'active']);
+
+    $component = Livewire::test(Dashboard::class)
+        ->assertSeeInOrder([__('Open health issues'), 'Fido', 'Scabies', 'Rex', 'Parvovirus'])
+        ->assertSeeHtml(e(route('pets.index', ['missingDataFilter' => 'open_health_issues'])));
+
+    expect($component->instance()->petsWithOpenHealthIssues->pluck('id')->all())->toBe([$newerDiagnosis->id, $olderDiagnosis->id]);
+});
+
+test('lists pets in care without a photo', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $withoutPhoto = Pet::factory()->for($shelter)->create(['checkin_date' => '2026-09-01']);
+    $withPhoto = Pet::factory()->for($shelter)->create();
+    PetImage::factory()->for($withPhoto)->create();
+    $adopted = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
+
+    $component = Livewire::test(Dashboard::class)
+        ->assertSeeInOrder([__('Pets without a Photo'), $withoutPhoto->name, '01/09/2026'])
+        ->assertSeeHtml(e(route('pets.index', ['missingDataFilter' => 'no_photo'])));
+
+    expect($component->instance()->petsWithoutPhoto->pluck('id')->all())->toBe([$withoutPhoto->id]);
+});
+
+test('lists the available pets that have been in the shelter the longest, with the time spent there', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $recent = Pet::factory()->for($shelter)->create(['status' => 'available', 'checkin_date' => now()->subMonth()]);
+    $longest = Pet::factory()->for($shelter)->create(['status' => 'available', 'checkin_date' => now()->subYears(2)->subMonths(3)]);
+    $notAvailable = Pet::factory()->for($shelter)->create(['status' => 'not_available', 'checkin_date' => now()->subYears(5)]);
+    $unknownCheckin = Pet::factory()->for($shelter)->create(['status' => 'available', 'checkin_date' => null]);
+
+    $component = Livewire::test(Dashboard::class)
+        ->assertSeeInOrder([__('Longest in the Shelter'), $longest->name, '2 years and 3 months', $recent->name]);
+
+    expect($component->instance()->longestWaitingPets->pluck('id')->all())->toBe([$longest->id, $recent->id]);
+});
+
+test('hides the sections that need attention when they are empty', function () {
+    $this->actingAs(User::factory()->forShelter(Shelter::factory()->create(), 'staff')->create());
+
+    Livewire::test(Dashboard::class)
+        ->assertDontSee([__('Needs attention'), __('Pets with Unknown Location'), __('Open health issues'), __('Sponsorships to Renew'), __('Pets without a Photo'), __('Longest in the Shelter')])
+        ->assertSee([__('Recent activity'), __('No Recent Intakes'), __('No Recent Adoptions'), __('No Recent Passings')]);
 });
 
 test('the pets sidebar only lists species enabled for the current shelter', function () {

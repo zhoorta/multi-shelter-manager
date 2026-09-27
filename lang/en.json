@@ -654,5 +654,13 @@
     "before arrival": "before arrival",
     "Not neutered": "Not neutered",
     "Neutered, details missing": "Neutered, details missing",
-    "Sterilisations performed": "Sterilisations performed"
+    "Sterilisations performed": "Sterilisations performed",
+    "Needs attention": "Needs attention",
+    "Recent activity": "Recent activity",
+    "View all": "View all",
+    "Sponsorships to Renew": "Sponsorships to Renew",
+    "Pets without a Photo": "Pets without a Photo",
+    "Longest in the Shelter": "Longest in the Shelter",
+    "Today": "Today",
+    ":count day ago|:count days ago": ":count day ago|:count days ago"
 }

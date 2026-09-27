@@ -654,5 +654,13 @@
     "before arrival": "vor der Aufnahme",
     "Not neutered": "Nicht kastriert",
     "Neutered, details missing": "Kastriert, Angaben fehlen",
-    "Sterilisations performed": "Durchgeführte Kastrationen"
+    "Sterilisations performed": "Durchgeführte Kastrationen",
+    "Needs attention": "Braucht Aufmerksamkeit",
+    "Recent activity": "Letzte Aktivitäten",
+    "View all": "Alle anzeigen",
+    "Sponsorships to Renew": "Zu erneuernde Patenschaften",
+    "Pets without a Photo": "Tiere ohne Foto",
+    "Longest in the Shelter": "Am längsten im Tierheim",
+    "Today": "Heute",
+    ":count day ago|:count days ago": "vor :count Tag|vor :count Tagen"
 }

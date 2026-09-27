@@ -9,10 +9,12 @@ use App\Models\AdoptionApplication;
 use App\Models\Cage;
 use App\Models\Member;
 use App\Models\Pet;
+use App\Models\PetSickness;
 use App\Models\PetVaccine;
 use App\Models\Shelter;
 use App\Models\Sponsorship;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +25,12 @@ use Livewire\Component;
 #[Title('Dashboard')]
 class Dashboard extends Component
 {
+    /**
+     * How many days before and after a sponsorship's last paid day it is
+     * listed as needing renewal.
+     */
+    private const SPONSORSHIP_RENEWAL_WINDOW_DAYS = 30;
+
     public int $activePetsCount = 0;
 
     public int $adoptionsThisYearCount = 0;
@@ -64,11 +72,6 @@ class Dashboard extends Component
      * @var Collection<int, Pet>
      */
     public Collection $recentPassings;
-
-    /**
-     * @var Collection<int, Sponsorship>
-     */
-    public Collection $recentSponsorships;
 
     public function mount(): void
     {
@@ -132,7 +135,7 @@ class Dashboard extends Component
             ->exists();
 
         $this->recentIntakes = Pet::query()
-            ->with(['species', 'images'])
+            ->with(['species', 'images', 'cage.wing'])
             ->where('shelter_id', $shelterId)
             ->whereNotNull('checkin_date')
             ->orderByDesc('checkin_date')
@@ -166,13 +169,111 @@ class Dashboard extends Component
             ->orderByDesc('created_at')
             ->take(5)
             ->get();
+    }
 
-        $this->recentSponsorships = Sponsorship::query()
-            ->with(['pet.species', 'pet.images'])
-            ->whereHas('pet', fn ($query) => $query->where('shelter_id', $shelterId))
+    /**
+     * Pets still in the shelter's care with an active or chronic diagnosis,
+     * most recently diagnosed first.
+     *
+     * @return Collection<int, Pet>
+     */
+    #[Computed]
+    public function petsWithOpenHealthIssues(): Collection
+    {
+        return $this->petsInCareQuery()
+            ->with(['species', 'images', 'openSicknesses'])
+            ->whereHas('openSicknesses')
+            ->orderByDesc(
+                PetSickness::query()
+                    ->select('diagnosed_at')
+                    ->whereColumn('pet_id', 'pets.id')
+                    ->whereIn('status', PetSickness::OPEN_STATUSES)
+                    ->latest('diagnosed_at')
+                    ->limit(1)
+            )
+            ->take(5)
+            ->get();
+    }
+
+    /**
+     * Pets still in the shelter's care that have no photo yet, so they
+     * can't be shown on the portal or on social media, newest intakes first.
+     *
+     * @return Collection<int, Pet>
+     */
+    #[Computed]
+    public function petsWithoutPhoto(): Collection
+    {
+        return $this->petsInCareQuery()
+            ->with(['species', 'images'])
+            ->whereDoesntHave('images')
+            ->orderByDesc('checkin_date')
             ->orderByDesc('created_at')
             ->take(5)
             ->get();
+    }
+
+    /**
+     * Pets available for adoption that have waited the longest since their
+     * check-in, the ones most in need of being promoted.
+     *
+     * @return Collection<int, Pet>
+     */
+    #[Computed]
+    public function longestWaitingPets(): Collection
+    {
+        return Pet::query()
+            ->with(['species', 'images'])
+            ->where('shelter_id', Auth::user()->current_shelter_id)
+            ->where('status', 'available')
+            ->whereNotNull('checkin_date')
+            ->orderBy('checkin_date')
+            ->orderBy('created_at')
+            ->take(5)
+            ->get();
+    }
+
+    /**
+     * Sponsorships of pets still in care whose last paid day falls within
+     * the renewal window (recently expired or about to), soonest first. The
+     * sponsor has to be contacted, so only users who manage sponsorships
+     * get them.
+     *
+     * @return Collection<int, Sponsorship>
+     */
+    #[Computed]
+    public function sponsorshipsToRenew(): Collection
+    {
+        if (! $this->showsActionCounters) {
+            return new Collection;
+        }
+
+        $shelterId = Auth::user()->current_shelter_id;
+        $windowStart = today()->subDays(self::SPONSORSHIP_RENEWAL_WINDOW_DAYS)->toDateString();
+        $windowEnd = today()->addDays(self::SPONSORSHIP_RENEWAL_WINDOW_DAYS)->toDateString();
+
+        return Sponsorship::query()
+            ->with(['pet.species', 'pet.images'])
+            ->withMax('payments', 'end_date')
+            ->whereHas('pet', fn ($query) => $query->where('shelter_id', $shelterId)->where('status', '!=', 'adopted')->whereNull('date_of_death'))
+            ->whereHas('payments', fn ($query) => $query->whereBetween('end_date', [$windowStart, $windowEnd]))
+            ->whereDoesntHave('payments', fn ($query) => $query->where('end_date', '>', $windowEnd))
+            ->orderBy('payments_max_end_date')
+            ->take(5)
+            ->get();
+    }
+
+    /**
+     * Pets of the current shelter that are neither adopted nor deceased.
+     *
+     * @return Builder<Pet>
+     */
+    private function petsInCareQuery(): Builder
+    {
+        return Pet::query()
+            ->where('shelter_id', Auth::user()->current_shelter_id)
+            ->where('status', '!=', 'adopted')
+            ->whereNull('date_of_death');
     }
 
     /**

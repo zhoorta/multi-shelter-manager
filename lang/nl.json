@@ -654,5 +654,13 @@
     "before arrival": "voor aankomst",
     "Not neutered": "Niet gecastreerd",
     "Neutered, details missing": "Gecastreerd, gegevens ontbreken",
-    "Sterilisations performed": "Uitgevoerde castraties"
+    "Sterilisations performed": "Uitgevoerde castraties",
+    "Needs attention": "Vraagt aandacht",
+    "Recent activity": "Recente activiteit",
+    "View all": "Alles bekijken",
+    "Sponsorships to Renew": "Te verlengen sponsorschappen",
+    "Pets without a Photo": "Dieren zonder foto",
+    "Longest in the Shelter": "Het langst in het asiel",
+    "Today": "Vandaag",
+    ":count day ago|:count days ago": ":count dag geleden|:count dagen geleden"
 }

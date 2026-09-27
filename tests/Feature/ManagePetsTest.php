@@ -273,6 +273,19 @@ test('filters pets with no photo', function () {
         ->assertDontSee('Bella');
 });
 
+test('applies the missing data filter from the query string, as linked from the dashboard', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella'])->images()->create(['image_path' => 'pets/bella.jpg', 'is_main' => true]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::withQueryParams(['missingDataFilter' => 'no_photo'])
+        ->test(ManagePets::class)
+        ->assertSet('missingDataFilter', 'no_photo')
+        ->assertSee('Rex')
+        ->assertDontSee('Bella');
+});
+
 test('filters pets with no checkin date', function () {
     $shelter = Shelter::factory()->create();
     Pet::factory()->for($shelter)->create(['name' => 'Rex', 'checkin_date' => null]);
