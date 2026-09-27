@@ -11,7 +11,13 @@
     };
     // Pages whose content depends on a query string (e.g. a pet page reached through an old slug) pass their own canonical URL.
     $pageUrl = $canonicalUrl ?? url()->current();
-    $shareImage = filled($image ?? null) ? $image : asset('images/share.png');
+    $usesDefaultShareImage = blank($image ?? null);
+    $shareImage = $usesDefaultShareImage ? asset('images/share.png') : $image;
+    // Open Graph wants a territory (pt_PT); the installation's country is taken as the language's home one.
+    $ogLocale = [
+        'pt' => 'pt_PT', 'en' => 'en_GB', 'es' => 'es_ES', 'fr' => 'fr_FR', 'de' => 'de_DE',
+        'it' => 'it_IT', 'nl' => 'nl_NL', 'pl' => 'pl_PL', 'sv' => 'sv_SE', 'da' => 'da_DK',
+    ][app()->getLocale()] ?? str_replace('-', '_', app()->getLocale());
 @endphp
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,8 +39,12 @@
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:url" content="{{ $pageUrl }}">
-    <meta property="og:locale" content="{{ str_replace('-', '_', app()->getLocale()) }}">
+    <meta property="og:locale" content="{{ $ogLocale }}">
     <meta property="og:image" content="{{ $shareImage }}">
+    @if ($usesDefaultShareImage)
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+    @endif
     <meta property="og:image:alt" content="{{ $title ?? config('app.name') }}">
 
     <meta name="twitter:card" content="summary_large_image">

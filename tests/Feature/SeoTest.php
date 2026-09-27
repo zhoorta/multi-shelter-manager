@@ -15,8 +15,36 @@ test('public pages are indexable and expose description, canonical and open grap
         ->assertSee('<meta name="description" content="Free platform that helps animal shelters manage animals', false)
         ->assertSee('<link rel="canonical" href="'.route('home').'">', false)
         ->assertSee('<meta property="og:title"', false)
+        ->assertSee('<title>'."\n".'    Shelter management and animals for adoption - '.config('app.name'), false)
+        ->assertSee('<meta property="og:locale" content="en_GB">', false)
         ->assertSee('<meta property="og:image" content="'.asset('images/share.png').'">', false)
-        ->assertSee('"@type":"WebSite"', false);
+        ->assertSee('<meta property="og:image:width" content="1200">', false)
+        ->assertSee('"@type":"WebSite"', false)
+        ->assertSee('"@type":"Organization"', false);
+});
+
+test('the about page pitches the platform to shelters', function () {
+    $this->get(route('about'))
+        ->assertOk()
+        ->assertSee('<meta property="og:title" content="Free management platform for animal shelters - '.config('app.name').'">', false)
+        ->assertSee('<meta name="description" content="Nonprofit platform, free for animal shelters', false);
+});
+
+test('pages with their own share image do not declare the default image size', function () {
+    $pet = Pet::factory()->publishedToPortal()->create();
+    $pet->images()->create(['image_path' => 'pets/photo.jpg', 'is_main' => true]);
+
+    $this->get($pet->publicPageUrl())
+        ->assertOk()
+        ->assertDontSee('og:image:width', false);
+});
+
+test('the adoption application form is kept out of search results', function () {
+    $pet = Pet::factory()->publishedToPortal()->create();
+
+    $this->get(route('adoption-applications.create', $pet->ref))
+        ->assertOk()
+        ->assertSee('<meta name="robots" content="noindex, follow">', false);
 });
 
 test('the canonical url ignores filter query strings', function () {

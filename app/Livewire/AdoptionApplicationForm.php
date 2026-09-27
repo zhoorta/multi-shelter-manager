@@ -192,6 +192,6 @@ class AdoptionApplicationForm extends Component
     {
         return view('livewire.adoption-application-form')
             ->title(__('Adopt :name', ['name' => $this->pet->name]).' - '.$this->pet->shelter->name)
-            ->layoutData(['description' => __(':name is looking for a family!', ['name' => $this->pet->name])]);
+            ->layoutData(['description' => __(':name is looking for a family!', ['name' => $this->pet->name]), 'noindex' => true]);
     }
 }

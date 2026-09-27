@@ -19,6 +19,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Admin/ManageUsers.php,resources/views/livewire/admin/manage-users.blade.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/layouts-app.md |
 | app/Livewire/Pets/PetPrint.php,resources/views/livewire/pets/pet-print.blade.php,resources/views/layouts/print.blade.php | .ai/rules/layouts.md |
 | app/Livewire/Admin/ManageUsers.php,resources/views/livewire/admin/manage-users.blade.php, app/Livewire/Admin/UserForm.php,resources/views/livewire/admin/user-form.blade.php | .ai/rules/livewire-admin.md |
+| resources/views/partials/head.blade.php,app/Livewire/Welcome.php,app/Livewire/About.php,app/Livewire/AdoptionApplicationForm.php | .ai/rules/livewire-livewire.md |
 | resources/views/livewire/partials/public-pet-card.blade.php | .ai/rules/livewire-partials.md |
 | app/Models/Pet.php,app/Livewire/Pets/PetForm.php,app/Livewire/Pets/AdoptionForm.php,app/Livewire/Pets/ManageAdoptions.php, app/Models/PetSickness.php,app/Livewire/Pets/DiagnosisForm.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/PetForm.php | .ai/rules/livewire-pets-livewire-pets.md |
 | app/Livewire/Pets/Concerns/FiltersPetsList.php,resources/views/livewire/pets/manage-pets.blade.php,app/Models/Pet.php | .ai/rules/livewire-pets-models.md |

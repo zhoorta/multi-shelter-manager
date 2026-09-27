@@ -163,15 +163,27 @@ class Welcome extends Component
     public function render(): View
     {
         return view('livewire.welcome')
-            ->title(__('Dogs and cats for adoption in Portugal'))
+            ->title(__('Shelter management and animals for adoption'))
             ->layoutData([
                 'description' => __('Free platform that helps animal shelters manage animals, health, adoptions and members, and find a home for their dogs and cats.'),
                 'structuredData' => [
                     '@context' => 'https://schema.org',
-                    '@type' => 'WebSite',
-                    'name' => config('app.name'),
-                    'url' => route('home'),
-                    'inLanguage' => app()->getLocale(),
+                    '@graph' => [
+                        [
+                            '@type' => 'WebSite',
+                            'name' => config('app.name'),
+                            'url' => route('home'),
+                            'inLanguage' => app()->getLocale(),
+                        ],
+                        array_filter([
+                            '@type' => 'Organization',
+                            'name' => config('app.name'),
+                            'url' => route('home'),
+                            'logo' => asset('apple-touch-icon.png'),
+                            'email' => config('app.contact_email'),
+                            'description' => __('Free management platform for animal shelters'),
+                        ]),
+                    ],
                 ],
             ]);
     }
