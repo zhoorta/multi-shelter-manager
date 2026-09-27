@@ -59,6 +59,7 @@
     "Made from the name when left blank": "Oprettes ud fra navnet, hvis feltet er tomt",
     "Changing it breaks links to the shelter page that were already shared.": "Hvis du ændrer den, virker allerede delte links til internatets side ikke længere.",
     "To change it, ask the platform administrator.": "Bed platformens administrator om at ændre den.",
+    "Open public page": "Åbn den offentlige side",
     "Gender": "Køn",
     "Male": "Han",
     "Female": "Hun",

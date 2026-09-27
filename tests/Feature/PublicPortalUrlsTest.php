@@ -40,7 +40,7 @@ test('a portuguese installation serves the public portal under portuguese paths'
 
     expect(route('shelters'))->toBe(url('abrigos'))
         ->and(route('shelters.show', $shelter))->toBe(url('abrigos/abrigo-feliz'))
-        ->and(route('about'))->toBe(url('sobre'))
+        ->and(route('about'))->toBe(url('acerca'))
         ->and(route('adoption-applications.create', $pet->ref))->toBe(url("adotar/{$pet->ref}"))
         ->and($pet->publicPageUrl())->toStartWith(url("animais/{$pet->id}/"))
         ->and(route('shelters.feed', $shelter))->toBe(url("shelters/{$shelter->id}/feed"));
@@ -49,5 +49,5 @@ test('a portuguese installation serves the public portal under portuguese paths'
 test('a portuguese installation moves the old english about link permanently', function () {
     loadRoutesForInstallationLocale('pt');
 
-    $this->get('/about')->assertStatus(301)->assertRedirect(url('sobre'));
+    $this->get('/about')->assertStatus(301)->assertRedirect(url('acerca'));
 });

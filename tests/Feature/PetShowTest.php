@@ -76,6 +76,26 @@ test('shows the public portal publication, featured flag and view count', functi
         ]);
 });
 
+test('shows the public page address only while the pet is published', function (bool $isPublished) {
+    config(['app.public_portal_enabled' => true]);
+
+    $shelter = Shelter::factory()->create();
+    $pet = $isPublished
+        ? Pet::factory()->publishedToPortal()->for($shelter)->create()
+        : Pet::factory()->for($shelter)->create(['publish_to_portal' => false]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $response = $this->get(route('pets.show', $pet))->assertOk();
+
+    $isPublished
+        ? $response->assertSee(__('Public address'))->assertSee('href="'.$pet->publicPageUrl().'"', false)
+        : $response->assertDontSee(__('Public address'))->assertDontSee(__('Open public page'));
+})->with([
+    'published' => [true],
+    'not published' => [false],
+]);
+
 test('hides the public portal section when the public portal is disabled', function () {
     config(['app.public_portal_enabled' => false]);
 

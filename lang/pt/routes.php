@@ -16,6 +16,6 @@ return [
     'shelters' => 'abrigos',
     'animals' => 'animais',
     'adopt' => 'adotar',
-    'about' => 'sobre',
+    'about' => 'acerca',
 
 ];

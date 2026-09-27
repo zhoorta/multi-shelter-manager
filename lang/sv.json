@@ -59,6 +59,7 @@
     "Made from the name when left blank": "Skapas från namnet om det lämnas tomt",
     "Changing it breaks links to the shelter page that were already shared.": "Om du ändrar den slutar redan delade länkar till djurhemmets sida att fungera.",
     "To change it, ask the platform administrator.": "Be plattformens administratör om du vill ändra den.",
+    "Open public page": "Öppna den offentliga sidan",
     "Gender": "Kön",
     "Male": "Hane",
     "Female": "Hona",

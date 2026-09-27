@@ -351,6 +351,13 @@
                             <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->view_count }}</flux:text>
                         </div>
                     </div>
+
+                    @if ($this->shareUrl)
+                        <div class="mt-4 flex items-end gap-2">
+                            <flux:input :value="$this->shareUrl" :label="__('Public address')" field:class="max-w-2xl flex-1" readonly copyable />
+                            <flux:button icon="arrow-top-right-on-square" :href="$this->shareUrl" target="_blank" rel="noopener" :aria-label="__('Open public page')" :tooltip="__('Open public page')" />
+                        </div>
+                    @endif
                 </div>
             @endif
 
