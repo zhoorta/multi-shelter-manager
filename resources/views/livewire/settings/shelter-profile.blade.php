@@ -13,6 +13,16 @@
                 <flux:input wire:model="shelterShortName" :label="__('Short Name')" />
             </div>
 
+            @if (config('app.public_portal_enabled'))
+                <flux:input
+                    :value="$publicPageUrl"
+                    :label="__('Public address')"
+                    :description:trailing="__('To change it, ask the platform administrator.')"
+                    readonly
+                    copyable
+                />
+            @endif
+
             @include('livewire.partials.shelter-profile-fields')
 
             <div class="flex justify-end">

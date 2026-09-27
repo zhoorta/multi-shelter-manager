@@ -24,6 +24,19 @@ test('managers can open the shelter settings page and see it in the settings men
         ->assertSee(route('shelter-profile.edit'));
 });
 
+test('managers see the public page address read-only when the public portal is enabled', function (bool $portalEnabled) {
+    config(['app.public_portal_enabled' => $portalEnabled]);
+
+    $response = $this->actingAs($this->manager)->get(route('shelter-profile.edit'))->assertOk();
+
+    $portalEnabled
+        ? $response->assertSee(route('shelters.show', $this->shelter))
+        : $response->assertDontSee(route('shelters.show', $this->shelter));
+})->with([
+    'portal enabled' => [true],
+    'portal disabled' => [false],
+]);
+
 test('staff, viewers and admins cannot open the shelter settings page', function (string $role) {
     $user = $role === 'admin'
         ? User::factory()->admin()->create()

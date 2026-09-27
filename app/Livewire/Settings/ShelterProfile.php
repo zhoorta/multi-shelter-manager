@@ -28,6 +28,13 @@ class ShelterProfile extends Component
 
     public string $shelterName = '';
 
+    /**
+     * The shelter's public page on the portal, shown read-only (only admins
+     * change its address).
+     */
+    #[Locked]
+    public string $publicPageUrl = '';
+
     public function mount(): void
     {
         $user = Auth::user();
@@ -38,6 +45,7 @@ class ShelterProfile extends Component
 
         $this->shelterId = $shelter->id;
         $this->shelterName = $shelter->name;
+        $this->publicPageUrl = route('shelters.show', $shelter);
         $this->fillShelterProfile($shelter);
     }
 

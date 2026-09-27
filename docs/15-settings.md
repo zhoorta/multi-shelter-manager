@@ -53,6 +53,7 @@ The manager keeps the profile of the **active shelter** up to date. These detail
 |-------|---------|
 | Name | Shown only. Ask an admin if it needs to change |
 | Short Name | Short name used where space is limited (lists, cards, badges) |
+| Public address | Read-only, with a copy button: the shelter's page on the public portal, to share on social media, posters and e-mails. Only the administrator can change it (see [Administration](03-administration.md)). Shown only when the public portal is enabled |
 | Email | **Required.** The shelter's public contact e-mail |
 | Phone, Website | Public contacts |
 | Address, Postal Code, City | Location of the shelter. City is required |
