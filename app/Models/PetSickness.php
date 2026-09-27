@@ -33,6 +33,9 @@ class PetSickness extends Pivot
 
     public const STATUSES = ['active', 'chronic', 'treated'];
 
+    /** Statuses of a diagnosis that still needs care. */
+    public const OPEN_STATUSES = ['active', 'chronic'];
+
     public $incrementing = true;
 
     /**

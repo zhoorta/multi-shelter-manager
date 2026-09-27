@@ -378,6 +378,16 @@ class Pet extends Model
     }
 
     /**
+     * Get the sicknesses still being cared for (active or chronic).
+     *
+     * @return BelongsToMany<Sickness, $this, PetSickness>
+     */
+    public function openSicknesses(): BelongsToMany
+    {
+        return $this->sicknesses()->wherePivotIn('status', PetSickness::OPEN_STATUSES);
+    }
+
+    /**
      * Get the vaccines administered to the pet.
      *
      * @return BelongsToMany<Vaccine, $this, PetVaccine>

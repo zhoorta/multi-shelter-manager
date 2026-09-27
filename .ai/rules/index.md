@@ -20,6 +20,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Admin/ManageUsers.php,resources/views/livewire/admin/manage-users.blade.php, app/Livewire/Admin/UserForm.php,resources/views/livewire/admin/user-form.blade.php | .ai/rules/livewire-admin.md |
 | resources/views/livewire/partials/public-pet-card.blade.php | .ai/rules/livewire-partials.md |
 | app/Models/Pet.php,app/Livewire/Pets/PetForm.php,app/Livewire/Pets/AdoptionForm.php,app/Livewire/Pets/ManageAdoptions.php, app/Models/PetSickness.php,app/Livewire/Pets/DiagnosisForm.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/PetForm.php | .ai/rules/livewire-pets-livewire-pets.md |
+| app/Livewire/Pets/Concerns/FiltersPetsList.php,resources/views/livewire/pets/manage-pets.blade.php,app/Models/Pet.php | .ai/rules/livewire-pets-models.md |
 | resources/views/livewire/pets/sponsorship-form.blade.php,resources/views/livewire/pets/adoption-form.blade.php | .ai/rules/livewire-pets-views-livewire-pets.md |
 | app/Models/Sponsorship.php,app/Models/SponsorshipPayment.php,app/Livewire/Pets/SponsorshipForm.php | .ai/rules/livewire-pets.md |
 | app/Http/Middleware/SetLocale.php,app/Http/Controllers/LocaleController.php,app/Livewire/Settings/Appearance.php,config/app.php | .ai/rules/livewire-settings.md |

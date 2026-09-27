@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Shared pet-list filtering (search + status/location/species/missing-data
- * filters) for the two pages that browse the shelter's pet list: ManagePets
+ * or open-health-issues filters) for the two pages that browse the shelter's pet list: ManagePets
  * (the interactive table) and PetPrintList (its printable counterpart,
  * which reads the same filters from the query string so the printout
  * matches whatever was on screen). Pets are listed by most recent
@@ -34,7 +34,7 @@ trait FiltersPetsList
     protected function filteredPetsQuery(): Builder
     {
         return Pet::query()
-            ->with(['species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'latestAdoption'])
+            ->with(['species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'latestAdoption', 'openSicknesses'])
             ->when(
                 $this->search !== '',
                 fn (Builder $query) => $query->where(
@@ -73,6 +73,7 @@ trait FiltersPetsList
                         'no_photo' => $query->whereDoesntHave('images'),
                         'no_checkin_date' => $query->whereNull('checkin_date'),
                         'no_location' => $query->whereNull('cage_id')->whereNotIn('status', ['adopted', 'deceased']),
+                        'open_health_issues' => $query->whereHas('openSicknesses')->whereNotIn('status', ['adopted', 'deceased']),
                         default => null,
                     };
                 },

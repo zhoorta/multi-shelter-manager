@@ -82,6 +82,7 @@
 
         <flux:select wire:model.live="missingDataFilter" class="sm:max-w-xs">
             <flux:select.option value="">{{ __('All') }}</flux:select.option>
+            <flux:select.option value="open_health_issues">{{ __('Open health issues') }}</flux:select.option>
             <flux:select.option value="no_age">{{ __('No age defined') }}</flux:select.option>
             <flux:select.option value="no_photo">{{ __('No photo') }}</flux:select.option>
             <flux:select.option value="no_checkin_date">{{ __('No checkin date') }}</flux:select.option>
@@ -130,7 +131,22 @@
                                 <td class="px-6 py-3">
                                     <div class="flex flex-col gap-1">
                                         <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $pet->ref }}</span>
-                                        <a href="{{ route('pets.show', $pet) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $pet->name }}</a>
+                                        <div class="flex items-center gap-1">
+                                            <a href="{{ route('pets.show', $pet) }}" wire:navigate class="font-medium text-neutral-900 hover:underline dark:text-white">{{ $pet->name }}</a>
+
+                                            @if ($pet->openSicknesses->isNotEmpty())
+                                                <flux:tooltip :content="__('Open health issues').': '.$pet->openSicknesses->pluck('name')->join(', ')">
+                                                    <flux:icon.heart
+                                                        variant="micro"
+                                                        data-test="open-health-issues"
+                                                        @class([
+                                                            'text-red-600 dark:text-red-400' => $pet->openSicknesses->contains(fn ($sickness) => $sickness->pivot->status === 'active'),
+                                                            'text-amber-600 dark:text-amber-400' => $pet->openSicknesses->doesntContain(fn ($sickness) => $sickness->pivot->status === 'active'),
+                                                        ])
+                                                    />
+                                                </flux:tooltip>
+                                            @endif
+                                        </div>
                                         <span class="text-neutral-500 dark:text-neutral-400">{{ __(ucfirst($pet->gender)) }}</span>
                                         <span class="text-neutral-500 dark:text-neutral-400">{{ $pet->chip }}</span>
 

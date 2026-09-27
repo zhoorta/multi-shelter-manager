@@ -6,6 +6,7 @@ use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
+use App\Models\Sickness;
 use App\Models\Size;
 use App\Models\Species;
 use App\Models\User;
@@ -313,6 +314,37 @@ test('excludes adopted and deceased pets from the no location defined filter', f
         ->assertSee('Fido')
         ->assertDontSee('Rex')
         ->assertDontSee('Bella');
+});
+
+test('filters pets in the shelter with open health issues', function () {
+    $shelter = Shelter::factory()->create();
+    $sickness = Sickness::factory()->create();
+
+    Pet::factory()->for($shelter)->create(['name' => 'Rex'])->sicknesses()->attach($sickness, ['diagnosed_at' => now(), 'status' => 'active']);
+    Pet::factory()->for($shelter)->create(['name' => 'Fido'])->sicknesses()->attach($sickness, ['diagnosed_at' => now(), 'status' => 'chronic']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella'])->sicknesses()->attach($sickness, ['diagnosed_at' => now(), 'status' => 'treated']);
+    Pet::factory()->for($shelter)->create(['name' => 'Luna', 'status' => 'adopted'])->sicknesses()->attach($sickness, ['diagnosed_at' => now(), 'status' => 'active']);
+    Pet::factory()->for($shelter)->create(['name' => 'Max']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManagePets::class)
+        ->set('missingDataFilter', 'open_health_issues')
+        ->assertSee(['Rex', 'Fido'])
+        ->assertDontSee(['Bella', 'Luna', 'Max']);
+});
+
+test('flags pets with open health issues in the list', function () {
+    $shelter = Shelter::factory()->create();
+    $sick = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    $sick->sicknesses()->attach(Sickness::factory()->create(['name' => 'Parvovirus']), ['diagnosed_at' => now(), 'status' => 'active']);
+    $recovered = Pet::factory()->for($shelter)->create(['name' => 'Bella']);
+    $recovered->sicknesses()->attach(Sickness::factory()->create(['name' => 'Otitis']), ['diagnosed_at' => now(), 'status' => 'treated']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $response = $this->get(route('pets.index'))->assertOk();
+
+    expect(substr_count($response->getContent(), 'data-test="open-health-issues"'))->toBe(1);
+    $response->assertSee('Open health issues: Parvovirus')->assertDontSee('Otitis');
 });
 
 test('shows the adoption date for adopted pets', function () {
