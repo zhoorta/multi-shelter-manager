@@ -640,5 +640,19 @@
     "Edit Diagnosis": "Editar diagnóstico",
     "Select a sickness": "Seleccione una enfermedad",
     "Open health issues": "Problemas de salud abiertos",
-    "No diagnoses registered": "No hay diagnósticos registrados"
+    "No diagnoses registered": "No hay diagnósticos registrados",
+    "Neutering Date": "Fecha de esterilización",
+    "Neutered by": "Esterilizado por",
+    "The shelter": "El refugio",
+    "Before arrival": "Antes de la entrada",
+    "Neutering Status": "Estado de la esterilización",
+    "Scheduled Date": "Fecha programada",
+    "Neutering Notes": "Notas sobre la esterilización",
+    "Scheduled": "Programada",
+    "Not recommended": "No recomendada",
+    "by the shelter": "por el refugio",
+    "before arrival": "antes de la entrada",
+    "Not neutered": "No esterilizado",
+    "Neutered, details missing": "Esterilizado, faltan detalles",
+    "Sterilisations performed": "Esterilizaciones realizadas"
 }

@@ -333,6 +333,24 @@ test('filters pets in the shelter with open health issues', function () {
         ->assertDontSee(['Bella', 'Luna', 'Max']);
 });
 
+test('filters pets by neutering', function (string $filter, array $expected) {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'is_neutered' => true, 'neutered_at' => '2026-01-01', 'neutered_by_shelter' => true]);
+    Pet::factory()->for($shelter)->create(['name' => 'Fido', 'is_neutered' => true, 'neutered_at' => '2026-01-01']);
+    Pet::factory()->for($shelter)->create(['name' => 'Luna', 'is_neutered' => true, 'status' => 'adopted']);
+    Pet::factory()->for($shelter)->create(['name' => 'Max', 'is_neutered' => false]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManagePets::class)
+        ->set('missingDataFilter', $filter)
+        ->assertSee($expected)
+        ->assertDontSee(array_diff(['Rex', 'Fido', 'Luna', 'Max'], $expected));
+})->with([
+    'neutered' => ['neutered', ['Rex', 'Fido', 'Luna']],
+    'not neutered' => ['not_neutered', ['Max']],
+    'details missing, in the shelter only' => ['neutering_details_missing', ['Fido']],
+]);
+
 test('flags pets with open health issues in the list', function () {
     $shelter = Shelter::factory()->create();
     $sick = Pet::factory()->for($shelter)->create(['name' => 'Rex']);

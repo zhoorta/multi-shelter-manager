@@ -37,6 +37,11 @@ use Illuminate\Support\Str;
  * @property string $name
  * @property string|null $chip
  * @property bool $is_neutered
+ * @property Carbon|null $neutered_at
+ * @property bool|null $neutered_by_shelter
+ * @property string|null $neutering_status
+ * @property Carbon|null $neutering_scheduled_at
+ * @property string|null $neutering_notes
  * @property string $gender
  * @property Carbon|null $birth_date
  * @property string $status
@@ -63,7 +68,8 @@ use Illuminate\Support\Str;
  */
 #[Fillable([
     'shelter_id', 'cage_id', 'species_id', 'breed_id', 'is_pure_breed', 'primary_color_id', 'secondary_color_id',
-    'fur_type_id', 'size_id', 'ref', 'name', 'chip', 'is_neutered', 'gender', 'birth_date', 'status', 'notes',
+    'fur_type_id', 'size_id', 'ref', 'name', 'chip', 'is_neutered', 'neutered_at', 'neutered_by_shelter',
+    'neutering_status', 'neutering_scheduled_at', 'neutering_notes', 'gender', 'birth_date', 'status', 'notes',
     'description', 'is_adoptable', 'is_sponsorable', 'publish_to_portal', 'is_featured',
     'checkin_date', 'checkout_date', 'date_of_death', 'age', 'internal_notes', 'clinical_notes',
 ])]
@@ -71,6 +77,24 @@ class Pet extends Model
 {
     /** @use HasFactory<PetFactory> */
     use Blameable, HasFactory, MultiShelterTrait, SoftDeletes;
+
+    /**
+     * Where a pet that isn't neutered stands in the neutering process.
+     */
+    public const NEUTERING_STATUSES = ['pending', 'scheduled', 'not_recommended'];
+
+    /**
+     * Translated label for a neutering status.
+     */
+    public static function neuteringStatusLabel(string $status): string
+    {
+        return match ($status) {
+            'pending' => __('Pending'),
+            'scheduled' => __('Scheduled'),
+            'not_recommended' => __('Not recommended'),
+            default => $status,
+        };
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -82,6 +106,9 @@ class Pet extends Model
         return [
             'is_pure_breed' => 'boolean',
             'is_neutered' => 'boolean',
+            'neutered_at' => 'date',
+            'neutered_by_shelter' => 'boolean',
+            'neutering_scheduled_at' => 'date',
             'birth_date' => 'date',
             'is_adoptable' => 'boolean',
             'is_sponsorable' => 'boolean',

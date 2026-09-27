@@ -640,5 +640,19 @@
     "Edit Diagnosis": "Redigera diagnos",
     "Select a sickness": "Välj en sjukdom",
     "Open health issues": "Öppna hälsoproblem",
-    "No diagnoses registered": "Inga diagnoser registrerade"
+    "No diagnoses registered": "Inga diagnoser registrerade",
+    "Neutering Date": "Kastreringsdatum",
+    "Neutered by": "Kastrerad av",
+    "The shelter": "Härbärget",
+    "Before arrival": "Före ankomst",
+    "Neutering Status": "Kastreringsstatus",
+    "Scheduled Date": "Planerat datum",
+    "Neutering Notes": "Anteckningar om kastrering",
+    "Scheduled": "Planerad",
+    "Not recommended": "Rekommenderas inte",
+    "by the shelter": "av härbärget",
+    "before arrival": "före ankomst",
+    "Not neutered": "Inte kastrerad",
+    "Neutered, details missing": "Kastrerad, uppgifter saknas",
+    "Sterilisations performed": "Utförda kastreringar"
 }

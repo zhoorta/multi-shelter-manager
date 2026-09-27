@@ -288,7 +288,33 @@
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Is Neutered') }}</flux:text>
-                        <flux:badge size="sm" :color="$pet->is_neutered ? 'lime' : 'zinc'">{{ $pet->is_neutered ? __('Yes') : __('No') }}</flux:badge>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <flux:badge size="sm" :color="$pet->is_neutered ? 'lime' : 'zinc'">{{ $pet->is_neutered ? __('Yes') : __('No') }}</flux:badge>
+
+                            @if ($pet->is_neutered)
+                                @php
+                                    $neuteringDetails = array_filter([
+                                        $pet->neutered_at?->format('d/m/Y'),
+                                        match ($pet->neutered_by_shelter) {
+                                            true => __('by the shelter'),
+                                            false => __('before arrival'),
+                                            null => null,
+                                        },
+                                    ]);
+                                @endphp
+                                @if ($neuteringDetails !== [])
+                                    <flux:text class="text-neutral-700 dark:text-neutral-300">{{ implode(' · ', $neuteringDetails) }}</flux:text>
+                                @endif
+                            @elseif ($pet->neutering_status)
+                                <flux:badge size="sm" :color="$pet->neutering_status === 'not_recommended' ? 'zinc' : 'amber'">
+                                    {{ \App\Models\Pet::neuteringStatusLabel($pet->neutering_status) }}{{ $pet->neutering_status === 'scheduled' && $pet->neutering_scheduled_at ? ' '.$pet->neutering_scheduled_at->format('d/m/Y') : '' }}
+                                </flux:badge>
+                            @endif
+                        </div>
+
+                        @if (! $pet->is_neutered && $pet->neutering_notes)
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->neutering_notes }}</flux:text>
+                        @endif
                     </div>
 
                     <div class="sm:col-span-2">

@@ -259,6 +259,7 @@ test('creates a new pet scoped to the acting user\'s shelter and redirects to th
     expect($pet->cage_id)->toBeNull();
     expect($pet->birth_date)->toBeNull();
     expect($pet->is_neutered)->toBeFalse();
+    expect($pet->neutering_status)->toBe('pending');
     expect($pet->is_adoptable)->toBeTrue();
     expect($pet->is_sponsorable)->toBeTrue();
 });
@@ -928,6 +929,119 @@ test('links back to the pet show page when editing', function () {
     $this->get(route('pets.edit', $pet))
         ->assertSee(route('pets.show', $pet), false);
 });
+
+test('saves the neutering date and who did it for a neutered pet, clearing its pending status', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $pet = Pet::factory()->for($shelter)->create(['is_neutered' => false, 'neutering_status' => 'scheduled', 'neutering_scheduled_at' => '2026-03-01', 'neutering_notes' => 'Fasting from 20h']);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petIsNeutered', true)
+        ->set('petNeuteredAt', '2026-03-02')
+        ->set('petNeuteredByShelter', '0')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh())
+        ->is_neutered->toBeTrue()
+        ->neutered_at->toDateString()->toBe('2026-03-02')
+        ->neutered_by_shelter->toBeFalse()
+        ->neutering_status->toBeNull()
+        ->neutering_scheduled_at->toBeNull()
+        ->neutering_notes->toBeNull();
+});
+
+test('keeps neutering details unknown when they are left empty', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $pet = Pet::factory()->for($shelter)->create(['is_neutered' => true]);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh())->neutered_at->toBeNull()->neutered_by_shelter->toBeNull();
+});
+
+test('switching a registered pet to neutered suggests its scheduled date and the shelter', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $pet = Pet::factory()->for($shelter)->create(['is_neutered' => false, 'neutering_status' => 'scheduled', 'neutering_scheduled_at' => '2026-03-01']);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petIsNeutered', true)
+        ->assertSet('petNeuteredAt', '2026-03-01')
+        ->assertSet('petNeuteredByShelter', '1');
+
+    $pendingPet = Pet::factory()->for($shelter)->create(['is_neutered' => false, 'neutering_status' => 'pending']);
+
+    Livewire::test(PetForm::class, ['pet' => $pendingPet])
+        ->set('petIsNeutered', true)
+        ->assertSet('petNeuteredAt', now()->toDateString());
+});
+
+test('suggests no neutering details for a new pet', function () {
+    $this->actingAs(User::factory()->forShelter(Shelter::factory()->create(), 'staff')->create());
+
+    Livewire::test(PetForm::class)
+        ->set('petIsNeutered', true)
+        ->assertSet('petNeuteredAt', '')
+        ->assertSet('petNeuteredByShelter', '');
+});
+
+test('saves where a pet that is not neutered stands, clearing any neutering details', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $pet = Pet::factory()->for($shelter)->create(['is_neutered' => true, 'neutered_at' => '2026-01-01', 'neutered_by_shelter' => true]);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petIsNeutered', false)
+        ->set('petNeuteringStatus', 'scheduled')
+        ->set('petNeuteringScheduledAt', '2026-10-15')
+        ->set('petNeuteringNotes', 'Fasting from 20h')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh())
+        ->neutered_at->toBeNull()
+        ->neutered_by_shelter->toBeNull()
+        ->neutering_status->toBe('scheduled')
+        ->neutering_scheduled_at->toDateString()->toBe('2026-10-15')
+        ->neutering_notes->toBe('Fasting from 20h');
+});
+
+test('only keeps the scheduled date while neutering is scheduled', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $pet = Pet::factory()->for($shelter)->create(['is_neutered' => false, 'neutering_status' => 'scheduled', 'neutering_scheduled_at' => '2026-10-15']);
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petNeuteringStatus', 'not_recommended')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh())->neutering_status->toBe('not_recommended')->neutering_scheduled_at->toBeNull();
+});
+
+test('validates the neutering details', function (string $property, string $value, array $extra, string $rule) {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $pet = Pet::factory()->for($shelter)->create(['is_neutered' => $property === 'petNeuteredAt']);
+
+    $component = Livewire::test(PetForm::class, ['pet' => $pet]);
+
+    foreach ($extra as $name => $extraValue) {
+        $component->set($name, $extraValue);
+    }
+
+    $component->set($property, $value)
+        ->call('savePet')
+        ->assertHasErrors([$property => $rule]);
+})->with([
+    'neutering date in the future' => ['petNeuteredAt', '2999-01-01', [], 'before_or_equal'],
+    'scheduled without a date' => ['petNeuteringScheduledAt', '', ['petNeuteringStatus' => 'scheduled'], 'required'],
+    'unknown status' => ['petNeuteringStatus', 'done', [], 'in'],
+]);
 
 test('saving the pet leaves its diagnoses untouched', function () {
     $shelter = Shelter::factory()->create();

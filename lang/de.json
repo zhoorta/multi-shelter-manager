@@ -640,5 +640,19 @@
     "Edit Diagnosis": "Diagnose bearbeiten",
     "Select a sickness": "Krankheit auswählen",
     "Open health issues": "Offene Gesundheitsprobleme",
-    "No diagnoses registered": "Keine Diagnosen erfasst"
+    "No diagnoses registered": "Keine Diagnosen erfasst",
+    "Neutering Date": "Kastrationsdatum",
+    "Neutered by": "Kastriert von",
+    "The shelter": "Das Tierheim",
+    "Before arrival": "Vor der Aufnahme",
+    "Neutering Status": "Kastrationsstatus",
+    "Scheduled Date": "Geplantes Datum",
+    "Neutering Notes": "Notizen zur Kastration",
+    "Scheduled": "Geplant",
+    "Not recommended": "Nicht empfohlen",
+    "by the shelter": "durch das Tierheim",
+    "before arrival": "vor der Aufnahme",
+    "Not neutered": "Nicht kastriert",
+    "Neutered, details missing": "Kastriert, Angaben fehlen",
+    "Sterilisations performed": "Durchgeführte Kastrationen"
 }

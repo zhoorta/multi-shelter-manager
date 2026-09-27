@@ -280,6 +280,36 @@ test('imports cats as their species without a size, reading their portal pages',
         ->description->toBe('<p>Gatinha meiga.</p>');
 });
 
+test('marks animals in the shelter that are not neutered as pending, keeping a status set since', function () {
+    $species = Species::factory()->create(['name' => 'Gato']);
+    Breed::factory()->for($species)->create(['name' => 'Europeu Comum', 'is_default' => true]);
+    $shelter = Shelter::factory()->create();
+    $options = [
+        '--animal' => 'gato',
+        '--shelter' => $shelter->id,
+        '--animals' => base_path('tests/Fixtures/PortugalZoofilo/cats.csv'),
+    ];
+
+    $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
+    expect(petByRef('PZ201')->neutering_status)->toBe('pending');
+
+    petByRef('PZ201')->update(['neutering_status' => 'scheduled', 'neutering_scheduled_at' => '2026-10-01']);
+    $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
+
+    expect(petByRef('PZ201'))
+        ->neutering_status->toBe('scheduled')
+        ->neutering_scheduled_at->toDateString()->toBe('2026-10-01');
+});
+
+test('leaves the neutering status empty for neutered animals and those no longer in the shelter', function () {
+    ['shelter' => $shelter] = createPortugalZoofiloLookups();
+
+    $this->artisan('app:import-portugal-zoofilo', portugalZoofiloOptions($shelter))->assertSuccessful();
+
+    expect(petByRef('PZ101')->neutering_status)->toBeNull()
+        ->and(petByRef('PZ102')->neutering_status)->toBeNull();
+});
+
 test('fails when the kind of animal is not given', function () {
     $shelter = Shelter::factory()->create();
 

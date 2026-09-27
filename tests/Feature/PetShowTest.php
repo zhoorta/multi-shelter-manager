@@ -751,6 +751,22 @@ test('lists open health issues in the health section and every diagnosis in the 
         ->assertSee(route('pets.diagnose', $pet));
 });
 
+test('shows the neutering date and who did it for a neutered pet', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_neutered' => true, 'neutered_at' => '2026-03-02', 'neutered_by_shelter' => true]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))->assertSeeInOrder(['Neutered / Spayed', 'Yes', '02/03/2026 · by the shelter']);
+});
+
+test('shows where a pet that is not neutered stands', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_neutered' => false, 'neutering_status' => 'scheduled', 'neutering_scheduled_at' => '2026-10-15', 'neutering_notes' => 'Fasting from 20h']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))->assertSeeInOrder(['Neutered / Spayed', 'No', 'Scheduled 15/10/2026', 'Fasting from 20h']);
+});
+
 test('shows an empty state when the pet has no diagnoses', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();

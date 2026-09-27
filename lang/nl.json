@@ -640,5 +640,19 @@
     "Edit Diagnosis": "Diagnose bewerken",
     "Select a sickness": "Selecteer een ziekte",
     "Open health issues": "Openstaande gezondheidsproblemen",
-    "No diagnoses registered": "Geen diagnoses geregistreerd"
+    "No diagnoses registered": "Geen diagnoses geregistreerd",
+    "Neutering Date": "Castratiedatum",
+    "Neutered by": "Gecastreerd door",
+    "The shelter": "Het asiel",
+    "Before arrival": "Voor aankomst",
+    "Neutering Status": "Castratiestatus",
+    "Scheduled Date": "Geplande datum",
+    "Neutering Notes": "Notities over castratie",
+    "Scheduled": "Gepland",
+    "Not recommended": "Niet aanbevolen",
+    "by the shelter": "door het asiel",
+    "before arrival": "voor aankomst",
+    "Not neutered": "Niet gecastreerd",
+    "Neutered, details missing": "Gecastreerd, gegevens ontbreken",
+    "Sterilisations performed": "Uitgevoerde castraties"
 }

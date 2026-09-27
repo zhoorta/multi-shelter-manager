@@ -334,6 +334,13 @@ class ImportPortugalZoofilo extends Command
                 'internal_notes' => $this->multilineValue($row, 'notas_internas'),
             ]);
             $pet->view_count = (int) $row['nr_visualizacoes'];
+
+            if ($pet->is_neutered) {
+                $pet->fill(['neutering_status' => null, 'neutering_scheduled_at' => null]);
+            } elseif ($isInShelter && $pet->neutering_status === null) {
+                $pet->neutering_status = 'pending';
+            }
+
             $pet->save();
 
             if ($birthDate !== null && $checkinDate !== null && $birthDate > $checkinDate) {

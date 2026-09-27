@@ -12,14 +12,16 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 
 /**
- * The Health section of the reports. Sterilisation has no date, so it is
- * only reported for the animals in the shelter today. Needs BuildsShelterReport.
+ * The Health section of the reports. The sterilised share is for the
+ * animals in the shelter today; sterilisations performed only count pets
+ * with a neutering date done by the shelter (older records have neither).
+ * Needs BuildsShelterReport.
  */
 trait BuildsHealthReport
 {
     /**
      * @return array{
-     *     totals: array{vaccinations: int, overdueVaccinations: int, diagnoses: int, openCases: int, neuteredRate: ?int},
+     *     totals: array{vaccinations: int, overdueVaccinations: int, diagnoses: int, openCases: int, neuteredRate: ?int, sterilisationsPerformed: int},
      *     vaccinationBuckets: list<int>,
      *     vaccinationsByVaccine: list<array{label: string, value: int}>,
      *     diagnosesBySickness: list<array{label: string, value: int}>
@@ -66,6 +68,12 @@ trait BuildsHealthReport
                 'diagnoses' => $diagnoses->filter(fn (PetSickness $diagnosis): bool => $this->isBetween($diagnosis->diagnosed_at, $startDate, $endDate))->count(),
                 'openCases' => $diagnoses
                     ->filter(fn (PetSickness $diagnosis): bool => in_array($diagnosis->status, ['active', 'chronic'], true) && isset($isInShelter[$diagnosis->pet_id]))
+                    ->count(),
+                'sterilisationsPerformed' => Pet::query()
+                    ->where('shelter_id', Auth::user()->current_shelter_id)
+                    ->where('is_neutered', true)
+                    ->where('neutered_by_shelter', true)
+                    ->whereBetween('neutered_at', [$startDate, $endDate])
                     ->count(),
                 'neuteredRate' => $petsInShelter->isEmpty() ? null : (int) round($petsInShelter->where('is_neutered', true)->count() / $petsInShelter->count() * 100),
             ],

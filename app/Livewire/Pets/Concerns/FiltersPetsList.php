@@ -74,6 +74,11 @@ trait FiltersPetsList
                         'no_checkin_date' => $query->whereNull('checkin_date'),
                         'no_location' => $query->whereNull('cage_id')->whereNotIn('status', ['adopted', 'deceased']),
                         'open_health_issues' => $query->whereHas('openSicknesses')->whereNotIn('status', ['adopted', 'deceased']),
+                        'neutered' => $query->where('is_neutered', true),
+                        'not_neutered' => $query->where('is_neutered', false),
+                        'neutering_details_missing' => $query->where('is_neutered', true)
+                            ->where(fn (Builder $query) => $query->whereNull('neutered_at')->orWhereNull('neutered_by_shelter'))
+                            ->whereNotIn('status', ['adopted', 'deceased']),
                         default => null,
                     };
                 },

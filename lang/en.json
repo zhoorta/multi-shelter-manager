@@ -640,5 +640,19 @@
     "Edit Diagnosis": "Edit Diagnosis",
     "Select a sickness": "Select a sickness",
     "Open health issues": "Open health issues",
-    "No diagnoses registered": "No diagnoses registered"
+    "No diagnoses registered": "No diagnoses registered",
+    "Neutering Date": "Neutering Date",
+    "Neutered by": "Neutered by",
+    "The shelter": "The shelter",
+    "Before arrival": "Before arrival",
+    "Neutering Status": "Neutering Status",
+    "Scheduled Date": "Scheduled Date",
+    "Neutering Notes": "Neutering Notes",
+    "Scheduled": "Scheduled",
+    "Not recommended": "Not recommended",
+    "by the shelter": "by the shelter",
+    "before arrival": "before arrival",
+    "Not neutered": "Not neutered",
+    "Neutered, details missing": "Neutered, details missing",
+    "Sterilisations performed": "Sterilisations performed"
 }

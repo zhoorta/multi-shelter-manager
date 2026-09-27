@@ -66,6 +66,17 @@ class PetForm extends Component
 
     public bool $petIsNeutered = false;
 
+    public string $petNeuteredAt = '';
+
+    /** '' = unknown, '1' = neutered by the shelter, '0' = before arrival. */
+    public string $petNeuteredByShelter = '';
+
+    public string $petNeuteringStatus = 'pending';
+
+    public string $petNeuteringScheduledAt = '';
+
+    public string $petNeuteringNotes = '';
+
     public bool $petIsAdoptable = true;
 
     public bool $petIsSponsorable = true;
@@ -119,6 +130,11 @@ class PetForm extends Component
         $this->petDeathDate = (string) $pet->date_of_death?->format('Y-m-d');
         $this->petChip = (string) $pet->chip;
         $this->petIsNeutered = (bool) $pet->is_neutered;
+        $this->petNeuteredAt = (string) $pet->neutered_at?->format('Y-m-d');
+        $this->petNeuteredByShelter = $pet->neutered_by_shelter === null ? '' : (string) (int) $pet->neutered_by_shelter;
+        $this->petNeuteringStatus = (string) $pet->neutering_status;
+        $this->petNeuteringScheduledAt = (string) $pet->neutering_scheduled_at?->format('Y-m-d');
+        $this->petNeuteringNotes = (string) $pet->neutering_notes;
         $this->petIsAdoptable = (bool) $pet->is_adoptable;
         $this->petIsSponsorable = (bool) $pet->is_sponsorable;
         $this->petPublishToPortal = (bool) $pet->publish_to_portal;
@@ -262,6 +278,26 @@ class PetForm extends Component
             ->get();
     }
 
+    /**
+     * Switching an already registered pet to neutered means the shelter just
+     * had it done, so suggest the scheduled date (or today) and the shelter.
+     * New pets arrive with unknown history, so nothing is suggested for them.
+     */
+    public function updatedPetIsNeutered(): void
+    {
+        if (! $this->petIsNeutered || $this->pet === null || $this->pet->is_neutered) {
+            return;
+        }
+
+        if ($this->petNeuteredAt === '') {
+            $this->petNeuteredAt = $this->petNeuteringScheduledAt !== '' ? $this->petNeuteringScheduledAt : now()->toDateString();
+        }
+
+        if ($this->petNeuteredByShelter === '') {
+            $this->petNeuteredByShelter = '1';
+        }
+    }
+
     public function updatedPetSpeciesId(): void
     {
         $this->petBreedId = $this->pet === null && $this->petSpeciesId !== null
@@ -309,6 +345,15 @@ class PetForm extends Component
             'petDeathDate' => ['nullable', 'date'],
             'petChip' => ['nullable', 'string', 'max:255'],
             'petIsNeutered' => ['boolean'],
+            'petNeuteredAt' => ['nullable', 'date', 'before_or_equal:today'],
+            'petNeuteredByShelter' => ['nullable', 'in:0,1'],
+            'petNeuteringStatus' => ['nullable', Rule::in(Pet::NEUTERING_STATUSES)],
+            'petNeuteringScheduledAt' => [
+                Rule::requiredIf(! $this->petIsNeutered && $this->petNeuteringStatus === 'scheduled'),
+                'nullable',
+                'date',
+            ],
+            'petNeuteringNotes' => ['nullable', 'string', 'max:255'],
             'petIsAdoptable' => ['boolean'],
             'petIsSponsorable' => ['boolean'],
             'petPublishToPortal' => ['boolean'],
@@ -338,6 +383,11 @@ class PetForm extends Component
             'petDeathDate' => __('Death Date'),
             'petChip' => __('Microchip / Chip'),
             'petIsNeutered' => __('Is Neutered'),
+            'petNeuteredAt' => __('Neutering Date'),
+            'petNeuteredByShelter' => __('Neutered by'),
+            'petNeuteringStatus' => __('Neutering Status'),
+            'petNeuteringScheduledAt' => __('Scheduled Date'),
+            'petNeuteringNotes' => __('Neutering Notes'),
             'petIsAdoptable' => __('Is Adoptable'),
             'petIsSponsorable' => __('Is Sponsorable'),
             'petPublishToPortal' => __('Publish to Portal'),
@@ -379,6 +429,7 @@ class PetForm extends Component
             'notes' => $validated['petNotes'] !== '' ? $validated['petNotes'] : null,
             'clinical_notes' => $validated['petClinicalNotes'] !== '' ? $validated['petClinicalNotes'] : null,
             'is_neutered' => $validated['petIsNeutered'],
+            ...$this->neuteringAttributes($validated),
             'is_adoptable' => $validated['petIsAdoptable'],
             'is_sponsorable' => $validated['petIsSponsorable'],
             'publish_to_portal' => $validated['petPublishToPortal'],
@@ -414,6 +465,28 @@ class PetForm extends Component
     protected function generatePetRef(int $petId): string
     {
         return 'PET'.str_pad((string) $petId, 5, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Neutering details that apply to the switch's current state: a neutered
+     * pet keeps its date and who did it, one that isn't keeps where it
+     * stands (with a date only when scheduled). The other side is cleared.
+     *
+     * @param  array<string, mixed>  $validated
+     * @return array<string, mixed>
+     */
+    protected function neuteringAttributes(array $validated): array
+    {
+        $isNeutered = $validated['petIsNeutered'];
+        $status = $validated['petNeuteringStatus'] ?? '';
+
+        return [
+            'neutered_at' => $isNeutered && $validated['petNeuteredAt'] !== '' ? $validated['petNeuteredAt'] : null,
+            'neutered_by_shelter' => $isNeutered && $validated['petNeuteredByShelter'] !== '' ? $validated['petNeuteredByShelter'] === '1' : null,
+            'neutering_status' => ! $isNeutered && $status !== '' ? $status : null,
+            'neutering_scheduled_at' => ! $isNeutered && $status === 'scheduled' ? $validated['petNeuteringScheduledAt'] : null,
+            'neutering_notes' => ! $isNeutered && $validated['petNeuteringNotes'] !== '' ? $validated['petNeuteringNotes'] : null,
+        ];
     }
 
     /**

@@ -200,7 +200,57 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:switch wire:model="petIsNeutered" :label="__('Is Neutered')" align="left" />
+            <flux:switch wire:model.live="petIsNeutered" :label="__('Is Neutered')" align="left" />
+
+            @if ($petIsNeutered)
+                {{-- Dates start as text inputs: Safari shows today's date in an empty native date input. --}}
+                <div class="grid grid-cols-2 gap-4">
+                    <flux:input
+                        type="text"
+                        wire:model="petNeuteredAt"
+                        :label="__('Neutering Date')"
+                        :placeholder="__('Select a date')"
+                        autocomplete="off"
+                        clearable
+                        x-data="{ dateFieldType: '{{ $petNeuteredAt !== '' ? 'date' : 'text' }}' }"
+                        x-bind:type="dateFieldType"
+                        x-on:focus="dateFieldType = 'date'"
+                        x-on:blur="if (! $el.value) dateFieldType = 'text'"
+                    />
+
+                    <flux:select wire:model="petNeuteredByShelter" :label="__('Neutered by')">
+                        <flux:select.option value="">{{ __('Unknown') }}</flux:select.option>
+                        <flux:select.option value="1">{{ __('The shelter') }}</flux:select.option>
+                        <flux:select.option value="0">{{ __('Before arrival') }}</flux:select.option>
+                    </flux:select>
+                </div>
+            @else
+                <div class="grid grid-cols-2 gap-4">
+                    <flux:select wire:model.live="petNeuteringStatus" :label="__('Neutering Status')">
+                        <flux:select.option value="">—</flux:select.option>
+                        @foreach (\App\Models\Pet::NEUTERING_STATUSES as $neuteringStatus)
+                            <flux:select.option value="{{ $neuteringStatus }}">{{ \App\Models\Pet::neuteringStatusLabel($neuteringStatus) }}</flux:select.option>
+                        @endforeach
+                    </flux:select>
+
+                    @if ($petNeuteringStatus === 'scheduled')
+                        <flux:input
+                            type="text"
+                            wire:model="petNeuteringScheduledAt"
+                            :label="__('Scheduled Date')"
+                            :placeholder="__('Select a date')"
+                            autocomplete="off"
+                            clearable
+                            x-data="{ dateFieldType: '{{ $petNeuteringScheduledAt !== '' ? 'date' : 'text' }}' }"
+                            x-bind:type="dateFieldType"
+                            x-on:focus="dateFieldType = 'date'"
+                            x-on:blur="if (! $el.value) dateFieldType = 'text'"
+                        />
+                    @endif
+                </div>
+
+                <flux:input wire:model="petNeuteringNotes" :label="__('Neutering Notes')" />
+            @endif
 
             <flux:textarea wire:model="petClinicalNotes" :label="__('Clinical Notes')" rows="3" />
         </div>

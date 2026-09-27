@@ -12,6 +12,7 @@
             ['label' => __('Overdue Vaccinations'), 'value' => $totals['overdueVaccinations'], 'href' => route('pets.vaccinations.index', ['nextDueFilter' => 'overdue'])],
             ['label' => __('Diagnoses'), 'value' => $totals['diagnoses'], 'href' => null],
             ['label' => __('Open cases (active or chronic)'), 'value' => $totals['openCases'], 'href' => null],
+            ['label' => __('Sterilisations performed'), 'value' => $totals['sterilisationsPerformed'], 'href' => null],
             ['label' => __('Sterilised animals in the shelter'), 'value' => $totals['neuteredRate'] === null ? '—' : $totals['neuteredRate'].'%', 'href' => null],
         ] as $tile)
             @if ($tile['href'])

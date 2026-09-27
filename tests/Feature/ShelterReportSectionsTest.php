@@ -133,11 +133,13 @@ test('occupancy compares the pets in the shelter with the capacity of its cages'
         ->and(array_slice($occupancy['rateBuckets'], 0, 2))->toBe([100, 75]);
 });
 
-test('health counts vaccinations and diagnoses in the period and the sterilised share of pets in the shelter', function () {
+test('health counts vaccinations, diagnoses and sterilisations by the shelter in the period and the sterilised share of pets in the shelter', function () {
     $vaccine = Vaccine::factory()->create(['name' => 'Rabies']);
     $sickness = Sickness::factory()->create(['name' => 'Otitis']);
-    $neutered = Pet::factory()->for($this->shelter)->create(['is_neutered' => true]);
+    $neutered = Pet::factory()->for($this->shelter)->create(['is_neutered' => true, 'neutered_at' => '2026-02-10', 'neutered_by_shelter' => true]);
     $pet = Pet::factory()->for($this->shelter)->create();
+    Pet::factory()->for($this->shelter)->create(['is_neutered' => true, 'neutered_at' => '2026-02-10', 'neutered_by_shelter' => false, 'status' => 'adopted']);
+    Pet::factory()->for($this->shelter)->create(['is_neutered' => true, 'neutered_at' => '2025-02-10', 'neutered_by_shelter' => true, 'status' => 'adopted']);
 
     $neutered->vaccines()->attach($vaccine, ['status' => 'administered', 'administered_date' => '2026-03-05']);
     $neutered->vaccines()->attach($vaccine, ['status' => 'administered', 'administered_date' => '2025-03-05']);
@@ -156,6 +158,7 @@ test('health counts vaccinations and diagnoses in the period and the sterilised 
         'overdueVaccinations' => 1,
         'diagnoses' => 1,
         'openCases' => 1,
+        'sterilisationsPerformed' => 1,
         'neuteredRate' => 50,
     ])
         ->and($health['vaccinationBuckets'][2])->toBe(1)
