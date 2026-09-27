@@ -16,6 +16,29 @@ test('guests can view the about page with the contact e-mail', function () {
         ->assertSee('mailto:hello@shelters.test', false);
 });
 
+test('pitches the platform to shelters with screenshots and the joining terms', function () {
+    config(['app.contact_email' => 'hello@shelters.test']);
+
+    $this->get(route('about'))
+        ->assertOk()
+        ->assertSee('Free and nonprofit')
+        ->assertSee(asset('images/about/en/dashboard.webp'), false)
+        ->assertSee('Does your shelter want to join?')
+        ->assertSee('Joining is free.');
+});
+
+test('shows the screenshots in the visitor\'s language, falling back to english', function (string $locale, string $folder) {
+    app()->setLocale($locale);
+
+    $this->get(route('about'))
+        ->assertOk()
+        ->assertSee(asset("images/about/{$folder}/dashboard.webp"), false);
+})->with([
+    'portuguese' => ['pt', 'pt'],
+    'german' => ['de', 'de'],
+    'no screenshots of its own' => ['fi', 'en'],
+]);
+
 test('redirects to the login page when the public portal is disabled', function () {
     config(['app.public_portal_enabled' => false]);
 

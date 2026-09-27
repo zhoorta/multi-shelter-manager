@@ -12,7 +12,8 @@ use Livewire\Component;
 /**
  * Public "About" page with a short description of the nonprofit project, its
  * contact e-mail (config('app.contact_email')) and a link to the PDF user
- * guide for shelters. Part of the public portal.
+ * guide for shelters, and screenshots of the backoffice in the visitor's
+ * language. Part of the public portal.
  */
 class About extends Component
 {
@@ -39,10 +40,22 @@ class About extends Component
         return Storage::disk('public')->exists($path) ? Storage::disk('public')->url($path) : null;
     }
 
+    /**
+     * The folder (under public/) holding the backoffice screenshots in the
+     * current locale, falling back to the English ones for a locale without
+     * its own set.
+     */
+    public function screenshotsPath(): string
+    {
+        $path = 'images/about/'.app()->getLocale();
+
+        return is_dir(public_path($path)) ? $path : 'images/about/en';
+    }
+
     #[Layout('layouts::public')]
     public function render(): View
     {
-        return view('livewire.about', ['contactEmail' => config('app.contact_email'), 'userGuideUrl' => $this->userGuideUrl()])
+        return view('livewire.about', ['contactEmail' => config('app.contact_email'), 'userGuideUrl' => $this->userGuideUrl(), 'screenshotsPath' => $this->screenshotsPath()])
             ->title(__('About'))
             ->layoutData(['description' => __('A nonprofit project that helps animal shelters care for their animals and find them a loving home.')]);
     }
