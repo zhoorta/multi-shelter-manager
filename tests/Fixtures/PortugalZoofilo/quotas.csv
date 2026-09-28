@@ -1,0 +1,4 @@
+quota_id;quota_valor;quota_data_inicio_validade;quota_data_pagamento;quota_notas;pessoa_id;pessoa_nome;socio_referencia;pessoa_bi;pessoa_nif;pessoa_telefone_casa;pessoa_telefone_emprego;pessoa_telemovel;pessoa_email;pessoa_morada;pessoa_codpostal_4;pessoa_codpostal_3;pessoa_locpostal
+56155;12,50;2025-01-01;2025-03-20;Pago em mão;9001;Ana Silva;12;12345678;123456789;292391555;-1;912345678;ana@example.com;Rua do Pico 3;9900;89;HORTA
+56160;12;2024-01-01;-1;;9001;Ana Silva;12;12345678;123456789;292391555;-1;912345678;ana@example.com;Rua do Pico 3;9900;89;HORTA
+57445;10;2025-01-01;2025-04-03;;9999;Rui Sousa;4;-1;-1;-1;-1;-1;;;-1;-1;

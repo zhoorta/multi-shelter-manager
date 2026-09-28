@@ -439,6 +439,64 @@ test('updates existing volunteers instead of duplicating them when run again', f
     $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
     $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
 
-    expect(Volunteer::query()->count())->toBe(2)
+    expect(Volunteer::query()->count())->toBe(3)
         ->and(VolunteerAvailability::query()->count())->toBe(4);
+});
+
+test('skips a volunteer exported twice, keeping the most complete row, and rates "Boa" as high', function () {
+    $shelter = Shelter::factory()->create();
+
+    $this->artisan('app:import-portugal-zoofilo', ['--shelter' => $shelter->id, '--volunteers' => base_path('tests/Fixtures/PortugalZoofilo/volunteers.csv')])
+        ->expectsOutputToContain('Skipped: duplicate of 6122')
+        ->assertSuccessful();
+
+    expect(Volunteer::query()->where('name', 'Teste 1')->sole()->notes)->toContain('[PZ vol 6122]')
+        ->and(Volunteer::query()->where('name', 'Ana Maria Silva')->sole()->attendance_evaluation)->toBe('high');
+});
+
+test('links a volunteer without a PZ reference to the one imported member with the same contacts', function () {
+    $shelter = Shelter::factory()->create();
+
+    $this->artisan('app:import-portugal-zoofilo', [
+        ...portugalZoofiloMemberOptions($shelter),
+        '--volunteers' => base_path('tests/Fixtures/PortugalZoofilo/volunteers.csv'),
+    ])->assertSuccessful();
+
+    expect(Member::query()->where('name', 'Ana Silva')->sole()->volunteer_id)
+        ->toBe(Volunteer::query()->where('name', 'Ana Maria Silva')->value('id'));
+});
+
+test('imports paid quotas as yearly payments, replacing the placeholder for the same year', function () {
+    $shelter = Shelter::factory()->create();
+    $options = [
+        ...portugalZoofiloMemberOptions($shelter),
+        '--quotas' => [base_path('tests/Fixtures/PortugalZoofilo/quotas.csv')],
+    ];
+
+    $this->artisan('app:import-portugal-zoofilo', $options)
+        ->expectsOutputToContain('Skipped: member 9999 not found among the imported members')
+        ->expectsOutputToContain('2 quotas')
+        ->assertSuccessful();
+    $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
+
+    $payments = Member::query()->where('name', 'Ana Silva')->sole()->payments()->orderBy('start_date')->get();
+    expect($payments)->toHaveCount(2)
+        ->and($payments->map(fn (MemberPayment $payment): array => [
+            $payment->start_date->toDateString(),
+            $payment->end_date->toDateString(),
+            $payment->payment_date->toDateString(),
+            $payment->payment_value,
+            $payment->notes,
+        ])->all())->toBe([
+            ['2024-01-01', '2024-12-31', '2024-01-01', '12.00', '[PZ quota 56160]'],
+            ['2025-01-01', '2025-12-31', '2025-03-20', '12.50', "Pago em mão\n[PZ quota 56155]"],
+        ]);
+});
+
+test('fails without importing when a quotas file does not exist', function () {
+    $shelter = Shelter::factory()->create();
+
+    $this->artisan('app:import-portugal-zoofilo', ['--shelter' => $shelter->id, '--quotas' => ['missing.csv']])
+        ->expectsOutputToContain('Quotas file not found: missing.csv')
+        ->assertFailed();
 });
