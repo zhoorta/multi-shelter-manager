@@ -7,12 +7,14 @@ use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\PetImage;
+use App\Models\PetTreatment;
 use App\Models\Shelter;
 use App\Models\Sickness;
 use App\Models\Size;
 use App\Models\Species;
 use App\Models\Sponsorship;
 use App\Models\SponsorshipPayment;
+use App\Models\Treatment;
 use App\Models\User;
 use App\Models\Vaccine;
 use App\Models\Wing;
@@ -1105,3 +1107,20 @@ test('share panel is hidden for pets that are not waiting for adoption', functio
     'deceased' => [['date_of_death' => '2026-01-10']],
     'not adoptable' => [['is_adoptable' => false]],
 ]);
+
+test('shows the pet treatments and lets staff delete one', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $treatment = Treatment::factory()->create(['name' => 'Internal deworming']);
+    $petTreatment = PetTreatment::factory()->for($pet)->for($treatment)->create(['product' => 'Drontal']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', $pet))
+        ->assertSee('Internal deworming')
+        ->assertSee('Drontal')
+        ->assertSee(route('pets.treat', $pet));
+
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteTreatment', $petTreatment->id);
+
+    expect($petTreatment->fresh()->trashed())->toBeTrue();
+});

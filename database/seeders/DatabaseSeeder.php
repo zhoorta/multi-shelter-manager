@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
 
         // 5. SEED VACCINES (Vacinas) & LINK TO SPECIES
         $vacRaiva = DB::table('vaccines')->insertGetId(['name' => 'Antirrábica (Raiva)', 'frequency_months' => 36, 'created_at' => now(), 'updated_at' => now()]);
-        $vacPolivalenteCao = DB::table('vaccines')->insertGetId(['name' => 'Polivalente Canina (DHPPi/L)', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
+        $vacPolivalenteCao = DB::table('vaccines')->insertGetId(['name' => 'Polivalente Canina (DHPPi)', 'frequency_months' => 36, 'created_at' => now(), 'updated_at' => now()]);
+        $vacLeptospirose = DB::table('vaccines')->insertGetId(['name' => 'Leptospirose', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
         $vacTosseCanil = DB::table('vaccines')->insertGetId(['name' => 'Tosse do Canil (Bordetella + Parainfluenza)', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
         $vacLeishmaniose = DB::table('vaccines')->insertGetId(['name' => 'Leishmaniose', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
         $vacTripliceFelina = DB::table('vaccines')->insertGetId(['name' => 'Tríplice Felina (FVRCP)', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
@@ -39,11 +40,22 @@ class DatabaseSeeder extends Seeder
             ['vaccine_id' => $vacRaiva, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacRaiva, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacPolivalenteCao, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
+            ['vaccine_id' => $vacLeptospirose, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacTosseCanil, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacLeishmaniose, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacTripliceFelina, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacLeucemiaFelina, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
         ]);
+
+        // Preventive treatments (Tratamentos), given in rounds to every resident
+        foreach (['Desparasitação interna' => 3, 'Desparasitação externa' => 3, 'Desparasitação interna + externa' => 3, 'Coleira antiparasitária' => 6] as $treatmentName => $frequencyMonths) {
+            $treatmentId = DB::table('treatments')->insertGetId(['name' => $treatmentName, 'frequency_months' => $frequencyMonths, 'created_at' => now(), 'updated_at' => now()]);
+
+            DB::table('treatment_species')->insert([
+                ['treatment_id' => $treatmentId, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
+                ['treatment_id' => $treatmentId, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
+            ]);
+        }
 
         // 6. SEED SICKNESSES (Doenças) & LINK TO SPECIES
         $doencaParvovirose = DB::table('sicknesses')->insertGetId(['name' => 'Parvovirose', 'description' => 'Infeção viral altamente contagiosa em cães.', 'created_at' => now(), 'updated_at' => now()]);

@@ -1,6 +1,7 @@
 ---
 paths:
   - app/Console/Commands/ImportPortugalZoofilo.php
+  - app/Console/Commands/ImportAfamaHealthSheet.php
 ---
 
 # Commands
@@ -13,3 +14,6 @@ app:import-portugal-zoofilo --animal=cao|gato imports PZ exports (animals/adopti
 
 ## Portugal Zoófilo volunteers import: --volunteers, gender left empty
 --volunteers=voluntarios.csv (header starts with pessoa_id) imports on its own or with --members; matched on "[PZ vol {pessoa_id}]" in notes. PZ has no gender, so volunteers.gender was made nullable (2026_09_25 migration; VolunteerForm validates it as nullable). pessoa_data_criacao → start_date, vol_data_saida → end_date, vol_caes/vol_gatos ('t'/'f') → species sectors, vol_{2..6,s,d}_{manha,tarde} → availabilities Monday..Sunday (frequency keeps its default). meio_locomocao/nota_* go through the TRANSPORT_MODES/EVALUATIONS maps ("Desconhecido"/"Não Avaliado" → null); unknown labels go to notes + a warning, since PZ's full label list was never seen. socio_referencia links Member.volunteer_id through the member's "Referência Portugal Zoófilo: X" note line or an imported member numbered X, so members must be imported first or in the same run.
+
+## AFAMA health sheet import: CSV per sheet, number+name must agree
+app:import-afama-health-sheet imports AFAMA's "Proximas vacinas" xlsx, saved as one ';'-separated CSV per sheet (--dogs/--cats/--clinical; no xlsx library is installed). Rows match on ref "PZ{nº}", then chip, then (no number) a unique resident name. A number whose pet has a different chip AND name is a typo for another animal (e.g. PZ16395 "Caramelo" is Ema, adopted), so the row is skipped. Vaccines are looked up by name + species (dogs and cats each have an "Antirrábica (Raiva)"); Nexgard goes to the "Desparasitação interna + externa" treatment with due = dose + frequency. Re-runs update rows matched on pet+kind+date, fulfil open scheduled rows, and append only missing clinical_notes lines. Catalogue items must exist first; the command fails otherwise.

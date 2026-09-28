@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\SendTreatmentDueNotifications;
 use App\Console\Commands\SendVaccinationDueNotifications;
 use App\Models\AdoptionApplication;
 use Illuminate\Foundation\Inspiring;
@@ -11,4 +12,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command(SendVaccinationDueNotifications::class)->daily();
+Schedule::command(SendTreatmentDueNotifications::class)->daily();
 Schedule::command('model:prune', ['--model' => [AdoptionApplication::class]])->daily();

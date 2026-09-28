@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pets;
 
+use App\Livewire\Pets\Concerns\FillsDueDateFromFrequency;
 use App\Models\Pet;
 use App\Models\PetVaccine;
 use App\Models\Vaccine;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 /**
@@ -24,28 +23,19 @@ use Livewire\Component;
  */
 class VaccinationForm extends Component
 {
+    use FillsDueDateFromFrequency;
+
     public Pet $pet;
 
     public ?PetVaccine $petVaccine = null;
 
     public string $vaccineId = '';
 
-    public string $administeredDate = '';
-
-    public string $dueDate = '';
-
     public string $lotNumber = '';
 
     public string $veterinarianName = '';
 
     public string $vaccinationNotes = '';
-
-    /**
-     * The due date last filled in from the vaccine frequency, so it can be
-     * recalculated while the user hasn't typed a date of their own.
-     */
-    #[Locked]
-    public string $autoFilledDueDate = '';
 
     public function mount(Pet $pet, ?PetVaccine $petVaccine = null): void
     {
@@ -99,30 +89,9 @@ class VaccinationForm extends Component
         $this->fillDueDateFromFrequency();
     }
 
-    public function updatedAdministeredDate(): void
+    protected function selectedFrequencyMonths(): ?int
     {
-        $this->fillDueDateFromFrequency();
-    }
-
-    /**
-     * Fill the next due date from the administered date plus the vaccine
-     * frequency (e.g. rabies every 36 months). A date the user typed
-     * themselves is never overwritten; an auto-filled one is recalculated,
-     * or cleared when there's no longer a frequency or dose date to use.
-     */
-    protected function fillDueDateFromFrequency(): void
-    {
-        if ($this->dueDate !== '' && $this->dueDate !== $this->autoFilledDueDate) {
-            return;
-        }
-
-        $frequencyMonths = $this->selectedVaccine?->frequency_months;
-
-        $this->dueDate = $frequencyMonths !== null && Carbon::hasFormat($this->administeredDate, 'Y-m-d')
-            ? Carbon::createFromFormat('Y-m-d', $this->administeredDate)->addMonthsNoOverflow($frequencyMonths)->toDateString()
-            : '';
-
-        $this->autoFilledDueDate = $this->dueDate;
+        return $this->selectedVaccine?->frequency_months;
     }
 
     public function saveVaccination(): void
@@ -168,7 +137,7 @@ class VaccinationForm extends Component
 
         $scheduledVaccination = $isEditing || $vaccinationAttributes['administered_date'] === null
             ? null
-            : $this->scheduledVaccinationFulfilledBy($vaccineId, $vaccinationAttributes['administered_date']);
+            : PetVaccine::scheduledRecordFulfilledBy($this->pet->id, $vaccineId, $vaccinationAttributes['administered_date']);
 
         if ($isEditing) {
             $this->petVaccine->update([...$vaccinationAttributes, 'vaccine_id' => $vaccineId]);
@@ -184,32 +153,6 @@ class VaccinationForm extends Component
         );
 
         $this->redirect(route('pets.show', $this->pet), navigate: true);
-    }
-
-    /**
-     * The open scheduled vaccination (earliest due first) that a newly
-     * logged dose fulfils, so the dose closes it instead of leaving it
-     * pending next to the new row. A dose older than one already logged for
-     * this vaccine is history being backfilled and fulfils nothing.
-     */
-    protected function scheduledVaccinationFulfilledBy(int $vaccineId, string $administeredDate): ?PetVaccine
-    {
-        $isBackfilledDose = PetVaccine::query()
-            ->where('pet_id', $this->pet->id)
-            ->where('vaccine_id', $vaccineId)
-            ->where('administered_date', '>', $administeredDate)
-            ->exists();
-
-        if ($isBackfilledDose) {
-            return null;
-        }
-
-        return PetVaccine::query()
-            ->where('pet_id', $this->pet->id)
-            ->where('vaccine_id', $vaccineId)
-            ->where('status', 'scheduled')
-            ->orderBy('due_date')
-            ->first();
     }
 
     public function render(): View

@@ -45,7 +45,7 @@
                                                 <flux:badge size="sm" title="{{ $shelter->name }}">
                                                     {{ $shelter->short_name ?: $shelter->name }} ({{ __(\Illuminate\Support\Str::title($shelter->pivot->role)) }})
                                                     @if ($shelter->pivot->vaccination_notifications)
-                                                        <flux:icon name="bell-alert" variant="micro" class="ms-1" title="{{ __('Vaccination Notifications') }}" aria-label="{{ __('Vaccination Notifications') }}" data-test="vaccination-notifications-icon" />
+                                                        <flux:icon name="bell-alert" variant="micro" class="ms-1" title="{{ __('Vaccination and Treatment Notifications') }}" aria-label="{{ __('Vaccination and Treatment Notifications') }}" data-test="vaccination-notifications-icon" />
                                                     @endif
                                                     @if ($shelter->pivot->adoption_application_notifications)
                                                         <flux:icon name="envelope" variant="micro" class="ms-1" title="{{ __('Adoption Application Notifications') }}" aria-label="{{ __('Adoption Application Notifications') }}" data-test="adoption-application-notifications-icon" />

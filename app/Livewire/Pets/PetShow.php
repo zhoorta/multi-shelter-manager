@@ -7,6 +7,7 @@ namespace App\Livewire\Pets;
 use App\Livewire\Pets\Concerns\ManagesSponsorshipPayments;
 use App\Models\Pet;
 use App\Models\PetSickness;
+use App\Models\PetTreatment;
 use App\Models\PetVaccine;
 use App\Models\Size;
 use App\Models\Sponsorship;
@@ -33,6 +34,7 @@ class PetShow extends Component
             'adoptions' => fn ($query) => $query->latest('adoption_date'),
             'sponsorships' => fn ($query) => $query->latest()->with(['payments' => fn ($paymentsQuery) => $paymentsQuery->orderByDesc('payment_date')]),
             'vaccines' => fn ($query) => $query->orderByRaw('COALESCE(pet_vaccines.administered_date, pet_vaccines.due_date) desc'),
+            'treatments' => fn ($query) => $query->with('treatment')->orderByRaw('COALESCE(administered_date, due_date) desc'),
             'sicknesses' => fn ($query) => $query->orderByPivot('diagnosed_at', 'desc'),
         ]);
     }
@@ -155,6 +157,35 @@ class PetShow extends Component
         $this->pet->load([
             'vaccines' => fn ($query) => $query->orderByRaw('COALESCE(pet_vaccines.administered_date, pet_vaccines.due_date) desc'),
         ]);
+    }
+
+    /**
+     * Ids of the pet's treatments whose due date is still open, used to
+     * highlight overdue and due-soon dates.
+     *
+     * @return array<int, int>
+     */
+    #[Computed]
+    public function pendingTreatmentIds(): array
+    {
+        return PetTreatment::query()
+            ->where('pet_id', $this->pet->id)
+            ->pending()
+            ->pluck('id')
+            ->all();
+    }
+
+    public function deleteTreatment(int $petTreatmentId): void
+    {
+        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        PetTreatment::query()->where('pet_id', $this->pet->id)->findOrFail($petTreatmentId)->delete();
+
+        $this->pet->load([
+            'treatments' => fn ($query) => $query->with('treatment')->orderByRaw('COALESCE(administered_date, due_date) desc'),
+        ]);
+        unset($this->pendingTreatmentIds);
+
+        Flux::toast(variant: 'success', text: __('Record deleted successfully'));
     }
 
     public function deleteDiagnosis(int $petSicknessId): void

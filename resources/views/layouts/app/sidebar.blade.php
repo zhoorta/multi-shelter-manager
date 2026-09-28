@@ -60,6 +60,13 @@
                             >
                                 {{ __('Vaccinations') }}
                             </flux:sidebar.item>
+                            <flux:sidebar.item
+                                :href="route('pets.treatments.index')"
+                                :current="request()->routeIs('pets.treatments.*')"
+                                wire:navigate
+                            >
+                                {{ __('Treatments') }}
+                            </flux:sidebar.item>
                         </flux:sidebar.group>
                         @unless (auth()->user()->isViewerOfCurrentShelter())
                             <flux:sidebar.item icon="user-group" :href="route('volunteers.index')" :current="request()->routeIs('volunteers.*')" wire:navigate>
@@ -107,6 +114,9 @@
                         </flux:sidebar.item>
                         <flux:sidebar.item icon="beaker" :href="route('admin.vaccines.index')" :current="request()->routeIs('admin.vaccines.index')" wire:navigate>
                             {{ __('Vaccines') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="shield-check" :href="route('admin.treatments.index')" :current="request()->routeIs('admin.treatments.index')" wire:navigate>
+                            {{ __('Treatments') }}
                         </flux:sidebar.item>
                         <flux:sidebar.item icon="bug-ant" :href="route('admin.sicknesses.index')" :current="request()->routeIs('admin.sicknesses.index')" wire:navigate>
                             {{ __('Sicknesses') }}

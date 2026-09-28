@@ -1,0 +1,8 @@
+animal_nº PZ;animal_nome;animal_chip_id;data nascimento;Último multivalente (Vacina);Próx multivalente (Vacina);Última rábica (Vacina);Prox rábica (Vacina);peso cão;Último nexgard (Desparasitar);Próx nexgard (Desparasitar)* *;nºBOX;Inf Clinica   *Separador proprio;Notas
+101;Abby;941000023525681;2019-02-22;2025-05-20;2028-05-01;2025-11-21;2028-11-01;36 kg - Abril2026;23/07/2026;"=IF(J2<>"""",EDATE(J2,3),"""")";;;
+102;Lana;900085000279337;2016-05-30;;;2027-06-02;2028-05-20;;;;;;
+103;Zoe;900085000530227;2018-03-01;;;;;;;;;;
+104;Caramelo;900026000553480;2019-02-16;2025-05-20;2028-05-01;;;;;;;;
+999;Caramelo;900026000553483;2019-02-16;;;;;;;;;;
+888;Intruso;;2019-02-16;2025-05-20;2028-05-01;;;;;;;;
+;;;;;;;;;;"=IF(J7<>"""",EDATE(J7,3),"""")";;;

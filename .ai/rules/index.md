@@ -10,8 +10,9 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/Admin/ShelterForm.php,app/Livewire/Admin/ManageShelters.php,app/Models/Shelter.php,resources/views/layouts/app/sidebar.blade.php | .ai/rules/app.md |
 | app/Livewire/Setup.php,app/Providers/FortifyServiceProvider.php,tests/Feature/Auth/** | .ai/rules/auth.md |
 | resources/views/components/charts/styles.blade.php | .ai/rules/charts.md |
-| app/Console/Commands/ImportPortugalZoofilo.php | .ai/rules/commands.md |
+| app/Console/Commands/ImportPortugalZoofilo.php, app/Console/Commands/ImportAfamaHealthSheet.php | .ai/rules/commands.md |
 | app/Livewire/Pets/SponsorshipShow.php,app/Livewire/Pets/PetShow.php,app/Livewire/Pets/Concerns/ManagesSponsorshipPayments.php, app/Livewire/Pets/ManagePets.php,app/Livewire/Pets/PetPrintList.php,app/Livewire/Pets/Concerns/FiltersPetsList.php | .ai/rules/concerns.md |
+| app/Models/PetTreatment.php,app/Models/Treatment.php,app/Traits/TracksDueDates.php,app/Livewire/Pets/TreatmentForm.php,app/Livewire/Pets/GroupTreatmentForm.php,app/Livewire/Pets/ManagePetTreatments.php,app/Console/Commands/SendTreatmentDueNotifications.php | .ai/rules/console-commands.md |
 | resources/css/app.css | .ai/rules/css.md |
 | app/Livewire/Documentation.php,resources/views/livewire/documentation.blade.php,resources/views/livewire/documentation/*.blade.php | .ai/rules/documentation.md |
 | app/Livewire/Facilities/** | .ai/rules/facilities.md |

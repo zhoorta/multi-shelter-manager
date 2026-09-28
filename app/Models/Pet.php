@@ -121,6 +121,18 @@ class Pet extends Model
     }
 
     /**
+     * Pets still living at the shelter (or in a foster family), i.e. not
+     * adopted and not deceased.
+     *
+     * @param  Builder<Pet>  $query
+     */
+    #[Scope]
+    protected function resident(Builder $query): void
+    {
+        $query->whereNotIn('status', ['adopted', 'deceased']);
+    }
+
+    /**
      * Pets a shelter has explicitly published for adoption on the public
      * portal. Does not remove the shelter global scope; public pages must
      * call withoutGlobalScope('shelter') themselves.
@@ -426,6 +438,16 @@ class Pet extends Model
             ->withPivot(['id', 'administered_date', 'due_date', 'status', 'lot_number', 'veterinarian_name', 'notes', 'created_by', 'updated_by'])
             ->wherePivotNull('deleted_at')
             ->withTimestamps();
+    }
+
+    /**
+     * Get the preventive treatments (deworming, antiparasitics) given to the pet.
+     *
+     * @return HasMany<PetTreatment, $this>
+     */
+    public function treatments(): HasMany
+    {
+        return $this->hasMany(PetTreatment::class);
     }
 
     /**
