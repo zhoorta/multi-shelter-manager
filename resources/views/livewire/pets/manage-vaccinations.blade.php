@@ -32,7 +32,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Vaccine') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Administered Date') }}</th>
-                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Due Date') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Next Due Date') }}</th>
                             <th scope="col" class="px-6 py-3 text-center font-medium">{{ __('Pet') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
@@ -41,9 +41,9 @@
                         @forelse ($this->vaccinations as $vaccination)
                             @php
                                 $mainImage = $vaccination->pet->images->firstWhere('is_main', true) ?? $vaccination->pet->images->first();
-                                $isScheduled = $vaccination->administered_date === null;
-                                $isOverdue = $isScheduled && $vaccination->due_date !== null && $vaccination->due_date->lt(now()->startOfDay());
-                                $isDueSoon = $isScheduled && $vaccination->due_date !== null && $vaccination->due_date->lte(now()->addWeek());
+                                $isPending = in_array($vaccination->id, $this->pendingVaccinationIds, true);
+                                $isOverdue = $isPending && $vaccination->due_date->lt(now()->startOfDay());
+                                $isDueSoon = $isPending && $vaccination->due_date->lte(now()->addWeek());
                                 $nextDueDateClass = match (true) {
                                     $isOverdue => 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200',
                                     $isDueSoon => 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200',
@@ -105,7 +105,7 @@
                                                         <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $vaccination->administered_date?->format('d/m/Y') ?? '—' }}</flux:text>
                                                     </div>
                                                     <div>
-                                                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Due Date') }}</flux:text>
+                                                        <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Next Due Date') }}</flux:text>
                                                         <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $vaccination->due_date?->format('d/m/Y') ?? '—' }}</flux:text>
                                                     </div>
                                                     <div>

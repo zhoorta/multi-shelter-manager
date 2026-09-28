@@ -58,7 +58,26 @@ test('excludes vaccinations due outside the next 7 days', function () {
     Notification::assertNotSentTo($recipient, VaccinationDueNotification::class);
 });
 
-test('excludes vaccinations that have already been administered', function () {
+test('includes a logged dose whose next dose is due within 7 days', function () {
+    Notification::fake();
+
+    $shelter = Shelter::factory()->create();
+    $recipient = User::factory()->forShelter($shelter, 'staff', true)->create();
+
+    $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
+    $vaccine = Vaccine::factory()->create();
+    $pet->vaccines()->attach($vaccine, [
+        'administered_date' => today()->subYear(),
+        'due_date' => today()->addDays(3),
+        'status' => 'administered',
+    ]);
+
+    $this->artisan('app:send-vaccination-due-notifications')->assertSuccessful();
+
+    Notification::assertSentTo($recipient, VaccinationDueNotification::class);
+});
+
+test('excludes vaccinations that have since been administered again', function () {
     Notification::fake();
 
     $shelter = Shelter::factory()->create();
@@ -67,10 +86,11 @@ test('excludes vaccinations that have already been administered', function () {
     $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
     $administered = Vaccine::factory()->create();
     $pet->vaccines()->attach($administered, [
-        'administered_date' => today(),
+        'administered_date' => today()->subYear(),
         'due_date' => today()->addDays(3),
         'status' => 'administered',
     ]);
+    $pet->vaccines()->attach($administered, ['administered_date' => today(), 'status' => 'administered']);
 
     $this->artisan('app:send-vaccination-due-notifications')->assertSuccessful();
 

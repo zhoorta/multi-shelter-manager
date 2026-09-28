@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vacinações</h2>
-        <p>Cada vacinação regista a vacina, a data em que foi administrada ou em que está prevista, o número de lote, o veterinário e notas. A página Vacinações lista-as para todos os animais do abrigo.</p>
-        <p>Todos os dias, os utilizadores com as notificações de vacinação ativas num abrigo recebem um email com as vacinações desse abrigo previstas para os próximos sete dias e ainda não administradas. Cada vacinação é notificada apenas uma vez. Um ícone de sino na lista de utilizadores indica quem recebe estes emails.</p>
+        <p>Cada vacinação regista a vacina, a data de administração, a próxima data prevista, o número de lote, o veterinário e notas. Registe a última toma e a próxima data no mesmo registo: fica pendente até ser registada uma toma posterior dessa vacina. Para planear uma vacinação, preencha apenas a próxima data; ao registar depois a toma, ela fica concluída. Quando a vacina tem uma frequência (por exemplo a raiva, a cada 36 meses), a próxima data é preenchida a partir da data da toma e pode ser alterada. A página Vacinações lista-as para todos os animais do abrigo.</p>
+        <p>Todos os dias, os utilizadores com as notificações de vacinação ativas num abrigo recebem um email com as vacinações desse abrigo previstas para os próximos sete dias e ainda pendentes. Cada vacinação é notificada apenas uma vez. Um ícone de sino na lista de utilizadores indica quem recebe estes emails.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vacunaciones</h2>
-        <p>Cada vacunación registra la vacuna, la fecha en que se administró o en que está prevista, el número de lote, el veterinario y notas. La página Vacunaciones las muestra para todos los animales del refugio.</p>
-        <p>Cada día, los usuarios que tienen activadas las notificaciones de vacunación para un refugio reciben un email con las vacunaciones de ese refugio previstas para los próximos siete días que aún no se han administrado. Cada vacunación solo se notifica una vez. Un icono de campana en la lista de usuarios indica quién recibe estos emails.</p>
+        <p>Cada vacunación registra la vacuna, la fecha de administración, la próxima fecha prevista, el número de lote, el veterinario y notas. Registre la última dosis y la próxima fecha en el mismo registro: queda pendiente hasta que se registre una dosis posterior de esa vacuna. Para planificar una vacunación, rellene solo la próxima fecha; al registrar después la dosis, queda completada. Cuando la vacuna tiene una frecuencia (por ejemplo la rabia, cada 36 meses), la próxima fecha se rellena a partir de la fecha de la dosis y se puede cambiar. La página Vacunaciones las muestra para todos los animales del refugio.</p>
+        <p>Cada día, los usuarios que tienen activadas las notificaciones de vacunación para un refugio reciben un email con las vacunaciones de ese refugio previstas para los próximos siete días que siguen pendientes. Cada vacunación solo se notifica una vez. Un icono de campana en la lista de usuarios indica quién recibe estos emails.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

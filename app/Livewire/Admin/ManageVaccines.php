@@ -21,6 +21,8 @@ class ManageVaccines extends Component
 
     public string $vaccineName = '';
 
+    public string $vaccineFrequencyMonths = '';
+
     /**
      * @var array<int, int>
      */
@@ -63,6 +65,7 @@ class ManageVaccines extends Component
 
         $this->editingVaccineId = $vaccine->id;
         $this->vaccineName = $vaccine->name;
+        $this->vaccineFrequencyMonths = (string) $vaccine->frequency_months;
         $this->vaccineSpeciesIds = $vaccine->species->pluck('id')->all();
     }
 
@@ -70,20 +73,27 @@ class ManageVaccines extends Component
     {
         $validated = $this->validate([
             'vaccineName' => ['required', 'string', 'max:255'],
+            'vaccineFrequencyMonths' => ['nullable', 'integer', 'min:1', 'max:120'],
             'vaccineSpeciesIds' => ['array'],
             'vaccineSpeciesIds.*' => ['integer', 'exists:species,id'],
         ], [], [
             'vaccineName' => __('Name'),
+            'vaccineFrequencyMonths' => __('Frequency (months)'),
             'vaccineSpeciesIds' => __('Species'),
         ]);
 
+        $vaccineAttributes = [
+            'name' => $validated['vaccineName'],
+            'frequency_months' => $validated['vaccineFrequencyMonths'] !== '' ? (int) $validated['vaccineFrequencyMonths'] : null,
+        ];
+
         if ($this->editingVaccineId !== null) {
             $vaccine = Vaccine::query()->findOrFail($this->editingVaccineId);
-            $vaccine->update(['name' => $validated['vaccineName']]);
+            $vaccine->update($vaccineAttributes);
 
             Flux::toast(variant: 'success', text: __('Record updated successfully'));
         } else {
-            $vaccine = Vaccine::query()->create(['name' => $validated['vaccineName']]);
+            $vaccine = Vaccine::query()->create($vaccineAttributes);
 
             Flux::toast(variant: 'success', text: __('Record created successfully'));
         }
@@ -111,7 +121,7 @@ class ManageVaccines extends Component
 
     protected function resetVaccineForm(): void
     {
-        $this->reset(['editingVaccineId', 'vaccineName', 'vaccineSpeciesIds']);
+        $this->reset(['editingVaccineId', 'vaccineName', 'vaccineFrequencyMonths', 'vaccineSpeciesIds']);
         $this->resetErrorBag();
     }
 

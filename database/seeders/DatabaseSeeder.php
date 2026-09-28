@@ -27,16 +27,20 @@ class DatabaseSeeder extends Seeder
         $this->call(DogSizeSeeder::class);
 
         // 5. SEED VACCINES (Vacinas) & LINK TO SPECIES
-        $vacRaiva = DB::table('vaccines')->insertGetId(['name' => 'Antirrábica (Raiva)', 'created_at' => now(), 'updated_at' => now()]);
-        $vacPolivalenteCao = DB::table('vaccines')->insertGetId(['name' => 'Polivalente Canina (DHPPi/L)', 'created_at' => now(), 'updated_at' => now()]);
-        $vacTripliceFelina = DB::table('vaccines')->insertGetId(['name' => 'Tríplice Felina (FVRCP)', 'created_at' => now(), 'updated_at' => now()]);
-        $vacLeucemiaFelina = DB::table('vaccines')->insertGetId(['name' => 'Leucemia Felina (FeLV)', 'created_at' => now(), 'updated_at' => now()]);
+        $vacRaiva = DB::table('vaccines')->insertGetId(['name' => 'Antirrábica (Raiva)', 'frequency_months' => 36, 'created_at' => now(), 'updated_at' => now()]);
+        $vacPolivalenteCao = DB::table('vaccines')->insertGetId(['name' => 'Polivalente Canina (DHPPi/L)', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
+        $vacTosseCanil = DB::table('vaccines')->insertGetId(['name' => 'Tosse do Canil (Bordetella + Parainfluenza)', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
+        $vacLeishmaniose = DB::table('vaccines')->insertGetId(['name' => 'Leishmaniose', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
+        $vacTripliceFelina = DB::table('vaccines')->insertGetId(['name' => 'Tríplice Felina (FVRCP)', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
+        $vacLeucemiaFelina = DB::table('vaccines')->insertGetId(['name' => 'Leucemia Felina (FeLV)', 'frequency_months' => 12, 'created_at' => now(), 'updated_at' => now()]);
 
         // Pivot relationships for Vaccines
         DB::table('vaccine_species')->insert([
             ['vaccine_id' => $vacRaiva, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacRaiva, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacPolivalenteCao, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
+            ['vaccine_id' => $vacTosseCanil, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
+            ['vaccine_id' => $vacLeishmaniose, 'species_id' => $dogId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacTripliceFelina, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
             ['vaccine_id' => $vacLeucemiaFelina, 'species_id' => $catId, 'created_at' => now(), 'updated_at' => now()],
         ]);
@@ -97,6 +101,7 @@ class DatabaseSeeder extends Seeder
         // 9. SEED SYSTEM MANAGER SHELTER & USER
         $adminShelterId = DB::table('shelters')->insertGetId([
             'name' => 'Acolhe Central',
+            'slug' => 'acolhe-central',
             'city' => 'Porto',
             'region_id' => DB::table('regions')->where('name', 'Porto')->value('id'),
             'created_at' => now(),

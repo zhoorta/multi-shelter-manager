@@ -177,7 +177,10 @@ test('counts overdue vaccinations and members with overdue fees for the current 
     $vaccine = Vaccine::factory()->create();
     Pet::factory()->for($shelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->subDay(), 'status' => 'scheduled']);
     Pet::factory()->for($shelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->addDay(), 'status' => 'scheduled']);
-    Pet::factory()->for($shelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->subDay(), 'status' => 'administered', 'administered_date' => today()]);
+    Pet::factory()->for($shelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->subDay(), 'status' => 'administered', 'administered_date' => today()->subYear()]);
+    $revaccinatedPet = Pet::factory()->for($shelter)->create();
+    $revaccinatedPet->vaccines()->attach($vaccine, ['due_date' => today()->subDay(), 'status' => 'administered', 'administered_date' => today()->subYear()]);
+    $revaccinatedPet->vaccines()->attach($vaccine, ['status' => 'administered', 'administered_date' => today()]);
     Pet::factory()->for($otherShelter)->create()->vaccines()->attach($vaccine, ['due_date' => today()->subDay(), 'status' => 'scheduled']);
 
     Member::factory()->for($shelter)->create();
@@ -185,7 +188,7 @@ test('counts overdue vaccinations and members with overdue fees for the current 
     Member::factory()->for($otherShelter)->create();
 
     Livewire::test(Dashboard::class)
-        ->assertSet('overdueVaccinationsCount', 1)
+        ->assertSet('overdueVaccinationsCount', 2)
         ->assertSet('membersInArrearsCount', 1)
         ->assertSee(route('pets.vaccinations.index', ['nextDueFilter' => 'overdue']))
         ->assertSee(route('members.index', ['inArrearsOnly' => 1]));

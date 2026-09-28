@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Impfungen</h2>
-        <p>Jede Impfung erfasst den Impfstoff, das Datum der Verabreichung bzw. der Fälligkeit, die Chargennummer, den Tierarzt und Notizen. Die Seite Impfungen listet sie für alle Tiere des Tierheims auf.</p>
-        <p>Benutzer, die Impfbenachrichtigungen für ein Tierheim aktiviert haben, erhalten täglich eine E-Mail mit den Impfungen dieses Tierheims, die in den nächsten sieben Tagen fällig und noch nicht verabreicht sind. Jede Impfung wird nur einmal gemeldet. Ein Glockensymbol in der Benutzerliste zeigt, wer diese E-Mails erhält.</p>
+        <p>Jede Impfung erfasst den Impfstoff, das Datum der Verabreichung, den nächsten Fälligkeitstermin, die Chargennummer, den Tierarzt und Notizen. Erfassen Sie die letzte Dosis und den nächsten Termin im selben Eintrag: Er bleibt offen, bis eine spätere Dosis dieses Impfstoffs erfasst wird. Um eine Impfung zu planen, geben Sie nur den nächsten Termin ein; das spätere Erfassen der Dosis schließt sie ab. Hat der Impfstoff eine Häufigkeit (z. B. Tollwut, alle 36 Monate), wird der nächste Termin aus dem Datum der Dosis ausgefüllt und kann geändert werden. Die Seite Impfungen listet sie für alle Tiere des Tierheims auf.</p>
+        <p>Benutzer, die Impfbenachrichtigungen für ein Tierheim aktiviert haben, erhalten täglich eine E-Mail mit den Impfungen dieses Tierheims, die in den nächsten sieben Tagen fällig und noch offen sind. Jede Impfung wird nur einmal gemeldet. Ein Glockensymbol in der Benutzerliste zeigt, wer diese E-Mails erhält.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

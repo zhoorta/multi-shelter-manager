@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinationer</h2>
-        <p>Varje vaccination registrerar vaccinet, datum då det gavs eller är planerat, batchnummer, veterinär och anteckningar. Sidan Vaccinationer visar dem för alla djurhemmets djur.</p>
-        <p>Varje dag får användare som har vaccinationsaviseringar påslagna för ett djurhem ett e-postmeddelande med det djurhemmets vaccinationer som är planerade inom de närmaste sju dagarna och ännu inte har getts. Varje vaccination aviseras bara en gång. En klockikon i användarlistan visar vem som får dessa e-postmeddelanden.</p>
+        <p>Varje vaccination registrerar vaccinet, datum då det gavs, nästa planerade datum, batchnummer, veterinär och anteckningar. Registrera den senaste dosen och nästa datum i samma post: den förblir väntande tills en senare dos av det vaccinet registreras. För att planera en vaccination anger du bara nästa datum; när dosen registreras senare är den klar. När vaccinet har en frekvens (till exempel rabies, var 36:e månad) fylls nästa datum i utifrån dosens datum och kan ändras. Sidan Vaccinationer visar dem för alla djurhemmets djur.</p>
+        <p>Varje dag får användare som har vaccinationsaviseringar påslagna för ett djurhem ett e-postmeddelande med det djurhemmets vaccinationer som är planerade inom de närmaste sju dagarna och fortfarande väntar. Varje vaccination aviseras bara en gång. En klockikon i användarlistan visar vem som får dessa e-postmeddelanden.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

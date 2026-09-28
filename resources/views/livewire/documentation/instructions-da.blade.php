@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinationer</h2>
-        <p>Hver vaccination registrerer vaccinen, datoen for vaccination eller den planlagte dato, batchnummer, dyrlæge og noter. Siden Vaccinationer viser dem for alle internatets dyr.</p>
-        <p>Hver dag modtager brugere, der har slået vaccinationsnotifikationer til for et internat, en e-mail med internatets vaccinationer, der er planlagt inden for de næste syv dage og endnu ikke er givet. Hver vaccination meldes kun én gang. Et klokkeikon i brugerlisten viser, hvem der modtager disse e-mails.</p>
+        <p>Hver vaccination registrerer vaccinen, datoen for vaccination, næste planlagte dato, batchnummer, dyrlæge og noter. Registrér den seneste dosis og næste dato i samme registrering: den forbliver afventende, indtil en senere dosis af den vaccine registreres. For at planlægge en vaccination udfylder du kun næste dato; når dosen registreres senere, er den afsluttet. Når vaccinen har en hyppighed (for eksempel rabies, hver 36. måned), udfyldes næste dato ud fra dosens dato og kan ændres. Siden Vaccinationer viser dem for alle internatets dyr.</p>
+        <p>Hver dag modtager brugere, der har slået vaccinationsnotifikationer til for et internat, en e-mail med internatets vaccinationer, der er planlagt inden for de næste syv dage og stadig afventer. Hver vaccination meldes kun én gang. Et klokkeikon i brugerlisten viser, hvem der modtager disse e-mails.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

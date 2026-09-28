@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinations</h2>
-        <p>Each vaccination records the vaccine, the date it was given or is due, lot number, veterinarian and notes. The Vaccinations page lists them across all the shelter's pets.</p>
-        <p>Every day, users who have vaccination notifications turned on for a shelter receive an email listing that shelter's vaccinations due in the next seven days that have not been given yet. Each vaccination is only notified once. A bell icon in the users list shows who receives these emails.</p>
+        <p>Each vaccination records the vaccine, the date it was given, the next due date, lot number, veterinarian and notes. Record the last dose and the next date on the same entry: it stays pending until a later dose of that vaccine is recorded. To plan a vaccination, enter only the next date; recording the dose later completes it. When the vaccine has a frequency (for example rabies, every 36 months), the next date is filled in from the dose date and can still be changed. The Vaccinations page lists them across all the shelter's pets.</p>
+        <p>Every day, users who have vaccination notifications turned on for a shelter receive an email listing that shelter's vaccinations due in the next seven days that are still pending. Each vaccination is only notified once. A bell icon in the users list shows who receives these emails.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

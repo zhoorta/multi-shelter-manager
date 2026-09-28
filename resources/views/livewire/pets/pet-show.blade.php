@@ -562,7 +562,7 @@
                             <tr>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Vaccine') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Administered Date') }}</th>
-                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Due Date') }}</th>
+                                <th scope="col" class="px-4 py-2 font-medium">{{ __('Next Due Date') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Lot Number') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Veterinarian') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Notes') }}</th>
@@ -572,9 +572,9 @@
                         <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                             @forelse ($pet->vaccines as $vaccine)
                                 @php
-                                    $isVaccineScheduled = $vaccine->pivot->administered_date === null;
-                                    $isVaccineOverdue = $isVaccineScheduled && $vaccine->pivot->due_date !== null && $vaccine->pivot->due_date->lt(now()->startOfDay());
-                                    $isVaccineDueSoon = $isVaccineScheduled && $vaccine->pivot->due_date !== null && $vaccine->pivot->due_date->lte(now()->addWeek());
+                                    $isVaccinePending = in_array($vaccine->pivot->id, $this->pendingVaccinationIds, true);
+                                    $isVaccineOverdue = $isVaccinePending && $vaccine->pivot->due_date->lt(now()->startOfDay());
+                                    $isVaccineDueSoon = $isVaccinePending && $vaccine->pivot->due_date->lte(now()->addWeek());
                                     $nextDueDateClass = match (true) {
                                         $isVaccineOverdue => 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200',
                                         $isVaccineDueSoon => 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200',
@@ -619,7 +619,7 @@
                                                             <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $vaccine->pivot->administered_date?->format('d/m/Y') ?? '—' }}</flux:text>
                                                         </div>
                                                         <div>
-                                                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Due Date') }}</flux:text>
+                                                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Next Due Date') }}</flux:text>
                                                             <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $vaccine->pivot->due_date?->format('d/m/Y') ?? '—' }}</flux:text>
                                                         </div>
                                                         <div>

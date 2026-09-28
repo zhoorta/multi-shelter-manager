@@ -2,6 +2,7 @@
 
 use App\Livewire\Pets\VaccinationForm;
 use App\Models\Pet;
+use App\Models\PetVaccine;
 use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\User;
@@ -117,6 +118,50 @@ test('allows administering the same vaccine to a pet more than once', function (
         ->assertHasNoErrors();
 
     expect($pet->vaccines()->count())->toBe(2);
+});
+
+test('logging a dose fulfils the open scheduled vaccination instead of adding a new row', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $vaccine->species()->attach($pet->species_id);
+    $pet->vaccines()->attach($vaccine, ['due_date' => '2026-10-01', 'status' => 'scheduled']);
+    $scheduled = PetVaccine::query()->sole();
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(VaccinationForm::class, ['pet' => $pet])
+        ->set('vaccineId', (string) $vaccine->id)
+        ->set('administeredDate', '2026-09-28')
+        ->set('dueDate', '2027-09-28')
+        ->call('saveVaccination')
+        ->assertHasNoErrors();
+
+    $vaccination = PetVaccine::query()->sole();
+    expect($vaccination->id)->toBe($scheduled->id)
+        ->and($vaccination->status)->toBe('administered')
+        ->and($vaccination->administered_date->toDateString())->toBe('2026-09-28')
+        ->and($vaccination->due_date->toDateString())->toBe('2027-09-28');
+});
+
+test('backfilling a dose older than one already logged leaves the scheduled vaccination open', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $vaccine->species()->attach($pet->species_id);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => '2025-10-01', 'status' => 'administered']);
+    $pet->vaccines()->attach($vaccine, ['due_date' => '2026-10-01', 'status' => 'scheduled']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(VaccinationForm::class, ['pet' => $pet])
+        ->set('vaccineId', (string) $vaccine->id)
+        ->set('administeredDate', '2024-10-01')
+        ->call('saveVaccination')
+        ->assertHasNoErrors();
+
+    expect(PetVaccine::query()->count())->toBe(3)
+        ->and(PetVaccine::query()->where('status', 'scheduled')->count())->toBe(1);
 });
 
 test('requires a vaccine', function () {
@@ -291,4 +336,40 @@ test('viewers are forbidden from viewing the form', function () {
     $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
 
     $this->get(route('pets.vaccinate', $pet))->assertForbidden();
+});
+
+test('fills the next due date from the vaccine frequency and recalculates it when the dose date changes', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $rabies = Vaccine::factory()->create(['frequency_months' => 36]);
+    $rabies->species()->attach($pet->species_id);
+    $withoutFrequency = Vaccine::factory()->create();
+    $withoutFrequency->species()->attach($pet->species_id);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(VaccinationForm::class, ['pet' => $pet])
+        ->set('vaccineId', (string) $rabies->id)
+        ->set('administeredDate', '2024-02-29')
+        ->assertSet('dueDate', '2027-02-28')
+        ->assertSee('every 36 months')
+        ->set('administeredDate', '2026-09-28')
+        ->assertSet('dueDate', '2029-09-28')
+        ->set('vaccineId', (string) $withoutFrequency->id)
+        ->assertSet('dueDate', '');
+});
+
+test('never overwrites a next due date the user typed', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $rabies = Vaccine::factory()->create(['frequency_months' => 36]);
+    $rabies->species()->attach($pet->species_id);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(VaccinationForm::class, ['pet' => $pet])
+        ->set('dueDate', '2027-06-01')
+        ->set('vaccineId', (string) $rabies->id)
+        ->set('administeredDate', '2026-09-28')
+        ->assertSet('dueDate', '2027-06-01');
 });

@@ -62,7 +62,7 @@ trait BuildsHealthReport
                 'vaccinations' => $vaccinations->count(),
                 'overdueVaccinations' => PetVaccine::query()
                     ->whereIn('pet_id', $petIds)
-                    ->where('status', 'scheduled')
+                    ->pending()
                     ->where('due_date', '<', CarbonImmutable::today())
                     ->count(),
                 'diagnoses' => $diagnoses->filter(fn (PetSickness $diagnosis): bool => $this->isBetween($diagnosis->diagnosed_at, $startDate, $endDate))->count(),

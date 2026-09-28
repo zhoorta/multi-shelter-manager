@@ -869,7 +869,7 @@ test('lists the vaccines administered to the pet, most recent first', function (
         ->assertSeeInOrder(['Distemper', 'LOT-NEW', 'Dr. Costa', 'Rabies', 'LOT-OLD', 'Dr. Alves']);
 });
 
-test('highlights the due date amber when scheduled and due within a week or exactly a week away', function () {
+test('highlights the due date amber when pending and due within a week or exactly a week away', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
@@ -883,7 +883,7 @@ test('highlights the due date amber when scheduled and due within a week or exac
     $pet->vaccines()->attach($dueLater, ['due_date' => now()->addMonths(2), 'status' => 'scheduled']);
 
     $administeredWithSoonDueDate = Vaccine::factory()->create();
-    $pet->vaccines()->attach($administeredWithSoonDueDate, ['administered_date' => now(), 'due_date' => now()->addDays(3), 'status' => 'administered']);
+    $pet->vaccines()->attach($administeredWithSoonDueDate, ['administered_date' => now()->subYear(), 'due_date' => now()->addDays(3), 'status' => 'administered']);
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
@@ -892,7 +892,7 @@ test('highlights the due date amber when scheduled and due within a week or exac
     // Matched against the full class string (rather than a short substring like
     // "bg-amber-50") because Flux's own components elsewhere on the page also
     // use amber/red Tailwind utility classes, causing false-positive matches.
-    expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(2);
+    expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(3);
     expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(0);
 });
 
@@ -911,12 +911,27 @@ test('highlights the due date red when scheduled and overdue', function () {
     expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(0);
 });
 
-test('does not highlight the due date once the vaccine has been administered, even if overdue', function () {
+test('highlights the due date red when a logged dose has an overdue next dose', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
 
     $vaccine = Vaccine::factory()->create();
-    $pet->vaccines()->attach($vaccine, ['administered_date' => now(), 'due_date' => now()->subDay(), 'status' => 'administered']);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now()->subYear(), 'due_date' => now()->subDay(), 'status' => 'administered']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $response = $this->get(route('pets.show', $pet))->assertOk();
+
+    expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(1);
+});
+
+test('does not highlight the due date once a later dose has been administered, even if overdue', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $vaccine = Vaccine::factory()->create();
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now()->subYear(), 'due_date' => now()->subDay(), 'status' => 'administered']);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => now(), 'status' => 'administered']);
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 

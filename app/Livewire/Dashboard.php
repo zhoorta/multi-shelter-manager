@@ -124,7 +124,7 @@ class Dashboard extends Component
                 ->count();
 
             $this->overdueVaccinationsCount = PetVaccine::query()
-                ->where('status', 'scheduled')
+                ->pending()
                 ->where('due_date', '<', today())
                 ->whereHas('pet', fn ($query) => $query->where('shelter_id', $shelterId))
                 ->count();

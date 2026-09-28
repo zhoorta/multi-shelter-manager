@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinaties</h2>
-        <p>Elke vaccinatie legt het vaccin vast, de datum waarop het is toegediend of gepland staat, het batchnummer, de dierenarts en notities. De pagina Vaccinaties toont ze voor alle dieren van het asiel.</p>
-        <p>Gebruikers die vaccinatiemeldingen voor een asiel hebben ingeschakeld, ontvangen elke dag een e-mail met de vaccinaties van dat asiel die in de komende zeven dagen gepland staan en nog niet zijn toegediend. Elke vaccinatie wordt maar één keer gemeld. Een belpictogram in de gebruikerslijst laat zien wie deze e-mails ontvangt.</p>
+        <p>Elke vaccinatie legt het vaccin vast, de datum van toediening, de volgende geplande datum, het batchnummer, de dierenarts en notities. Leg de laatste dosis en de volgende datum in dezelfde registratie vast: die blijft openstaan tot er een latere dosis van dat vaccin wordt geregistreerd. Om een vaccinatie te plannen, vult u alleen de volgende datum in; wanneer u later de dosis registreert, is ze afgerond. Heeft het vaccin een frequentie (bijvoorbeeld rabiës, elke 36 maanden), dan wordt de volgende datum ingevuld op basis van de datum van de dosis en kunt u die nog wijzigen. De pagina Vaccinaties toont ze voor alle dieren van het asiel.</p>
+        <p>Gebruikers die vaccinatiemeldingen voor een asiel hebben ingeschakeld, ontvangen elke dag een e-mail met de vaccinaties van dat asiel die in de komende zeven dagen gepland staan en nog openstaan. Elke vaccinatie wordt maar één keer gemeld. Een belpictogram in de gebruikerslijst laat zien wie deze e-mails ontvangt.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

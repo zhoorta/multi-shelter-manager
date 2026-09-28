@@ -16,6 +16,9 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * @property-read LengthAwarePaginator<int, PetVaccine> $vaccinations
+ */
 #[Title('Manage Vaccinations')]
 class ManageVaccinations extends Component
 {
@@ -68,10 +71,10 @@ class ManageVaccinations extends Component
                 $this->nextDueFilter !== '',
                 function (Builder $query): void {
                     match ($this->nextDueFilter) {
-                        'within_week' => $query->whereBetween('due_date', [today(), today()->addWeek()]),
-                        'within_two_weeks' => $query->whereBetween('due_date', [today(), today()->addWeeks(2)]),
-                        'within_month' => $query->whereBetween('due_date', [today(), today()->addMonth()]),
-                        'overdue' => $query->where('status', 'scheduled')->where('due_date', '<', today()),
+                        'within_week' => $query->pending()->whereBetween('due_date', [today(), today()->addWeek()]),
+                        'within_two_weeks' => $query->pending()->whereBetween('due_date', [today(), today()->addWeeks(2)]),
+                        'within_month' => $query->pending()->whereBetween('due_date', [today(), today()->addMonth()]),
+                        'overdue' => $query->pending()->where('due_date', '<', today()),
                         default => null,
                     };
                 },
@@ -80,12 +83,29 @@ class ManageVaccinations extends Component
             ->paginate(20);
     }
 
+    /**
+     * Ids of the listed vaccinations whose due date is still open (see
+     * PetVaccine::pending()), used to highlight overdue and due-soon dates.
+     *
+     * @return array<int, int>
+     */
+    #[Computed]
+    public function pendingVaccinationIds(): array
+    {
+        return PetVaccine::query()
+            ->whereKey(array_map(fn (PetVaccine $petVaccine): int => $petVaccine->id, $this->vaccinations->items()))
+            ->pending()
+            ->get(['id'])
+            ->map(fn (PetVaccine $petVaccine): int => $petVaccine->id)
+            ->all();
+    }
+
     public function deleteVaccination(int $petVaccineId): void
     {
         abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         PetVaccine::query()->whereHas('pet')->findOrFail($petVaccineId)->delete();
 
-        unset($this->vaccinations);
+        unset($this->vaccinations, $this->pendingVaccinationIds);
 
         Flux::toast(variant: 'success', text: __('Record deleted successfully'));
     }

@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinations</h2>
-        <p>Chaque vaccination enregistre le vaccin, la date à laquelle il a été administré ou est prévu, le numéro de lot, le vétérinaire et des notes. La page Vaccinations les liste pour tous les animaux du refuge.</p>
-        <p>Chaque jour, les utilisateurs qui ont activé les notifications de vaccination pour un refuge reçoivent un email listant les vaccinations de ce refuge prévues dans les sept prochains jours et pas encore administrées. Chaque vaccination n'est notifiée qu'une seule fois. Une icône de cloche dans la liste des utilisateurs indique qui reçoit ces emails.</p>
+        <p>Chaque vaccination enregistre le vaccin, la date d'administration, la prochaine date prévue, le numéro de lot, le vétérinaire et des notes. Enregistrez la dernière dose et la prochaine date dans la même fiche : elle reste en attente jusqu'à l'enregistrement d'une dose ultérieure de ce vaccin. Pour planifier une vaccination, renseignez seulement la prochaine date ; enregistrer ensuite la dose la complète. Lorsque le vaccin a une fréquence (par exemple la rage, tous les 36 mois), la prochaine date est remplie à partir de la date de la dose et reste modifiable. La page Vaccinations les liste pour tous les animaux du refuge.</p>
+        <p>Chaque jour, les utilisateurs qui ont activé les notifications de vaccination pour un refuge reçoivent un email listant les vaccinations de ce refuge prévues dans les sept prochains jours et toujours en attente. Chaque vaccination n'est notifiée qu'une seule fois. Une icône de cloche dans la liste des utilisateurs indique qui reçoit ces emails.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

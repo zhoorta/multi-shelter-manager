@@ -101,8 +101,8 @@
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Szczepienia</h2>
-        <p>Każde szczepienie zapisuje szczepionkę, datę podania lub planowaną datę, numer serii, lekarza weterynarii i notatki. Strona Szczepienia wyświetla je dla wszystkich zwierząt schroniska.</p>
-        <p>Codziennie użytkownicy, którzy mają włączone powiadomienia o szczepieniach dla danego schroniska, otrzymują e-mail z listą szczepień tego schroniska zaplanowanych na najbliższe siedem dni, które nie zostały jeszcze podane. O każdym szczepieniu powiadamia się tylko raz. Ikona dzwonka na liście użytkowników pokazuje, kto otrzymuje te wiadomości.</p>
+        <p>Każde szczepienie zapisuje szczepionkę, datę podania, następną planowaną datę, numer serii, lekarza weterynarii i notatki. Zapisz ostatnią dawkę i następną datę w tym samym wpisie: pozostaje on oczekujący, dopóki nie zostanie zapisana późniejsza dawka tej szczepionki. Aby zaplanować szczepienie, wpisz tylko następną datę; zapisanie później dawki je zakończy. Gdy szczepionka ma częstotliwość (np. wścieklizna, co 36 miesięcy), następna data jest uzupełniana na podstawie daty dawki i można ją zmienić. Strona Szczepienia wyświetla je dla wszystkich zwierząt schroniska.</p>
+        <p>Codziennie użytkownicy, którzy mają włączone powiadomienia o szczepieniach dla danego schroniska, otrzymują e-mail z listą szczepień tego schroniska zaplanowanych na najbliższe siedem dni, które wciąż oczekują. O każdym szczepieniu powiadamia się tylko raz. Ikona dzwonka na liście użytkowników pokazuje, kto otrzymuje te wiadomości.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">

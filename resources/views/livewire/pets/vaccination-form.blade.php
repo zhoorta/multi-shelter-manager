@@ -12,7 +12,7 @@
 
     <form wire:submit="saveVaccination" autocomplete="off" class="flex flex-col gap-8">
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:select wire:model="vaccineId" :label="__('Vaccine')" :placeholder="__('Select a vaccine')">
+            <flux:select wire:model.live="vaccineId" :label="__('Vaccine')" :placeholder="__('Select a vaccine')">
                 @foreach ($this->vaccines as $vaccine)
                     <flux:select.option value="{{ $vaccine->id }}">{{ $vaccine->name }}</flux:select.option>
                 @endforeach
@@ -24,7 +24,7 @@
                      native date picker on focus (reverting to text on blur if still empty). --}}
                 <flux:input
                     type="text"
-                    wire:model="administeredDate"
+                    wire:model.live="administeredDate"
                     :label="__('Administered Date')"
                     :placeholder="__('Select a date')"
                     autocomplete="off"
@@ -38,7 +38,7 @@
                 <flux:input
                     type="text"
                     wire:model="dueDate"
-                    :label="__('Due Date')"
+                    :label="__('Next Due Date')"
                     :placeholder="__('Select a date')"
                     autocomplete="off"
                     clearable
@@ -47,6 +47,15 @@
                     x-on:focus="dateFieldType = 'date'"
                     x-on:blur="if (! $el.value) dateFieldType = 'text'"
                 />
+
+                {{-- Its own grid row under Next Due Date, rather than a field description,
+                     so both date inputs keep the same height and stay aligned. --}}
+                @if ($this->selectedVaccine?->frequency_months !== null)
+                    <div></div>
+                    <flux:text class="-mt-2.5">
+                        {{ __('Filled in from the vaccine frequency (every :months months). You can change it.', ['months' => $this->selectedVaccine->frequency_months]) }}
+                    </flux:text>
+                @endif
             </div>
 
             <div class="grid grid-cols-2 gap-4">

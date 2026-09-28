@@ -142,3 +142,36 @@ test('soft-deletes a vaccine instead of removing it permanently', function () {
     expect($vaccine->fresh()->trashed())->toBeTrue();
     expect(Vaccine::query()->find($vaccine->id))->toBeNull();
 });
+
+test('saves the vaccine frequency in months, or none when left empty', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ManageVaccines::class)
+        ->set('vaccineName', 'Rabies')
+        ->set('vaccineFrequencyMonths', '36')
+        ->call('saveVaccine')
+        ->assertHasNoErrors()
+        ->assertSee('Every 36 months');
+
+    $vaccine = Vaccine::query()->where('name', 'Rabies')->sole();
+    expect($vaccine->frequency_months)->toBe(36);
+
+    Livewire::test(ManageVaccines::class)
+        ->call('editVaccine', $vaccine->id)
+        ->assertSet('vaccineFrequencyMonths', '36')
+        ->set('vaccineFrequencyMonths', '')
+        ->call('saveVaccine')
+        ->assertHasNoErrors();
+
+    expect($vaccine->fresh()->frequency_months)->toBeNull();
+});
+
+test('rejects a vaccine frequency that is not a positive number of months', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ManageVaccines::class)
+        ->set('vaccineName', 'Rabies')
+        ->set('vaccineFrequencyMonths', '0')
+        ->call('saveVaccine')
+        ->assertHasErrors(['vaccineFrequencyMonths']);
+});

@@ -47,7 +47,7 @@ class SendVaccinationDueNotifications extends Command
 
         $dueVaccinations = PetVaccine::query()
             ->whereHas('pet', fn ($query) => $query->where('shelter_id', $shelter->id))
-            ->whereNull('administered_date')
+            ->pending()
             ->whereNull('notification_date')
             ->whereBetween('due_date', [today()->toDateString(), today()->addDays(7)->toDateString()])
             ->with(['pet', 'vaccine'])

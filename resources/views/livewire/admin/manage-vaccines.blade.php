@@ -17,6 +17,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Species') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Frequency') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
@@ -32,6 +33,13 @@
                                             <span class="text-neutral-400">&mdash;</span>
                                         @endforelse
                                     </div>
+                                </td>
+                                <td class="px-6 py-3">
+                                    @if ($vaccine->frequency_months !== null)
+                                        {{ __('Every :months months', ['months' => $vaccine->frequency_months]) }}
+                                    @else
+                                        <span class="text-neutral-400">&mdash;</span>
+                                    @endif
                                 </td>
                                 <td class="px-6 py-3">
                                     <div class="flex items-center gap-2">
@@ -77,7 +85,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="4" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No vaccines registered') }}
                                 </td>
                             </tr>
@@ -95,6 +103,15 @@
             </flux:heading>
 
             <flux:input wire:model="vaccineName" :label="__('Name')" />
+
+            <flux:input
+                type="number"
+                min="1"
+                max="120"
+                wire:model="vaccineFrequencyMonths"
+                :label="__('Frequency (months)')"
+                :description:trailing="__('Leave empty when the next date depends on the veterinarian\'s protocol.')"
+            />
 
             <flux:checkbox.group wire:model="vaccineSpeciesIds" :label="__('Species')">
                 @foreach ($this->species as $item)

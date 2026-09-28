@@ -98,16 +98,32 @@ test('highlights an overdue due date in red when scheduled', function () {
         ->assertSeeHtml('bg-red-50 text-red-800');
 });
 
-test('does not highlight an overdue due date in red once the vaccine has been administered', function () {
+test('highlights an overdue next dose in red when logged on the dose itself', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create();
-    $vaccine->species()->attach($pet->species_id);
     $pet->vaccines()->attach($vaccine, [
-        'administered_date' => today(),
+        'administered_date' => today()->subYear(),
         'due_date' => today()->subDay(),
         'status' => 'administered',
     ]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManageVaccinations::class)
+        ->assertSeeHtml('bg-red-50 text-red-800');
+});
+
+test('does not highlight an overdue next dose once a later dose has been logged', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create();
+    $pet->vaccines()->attach($vaccine, [
+        'administered_date' => today()->subYear(),
+        'due_date' => today()->subDay(),
+        'status' => 'administered',
+    ]);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => today(), 'status' => 'administered']);
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
@@ -254,12 +270,25 @@ test('reads the due date filter from the query string', function () {
         ->assertDontSee('Not Yet Due Vaccine');
 });
 
-test('the overdue filter excludes vaccines that have already been administered', function () {
+test('the overdue filter includes a logged dose whose next dose is overdue', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $vaccine = Vaccine::factory()->create(['name' => 'Rabies Vaccine']);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => today()->subYears(3), 'due_date' => today()->subDay(), 'status' => 'administered']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManageVaccinations::class)
+        ->set('nextDueFilter', 'overdue')
+        ->assertSee('Rabies Vaccine');
+});
+
+test('the overdue filter excludes vaccines that have since been administered again', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create();
     $vaccine = Vaccine::factory()->create(['name' => 'Administered Vaccine']);
-    $vaccine->species()->attach($pet->species_id);
-    $pet->vaccines()->attach($vaccine, ['administered_date' => today(), 'due_date' => today()->subDay(), 'status' => 'administered']);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => today()->subYear(), 'due_date' => today()->subDay(), 'status' => 'administered']);
+    $pet->vaccines()->attach($vaccine, ['administered_date' => today(), 'status' => 'administered']);
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 

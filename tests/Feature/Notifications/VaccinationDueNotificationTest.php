@@ -41,7 +41,7 @@ test('renders the due vaccinations as an HTML table', function () {
         ->and($html)->toContain('<thead')
         ->and($html)->toContain('>Pet</th>')
         ->and($html)->toContain('>Vaccine</th>')
-        ->and($html)->toContain('>Due Date</th>')
+        ->and($html)->toContain('>Next Due Date</th>')
         ->and($html)->toContain('>Antirrábica</td>')
         ->and($html)->toContain('>'.$petVaccine->due_date->format('d/m/Y').'</td>');
 });

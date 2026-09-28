@@ -107,12 +107,29 @@ class PetShow extends Component
         );
     }
 
+    /**
+     * Ids of the pet's vaccinations whose due date is still open (see
+     * PetVaccine::pending()), used to highlight overdue and due-soon dates.
+     *
+     * @return array<int, int>
+     */
+    #[Computed]
+    public function pendingVaccinationIds(): array
+    {
+        return $this->scopedPetVaccineQuery()
+            ->pending()
+            ->get(['id'])
+            ->map(fn (PetVaccine $petVaccine): int => $petVaccine->id)
+            ->all();
+    }
+
     public function deleteVaccination(int $petVaccineId): void
     {
         abort_unless(Auth::user()->canEditCurrentShelter(), 403);
         $this->scopedPetVaccineQuery()->findOrFail($petVaccineId)->delete();
 
         $this->refreshVaccines();
+        unset($this->pendingVaccinationIds);
 
         Flux::toast(variant: 'success', text: __('Record deleted successfully'));
     }
@@ -121,6 +138,8 @@ class PetShow extends Component
      * PetVaccine has no shelter_id of its own, so scope it directly through
      * its own pet_id column (unlike Sponsorship/SponsorshipPayment, it does
      * have one).
+     *
+     * @return Builder<PetVaccine>
      */
     protected function scopedPetVaccineQuery(): Builder
     {
