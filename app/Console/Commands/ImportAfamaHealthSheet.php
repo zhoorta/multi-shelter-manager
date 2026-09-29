@@ -128,16 +128,17 @@ class ImportAfamaHealthSheet extends Command
             return self::FAILURE;
         }
 
-        $vaccines = $this->catalogueVaccines(array_intersect_key(self::SHEETS, $sheetRows));
+        $animalSheets = array_intersect_key(self::SHEETS, $sheetRows);
+        $vaccines = $this->catalogueVaccines($animalSheets);
         $treatment = Treatment::query()->where('name', self::DEWORMING_TREATMENT)->first();
-        $missing = $vaccines->filter(fn (?Vaccine $vaccine): bool => $vaccine === null)->keys();
+        $missing = array_keys(array_filter($vaccines, fn (?Vaccine $vaccine): bool => $vaccine === null));
 
-        if ($treatment === null && array_intersect_key(self::SHEETS, $sheetRows) !== []) {
-            $missing->push('treatment "'.self::DEWORMING_TREATMENT.'"');
+        if ($treatment === null && $animalSheets !== []) {
+            $missing[] = 'treatment "'.self::DEWORMING_TREATMENT.'"';
         }
 
-        if ($missing->isNotEmpty()) {
-            $this->error('Missing from the catalogue: '.$missing->implode(', ').'. Create them in the admin area first.');
+        if ($missing !== []) {
+            $this->error('Missing from the catalogue: '.implode(', ', $missing).'. Create them in the admin area first.');
 
             return self::FAILURE;
         }
@@ -147,8 +148,8 @@ class ImportAfamaHealthSheet extends Command
         DB::beginTransaction();
 
         try {
-            foreach (array_intersect_key(self::SHEETS, $sheetRows) as $sheet => $definition) {
-                $this->importAnimalSheet($pets, $definition, $vaccines, $treatment, $sheetRows[$sheet]);
+            foreach ($animalSheets as $sheet => $definition) {
+                $this->importAnimalSheet($pets, $definition, $vaccines, $treatment, $sheetRows[$sheet] ?? []);
             }
 
             $this->collectClinicalSheet($pets, $sheetRows['clinical'] ?? []);
@@ -172,21 +173,18 @@ class ImportAfamaHealthSheet extends Command
      * species since dogs and cats may each have a vaccine of the same name.
      *
      * @param  array<string, array{species: string, vaccines: array<int, array{vaccine: string}>}>  $sheets
-     * @return Collection<string, Vaccine|null>
+     * @return array<string, Vaccine|null>
      */
-    private function catalogueVaccines(array $sheets): Collection
+    private function catalogueVaccines(array $sheets): array
     {
-        $vaccines = collect();
+        $vaccines = [];
 
         foreach ($sheets as $definition) {
             foreach ($definition['vaccines'] as $column) {
-                $vaccines->put(
-                    "{$column['vaccine']} ({$definition['species']})",
-                    Vaccine::query()
-                        ->where('name', $column['vaccine'])
-                        ->whereHas('species', fn ($query) => $query->where('name', $definition['species']))
-                        ->first(),
-                );
+                $vaccines["{$column['vaccine']} ({$definition['species']})"] = Vaccine::query()
+                    ->where('name', $column['vaccine'])
+                    ->whereHas('species', fn ($query) => $query->where('name', $definition['species']))
+                    ->first();
             }
         }
 
@@ -200,10 +198,10 @@ class ImportAfamaHealthSheet extends Command
      *
      * @param  Collection<int, Pet>  $pets
      * @param  array{species: string, weight: string, vaccines: array<int, array{last: string, next: string, vaccine: string}>, unmapped: array<int, string>}  $definition
-     * @param  Collection<string, Vaccine|null>  $vaccines
+     * @param  array<string, Vaccine|null>  $vaccines
      * @param  array<int, array<string, string>>  $rows
      */
-    private function importAnimalSheet(Collection $pets, array $definition, Collection $vaccines, Treatment $treatment, array $rows): void
+    private function importAnimalSheet(Collection $pets, array $definition, array $vaccines, Treatment $treatment, array $rows): void
     {
         foreach ($rows as $row) {
             $pet = $this->findPet($pets, $row);
@@ -215,7 +213,7 @@ class ImportAfamaHealthSheet extends Command
             $ref = $pet->ref;
 
             foreach ($definition['vaccines'] as $column) {
-                $vaccine = $vaccines->get("{$column['vaccine']} ({$definition['species']})");
+                $vaccine = $vaccines["{$column['vaccine']} ({$definition['species']})"];
                 $lastDose = $this->pastDate($row, $column['last'], $ref);
                 $nextDate = $this->date($row, $column['next'], $ref);
 
@@ -419,6 +417,11 @@ class ImportAfamaHealthSheet extends Command
         }
 
         $handle = fopen($path, 'r');
+
+        if ($handle === false) {
+            return null;
+        }
+
         $header = null;
         $rows = [];
 
@@ -426,10 +429,10 @@ class ImportAfamaHealthSheet extends Command
             $cells = array_map(fn (?string $cell): string => trim((string) $cell), $cells);
 
             if ($header === null) {
-                $cells[0] = preg_replace('/^\xEF\xBB\xBF/', '', $cells[0]);
+                $cells[0] = preg_replace('/^\xEF\xBB\xBF/', '', $cells[0]) ?? $cells[0];
 
                 if ($cells[0] === self::HEADER_COLUMN) {
-                    $header = array_map(fn (string $cell): string => preg_replace('/\s+/', ' ', $cell), $cells);
+                    $header = array_map(fn (string $cell): string => preg_replace('/\s+/', ' ', $cell) ?? $cell, $cells);
                 }
 
                 continue;

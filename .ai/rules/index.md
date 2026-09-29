@@ -43,6 +43,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Console/Commands/SendVaccinationDueNotifications.php,app/Models/PetVaccine.php,app/Notifications/VaccinationDueNotification.php | .ai/rules/notifications.md |
 | resources/views/livewire/pets/partials/sponsorship-box.blade.php,resources/views/livewire/pets/sponsorship-show.blade.php, resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/adoption-show.blade.php | .ai/rules/partials-views-livewire-pets.md |
 | app/Livewire/Pets/AdoptionForm.php,app/Livewire/Pets/AdoptionShow.php,resources/views/livewire/pets/partials/adoption-box.blade.php | .ai/rules/partials.md |
+| app/Livewire/Pets/VaccinationPlan.php,app/Livewire/Pets/VaccinationPlanPrint.php,app/Livewire/Pets/GroupVaccinationForm.php,app/Livewire/Pets/Concerns/ListsDueVaccinations.php | .ai/rules/pets-concerns.md |
 | app/Livewire/Pets/ManageAdoptions.php,app/Livewire/Pets/AdoptionShow.php | .ai/rules/pets-livewire-pets.md |
 | app/Livewire/Pets/PetForm.php,resources/views/livewire/pets/pet-form.blade.php,app/Models/Pet.php, app/Livewire/Pets/ManageVaccinations.php,resources/views/livewire/pets/manage-vaccinations.blade.php,app/Models/PetVaccine.php | .ai/rules/pets-models.md |
 | resources/views/livewire/volunteers/volunteer-show.blade.php,resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/partials/sponsorship-box.blade.php | .ai/rules/pets-partials.md |

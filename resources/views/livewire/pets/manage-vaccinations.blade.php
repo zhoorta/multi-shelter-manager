@@ -5,6 +5,18 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Vaccinations') }}</flux:heading>
+
+        <div class="flex flex-wrap items-center gap-2">
+            <flux:button :href="route('pets.vaccinations.plan')" variant="filled" icon="calendar-days" wire:navigate>
+                {{ __('Vaccination Plan') }}
+            </flux:button>
+
+            @if ($canEdit)
+                <flux:button :href="route('pets.vaccinations.group')" variant="primary" icon="plus" wire:navigate>
+                    {{ __('Group Vaccination') }}
+                </flux:button>
+            @endif
+        </div>
     </div>
 
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">

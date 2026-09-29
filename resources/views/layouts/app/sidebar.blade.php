@@ -55,7 +55,7 @@
                             @endunless
                             <flux:sidebar.item
                                 :href="route('pets.vaccinations.index')"
-                                :current="request()->routeIs('pets.vaccinations.index')"
+                                :current="request()->routeIs('pets.vaccinations.*')"
                                 wire:navigate
                             >
                                 {{ __('Vaccinations') }}
