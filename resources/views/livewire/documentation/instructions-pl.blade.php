@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Pulpit</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Zwierzęta</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Szczepienia</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Zabiegi</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopcje</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopcje wirtualne</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Wolontariusze</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrator</strong> &mdash; zarządza całą platformą: schroniskami, wspólnymi tabelami słownikowymi i kontami użytkowników. Administratorzy nie zarządzają zwierzętami ani obiektami.</li>
             <li><strong>Kierownik</strong> &mdash; prowadzi schronisko: może wszystko to, co pracownik, a dodatkowo zaprasza użytkowników tego schroniska i nimi zarządza. Kierownik aktualizuje też profil schroniska (dane kontaktowe, adres, opis, logo) w <strong>Ustawienia &gt; Schronisko</strong>; tylko administrator może zmienić nazwę lub gatunki schroniska.</li>
-            <li><strong>Pracownik</strong> &mdash; zajmuje się codzienną pracą schroniska: zwierzętami, szczepieniami, adopcjami, adopcjami wirtualnymi, wolontariuszami i obiektami.</li>
-            <li><strong>Podgląd</strong> &mdash; dostęp tylko do odczytu: może przeglądać zwierzęta, szczepienia i obiekty oraz drukować karty i listy zwierząt, ale nie może niczego tworzyć, edytować ani usuwać i nie widzi danych osobowych adoptujących, opiekunów wirtualnych, wolontariuszy ani członków.</li>
+            <li><strong>Pracownik</strong> &mdash; zajmuje się codzienną pracą schroniska: zwierzętami, szczepieniami, zabiegami, adopcjami, adopcjami wirtualnymi, wolontariuszami i obiektami.</li>
+            <li><strong>Podgląd</strong> &mdash; dostęp tylko do odczytu: może przeglądać zwierzęta, szczepienia, zabiegi i obiekty oraz drukować karty i listy zwierząt, ale nie może niczego tworzyć, edytować ani usuwać i nie widzi danych osobowych adoptujących, opiekunów wirtualnych, wolontariuszy ani członków.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Praca z kilkoma schroniskami</h3>
         <p>Użytkownik może należeć do więcej niż jednego schroniska, z inną rolą w każdym z nich. Aktywne schronisko zmienisz przełącznikiem schronisk; każda lista, licznik i formularz pokazuje wtedy tylko dane tego schroniska. Dane nigdy nie są współdzielone między schroniskami.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zalecana kolejność konfiguracji</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>Administrator uzupełnia tabele słownikowe (regiony, gatunki, rasy, rozmiary, rodzaje sierści, szczepionki, choroby, zajęcia).</li>
+            <li>Administrator uzupełnia tabele słownikowe (regiony, gatunki, rasy, rozmiary, rodzaje sierści, szczepionki, zabiegi, choroby, zajęcia).</li>
             <li>Administrator tworzy schronisko, uzupełnia jego profil (kontakt, region, opis, logo) i wybiera gatunki, z którymi pracuje.</li>
             <li>Administrator zaprasza kierownika schroniska.</li>
             <li>Kierownik konfiguruje obiekty, skrzydła i kojce oraz zaprasza pracowników.</li>
@@ -43,7 +44,7 @@
             <li>Jeśli portal publiczny jest włączony, zespół publikuje zwierzęta gotowe do adopcji.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Poruszanie się po aplikacji</h3>
-        <p>Panel boczny pokazuje tylko to, z czego może korzystać Twoja rola. Kierownicy i pracownicy widzą menu Zwierzęta (po jednej pozycji dla każdego gatunku włączonego w schronisku oraz Adopcje wirtualne, Adopcje i Szczepienia), Wolontariusze, Członkowie i Obiekty; kierownicy widzą też Użytkownicy. Administratorzy widzą zamiast tego Użytkownicy i menu Administracja. Użytkownicy z rolą podglądu widzą te same menu co pracownicy, z wyjątkiem Adopcji wirtualnych, Adopcji, Wolontariuszy i Członków, a na stronach nie mają przycisków tworzenia, edycji ani usuwania. Ta dokumentacja jest zawsze dostępna na dole panelu bocznego.</p>
+        <p>Panel boczny pokazuje tylko to, z czego może korzystać Twoja rola. Kierownicy i pracownicy widzą menu Zwierzęta (po jednej pozycji dla każdego gatunku włączonego w schronisku oraz Adopcje wirtualne, Adopcje, Szczepienia i Zabiegi), Wolontariusze, Członkowie i Obiekty; kierownicy widzą też Użytkownicy. Administratorzy widzą zamiast tego Użytkownicy i menu Administracja. Użytkownicy z rolą podglądu widzą te same menu co pracownicy, z wyjątkiem Adopcji wirtualnych, Adopcji, Wolontariuszy i Członków, a na stronach nie mają przycisków tworzenia, edycji ani usuwania. Ta dokumentacja jest zawsze dostępna na dole panelu bocznego.</p>
         <p>Menu Zwierzęta zawiera też <strong>Wnioski adopcyjne</strong> dla kierowników i personelu, a <strong>Raporty</strong> widzą tylko kierownicy.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Szczepienia</h2>
         <p>Każde szczepienie zapisuje szczepionkę, datę podania, następną planowaną datę, numer serii, lekarza weterynarii i notatki. Zapisz ostatnią dawkę i następną datę w tym samym wpisie: pozostaje on oczekujący, dopóki nie zostanie zapisana późniejsza dawka tej szczepionki. Aby zaplanować szczepienie, wpisz tylko następną datę; zapisanie później dawki je zakończy. Gdy szczepionka ma częstotliwość (np. wścieklizna, co 36 miesięcy), następna data jest uzupełniana na podstawie daty dawki i można ją zmienić. Strona Szczepienia wyświetla je dla wszystkich zwierząt schroniska.</p>
         <p>Codziennie użytkownicy, którzy mają włączone powiadomienia o szczepieniach dla danego schroniska, otrzymują e-mail z listą szczepień tego schroniska zaplanowanych na najbliższe siedem dni, które wciąż oczekują. O każdym szczepieniu powiadamia się tylko raz. Ikona dzwonka na liście użytkowników pokazuje, kto otrzymuje te wiadomości.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Plan szczepień</h3>
+        <p>Schroniska, które szczepią grupowo, mogą otworzyć <strong>Plan szczepień</strong> na stronie Szczepienia. Dla wybranego roku pokazuje on dla każdej szczepionki, ile oczekujących szczepień zwierząt w schronisku przypada na każdy miesiąc; pierwsza kolumna liczy te, które przypadały już przed tym rokiem. Kliknij liczbę, aby zobaczyć listę zwierząt z mikroczipem i lokalizacją, i użyj <strong>Drukuj listę dla weterynarza</strong>, aby zabrać ją w dniu szczepienia.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Szczepienie grupowe</h3>
+        <p><strong>Szczepienie grupowe</strong> zapisuje tę samą szczepionkę dla wielu zwierząt naraz, na przykład w dniu, w którym weterynarz szczepi grupę. Wybierz szczepionkę i zwierzęta do wyświetlenia: te, którym szczepionka przypada w danym miesiącu (domyślnie w bieżącym), zaległe albo wszystkie zwierzęta w schronisku z gatunku tej szczepionki, i w razie potrzeby filtruj po gatunku lub lokalizacji. Wyświetlone zwierzęta są od razu zaznaczone; odznacz wyjątki. Datę, następną planowaną datę, numer serii, weterynarza i notatki wpisuje się raz dla wszystkich. W planie szczepień przycisk <strong>Szczepienie grupowe</strong> obok listy danego miesiąca otwiera ten formularz z tymi zwierzętami.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Zabiegi</h2>
+        <p>Zabiegi to okresowa opieka profilaktyczna, która nie jest szczepieniem, na przykład odrobaczanie wewnętrzne i zewnętrzne. Każdy zabieg zapisuje zabieg, datę podania, następną planowaną datę, użyty produkt, weterynarza i notatki. Działają jak szczepienia: wpis pozostaje oczekujący, dopóki nie zostanie zapisane kolejne podanie tego samego zabiegu, a gdy zabieg ma częstotliwość (np. odrobaczanie co 3 miesiące), następna data jest uzupełniana na podstawie daty podania.</p>
+        <p>Zapisuj je na stronie zwierzęcia przyciskiem <strong>Nowy zabieg</strong>. Strona <strong>Zabiegi</strong> w menu Zwierzęta wyświetla je dla wszystkich zwierząt schroniska, z wyszukiwaniem i filtrem według następnej planowanej daty; zaległe daty są oznaczone na czerwono, a te z najbliższych siedmiu dni na żółto.</p>
+        <p><strong>Zabieg grupowy</strong> zapisuje jedną rundę dla wielu zwierząt naraz: wybierz zabieg i opcjonalnie gatunek lub lokalizację; wszystkie zwierzęta w schronisku, których dotyczy, są od razu zaznaczone, więc odznacz wyjątki i wpisz raz datę, produkt, weterynarza i notatki.</p>
+        <p>Użytkownicy z włączonymi powiadomieniami o szczepieniach otrzymują też codzienny e-mail z zabiegami zaplanowanymi na najbliższe siedem dni, pogrupowanymi według zabiegu i daty, tak aby runda odrobaczania przychodziła jako jedno przypomnienie, a nie jedno na każde zwierzę.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Użytkownicy</h2>
-        <p>Kierownicy i administratorzy zapraszają nowych użytkowników e-mailem; zaproszona osoba otrzymuje link do ustawienia hasła. Dla każdego schroniska, do którego należy użytkownik, wybierasz rolę (kierownik, pracownik lub podgląd) oraz to, czy otrzymuje powiadomienia o szczepieniach.</p>
+        <p>Kierownicy i administratorzy zapraszają nowych użytkowników e-mailem; zaproszona osoba otrzymuje link do ustawienia hasła. Dla każdego schroniska, do którego należy użytkownik, wybierasz rolę (kierownik, pracownik lub podgląd) oraz to, czy otrzymuje powiadomienia o szczepieniach (obejmują one także zabiegi).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Kierownik może dodawać użytkowników tylko do schronisk, którymi zarządza.</li>
             <li>Administrator może dodawać użytkowników do dowolnego schroniska i tworzyć innych administratorów.</li>
@@ -230,7 +243,7 @@
             <li><strong>Schroniska</strong> &mdash; tworzenie, edycja i usuwanie schronisk. Oprócz nazwy i miejscowości schronisko ma nazwę skróconą, dane kontaktowe (e-mail, telefon, strona www), adres, region, opis i logo &mdash; używane w portalu publicznym, gdy jest włączony. Lista <strong>Gatunki</strong> w formularzu schroniska określa, które gatunki pojawiają się w menu Zwierzęta dla kierownika i pracowników tego schroniska. Adres e-mail jest wymagany. Gdy schronisko ma kierownika, może on sam zaktualizować wszystko oprócz nazwy i gatunków w <strong>Ustawienia &gt; Schronisko</strong>.</li>
             <li><strong>Regiony</strong> &mdash; regiony, do których należą schroniska, używane też jako filtr w portalu publicznym.</li>
             <li><strong>Gatunki</strong>, <strong>Rasy</strong>, <strong>Wielkości</strong> i <strong>Rodzaje sierści</strong> &mdash; opcje używane do opisu zwierząt.</li>
-            <li><strong>Szczepionki</strong> i <strong>Choroby</strong> &mdash; opcje używane w dokumentacji zdrowotnej zwierząt.</li>
+            <li><strong>Szczepionki</strong>, <strong>Zabiegi</strong> i <strong>Choroby</strong> &mdash; opcje używane w dokumentacji zdrowotnej zwierząt. Szczepionki i zabiegi określają gatunki, których dotyczą, oraz opcjonalnie częstotliwość w miesiącach, na podstawie której uzupełniana jest następna planowana data.</li>
             <li><strong>Zajęcia</strong> &mdash; zadania, w których mogą pomagać wolontariusze.</li>
         </ul>
     </section>

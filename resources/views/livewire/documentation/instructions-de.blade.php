@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Übersicht</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Tiere</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Impfungen</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Behandlungen</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vermittlungen</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Patenschaften</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Ehrenamtliche</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrator</strong> &mdash; verwaltet die gesamte Plattform: Tierheime, die gemeinsamen Stammdatentabellen und Benutzerkonten. Administratoren verwalten keine Tiere oder Einrichtungen.</li>
             <li><strong>Tierheimleitung</strong> &mdash; führt ein Tierheim: alles, was ein Mitarbeiter tun kann, plus das Einladen und Verwalten der Benutzer dieses Tierheims. Die Tierheimleitung hält außerdem das Profil des Tierheims (Kontakte, Adresse, Beschreibung, Logo) unter <strong>Einstellungen &gt; Tierheim</strong> aktuell; nur ein Administrator kann den Namen oder die Tierarten des Tierheims ändern.</li>
-            <li><strong>Mitarbeiter</strong> &mdash; erledigt die tägliche Arbeit des Tierheims: Tiere, Impfungen, Vermittlungen, Patenschaften, Ehrenamtliche und Einrichtungen.</li>
-            <li><strong>Leser</strong> &mdash; Nur-Lese-Zugriff auf das Tierheim: kann Tiere, Impfungen und Einrichtungen sehen und Tierblätter und -listen drucken, aber nichts anlegen, bearbeiten oder löschen, und sieht keine personenbezogenen Daten von Adoptanten, Paten, Ehrenamtlichen oder Mitgliedern.</li>
+            <li><strong>Mitarbeiter</strong> &mdash; erledigt die tägliche Arbeit des Tierheims: Tiere, Impfungen, Behandlungen, Vermittlungen, Patenschaften, Ehrenamtliche und Einrichtungen.</li>
+            <li><strong>Leser</strong> &mdash; Nur-Lese-Zugriff auf das Tierheim: kann Tiere, Impfungen, Behandlungen und Einrichtungen sehen und Tierblätter und -listen drucken, aber nichts anlegen, bearbeiten oder löschen, und sieht keine personenbezogenen Daten von Adoptanten, Paten, Ehrenamtlichen oder Mitgliedern.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Arbeiten mit mehreren Tierheimen</h3>
         <p>Ein Benutzer kann mehreren Tierheimen angehören, mit jeweils unterschiedlicher Rolle. Wechseln Sie das aktive Tierheim über die Tierheimauswahl; jede Liste, jeder Zähler und jedes Formular zeigt dann nur die Daten dieses Tierheims. Daten werden niemals zwischen Tierheimen geteilt.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Empfohlene Reihenfolge der Einrichtung</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>Ein Administrator füllt die Stammdaten aus (Regionen, Tierarten, Rassen, Größen, Felltypen, Impfstoffe, Krankheiten, Tätigkeiten).</li>
+            <li>Ein Administrator füllt die Stammdaten aus (Regionen, Tierarten, Rassen, Größen, Felltypen, Impfstoffe, Behandlungen, Krankheiten, Tätigkeiten).</li>
             <li>Der Administrator legt das Tierheim an, vervollständigt sein Profil (Kontakt, Region, Beschreibung, Logo) und wählt die Tierarten, mit denen es arbeitet.</li>
             <li>Der Administrator lädt die Tierheimleitung ein.</li>
             <li>Die Tierheimleitung richtet Einrichtungen, Trakte und Zwinger ein und lädt die Mitarbeiter ein.</li>
@@ -43,7 +44,7 @@
             <li>Ist das öffentliche Portal aktiviert, veröffentlicht das Team die Tiere, die zur Vermittlung bereit sind.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientierung in der Anwendung</h3>
-        <p>Die Seitenleiste zeigt nur, was Ihre Rolle nutzen darf. Manager und Mitarbeitende sehen das Menü Tiere (ein Eintrag pro für das Tierheim aktivierter Tierart, dazu Patenschaften, Vermittlungen und Impfungen), Ehrenamtliche, Mitglieder und Einrichtungen; Manager sehen zusätzlich Benutzer. Administratoren sehen stattdessen Benutzer und das Menü Verwaltung. Leser sehen dieselben Menüs wie Mitarbeitende, außer Patenschaften, Vermittlungen, Ehrenamtliche und Mitglieder, und die Seiten zeigen ihnen keine Schaltflächen zum Anlegen, Bearbeiten oder Löschen. Diese Dokumentation ist immer unten in der Seitenleiste erreichbar.</p>
+        <p>Die Seitenleiste zeigt nur, was Ihre Rolle nutzen darf. Manager und Mitarbeitende sehen das Menü Tiere (ein Eintrag pro für das Tierheim aktivierter Tierart, dazu Patenschaften, Vermittlungen, Impfungen und Behandlungen), Ehrenamtliche, Mitglieder und Einrichtungen; Manager sehen zusätzlich Benutzer. Administratoren sehen stattdessen Benutzer und das Menü Verwaltung. Leser sehen dieselben Menüs wie Mitarbeitende, außer Patenschaften, Vermittlungen, Ehrenamtliche und Mitglieder, und die Seiten zeigen ihnen keine Schaltflächen zum Anlegen, Bearbeiten oder Löschen. Diese Dokumentation ist immer unten in der Seitenleiste erreichbar.</p>
         <p>Das Menü Tiere enthält für Leitung und Personal außerdem <strong>Adoptionsanfragen</strong>, und nur die Leitung sieht <strong>Berichte</strong>.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Impfungen</h2>
         <p>Jede Impfung erfasst den Impfstoff, das Datum der Verabreichung, den nächsten Fälligkeitstermin, die Chargennummer, den Tierarzt und Notizen. Erfassen Sie die letzte Dosis und den nächsten Termin im selben Eintrag: Er bleibt offen, bis eine spätere Dosis dieses Impfstoffs erfasst wird. Um eine Impfung zu planen, geben Sie nur den nächsten Termin ein; das spätere Erfassen der Dosis schließt sie ab. Hat der Impfstoff eine Häufigkeit (z. B. Tollwut, alle 36 Monate), wird der nächste Termin aus dem Datum der Dosis ausgefüllt und kann geändert werden. Die Seite Impfungen listet sie für alle Tiere des Tierheims auf.</p>
         <p>Benutzer, die Impfbenachrichtigungen für ein Tierheim aktiviert haben, erhalten täglich eine E-Mail mit den Impfungen dieses Tierheims, die in den nächsten sieben Tagen fällig und noch offen sind. Jede Impfung wird nur einmal gemeldet. Ein Glockensymbol in der Benutzerliste zeigt, wer diese E-Mails erhält.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impfplan</h3>
+        <p>Tierheime, die in Gruppen impfen, können auf der Seite Impfungen den <strong>Impfplan</strong> öffnen. Er zeigt für das gewählte Jahr pro Impfstoff, wie viele offene Impfungen der Tiere im Tierheim in jedem Monat fällig werden; die erste Spalte zählt die, die schon vor diesem Jahr fällig waren. Klicken Sie auf eine Zahl, um die Tiere mit Mikrochip und Standort aufzulisten, und nutzen Sie <strong>Liste für den Tierarzt drucken</strong>, um die Liste zum Impftag mitzunehmen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gruppenimpfung</h3>
+        <p>Die <strong>Gruppenimpfung</strong> erfasst denselben Impfstoff für mehrere Tiere auf einmal, zum Beispiel an dem Tag, an dem der Tierarzt eine Gruppe impft. Wählen Sie den Impfstoff und welche Tiere aufgelistet werden: die in einem bestimmten Monat fälligen (standardmäßig der aktuelle Monat), die überfälligen oder alle Tiere im Tierheim der Tierart dieses Impfstoffs, bei Bedarf gefiltert nach Tierart oder Standort. Die aufgelisteten Tiere sind vorausgewählt; entfernen Sie das Häkchen bei den Ausnahmen. Datum, nächster Fälligkeitstermin, Chargennummer, Tierarzt und Notizen werden einmal für alle eingegeben. Im Impfplan öffnet die Schaltfläche <strong>Gruppenimpfung</strong> neben der Liste eines Monats dieses Formular mit diesen Tieren.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Behandlungen</h2>
+        <p>Behandlungen sind wiederkehrende Vorsorgemaßnahmen, die keine Impfungen sind, etwa die innere und äußere Entwurmung. Jede Behandlung erfasst die Behandlung, das Datum der Verabreichung, den nächsten Fälligkeitstermin, das verwendete Produkt, den Tierarzt und Notizen. Sie funktionieren wie Impfungen: Ein Eintrag bleibt offen, bis eine neue Gabe derselben Behandlung erfasst wird, und hat die Behandlung eine Häufigkeit (z. B. Entwurmung alle 3 Monate), wird der nächste Termin aus dem Verabreichungsdatum ausgefüllt.</p>
+        <p>Erfassen Sie sie auf der Seite des Tieres mit <strong>Neue Behandlung</strong>. Die Seite <strong>Behandlungen</strong> im Menü Tiere listet sie für alle Tiere des Tierheims auf, mit Suche und einem Filter nach nächstem Fälligkeitstermin; überfällige Termine erscheinen rot, die der nächsten sieben Tage gelb.</p>
+        <p>Die <strong>Gruppenbehandlung</strong> erfasst eine Runde für viele Tiere auf einmal: Wählen Sie die Behandlung und optional eine Tierart oder einen Standort; alle Tiere im Tierheim, für die sie gilt, sind vorausgewählt, also entfernen Sie das Häkchen bei den Ausnahmen und geben Sie Datum, Produkt, Tierarzt und Notizen einmal ein.</p>
+        <p>Benutzer mit aktivierten Impfbenachrichtigungen erhalten außerdem täglich eine E-Mail mit den in den nächsten sieben Tagen fälligen Behandlungen, gruppiert nach Behandlung und Datum, sodass eine Entwurmungsrunde als eine einzige Erinnerung kommt und nicht als eine pro Tier.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Benutzer</h2>
-        <p>Tierheimleitungen und Administratoren laden neue Benutzer per E-Mail ein; die eingeladene Person erhält einen Link, um ihr Passwort festzulegen. Für jede Tierheimzugehörigkeit wählen Sie die Rolle (Tierheimleitung, Mitarbeiter oder Leser) und ob der Benutzer Impfbenachrichtigungen erhält.</p>
+        <p>Tierheimleitungen und Administratoren laden neue Benutzer per E-Mail ein; die eingeladene Person erhält einen Link, um ihr Passwort festzulegen. Für jede Tierheimzugehörigkeit wählen Sie die Rolle (Tierheimleitung, Mitarbeiter oder Leser) und ob der Benutzer Impfbenachrichtigungen erhält (sie umfassen auch Behandlungen).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Eine Tierheimleitung kann Benutzer nur zu den von ihr geleiteten Tierheimen hinzufügen.</li>
             <li>Ein Administrator kann Benutzer zu jedem Tierheim hinzufügen und weitere Administratoren anlegen.</li>
@@ -230,7 +243,7 @@
             <li><strong>Tierheime</strong> &mdash; Tierheime anlegen, bearbeiten und entfernen. Neben Name und Ort hat ein Tierheim einen Kurznamen, Kontaktdaten (E-Mail, Telefon, Website), Adresse, Region, eine Beschreibung und ein Logo &mdash; genutzt im öffentlichen Portal, wenn es aktiviert ist. Die Liste <strong>Tierarten</strong> im Tierheimformular legt fest, welche Tierarten im Menü Tiere für Manager und Mitarbeitende dieses Tierheims erscheinen. Die E-Mail-Adresse ist Pflicht. Sobald das Tierheim eine Leitung hat, kann diese alles außer Name und Tierarten selbst unter <strong>Einstellungen &gt; Tierheim</strong> aktualisieren.</li>
             <li><strong>Regionen</strong> &mdash; die Regionen, zu denen die Tierheime gehören; auch als Filter im öffentlichen Portal verwendet.</li>
             <li><strong>Tierarten</strong>, <strong>Rassen</strong>, <strong>Größen</strong> und <strong>Felltypen</strong> &mdash; die Optionen zur Beschreibung der Tiere.</li>
-            <li><strong>Impfstoffe</strong> und <strong>Krankheiten</strong> &mdash; die Optionen für die Gesundheitsakten der Tiere.</li>
+            <li><strong>Impfstoffe</strong>, <strong>Behandlungen</strong> und <strong>Krankheiten</strong> &mdash; die Optionen für die Gesundheitsakten der Tiere. Impfstoffe und Behandlungen geben die Tierarten an, für die sie gelten, und optional eine Häufigkeit in Monaten, mit der der nächste Fälligkeitstermin ausgefüllt wird.</li>
             <li><strong>Tätigkeiten</strong> &mdash; die Aufgaben, bei denen Ehrenamtliche helfen können.</li>
         </ul>
     </section>

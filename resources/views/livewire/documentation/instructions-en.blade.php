@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Dashboard</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Pets</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vaccinations</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Treatments</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptions</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sponsorships</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volunteers</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Admin</strong> &mdash; manages the whole platform: shelters, the shared lookup tables and user accounts. Admins do not manage pets or facilities.</li>
             <li><strong>Manager</strong> &mdash; runs a shelter: everything a staff member can do, plus inviting and managing that shelter's users. Managers also keep the shelter's profile (contacts, address, description, logo) up to date under <strong>Settings &gt; Shelter</strong>; only an admin can change the shelter's name or species.</li>
-            <li><strong>Staff</strong> &mdash; handles the shelter's daily work: pets, vaccinations, adoptions, sponsorships, volunteers and facilities.</li>
-            <li><strong>Viewer</strong> &mdash; read-only access to the shelter: can see pets, vaccinations and facilities and print pet sheets and lists, but cannot create, edit or delete anything, and does not see the personal data of adopters, sponsors, volunteers or members.</li>
+            <li><strong>Staff</strong> &mdash; handles the shelter's daily work: pets, vaccinations, treatments, adoptions, sponsorships, volunteers and facilities.</li>
+            <li><strong>Viewer</strong> &mdash; read-only access to the shelter: can see pets, vaccinations, treatments and facilities and print pet sheets and lists, but cannot create, edit or delete anything, and does not see the personal data of adopters, sponsors, volunteers or members.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Working with several shelters</h3>
         <p>A user can belong to more than one shelter, with a different role in each. Use the shelter switcher to change the active shelter; every list, count and form then shows only that shelter's data. Data is never shared between shelters.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Recommended setup order</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>An admin fills in the lookup tables (regions, species, breeds, sizes, fur types, vaccines, sicknesses, activities).</li>
+            <li>An admin fills in the lookup tables (regions, species, breeds, sizes, fur types, vaccines, treatments, sicknesses, activities).</li>
             <li>The admin creates the shelter, completes its profile (contacts, region, description, logo) and chooses which species it works with.</li>
             <li>The admin invites the shelter's manager.</li>
             <li>The manager configures the facilities, wings and cages, and invites the staff.</li>
@@ -43,7 +44,7 @@
             <li>If the public portal is enabled, the team publishes the pets that are ready for adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Finding your way around</h3>
-        <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions and Vaccinations), Volunteers, Members and Facilities; managers also see Users. Admins see Users and the Administration menu instead. Viewers see the same menus as staff, except Sponsorships, Adoptions, Volunteers and Members, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
+        <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions, Vaccinations and Treatments), Volunteers, Members and Facilities; managers also see Users. Admins see Users and the Administration menu instead. Viewers see the same menus as staff, except Sponsorships, Adoptions, Volunteers and Members, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
         <p>The Pets menu also includes <strong>Adoption Applications</strong> for managers and staff, and only managers see <strong>Reports</strong>.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinations</h2>
         <p>Each vaccination records the vaccine, the date it was given, the next due date, lot number, veterinarian and notes. Record the last dose and the next date on the same entry: it stays pending until a later dose of that vaccine is recorded. To plan a vaccination, enter only the next date; recording the dose later completes it. When the vaccine has a frequency (for example rabies, every 36 months), the next date is filled in from the dose date and can still be changed. The Vaccinations page lists them across all the shelter's pets.</p>
         <p>Every day, users who have vaccination notifications turned on for a shelter receive an email listing that shelter's vaccinations due in the next seven days that are still pending. Each vaccination is only notified once. A bell icon in the users list shows who receives these emails.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vaccination plan</h3>
+        <p>Shelters that vaccinate in groups can open <strong>Vaccination Plan</strong> on the Vaccinations page. For the chosen year it shows, per vaccine, how many pending vaccinations of the animals in the shelter fall due in each month; the first column counts those already due before that year. Click a number to list the animals, with their microchip and location, and use <strong>Print list for the vet</strong> to take the list to the vaccination day.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Group vaccination</h3>
+        <p><strong>Group Vaccination</strong> records the same vaccine for several animals at once, for example on the day the vet vaccinates a group. Choose the vaccine and which animals to list: those due in a given month (the current month by default), the overdue ones, or all the animals in the shelter of that vaccine's species, and filter by species or location if needed. The listed animals start ticked; untick the exceptions. The date, next due date, lot number, veterinarian and notes are entered once for all of them. In the vaccination plan, the <strong>Group Vaccination</strong> button next to a month's list opens this form with those animals already listed.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Treatments</h2>
+        <p>Treatments are recurring preventive care that is not a vaccine, such as internal and external deworming. Each treatment records the treatment, the date it was given, the next due date, the product used, the veterinarian and notes. They work like vaccinations: an entry stays pending until a later round of the same treatment is recorded, and when the treatment has a frequency (for example deworming every 3 months), the next date is filled in from the date given.</p>
+        <p>Record one on the pet's page with <strong>New Treatment</strong>. The <strong>Treatments</strong> page, in the Pets menu, lists them for all the shelter's pets, with a search and a filter by next due date; overdue dates are shown in red and those due within a week in amber.</p>
+        <p><strong>Group Treatment</strong> records a round for many animals at once: choose the treatment and, optionally, a species or location; every animal in the shelter it applies to starts ticked, so untick the exceptions and enter the date, product, veterinarian and notes once.</p>
+        <p>Users with vaccination notifications turned on also get a daily email with the treatments due in the next seven days, grouped by treatment and date, so a deworming round comes as one reminder rather than one per animal.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Users</h2>
-        <p>Managers and admins invite new users by email; the invited person receives a link to set their password. For each shelter membership you choose the role (manager, staff or viewer) and whether the user receives vaccination notifications.</p>
+        <p>Managers and admins invite new users by email; the invited person receives a link to set their password. For each shelter membership you choose the role (manager, staff or viewer) and whether the user receives vaccination notifications (which also cover treatments).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>A manager can only add users to the shelters they manage.</li>
             <li>An admin can add users to any shelter and can create other admins.</li>
@@ -230,7 +243,7 @@
             <li><strong>Shelters</strong> &mdash; create, edit and remove shelters. Besides the name and city, a shelter has a short name, contacts (email, phone, website), address, region, a description and a logo &mdash; used on the public portal when enabled. The <strong>Species</strong> checklist on the shelter form controls which species appear in the Pets menu for that shelter's manager and staff. The email is required. Once the shelter has a manager, they can update everything except the name and species themselves in <strong>Settings &gt; Shelter</strong>.</li>
             <li><strong>Regions</strong> &mdash; the districts shelters belong to, also used as a filter on the public portal.</li>
             <li><strong>Species</strong>, <strong>Breeds</strong>, <strong>Sizes</strong> and <strong>Fur Types</strong> &mdash; the options used to describe pets.</li>
-            <li><strong>Vaccines</strong> and <strong>Sicknesses</strong> &mdash; the options used in pet health records.</li>
+            <li><strong>Vaccines</strong>, <strong>Treatments</strong> and <strong>Sicknesses</strong> &mdash; the options used in pet health records. Vaccines and treatments have the species they apply to and an optional frequency in months, used to fill in the next due date.</li>
             <li><strong>Activities</strong> &mdash; the tasks volunteers can help with.</li>
         </ul>
     </section>

@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Painel de Controlo</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Animais</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vacinações</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Tratamentos</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoções</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Apadrinhamentos</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntários</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrador</strong> &mdash; gere toda a plataforma: abrigos, tabelas de referência partilhadas e contas de utilizador. Os administradores não gerem animais nem instalações.</li>
             <li><strong>Gestor</strong> &mdash; gere um abrigo: tudo o que um funcionário pode fazer, mais convidar e gerir os utilizadores desse abrigo. O gestor também mantém atualizado o perfil do abrigo (contactos, morada, descrição, logótipo) em <strong>Definições &gt; Abrigo</strong>; só um administrador pode alterar o nome ou as espécies do abrigo.</li>
-            <li><strong>Funcionário</strong> &mdash; trata do trabalho diário do abrigo: animais, vacinações, adoções, apadrinhamentos, voluntários e instalações.</li>
-            <li><strong>Consulta</strong> &mdash; acesso só de leitura ao abrigo: pode ver animais, vacinações e instalações e imprimir fichas e listas de animais, mas não pode criar, editar nem apagar nada, e não vê os dados pessoais de adotantes, padrinhos, voluntários nem sócios.</li>
+            <li><strong>Funcionário</strong> &mdash; trata do trabalho diário do abrigo: animais, vacinações, tratamentos, adoções, apadrinhamentos, voluntários e instalações.</li>
+            <li><strong>Consulta</strong> &mdash; acesso só de leitura ao abrigo: pode ver animais, vacinações, tratamentos e instalações e imprimir fichas e listas de animais, mas não pode criar, editar nem apagar nada, e não vê os dados pessoais de adotantes, padrinhos, voluntários nem sócios.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Trabalhar com vários abrigos</h3>
         <p>Um utilizador pode pertencer a mais do que um abrigo, com um perfil diferente em cada um. Use o seletor de abrigo para mudar o abrigo ativo; todas as listas, contagens e formulários passam a mostrar apenas os dados desse abrigo. Os dados nunca são partilhados entre abrigos.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ordem de configuração recomendada</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>Um administrador preenche as tabelas de referência (distritos, espécies, raças, tamanhos, tipos de pelo, vacinas, doenças, atividades).</li>
+            <li>Um administrador preenche as tabelas de referência (distritos, espécies, raças, tamanhos, tipos de pelo, vacinas, tratamentos, doenças, atividades).</li>
             <li>O administrador cria o abrigo, completa o seu perfil (contactos, distrito, descrição, logótipo) e escolhe as espécies com que trabalha.</li>
             <li>O administrador convida o gestor do abrigo.</li>
             <li>O gestor configura as instalações, alas e jaulas, e convida os funcionários.</li>
@@ -43,7 +44,7 @@
             <li>Se o portal público estiver ativo, a equipa publica os animais que estão prontos para adoção.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientar-se na aplicação</h3>
-        <p>O menu lateral mostra apenas o que o seu perfil pode usar. Gestores e funcionários veem o menu Animais (uma entrada por cada espécie ativa no abrigo, mais Apadrinhamentos, Adoções e Vacinações), Voluntários, Sócios e Instalações; os gestores veem também Utilizadores. Os administradores veem, em vez disso, Utilizadores e o menu Administração. Os utilizadores de consulta veem os mesmos menus que os funcionários, exceto Apadrinhamentos, Adoções, Voluntários e Sócios, e as páginas não lhes mostram botões para criar, editar ou apagar. Esta documentação está sempre disponível no fundo do menu lateral.</p>
+        <p>O menu lateral mostra apenas o que o seu perfil pode usar. Gestores e funcionários veem o menu Animais (uma entrada por cada espécie ativa no abrigo, mais Apadrinhamentos, Adoções, Vacinações e Tratamentos), Voluntários, Sócios e Instalações; os gestores veem também Utilizadores. Os administradores veem, em vez disso, Utilizadores e o menu Administração. Os utilizadores de consulta veem os mesmos menus que os funcionários, exceto Apadrinhamentos, Adoções, Voluntários e Sócios, e as páginas não lhes mostram botões para criar, editar ou apagar. Esta documentação está sempre disponível no fundo do menu lateral.</p>
         <p>O menu Animais inclui também <strong>Candidaturas de Adoção</strong> para gestores e funcionários, e só os gestores veem os <strong>Relatórios</strong>.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vacinações</h2>
         <p>Cada vacinação regista a vacina, a data de administração, a próxima data prevista, o número de lote, o veterinário e notas. Registe a última toma e a próxima data no mesmo registo: fica pendente até ser registada uma toma posterior dessa vacina. Para planear uma vacinação, preencha apenas a próxima data; ao registar depois a toma, ela fica concluída. Quando a vacina tem uma frequência (por exemplo a raiva, a cada 36 meses), a próxima data é preenchida a partir da data da toma e pode ser alterada. A página Vacinações lista-as para todos os animais do abrigo.</p>
         <p>Todos os dias, os utilizadores com as notificações de vacinação ativas num abrigo recebem um email com as vacinações desse abrigo previstas para os próximos sete dias e ainda pendentes. Cada vacinação é notificada apenas uma vez. Um ícone de sino na lista de utilizadores indica quem recebe estes emails.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Plano de vacinação</h3>
+        <p>Os abrigos que vacinam em grupo podem abrir o <strong>Plano de Vacinação</strong> na página Vacinações. Para o ano escolhido, mostra por vacina quantas vacinações pendentes dos animais no abrigo estão previstas em cada mês; a primeira coluna conta as que já estavam previstas antes desse ano. Clique num número para ver a lista dos animais, com o microchip e a localização, e use <strong>Imprimir lista para o veterinário</strong> para a levar no dia da vacinação.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vacinação em grupo</h3>
+        <p>A <strong>Vacinação em Grupo</strong> regista a mesma vacina para vários animais de uma só vez, por exemplo no dia em que o veterinário vacina um grupo. Escolha a vacina e que animais listar: os que têm a vacina prevista num mês (por omissão, o mês atual), os que estão em atraso, ou todos os animais no abrigo da espécie dessa vacina, e filtre por espécie ou localização se precisar. Os animais listados começam todos marcados; desmarque as exceções. A data, a próxima data prevista, o número de lote, o veterinário e as notas são preenchidos uma só vez para todos. No plano de vacinação, o botão <strong>Vacinação em Grupo</strong> junto à lista de um mês abre este formulário já com esses animais.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Tratamentos</h2>
+        <p>Os tratamentos são cuidados preventivos periódicos que não são vacinas, como a desparasitação interna e externa. Cada tratamento regista o tratamento, a data de administração, a próxima data prevista, o produto usado, o veterinário e notas. Funcionam como as vacinações: um registo fica pendente até ser registada uma nova toma do mesmo tratamento e, quando o tratamento tem uma frequência (por exemplo a desparasitação a cada 3 meses), a próxima data é preenchida a partir da data de administração.</p>
+        <p>Registe-os na página do animal com <strong>Novo Tratamento</strong>. A página <strong>Tratamentos</strong>, no menu Animais, lista-os para todos os animais do abrigo, com pesquisa e um filtro pela próxima data prevista; as datas em atraso aparecem a vermelho e as dos próximos sete dias a amarelo.</p>
+        <p>O <strong>Tratamento em Grupo</strong> regista uma ronda para muitos animais de uma só vez: escolha o tratamento e, se quiser, uma espécie ou localização; todos os animais no abrigo a que se aplica começam marcados, por isso desmarque as exceções e preencha uma só vez a data, o produto, o veterinário e as notas.</p>
+        <p>Os utilizadores com as notificações de vacinação ativas recebem também um email diário com os tratamentos previstos para os próximos sete dias, agrupados por tratamento e data, para que uma ronda de desparasitação chegue como um só lembrete e não um por animal.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Utilizadores</h2>
-        <p>Gestores e administradores convidam novos utilizadores por email; a pessoa convidada recebe uma ligação para definir a sua palavra-passe. Para cada abrigo a que o utilizador pertence escolhe-se o perfil (gestor, funcionário ou consulta) e se recebe notificações de vacinação.</p>
+        <p>Gestores e administradores convidam novos utilizadores por email; a pessoa convidada recebe uma ligação para definir a sua palavra-passe. Para cada abrigo a que o utilizador pertence escolhe-se o perfil (gestor, funcionário ou consulta) e se recebe notificações de vacinação (que incluem também os tratamentos).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Um gestor só pode adicionar utilizadores aos abrigos que gere.</li>
             <li>Um administrador pode adicionar utilizadores a qualquer abrigo e criar outros administradores.</li>
@@ -230,7 +243,7 @@
             <li><strong>Abrigos</strong> &mdash; criar, editar e remover abrigos. Além do nome e da localidade, um abrigo tem um nome curto, contactos (email, telefone, site), morada, distrito, uma descrição e um logótipo &mdash; usados no portal público quando ativo. A lista de <strong>Espécies</strong> no formulário do abrigo define que espécies aparecem no menu Animais para o gestor e os funcionários desse abrigo. O email é obrigatório. Depois de o abrigo ter um gestor, este pode atualizar tudo exceto o nome e as espécies em <strong>Definições &gt; Abrigo</strong>.</li>
             <li><strong>Distritos</strong> &mdash; os distritos a que os abrigos pertencem, também usados como filtro no portal público.</li>
             <li><strong>Espécies</strong>, <strong>Raças</strong>, <strong>Tamanhos</strong> e <strong>Tipos de Pelo</strong> &mdash; as opções usadas para descrever os animais.</li>
-            <li><strong>Vacinas</strong> e <strong>Doenças</strong> &mdash; as opções usadas nos registos de saúde.</li>
+            <li><strong>Vacinas</strong>, <strong>Tratamentos</strong> e <strong>Doenças</strong> &mdash; as opções usadas nos registos de saúde. As vacinas e os tratamentos indicam as espécies a que se aplicam e, opcionalmente, uma frequência em meses, usada para preencher a próxima data prevista.</li>
             <li><strong>Atividades</strong> &mdash; as tarefas em que os voluntários podem ajudar.</li>
         </ul>
     </section>

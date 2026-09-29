@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Översikt</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Djur</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vaccinationer</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Behandlingar</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptioner</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Fadderskap</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontärer</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administratör</strong> &mdash; hanterar hela plattformen: djurhemmen, de gemensamma referenstabellerna och användarkontona. Administratörer hanterar inte djur eller anläggningar.</li>
             <li><strong>Föreståndare</strong> &mdash; driver ett djurhem: allt som personalen kan göra, plus att bjuda in och hantera djurhemmets användare. Föreståndaren håller också djurhemmets profil (kontaktuppgifter, adress, beskrivning, logotyp) uppdaterad under <strong>Inställningar &gt; Djurhem</strong>; bara en administratör kan ändra djurhemmets namn eller arter.</li>
-            <li><strong>Personal</strong> &mdash; sköter djurhemmets dagliga arbete: djur, vaccinationer, adoptioner, fadderskap, volontärer och anläggningar.</li>
-            <li><strong>Läsare</strong> &mdash; endast läsbehörighet till djurhemmet: kan se djur, vaccinationer och anläggningar och skriva ut djurblad och djurlistor, men kan inte skapa, redigera eller ta bort något och ser inte personuppgifter om adoptanter, faddrar, volontärer eller medlemmar.</li>
+            <li><strong>Personal</strong> &mdash; sköter djurhemmets dagliga arbete: djur, vaccinationer, behandlingar, adoptioner, fadderskap, volontärer och anläggningar.</li>
+            <li><strong>Läsare</strong> &mdash; endast läsbehörighet till djurhemmet: kan se djur, vaccinationer, behandlingar och anläggningar och skriva ut djurblad och djurlistor, men kan inte skapa, redigera eller ta bort något och ser inte personuppgifter om adoptanter, faddrar, volontärer eller medlemmar.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Arbeta med flera djurhem</h3>
         <p>En användare kan tillhöra fler än ett djurhem, med olika roll i vart och ett. Använd djurhemsväljaren för att byta aktivt djurhem; varje lista, räknare och formulär visar då bara det djurhemmets data. Data delas aldrig mellan djurhem.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Rekommenderad ordning för uppstart</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>En administratör fyller i grunddatatabellerna (regioner, djurarter, raser, storlekar, pälstyper, vacciner, sjukdomar, aktiviteter).</li>
+            <li>En administratör fyller i grunddatatabellerna (regioner, djurarter, raser, storlekar, pälstyper, vacciner, behandlingar, sjukdomar, aktiviteter).</li>
             <li>Administratören skapar djurhemmet, fyller i dess profil (kontaktuppgifter, region, beskrivning, logotyp) och väljer vilka djurarter det arbetar med.</li>
             <li>Administratören bjuder in djurhemmets föreståndare.</li>
             <li>Föreståndaren konfigurerar anläggningar, flyglar och burar och bjuder in personalen.</li>
@@ -43,7 +44,7 @@
             <li>Om den öppna portalen är aktiverad publicerar teamet de djur som är redo för adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hitta rätt i applikationen</h3>
-        <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner och Vaccinationer), Volontärer, Medlemmar och Anläggningar; chefer ser även Användare. Administratörer ser i stället Användare och menyn Administration. Läsare ser samma menyer som personal, utom Fadderskap, Adoptioner, Volontärer och Medlemmar, och sidorna visar inga knappar för att skapa, redigera eller ta bort. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
+        <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner, Vaccinationer och Behandlingar), Volontärer, Medlemmar och Anläggningar; chefer ser även Användare. Administratörer ser i stället Användare och menyn Administration. Läsare ser samma menyer som personal, utom Fadderskap, Adoptioner, Volontärer och Medlemmar, och sidorna visar inga knappar för att skapa, redigera eller ta bort. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
         <p>Menyn Djur innehåller också <strong>Adoptionsansökningar</strong> för chefer och personal, och bara chefer ser <strong>Rapporter</strong>.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinationer</h2>
         <p>Varje vaccination registrerar vaccinet, datum då det gavs, nästa planerade datum, batchnummer, veterinär och anteckningar. Registrera den senaste dosen och nästa datum i samma post: den förblir väntande tills en senare dos av det vaccinet registreras. För att planera en vaccination anger du bara nästa datum; när dosen registreras senare är den klar. När vaccinet har en frekvens (till exempel rabies, var 36:e månad) fylls nästa datum i utifrån dosens datum och kan ändras. Sidan Vaccinationer visar dem för alla djurhemmets djur.</p>
         <p>Varje dag får användare som har vaccinationsaviseringar påslagna för ett djurhem ett e-postmeddelande med det djurhemmets vaccinationer som är planerade inom de närmaste sju dagarna och fortfarande väntar. Varje vaccination aviseras bara en gång. En klockikon i användarlistan visar vem som får dessa e-postmeddelanden.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vaccinationsplan</h3>
+        <p>Djurhem som vaccinerar i grupp kan öppna <strong>Vaccinationsplan</strong> på sidan Vaccinationer. För det valda året visar den per vaccin hur många väntande vaccinationer för djuren på djurhemmet som infaller varje månad; den första kolumnen räknar dem som infaller redan före det året. Klicka på en siffra för att lista djuren med chip och plats, och använd <strong>Skriv ut lista till veterinären</strong> för att ta med listan till vaccinationsdagen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gruppvaccination</h3>
+        <p><strong>Gruppvaccination</strong> registrerar samma vaccin för flera djur på en gång, till exempel den dag veterinären vaccinerar en grupp. Välj vaccinet och vilka djur som ska listas: de som har vaccinet planerat en viss månad (som standard innevarande månad), de försenade eller alla djur på djurhemmet av vaccinets djurart, och filtrera på djurart eller plats vid behov. De listade djuren är förvalda; avmarkera undantagen. Datum, nästa planerade datum, batchnummer, veterinär och anteckningar anges en gång för alla. I vaccinationsplanen öppnar knappen <strong>Gruppvaccination</strong> bredvid en månads lista det här formuläret med de djuren redan listade.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Behandlingar</h2>
+        <p>Behandlingar är återkommande förebyggande vård som inte är vaccin, till exempel inre och yttre avmaskning. Varje behandling registrerar behandlingen, datum då den gavs, nästa planerade datum, produkten som användes, veterinär och anteckningar. De fungerar som vaccinationer: en post förblir väntande tills en ny omgång av samma behandling registreras, och när behandlingen har en frekvens (till exempel avmaskning var 3:e månad) fylls nästa datum i utifrån datumet då den gavs.</p>
+        <p>Registrera dem på djurets sida med <strong>Ny behandling</strong>. Sidan <strong>Behandlingar</strong> i menyn Djur visar dem för alla djurhemmets djur, med sökning och ett filter på nästa planerade datum; försenade datum visas i rött och de inom sju dagar i gult.</p>
+        <p><strong>Gruppbehandling</strong> registrerar en omgång för många djur på en gång: välj behandlingen och eventuellt en djurart eller plats; alla djur på djurhemmet som den gäller är förvalda, så avmarkera undantagen och ange datum, produkt, veterinär och anteckningar en gång.</p>
+        <p>Användare med vaccinationsaviseringar påslagna får också ett dagligt e-postmeddelande med behandlingarna som infaller inom de närmaste sju dagarna, grupperade efter behandling och datum, så att en avmaskningsomgång kommer som en enda påminnelse och inte en per djur.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Användare</h2>
-        <p>Föreståndare och administratörer bjuder in nya användare via e-post; den inbjudna personen får en länk för att ange sitt lösenord. För varje djurhem som användaren tillhör väljer du roll (föreståndare, personal eller läsare) och om användaren ska få vaccinationsaviseringar.</p>
+        <p>Föreståndare och administratörer bjuder in nya användare via e-post; den inbjudna personen får en länk för att ange sitt lösenord. För varje djurhem som användaren tillhör väljer du roll (föreståndare, personal eller läsare) och om användaren ska få vaccinationsaviseringar (de omfattar även behandlingar).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>En föreståndare kan bara lägga till användare i de djurhem hen förestår.</li>
             <li>En administratör kan lägga till användare i vilket djurhem som helst och kan skapa andra administratörer.</li>
@@ -230,7 +243,7 @@
             <li><strong>Djurhem</strong> &mdash; skapa, redigera och ta bort djurhem. Förutom namn och ort har ett djurhem ett kortnamn, kontaktuppgifter (e-post, telefon, webbplats), adress, region, en beskrivning och en logotyp &mdash; som används på den öppna portalen när den är aktiverad. Listan <strong>Djurarter</strong> i djurhemsformuläret styr vilka djurarter som visas i menyn Djur för djurhemmets chef och personal. E-postadressen är obligatorisk. När djurhemmet har en föreståndare kan hen själv uppdatera allt utom namn och arter under <strong>Inställningar &gt; Djurhem</strong>.</li>
             <li><strong>Regioner</strong> &mdash; de regioner som djurhemmen tillhör, används även som filter på den öppna portalen.</li>
             <li><strong>Djurarter</strong>, <strong>Raser</strong>, <strong>Storlekar</strong> och <strong>Pälstyper</strong> &mdash; alternativen som används för att beskriva djuren.</li>
-            <li><strong>Vacciner</strong> och <strong>Sjukdomar</strong> &mdash; alternativen som används i djurens hälsojournaler.</li>
+            <li><strong>Vacciner</strong>, <strong>Behandlingar</strong> och <strong>Sjukdomar</strong> &mdash; alternativen som används i djurens hälsojournaler. Vacciner och behandlingar anger vilka djurarter de gäller och eventuellt en frekvens i månader, som används för att fylla i nästa planerade datum.</li>
             <li><strong>Aktiviteter</strong> &mdash; uppgifterna som volontärer kan hjälpa till med.</li>
         </ul>
     </section>

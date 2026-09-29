@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Panel de Control</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Animales</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vacunaciones</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Tratamientos</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopciones</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Apadrinamientos</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntarios</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrador</strong> &mdash; gestiona toda la plataforma: los refugios, las tablas de referencia compartidas y las cuentas de usuario. Los administradores no gestionan animales ni instalaciones.</li>
             <li><strong>Gestor</strong> &mdash; dirige un refugio: todo lo que puede hacer un empleado, además de invitar y gestionar a los usuarios de ese refugio. El gestor también mantiene actualizado el perfil del refugio (contactos, dirección, descripción, logotipo) en <strong>Configuración &gt; Refugio</strong>; solo un administrador puede cambiar el nombre o las especies del refugio.</li>
-            <li><strong>Empleado</strong> &mdash; se encarga del trabajo diario del refugio: animales, vacunaciones, adopciones, apadrinamientos, voluntarios e instalaciones.</li>
-            <li><strong>Consulta</strong> &mdash; acceso de solo lectura al refugio: puede ver animales, vacunaciones e instalaciones e imprimir fichas y listas de animales, pero no puede crear, editar ni eliminar nada, y no ve los datos personales de adoptantes, padrinos, voluntarios ni socios.</li>
+            <li><strong>Empleado</strong> &mdash; se encarga del trabajo diario del refugio: animales, vacunaciones, tratamientos, adopciones, apadrinamientos, voluntarios e instalaciones.</li>
+            <li><strong>Consulta</strong> &mdash; acceso de solo lectura al refugio: puede ver animales, vacunaciones, tratamientos e instalaciones e imprimir fichas y listas de animales, pero no puede crear, editar ni eliminar nada, y no ve los datos personales de adoptantes, padrinos, voluntarios ni socios.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Trabajar con varios refugios</h3>
         <p>Un usuario puede pertenecer a más de un refugio, con una función distinta en cada uno. Use el selector de refugio para cambiar el refugio activo; a partir de ese momento, todas las listas, recuentos y formularios muestran solo los datos de ese refugio. Los datos nunca se comparten entre refugios.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orden de configuración recomendado</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>Un administrador completa las tablas de referencia (regiones, especies, razas, tamaños, tipos de pelo, vacunas, enfermedades, actividades).</li>
+            <li>Un administrador completa las tablas de referencia (regiones, especies, razas, tamaños, tipos de pelo, vacunas, tratamientos, enfermedades, actividades).</li>
             <li>El administrador crea el refugio, completa su perfil (contactos, región, descripción, logotipo) y elige las especies con las que trabaja.</li>
             <li>El administrador invita al gestor del refugio.</li>
             <li>El gestor configura las instalaciones, alas y jaulas, e invita a los empleados.</li>
@@ -43,7 +44,7 @@
             <li>Si el portal público está activado, el equipo publica los animales que están listos para ser adoptados.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarse en la aplicación</h3>
-        <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones y Vacunaciones), Voluntarios, Socios e Instalaciones; los gestores ven también Usuarios. Los administradores ven, en su lugar, Usuarios y el menú Administración. Los usuarios de consulta ven los mismos menús que los empleados, salvo Apadrinamientos, Adopciones, Voluntarios y Socios, y las páginas no les muestran botones para crear, editar o eliminar. Esta documentación está siempre disponible al final del menú lateral.</p>
+        <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones, Vacunaciones y Tratamientos), Voluntarios, Socios e Instalaciones; los gestores ven también Usuarios. Los administradores ven, en su lugar, Usuarios y el menú Administración. Los usuarios de consulta ven los mismos menús que los empleados, salvo Apadrinamientos, Adopciones, Voluntarios y Socios, y las páginas no les muestran botones para crear, editar o eliminar. Esta documentación está siempre disponible al final del menú lateral.</p>
         <p>El menú Animales incluye también <strong>Solicitudes de Adopción</strong> para gestores y personal, y solo los gestores ven los <strong>Informes</strong>.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vacunaciones</h2>
         <p>Cada vacunación registra la vacuna, la fecha de administración, la próxima fecha prevista, el número de lote, el veterinario y notas. Registre la última dosis y la próxima fecha en el mismo registro: queda pendiente hasta que se registre una dosis posterior de esa vacuna. Para planificar una vacunación, rellene solo la próxima fecha; al registrar después la dosis, queda completada. Cuando la vacuna tiene una frecuencia (por ejemplo la rabia, cada 36 meses), la próxima fecha se rellena a partir de la fecha de la dosis y se puede cambiar. La página Vacunaciones las muestra para todos los animales del refugio.</p>
         <p>Cada día, los usuarios que tienen activadas las notificaciones de vacunación para un refugio reciben un email con las vacunaciones de ese refugio previstas para los próximos siete días que siguen pendientes. Cada vacunación solo se notifica una vez. Un icono de campana en la lista de usuarios indica quién recibe estos emails.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Plan de vacunación</h3>
+        <p>Los refugios que vacunan en grupo pueden abrir el <strong>Plan de Vacunación</strong> en la página Vacunaciones. Para el año elegido muestra, por vacuna, cuántas vacunaciones pendientes de los animales del refugio están previstas en cada mes; la primera columna cuenta las que ya estaban previstas antes de ese año. Haga clic en un número para ver la lista de animales, con su microchip y ubicación, y use <strong>Imprimir lista para el veterinario</strong> para llevarla el día de la vacunación.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vacunación en grupo</h3>
+        <p>La <strong>Vacunación en Grupo</strong> registra la misma vacuna para varios animales a la vez, por ejemplo el día en que el veterinario vacuna a un grupo. Elija la vacuna y qué animales listar: los que tienen la vacuna prevista en un mes (por defecto, el mes actual), los atrasados o todos los animales del refugio de la especie de esa vacuna, y filtre por especie o ubicación si lo necesita. Los animales listados empiezan marcados; desmarque las excepciones. La fecha, la próxima fecha prevista, el número de lote, el veterinario y las notas se rellenan una sola vez para todos. En el plan de vacunación, el botón <strong>Vacunación en Grupo</strong> junto a la lista de un mes abre este formulario con esos animales ya listados.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Tratamientos</h2>
+        <p>Los tratamientos son cuidados preventivos periódicos que no son vacunas, como la desparasitación interna y externa. Cada tratamiento registra el tratamiento, la fecha de administración, la próxima fecha prevista, el producto usado, el veterinario y notas. Funcionan como las vacunaciones: un registro queda pendiente hasta que se registra una nueva toma del mismo tratamiento y, cuando el tratamiento tiene una frecuencia (por ejemplo la desparasitación cada 3 meses), la próxima fecha se rellena a partir de la fecha de administración.</p>
+        <p>Regístrelos en la página del animal con <strong>Nuevo Tratamiento</strong>. La página <strong>Tratamientos</strong>, en el menú Animales, los muestra para todos los animales del refugio, con búsqueda y un filtro por próxima fecha prevista; las fechas atrasadas aparecen en rojo y las de los próximos siete días en ámbar.</p>
+        <p>El <strong>Tratamiento en Grupo</strong> registra una ronda para muchos animales a la vez: elija el tratamiento y, si quiere, una especie o ubicación; todos los animales del refugio a los que se aplica empiezan marcados, así que desmarque las excepciones y rellene una sola vez la fecha, el producto, el veterinario y las notas.</p>
+        <p>Los usuarios con las notificaciones de vacunación activadas reciben también un email diario con los tratamientos previstos para los próximos siete días, agrupados por tratamiento y fecha, de modo que una ronda de desparasitación llega como un solo recordatorio y no uno por animal.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Usuarios</h2>
-        <p>Los gestores y administradores invitan a nuevos usuarios por email; la persona invitada recibe un enlace para crear su contraseña. Para cada refugio al que pertenece se elige la función (gestor, empleado o consulta) y si el usuario recibe notificaciones de vacunación.</p>
+        <p>Los gestores y administradores invitan a nuevos usuarios por email; la persona invitada recibe un enlace para crear su contraseña. Para cada refugio al que pertenece se elige la función (gestor, empleado o consulta) y si el usuario recibe notificaciones de vacunación (que incluyen también los tratamientos).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Un gestor solo puede añadir usuarios a los refugios que gestiona.</li>
             <li>Un administrador puede añadir usuarios a cualquier refugio y puede crear otros administradores.</li>
@@ -230,7 +243,7 @@
             <li><strong>Refugios</strong> &mdash; crear, editar y eliminar refugios. Además del nombre y la ciudad, un refugio tiene un nombre corto, contactos (email, teléfono, web), dirección, región, una descripción y un logotipo &mdash; usados en el portal público cuando está activado. La lista de <strong>Especies</strong> del formulario del refugio define qué especies aparecen en el menú Animales para el gestor y el personal de ese refugio. El email es obligatorio. Cuando el refugio tiene un gestor, este puede actualizar todo excepto el nombre y las especies en <strong>Configuración &gt; Refugio</strong>.</li>
             <li><strong>Regiones</strong> &mdash; las regiones a las que pertenecen los refugios, también usadas como filtro en el portal público.</li>
             <li><strong>Especies</strong>, <strong>Razas</strong>, <strong>Tamaños</strong> y <strong>Tipos de Pelo</strong> &mdash; las opciones usadas para describir a los animales.</li>
-            <li><strong>Vacunas</strong> y <strong>Enfermedades</strong> &mdash; las opciones usadas en los registros de salud de los animales.</li>
+            <li><strong>Vacunas</strong>, <strong>Tratamientos</strong> y <strong>Enfermedades</strong> &mdash; las opciones usadas en los registros de salud de los animales. Las vacunas y los tratamientos indican las especies a las que se aplican y, opcionalmente, una frecuencia en meses, que se usa para rellenar la próxima fecha prevista.</li>
             <li><strong>Actividades</strong> &mdash; las tareas en las que pueden ayudar los voluntarios.</li>
         </ul>
     </section>

@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Pannello di Controllo</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Animali</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vaccinazioni</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Trattamenti</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adozioni</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adozioni a Distanza</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontari</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Amministratore</strong> &mdash; gestisce l'intera piattaforma: i rifugi, le tabelle di riferimento condivise e gli account utente. Gli amministratori non gestiscono animali né strutture.</li>
             <li><strong>Responsabile</strong> &mdash; dirige un rifugio: tutto ciò che può fare un operatore, più l'invito e la gestione degli utenti di quel rifugio. Il responsabile mantiene anche aggiornato il profilo del rifugio (contatti, indirizzo, descrizione, logo) in <strong>Impostazioni &gt; Rifugio</strong>; solo un amministratore può cambiare il nome o le specie del rifugio.</li>
-            <li><strong>Operatore</strong> &mdash; si occupa del lavoro quotidiano del rifugio: animali, vaccinazioni, adozioni, adozioni a distanza, volontari e strutture.</li>
-            <li><strong>Consultazione</strong> &mdash; accesso in sola lettura al rifugio: può vedere animali, vaccinazioni e strutture e stampare schede ed elenchi degli animali, ma non può creare, modificare né eliminare nulla e non vede i dati personali di adottanti, sostenitori, volontari e soci.</li>
+            <li><strong>Operatore</strong> &mdash; si occupa del lavoro quotidiano del rifugio: animali, vaccinazioni, trattamenti, adozioni, adozioni a distanza, volontari e strutture.</li>
+            <li><strong>Consultazione</strong> &mdash; accesso in sola lettura al rifugio: può vedere animali, vaccinazioni, trattamenti e strutture e stampare schede ed elenchi degli animali, ma non può creare, modificare né eliminare nulla e non vede i dati personali di adottanti, sostenitori, volontari e soci.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Lavorare con più rifugi</h3>
         <p>Un utente può appartenere a più di un rifugio, con un ruolo diverso in ciascuno. Usa il selettore del rifugio per cambiare il rifugio attivo; ogni elenco, conteggio e modulo mostra quindi solo i dati di quel rifugio. I dati non vengono mai condivisi tra rifugi.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ordine di configurazione consigliato</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>Un amministratore compila le tabelle di riferimento (regioni, specie, razze, taglie, tipi di pelo, vaccini, malattie, attività).</li>
+            <li>Un amministratore compila le tabelle di riferimento (regioni, specie, razze, taglie, tipi di pelo, vaccini, trattamenti, malattie, attività).</li>
             <li>L'amministratore crea il rifugio, completa il suo profilo (contatti, regione, descrizione, logo) e sceglie le specie con cui lavora.</li>
             <li>L'amministratore invita il responsabile del rifugio.</li>
             <li>Il responsabile configura strutture, ali e gabbie e invita gli operatori.</li>
@@ -43,7 +44,7 @@
             <li>Se il portale pubblico è attivo, il team pubblica gli animali pronti per l'adozione.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarsi nell'applicazione</h3>
-        <p>La barra laterale mostra solo ciò che il tuo ruolo può usare. Responsabili e staff vedono il menu Animali (una voce per ogni specie attivata per il rifugio, più Adozioni a Distanza, Adozioni e Vaccinazioni), Volontari, Soci e Strutture; i responsabili vedono anche Utenti. Gli amministratori vedono invece Utenti e il menu Amministrazione. Gli utenti in consultazione vedono gli stessi menu dello staff, tranne Adozioni a Distanza, Adozioni, Volontari e Soci, e le pagine non mostrano loro pulsanti per creare, modificare o eliminare. Questa documentazione è sempre disponibile in fondo alla barra laterale.</p>
+        <p>La barra laterale mostra solo ciò che il tuo ruolo può usare. Responsabili e staff vedono il menu Animali (una voce per ogni specie attivata per il rifugio, più Adozioni a Distanza, Adozioni, Vaccinazioni e Trattamenti), Volontari, Soci e Strutture; i responsabili vedono anche Utenti. Gli amministratori vedono invece Utenti e il menu Amministrazione. Gli utenti in consultazione vedono gli stessi menu dello staff, tranne Adozioni a Distanza, Adozioni, Volontari e Soci, e le pagine non mostrano loro pulsanti per creare, modificare o eliminare. Questa documentazione è sempre disponibile in fondo alla barra laterale.</p>
         <p>Il menu Animali include anche le <strong>Richieste di Adozione</strong> per responsabili e personale, e solo i responsabili vedono i <strong>Report</strong>.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinazioni</h2>
         <p>Ogni vaccinazione registra il vaccino, la data di somministrazione, la prossima data prevista, il numero di lotto, il veterinario e le note. Registra l'ultima dose e la prossima data nella stessa voce: resta in sospeso finché non viene registrata una dose successiva di quel vaccino. Per pianificare una vaccinazione, inserisci solo la prossima data; registrando poi la dose, viene completata. Quando il vaccino ha una frequenza (ad esempio la rabbia, ogni 36 mesi), la prossima data viene compilata dalla data della dose e si può modificare. La pagina Vaccinazioni le elenca per tutti gli animali del rifugio.</p>
         <p>Ogni giorno, gli utenti che hanno attivato le notifiche di vaccinazione per un rifugio ricevono un'email con le vaccinazioni di quel rifugio previste nei prossimi sette giorni e ancora in sospeso. Ogni vaccinazione viene notificata una sola volta. Un'icona a forma di campanella nell'elenco utenti indica chi riceve queste email.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Piano vaccinale</h3>
+        <p>I rifugi che vaccinano a gruppi possono aprire il <strong>Piano Vaccinale</strong> dalla pagina Vaccinazioni. Per l'anno scelto mostra, per ogni vaccino, quante vaccinazioni in sospeso degli animali del rifugio sono previste in ciascun mese; la prima colonna conta quelle già previste prima di quell'anno. Fai clic su un numero per vedere l'elenco degli animali, con microchip e posizione, e usa <strong>Stampa elenco per il veterinario</strong> per portarlo il giorno della vaccinazione.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vaccinazione di gruppo</h3>
+        <p>La <strong>Vaccinazione di Gruppo</strong> registra lo stesso vaccino per più animali in una volta, ad esempio il giorno in cui il veterinario vaccina un gruppo. Scegli il vaccino e quali animali elencare: quelli con il vaccino previsto in un certo mese (per impostazione predefinita il mese corrente), quelli in ritardo o tutti gli animali del rifugio della specie di quel vaccino, e filtra per specie o posizione se serve. Gli animali elencati partono selezionati; deseleziona le eccezioni. Data, prossima data prevista, numero di lotto, veterinario e note si inseriscono una sola volta per tutti. Nel piano vaccinale, il pulsante <strong>Vaccinazione di Gruppo</strong> accanto all'elenco di un mese apre questo modulo con quegli animali già elencati.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Trattamenti</h2>
+        <p>I trattamenti sono cure preventive periodiche che non sono vaccini, come la sverminazione interna ed esterna. Ogni trattamento registra il trattamento, la data di somministrazione, la prossima data prevista, il prodotto usato, il veterinario e le note. Funzionano come le vaccinazioni: una voce resta in sospeso finché non viene registrata una nuova somministrazione dello stesso trattamento e, quando il trattamento ha una frequenza (ad esempio la sverminazione ogni 3 mesi), la prossima data viene compilata dalla data di somministrazione.</p>
+        <p>Registrali nella pagina dell'animale con <strong>Nuovo Trattamento</strong>. La pagina <strong>Trattamenti</strong>, nel menu Animali, li elenca per tutti gli animali del rifugio, con una ricerca e un filtro per prossima data prevista; le date scadute sono in rosso e quelle dei prossimi sette giorni in giallo.</p>
+        <p>Il <strong>Trattamento di Gruppo</strong> registra un ciclo per molti animali in una volta: scegli il trattamento e, se vuoi, una specie o una posizione; tutti gli animali del rifugio a cui si applica partono selezionati, quindi deseleziona le eccezioni e inserisci una sola volta data, prodotto, veterinario e note.</p>
+        <p>Gli utenti con le notifiche di vaccinazione attive ricevono anche un'email giornaliera con i trattamenti previsti nei prossimi sette giorni, raggruppati per trattamento e data, così un ciclo di sverminazione arriva come un solo promemoria e non uno per animale.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Utenti</h2>
-        <p>Responsabili e amministratori invitano i nuovi utenti via email; la persona invitata riceve un link per impostare la propria password. Per ogni rifugio di appartenenza scegli il ruolo (responsabile, operatore o consultazione) e se l'utente riceve le notifiche di vaccinazione.</p>
+        <p>Responsabili e amministratori invitano i nuovi utenti via email; la persona invitata riceve un link per impostare la propria password. Per ogni rifugio di appartenenza scegli il ruolo (responsabile, operatore o consultazione) e se l'utente riceve le notifiche di vaccinazione (che comprendono anche i trattamenti).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Un responsabile può aggiungere utenti solo ai rifugi che gestisce.</li>
             <li>Un amministratore può aggiungere utenti a qualsiasi rifugio e può creare altri amministratori.</li>
@@ -230,7 +243,7 @@
             <li><strong>Rifugi</strong> &mdash; creare, modificare e rimuovere rifugi. Oltre al nome e alla città, un rifugio ha un nome breve, contatti (email, telefono, sito web), indirizzo, regione, una descrizione e un logo &mdash; usati sul portale pubblico quando è attivo. L'elenco <strong>Specie</strong> nel modulo del rifugio stabilisce quali specie compaiono nel menu Animali per il responsabile e lo staff di quel rifugio. L'email è obbligatoria. Quando il rifugio ha un responsabile, questi può aggiornare tutto tranne il nome e le specie in <strong>Impostazioni &gt; Rifugio</strong>.</li>
             <li><strong>Regioni</strong> &mdash; le regioni a cui appartengono i rifugi, usate anche come filtro sul portale pubblico.</li>
             <li><strong>Specie</strong>, <strong>Razze</strong>, <strong>Taglie</strong> e <strong>Tipi di Mantello</strong> &mdash; le opzioni usate per descrivere gli animali.</li>
-            <li><strong>Vaccini</strong> e <strong>Malattie</strong> &mdash; le opzioni usate nelle cartelle sanitarie degli animali.</li>
+            <li><strong>Vaccini</strong>, <strong>Trattamenti</strong> e <strong>Malattie</strong> &mdash; le opzioni usate nelle cartelle sanitarie degli animali. Vaccini e trattamenti indicano le specie a cui si applicano e, facoltativamente, una frequenza in mesi, usata per compilare la prossima data prevista.</li>
             <li><strong>Attività</strong> &mdash; i compiti in cui i volontari possono aiutare.</li>
         </ul>
     </section>

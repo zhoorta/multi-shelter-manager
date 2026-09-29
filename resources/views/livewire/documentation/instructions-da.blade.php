@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Oversigt</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Dyr</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vaccinationer</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Behandlinger</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptioner</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Fadderskaber</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Frivillige</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Administrator</strong> &mdash; styrer hele platformen: internaterne, de fælles referencetabeller og brugerkontiene. Administratorer håndterer ikke dyr eller anlæg.</li>
             <li><strong>Internatleder</strong> &mdash; leder et internat: alt, hvad en medarbejder kan, plus at invitere og administrere internatets brugere. Internatlederen holder også internatets profil (kontaktoplysninger, adresse, beskrivelse, logo) opdateret under <strong>Indstillinger &gt; Internat</strong>; kun en administrator kan ændre internatets navn eller arter.</li>
-            <li><strong>Medarbejder</strong> &mdash; står for internatets daglige arbejde: dyr, vaccinationer, adoptioner, fadderskaber, frivillige og anlæg.</li>
-            <li><strong>Læser</strong> &mdash; kun læseadgang til internatet: kan se dyr, vaccinationer og anlæg og udskrive dyreark og dyrelister, men kan ikke oprette, redigere eller slette noget og ser ikke personoplysninger om adoptanter, faddere, frivillige eller medlemmer.</li>
+            <li><strong>Medarbejder</strong> &mdash; står for internatets daglige arbejde: dyr, vaccinationer, behandlinger, adoptioner, fadderskaber, frivillige og anlæg.</li>
+            <li><strong>Læser</strong> &mdash; kun læseadgang til internatet: kan se dyr, vaccinationer, behandlinger og anlæg og udskrive dyreark og dyrelister, men kan ikke oprette, redigere eller slette noget og ser ikke personoplysninger om adoptanter, faddere, frivillige eller medlemmer.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Arbejde med flere internater</h3>
         <p>En bruger kan høre til mere end ét internat, med forskellig rolle i hvert. Brug internatvælgeren til at skifte aktivt internat; alle lister, tællere og formularer viser derefter kun data fra det internat. Data deles aldrig mellem internater.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Anbefalet rækkefølge for opsætning</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>En administrator udfylder opslagstabellerne (regioner, dyrearter, racer, størrelser, pelstyper, vacciner, sygdomme, aktiviteter).</li>
+            <li>En administrator udfylder opslagstabellerne (regioner, dyrearter, racer, størrelser, pelstyper, vacciner, behandlinger, sygdomme, aktiviteter).</li>
             <li>Administratoren opretter internatet, udfylder dets profil (kontaktoplysninger, region, beskrivelse, logo) og vælger, hvilke dyrearter det arbejder med.</li>
             <li>Administratoren inviterer internatets leder.</li>
             <li>Lederen konfigurerer anlæg, fløje og bure og inviterer medarbejderne.</li>
@@ -43,7 +44,7 @@
             <li>Hvis den offentlige portal er slået til, udgiver teamet de dyr, der er klar til adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Find rundt i applikationen</h3>
-        <p>Sidemenuen viser kun det, din rolle kan bruge. Ledere og personale ser menuen Dyr (ét punkt pr. dyreart, der er slået til for internatet, samt Fadderskaber, Adoptioner og Vaccinationer), Frivillige, Medlemmer og Anlæg; ledere ser også Brugere. Administratorer ser i stedet Brugere og menuen Administration. Læsere ser de samme menuer som medarbejdere, undtagen Fadderskaber, Adoptioner, Frivillige og Medlemmer, og siderne viser ingen knapper til at oprette, redigere eller slette. Denne dokumentation findes altid nederst i sidemenuen.</p>
+        <p>Sidemenuen viser kun det, din rolle kan bruge. Ledere og personale ser menuen Dyr (ét punkt pr. dyreart, der er slået til for internatet, samt Fadderskaber, Adoptioner, Vaccinationer og Behandlinger), Frivillige, Medlemmer og Anlæg; ledere ser også Brugere. Administratorer ser i stedet Brugere og menuen Administration. Læsere ser de samme menuer som medarbejdere, undtagen Fadderskaber, Adoptioner, Frivillige og Medlemmer, og siderne viser ingen knapper til at oprette, redigere eller slette. Denne dokumentation findes altid nederst i sidemenuen.</p>
         <p>Menuen Dyr indeholder også <strong>Adoptionsansøgninger</strong> for ledere og personale, og kun ledere ser <strong>Rapporter</strong>.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinationer</h2>
         <p>Hver vaccination registrerer vaccinen, datoen for vaccination, næste planlagte dato, batchnummer, dyrlæge og noter. Registrér den seneste dosis og næste dato i samme registrering: den forbliver afventende, indtil en senere dosis af den vaccine registreres. For at planlægge en vaccination udfylder du kun næste dato; når dosen registreres senere, er den afsluttet. Når vaccinen har en hyppighed (for eksempel rabies, hver 36. måned), udfyldes næste dato ud fra dosens dato og kan ændres. Siden Vaccinationer viser dem for alle internatets dyr.</p>
         <p>Hver dag modtager brugere, der har slået vaccinationsnotifikationer til for et internat, en e-mail med internatets vaccinationer, der er planlagt inden for de næste syv dage og stadig afventer. Hver vaccination meldes kun én gang. Et klokkeikon i brugerlisten viser, hvem der modtager disse e-mails.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vaccinationsplan</h3>
+        <p>Internater, der vaccinerer i grupper, kan åbne <strong>Vaccinationsplan</strong> på siden Vaccinationer. For det valgte år viser den pr. vaccine, hvor mange afventende vaccinationer for dyrene på internatet der falder i hver måned; den første kolonne tæller dem, der allerede faldt før det år. Klik på et tal for at se dyrene med chip og placering, og brug <strong>Udskriv liste til dyrlægen</strong> til at tage listen med på vaccinationsdagen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gruppevaccination</h3>
+        <p><strong>Gruppevaccination</strong> registrerer den samme vaccine for flere dyr på én gang, for eksempel den dag dyrlægen vaccinerer en gruppe. Vælg vaccinen og hvilke dyr der skal vises: dem, der har vaccinen planlagt i en given måned (som standard den aktuelle måned), de forsinkede eller alle dyr på internatet af vaccinens dyreart, og filtrér efter dyreart eller placering efter behov. De viste dyr er valgt på forhånd; fravælg undtagelserne. Dato, næste planlagte dato, batchnummer, dyrlæge og noter udfyldes én gang for dem alle. I vaccinationsplanen åbner knappen <strong>Gruppevaccination</strong> ved siden af en måneds liste denne formular med de dyr allerede vist.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Behandlinger</h2>
+        <p>Behandlinger er tilbagevendende forebyggende pleje, der ikke er en vaccine, for eksempel indvortes og udvortes ormebehandling. Hver behandling registrerer behandlingen, datoen for behandlingen, næste planlagte dato, det anvendte produkt, dyrlæge og noter. De fungerer som vaccinationer: en registrering forbliver afventende, indtil en ny omgang af samme behandling registreres, og når behandlingen har en hyppighed (for eksempel ormebehandling hver 3. måned), udfyldes næste dato ud fra behandlingsdatoen.</p>
+        <p>Registrér dem på dyrets side med <strong>Ny behandling</strong>. Siden <strong>Behandlinger</strong> i menuen Dyr viser dem for alle internatets dyr, med søgning og et filter på næste planlagte dato; forsinkede datoer vises med rødt og dem inden for syv dage med gult.</p>
+        <p><strong>Gruppebehandling</strong> registrerer en omgang for mange dyr på én gang: vælg behandlingen og eventuelt en dyreart eller placering; alle dyr på internatet, som den gælder for, er valgt på forhånd, så fravælg undtagelserne og udfyld dato, produkt, dyrlæge og noter én gang.</p>
+        <p>Brugere med vaccinationsnotifikationer slået til får også en daglig e-mail med de behandlinger, der er planlagt inden for de næste syv dage, grupperet efter behandling og dato, så en ormebehandlingsrunde kommer som én påmindelse og ikke én pr. dyr.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Brugere</h2>
-        <p>Internatledere og administratorer inviterer nye brugere via e-mail; den inviterede person modtager et link til at vælge sin adgangskode. For hvert internat, brugeren hører til, vælger du rollen (internatleder, medarbejder eller læser), og om brugeren skal modtage vaccinationsnotifikationer.</p>
+        <p>Internatledere og administratorer inviterer nye brugere via e-mail; den inviterede person modtager et link til at vælge sin adgangskode. For hvert internat, brugeren hører til, vælger du rollen (internatleder, medarbejder eller læser), og om brugeren skal modtage vaccinationsnotifikationer (de omfatter også behandlinger).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>En internatleder kan kun tilføje brugere til de internater, vedkommende leder.</li>
             <li>En administrator kan tilføje brugere til ethvert internat og kan oprette andre administratorer.</li>
@@ -230,7 +243,7 @@
             <li><strong>Internater</strong> &mdash; opret, rediger og fjern internater. Ud over navn og by har et internat et kort navn, kontaktoplysninger (e-mail, telefon, websted), adresse, region, en beskrivelse og et logo &mdash; som bruges på den offentlige portal, når den er slået til. Listen <strong>Dyrearter</strong> i internatformularen styrer, hvilke dyrearter der vises i menuen Dyr for internatets leder og personale. E-mailadressen er påkrævet. Når internatet har en internatleder, kan vedkommende selv opdatere alt undtagen navn og arter under <strong>Indstillinger &gt; Internat</strong>.</li>
             <li><strong>Regioner</strong> &mdash; de regioner, internaterne hører til, bruges også som filter på den offentlige portal.</li>
             <li><strong>Dyrearter</strong>, <strong>Racer</strong>, <strong>Størrelser</strong> og <strong>Pelstyper</strong> &mdash; de muligheder, der bruges til at beskrive dyrene.</li>
-            <li><strong>Vacciner</strong> og <strong>Sygdomme</strong> &mdash; de muligheder, der bruges i dyrenes helbredsjournaler.</li>
+            <li><strong>Vacciner</strong>, <strong>Behandlinger</strong> og <strong>Sygdomme</strong> &mdash; de muligheder, der bruges i dyrenes helbredsjournaler. Vacciner og behandlinger angiver, hvilke dyrearter de gælder for, og eventuelt en hyppighed i måneder, som bruges til at udfylde næste planlagte dato.</li>
             <li><strong>Aktiviteter</strong> &mdash; de opgaver, frivillige kan hjælpe med.</li>
         </ul>
     </section>

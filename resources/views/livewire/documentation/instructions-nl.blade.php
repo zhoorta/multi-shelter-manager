@@ -9,6 +9,7 @@
         <a href="#dashboard" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Dashboard</a>
         <a href="#pets" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Dieren</a>
         <a href="#vaccinations" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vaccinaties</a>
+        <a href="#treatments" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Behandelingen</a>
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopties</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sponsorschappen</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vrijwilligers</a>
@@ -28,14 +29,14 @@
         <ul class="list-disc space-y-1 ps-6">
             <li><strong>Beheerder</strong> &mdash; beheert het hele platform: de asielen, de gedeelde referentietabellen en de gebruikersaccounts. Beheerders beheren geen dieren of locaties.</li>
             <li><strong>Asielbeheerder</strong> &mdash; leidt een asiel: alles wat een medewerker kan, plus het uitnodigen en beheren van de gebruikers van dat asiel. De asielbeheerder houdt ook het profiel van het asiel (contactgegevens, adres, beschrijving, logo) bij via <strong>Instellingen &gt; Asiel</strong>; alleen een beheerder kan de naam of de diersoorten van het asiel wijzigen.</li>
-            <li><strong>Medewerker</strong> &mdash; verzorgt het dagelijkse werk van het asiel: dieren, vaccinaties, adopties, sponsorschappen, vrijwilligers en locaties.</li>
-            <li><strong>Kijker</strong> &mdash; alleen-lezen toegang tot het asiel: kan dieren, vaccinaties en locaties bekijken en dierenfiches en -lijsten afdrukken, maar kan niets aanmaken, bewerken of verwijderen, en ziet geen persoonsgegevens van adoptanten, sponsors, vrijwilligers of leden.</li>
+            <li><strong>Medewerker</strong> &mdash; verzorgt het dagelijkse werk van het asiel: dieren, vaccinaties, behandelingen, adopties, sponsorschappen, vrijwilligers en locaties.</li>
+            <li><strong>Kijker</strong> &mdash; alleen-lezen toegang tot het asiel: kan dieren, vaccinaties, behandelingen en locaties bekijken en dierenfiches en -lijsten afdrukken, maar kan niets aanmaken, bewerken of verwijderen, en ziet geen persoonsgegevens van adoptanten, sponsors, vrijwilligers of leden.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Werken met meerdere asielen</h3>
         <p>Een gebruiker kan bij meer dan één asiel horen, met in elk asiel een andere rol. Gebruik de asielkiezer om het actieve asiel te wisselen; elke lijst, telling en elk formulier toont dan alleen de gegevens van dat asiel. Gegevens worden nooit tussen asielen gedeeld.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Aanbevolen volgorde van inrichting</h3>
         <ol class="list-decimal space-y-1 ps-6">
-            <li>Een beheerder vult de referentietabellen in (regio's, diersoorten, rassen, maten, vachttypes, vaccins, ziektes, activiteiten).</li>
+            <li>Een beheerder vult de referentietabellen in (regio's, diersoorten, rassen, maten, vachttypes, vaccins, behandelingen, ziektes, activiteiten).</li>
             <li>De beheerder maakt het asiel aan, vult het profiel aan (contactgegevens, regio, beschrijving, logo) en kiest met welke diersoorten het werkt.</li>
             <li>De beheerder nodigt de asielbeheerder uit.</li>
             <li>De asielbeheerder stelt de locaties, vleugels en hokken in en nodigt de medewerkers uit.</li>
@@ -43,7 +44,7 @@
             <li>Als het openbare portaal is ingeschakeld, publiceert het team de dieren die klaar zijn voor adoptie.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Je weg vinden</h3>
-        <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties en Vaccinaties), Vrijwilligers, Leden en Locaties; managers zien daarnaast Gebruikers. Beheerders zien in plaats daarvan Gebruikers en het menu Beheer. Kijkers zien dezelfde menu's als medewerkers, behalve Sponsorschappen, Adopties, Vrijwilligers en Leden, en de pagina's tonen hun geen knoppen om iets aan te maken, te bewerken of te verwijderen. Deze documentatie staat altijd onderaan de zijbalk.</p>
+        <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties, Vaccinaties en Behandelingen), Vrijwilligers, Leden en Locaties; managers zien daarnaast Gebruikers. Beheerders zien in plaats daarvan Gebruikers en het menu Beheer. Kijkers zien dezelfde menu's als medewerkers, behalve Sponsorschappen, Adopties, Vrijwilligers en Leden, en de pagina's tonen hun geen knoppen om iets aan te maken, te bewerken of te verwijderen. Deze documentatie staat altijd onderaan de zijbalk.</p>
         <p>Het menu Dieren bevat voor beheerders en medewerkers ook <strong>Adoptieaanvragen</strong>, en alleen beheerders zien <strong>Rapporten</strong>.</p>
     </section>
 
@@ -103,6 +104,18 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Vaccinaties</h2>
         <p>Elke vaccinatie legt het vaccin vast, de datum van toediening, de volgende geplande datum, het batchnummer, de dierenarts en notities. Leg de laatste dosis en de volgende datum in dezelfde registratie vast: die blijft openstaan tot er een latere dosis van dat vaccin wordt geregistreerd. Om een vaccinatie te plannen, vult u alleen de volgende datum in; wanneer u later de dosis registreert, is ze afgerond. Heeft het vaccin een frequentie (bijvoorbeeld rabiës, elke 36 maanden), dan wordt de volgende datum ingevuld op basis van de datum van de dosis en kunt u die nog wijzigen. De pagina Vaccinaties toont ze voor alle dieren van het asiel.</p>
         <p>Gebruikers die vaccinatiemeldingen voor een asiel hebben ingeschakeld, ontvangen elke dag een e-mail met de vaccinaties van dat asiel die in de komende zeven dagen gepland staan en nog openstaan. Elke vaccinatie wordt maar één keer gemeld. Een belpictogram in de gebruikerslijst laat zien wie deze e-mails ontvangt.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vaccinatieplan</h3>
+        <p>Asielen die in groepen vaccineren, kunnen op de pagina Vaccinaties het <strong>Vaccinatieplan</strong> openen. Voor het gekozen jaar toont het per vaccin hoeveel openstaande vaccinaties van de dieren in het asiel in elke maand gepland staan; de eerste kolom telt de vaccinaties die al vóór dat jaar gepland stonden. Klik op een getal om de dieren met hun chip en locatie te tonen, en gebruik <strong>Lijst voor de dierenarts afdrukken</strong> om de lijst mee te nemen naar de vaccinatiedag.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Groepsvaccinatie</h3>
+        <p>Met <strong>Groepsvaccinatie</strong> registreert u hetzelfde vaccin voor meerdere dieren tegelijk, bijvoorbeeld op de dag dat de dierenarts een groep vaccineert. Kies het vaccin en welke dieren u wilt tonen: die waarvoor het vaccin in een bepaalde maand gepland staat (standaard de huidige maand), de achterstallige, of alle dieren in het asiel van de diersoort van dat vaccin, en filter zo nodig op diersoort of locatie. De getoonde dieren zijn standaard aangevinkt; vink de uitzonderingen uit. Datum, volgende geplande datum, batchnummer, dierenarts en notities vult u één keer voor allemaal in. In het vaccinatieplan opent de knop <strong>Groepsvaccinatie</strong> naast de lijst van een maand dit formulier met die dieren al klaargezet.</p>
+    </section>
+
+    <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Behandelingen</h2>
+        <p>Behandelingen zijn terugkerende preventieve zorg die geen vaccin is, zoals inwendige en uitwendige ontworming. Elke behandeling legt de behandeling vast, de datum van toediening, de volgende geplande datum, het gebruikte product, de dierenarts en notities. Ze werken zoals vaccinaties: een registratie blijft openstaan tot een nieuwe toediening van dezelfde behandeling wordt geregistreerd, en heeft de behandeling een frequentie (bijvoorbeeld ontworming elke 3 maanden), dan wordt de volgende datum ingevuld op basis van de datum van toediening.</p>
+        <p>Registreer ze op de pagina van het dier met <strong>Nieuwe behandeling</strong>. De pagina <strong>Behandelingen</strong>, in het menu Dieren, toont ze voor alle dieren van het asiel, met een zoekveld en een filter op volgende geplande datum; achterstallige datums staan in het rood en die van de komende zeven dagen in het oranje.</p>
+        <p>Met <strong>Groepsbehandeling</strong> registreert u een ronde voor veel dieren tegelijk: kies de behandeling en eventueel een diersoort of locatie; alle dieren in het asiel waarvoor ze geldt zijn aangevinkt, dus vink de uitzonderingen uit en vul datum, product, dierenarts en notities één keer in.</p>
+        <p>Gebruikers met vaccinatiemeldingen ingeschakeld krijgen ook dagelijks een e-mail met de behandelingen die in de komende zeven dagen gepland staan, gegroepeerd per behandeling en datum, zodat een ontwormingsronde als één herinnering komt en niet één per dier.</p>
     </section>
 
     <section id="adoptions" class="flex scroll-mt-6 flex-col gap-2">
@@ -187,7 +200,7 @@
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Gebruikers</h2>
-        <p>Asielbeheerders en beheerders nodigen nieuwe gebruikers uit per e-mail; de uitgenodigde persoon ontvangt een link om een wachtwoord in te stellen. Voor elk asiel waar de gebruiker bij hoort, kiest u de rol (asielbeheerder, medewerker of kijker) en of de gebruiker vaccinatiemeldingen ontvangt.</p>
+        <p>Asielbeheerders en beheerders nodigen nieuwe gebruikers uit per e-mail; de uitgenodigde persoon ontvangt een link om een wachtwoord in te stellen. Voor elk asiel waar de gebruiker bij hoort, kiest u de rol (asielbeheerder, medewerker of kijker) en of de gebruiker vaccinatiemeldingen ontvangt (die ook behandelingen omvatten).</p>
         <ul class="list-disc space-y-1 ps-6">
             <li>Een asielbeheerder kan alleen gebruikers toevoegen aan de asielen die hij of zij beheert.</li>
             <li>Een beheerder kan gebruikers toevoegen aan elk asiel en kan andere beheerders aanmaken.</li>
@@ -230,7 +243,7 @@
             <li><strong>Asielen</strong> &mdash; asielen aanmaken, bewerken en verwijderen. Naast naam en plaats heeft een asiel een korte naam, contactgegevens (e-mail, telefoon, website), adres, regio, een beschrijving en een logo &mdash; gebruikt op het openbare portaal als dat is ingeschakeld. De lijst <strong>Diersoorten</strong> in het asielformulier bepaalt welke diersoorten in het menu Dieren verschijnen voor de manager en medewerkers van dat asiel. Het e-mailadres is verplicht. Zodra het asiel een asielbeheerder heeft, kan die alles behalve de naam en de diersoorten zelf bijwerken via <strong>Instellingen &gt; Asiel</strong>.</li>
             <li><strong>Regio's</strong> &mdash; de regio's waartoe de asielen behoren, ook gebruikt als filter op het openbare portaal.</li>
             <li><strong>Diersoorten</strong>, <strong>Rassen</strong>, <strong>Formaten</strong> en <strong>Vachttypes</strong> &mdash; de opties om dieren te beschrijven.</li>
-            <li><strong>Vaccins</strong> en <strong>Ziektes</strong> &mdash; de opties in de gezondheidsdossiers van de dieren.</li>
+            <li><strong>Vaccins</strong>, <strong>Behandelingen</strong> en <strong>Ziektes</strong> &mdash; de opties in de gezondheidsdossiers van de dieren. Vaccins en behandelingen geven aan voor welke diersoorten ze gelden en eventueel een frequentie in maanden, waarmee de volgende geplande datum wordt ingevuld.</li>
             <li><strong>Activiteiten</strong> &mdash; de taken waarbij vrijwilligers kunnen helpen.</li>
         </ul>
     </section>
