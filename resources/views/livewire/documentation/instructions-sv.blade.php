@@ -208,6 +208,7 @@
             <li>En administratör kan lägga till användare i vilket djurhem som helst och kan skapa andra administratörer.</li>
         </ul>
         <p>För varje medlemskap i ett härbärge kan man också slå på <strong>Aviseringar om adoptionsansökningar</strong>: de användarna får ett e-postmeddelande för varje ny adoptionsansökan.</p>
+        <p>Tills den inbjudna personen har loggat in för första gången visar användarlistan en knapp <strong>Skicka inbjudan igen</strong> på personens rad. Den skickar en ny länk via e-post och gör den tidigare ogiltig; länken går ut efter 48 timmar.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

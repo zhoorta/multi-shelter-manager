@@ -723,5 +723,8 @@
     "Due in :month": "Planerade i :month",
     "Modules": "Moduler",
     "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Stäng av de delar av appen som detta djurhem inte använder. Inget raderas: när du slår på en modul igen finns dess data kvar.",
-    "Vaccinations and Treatments": "Vaccinationer och behandlingar"
+    "Vaccinations and Treatments": "Vaccinationer och behandlingar",
+    "Resend invitation": "Skicka inbjudan igen",
+    "Invitation sent again": "Inbjudan skickad igen",
+    "This user has already accepted the invitation": "Den här användaren har redan accepterat inbjudan"
 }

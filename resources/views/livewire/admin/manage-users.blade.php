@@ -67,6 +67,20 @@
                                             :aria-label="__('Edit')"
                                         />
 
+                                        @if ($item->last_login === null && $item->id !== auth()->id())
+                                            <flux:button
+                                                size="sm"
+                                                variant="subtle"
+                                                icon="paper-airplane"
+                                                wire:click="resendInvitation({{ $item->id }})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="resendInvitation({{ $item->id }})"
+                                                :title="__('Resend invitation')"
+                                                :aria-label="__('Resend invitation')"
+                                                data-test="resend-invitation-{{ $item->id }}"
+                                            />
+                                        @endif
+
                                         @unless ($item->id === auth()->id())
                                             <flux:modal.trigger name="confirm-user-deletion-{{ $item->id }}">
                                                 <flux:button

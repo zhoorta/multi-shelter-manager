@@ -208,6 +208,7 @@
             <li>Un administrador puede añadir usuarios a cualquier refugio y puede crear otros administradores.</li>
         </ul>
         <p>En cada vinculación con un refugio también se pueden activar las <strong>Notificaciones de Solicitudes de Adopción</strong>: esos usuarios reciben un email por cada nueva solicitud de adopción.</p>
+        <p>Mientras la persona invitada no haya iniciado sesión por primera vez, la lista de usuarios muestra un botón <strong>Reenviar invitación</strong> en su fila. Envía por email un enlace nuevo y anula el anterior; el enlace caduca a las 48 horas.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

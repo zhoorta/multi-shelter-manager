@@ -208,6 +208,7 @@
             <li>An admin can add users to any shelter and can create other admins.</li>
         </ul>
         <p>Each membership can also have <strong>Adoption Application Notifications</strong> turned on: those users receive an email for each new adoption application.</p>
+        <p>Until an invited person logs in for the first time, the Users list shows a <strong>Resend invitation</strong> button on their row. It emails a new link and cancels the previous one; the link expires after 48 hours.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

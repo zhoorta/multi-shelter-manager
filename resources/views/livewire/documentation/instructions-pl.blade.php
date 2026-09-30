@@ -208,6 +208,7 @@
             <li>Administrator może dodawać użytkowników do dowolnego schroniska i tworzyć innych administratorów.</li>
         </ul>
         <p>Przy każdym członkostwie w schronisku można też włączyć <strong>Powiadomienia o wnioskach adopcyjnych</strong>: ci użytkownicy otrzymują e-mail o każdym nowym wniosku adopcyjnym.</p>
+        <p>Dopóki zaproszona osoba nie zaloguje się po raz pierwszy, lista użytkowników pokazuje w jej wierszu przycisk <strong>Wyślij zaproszenie ponownie</strong>. Wysyła e-mailem nowy link i unieważnia poprzedni; link wygasa po 48 godzinach.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

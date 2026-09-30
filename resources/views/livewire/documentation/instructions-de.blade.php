@@ -208,6 +208,7 @@
             <li>Ein Administrator kann Benutzer zu jedem Tierheim hinzufügen und weitere Administratoren anlegen.</li>
         </ul>
         <p>Für jede Zugehörigkeit zu einem Tierheim lassen sich auch die <strong>Benachrichtigungen zu Adoptionsanfragen</strong> aktivieren: Diese Nutzer erhalten für jede neue Adoptionsanfrage eine E-Mail.</p>
+        <p>Solange die eingeladene Person sich noch nie angemeldet hat, zeigt die Benutzerliste in ihrer Zeile die Schaltfläche <strong>Einladung erneut senden</strong>. Sie verschickt per E-Mail einen neuen Link und macht den vorherigen ungültig; der Link läuft nach 48 Stunden ab.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

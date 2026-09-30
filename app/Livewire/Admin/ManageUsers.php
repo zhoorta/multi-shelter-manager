@@ -6,11 +6,13 @@ namespace App\Livewire\Admin;
 
 use App\Models\Shelter;
 use App\Models\User;
+use App\Notifications\UserInvitation;
 use Flux\Flux;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -66,6 +68,28 @@ class ManageUsers extends Component
     public function updatingFilterShelterId(): void
     {
         $this->resetPage();
+    }
+
+    public function resendInvitation(int $userId): void
+    {
+        $viewer = Auth::user();
+
+        $user = User::query()
+            ->when(
+                ! $viewer->is_admin,
+                fn ($query) => $query->whereHas('shelters', fn ($q) => $q->whereKey($viewer->current_shelter_id)),
+            )
+            ->findOrFail($userId);
+
+        if ($user->last_login !== null) {
+            Flux::toast(variant: 'danger', text: __('This user has already accepted the invitation'));
+
+            return;
+        }
+
+        $user->notify(new UserInvitation(Password::broker()->createToken($user)));
+
+        Flux::toast(variant: 'success', text: __('Invitation sent again'));
     }
 
     public function deleteUser(int $userId): void

@@ -723,5 +723,8 @@
     "Due in :month": "Previstas en :month",
     "Modules": "Módulos",
     "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Desactiva las partes de la aplicación que este refugio no utiliza. No se borra nada: al volver a activar un módulo se recuperan sus datos.",
-    "Vaccinations and Treatments": "Vacunas y tratamientos"
+    "Vaccinations and Treatments": "Vacunas y tratamientos",
+    "Resend invitation": "Reenviar invitación",
+    "Invitation sent again": "Invitación reenviada",
+    "This user has already accepted the invitation": "Este usuario ya ha aceptado la invitación"
 }

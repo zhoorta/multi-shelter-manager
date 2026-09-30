@@ -208,6 +208,7 @@
             <li>En administrator kan tilføje brugere til ethvert internat og kan oprette andre administratorer.</li>
         </ul>
         <p>For hvert medlemskab af et internat kan man også slå <strong>Notifikationer om adoptionsansøgninger</strong> til: de brugere får en e-mail for hver ny adoptionsansøgning.</p>
+        <p>Indtil den inviterede person har logget ind for første gang, viser brugerlisten en knap <strong>Send invitation igen</strong> på personens række. Den sender et nyt link via e-mail og annullerer det forrige; linket udløber efter 48 timer.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

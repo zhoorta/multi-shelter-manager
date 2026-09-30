@@ -208,6 +208,7 @@
             <li>Un administrateur peut ajouter des utilisateurs à n'importe quel refuge et peut créer d'autres administrateurs.</li>
         </ul>
         <p>Chaque rattachement à un refuge peut aussi activer les <strong>Notifications de Demandes d'Adoption</strong> : ces utilisateurs reçoivent un email pour chaque nouvelle demande d'adoption.</p>
+        <p>Tant que la personne invitée ne s'est pas connectée une première fois, la liste des utilisateurs affiche un bouton <strong>Renvoyer l'invitation</strong> sur sa ligne. Il envoie par email un nouveau lien et annule le précédent ; le lien expire au bout de 48 heures.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

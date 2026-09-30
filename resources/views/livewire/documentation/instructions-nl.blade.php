@@ -208,6 +208,7 @@
             <li>Een beheerder kan gebruikers toevoegen aan elk asiel en kan andere beheerders aanmaken.</li>
         </ul>
         <p>Bij elk lidmaatschap van een asiel kunnen ook de <strong>Meldingen van adoptieaanvragen</strong> worden ingeschakeld: die gebruikers krijgen een e-mail bij elke nieuwe adoptieaanvraag.</p>
+        <p>Zolang de uitgenodigde persoon nog nooit is ingelogd, toont de gebruikerslijst op de rij een knop <strong>Uitnodiging opnieuw versturen</strong>. Die stuurt per e-mail een nieuwe link en maakt de vorige ongeldig; de link verloopt na 48 uur.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

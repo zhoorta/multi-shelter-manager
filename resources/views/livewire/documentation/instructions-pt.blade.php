@@ -208,6 +208,7 @@
             <li>Um administrador pode adicionar utilizadores a qualquer abrigo e criar outros administradores.</li>
         </ul>
         <p>Em cada ligação a um abrigo também pode ativar as <strong>Notificações de Candidaturas de Adoção</strong>: esses utilizadores recebem um email por cada nova candidatura de adoção.</p>
+        <p>Enquanto a pessoa convidada não iniciar sessão pela primeira vez, a lista de utilizadores mostra um botão <strong>Reenviar convite</strong> na sua linha. Envia por email uma nova ligação e anula a anterior; a ligação expira ao fim de 48 horas.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

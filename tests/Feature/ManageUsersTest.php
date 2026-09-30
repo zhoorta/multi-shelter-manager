@@ -3,7 +3,9 @@
 use App\Livewire\Admin\ManageUsers;
 use App\Models\Shelter;
 use App\Models\User;
+use App\Notifications\UserInvitation;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -283,4 +285,40 @@ test('a manager of another shelter is forbidden while acting in a shelter where 
     $this->actingAs($user);
 
     $this->get(route('admin.users.index'))->assertForbidden();
+});
+
+test('resending an invitation emails a new link to a user who has never logged in', function () {
+    Notification::fake();
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
+    $invited = User::factory()->forShelter($shelter, 'staff')->create(['last_login' => null]);
+    $this->actingAs($manager);
+
+    Livewire::test(ManageUsers::class)->call('resendInvitation', $invited->id);
+
+    Notification::assertSentTo($invited, UserInvitation::class);
+});
+
+test('resending an invitation is refused once the user has logged in', function () {
+    Notification::fake();
+    $shelter = Shelter::factory()->create();
+    $manager = User::factory()->forShelter($shelter, 'manager')->create();
+    $active = User::factory()->forShelter($shelter, 'staff')->create(['last_login' => now()]);
+    $this->actingAs($manager);
+
+    Livewire::test(ManageUsers::class)->call('resendInvitation', $active->id);
+
+    Notification::assertNothingSent();
+});
+
+test('managers cannot resend invitations for users of other shelters', function () {
+    Notification::fake();
+    $manager = User::factory()->forShelter(Shelter::factory()->create(), 'manager')->create();
+    $outsider = User::factory()->forShelter(Shelter::factory()->create(), 'staff')->create(['last_login' => null]);
+    $this->actingAs($manager);
+
+    expect(fn () => Livewire::test(ManageUsers::class)->call('resendInvitation', $outsider->id))
+        ->toThrow(ModelNotFoundException::class);
+
+    Notification::assertNothingSent();
 });

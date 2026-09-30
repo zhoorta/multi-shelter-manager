@@ -723,5 +723,8 @@
     "Due in :month": "Fällig im :month",
     "Modules": "Module",
     "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Schalten Sie die Teile der App aus, die dieses Tierheim nicht nutzt. Es wird nichts gelöscht: Beim erneuten Einschalten eines Moduls sind seine Daten wieder da.",
-    "Vaccinations and Treatments": "Impfungen und Behandlungen"
+    "Vaccinations and Treatments": "Impfungen und Behandlungen",
+    "Resend invitation": "Einladung erneut senden",
+    "Invitation sent again": "Einladung erneut gesendet",
+    "This user has already accepted the invitation": "Dieser Benutzer hat die Einladung bereits angenommen"
 }
