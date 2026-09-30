@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Settings\Appearance;
+use App\Livewire\Settings\ExportData;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\Security;
 use App\Livewire\Settings\ShelterProfile;
@@ -16,6 +17,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('settings/appearance', Appearance::class)->name('appearance.edit');
 
     Route::livewire('settings/shelter', ShelterProfile::class)->name('shelter-profile.edit');
+
+    Route::livewire('settings/export', ExportData::class)->name('data-export.edit');
 
     Route::livewire('settings/security', Security::class)
         ->middleware([

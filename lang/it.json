@@ -726,5 +726,10 @@
     "Vaccinations and Treatments": "Vaccini e trattamenti",
     "Resend invitation": "Invia di nuovo l'invito",
     "Invitation sent again": "Invito inviato di nuovo",
-    "This user has already accepted the invitation": "Questo utente ha già accettato l'invito"
+    "This user has already accepted the invitation": "Questo utente ha già accettato l'invito",
+    "Export data": "Esporta dati",
+    "Download a copy of all your shelter's data": "Scarica una copia di tutti i dati del tuo rifugio",
+    "Download export": "Scarica l'esportazione",
+    "The ZIP contains one CSV file per area: pets, vaccinations, treatments, diagnoses, adoptions, adoption applications, sponsorships and payments, members and payments, volunteers, and spaces.": "Lo ZIP contiene un file CSV per area: animali, vaccini, trattamenti, diagnosi, adozioni, richieste di adozione, sponsorizzazioni e pagamenti, soci e pagamenti, volontari e spazi.",
+    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "Il file contiene dati personali di soci, volontari, adottanti e sponsor. Conservalo in modo sicuro e non condividerlo."
 }

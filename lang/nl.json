@@ -726,5 +726,10 @@
     "Vaccinations and Treatments": "Vaccinaties en behandelingen",
     "Resend invitation": "Uitnodiging opnieuw versturen",
     "Invitation sent again": "Uitnodiging opnieuw verstuurd",
-    "This user has already accepted the invitation": "Deze gebruiker heeft de uitnodiging al geaccepteerd"
+    "This user has already accepted the invitation": "Deze gebruiker heeft de uitnodiging al geaccepteerd",
+    "Export data": "Gegevens exporteren",
+    "Download a copy of all your shelter's data": "Download een kopie van alle gegevens van je asiel",
+    "Download export": "Export downloaden",
+    "The ZIP contains one CSV file per area: pets, vaccinations, treatments, diagnoses, adoptions, adoption applications, sponsorships and payments, members and payments, volunteers, and spaces.": "De ZIP bevat één CSV-bestand per onderdeel: dieren, vaccinaties, behandelingen, diagnoses, adopties, adoptieaanvragen, sponsoring en betalingen, leden en betalingen, vrijwilligers en ruimtes.",
+    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "Het bestand bevat persoonsgegevens van leden, vrijwilligers, adoptanten en sponsors. Bewaar het veilig en deel het niet."
 }

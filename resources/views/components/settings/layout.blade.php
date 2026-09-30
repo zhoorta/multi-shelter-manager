@@ -4,6 +4,7 @@
             <flux:navlist.item :href="route('profile.edit')" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
             @if (auth()->user()->isManagerOfCurrentShelter())
                 <flux:navlist.item :href="route('shelter-profile.edit')" wire:navigate>{{ __('Shelter') }}</flux:navlist.item>
+                <flux:navlist.item :href="route('data-export.edit')" wire:navigate>{{ __('Export data') }}</flux:navlist.item>
             @endif
             <flux:navlist.item :href="route('security.edit')" wire:navigate>{{ __('Security') }}</flux:navlist.item>
             <flux:navlist.item :href="route('appearance.edit')" wire:navigate>{{ __('Appearance') }}</flux:navlist.item>

@@ -726,5 +726,10 @@
     "Vaccinations and Treatments": "Vaccinationer og behandlinger",
     "Resend invitation": "Send invitation igen",
     "Invitation sent again": "Invitation sendt igen",
-    "This user has already accepted the invitation": "Denne bruger har allerede accepteret invitationen"
+    "This user has already accepted the invitation": "Denne bruger har allerede accepteret invitationen",
+    "Export data": "Eksportér data",
+    "Download a copy of all your shelter's data": "Download en kopi af alle data fra jeres dyreinternat",
+    "Download export": "Download eksport",
+    "The ZIP contains one CSV file per area: pets, vaccinations, treatments, diagnoses, adoptions, adoption applications, sponsorships and payments, members and payments, volunteers, and spaces.": "ZIP-filen indeholder én CSV-fil pr. område: dyr, vaccinationer, behandlinger, diagnoser, adoptioner, adoptionsansøgninger, sponsorater og betalinger, medlemmer og betalinger, frivillige og områder.",
+    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "Filen indeholder personoplysninger om medlemmer, frivillige, adoptanter og sponsorer. Opbevar den sikkert, og del den ikke."
 }
