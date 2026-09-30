@@ -25,6 +25,10 @@
 
             @include('livewire.partials.shelter-profile-fields')
 
+            <flux:separator class="my-2" />
+
+            @include('livewire.partials.shelter-modules-fields')
+
             <div class="flex justify-end">
                 <flux:button type="submit" variant="primary" data-test="save-shelter-button">{{ __('Save') }}</flux:button>
             </div>

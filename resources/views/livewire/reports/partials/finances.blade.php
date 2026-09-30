@@ -120,7 +120,7 @@
                                     <span class="block text-xs text-neutral-500 dark:text-neutral-400">{{ $payment->sponsorship->pet?->species?->name }} - {{ $payment->sponsorship->pet?->ref }}</span>
                                 </td>
                                 <td class="px-6 py-3">
-                                    @if ($payment->sponsorship->pet)
+                                    @if ($payment->sponsorship->pet && auth()->user()->currentShelterHasModule('sponsorships'))
                                         <a href="{{ route('pets.sponsor.show', [$payment->sponsorship->pet, $payment->sponsorship]) }}" wire:navigate class="text-neutral-900 hover:underline dark:text-white">{{ $payment->sponsorship->name }}</a>
                                     @else
                                         {{ $payment->sponsorship->name }}

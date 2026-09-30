@@ -720,5 +720,8 @@
     "due :date": "fällig :date",
     "last dose :date": "letzte Dosis :date",
     "Overdue": "Überfällig",
-    "Due in :month": "Fällig im :month"
+    "Due in :month": "Fällig im :month",
+    "Modules": "Module",
+    "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Schalten Sie die Teile der App aus, die dieses Tierheim nicht nutzt. Es wird nichts gelöscht: Beim erneuten Einschalten eines Moduls sind seine Daten wieder da.",
+    "Vaccinations and Treatments": "Impfungen und Behandlungen"
 }

@@ -254,7 +254,7 @@ class Dashboard extends Component
     #[Computed]
     public function sponsorshipsToRenew(): Collection
     {
-        if (! $this->showsActionCounters) {
+        if (! $this->showsActionCounters || ! Auth::user()->currentShelterHasModule('sponsorships')) {
             return new Collection;
         }
 

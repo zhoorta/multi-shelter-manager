@@ -720,5 +720,8 @@
     "due :date": "planlagt :date",
     "last dose :date": "seneste dosis :date",
     "Overdue": "Forsinkede",
-    "Due in :month": "Planlagt i :month"
+    "Due in :month": "Planlagt i :month",
+    "Modules": "Moduler",
+    "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Slå de dele af appen fra, som dette dyreinternat ikke bruger. Intet slettes: når du slår et modul til igen, er dets data tilbage.",
+    "Vaccinations and Treatments": "Vaccinationer og behandlinger"
 }

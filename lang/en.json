@@ -720,5 +720,8 @@
     "due :date": "due :date",
     "last dose :date": "last dose :date",
     "Overdue": "Overdue",
-    "Due in :month": "Due in :month"
+    "Due in :month": "Due in :month",
+    "Modules": "Modules",
+    "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.",
+    "Vaccinations and Treatments": "Vaccinations and Treatments"
 }

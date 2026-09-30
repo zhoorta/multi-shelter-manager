@@ -4,6 +4,7 @@ paths:
   - app/Models/Pet.php
   - app/Models/FurType.php
   - app/Models/Cage.php
+  - app/Models/Shelter.php
 ---
 
 # Models
@@ -40,3 +41,6 @@ Pet::ageInWords() measures birth_date → date_of_death when the pet is deceased
 
 ## Cage capacity is indicative, never a hard limit
 cages.capacity is only a guideline: a cage can hold more animals than its capacity. Never block assignments or warn about "over capacity" (e.g. in PetForm, imports, or reports) based on it.
+
+## Optional modules are per-shelter switches in shelters.modules
+Shelter::MODULES (members, volunteers, sponsorships, adoption_applications, reports) are toggled per shelter in the nullable JSON shelters.modules; a missing key means ON, so never backfill. Check with Shelter::hasModule() / User::currentShelterHasModule() (admins always true). Gate a module in three places: the sidebar link, the route (middleware 'module:<key>' answers 404), and any cross-module UI (dashboard counters, pet-show/pet-form sponsorship bits, public adopt button + AdoptionApplicationForm::mount). Switches live in EditsShelterProfile (shelterModules) + partial shelter-modules-fields, editable by the shelter manager and admin. Turning off never deletes data. A new module needs: key in MODULES, label in moduleLabels(), route middleware, sidebar check, test in ShelterModulesTest.

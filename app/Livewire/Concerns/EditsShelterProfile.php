@@ -13,8 +13,9 @@ use Livewire\Attributes\Computed;
 
 /**
  * The shelter profile fields (contacts, location, description, logo) shared by
- * the admin ShelterForm and the manager's Settings > Shelter page. The shelter
- * name and species are admin-only and live in ShelterForm.
+ * the admin ShelterForm and the manager's Settings > Shelter page, together
+ * with the switches for the optional modules. The shelter name and species are
+ * admin-only and live in ShelterForm.
  */
 trait EditsShelterProfile
 {
@@ -41,6 +42,13 @@ trait EditsShelterProfile
     public mixed $shelterLogo = null;
 
     /**
+     * Whether each optional module (see Shelter::MODULES) is on.
+     *
+     * @var array<string, bool>
+     */
+    public array $shelterModules = [];
+
+    /**
      * All regions (distritos) a shelter can be located in.
      *
      * @return Collection<int, Region>
@@ -63,6 +71,36 @@ trait EditsShelterProfile
         $this->shelterWebsite = (string) $shelter->website;
         $this->shelterDescription = (string) $shelter->description;
         $this->existingLogoPath = $shelter->logo_path;
+        $this->shelterModules = $this->moduleChoices($shelter);
+    }
+
+    /**
+     * The on/off choice for every module, on where the shelter never chose.
+     *
+     * @return array<string, bool>
+     */
+    protected function moduleChoices(?Shelter $shelter = null): array
+    {
+        return collect(Shelter::MODULES)
+            ->mapWithKeys(fn (string $module): array => [$module => $shelter?->hasModule($module) ?? true])
+            ->all();
+    }
+
+    /**
+     * Label shown next to each module switch.
+     *
+     * @return array<string, string>
+     */
+    public function moduleLabels(): array
+    {
+        return [
+            'members' => __('Members'),
+            'volunteers' => __('Volunteers'),
+            'sponsorships' => __('Sponsorships'),
+            'adoption_applications' => __('Adoption Applications'),
+            'reports' => __('Reports'),
+            'health_records' => __('Vaccinations and Treatments'),
+        ];
     }
 
     /**
@@ -81,6 +119,8 @@ trait EditsShelterProfile
             'shelterWebsite' => ['nullable', 'string', 'url', 'max:255'],
             'shelterDescription' => ['nullable', 'string'],
             'shelterLogo' => ['nullable', 'image', 'max:2048'],
+            'shelterModules' => ['array'],
+            'shelterModules.*' => ['boolean'],
         ];
     }
 
@@ -100,6 +140,7 @@ trait EditsShelterProfile
             'shelterWebsite' => __('Website'),
             'shelterDescription' => __('Description'),
             'shelterLogo' => __('Logo'),
+            'shelterModules.*' => __('Modules'),
         ];
     }
 
@@ -122,6 +163,9 @@ trait EditsShelterProfile
             'email' => $validated['shelterEmail'],
             'website' => $validated['shelterWebsite'] !== '' ? $validated['shelterWebsite'] : null,
             'description' => $validated['shelterDescription'] !== '' ? $validated['shelterDescription'] : null,
+            'modules' => collect(Shelter::MODULES)
+                ->mapWithKeys(fn (string $module): array => [$module => (bool) ($validated['shelterModules'][$module] ?? true)])
+                ->all(),
         ];
 
         if ($this->shelterLogo !== null) {

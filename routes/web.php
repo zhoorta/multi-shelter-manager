@@ -102,15 +102,15 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('documentation', Documentation::class)->name('documentation');
 
     Route::livewire('pets', ManagePets::class)->name('pets.index');
-    Route::livewire('pets/sponsorships', ManageSponsorships::class)->name('pets.sponsorships.index');
+    Route::livewire('pets/sponsorships', ManageSponsorships::class)->middleware('module:sponsorships')->name('pets.sponsorships.index');
     Route::livewire('pets/adoptions', ManageAdoptions::class)->name('pets.adoptions.index');
-    Route::livewire('pets/applications', ManageAdoptionApplications::class)->name('pets.applications.index');
-    Route::livewire('pets/vaccinations', ManageVaccinations::class)->name('pets.vaccinations.index');
-    Route::livewire('pets/vaccinations/plan', VaccinationPlan::class)->name('pets.vaccinations.plan');
-    Route::livewire('pets/vaccinations/plan/print', VaccinationPlanPrint::class)->name('pets.vaccinations.plan.print');
-    Route::livewire('pets/vaccinations/group', GroupVaccinationForm::class)->name('pets.vaccinations.group');
-    Route::livewire('pets/treatments', ManagePetTreatments::class)->name('pets.treatments.index');
-    Route::livewire('pets/treatments/group', GroupTreatmentForm::class)->name('pets.treatments.group');
+    Route::livewire('pets/applications', ManageAdoptionApplications::class)->middleware('module:adoption_applications')->name('pets.applications.index');
+    Route::livewire('pets/vaccinations', ManageVaccinations::class)->middleware('module:health_records')->name('pets.vaccinations.index');
+    Route::livewire('pets/vaccinations/plan', VaccinationPlan::class)->middleware('module:health_records')->name('pets.vaccinations.plan');
+    Route::livewire('pets/vaccinations/plan/print', VaccinationPlanPrint::class)->middleware('module:health_records')->name('pets.vaccinations.plan.print');
+    Route::livewire('pets/vaccinations/group', GroupVaccinationForm::class)->middleware('module:health_records')->name('pets.vaccinations.group');
+    Route::livewire('pets/treatments', ManagePetTreatments::class)->middleware('module:health_records')->name('pets.treatments.index');
+    Route::livewire('pets/treatments/group', GroupTreatmentForm::class)->middleware('module:health_records')->name('pets.treatments.group');
     Route::livewire('pets/create', PetForm::class)->name('pets.create');
     Route::livewire('pets/print', PetPrintList::class)->name('pets.print.list');
     Route::livewire('pets/{pet}/edit', PetForm::class)->name('pets.edit');
@@ -119,30 +119,30 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets/{pet}/adopt', AdoptionForm::class)->name('pets.adopt');
     Route::livewire('pets/{pet}/adopt/{adoption}', AdoptionShow::class)->name('pets.adopt.show');
     Route::livewire('pets/{pet}/adopt/{adoption}/edit', AdoptionForm::class)->name('pets.adopt.edit');
-    Route::livewire('pets/{pet}/sponsor', SponsorshipForm::class)->name('pets.sponsor');
-    Route::livewire('pets/{pet}/sponsor/{sponsorship}', SponsorshipShow::class)->name('pets.sponsor.show');
-    Route::livewire('pets/{pet}/sponsor/{sponsorship}/edit', SponsorshipForm::class)->name('pets.sponsor.edit');
-    Route::livewire('pets/{pet}/vaccinate', VaccinationForm::class)->name('pets.vaccinate');
-    Route::livewire('pets/{pet}/vaccinate/{petVaccine}/edit', VaccinationForm::class)->name('pets.vaccinate.edit');
-    Route::livewire('pets/{pet}/treat', TreatmentForm::class)->name('pets.treat');
-    Route::livewire('pets/{pet}/treat/{petTreatment}/edit', TreatmentForm::class)->name('pets.treat.edit');
+    Route::livewire('pets/{pet}/sponsor', SponsorshipForm::class)->middleware('module:sponsorships')->name('pets.sponsor');
+    Route::livewire('pets/{pet}/sponsor/{sponsorship}', SponsorshipShow::class)->middleware('module:sponsorships')->name('pets.sponsor.show');
+    Route::livewire('pets/{pet}/sponsor/{sponsorship}/edit', SponsorshipForm::class)->middleware('module:sponsorships')->name('pets.sponsor.edit');
+    Route::livewire('pets/{pet}/vaccinate', VaccinationForm::class)->middleware('module:health_records')->name('pets.vaccinate');
+    Route::livewire('pets/{pet}/vaccinate/{petVaccine}/edit', VaccinationForm::class)->middleware('module:health_records')->name('pets.vaccinate.edit');
+    Route::livewire('pets/{pet}/treat', TreatmentForm::class)->middleware('module:health_records')->name('pets.treat');
+    Route::livewire('pets/{pet}/treat/{petTreatment}/edit', TreatmentForm::class)->middleware('module:health_records')->name('pets.treat.edit');
     Route::livewire('pets/{pet}/diagnose', DiagnosisForm::class)->name('pets.diagnose');
     Route::livewire('pets/{pet}/diagnose/{petSickness}/edit', DiagnosisForm::class)->name('pets.diagnose.edit');
 
-    Route::livewire('volunteers', ManageVolunteers::class)->name('volunteers.index');
-    Route::livewire('volunteers/create', VolunteerForm::class)->name('volunteers.create');
-    Route::livewire('volunteers/{volunteer}/edit', VolunteerForm::class)->name('volunteers.edit');
-    Route::livewire('volunteers/{volunteer}', VolunteerShow::class)->name('volunteers.show');
+    Route::livewire('volunteers', ManageVolunteers::class)->middleware('module:volunteers')->name('volunteers.index');
+    Route::livewire('volunteers/create', VolunteerForm::class)->middleware('module:volunteers')->name('volunteers.create');
+    Route::livewire('volunteers/{volunteer}/edit', VolunteerForm::class)->middleware('module:volunteers')->name('volunteers.edit');
+    Route::livewire('volunteers/{volunteer}', VolunteerShow::class)->middleware('module:volunteers')->name('volunteers.show');
 
-    Route::livewire('members', ManageMembers::class)->name('members.index');
-    Route::livewire('members/create', MemberForm::class)->name('members.create');
-    Route::livewire('members/{member}/edit', MemberForm::class)->name('members.edit');
-    Route::livewire('members/{member}', MemberShow::class)->name('members.show');
+    Route::livewire('members', ManageMembers::class)->middleware('module:members')->name('members.index');
+    Route::livewire('members/create', MemberForm::class)->middleware('module:members')->name('members.create');
+    Route::livewire('members/{member}/edit', MemberForm::class)->middleware('module:members')->name('members.edit');
+    Route::livewire('members/{member}', MemberShow::class)->middleware('module:members')->name('members.show');
 
     Route::livewire('facilities', ManageSpaces::class)->name('facilities.index');
 
-    Route::livewire('reports', ShelterReports::class)->name('reports.index');
-    Route::livewire('reports/print', ShelterReportPrint::class)->name('reports.print');
+    Route::livewire('reports', ShelterReports::class)->middleware('module:reports')->name('reports.index');
+    Route::livewire('reports/print', ShelterReportPrint::class)->middleware('module:reports')->name('reports.print');
 
     // Administration routes.
     Route::livewire('admin/users', ManageUsers::class)->name('admin.users.index');

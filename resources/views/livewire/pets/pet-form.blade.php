@@ -258,7 +258,9 @@
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <div class="grid grid-cols-2 gap-4">
                 <flux:switch wire:model="petIsAdoptable" :label="__('Is Adoptable')" align="left" />
-                <flux:switch wire:model="petIsSponsorable" :label="__('Is Sponsorable')" align="left" />
+                @if (auth()->user()->currentShelterHasModule('sponsorships'))
+                    <flux:switch wire:model="petIsSponsorable" :label="__('Is Sponsorable')" align="left" />
+                @endif
                 @if (config('app.public_portal_enabled'))
                     <flux:switch wire:model="petPublishToPortal" :label="__('Publish to Portal')" :description="__('Show this pet on the public adoption page')" align="left" />
                     <flux:switch wire:model="petIsFeatured" :label="__('Is Featured')" :description="__('Shown first on the public adoption page')" align="left" />

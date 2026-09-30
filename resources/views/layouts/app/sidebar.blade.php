@@ -27,13 +27,15 @@
                                 </flux:sidebar.item>
                             @endforeach
                             @unless (auth()->user()->isViewerOfCurrentShelter())
-                                <flux:sidebar.item
-                                    :href="route('pets.sponsorships.index')"
-                                    :current="request()->routeIs('pets.sponsorships.index')"
-                                    wire:navigate
-                                >
-                                    {{ __('Sponsorships') }}
-                                </flux:sidebar.item>
+                                @if (auth()->user()->currentShelterHasModule('sponsorships'))
+                                    <flux:sidebar.item
+                                        :href="route('pets.sponsorships.index')"
+                                        :current="request()->routeIs('pets.sponsorships.index')"
+                                        wire:navigate
+                                    >
+                                        {{ __('Sponsorships') }}
+                                    </flux:sidebar.item>
+                                @endif
                                 <flux:sidebar.item
                                     :href="route('pets.adoptions.index')"
                                     :current="request()->routeIs('pets.adoptions.index')"
@@ -41,45 +43,53 @@
                                 >
                                     {{ __('Adoptions') }}
                                 </flux:sidebar.item>
-                                @php
-                                    $pendingApplicationsCount = \App\Models\AdoptionApplication::query()->whereHas('pet')->where('status', 'pending')->count();
-                                @endphp
+                                @if (auth()->user()->currentShelterHasModule('adoption_applications'))
+                                    @php
+                                        $pendingApplicationsCount = \App\Models\AdoptionApplication::query()->whereHas('pet')->where('status', 'pending')->count();
+                                    @endphp
+                                    <flux:sidebar.item
+                                        :href="route('pets.applications.index')"
+                                        :current="request()->routeIs('pets.applications.index')"
+                                        :badge="$pendingApplicationsCount ?: null"
+                                        wire:navigate
+                                    >
+                                        {{ __('Adoption Applications') }}
+                                    </flux:sidebar.item>
+                                @endif
+                            @endunless
+                            @if (auth()->user()->currentShelterHasModule('health_records'))
                                 <flux:sidebar.item
-                                    :href="route('pets.applications.index')"
-                                    :current="request()->routeIs('pets.applications.index')"
-                                    :badge="$pendingApplicationsCount ?: null"
+                                    :href="route('pets.vaccinations.index')"
+                                    :current="request()->routeIs('pets.vaccinations.*')"
                                     wire:navigate
                                 >
-                                    {{ __('Adoption Applications') }}
+                                    {{ __('Vaccinations') }}
                                 </flux:sidebar.item>
-                            @endunless
-                            <flux:sidebar.item
-                                :href="route('pets.vaccinations.index')"
-                                :current="request()->routeIs('pets.vaccinations.*')"
-                                wire:navigate
-                            >
-                                {{ __('Vaccinations') }}
-                            </flux:sidebar.item>
-                            <flux:sidebar.item
-                                :href="route('pets.treatments.index')"
-                                :current="request()->routeIs('pets.treatments.*')"
-                                wire:navigate
-                            >
-                                {{ __('Treatments') }}
-                            </flux:sidebar.item>
+                                <flux:sidebar.item
+                                    :href="route('pets.treatments.index')"
+                                    :current="request()->routeIs('pets.treatments.*')"
+                                    wire:navigate
+                                >
+                                    {{ __('Treatments') }}
+                                </flux:sidebar.item>
+                            @endif
                         </flux:sidebar.group>
                         @unless (auth()->user()->isViewerOfCurrentShelter())
-                            <flux:sidebar.item icon="user-group" :href="route('volunteers.index')" :current="request()->routeIs('volunteers.*')" wire:navigate>
-                                {{ __('Volunteers') }}
-                            </flux:sidebar.item>
-                            <flux:sidebar.item icon="identification" :href="route('members.index')" :current="request()->routeIs('members.*')" wire:navigate>
-                                {{ __('Members') }}
-                            </flux:sidebar.item>
+                            @if (auth()->user()->currentShelterHasModule('volunteers'))
+                                <flux:sidebar.item icon="user-group" :href="route('volunteers.index')" :current="request()->routeIs('volunteers.*')" wire:navigate>
+                                    {{ __('Volunteers') }}
+                                </flux:sidebar.item>
+                            @endif
+                            @if (auth()->user()->currentShelterHasModule('members'))
+                                <flux:sidebar.item icon="identification" :href="route('members.index')" :current="request()->routeIs('members.*')" wire:navigate>
+                                    {{ __('Members') }}
+                                </flux:sidebar.item>
+                            @endif
                         @endunless
                         <flux:sidebar.item icon="building-office-2" :href="route('facilities.index')" :current="request()->routeIs('facilities.index')" wire:navigate>
                             {{ __('Facilities') }}
                         </flux:sidebar.item>
-                        @if (auth()->user()->isManagerOfCurrentShelter())
+                        @if (auth()->user()->isManagerOfCurrentShelter() && auth()->user()->currentShelterHasModule('reports'))
                             <flux:sidebar.item icon="chart-bar" :href="route('reports.index')" :current="request()->routeIs('reports.*')" wire:navigate>
                                 {{ __('Reports') }}
                             </flux:sidebar.item>

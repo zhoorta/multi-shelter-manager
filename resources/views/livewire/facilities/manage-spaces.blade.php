@@ -198,7 +198,7 @@
                                                     </div>
 
                                                     {{-- Viewers never see people's data, so the family's contact stays hidden from them. --}}
-                                                    @if ($wing->is_foster && $cage->volunteer && ! auth()->user()->isViewerOfCurrentShelter())
+                                                    @if ($wing->is_foster && $cage->volunteer && ! auth()->user()->isViewerOfCurrentShelter() && auth()->user()->currentShelterHasModule('volunteers'))
                                                         <a href="{{ route('volunteers.show', $cage->volunteer) }}" wire:navigate class="text-xs text-neutral-500 hover:underline dark:text-neutral-400">
                                                             {{ $cage->volunteer->name }}@if ($cage->volunteer->phone) &middot; {{ $cage->volunteer->phone }}@endif
                                                         </a>
@@ -401,7 +401,7 @@
                 @endforeach
             </flux:select>
 
-            @if ($this->cageWingIsFoster)
+            @if ($this->cageWingIsFoster && auth()->user()->currentShelterHasModule('volunteers'))
                 <flux:select wire:model="cageVolunteerId" :label="__('Contact (volunteer)')" :description="__('Optional. The volunteer record holds the family\'s phone and address.')">
                     <flux:select.option value="">{{ __('None') }}</flux:select.option>
                     @foreach ($this->volunteers as $volunteer)

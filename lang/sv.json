@@ -720,5 +720,8 @@
     "due :date": "planerad :date",
     "last dose :date": "senaste dos :date",
     "Overdue": "Försenade",
-    "Due in :month": "Planerade i :month"
+    "Due in :month": "Planerade i :month",
+    "Modules": "Moduler",
+    "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Stäng av de delar av appen som detta djurhem inte använder. Inget raderas: när du slår på en modul igen finns dess data kvar.",
+    "Vaccinations and Treatments": "Vaccinationer och behandlingar"
 }

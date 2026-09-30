@@ -32,15 +32,24 @@ use Illuminate\Support\Str;
  * @property string $joining_fee
  * @property string $membership_fee
  * @property string $membership_fee_frequency
+ * @property array<string, bool>|null $modules
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'short_name', 'slug', 'city', 'region_id', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description', 'joining_fee', 'membership_fee', 'membership_fee_frequency'])]
+#[Fillable(['name', 'short_name', 'slug', 'city', 'region_id', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description', 'joining_fee', 'membership_fee', 'membership_fee_frequency', 'modules'])]
 class Shelter extends Model
 {
     /** @use HasFactory<ShelterFactory> */
     use HasFactory, SoftDeletes;
+
+    /**
+     * The optional parts of the app a shelter can switch off when it does not
+     * use them. Pets, adoptions, diagnoses and facilities are always on.
+     *
+     * @var list<string>
+     */
+    public const MODULES = ['members', 'volunteers', 'sponsorships', 'adoption_applications', 'reports', 'health_records'];
 
     /**
      * Give new shelters a public URL slug when none was chosen.
@@ -94,7 +103,17 @@ class Shelter extends Model
         return [
             'joining_fee' => 'decimal:2',
             'membership_fee' => 'decimal:2',
+            'modules' => 'array',
         ];
+    }
+
+    /**
+     * Whether an optional module is on for the shelter. A module that was
+     * never switched off (no stored choice) counts as on.
+     */
+    public function hasModule(string $module): bool
+    {
+        return ($this->modules[$module] ?? true) !== false;
     }
 
     /**

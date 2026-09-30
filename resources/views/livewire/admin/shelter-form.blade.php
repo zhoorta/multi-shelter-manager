@@ -47,6 +47,10 @@
             @endforeach
         </div>
 
+        <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            @include('livewire.partials.shelter-modules-fields')
+        </div>
+
         <div class="flex justify-end gap-2">
             <flux:button :href="route('admin.shelters.index')" variant="filled" wire:navigate>
                 {{ __('Cancel') }}

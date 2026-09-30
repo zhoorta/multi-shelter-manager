@@ -37,6 +37,10 @@ class SendVaccinationDueNotifications extends Command
      */
     private function notifyShelter(Shelter $shelter): void
     {
+        if (! $shelter->hasModule('health_records')) {
+            return;
+        }
+
         $recipients = $shelter->users()
             ->wherePivot('vaccination_notifications', true)
             ->get();

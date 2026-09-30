@@ -720,5 +720,8 @@
     "due :date": "gepland :date",
     "last dose :date": "laatste dosis :date",
     "Overdue": "Achterstallig",
-    "Due in :month": "Gepland in :month"
+    "Due in :month": "Gepland in :month",
+    "Modules": "Modules",
+    "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Schakel de onderdelen van de app uit die dit asiel niet gebruikt. Er wordt niets verwijderd: als je een module weer aanzet, komen de gegevens terug.",
+    "Vaccinations and Treatments": "Vaccinaties en behandelingen"
 }

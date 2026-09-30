@@ -720,5 +720,8 @@
     "due :date": "prévu le :date",
     "last dose :date": "dernière dose :date",
     "Overdue": "En retard",
-    "Due in :month": "Prévus en :month"
+    "Due in :month": "Prévus en :month",
+    "Modules": "Modules",
+    "Turn off the parts of the app this shelter does not use. Nothing is deleted: turning a module back on restores its data.": "Désactivez les parties de l'application que ce refuge n'utilise pas. Rien n'est supprimé : réactiver un module restaure ses données.",
+    "Vaccinations and Treatments": "Vaccins et traitements"
 }

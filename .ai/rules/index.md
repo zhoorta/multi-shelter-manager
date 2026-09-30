@@ -39,7 +39,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Livewire/AdoptionApplicationForm.php,app/Livewire/Pets/ManageAdoptionApplications.php,app/Models/AdoptionApplication.php,app/Livewire/Pets/AdoptionForm.php | .ai/rules/models-livewire-pets.md |
 | app/Models/Member.php,app/Models/MemberPayment.php,app/Models/Shelter.php | .ai/rules/models-models-models.md |
 | app/Models/User.php,app/Models/Shelter.php | .ai/rules/models-models.md |
-| app/Models/*.php, app/Models/Pet.php, app/Models/FurType.php, app/Models/Cage.php | .ai/rules/models.md |
+| app/Models/*.php, app/Models/Pet.php, app/Models/FurType.php, app/Models/Cage.php, app/Models/Shelter.php | .ai/rules/models.md |
 | app/Console/Commands/SendVaccinationDueNotifications.php,app/Models/PetVaccine.php,app/Notifications/VaccinationDueNotification.php | .ai/rules/notifications.md |
 | resources/views/livewire/pets/partials/sponsorship-box.blade.php,resources/views/livewire/pets/sponsorship-show.blade.php, resources/views/livewire/pets/partials/adoption-box.blade.php,resources/views/livewire/pets/adoption-show.blade.php | .ai/rules/partials-views-livewire-pets.md |
 | app/Livewire/Pets/AdoptionForm.php,app/Livewire/Pets/AdoptionShow.php,resources/views/livewire/pets/partials/adoption-box.blade.php | .ai/rules/partials.md |

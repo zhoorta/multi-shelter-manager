@@ -80,6 +80,8 @@ class AdoptionApplicationForm extends Component
             ->with(['species', 'breed', 'shelter', 'images'])
             ->firstOrFail();
 
+        abort_unless($this->pet->shelter->hasModule('adoption_applications'), 404);
+
         $this->renderedAt = now()->getTimestamp();
     }
 

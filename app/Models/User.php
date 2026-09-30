@@ -143,6 +143,20 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
+     * Whether an optional module (see Shelter::MODULES) is on for the shelter
+     * this user is currently acting within. Admins are not tied to a shelter,
+     * so nothing is hidden from them.
+     */
+    public function currentShelterHasModule(string $module): bool
+    {
+        if ($this->is_admin) {
+            return true;
+        }
+
+        return $this->currentShelter?->hasModule($module) ?? false;
+    }
+
+    /**
      * Whether this user is a read-only viewer of the shelter they are
      * currently acting within. Viewers cannot see adopter or sponsor
      * personal data.

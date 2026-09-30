@@ -55,11 +55,11 @@
         </div>
 
         @if ($showsActionCounters)
-            @foreach ([
-                ['label' => __('Pending Applications'), 'count' => $pendingApplicationsCount, 'href' => route('pets.applications.index')],
-                ['label' => __('Overdue Vaccinations'), 'count' => $overdueVaccinationsCount, 'href' => route('pets.vaccinations.index', ['nextDueFilter' => 'overdue'])],
-                ['label' => __('Fees overdue'), 'count' => $membersInArrearsCount, 'href' => route('members.index', ['inArrearsOnly' => 1])],
-            ] as $counter)
+            @foreach (array_filter([
+                auth()->user()->currentShelterHasModule('adoption_applications') ? ['label' => __('Pending Applications'), 'count' => $pendingApplicationsCount, 'href' => route('pets.applications.index')] : null,
+                auth()->user()->currentShelterHasModule('health_records') ? ['label' => __('Overdue Vaccinations'), 'count' => $overdueVaccinationsCount, 'href' => route('pets.vaccinations.index', ['nextDueFilter' => 'overdue'])] : null,
+                auth()->user()->currentShelterHasModule('members') ? ['label' => __('Fees overdue'), 'count' => $membersInArrearsCount, 'href' => route('members.index', ['inArrearsOnly' => 1])] : null,
+            ]) as $counter)
                 <a
                     wire:key="action-counter-{{ $loop->index }}"
                     href="{{ $counter['href'] }}"
