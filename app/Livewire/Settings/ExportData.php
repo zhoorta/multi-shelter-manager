@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire\Settings;
 
 use App\Actions\ExportShelterData;
+use App\Models\DataExport;
 use App\Models\Shelter;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -42,11 +44,22 @@ class ExportData extends Component
 
         $shelter = Shelter::query()->findOrFail($this->shelterId);
 
-        Log::info('Shelter data exported', ['shelter_id' => $shelter->id, 'user_id' => $user->id]);
+        DataExport::create(['shelter_id' => $shelter->id, 'user_id' => $user->id, 'ip_address' => request()->ip()]);
 
         $filename = 'focinhos-'.Str::slug($shelter->name).'-'.now()->format('Y-m-d').'.zip';
 
         return response()->download($exporter->handle($shelter), $filename)->deleteFileAfterSend();
+    }
+
+    /**
+     * The latest downloads of this shelter's data, for the audit list.
+     *
+     * @return Collection<int, DataExport>
+     */
+    #[Computed]
+    public function recentExports(): Collection
+    {
+        return DataExport::query()->with('user')->where('shelter_id', $this->shelterId)->latest()->limit(10)->get();
     }
 
     public function render(): View

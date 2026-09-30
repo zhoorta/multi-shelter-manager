@@ -731,5 +731,10 @@
     "Download a copy of all your shelter's data": "Ladda ner en kopia av all data från ert djurhem",
     "Download export": "Ladda ner export",
     "The ZIP contains one CSV file per area: pets, vaccinations, treatments, diagnoses, adoptions, adoption applications, sponsorships and payments, members and payments, volunteers, and spaces.": "ZIP-filen innehåller en CSV-fil per område: djur, vaccinationer, behandlingar, diagnoser, adoptioner, adoptionsansökningar, fadderskap och betalningar, medlemmar och betalningar, volontärer och utrymmen.",
-    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "Filen innehåller personuppgifter om medlemmar, volontärer, adoptanter och faddrar. Förvara den säkert och dela den inte."
+    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "Filen innehåller personuppgifter om medlemmar, volontärer, adoptanter och faddrar. Förvara den säkert och dela den inte.",
+    "Recent exports": "Senaste exporter",
+    "Date": "Datum",
+    "User": "Användare",
+    "IP address": "IP-adress",
+    "No exports yet": "Inga exporter ännu"
 }

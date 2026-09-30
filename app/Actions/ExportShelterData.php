@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use RuntimeException;
 use ZipArchive;
 
@@ -44,7 +45,7 @@ class ExportShelterData
      *
      * @var array<int, string>
      */
-    private const EXCLUDED_COLUMNS = ['created_by', 'updated_by', 'deleted_by', 'deleted_at', 'ip_address'];
+    private const EXCLUDED_COLUMNS = ['shelter_id', 'created_by', 'updated_by', 'deleted_by', 'deleted_at', 'ip_address'];
 
     /**
      * Build the ZIP in a temporary file and return its path; the caller
@@ -71,7 +72,9 @@ class ExportShelterData
 
     /**
      * Every file of the export: its name, the shelter's rows and the label
-     * columns (header => resolver) appended after the table columns.
+     * columns (key => resolver). A key that is a table column (e.g. species_id)
+     * shows the readable value in that column's place, headed without "_id";
+     * any other key is appended after the table columns.
      *
      * @return array<string, array{0: Builder<Model>, 1: array<string, Closure(Model): mixed>}>
      */
@@ -90,35 +93,35 @@ class ExportShelterData
                 Pet::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelterId)
                     ->with(['species', 'breed', 'primaryColor', 'secondaryColor', 'furType', 'size', 'cage.wing']),
                 [
-                    'species' => fn (Pet $pet): mixed => $pet->species?->name,
-                    'breed' => fn (Pet $pet): mixed => $pet->breed?->name,
-                    'primary_color' => fn (Pet $pet): mixed => $pet->primaryColor?->name,
-                    'secondary_color' => fn (Pet $pet): mixed => $pet->secondaryColor?->name,
-                    'fur_type' => fn (Pet $pet): mixed => $pet->furType?->name,
-                    'size' => fn (Pet $pet): mixed => $pet->size?->name,
+                    'species_id' => fn (Pet $pet): mixed => $pet->species?->name,
+                    'breed_id' => fn (Pet $pet): mixed => $pet->breed?->name,
+                    'primary_color_id' => fn (Pet $pet): mixed => $pet->primaryColor?->name,
+                    'secondary_color_id' => fn (Pet $pet): mixed => $pet->secondaryColor?->name,
+                    'fur_type_id' => fn (Pet $pet): mixed => $pet->furType?->name,
+                    'size_id' => fn (Pet $pet): mixed => $pet->size?->name,
                     'wing' => fn (Pet $pet): mixed => $pet->cage?->wing?->name,
-                    'cage' => fn (Pet $pet): mixed => $pet->cage?->code,
+                    'cage_id' => fn (Pet $pet): mixed => $pet->cage?->code,
                 ],
             ],
             'vaccinations' => [
                 PetVaccine::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet, 'vaccine']),
-                $petLabels() + ['vaccine' => fn (PetVaccine $row): mixed => $row->vaccine?->name],
+                $petLabels() + ['vaccine_id' => fn (PetVaccine $row): mixed => $row->vaccine?->name],
             ],
             'treatments' => [
                 PetTreatment::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet, 'treatment']),
-                $petLabels() + ['treatment' => fn (PetTreatment $row): mixed => $row->treatment?->name],
+                $petLabels() + ['treatment_id' => fn (PetTreatment $row): mixed => $row->treatment?->name],
             ],
             'diagnoses' => [
                 PetSickness::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet, 'sickness']),
-                $petLabels() + ['sickness' => fn (PetSickness $row): mixed => $row->sickness?->name],
+                $petLabels() + ['sickness_id' => fn (PetSickness $row): mixed => $row->sickness?->name],
             ],
             'adoptions' => [
                 Adoption::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet]),
                 $petLabels(),
             ],
             'adoption_applications' => [
-                AdoptionApplication::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet]),
-                $petLabels(),
+                AdoptionApplication::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet, 'reviewer']),
+                $petLabels() + ['reviewed_by' => fn (AdoptionApplication $row): mixed => $row->reviewer?->name],
             ],
             'sponsorships' => [
                 Sponsorship::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet]),
@@ -133,8 +136,8 @@ class ExportShelterData
                 ],
             ],
             'members' => [
-                Member::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelterId),
-                [],
+                Member::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelterId)->with('volunteer'),
+                ['volunteer_id' => fn (Member $member): mixed => $member->volunteer?->name],
             ],
             'member_payments' => [
                 MemberPayment::query()->whereHas('member', $ownRow)->with(['member' => fn (Builder|Relation $query): Builder|Relation => $query->withoutGlobalScope('shelter')]),
@@ -160,14 +163,14 @@ class ExportShelterData
             ],
             'wings' => [
                 Wing::query()->whereHas('facility', $ownRow)->with(['facility' => fn (Builder|Relation $query): Builder|Relation => $query->withoutGlobalScope('shelter')]),
-                ['facility' => fn (Wing $wing): mixed => $wing->facility?->name],
+                ['facility_id' => fn (Wing $wing): mixed => $wing->facility?->name],
             ],
             'cages' => [
                 Cage::query()->whereHas('wing.facility', $ownRow)->with(['wing', 'species', 'volunteer']),
                 [
-                    'wing' => fn (Cage $cage): mixed => $cage->wing?->name,
-                    'species' => fn (Cage $cage): mixed => $cage->species?->name,
-                    'volunteer_name' => fn (Cage $cage): mixed => $cage->volunteer?->name,
+                    'wing_id' => fn (Cage $cage): mixed => $cage->wing?->name,
+                    'species_id' => fn (Cage $cage): mixed => $cage->species?->name,
+                    'volunteer_id' => fn (Cage $cage): mixed => $cage->volunteer?->name,
                 ],
             ],
         ];
@@ -180,20 +183,24 @@ class ExportShelterData
     private function toCsv(Builder $query, array $labels): string
     {
         $columns = array_values(array_diff(Schema::getColumnListing($query->getModel()->getTable()), self::EXCLUDED_COLUMNS));
+        $extras = array_diff_key($labels, array_flip($columns));
 
         $stream = fopen('php://temp', 'r+');
 
         // BOM and ';' so Excel (Portuguese settings) opens the accents and columns correctly.
         fwrite($stream, "\xEF\xBB\xBF");
-        fputcsv($stream, [...$columns, ...array_keys($labels)], ';', '"', '');
+        fputcsv($stream, [
+            ...array_map(fn (string $column): string => isset($labels[$column]) ? Str::beforeLast($column, '_id') : $column, $columns),
+            ...array_keys($extras),
+        ], ';', '"', '');
 
-        $query->chunkById(500, function ($rows) use ($stream, $columns, $labels): void {
+        $query->chunkById(500, function ($rows) use ($stream, $columns, $labels, $extras): void {
             foreach ($rows as $row) {
                 $attributes = $row->getAttributes();
 
                 fputcsv($stream, [
-                    ...array_map(fn (string $column): string => $this->cell($attributes[$column] ?? null), $columns),
-                    ...array_map(fn (Closure $label): string => $this->cell($label($row)), array_values($labels)),
+                    ...array_map(fn (string $column): string => $this->cell(isset($labels[$column]) ? $labels[$column]($row) : ($attributes[$column] ?? null)), $columns),
+                    ...array_map(fn (Closure $label): string => $this->cell($label($row)), array_values($extras)),
                 ], ';', '"', '');
             }
         });

@@ -3,6 +3,7 @@
 use App\Actions\ExportShelterData;
 use App\Livewire\Settings\ExportData;
 use App\Models\Adoption;
+use App\Models\DataExport;
 use App\Models\Member;
 use App\Models\MemberPayment;
 use App\Models\Pet;
@@ -102,4 +103,41 @@ test('text that a spreadsheet would read as a formula is neutralised', function 
     Pet::factory()->for($this->shelter)->create(['name' => '=HYPERLINK("http://evil.test")']);
 
     expect(implode("\n", exportedFiles($this->shelter)['pets']))->toContain("'=HYPERLINK");
+});
+
+test('lookup ids are replaced by their names while links between files keep their ids', function () {
+    $pet = Pet::factory()->for($this->shelter)->create(['name' => 'Rex']);
+    $pet->vaccines()->attach(Vaccine::factory()->create(['name' => 'Rabies']), ['administered_date' => '2026-01-10']);
+
+    $files = exportedFiles($this->shelter);
+
+    $petHeader = explode(';', $files['pets'][0]);
+    $petRow = explode(';', $files['pets'][1]);
+    $vaccinationHeader = explode(';', $files['vaccinations'][0]);
+
+    expect($petHeader)->toContain('species', 'breed', 'cage', 'id')
+        ->not->toContain('species_id', 'breed_id', 'cage_id', 'shelter_id')
+        ->and($petRow[array_search('species', $petHeader)])->toBe($pet->species->name)
+        ->and($petRow[array_search('breed', $petHeader)])->toBe($pet->breed->name)
+        ->and($vaccinationHeader)->toContain('pet_id', 'pet_ref', 'vaccine')
+        ->not->toContain('vaccine_id');
+});
+
+test('every download is recorded and listed for the manager, for their own shelter only', function () {
+    DataExport::factory()->create(['ip_address' => '203.0.113.99']);
+
+    Livewire::actingAs($this->manager)
+        ->test(ExportData::class)
+        ->assertSee('No exports yet')
+        ->call('export');
+
+    $own = DataExport::query()->where('shelter_id', $this->shelter->id)->sole();
+
+    expect($own->user_id)->toBe($this->manager->id)->and($own->ip_address)->not->toBeNull();
+
+    Livewire::actingAs($this->manager)
+        ->test(ExportData::class)
+        ->assertSee($this->manager->name)
+        ->assertDontSee('203.0.113.99')
+        ->assertDontSee('No exports yet');
 });

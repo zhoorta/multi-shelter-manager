@@ -731,5 +731,10 @@
     "Download a copy of all your shelter's data": "Download a copy of all your shelter's data",
     "Download export": "Download export",
     "The ZIP contains one CSV file per area: pets, vaccinations, treatments, diagnoses, adoptions, adoption applications, sponsorships and payments, members and payments, volunteers, and spaces.": "The ZIP contains one CSV file per area: pets, vaccinations, treatments, diagnoses, adoptions, adoption applications, sponsorships and payments, members and payments, volunteers, and spaces.",
-    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it."
+    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.",
+    "Recent exports": "Recent exports",
+    "Date": "Date",
+    "User": "User",
+    "IP address": "IP address",
+    "No exports yet": "No exports yet"
 }

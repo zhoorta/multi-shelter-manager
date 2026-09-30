@@ -731,5 +731,10 @@
     "Download a copy of all your shelter's data": "Téléchargez une copie de toutes les données de votre refuge",
     "Download export": "Télécharger l'export",
     "The ZIP contains one CSV file per area: pets, vaccinations, treatments, diagnoses, adoptions, adoption applications, sponsorships and payments, members and payments, volunteers, and spaces.": "Le ZIP contient un fichier CSV par domaine : animaux, vaccins, traitements, diagnostics, adoptions, demandes d'adoption, parrainages et paiements, membres et paiements, bénévoles et espaces.",
-    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "Le fichier contient des données personnelles de membres, bénévoles, adoptants et parrains. Conservez-le en lieu sûr et ne le partagez pas."
+    "The file contains personal data of members, volunteers, adopters and sponsors. Store it safely and do not share it.": "Le fichier contient des données personnelles de membres, bénévoles, adoptants et parrains. Conservez-le en lieu sûr et ne le partagez pas.",
+    "Recent exports": "Exports récents",
+    "Date": "Date",
+    "User": "Utilisateur",
+    "IP address": "Adresse IP",
+    "No exports yet": "Aucun export pour le moment"
 }
