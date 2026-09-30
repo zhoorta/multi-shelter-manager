@@ -177,3 +177,16 @@ test('describes the viewer role', function () {
         ->assertOk()
         ->assertSeeInOrder(['Roles', 'Staff', 'Viewer', 'read-only access']);
 });
+
+test('the documentation explains the modules in every locale', function (string $locale, string $heading) {
+    $this->actingAs(User::factory()->create());
+
+    app()->setLocale($locale);
+
+    $this->get(route('documentation'))->assertOk()->assertSee('<strong>'.$heading.'</strong>', false);
+
+    app()->setLocale('en');
+})->with([
+    'en' => ['en', 'Modules'], 'pt' => ['pt', 'Módulos'], 'es' => ['es', 'Módulos'], 'fr' => ['fr', 'Modules'], 'it' => ['it', 'Moduli'],
+    'de' => ['de', 'Module'], 'nl' => ['nl', 'Modules'], 'pl' => ['pl', 'Moduły'], 'sv' => ['sv', 'Moduler'], 'da' => ['da', 'Moduler'],
+]);

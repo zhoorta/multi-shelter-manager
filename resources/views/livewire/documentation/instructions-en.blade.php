@@ -46,6 +46,8 @@
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Finding your way around</h3>
         <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions, Vaccinations and Treatments), Volunteers, Members and Facilities; managers also see Users. Admins see Users and the Administration menu instead. Viewers see the same menus as staff, except Sponsorships, Adoptions, Volunteers and Members, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
         <p>The Pets menu also includes <strong>Adoption Applications</strong> for managers and staff, and only managers see <strong>Reports</strong>.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Modules</h3>
+        <p>A shelter that does not use every part of the app can switch modules off: <strong>Members</strong>, <strong>Volunteers</strong>, <strong>Sponsorships</strong>, <strong>Adoption Applications</strong>, <strong>Reports</strong>, and <strong>Vaccinations and Treatments</strong>. Managers do it under <strong>Settings &gt; Shelter</strong> and admins in the shelter's edit form, in the <strong>Modules</strong> section. A module that is switched off disappears from the sidebar, the dashboard and the pet pages, and its pages no longer open. With Adoption Applications off, the public pet page no longer shows the &ldquo;I want to adopt&rdquo; button. Nothing is deleted: switching a module back on restores all its data. Pets, adoptions, diagnoses and facilities are always on.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
