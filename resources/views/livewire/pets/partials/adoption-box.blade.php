@@ -66,6 +66,15 @@
         </div>
 
         <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Pet registry') }}</flux:text>
+            @if ($adoption->siac_transferred_at)
+                <flux:badge size="sm" color="lime">{{ __('Transferred on :date', ['date' => $adoption->siac_transferred_at->format('d/m/Y')]) }}</flux:badge>
+            @else
+                <flux:badge size="sm" color="amber">{{ __('Pending') }}</flux:badge>
+            @endif
+        </div>
+
+        <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Adoption Fee') }}</flux:text>
             <flux:text class="text-neutral-700 dark:text-neutral-300">{{ number_format((float) $adoption->adoption_fee, 2, ',', '.') }}</flux:text>
         </div>

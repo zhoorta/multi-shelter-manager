@@ -739,5 +739,11 @@
     "No exports yet": "Inga exporter ännu",
     "Whole year": "Hela året",
     "Export to Excel": "Exportera till Excel",
-    "Internal Notes": "Interna anteckningar"
+    "Internal Notes": "Interna anteckningar",
+    "Pet registry": "Djurregister",
+    "Transferred in the pet registry": "Överförd i registret",
+    "The vet already moved the animal to the owner's name in the pet registry": "Veterinären har redan flyttat djuret till ägarens namn i registret",
+    "Transferred on :date": "Överförd :date",
+    "Registry: all": "Register: alla",
+    "Registry: pending": "Register: väntar"
 }

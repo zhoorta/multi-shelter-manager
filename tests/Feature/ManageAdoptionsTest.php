@@ -336,3 +336,33 @@ test('viewers are forbidden from viewing adopter and sponsor personal data', fun
 
     $this->get(route('pets.adoptions.index'))->assertForbidden();
 });
+
+test('the adoptions list shows whether the SIAC transfer is done', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Adoption::factory()->for(Pet::factory()->for($shelter))->create(['name' => 'Done Owner', 'siac_transferred_at' => '2026-10-01']);
+    Adoption::factory()->for(Pet::factory()->for($shelter))->create(['name' => 'Waiting Owner']);
+
+    $html = Livewire::test(ManageAdoptions::class)->html();
+
+    expect($html)->toMatch('~Done Owner.*Transferred in the pet registry.*Waiting Owner.*Registry: pending~s');
+});
+
+test('filters the adoptions by SIAC transfer, ignoring returned ones as pending', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Adoption::factory()->for(Pet::factory()->for($shelter))->create(['name' => 'Done Owner', 'siac_transferred_at' => '2026-10-01']);
+    Adoption::factory()->for(Pet::factory()->for($shelter))->create(['name' => 'Waiting Owner']);
+    Adoption::factory()->for(Pet::factory()->for($shelter))->create(['name' => 'Returned Owner', 'return_date' => '2026-10-02']);
+
+    Livewire::test(ManageAdoptions::class)
+        ->set('siacFilter', 'pending')
+        ->assertSee('Waiting Owner')
+        ->assertDontSee('Done Owner')
+        ->assertDontSee('Returned Owner')
+        ->set('siacFilter', 'transferred')
+        ->assertSee('Done Owner')
+        ->assertDontSee('Waiting Owner');
+});

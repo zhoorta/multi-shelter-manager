@@ -367,3 +367,49 @@ test('viewers are forbidden from viewing the form', function () {
 
     $this->get(route('pets.adopt', $pet))->assertForbidden();
 });
+
+test('ticking the SIAC transfer stamps today once and unticking clears it', function () {
+    $this->travelTo('2026-10-02');
+
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'checkout_date' => '2026-01-15']);
+    $adoption = Adoption::factory()->for($pet)->create(['adoption_date' => '2026-01-15']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $form = Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
+        ->assertSet('siacTransferred', false)
+        ->set('siacTransferred', true)
+        ->call('saveAdoption')
+        ->assertHasNoErrors();
+
+    expect($adoption->refresh()->siac_transferred_at->toDateString())->toBe('2026-10-02');
+
+    $this->travelTo('2026-10-20');
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
+        ->assertSet('siacTransferred', true)
+        ->call('saveAdoption');
+
+    expect($adoption->refresh()->siac_transferred_at->toDateString())->toBe('2026-10-02');
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
+        ->set('siacTransferred', false)
+        ->call('saveAdoption');
+
+    expect($adoption->refresh()->siac_transferred_at)->toBeNull();
+});
+
+test('a new adoption starts without the SIAC transfer', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet])
+        ->set('adopterName', 'Maria Silva')
+        ->call('saveAdoption')
+        ->assertHasNoErrors();
+
+    expect($pet->adoptions()->first()->siac_transferred_at)->toBeNull();
+});

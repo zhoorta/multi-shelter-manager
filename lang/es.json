@@ -739,5 +739,11 @@
     "No exports yet": "Aún no hay exportaciones",
     "Whole year": "Año completo",
     "Export to Excel": "Exportar a Excel",
-    "Internal Notes": "Notas internas"
+    "Internal Notes": "Notas internas",
+    "Pet registry": "Registro de animales",
+    "Transferred in the pet registry": "Transferido en el registro",
+    "The vet already moved the animal to the owner's name in the pet registry": "El veterinario ya ha pasado el animal al nombre del dueño en el registro",
+    "Transferred on :date": "Transferido el :date",
+    "Registry: all": "Registro: todas",
+    "Registry: pending": "Registro: pendiente"
 }

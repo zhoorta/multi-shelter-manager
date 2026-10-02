@@ -739,5 +739,11 @@
     "No exports yet": "Nog geen exports",
     "Whole year": "Heel jaar",
     "Export to Excel": "Exporteren naar Excel",
-    "Internal Notes": "Interne notities"
+    "Internal Notes": "Interne notities",
+    "Pet registry": "Dierenregister",
+    "Transferred in the pet registry": "Overgedragen in het register",
+    "The vet already moved the animal to the owner's name in the pet registry": "De dierenarts heeft het dier al op naam van de eigenaar gezet in het register",
+    "Transferred on :date": "Overgedragen op :date",
+    "Registry: all": "Register: alle",
+    "Registry: pending": "Register: in afwachting"
 }

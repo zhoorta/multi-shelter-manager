@@ -23,6 +23,12 @@ class ManageAdoptions extends Component
 
     public string $search = '';
 
+    /**
+     * '' for all, 'pending' for open adoptions not yet moved to the owner in
+     * the pet registry (SIAC in Portugal), 'transferred' for the ones already done.
+     */
+    public string $siacFilter = '';
+
     public function mount(): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
@@ -30,6 +36,11 @@ class ManageAdoptions extends Component
     }
 
     public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSiacFilter(): void
     {
         $this->resetPage();
     }
@@ -57,6 +68,8 @@ class ManageAdoptions extends Component
                             ->orWhere('ref', 'like', '%'.$this->search.'%'))
                 ),
             )
+            ->when($this->siacFilter === 'pending', fn (Builder $query) => $query->whereNull('siac_transferred_at')->whereNull('return_date'))
+            ->when($this->siacFilter === 'transferred', fn (Builder $query) => $query->whereNotNull('siac_transferred_at'))
             ->latest('adoption_date')
             ->paginate(20);
     }

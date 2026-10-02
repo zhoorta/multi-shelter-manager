@@ -10,6 +10,12 @@
             :placeholder="__('Search by owner, contact, pet or notes')"
             class="sm:max-w-xs"
         />
+
+        <flux:select wire:model.live="siacFilter" class="sm:max-w-xs">
+            <flux:select.option value="">{{ __('Registry: all') }}</flux:select.option>
+            <flux:select.option value="pending">{{ __('Registry: pending') }}</flux:select.option>
+            <flux:select.option value="transferred">{{ __('Transferred in the pet registry') }}</flux:select.option>
+        </flux:select>
     </div>
 
     <div class="rounded-xl bg-white shadow-sm dark:bg-neutral-900">
@@ -48,6 +54,13 @@
                                                 {!! __('Returned at :date', ['date' => '<strong>'.$adoption->return_date->format('d/m/Y').'</strong>']) !!}
                                             </span>
                                         @endif
+                                        <div>
+                                            @if ($adoption->siac_transferred_at)
+                                                <flux:badge size="sm" color="lime">{{ __('Transferred in the pet registry') }}</flux:badge>
+                                            @else
+                                                <flux:badge size="sm" color="amber">{{ __('Registry: pending') }}</flux:badge>
+                                            @endif
+                                        </div>
                                         @if ($adoption->notes)
                                             <div class="h-3"></div>
                                             <span class="text-neutral-500 dark:text-neutral-400">{{ $adoption->notes }}</span>

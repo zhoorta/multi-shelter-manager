@@ -59,6 +59,13 @@
                 />
             </div>
 
+            <flux:switch
+                wire:model="siacTransferred"
+                :label="__('Transferred in the pet registry')"
+                :description="__('The vet already moved the animal to the owner\'s name in the pet registry')"
+                align="left"
+            />
+
             <div class="grid grid-cols-2 gap-4">
                 <flux:input wire:model="adoptionFee" type="number" step="0.01" min="0" :label="__('Adoption Fee')" />
 

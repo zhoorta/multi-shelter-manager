@@ -739,5 +739,11 @@
     "No exports yet": "No exports yet",
     "Whole year": "Whole year",
     "Export to Excel": "Export to Excel",
-    "Internal Notes": "Internal Notes"
+    "Internal Notes": "Internal Notes",
+    "Pet registry": "Pet registry",
+    "Transferred in the pet registry": "Transferred in the pet registry",
+    "The vet already moved the animal to the owner's name in the pet registry": "The vet already moved the animal to the owner's name in the pet registry",
+    "Transferred on :date": "Transferred on :date",
+    "Registry: all": "Registry: all",
+    "Registry: pending": "Registry: pending"
 }

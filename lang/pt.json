@@ -739,5 +739,11 @@
     "No exports yet": "Ainda não há exportações",
     "Whole year": "Ano completo",
     "Export to Excel": "Exportar para Excel",
-    "Internal Notes": "Notas Internas"
+    "Internal Notes": "Notas Internas",
+    "Pet registry": "SIAC",
+    "Transferred in the pet registry": "Transferido no SIAC",
+    "The vet already moved the animal to the owner's name in the pet registry": "O veterinário já passou o animal para o nome do dono no SIAC",
+    "Transferred on :date": "Transferido em :date",
+    "Registry: all": "SIAC: todas",
+    "Registry: pending": "SIAC: pendente"
 }

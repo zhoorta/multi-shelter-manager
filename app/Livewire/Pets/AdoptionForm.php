@@ -41,6 +41,8 @@ class AdoptionForm extends Component
 
     public string $returnDate = '';
 
+    public bool $siacTransferred = false;
+
     public string $adoptionFee = '0.00';
 
     public string $adoptionNotes = '';
@@ -85,6 +87,7 @@ class AdoptionForm extends Component
         $this->adopterCity = (string) $adoption->city;
         $this->adoptionDate = $adoption->adoption_date->toDateString();
         $this->returnDate = (string) $adoption->return_date?->toDateString();
+        $this->siacTransferred = $adoption->siac_transferred_at !== null;
         $this->adoptionFee = (string) $adoption->adoption_fee;
         $this->adoptionNotes = (string) $adoption->notes;
         $this->applicationStatus = $adoption->application_status;
@@ -101,6 +104,7 @@ class AdoptionForm extends Component
             'adopterCity' => ['nullable', 'string', 'max:100'],
             'adoptionDate' => ['required', 'date'],
             'returnDate' => ['nullable', 'date', 'after_or_equal:adoptionDate'],
+            'siacTransferred' => ['boolean'],
             'adoptionFee' => ['nullable', 'numeric', 'min:0'],
             'adoptionNotes' => ['nullable', 'string'],
             'applicationStatus' => ['required', 'in:Pending,Approved,Rejected'],
@@ -113,6 +117,7 @@ class AdoptionForm extends Component
             'adopterCity' => __('City'),
             'adoptionDate' => __('Adoption Date'),
             'returnDate' => __('Return Date'),
+            'siacTransferred' => __('Transferred in the pet registry'),
             'adoptionFee' => __('Adoption Fee'),
             'adoptionNotes' => __('Notes'),
             'applicationStatus' => __('Application Status'),
@@ -144,6 +149,7 @@ class AdoptionForm extends Component
                 'city' => $validated['adopterCity'] !== '' ? $validated['adopterCity'] : null,
                 'adoption_date' => $validated['adoptionDate'],
                 'return_date' => $validated['returnDate'] !== '' ? $validated['returnDate'] : null,
+                'siac_transferred_at' => $validated['siacTransferred'] ? ($this->adoption?->siac_transferred_at ?? today()) : null,
                 'adoption_fee' => $validated['adoptionFee'] !== '' ? $validated['adoptionFee'] : 0,
                 'notes' => $validated['adoptionNotes'] !== '' ? $validated['adoptionNotes'] : null,
                 'application_status' => $validated['applicationStatus'],

@@ -739,5 +739,11 @@
     "No exports yet": "Ingen eksporter endnu",
     "Whole year": "Hele året",
     "Export to Excel": "Eksportér til Excel",
-    "Internal Notes": "Interne noter"
+    "Internal Notes": "Interne noter",
+    "Pet registry": "Dyreregister",
+    "Transferred in the pet registry": "Overført i registret",
+    "The vet already moved the animal to the owner's name in the pet registry": "Dyrlægen har allerede overført dyret til ejerens navn i registret",
+    "Transferred on :date": "Overført :date",
+    "Registry: all": "Register: alle",
+    "Registry: pending": "Register: afventer"
 }
