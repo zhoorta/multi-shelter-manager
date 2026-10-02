@@ -715,7 +715,7 @@
     "Record the same vaccine for several animals at once, e.g. on the day the vet vaccinates a group.": "Registreer hetzelfde vaccin voor meerdere dieren tegelijk, bijvoorbeeld op de dag dat de dierenarts een groep vaccineert.",
     "Vaccination Plan": "Vaccinatieplan",
     "Vaccination recorded for :count animal.|Vaccination recorded for :count animals.": "Vaccinatie geregistreerd voor :count dier.|Vaccinatie geregistreerd voor :count dieren.",
-    "Vaccinations due per month for the animals in the shelter. Choose a month to see the animals and print the list for the vet.": "Geplande vaccinaties per maand voor de dieren in het asiel. Kies een maand om de dieren te zien en de lijst voor de dierenarts af te drukken.",
+    "Vaccinations due per month for the animals in the shelter. Choose a month or the whole year to see the animals, print the list for the vet or export it to Excel.": "Vaccinaties die per maand gepland staan voor de dieren in het asiel. Kies een maand of het hele jaar om de dieren te zien, de lijst voor de dierenarts af te drukken of naar Excel te exporteren.",
     "Vaccines due": "Geplande vaccinaties",
     "due :date": "gepland :date",
     "last dose :date": "laatste dosis :date",
@@ -736,5 +736,7 @@
     "Date": "Datum",
     "User": "Gebruiker",
     "IP address": "IP-adres",
-    "No exports yet": "Nog geen exports"
+    "No exports yet": "Nog geen exports",
+    "Whole year": "Heel jaar",
+    "Export to Excel": "Exporteren naar Excel"
 }

@@ -12,10 +12,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Yearly vaccination plan: how many open vaccinations of the shelter's
@@ -36,7 +38,7 @@ class VaccinationPlan extends Component
     public ?int $year = null;
 
     /**
-     * Selected month (1-12, 0 = before the year), or null for none.
+     * Selected month (1-12, 0 = before the year, 13 = the whole year), or null for none.
      */
     #[Url]
     public ?int $month = null;
@@ -119,7 +121,7 @@ class VaccinationPlan extends Component
      */
     public function selectMonth(int $month, ?int $vaccineId = null): void
     {
-        $this->month = max(0, min(12, $month));
+        $this->month = max(0, min(self::WHOLE_YEAR, $month));
         $this->vaccine = $vaccineId;
     }
 
@@ -134,6 +136,27 @@ class VaccinationPlan extends Component
         $this->clearSelection();
     }
 
+    public function selectWholeYear(): void
+    {
+        $this->selectMonth(self::WHOLE_YEAR);
+    }
+
+    /**
+     * Download the selected list as a spreadsheet, in box order.
+     */
+    public function exportCsv(): StreamedResponse
+    {
+        abort_if($this->month === null, 404);
+
+        $csv = $this->dueVaccinationsCsv($this->duePets);
+
+        return response()->streamDownload(
+            fn () => print ($csv),
+            Str::slug(__('Vaccination Plan').' '.$this->monthLabel()).'.csv',
+            ['Content-Type' => 'text/csv; charset=UTF-8'],
+        );
+    }
+
     public function monthLabel(): string
     {
         return $this->planMonthLabel($this->year, $this->month ?? 0);
@@ -146,6 +169,10 @@ class VaccinationPlan extends Component
      */
     public function groupDueMonth(): ?string
     {
+        if ($this->month === self::WHOLE_YEAR) {
+            return null;
+        }
+
         if ($this->month === 0) {
             return $this->year <= today()->year ? 'overdue' : null;
         }

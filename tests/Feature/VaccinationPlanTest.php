@@ -1,11 +1,14 @@
 <?php
 
 use App\Livewire\Pets\VaccinationPlan;
+use App\Models\Cage;
+use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Vaccine;
+use App\Models\Wing;
 use Livewire\Livewire;
 
 beforeEach(function () {
@@ -119,4 +122,49 @@ test('prints the vet list of the month\'s due residents of the shelter only', fu
         ->assertSee('Abby')
         ->assertDontSee('Bingo')
         ->assertDontSee('Outsider');
+});
+
+test('the whole year lists every animal due in it, ordered by wing and box', function () {
+    $this->actingAs(User::factory()->forShelter($this->shelter, 'viewer')->create());
+
+    $wing = Wing::factory()->for(Facility::factory()->for($this->shelter)->create(['name' => 'Main Kennel']))->create(['name' => 'Corridor A']);
+    $box2 = Cage::factory()->for($wing)->create(['code' => 'A2']);
+    $box10 = Cage::factory()->for($wing)->create(['code' => 'A10']);
+
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2027-12-31']], ['name' => 'Zed', 'cage_id' => $box10->id]);
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2027-01-01']], ['name' => 'Yan', 'cage_id' => $box2->id]);
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2027-06-01']], ['name' => 'Abby']);
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2026-12-31']], ['name' => 'Early']);
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2028-01-01']], ['name' => 'Late']);
+
+    $plan = Livewire::withQueryParams(['year' => 2027])
+        ->test(VaccinationPlan::class)
+        ->call('selectWholeYear')
+        ->assertDontSee('Early')
+        ->assertDontSee('Late');
+
+    expect($plan->html())->toMatch('~Yan.*Zed.*Abby~s');
+    $plan->assertSee('Main Kennel');
+});
+
+test('exports the list as a spreadsheet with chip, birth date, box and vaccine dates', function () {
+    $this->actingAs(User::factory()->forShelter($this->shelter, 'viewer')->create());
+
+    $box = Cage::factory()->for(Wing::factory()->for(Facility::factory()->for($this->shelter)->create(['name' => 'Main Kennel']))->create(['name' => 'Corridor A']))->create(['code' => 'A2']);
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2027-05-01']], ['name' => 'Abby', 'chip' => '941000023525681', 'birth_date' => '2020-03-04', 'cage_id' => $box->id]);
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2027-06-01']], ['name' => '=Bad']);
+
+    $response = Livewire::withQueryParams(['year' => 2027])
+        ->test(VaccinationPlan::class)
+        ->call('selectWholeYear')
+        ->call('exportCsv')
+        ->assertFileDownloaded('vaccination-plan-2027.csv');
+
+    $csv = $response->effects['download']['content'] ?? null;
+    $decoded = base64_decode((string) $csv);
+
+    expect($decoded)
+        ->toContain('Name;Microchip;"Birth Date";Facility;Wing;Cage;"Rabies — Administered Date";"Rabies — Next Due Date"')
+        ->toContain('Abby;941000023525681;04/03/2020;"Main Kennel";"Corridor A";A2;01/05/2024;01/05/2027')
+        ->toContain("'=Bad");
 });

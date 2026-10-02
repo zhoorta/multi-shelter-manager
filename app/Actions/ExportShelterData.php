@@ -199,8 +199,8 @@ class ExportShelterData
                 $attributes = $row->getAttributes();
 
                 fputcsv($stream, [
-                    ...array_map(fn (string $column): string => $this->cell(isset($labels[$column]) ? $labels[$column]($row) : ($attributes[$column] ?? null)), $columns),
-                    ...array_map(fn (Closure $label): string => $this->cell($label($row)), array_values($extras)),
+                    ...array_map(fn (string $column): string => self::cell(isset($labels[$column]) ? $labels[$column]($row) : ($attributes[$column] ?? null)), $columns),
+                    ...array_map(fn (Closure $label): string => self::cell($label($row)), array_values($extras)),
                 ], ';', '"', '');
             }
         });
@@ -214,7 +214,7 @@ class ExportShelterData
      * Cell text, with a leading apostrophe when a spreadsheet would read it as
      * a formula (typed-in names and notes are not trusted).
      */
-    private function cell(mixed $value): string
+    public static function cell(mixed $value): string
     {
         $text = (string) ($value ?? '');
 

@@ -46,7 +46,7 @@
                         <p class="text-xs text-neutral-500">{{ $row['pet']->species->name }} - {{ $row['pet']->ref }}</p>
                     </td>
                     <td class="py-2 pr-4 align-top">{{ $row['pet']->chip ?? '—' }}</td>
-                    <td class="py-2 pr-4 align-top">{{ collect([$row['pet']->cage?->wing?->name, $row['pet']->cage?->code])->filter()->implode(' · ') ?: '—' }}</td>
+                    <td class="py-2 pr-4 align-top">{{ collect([$row['pet']->cage?->wing?->facility?->name, $row['pet']->cage?->wing?->name, $row['pet']->cage?->code])->filter()->implode(' · ') ?: '—' }}</td>
                     <td class="py-2 pr-4 align-top">
                         @foreach ($row['vaccinations'] as $vaccination)
                             <p>

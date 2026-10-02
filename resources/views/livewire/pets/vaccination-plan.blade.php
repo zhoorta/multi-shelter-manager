@@ -14,10 +14,12 @@
     <div class="flex flex-wrap items-center justify-between gap-4">
         <div class="flex flex-col gap-1">
             <flux:heading size="xl">{{ __('Vaccination Plan') }}</flux:heading>
-            <flux:subheading>{{ __('Vaccinations due per month for the animals in the shelter. Choose a month to see the animals and print the list for the vet.') }}</flux:subheading>
+            <flux:subheading>{{ __('Vaccinations due per month for the animals in the shelter. Choose a month or the whole year to see the animals, print the list for the vet or export it to Excel.') }}</flux:subheading>
         </div>
 
         <div class="flex items-center gap-2">
+            <flux:button wire:click="selectWholeYear" variant="filled" icon="calendar-days">{{ __('Whole year') }}</flux:button>
+
             <flux:select wire:model.live="year" class="w-28">
                 @foreach ($this->yearOptions as $yearOption)
                     <flux:select.option value="{{ $yearOption }}">{{ $yearOption }}</flux:select.option>
@@ -136,6 +138,12 @@
                         {{ __('Print list for the vet') }}
                     </flux:button>
 
+                    @if ($this->duePets->isNotEmpty())
+                        <flux:button wire:click="exportCsv" variant="filled" icon="arrow-down-tray">
+                            {{ __('Export to Excel') }}
+                        </flux:button>
+                    @endif
+
                     @if ($canEdit && $this->duePets->isNotEmpty() && $this->groupDueMonth() !== null)
                         @php
                             $listedVaccines = $selectedVaccine
@@ -176,7 +184,7 @@
                                     <div class="text-xs text-neutral-500 dark:text-neutral-400">{{ $row['pet']->species->name }} - {{ $row['pet']->ref }}</div>
                                 </td>
                                 <td class="py-2 pr-4">{{ $row['pet']->chip ?? '—' }}</td>
-                                <td class="py-2 pr-4">{{ collect([$row['pet']->cage?->wing?->name, $row['pet']->cage?->code])->filter()->implode(' · ') ?: '—' }}</td>
+                                <td class="py-2 pr-4">{{ collect([$row['pet']->cage?->wing?->facility?->name, $row['pet']->cage?->wing?->name, $row['pet']->cage?->code])->filter()->implode(' · ') ?: '—' }}</td>
                                 <td class="py-2">
                                     @foreach ($row['vaccinations'] as $vaccination)
                                         <div>

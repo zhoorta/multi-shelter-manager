@@ -715,7 +715,7 @@
     "Record the same vaccine for several animals at once, e.g. on the day the vet vaccinates a group.": "Registrér den samme vaccine for flere dyr på én gang, f.eks. den dag dyrlægen vaccinerer en gruppe.",
     "Vaccination Plan": "Vaccinationsplan",
     "Vaccination recorded for :count animal.|Vaccination recorded for :count animals.": "Vaccination registreret for :count dyr.|Vaccination registreret for :count dyr.",
-    "Vaccinations due per month for the animals in the shelter. Choose a month to see the animals and print the list for the vet.": "Planlagte vaccinationer pr. måned for dyrene på internatet. Vælg en måned for at se dyrene og udskrive listen til dyrlægen.",
+    "Vaccinations due per month for the animals in the shelter. Choose a month or the whole year to see the animals, print the list for the vet or export it to Excel.": "Vaccinationer, der forfalder hver måned for dyrene i herberget. Vælg en måned eller hele året for at se dyrene, udskrive listen til dyrlægen eller eksportere den til Excel.",
     "Vaccines due": "Planlagte vaccinationer",
     "due :date": "planlagt :date",
     "last dose :date": "seneste dosis :date",
@@ -736,5 +736,7 @@
     "Date": "Dato",
     "User": "Bruger",
     "IP address": "IP-adresse",
-    "No exports yet": "Ingen eksporter endnu"
+    "No exports yet": "Ingen eksporter endnu",
+    "Whole year": "Hele året",
+    "Export to Excel": "Eksportér til Excel"
 }

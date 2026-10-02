@@ -715,7 +715,7 @@
     "Record the same vaccine for several animals at once, e.g. on the day the vet vaccinates a group.": "Erfassen Sie denselben Impfstoff für mehrere Tiere auf einmal, z. B. an dem Tag, an dem der Tierarzt eine Gruppe impft.",
     "Vaccination Plan": "Impfplan",
     "Vaccination recorded for :count animal.|Vaccination recorded for :count animals.": "Impfung für :count Tier erfasst.|Impfung für :count Tiere erfasst.",
-    "Vaccinations due per month for the animals in the shelter. Choose a month to see the animals and print the list for the vet.": "Fällige Impfungen pro Monat für die Tiere im Tierheim. Wählen Sie einen Monat, um die Tiere zu sehen und die Liste für den Tierarzt zu drucken.",
+    "Vaccinations due per month for the animals in the shelter. Choose a month or the whole year to see the animals, print the list for the vet or export it to Excel.": "Pro Monat fällige Impfungen für die Tiere des Tierheims. Wählen Sie einen Monat oder das ganze Jahr, um die Tiere zu sehen, die Liste für den Tierarzt zu drucken oder nach Excel zu exportieren.",
     "Vaccines due": "Fällige Impfungen",
     "due :date": "fällig :date",
     "last dose :date": "letzte Dosis :date",
@@ -736,5 +736,7 @@
     "Date": "Datum",
     "User": "Benutzer",
     "IP address": "IP-Adresse",
-    "No exports yet": "Noch keine Exporte"
+    "No exports yet": "Noch keine Exporte",
+    "Whole year": "Ganzes Jahr",
+    "Export to Excel": "Nach Excel exportieren"
 }

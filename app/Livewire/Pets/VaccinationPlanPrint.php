@@ -49,7 +49,7 @@ class VaccinationPlanPrint extends Component
         abort_unless(! Auth::user()->is_admin, 403);
 
         $this->year ??= today()->year;
-        $this->month = max(0, min(12, $this->month));
+        $this->month = max(0, min(self::WHOLE_YEAR, $this->month));
         $this->shelter = Auth::user()->currentShelter;
         $this->selectedVaccine = $this->vaccine !== null ? Vaccine::withTrashed()->find($this->vaccine) : null;
         $this->duePets = $this->dueVaccinationsByPet($this->year, $this->month, $this->vaccine);
