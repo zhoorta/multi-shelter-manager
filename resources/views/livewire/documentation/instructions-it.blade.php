@@ -100,6 +100,9 @@
         <p>Registra le diagnosi nella pagina dell&rsquo;animale con <strong>Nuova diagnosi</strong>: la malattia, la data della diagnosi, lo stato (<strong>Attiva</strong>, <strong>Cronica</strong> o <strong>Trattata</strong>) e le note sul trattamento. Una diagnosi segnata come Trattata riceve una data di risoluzione (oggi, per impostazione predefinita). Le diagnosi attive e croniche sono i problemi di salute aperti dell&rsquo;animale: compaiono nella sua pagina, nel pannello di controllo e nel filtro dell&rsquo;elenco degli animali. Anche le vaccinazioni e le note cliniche sono conservate per ogni animale. Le taglie vengono proposte solo per le specie che hanno taglie configurate.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sterilizzazione</h3>
         <p>Con <strong>Sterilizzato / Castrato</strong> attivo, indica la <strong>Data della sterilizzazione</strong> e chi l&rsquo;ha eseguita (<strong>Il rifugio</strong> o <strong>Prima dell&rsquo;ingresso</strong>); lasciali vuoti se non si sa. Disattivato, scegli lo <strong>Stato della sterilizzazione</strong> (In attesa, Programmata con la data, o Sconsigliata) e aggiungi note. I nuovi animali non sterilizzati partono In attesa.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Scheda stampata e note</h3>
+        <p>La scheda stampata di un animale mostra il riferimento, la posizione, il microchip, la <strong>Data di Nascita</strong> (al posto dell'età, perché su carta non sia mai sbagliata), la biografia e le <strong>Note Cliniche</strong> e le <strong>Note interne</strong>. Le <strong>Note interne</strong> sono note private per gli utenti del rifugio: non compaiono mai nel portale pubblico.</p>
+        <p>L'ultimo filtro dell'elenco animali ha anche <strong>Restituiti dopo l'adozione</strong>: animali tornati e non ancora adottati di nuovo. Nella loro scheda l'adozione mostra un'etichetta di restituzione.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>I rifugi che vaccinano a gruppi possono aprire il <strong>Piano Vaccinale</strong> dalla pagina Vaccinazioni. Per l'anno scelto mostra, per ogni vaccino, quante vaccinazioni in sospeso degli animali del rifugio sono previste in ciascun mese; la prima colonna conta quelle già previste prima di quell'anno. Fai clic su un numero per vedere l'elenco degli animali, con microchip e posizione, e usa <strong>Stampa elenco per il veterinario</strong> per portarlo il giorno della vaccinazione.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vaccinazione di gruppo</h3>
         <p>La <strong>Vaccinazione di Gruppo</strong> registra lo stesso vaccino per più animali in una volta, ad esempio il giorno in cui il veterinario vaccina un gruppo. Scegli il vaccino e quali animali elencare: quelli con il vaccino previsto in un certo mese (per impostazione predefinita il mese corrente), quelli in ritardo o tutti gli animali del rifugio della specie di quel vaccino, e filtra per specie o posizione se serve. Gli animali elencati partono selezionati; deseleziona le eccezioni. Data, prossima data prevista, numero di lotto, veterinario e note si inseriscono una sola volta per tutti. Nel piano vaccinale, il pulsante <strong>Vaccinazione di Gruppo</strong> accanto all'elenco di un mese apre questo modulo con quegli animali già elencati.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Anno intero ed esportazione in Excel</h3>
+        <p>Nel piano vaccinale, <strong>Intero anno</strong> elenca tutti gli animali con vaccini previsti in quell'anno. Per qualsiasi mese, o per l'anno intero, <strong>Esporta in Excel</strong> scarica un foglio di calcolo con il nome, il microchip, la data di nascita, Struttura, Ala e Gabbia e, per ogni vaccino, la data dell'ultima dose e della prossima. A schermo, in stampa e in Excel l'elenco è ordinato per Struttura, Ala e Gabbia, così il veterinario percorre i corridoi in ordine.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Elimina</strong> &mdash; la cancella.</li>
         </ul>
         <p>Quando un animale è già stato adottato o non è più disponibile, le sue richieste in attesa vengono segnalate e si possono rifiutare tutte insieme. Gli utenti con le <strong>Notifiche delle Richieste di Adozione</strong> attive ricevono un'email per ogni nuova richiesta; il richiedente non riceve email, quindi contattalo tu. Le richieste vengono eliminate automaticamente sei mesi dopo l'ultima modifica, come indicato nell'informativa sulla privacy.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Trasferimento nel registro degli animali</h3>
+        <p>Attivi <strong>Trasferito nel registro</strong> quando il veterinario ha già intestato l'animale all'adottante nel registro degli animali (SIAC in Portogallo); la data viene salvata. Ogni adozione mostra se il trasferimento è fatto o in sospeso, e la pagina delle adozioni ha un filtro del registro per trovare quelli in sospeso.</p>
+        <p>La scheda di un animale elenca tutte le sue adozioni. Quando un'adozione è finita con una restituzione e nessuno ha adottato di nuovo l'animale, mostra un'etichetta di restituzione con la data.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Salute</strong> &mdash; vaccinazioni somministrate (per mese e per vaccino), vaccinazioni scadute, diagnosi per malattia, casi aperti, le sterilizzazioni eseguite dal rifugio nel periodo (quelle con una data ed eseguite dal rifugio) e la quota di animali sterilizzati nel rifugio.</li>
         </ul>
         <p>Passa il mouse su un grafico per vederne i valori, oppure apri <strong>Mostra tabella</strong> sotto di esso. Il pulsante <strong>stampa</strong> apre la scheda attuale come report con i dati del rifugio &mdash; ad esempio la relazione annuale delle attività per l'assemblea generale &mdash;, pronto da stampare o salvare in PDF dal browser.</p>
+        <p>Accanto al pulsante di stampa, <strong>Esporta elenchi</strong> scarica fogli di calcolo per il periodo scelto: ingressi, adozioni (con i contatti degli adottanti), decessi e, con le cartelle sanitarie attive, vaccinazioni effettuate. Servono per i rapporti richiesti da comuni e autorità.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>Per ogni appartenenza a un rifugio si possono attivare anche le <strong>Notifiche delle Richieste di Adozione</strong>: questi utenti ricevono un'email per ogni nuova richiesta di adozione.</p>
         <p>Finché la persona invitata non accede per la prima volta, l'elenco degli utenti mostra un pulsante <strong>Invia di nuovo l'invito</strong> sulla sua riga. Invia via email un nuovo link e annulla il precedente; il link scade dopo 48 ore.</p>
+        <p>Un'appartenenza <strong>Operatore</strong> può essere limitata ad alcune aree: disattivi, sotto <strong>Può modificare</strong>, quelle che l'utente non deve modificare (Animali, Salute, Adozioni, Adozioni a Distanza, Soci). Con tutte attive, l'utente modifica tutto, come prima. Chi ha <strong>Consultazione (sola lettura)</strong> può solo consultare e non vede mai i dati personali di adottanti, padrini, volontari o soci; il <strong>Responsabile del Rifugio</strong> modifica tutto.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

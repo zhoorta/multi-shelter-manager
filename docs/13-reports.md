@@ -75,6 +75,15 @@ The 🖨 button (next to the period) opens the tab you are looking at as a print
 
 Click **Print**, or save it as PDF from the browser's print window. Printouts are always white, even if you use dark mode, and charts are never split across pages.
 
+## 13.7 Exporting lists
+
+Next to the print button, **Export lists** downloads spreadsheets (Excel) for the selected period, for the reports that municipalities and regional authorities ask for:
+
+- **Intakes** — reference, name, species, gender, microchip, birth date, check-in date, facility, wing and cage;
+- **Adoptions** — approved adoptions with the adopter's name and contacts, the return date and the pet registry transfer date;
+- **Deaths** — animals with a date of death in the period;
+- **Vaccinations given** — one row per dose (when health records are on).
+
 ---
 
-[← Members](12-members.md) · [Documentation index](README.md) · [Next: The public adoption portal →](14-public-portal.md)
+[← Members(12-members.md) · [Documentation index](README.md) · [Next: The public adoption portal →](14-public-portal.md)

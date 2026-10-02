@@ -100,6 +100,9 @@
         <p>Registrer diagnoser på dyrets side med <strong>Ny diagnose</strong>: sygdommen, diagnosedatoen, status (<strong>Aktiv</strong>, <strong>Kronisk</strong> eller <strong>Behandlet</strong>) og behandlingsnoter. En diagnose, der markeres som Behandlet, får en dato for helbredelse (som standard i dag). Aktive og kroniske diagnoser er dyrets åbne helbredsproblemer: de vises på dyrets side, på oversigten og i dyrelistens filter. Vaccinationer og kliniske noter gemmes også for hvert dyr. Størrelser tilbydes kun for arter, der har størrelser opsat.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kastration</h3>
         <p>Når <strong>Kastreret / Steriliseret</strong> er slået til, registrerer du <strong>Kastrationsdato</strong> og hvem der udførte den (<strong>Internatet</strong> eller <strong>Før ankomst</strong>); lad dem stå tomme, hvis det er ukendt. Når det er slået fra, vælger du <strong>Kastrationsstatus</strong> (Afventer, Planlagt med dato, eller Frarådes) og tilføjer noter. Nye dyr, der ikke er kastreret, starter som Afventer.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Udskrevet kort og noter</h3>
+        <p>Dyrets udskrevne kort viser reference, placering, mikrochip, <strong>Fødselsdato</strong> (i stedet for alderen, så den aldrig er forkert på papir), biografien samt <strong>Kliniske noter</strong> og <strong>Interne noter</strong>. <strong>Interne noter</strong> er private noter til herbergets brugere: de vises aldrig på den offentlige portal.</p>
+        <p>Det sidste filter på dyrelisten har også <strong>Afleveret tilbage efter adoption</strong>: dyr, der er kommet tilbage og endnu ikke er adopteret igen. På deres side viser adoptionen en tilbageleveret-etiket.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Internater, der vaccinerer i grupper, kan åbne <strong>Vaccinationsplan</strong> på siden Vaccinationer. For det valgte år viser den pr. vaccine, hvor mange afventende vaccinationer for dyrene på internatet der falder i hver måned; den første kolonne tæller dem, der allerede faldt før det år. Klik på et tal for at se dyrene med chip og placering, og brug <strong>Udskriv liste til dyrlægen</strong> til at tage listen med på vaccinationsdagen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gruppevaccination</h3>
         <p><strong>Gruppevaccination</strong> registrerer den samme vaccine for flere dyr på én gang, for eksempel den dag dyrlægen vaccinerer en gruppe. Vælg vaccinen og hvilke dyr der skal vises: dem, der har vaccinen planlagt i en given måned (som standard den aktuelle måned), de forsinkede eller alle dyr på internatet af vaccinens dyreart, og filtrér efter dyreart eller placering efter behov. De viste dyr er valgt på forhånd; fravælg undtagelserne. Dato, næste planlagte dato, batchnummer, dyrlæge og noter udfyldes én gang for dem alle. I vaccinationsplanen åbner knappen <strong>Gruppevaccination</strong> ved siden af en måneds liste denne formular med de dyr allerede vist.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hele året og eksport til Excel</h3>
+        <p>I vaccinationsplanen viser <strong>Hele året</strong> alle dyr med vaccinationer, der forfalder det år. For en vilkårlig måned, eller hele året, henter <strong>Eksportér til Excel</strong> et regneark med navn, mikrochip, fødselsdato, Anlæg, Fløj og Bur og, for hver vaccine, datoen for sidste og næste dosis. På skærmen, udskrevet og i Excel er listen sorteret efter Anlæg, Fløj og Bur, så dyrlægen kan gå gangene igennem i rækkefølge.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Slet</strong> &mdash; fjerner den.</li>
         </ul>
         <p>Når et dyr allerede er adopteret eller ikke længere er tilgængeligt, markeres dets afventende ansøgninger og kan afvises på én gang. Brugere med <strong>Notifikationer om adoptionsansøgninger</strong> slået til får en e-mail for hver ny ansøgning; ansøgeren får ingen e-mail, så kontakt vedkommende selv. Ansøgninger slettes automatisk seks måneder efter seneste ændring, som angivet i privatlivspolitikken.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Overførsel i dyreregisteret</h3>
+        <p>Slå <strong>Overført i registret</strong> til, når dyrlægen allerede har overført dyret til adoptantens navn i dyreregisteret (SIAC i Portugal); datoen gemmes. Hver adoption viser, om overførslen er udført eller afventer, og adoptionssiden har et registerfilter til at finde dem, der afventer.</p>
+        <p>Et dyrs side viser alle dets adoptioner. Når en adoption endte med en tilbagelevering, og ingen har adopteret dyret igen, viser den en tilbageleveret-etiket med dato.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Helbred</strong> &mdash; givne vaccinationer (pr. måned og pr. vaccine), forsinkede vaccinationer, diagnoser pr. sygdom, åbne sager, de kastrationer internatet har udført i perioden (med dato og udført af internatet) og andelen af steriliserede dyr på internatet.</li>
         </ul>
         <p>Hold musen over et diagram for at se værdierne, eller åbn <strong>Vis tabel</strong> under det. Knappen <strong>udskriv</strong> åbner den aktuelle fane som en rapport med internatets oplysninger &mdash; for eksempel den årlige aktivitetsrapport til generalforsamlingen &mdash;, klar til at udskrive eller gemme som PDF i browseren.</p>
+        <p>Ved siden af udskriftsknappen henter <strong>Eksportér lister</strong> regneark for den valgte periode: indgange, adoptioner (med adoptanternes kontaktoplysninger), dødsfald og, når sundhedsjournaler er slået til, givne vaccinationer. De er beregnet til de rapporter, kommuner og myndigheder beder om.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>For hvert medlemskab af et internat kan man også slå <strong>Notifikationer om adoptionsansøgninger</strong> til: de brugere får en e-mail for hver ny adoptionsansøgning.</p>
         <p>Indtil den inviterede person har logget ind for første gang, viser brugerlisten en knap <strong>Send invitation igen</strong> på personens række. Den sender et nyt link via e-mail og annullerer det forrige; linket udløber efter 48 timer.</p>
+        <p>Et <strong>Medarbejder</strong>-medlemskab kan begrænses til nogle områder: slå, under <strong>Må redigere</strong>, de områder fra, som brugeren ikke må redigere (Dyr, Helbred, Adoptioner, Fadderskaber, Medlemmer). Med alle slået til redigerer brugeren alt, som før. En <strong>Læser (kun læseadgang)</strong> kan kun se og ser aldrig personoplysninger om adoptanter, faddere, frivillige eller medlemmer; en <strong>Internatleder</strong> redigerer alt.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

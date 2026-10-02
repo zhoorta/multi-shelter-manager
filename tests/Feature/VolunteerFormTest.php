@@ -15,7 +15,7 @@ test('guests are redirected to the login page', function () {
 });
 
 test('staff are forbidden from viewing the form', function () {
-    $staff = User::factory()->create();
+    $staff = User::factory()->forShelter(Shelter::factory()->create(), 'staff')->create();
     $this->actingAs($staff);
 
     $this->get(route('volunteers.create'))->assertForbidden();

@@ -38,6 +38,8 @@ The bar above the table has four controls:
 
 The dashboard's **View all** links open this list with the matching filter already chosen.
 
+The last filter also has **Returned after adoption**: animals that came back to the shelter and have not been adopted again.
+
 ### Printing the list
 
 The 🖨 **printer** button next to **Create New** opens a printable version of the list. It uses the filters currently active on screen. Click **Print** on that page to send it to the printer or save it as PDF.
@@ -181,7 +183,7 @@ Click **Save** when you are done.
 
 ## 7.6 Printing a pet's sheet
 
-The 🖨 button on the record opens a one-page sheet with the shelter's contacts, the pet's reference and location, name, age, breed, gender, whether it is adoptable and sponsorable, how long it has been in the shelter (*In captivity*), its photo and its description. It is handy for kennel doors or adoption fairs.
+The 🖨 button on the record opens a sheet with the shelter's contacts, the pet's reference and location, name, **date of birth** (not the age, so it is never wrong on paper), **microchip**, breed, gender, whether it is adoptable and sponsorable, how long it has been in the shelter (*In captivity*), its photo and its description (biography). Below it come the **Clinical Notes** and the **Internal Notes**, when they are filled in. The internal notes are private to the shelter's users and are never shown on the public portal. It is handy for kennel doors, adoption fairs or for volunteers who have no computer at hand.
 
 ![Pet sheet](screenshots/37-pet-print.png)
 

@@ -100,6 +100,9 @@
         <p>Rejestruj diagnozy na stronie zwierzęcia przyciskiem <strong>Nowa diagnoza</strong>: chorobę, datę diagnozy, status (<strong>Aktywna</strong>, <strong>Przewlekła</strong> lub <strong>Wyleczona</strong>) i notatki o leczeniu. Diagnoza oznaczona jako Wyleczona otrzymuje datę wyleczenia (domyślnie dzisiejszą). Aktywne i przewlekłe diagnozy to otwarte problemy zdrowotne zwierzęcia: widać je na jego stronie, na pulpicie i w filtrze listy zwierząt. Przy każdym zwierzęciu przechowywane są też szczepienia i notatki kliniczne. Rozmiary są dostępne tylko dla gatunków, które mają skonfigurowane rozmiary.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sterylizacja</h3>
         <p>Gdy <strong>Wykastrowany / Wysterylizowany</strong> jest włączone, wpisz <strong>Datę sterylizacji</strong> i kto ją wykonał (<strong>Schronisko</strong> lub <strong>Przed przyjęciem</strong>); zostaw puste, jeśli nie wiadomo. Gdy jest wyłączone, wybierz <strong>Status sterylizacji</strong> (Oczekujący, Zaplanowana z datą lub Niezalecana) i dodaj notatki. Nowe zwierzęta, które nie są wysterylizowane, zaczynają ze statusem Oczekujący.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wydrukowana karta i notatki</h3>
+        <p>Wydrukowana karta zwierzęcia zawiera numer referencyjny, lokalizację, mikroczip, <strong>Data urodzenia</strong> (zamiast wieku, aby na papierze nigdy nie był błędny), biografię oraz <strong>Notatki kliniczne</strong> i <strong>Notatki wewnętrzne</strong>. <strong>Notatki wewnętrzne</strong> to prywatne notatki dla użytkowników schroniska: nigdy nie są pokazywane w portalu publicznym.</p>
+        <p>Ostatni filtr listy zwierząt zawiera także <strong>Zwrócone po adopcji</strong>: zwierzęta, które wróciły i nie zostały jeszcze ponownie adoptowane. Na ich stronie adopcja pokazuje etykietę zwrotu.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Schroniska, które szczepią grupowo, mogą otworzyć <strong>Plan szczepień</strong> na stronie Szczepienia. Dla wybranego roku pokazuje on dla każdej szczepionki, ile oczekujących szczepień zwierząt w schronisku przypada na każdy miesiąc; pierwsza kolumna liczy te, które przypadały już przed tym rokiem. Kliknij liczbę, aby zobaczyć listę zwierząt z mikroczipem i lokalizacją, i użyj <strong>Drukuj listę dla weterynarza</strong>, aby zabrać ją w dniu szczepienia.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Szczepienie grupowe</h3>
         <p><strong>Szczepienie grupowe</strong> zapisuje tę samą szczepionkę dla wielu zwierząt naraz, na przykład w dniu, w którym weterynarz szczepi grupę. Wybierz szczepionkę i zwierzęta do wyświetlenia: te, którym szczepionka przypada w danym miesiącu (domyślnie w bieżącym), zaległe albo wszystkie zwierzęta w schronisku z gatunku tej szczepionki, i w razie potrzeby filtruj po gatunku lub lokalizacji. Wyświetlone zwierzęta są od razu zaznaczone; odznacz wyjątki. Datę, następną planowaną datę, numer serii, weterynarza i notatki wpisuje się raz dla wszystkich. W planie szczepień przycisk <strong>Szczepienie grupowe</strong> obok listy danego miesiąca otwiera ten formularz z tymi zwierzętami.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Cały rok i eksport do Excela</h3>
+        <p>W planie szczepień <strong>Cały rok</strong> wyświetla wszystkie zwierzęta ze szczepieniami przypadającymi w danym roku. Dla dowolnego miesiąca lub całego roku <strong>Eksportuj do Excela</strong> pobiera arkusz z imieniem, mikroczipem, datą urodzenia, Obiekt, Skrzydło i Kojec oraz, dla każdej szczepionki, datą ostatniej i następnej dawki. Na ekranie, w wydruku i w Excelu lista jest posortowana według Obiekt, Skrzydło i Kojec, aby weterynarz mógł przejść korytarze po kolei.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Usuń</strong> &mdash; usuwa go.</li>
         </ul>
         <p>Gdy zwierzę zostało już adoptowane lub nie jest już dostępne, jego oczekujące wnioski są oznaczane i można je odrzucić wszystkie naraz. Użytkownicy z włączonymi <strong>Powiadomieniami o wnioskach adopcyjnych</strong> otrzymują e-mail o każdym nowym wniosku; wnioskodawca nie otrzymuje e-maila, więc skontaktuj się z nim sam. Wnioski są usuwane automatycznie sześć miesięcy po ostatniej zmianie, zgodnie z polityką prywatności.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Przepisanie w rejestrze zwierząt</h3>
+        <p>Włącz <strong>Przeniesiono w rejestrze</strong>, gdy weterynarz przepisał już zwierzę na adoptującego w rejestrze zwierząt (w Portugalii SIAC); data zostanie zapisana. Każda adopcja pokazuje, czy przepisanie jest wykonane, czy oczekuje, a strona adopcji ma filtr rejestru do wyszukania oczekujących.</p>
+        <p>Strona zwierzęcia wyświetla wszystkie jego adopcje. Gdy adopcja zakończyła się zwrotem i nikt nie adoptował zwierzęcia ponownie, pokazuje etykietę zwrotu z datą.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Zdrowie</strong> &mdash; wykonane szczepienia (miesięcznie i według szczepionki), zaległe szczepienia, diagnozy według choroby, otwarte przypadki, sterylizacje wykonane przez schronisko w danym okresie (z datą i wykonane przez schronisko) oraz odsetek wysterylizowanych zwierząt w schronisku.</li>
         </ul>
         <p>Najedź na wykres, aby zobaczyć wartości, lub otwórz <strong>Pokaż tabelę</strong> pod nim. Przycisk <strong>drukuj</strong> otwiera bieżącą kartę jako raport z danymi schroniska &mdash; na przykład roczne sprawozdanie z działalności na walne zgromadzenie &mdash; gotowy do wydruku lub zapisania jako PDF w przeglądarce.</p>
+        <p>Obok przycisku drukowania <strong>Eksportuj listy</strong> pobiera arkusze za wybrany okres: przyjęcia, adopcje (z danymi kontaktowymi adoptujących), zgony oraz, przy włączonej dokumentacji zdrowotnej, wykonane szczepienia. Służą do raportów, o które proszą gminy i urzędy.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>Przy każdym członkostwie w schronisku można też włączyć <strong>Powiadomienia o wnioskach adopcyjnych</strong>: ci użytkownicy otrzymują e-mail o każdym nowym wniosku adopcyjnym.</p>
         <p>Dopóki zaproszona osoba nie zaloguje się po raz pierwszy, lista użytkowników pokazuje w jej wierszu przycisk <strong>Wyślij zaproszenie ponownie</strong>. Wysyła e-mailem nowy link i unieważnia poprzedni; link wygasa po 48 godzinach.</p>
+        <p>Członkostwo <strong>Pracownik</strong> można ograniczyć do wybranych obszarów: wyłącz w sekcji <strong>Może edytować</strong> te, których użytkownik nie może edytować (Zwierzęta, Zdrowie, Adopcje, Adopcje wirtualne, Członkowie). Przy wszystkich włączonych użytkownik edytuje wszystko, jak dotąd. Osoba z rolą <strong>Podgląd (tylko odczyt)</strong> tylko przegląda i nigdy nie widzi danych osobowych adoptujących, patronów, wolontariuszy ani członków; <strong>Kierownik schroniska</strong> edytuje wszystko.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

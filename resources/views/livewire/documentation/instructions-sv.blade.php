@@ -100,6 +100,9 @@
         <p>Registrera diagnoser på djurets sida med <strong>Ny diagnos</strong>: sjukdomen, diagnosdatumet, statusen (<strong>Aktiv</strong>, <strong>Kronisk</strong> eller <strong>Behandlad</strong>) och behandlingsanteckningar. En diagnos som markeras som Behandlad får ett datum för tillfrisknande (i dag som standard). Aktiva och kroniska diagnoser är djurets öppna hälsoproblem: de visas på djurets sida, i översikten och i djurlistans filter. Vaccinationer och kliniska anteckningar sparas också för varje djur. Storlekar erbjuds bara för arter som har storlekar inställda.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kastrering</h3>
         <p>När <strong>Kastrerad / Steriliserad</strong> är på fyller du i <strong>Kastreringsdatum</strong> och vem som utförde den (<strong>Härbärget</strong> eller <strong>Före ankomst</strong>); lämna dem tomma om det är okänt. När det är av väljer du <strong>Kastreringsstatus</strong> (Väntande, Planerad med datum, eller Rekommenderas inte) och lägger till anteckningar. Nya djur som inte är kastrerade börjar som Väntande.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Utskrivet blad och anteckningar</h3>
+        <p>Djurets utskrivna blad visar referens, plats, mikrochip, <strong>Födelsedatum</strong> (i stället för åldern, så att den aldrig blir fel på papper), biografin samt <strong>Kliniska anteckningar</strong> och <strong>Interna anteckningar</strong>. <strong>Interna anteckningar</strong> är privata anteckningar för hemmets användare: de visas aldrig i den publika portalen.</p>
+        <p>Det sista filtret i djurlistan har också <strong>Återlämnade efter adoption</strong>: djur som kommit tillbaka och inte adopterats igen. På deras sida visar adoptionen en etikett för återlämnad.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Djurhem som vaccinerar i grupp kan öppna <strong>Vaccinationsplan</strong> på sidan Vaccinationer. För det valda året visar den per vaccin hur många väntande vaccinationer för djuren på djurhemmet som infaller varje månad; den första kolumnen räknar dem som infaller redan före det året. Klicka på en siffra för att lista djuren med chip och plats, och använd <strong>Skriv ut lista till veterinären</strong> för att ta med listan till vaccinationsdagen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gruppvaccination</h3>
         <p><strong>Gruppvaccination</strong> registrerar samma vaccin för flera djur på en gång, till exempel den dag veterinären vaccinerar en grupp. Välj vaccinet och vilka djur som ska listas: de som har vaccinet planerat en viss månad (som standard innevarande månad), de försenade eller alla djur på djurhemmet av vaccinets djurart, och filtrera på djurart eller plats vid behov. De listade djuren är förvalda; avmarkera undantagen. Datum, nästa planerade datum, batchnummer, veterinär och anteckningar anges en gång för alla. I vaccinationsplanen öppnar knappen <strong>Gruppvaccination</strong> bredvid en månads lista det här formuläret med de djuren redan listade.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hela året och export till Excel</h3>
+        <p>I vaccinationsplanen listar <strong>Hela året</strong> alla djur med vaccinationer som ska ges det året. För valfri månad, eller hela året, laddar <strong>Exportera till Excel</strong> ned ett kalkylblad med namn, mikrochip, födelsedatum, Anläggning, Flygel och Bur samt, för varje vaccin, datum för senaste och nästa dos. På skärmen, utskriven och i Excel är listan sorterad efter Anläggning, Flygel och Bur, så att veterinären kan gå igenom korridorerna i ordning.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Ta bort</strong> &mdash; tar bort den.</li>
         </ul>
         <p>När ett djur redan har adopterats eller inte längre är tillgängligt markeras dess väntande ansökningar och kan avslås på en gång. Användare med <strong>Aviseringar om adoptionsansökningar</strong> påslagna får ett e-postmeddelande för varje ny ansökan; den sökande får inget e-postmeddelande, så kontakta hen själv. Ansökningar raderas automatiskt sex månader efter senaste ändring, enligt integritetspolicyn.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Överföring i djurregistret</h3>
+        <p>Slå på <strong>Överförd i registret</strong> när veterinären redan har flyttat djuret till adoptantens namn i djurregistret (SIAC i Portugal); datumet sparas. Varje adoption visar om överföringen är klar eller väntar, och adoptionssidan har ett registerfilter för att hitta dem som väntar.</p>
+        <p>Ett djurs sida listar alla dess adoptioner. När en adoption slutade med en återlämning och ingen har adopterat djuret igen visas en etikett för återlämnad med datum.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Hälsa</strong> &mdash; givna vaccinationer (per månad och per vaccin), försenade vaccinationer, diagnoser per sjukdom, öppna fall, de kastreringar som hemmet utfört under perioden (med datum och utförda av hemmet) och andelen kastrerade djur på hemmet.</li>
         </ul>
         <p>Håll muspekaren över ett diagram för att se värdena, eller öppna <strong>Visa tabell</strong> under det. Knappen <strong>skriv ut</strong> öppnar den aktuella fliken som en rapport med härbärgets uppgifter &mdash; till exempel den årliga verksamhetsberättelsen till årsmötet &mdash;, klar att skriva ut eller spara som PDF i webbläsaren.</p>
+        <p>Bredvid utskriftsknappen laddar <strong>Exportera listor</strong> ned kalkylblad för vald period: intag, adoptioner (med adoptanternas kontaktuppgifter), dödsfall och, när hälsoregister är på, givna vaccinationer. De är avsedda för de rapporter som kommuner och myndigheter begär.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>För varje medlemskap i ett härbärge kan man också slå på <strong>Aviseringar om adoptionsansökningar</strong>: de användarna får ett e-postmeddelande för varje ny adoptionsansökan.</p>
         <p>Tills den inbjudna personen har loggat in för första gången visar användarlistan en knapp <strong>Skicka inbjudan igen</strong> på personens rad. Den skickar en ny länk via e-post och gör den tidigare ogiltig; länken går ut efter 48 timmar.</p>
+        <p>Ett <strong>Personal</strong>-medlemskap kan begränsas till vissa områden: stäng av, under <strong>Får redigera</strong>, de som användaren inte ska redigera (Djur, Hälsa, Adoptioner, Fadderskap, Medlemmar). Med alla på redigerar användaren allt, som förut. En <strong>Läsare (endast läsning)</strong> kan bara titta och ser aldrig personuppgifter om adoptanter, fadderer, volontärer eller medlemmar; en <strong>Föreståndare</strong> redigerar allt.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

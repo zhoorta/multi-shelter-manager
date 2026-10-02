@@ -100,6 +100,9 @@
         <p>Enregistrez les diagnostics sur la page de l&rsquo;animal avec <strong>Nouveau diagnostic</strong> : la maladie, la date du diagnostic, le statut (<strong>Active</strong>, <strong>Chronique</strong> ou <strong>Traitée</strong>) et des notes de traitement. Un diagnostic marqué Traitée reçoit une date de guérison (aujourd&rsquo;hui par défaut). Les diagnostics actifs et chroniques sont les problèmes de santé en cours de l&rsquo;animal : ils apparaissent sur sa page, sur le tableau de bord et dans le filtre de la liste des animaux. Les vaccinations et les notes cliniques sont aussi conservées pour chaque animal. Les tailles ne sont proposées que pour les espèces qui en ont.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Stérilisation</h3>
         <p>Avec <strong>Stérilisé / Castré</strong> activé, indiquez la <strong>Date de stérilisation</strong> et qui l&rsquo;a faite (<strong>Le refuge</strong> ou <strong>Avant l&rsquo;arrivée</strong>) ; laissez-les vides si vous ne savez pas. Désactivé, choisissez le <strong>Statut de la stérilisation</strong> (En attente, Prévue avec sa date, ou Déconseillée) et ajoutez des notes. Les nouveaux animaux non stérilisés commencent En attente.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Fiche imprimée et notes</h3>
+        <p>La fiche imprimée d'un animal montre la référence, l'emplacement, la puce, la <strong>Date de Naissance</strong> (à la place de l'âge, pour qu'elle ne soit jamais fausse sur papier), la biographie ainsi que les <strong>Notes Cliniques</strong> et les <strong>Notes internes</strong>. Les <strong>Notes internes</strong> sont des notes privées réservées aux utilisateurs du refuge : elles ne sont jamais affichées sur le portail public.</p>
+        <p>Le dernier filtre de la liste des animaux propose aussi <strong>Rendus après adoption</strong> : les animaux revenus et pas encore adoptés de nouveau. Sur leur fiche, l'adoption affiche une étiquette de retour.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Les refuges qui vaccinent par groupes peuvent ouvrir le <strong>Plan de Vaccination</strong> depuis la page Vaccinations. Pour l'année choisie, il montre, par vaccin, combien de vaccinations en attente des animaux du refuge sont prévues chaque mois ; la première colonne compte celles déjà prévues avant cette année. Cliquez sur un nombre pour afficher la liste des animaux, avec leur puce et leur emplacement, et utilisez <strong>Imprimer la liste pour le vétérinaire</strong> pour l'emporter le jour de la vaccination.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vaccination groupée</h3>
         <p>La <strong>Vaccination Groupée</strong> enregistre le même vaccin pour plusieurs animaux à la fois, par exemple le jour où le vétérinaire vaccine un groupe. Choisissez le vaccin et les animaux à lister : ceux dont le vaccin est prévu un mois donné (par défaut, le mois en cours), ceux en retard, ou tous les animaux du refuge de l'espèce de ce vaccin, et filtrez par espèce ou emplacement si besoin. Les animaux listés sont cochés au départ ; décochez les exceptions. La date, la prochaine date prévue, le numéro de lot, le vétérinaire et les notes sont saisis une seule fois pour tous. Dans le plan de vaccination, le bouton <strong>Vaccination Groupée</strong> à côté de la liste d'un mois ouvre ce formulaire avec ces animaux déjà listés.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Année entière et export Excel</h3>
+        <p>Dans le plan de vaccination, <strong>Année entière</strong> liste tous les animaux dont des vaccins sont prévus cette année-là. Pour n'importe quel mois, ou pour l'année entière, <strong>Exporter vers Excel</strong> télécharge un tableur avec le nom, la puce, la date de naissance, Installation, Aile et Cage et, pour chaque vaccin, la date de la dernière dose et de la suivante. À l'écran, à l'impression et dans Excel, la liste est triée par Installation, Aile et Cage, pour que le vétérinaire parcoure les allées dans l'ordre.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Supprimer</strong> &mdash; la supprime.</li>
         </ul>
         <p>Lorsqu'un animal a été adopté ou n'est plus disponible, ses demandes en attente sont signalées et peuvent être refusées en une seule fois. Les utilisateurs ayant activé les <strong>Notifications de Demandes d'Adoption</strong> reçoivent un email pour chaque nouvelle demande ; le demandeur ne reçoit aucun email, contactez-le donc vous-même. Les demandes sont supprimées automatiquement six mois après leur dernière modification, comme l'indique la politique de confidentialité.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Transfert dans le registre des animaux</h3>
+        <p>Activez <strong>Transféré dans le registre</strong> quand le vétérinaire a déjà transféré l'animal au nom de l'adoptant dans le registre des animaux (SIAC au Portugal) ; la date est enregistrée. Chaque adoption indique si le transfert est fait ou en attente, et la page des adoptions a un filtre du registre pour retrouver celles en attente.</p>
+        <p>La fiche d'un animal liste toutes ses adoptions. Quand une adoption s'est terminée par un retour et que personne n'a adopté l'animal de nouveau, elle affiche une étiquette de retour avec la date.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Santé</strong> &mdash; vaccinations effectuées (par mois et par vaccin), vaccins en retard, diagnostics par maladie, cas en cours, les stérilisations effectuées par le refuge sur la période (celles qui ont une date et ont été faites par le refuge) et la part d&rsquo;animaux stérilisés au refuge.</li>
         </ul>
         <p>Survolez un graphique pour voir ses valeurs, ou ouvrez <strong>Afficher le tableau</strong> en dessous. Le bouton <strong>imprimer</strong> ouvre l'onglet actuel sous forme de rapport avec les coordonnées du refuge &mdash; par exemple le rapport d'activité annuel pour l'assemblée générale &mdash; prêt à imprimer ou à enregistrer en PDF depuis le navigateur.</p>
+        <p>À côté du bouton d'impression, <strong>Exporter les listes</strong> télécharge des tableurs pour la période choisie : entrées, adoptions (avec les coordonnées des adoptants), décès et, si les dossiers de santé sont activés, vaccinations effectuées. Ils servent aux rapports que demandent les communes et les autorités.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>Chaque rattachement à un refuge peut aussi activer les <strong>Notifications de Demandes d'Adoption</strong> : ces utilisateurs reçoivent un email pour chaque nouvelle demande d'adoption.</p>
         <p>Tant que la personne invitée ne s'est pas connectée une première fois, la liste des utilisateurs affiche un bouton <strong>Renvoyer l'invitation</strong> sur sa ligne. Il envoie par email un nouveau lien et annule le précédent ; le lien expire au bout de 48 heures.</p>
+        <p>Une appartenance <strong>Employé / Opérationnel</strong> peut être limitée à certains domaines : désactivez, sous <strong>Peut modifier</strong>, ceux que l'utilisateur ne doit pas modifier (Animaux, Santé, Adoptions, Parrainages, Membres). Avec tous activés, l'utilisateur modifie tout, comme avant. Un <strong>Consultation (lecture seule)</strong> consulte seulement et ne voit jamais les données personnelles des adoptants, parrains, bénévoles ou membres ; un <strong>Gestionnaire de Refuge</strong> modifie tout.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

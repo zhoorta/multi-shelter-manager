@@ -100,6 +100,9 @@
         <p>Record diagnoses on the pet&rsquo;s page with <strong>New Diagnosis</strong>: the sickness, the diagnosis date, the status (<strong>Active</strong>, <strong>Chronic</strong> or <strong>Treated</strong>) and treatment notes. A diagnosis marked as Treated gets a resolution date (today by default). Active and chronic diagnoses are the pet&rsquo;s open health issues: they show on the pet&rsquo;s page, on the dashboard and in the pets list filter. Vaccinations and clinical notes are also kept on each pet. Sizes are only offered for species that have sizes configured.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sterilisation</h3>
         <p>With <strong>Is Neutered</strong> on, record the <strong>Neutering Date</strong> and who did it (<strong>The shelter</strong> or <strong>Before arrival</strong>); leave them empty when unknown. With it off, choose the <strong>Neutering Status</strong> (Pending, Scheduled with its date, or Not recommended) and add notes. New animals that are not neutered start as Pending.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Printed sheet and notes</h3>
+        <p>The printed sheet of a pet shows its reference, location, microchip, <strong>Birth Date</strong> (instead of the age, so it is never wrong on paper), the biography and the <strong>Clinical Notes</strong> and <strong>Internal Notes</strong>. <strong>Internal Notes</strong> are private notes for the shelter's users: they are never shown on the public portal.</p>
+        <p>The last filter of the pets list also has <strong>Returned after adoption</strong>: animals that came back and have not been adopted again. On their page the adoption shows a returned badge.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Shelters that vaccinate in groups can open <strong>Vaccination Plan</strong> on the Vaccinations page. For the chosen year it shows, per vaccine, how many pending vaccinations of the animals in the shelter fall due in each month; the first column counts those already due before that year. Click a number to list the animals, with their microchip and location, and use <strong>Print list for the vet</strong> to take the list to the vaccination day.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Group vaccination</h3>
         <p><strong>Group Vaccination</strong> records the same vaccine for several animals at once, for example on the day the vet vaccinates a group. Choose the vaccine and which animals to list: those due in a given month (the current month by default), the overdue ones, or all the animals in the shelter of that vaccine's species, and filter by species or location if needed. The listed animals start ticked; untick the exceptions. The date, next due date, lot number, veterinarian and notes are entered once for all of them. In the vaccination plan, the <strong>Group Vaccination</strong> button next to a month's list opens this form with those animals already listed.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Whole year and Excel export</h3>
+        <p>In the vaccination plan, <strong>Whole year</strong> lists every animal with vaccinations due in that year. For any month, or the whole year, <strong>Export to Excel</strong> downloads a spreadsheet with the name, microchip, birth date, Facility, Wing and Cage and, for each vaccine, the date of the last dose and of the next one. On screen, printed and in Excel the list is ordered by Facility, Wing and Cage, so the vet can go through the corridors in order.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Delete</strong> &mdash; removes it.</li>
         </ul>
         <p>When a pet has been adopted or is no longer available, its pending applications are flagged and can be rejected all at once. Users with <strong>Adoption Application Notifications</strong> turned on receive an email for each new application; the applicant receives no email, so contact them yourself. Applications are deleted automatically six months after their last change, as stated in the privacy policy.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pet registry transfer</h3>
+        <p>Switch on <strong>Transferred in the pet registry</strong> when the vet has moved the animal to the adopter's name in the pet registry (SIAC in Portugal); the date is saved. Each adoption shows whether the transfer is done or pending, and the Adoptions page has a registry filter to find the pending ones.</p>
+        <p>A pet's page lists all its adoptions. When an adoption ended with a return and nobody has adopted the animal again, it shows a returned badge with the date.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Health</strong> &mdash; vaccinations given (per month and by vaccine), overdue vaccinations, diagnoses by sickness, open cases, the sterilisations performed by the shelter in the period (those with a date and done by the shelter) and the share of sterilised animals in the shelter.</li>
         </ul>
         <p>Hover over a chart to see its values, or open <strong>Show table</strong> below it. The <strong>print</strong> button opens the current tab as a report with the shelter's details &mdash; for example the yearly activity report for the general assembly &mdash; ready to print or save as PDF from the browser.</p>
+        <p>Next to the print button, <strong>Export lists</strong> downloads spreadsheets for the chosen period: intakes, adoptions (with the adopters' contacts), deaths and, when health records are on, vaccinations given. They are meant for the reports that municipalities and authorities ask for.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>Each membership can also have <strong>Adoption Application Notifications</strong> turned on: those users receive an email for each new adoption application.</p>
         <p>Until an invited person logs in for the first time, the Users list shows a <strong>Resend invitation</strong> button on their row. It emails a new link and cancels the previous one; the link expires after 48 hours.</p>
+        <p>A <strong>Staff / Worker</strong> membership can be limited to some areas: switch off, under <strong>Can edit</strong>, the ones the user must not edit (Animals, Health, Adoptions, Sponsorships, Members). With all of them on, the user edits everything, as before. A <strong>Viewer (read-only)</strong> only views, and never sees adopters', sponsors', volunteers' or members' personal data; a <strong>Shelter Manager</strong> edits everything.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

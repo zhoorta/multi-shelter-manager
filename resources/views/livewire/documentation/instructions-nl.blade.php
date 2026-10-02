@@ -100,6 +100,9 @@
         <p>Registreer diagnoses op de pagina van het dier met <strong>Nieuwe diagnose</strong>: de ziekte, de diagnosedatum, de status (<strong>Actief</strong>, <strong>Chronisch</strong> of <strong>Behandeld</strong>) en behandelnotities. Een diagnose die als Behandeld is gemarkeerd krijgt een datum van herstel (standaard vandaag). Actieve en chronische diagnoses zijn de openstaande gezondheidsproblemen van het dier: ze staan op de pagina van het dier, op het dashboard en in het filter van de dierenlijst. Vaccinaties en klinische notities worden ook per dier bijgehouden. Maten worden alleen aangeboden voor diersoorten waarvoor maten zijn ingesteld.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Castratie</h3>
         <p>Staat <strong>Gecastreerd / Gesteriliseerd</strong> aan, vul dan de <strong>Castratiedatum</strong> in en wie de ingreep deed (<strong>Het asiel</strong> of <strong>Voor aankomst</strong>); laat ze leeg als het onbekend is. Staat het uit, kies dan de <strong>Castratiestatus</strong> (In behandeling, Gepland met de datum, of Niet aanbevolen) en voeg notities toe. Nieuwe dieren die niet gecastreerd zijn beginnen als In behandeling.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Afgedrukt dossier en notities</h3>
+        <p>Het afgedrukte dossier van een dier toont de referentie, de locatie, de microchip, de <strong>Geboortedatum</strong> (in plaats van de leeftijd, zodat die op papier nooit fout is), de biografie en de <strong>Klinische notities</strong> en <strong>Interne notities</strong>. De <strong>Interne notities</strong> zijn privénotities voor de gebruikers van het asiel: ze verschijnen nooit op het openbare portaal.</p>
+        <p>Het laatste filter van de dierenlijst heeft ook <strong>Teruggebracht na adoptie</strong>: dieren die terugkwamen en nog niet opnieuw zijn geadopteerd. Op hun pagina toont de adoptie een teruggebracht-label.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Asielen die in groepen vaccineren, kunnen op de pagina Vaccinaties het <strong>Vaccinatieplan</strong> openen. Voor het gekozen jaar toont het per vaccin hoeveel openstaande vaccinaties van de dieren in het asiel in elke maand gepland staan; de eerste kolom telt de vaccinaties die al vóór dat jaar gepland stonden. Klik op een getal om de dieren met hun chip en locatie te tonen, en gebruik <strong>Lijst voor de dierenarts afdrukken</strong> om de lijst mee te nemen naar de vaccinatiedag.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Groepsvaccinatie</h3>
         <p>Met <strong>Groepsvaccinatie</strong> registreert u hetzelfde vaccin voor meerdere dieren tegelijk, bijvoorbeeld op de dag dat de dierenarts een groep vaccineert. Kies het vaccin en welke dieren u wilt tonen: die waarvoor het vaccin in een bepaalde maand gepland staat (standaard de huidige maand), de achterstallige, of alle dieren in het asiel van de diersoort van dat vaccin, en filter zo nodig op diersoort of locatie. De getoonde dieren zijn standaard aangevinkt; vink de uitzonderingen uit. Datum, volgende geplande datum, batchnummer, dierenarts en notities vult u één keer voor allemaal in. In het vaccinatieplan opent de knop <strong>Groepsvaccinatie</strong> naast de lijst van een maand dit formulier met die dieren al klaargezet.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Heel jaar en export naar Excel</h3>
+        <p>In het vaccinatieplan toont <strong>Heel jaar</strong> alle dieren met vaccinaties die dat jaar gepland staan. Voor elke maand, of het hele jaar, downloadt <strong>Exporteren naar Excel</strong> een spreadsheet met naam, microchip, geboortedatum, Locatie, Vleugel en Hok en, per vaccin, de datum van de laatste en van de volgende dosis. Op het scherm, afgedrukt en in Excel is de lijst gesorteerd op Locatie, Vleugel en Hok, zodat de dierenarts de gangen op volgorde kan afgaan.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Verwijderen</strong> &mdash; verwijdert haar.</li>
         </ul>
         <p>Als een dier al geadopteerd is of niet meer beschikbaar is, worden de openstaande aanvragen gemarkeerd en kunnen ze in één keer worden afgewezen. Gebruikers met <strong>Meldingen van adoptieaanvragen</strong> ingeschakeld krijgen een e-mail bij elke nieuwe aanvraag; de aanvrager krijgt geen e-mail, neem dus zelf contact op. Aanvragen worden zes maanden na hun laatste wijziging automatisch verwijderd, zoals vermeld in het privacybeleid.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Overdracht in het dierenregister</h3>
+        <p>Zet <strong>Overgedragen in het register</strong> aan wanneer de dierenarts het dier al op naam van de adoptant heeft gezet in het dierenregister (SIAC in Portugal); de datum wordt bewaard. Elke adoptie toont of de overdracht gedaan of nog in afwachting is, en de adoptiepagina heeft een registerfilter om de openstaande te vinden.</p>
+        <p>De pagina van een dier toont al zijn adopties. Als een adoptie eindigde met een teruggave en niemand het dier opnieuw heeft geadopteerd, toont ze een teruggebracht-label met de datum.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Gezondheid</strong> &mdash; gegeven vaccinaties (per maand en per vaccin), achterstallige vaccinaties, diagnoses per ziekte, openstaande gevallen, de castraties die het asiel in de periode heeft uitgevoerd (met een datum en door het asiel gedaan) en het aandeel gecastreerde dieren in het asiel.</li>
         </ul>
         <p>Beweeg over een grafiek om de waarden te zien, of open <strong>Tabel tonen</strong> eronder. De knop <strong>afdrukken</strong> opent het huidige tabblad als rapport met de gegevens van het asiel &mdash; bijvoorbeeld het jaarlijkse activiteitenverslag voor de algemene vergadering &mdash;, klaar om af te drukken of als PDF op te slaan in de browser.</p>
+        <p>Naast de printknop downloadt <strong>Lijsten exporteren</strong> spreadsheets voor de gekozen periode: binnenkomsten, adopties (met de contactgegevens van de adoptanten), overlijdens en, met gezondheidsdossiers aan, gegeven vaccinaties. Ze zijn bedoeld voor de rapporten die gemeenten en autoriteiten vragen.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>Bij elk lidmaatschap van een asiel kunnen ook de <strong>Meldingen van adoptieaanvragen</strong> worden ingeschakeld: die gebruikers krijgen een e-mail bij elke nieuwe adoptieaanvraag.</p>
         <p>Zolang de uitgenodigde persoon nog nooit is ingelogd, toont de gebruikerslijst op de rij een knop <strong>Uitnodiging opnieuw versturen</strong>. Die stuurt per e-mail een nieuwe link en maakt de vorige ongeldig; de link verloopt na 48 uur.</p>
+        <p>Een <strong>Medewerker</strong>-lidmaatschap kan beperkt worden tot enkele gebieden: zet onder <strong>Mag bewerken</strong> de gebieden uit die de gebruiker niet mag bewerken (Dieren, Gezondheid, Adopties, Sponsorschappen, Leden). Met alles aan bewerkt de gebruiker alles, zoals voorheen. Een <strong>Kijker (alleen lezen)</strong> bekijkt alleen en ziet nooit persoonsgegevens van adoptanten, peters, vrijwilligers of leden; een <strong>Asielbeheerder</strong> bewerkt alles.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

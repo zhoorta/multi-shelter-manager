@@ -48,7 +48,16 @@ The pet's record lists all its vaccinations, with 👁 view, ✏️ edit and �
 
 Use *Vaccine overdue* and *Due date within a week* to plan the vet's visits.
 
-## 8.3 Daily e-mail reminders
+## 8.3 Vaccination plan and group vaccination
+
+For shelters that vaccinate in groups, **Pets → Vaccinations → Vaccination Plan** shows, for the chosen year, how many pending vaccinations fall due in each month, per vaccine (the first column counts those already due before that year; overdue months are red).
+
+- Click a number, a month, or **Whole year** (next to the year) to list the animals, with microchip and location. The list is ordered by facility, wing and cage, so the vet can walk the corridors in order.
+- **Print list for the vet** prints it, with a blank column to note what was given.
+- **Export to Excel** downloads it as a spreadsheet: name, microchip, birth date, facility, wing, cage and, for each vaccine, the date of the last dose and of the next one.
+- **Group Vaccination** (also a button on the Vaccinations page) records the same vaccine for many animals at once: choose the vaccine and which animals to list (due in a month, overdue, or all), untick the exceptions, and enter the date, lot number and veterinarian once.
+
+## 8.4 Daily e-mail reminders
 
 Every day, the application sends an e-mail to the users who have **Vaccination Notifications** switched on for a shelter. The e-mail lists that shelter's vaccinations that are **due in the next 7 days** and have not been given yet.
 

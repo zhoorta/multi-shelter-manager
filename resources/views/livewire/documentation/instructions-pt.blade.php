@@ -100,6 +100,9 @@
         <p>Registe diagnósticos na página do animal com <strong>Novo diagnóstico</strong>: a doença, a data do diagnóstico, o estado (<strong>Ativa</strong>, <strong>Crónica</strong> ou <strong>Tratada</strong>) e notas de tratamento. Um diagnóstico marcado como Tratada recebe uma data de resolução (hoje, por omissão). Os diagnósticos ativos e crónicos são os problemas de saúde em aberto do animal: aparecem na página do animal, no painel de controlo e no filtro da lista de animais. As vacinações e as notas clínicas também ficam em cada animal. Os portes só são apresentados para espécies que tenham portes configurados.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Esterilização</h3>
         <p>Com <strong>Esterilizado / Castrado</strong> ligado, registe a <strong>Data da esterilização</strong> e quem a fez (<strong>O abrigo</strong> ou <strong>Antes da entrada</strong>); deixe-os vazios quando não se sabe. Desligado, escolha o <strong>Estado da esterilização</strong> (Pendente, Agendada com a respetiva data, ou Não recomendada) e acrescente notas. Os animais novos que não estão esterilizados começam como Pendente.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ficha impressa e notas</h3>
+        <p>A ficha impressa de um animal mostra a referência, a localização, o microchip, a <strong>Data de Nascimento</strong> (em vez da idade, para nunca estar errada no papel), a biografia e as <strong>Notas Clínicas</strong> e <strong>Notas Operacionais</strong>. As <strong>Notas Operacionais</strong> são notas privadas para os utilizadores do abrigo: nunca aparecem no portal público.</p>
+        <p>O último filtro da lista de animais tem também <strong>Devolvidos após adoção</strong>: animais que voltaram e ainda não foram adotados de novo. Na ficha desses animais, a adoção mostra uma etiqueta de devolvido.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Os abrigos que vacinam em grupo podem abrir o <strong>Plano de Vacinação</strong> na página Vacinações. Para o ano escolhido, mostra por vacina quantas vacinações pendentes dos animais no abrigo estão previstas em cada mês; a primeira coluna conta as que já estavam previstas antes desse ano. Clique num número para ver a lista dos animais, com o microchip e a localização, e use <strong>Imprimir lista para o veterinário</strong> para a levar no dia da vacinação.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vacinação em grupo</h3>
         <p>A <strong>Vacinação em Grupo</strong> regista a mesma vacina para vários animais de uma só vez, por exemplo no dia em que o veterinário vacina um grupo. Escolha a vacina e que animais listar: os que têm a vacina prevista num mês (por omissão, o mês atual), os que estão em atraso, ou todos os animais no abrigo da espécie dessa vacina, e filtre por espécie ou localização se precisar. Os animais listados começam todos marcados; desmarque as exceções. A data, a próxima data prevista, o número de lote, o veterinário e as notas são preenchidos uma só vez para todos. No plano de vacinação, o botão <strong>Vacinação em Grupo</strong> junto à lista de um mês abre este formulário já com esses animais.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ano completo e exportação para Excel</h3>
+        <p>No plano de vacinação, <strong>Ano completo</strong> lista todos os animais com vacinas previstas nesse ano. Para qualquer mês, ou para o ano completo, <strong>Exportar para Excel</strong> descarrega uma folha de cálculo com o nome, o microchip, a data de nascimento, Instalação, Ala e Jaula e, para cada vacina, a data da última dose e da próxima. No ecrã, na impressão e no Excel, a lista vem ordenada por Instalação, Ala e Jaula, para o veterinário percorrer os corredores por ordem.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Eliminar</strong> &mdash; apaga-a.</li>
         </ul>
         <p>Quando um animal já foi adotado ou deixou de estar disponível, as suas candidaturas pendentes são assinaladas e podem ser rejeitadas de uma só vez. Os utilizadores com as <strong>Notificações de Candidaturas de Adoção</strong> ativas recebem um email por cada nova candidatura; o candidato não recebe email, por isso contacte-o diretamente. As candidaturas são apagadas automaticamente seis meses após a última alteração, como indicado na política de privacidade.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Transferência no registo de animais</h3>
+        <p>Ative <strong>Transferido no SIAC</strong> quando o veterinário já passou o animal para o nome do adotante no registo de animais (SIAC, em Portugal); a data fica guardada. Cada adoção mostra se a transferência está feita ou pendente, e a página de Adoções tem um filtro do registo para encontrar as pendentes.</p>
+        <p>A ficha de um animal lista todas as suas adoções. Quando uma adoção terminou com uma devolução e ninguém adotou o animal de novo, mostra uma etiqueta de devolvido com a data.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Saúde</strong> &mdash; vacinações dadas (por mês e por vacina), vacinas em atraso, diagnósticos por doença, casos em aberto, as esterilizações realizadas pelo abrigo no período (as que têm data e foram feitas pelo abrigo) e a percentagem de animais esterilizados no abrigo.</li>
         </ul>
         <p>Passe o rato sobre um gráfico para ver os valores, ou abra <strong>Ver tabela</strong> por baixo dele. O botão <strong>imprimir</strong> abre o separador atual como relatório com os dados do abrigo &mdash; por exemplo o relatório de atividades anual para a assembleia geral &mdash; pronto a imprimir ou a guardar em PDF a partir do navegador.</p>
+        <p>Ao lado do botão de imprimir, <strong>Exportar listas</strong> descarrega folhas de cálculo para o período escolhido: entradas, adoções (com os contactos dos adotantes), óbitos e, com os registos de saúde ativos, vacinas aplicadas. Servem para os relatórios que as câmaras municipais e as autoridades pedem.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>Em cada ligação a um abrigo também pode ativar as <strong>Notificações de Candidaturas de Adoção</strong>: esses utilizadores recebem um email por cada nova candidatura de adoção.</p>
         <p>Enquanto a pessoa convidada não iniciar sessão pela primeira vez, a lista de utilizadores mostra um botão <strong>Reenviar convite</strong> na sua linha. Envia por email uma nova ligação e anula a anterior; a ligação expira ao fim de 48 horas.</p>
+        <p>Uma participação como <strong>Funcionário / Operacional</strong> pode ser limitada a algumas áreas: desative, em <strong>Pode editar</strong>, as que o utilizador não deve editar (Animais, Saúde, Adoções, Apadrinhamentos, Sócios). Com todas ativas, o utilizador edita tudo, como antes. Quem tem <strong>Consulta (só leitura)</strong> só consulta e nunca vê dados pessoais de adotantes, padrinhos, voluntários ou sócios; o <strong>Gestor de Abrigo</strong> edita tudo.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

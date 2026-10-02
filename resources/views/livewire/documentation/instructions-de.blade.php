@@ -100,6 +100,9 @@
         <p>Erfassen Sie Diagnosen auf der Seite des Tieres mit <strong>Neue Diagnose</strong>: die Krankheit, das Diagnosedatum, den Status (<strong>Aktiv</strong>, <strong>Chronisch</strong> oder <strong>Behandelt</strong>) und Behandlungsnotizen. Eine als Behandelt markierte Diagnose erhält ein Abschlussdatum (standardmäßig heute). Aktive und chronische Diagnosen sind die offenen Gesundheitsprobleme des Tieres: Sie erscheinen auf seiner Seite, in der Übersicht und im Filter der Tierliste. Impfungen und klinische Notizen werden ebenfalls bei jedem Tier geführt. Größen werden nur für Tierarten angeboten, für die Größen eingerichtet sind.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kastration</h3>
         <p>Ist <strong>Kastriert / Sterilisiert</strong> eingeschaltet, erfassen Sie das <strong>Kastrationsdatum</strong> und wer sie durchgeführt hat (<strong>Das Tierheim</strong> oder <strong>Vor der Aufnahme</strong>); lassen Sie die Felder leer, wenn es unbekannt ist. Ist es ausgeschaltet, wählen Sie den <strong>Kastrationsstatus</strong> (Ausstehend, Geplant mit Datum oder Nicht empfohlen) und ergänzen Sie Notizen. Neue, nicht kastrierte Tiere beginnen als Ausstehend.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gedrucktes Datenblatt und Notizen</h3>
+        <p>Das gedruckte Datenblatt eines Tieres zeigt Referenz, Standort, Mikrochip, das <strong>Geburtsdatum</strong> (statt des Alters, damit es auf Papier nie falsch ist), die Biografie sowie die <strong>Klinische Notizen</strong> und die <strong>Interne Notizen</strong>. Die <strong>Interne Notizen</strong> sind private Notizen für die Benutzer des Tierheims: Sie erscheinen nie im öffentlichen Portal.</p>
+        <p>Der letzte Filter der Tierliste enthält auch <strong>Nach Adoption zurückgebracht</strong>: Tiere, die zurückgekommen und noch nicht erneut adoptiert wurden. Auf ihrer Seite zeigt die Adoption ein Rückgabe-Etikett.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Tierheime, die in Gruppen impfen, können auf der Seite Impfungen den <strong>Impfplan</strong> öffnen. Er zeigt für das gewählte Jahr pro Impfstoff, wie viele offene Impfungen der Tiere im Tierheim in jedem Monat fällig werden; die erste Spalte zählt die, die schon vor diesem Jahr fällig waren. Klicken Sie auf eine Zahl, um die Tiere mit Mikrochip und Standort aufzulisten, und nutzen Sie <strong>Liste für den Tierarzt drucken</strong>, um die Liste zum Impftag mitzunehmen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Gruppenimpfung</h3>
         <p>Die <strong>Gruppenimpfung</strong> erfasst denselben Impfstoff für mehrere Tiere auf einmal, zum Beispiel an dem Tag, an dem der Tierarzt eine Gruppe impft. Wählen Sie den Impfstoff und welche Tiere aufgelistet werden: die in einem bestimmten Monat fälligen (standardmäßig der aktuelle Monat), die überfälligen oder alle Tiere im Tierheim der Tierart dieses Impfstoffs, bei Bedarf gefiltert nach Tierart oder Standort. Die aufgelisteten Tiere sind vorausgewählt; entfernen Sie das Häkchen bei den Ausnahmen. Datum, nächster Fälligkeitstermin, Chargennummer, Tierarzt und Notizen werden einmal für alle eingegeben. Im Impfplan öffnet die Schaltfläche <strong>Gruppenimpfung</strong> neben der Liste eines Monats dieses Formular mit diesen Tieren.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ganzes Jahr und Excel-Export</h3>
+        <p>Im Impfplan listet <strong>Ganzes Jahr</strong> alle Tiere mit in diesem Jahr fälligen Impfungen auf. Für jeden Monat oder das ganze Jahr lädt <strong>Nach Excel exportieren</strong> eine Tabelle herunter mit Name, Mikrochip, Geburtsdatum, Einrichtung, Trakt und Zwinger sowie für jede Impfung dem Datum der letzten und der nächsten Dosis. Am Bildschirm, im Ausdruck und in Excel ist die Liste nach Einrichtung, Trakt und Zwinger sortiert, damit der Tierarzt die Gänge der Reihe nach abgehen kann.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Löschen</strong> &mdash; entfernt sie.</li>
         </ul>
         <p>Wurde ein Tier bereits vermittelt oder ist es nicht mehr verfügbar, werden seine offenen Anfragen hervorgehoben und können auf einmal abgelehnt werden. Nutzer mit aktivierten <strong>Benachrichtigungen zu Adoptionsanfragen</strong> erhalten für jede neue Anfrage eine E-Mail; die anfragende Person erhält keine E-Mail, nehmen Sie also selbst Kontakt auf. Anfragen werden sechs Monate nach ihrer letzten Änderung automatisch gelöscht, wie in der Datenschutzerklärung angegeben.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Umschreibung im Tierregister</h3>
+        <p>Schalten Sie <strong>Im Register umgeschrieben</strong> ein, wenn der Tierarzt das Tier im Tierregister (in Portugal SIAC) bereits auf den Namen des Adoptierenden umgeschrieben hat; das Datum wird gespeichert. Jede Adoption zeigt, ob die Umschreibung erledigt oder ausstehend ist, und die Adoptionsseite hat einen Registerfilter, um die ausstehenden zu finden.</p>
+        <p>Die Seite eines Tieres listet alle seine Adoptionen auf. Endete eine Adoption mit einer Rückgabe und hat niemand das Tier erneut adoptiert, zeigt sie ein Rückgabe-Etikett mit Datum.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Gesundheit</strong> &mdash; durchgeführte Impfungen (pro Monat und nach Impfstoff), überfällige Impfungen, Diagnosen nach Krankheit, offene Fälle, die im Zeitraum vom Tierheim durchgeführten Kastrationen (mit Datum und vom Tierheim durchgeführt) und der Anteil kastrierter Tiere im Tierheim.</li>
         </ul>
         <p>Fahren Sie mit der Maus über ein Diagramm, um die Werte zu sehen, oder öffnen Sie darunter <strong>Tabelle anzeigen</strong>. Der <strong>Drucken</strong>-Button öffnet den aktuellen Tab als Bericht mit den Daten des Tierheims &mdash; zum Beispiel den jährlichen Tätigkeitsbericht für die Mitgliederversammlung &mdash;, bereit zum Drucken oder zum Speichern als PDF im Browser.</p>
+        <p>Neben der Drucktaste lädt <strong>Listen exportieren</strong> Tabellen für den gewählten Zeitraum herunter: Aufnahmen, Adoptionen (mit den Kontaktdaten der Adoptierenden), Todesfälle und, bei aktivierten Gesundheitsdaten, durchgeführte Impfungen. Sie dienen den Berichten, die Gemeinden und Behörden verlangen.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>Für jede Zugehörigkeit zu einem Tierheim lassen sich auch die <strong>Benachrichtigungen zu Adoptionsanfragen</strong> aktivieren: Diese Nutzer erhalten für jede neue Adoptionsanfrage eine E-Mail.</p>
         <p>Solange die eingeladene Person sich noch nie angemeldet hat, zeigt die Benutzerliste in ihrer Zeile die Schaltfläche <strong>Einladung erneut senden</strong>. Sie verschickt per E-Mail einen neuen Link und macht den vorherigen ungültig; der Link läuft nach 48 Stunden ab.</p>
+        <p>Eine <strong>Mitarbeiter / Betrieb</strong>-Mitgliedschaft kann auf einige Bereiche beschränkt werden: Schalten Sie unter <strong>Darf bearbeiten</strong> die Bereiche aus, die der Benutzer nicht bearbeiten darf (Tiere, Gesundheit, Vermittlungen, Patenschaften, Mitglieder). Sind alle eingeschaltet, bearbeitet der Benutzer wie bisher alles. Wer <strong>Leser (nur Lesezugriff)</strong> ist, kann nur ansehen und sieht nie persönliche Daten von Adoptierenden, Paten, Freiwilligen oder Mitgliedern; ein <strong>Tierheimleitung</strong> bearbeitet alles.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">

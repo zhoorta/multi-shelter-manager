@@ -44,6 +44,10 @@ As soon as a pet has an adoption with no **Return Date**, its status becomes **A
 
 The adoption is shown on the pet's record, with an **Edit** button.
 
+### The pet registry transfer
+
+In Portugal the vet moves the animal to the adopter's name in the national pet registry (SIAC). On the adoption form, switch on **Transferred in the pet registry** once it is done: the date is saved, and the adoption shows *Transferred on …* or *Pending*, so you can tell an adopter at a glance whether the process is complete.
+
 ## 9.3 The Adoptions page
 
 **Pets → Adoptions** lists every adoption of the shelter, newest first. Each row shows the adopter's name and contacts, the adoption date and the pet.
@@ -51,6 +55,7 @@ The adoption is shown on the pet's record, with an **Edit** button.
 ![Adoptions list](screenshots/42-adoptions.png)
 
 - **Search** by adopter, contact, pet or notes.
+- **Registry filter** — *Registry: all*, *Registry: pending* (open adoptions whose animal has not yet been moved to the adopter's name in the pet registry) or *Transferred in the pet registry*.
 - 👁 opens the adoption, 🗑 deletes it.
 
 The adoption page shows all its details, with an **Edit** button:
@@ -62,10 +67,10 @@ The adoption page shows all its details, with an **Edit** button:
 Sometimes an adopted animal comes back to the shelter. **Do not delete the adoption.** Instead:
 
 1. Open the adoption (from the pet's record or from **Pets → Adoptions**) and click **Edit**.
-2. Fill in the **Return Date**, and explain why in **Operational Notes**.
+2. Fill in the **Return Date**, and explain why in **Notes**.
 3. Click **Save**.
 
-The pet becomes available again (or *not available*, depending on its **Is Adoptable** switch), and the adoption stays in the pet's history.
+The pet becomes available again (or *not available*, depending on its **Is Adoptable** switch), and the adoption stays in the pet's history. The pet's record lists all its adoptions, and when the animal came back and nobody has adopted it again, the adoption shows a *Returned at* badge with the date. In the pet list, the **Returned after adoption** filter finds these animals.
 
 
 ## 9.5 Adoption applications

@@ -100,6 +100,9 @@
         <p>Registre diagnósticos en la página del animal con <strong>Nuevo diagnóstico</strong>: la enfermedad, la fecha del diagnóstico, el estado (<strong>Activa</strong>, <strong>Crónica</strong> o <strong>Tratada</strong>) y notas del tratamiento. Un diagnóstico marcado como Tratada recibe una fecha de resolución (hoy, por defecto). Los diagnósticos activos y crónicos son los problemas de salud abiertos del animal: aparecen en su página, en el panel de control y en el filtro de la lista de animales. Las vacunaciones y las notas clínicas también se guardan en cada animal. Los tamaños solo se ofrecen para especies que tengan tamaños configurados.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Esterilización</h3>
         <p>Con <strong>Esterilizado / Castrado</strong> activado, registre la <strong>Fecha de esterilización</strong> y quién la hizo (<strong>El refugio</strong> o <strong>Antes de la entrada</strong>); déjelos vacíos si no se sabe. Desactivado, elija el <strong>Estado de la esterilización</strong> (Pendiente, Programada con su fecha, o No recomendada) y añada notas. Los animales nuevos que no están esterilizados empiezan como Pendiente.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Ficha impresa y notas</h3>
+        <p>La ficha impresa de un animal muestra la referencia, la ubicación, el microchip, la <strong>Fecha de Nacimiento</strong> (en lugar de la edad, para que nunca sea incorrecta en papel), la biografía y las <strong>Notas Clínicas</strong> y <strong>Notas internas</strong>. Las <strong>Notas internas</strong> son notas privadas para los usuarios del refugio: nunca se muestran en el portal público.</p>
+        <p>El último filtro de la lista de animales también tiene <strong>Devueltos tras la adopción</strong>: animales que volvieron y todavía no han sido adoptados de nuevo. En su ficha, la adopción muestra una etiqueta de devuelto.</p>
     </section>
 
     <section id="vaccinations" class="flex scroll-mt-6 flex-col gap-2">
@@ -110,6 +113,8 @@
         <p>Los refugios que vacunan en grupo pueden abrir el <strong>Plan de Vacunación</strong> en la página Vacunaciones. Para el año elegido muestra, por vacuna, cuántas vacunaciones pendientes de los animales del refugio están previstas en cada mes; la primera columna cuenta las que ya estaban previstas antes de ese año. Haga clic en un número para ver la lista de animales, con su microchip y ubicación, y use <strong>Imprimir lista para el veterinario</strong> para llevarla el día de la vacunación.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Vacunación en grupo</h3>
         <p>La <strong>Vacunación en Grupo</strong> registra la misma vacuna para varios animales a la vez, por ejemplo el día en que el veterinario vacuna a un grupo. Elija la vacuna y qué animales listar: los que tienen la vacuna prevista en un mes (por defecto, el mes actual), los atrasados o todos los animales del refugio de la especie de esa vacuna, y filtre por especie o ubicación si lo necesita. Los animales listados empiezan marcados; desmarque las excepciones. La fecha, la próxima fecha prevista, el número de lote, el veterinario y las notas se rellenan una sola vez para todos. En el plan de vacunación, el botón <strong>Vacunación en Grupo</strong> junto a la lista de un mes abre este formulario con esos animales ya listados.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Año completo y exportación a Excel</h3>
+        <p>En el plan de vacunación, <strong>Año completo</strong> lista todos los animales con vacunas previstas ese año. Para cualquier mes, o para el año completo, <strong>Exportar a Excel</strong> descarga una hoja de cálculo con el nombre, el microchip, la fecha de nacimiento, Instalación, Ala y Jaula y, por cada vacuna, la fecha de la última dosis y de la siguiente. En pantalla, impresa y en Excel la lista se ordena por Instalación, Ala y Jaula, para que el veterinario recorra los pasillos en orden.</p>
     </section>
 
     <section id="treatments" class="flex scroll-mt-6 flex-col gap-2">
@@ -134,6 +139,9 @@
             <li><strong>Eliminar</strong> &mdash; la borra.</li>
         </ul>
         <p>Cuando un animal ya ha sido adoptado o deja de estar disponible, sus solicitudes pendientes se señalan y pueden rechazarse todas a la vez. Los usuarios con las <strong>Notificaciones de Solicitudes de Adopción</strong> activadas reciben un email por cada nueva solicitud; el solicitante no recibe ningún email, así que contacte con él directamente. Las solicitudes se eliminan automáticamente seis meses después de su último cambio, como indica la política de privacidad.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Traspaso en el registro de animales</h3>
+        <p>Active <strong>Transferido en el registro</strong> cuando el veterinario ya haya pasado el animal al nombre del adoptante en el registro de animales (SIAC en Portugal); la fecha queda guardada. Cada adopción muestra si el traspaso está hecho o pendiente, y la página de Adopciones tiene un filtro del registro para encontrar las pendientes.</p>
+        <p>La ficha de un animal lista todas sus adopciones. Cuando una adopción terminó con una devolución y nadie ha adoptado de nuevo al animal, muestra una etiqueta de devuelto con la fecha.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">
@@ -198,6 +206,7 @@
             <li><strong>Salud</strong> &mdash; vacunaciones administradas (por mes y por vacuna), vacunas atrasadas, diagnósticos por enfermedad, casos abiertos, las esterilizaciones realizadas por el refugio en el periodo (las que tienen fecha y las hizo el refugio) y el porcentaje de animales esterilizados en el refugio.</li>
         </ul>
         <p>Pase el ratón sobre un gráfico para ver sus valores, o abra <strong>Ver tabla</strong> debajo. El botón <strong>imprimir</strong> abre la pestaña actual como informe con los datos del refugio &mdash; por ejemplo la memoria anual de actividades para la asamblea general &mdash; lista para imprimir o guardar en PDF desde el navegador.</p>
+        <p>Junto al botón de imprimir, <strong>Exportar listas</strong> descarga hojas de cálculo del período elegido: entradas, adopciones (con los contactos de los adoptantes), fallecimientos y, con los registros de salud activos, vacunas aplicadas. Sirven para los informes que piden ayuntamientos y autoridades.</p>
     </section>
 
     <section id="users" class="flex scroll-mt-6 flex-col gap-2">
@@ -209,6 +218,7 @@
         </ul>
         <p>En cada vinculación con un refugio también se pueden activar las <strong>Notificaciones de Solicitudes de Adopción</strong>: esos usuarios reciben un email por cada nueva solicitud de adopción.</p>
         <p>Mientras la persona invitada no haya iniciado sesión por primera vez, la lista de usuarios muestra un botón <strong>Reenviar invitación</strong> en su fila. Envía por email un enlace nuevo y anula el anterior; el enlace caduca a las 48 horas.</p>
+        <p>Una pertenencia como <strong>Empleado / Operativo</strong> puede limitarse a algunas áreas: desactive, en <strong>Puede editar</strong>, las que el usuario no debe editar (Animales, Salud, Adopciones, Apadrinamientos, Socios). Con todas activadas, el usuario edita todo, como antes. Quien tiene <strong>Consulta (solo lectura)</strong> solo consulta y nunca ve datos personales de adoptantes, padrinos, voluntarios ni socios; el <strong>Gestor de Refugio</strong> edita todo.</p>
     </section>
 
     <section id="public-portal" class="flex scroll-mt-6 flex-col gap-2">
