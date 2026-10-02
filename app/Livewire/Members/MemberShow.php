@@ -53,7 +53,7 @@ class MemberShow extends Component
      */
     public function createPayment(string $type): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('members'), 403);
 
         $this->resetPaymentForm();
         $this->paymentType = $type === 'joining_fee' ? 'joining_fee' : 'membership_fee';
@@ -73,7 +73,7 @@ class MemberShow extends Component
 
     public function editPayment(int $paymentId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('members'), 403);
         $payment = $this->member->payments()->findOrFail($paymentId);
 
         $this->resetPaymentForm();
@@ -89,7 +89,7 @@ class MemberShow extends Component
 
     public function savePayment(): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('members'), 403);
 
         $isMembershipFee = $this->paymentType === 'membership_fee';
 
@@ -139,7 +139,7 @@ class MemberShow extends Component
 
     public function deletePayment(int $paymentId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('members'), 403);
 
         $this->member->payments()->findOrFail($paymentId)->delete();
         $this->loadPayments();

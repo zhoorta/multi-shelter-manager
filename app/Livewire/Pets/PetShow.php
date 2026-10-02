@@ -127,7 +127,7 @@ class PetShow extends Component
 
     public function deleteVaccination(int $petVaccineId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('health'), 403);
         $this->scopedPetVaccineQuery()->findOrFail($petVaccineId)->delete();
 
         $this->refreshVaccines();
@@ -177,7 +177,7 @@ class PetShow extends Component
 
     public function deleteTreatment(int $petTreatmentId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('health'), 403);
         PetTreatment::query()->where('pet_id', $this->pet->id)->findOrFail($petTreatmentId)->delete();
 
         $this->pet->load([
@@ -190,7 +190,7 @@ class PetShow extends Component
 
     public function deleteDiagnosis(int $petSicknessId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('health'), 403);
         $this->scopedPetSicknessQuery()->findOrFail($petSicknessId)->delete();
 
         $this->refreshSicknesses();

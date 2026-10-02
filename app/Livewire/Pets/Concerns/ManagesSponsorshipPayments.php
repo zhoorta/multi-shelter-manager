@@ -39,7 +39,7 @@ trait ManagesSponsorshipPayments
 
     public function createPayment(int $sponsorshipId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('sponsorships'), 403);
         $this->scopedSponsorshipQuery()->findOrFail($sponsorshipId);
 
         $this->resetPaymentForm();
@@ -58,7 +58,7 @@ trait ManagesSponsorshipPayments
 
     public function editPayment(int $paymentId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('sponsorships'), 403);
         $payment = $this->scopedSponsorshipPaymentQuery()->findOrFail($paymentId);
 
         $this->editingPaymentId = $payment->id;
@@ -72,7 +72,7 @@ trait ManagesSponsorshipPayments
 
     public function savePayment(): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('sponsorships'), 403);
         $validated = $this->validate([
             'paymentStartDate' => ['required', 'date'],
             'paymentEndDate' => ['required', 'date', 'after_or_equal:paymentStartDate'],
@@ -115,7 +115,7 @@ trait ManagesSponsorshipPayments
 
     public function deletePayment(int $paymentId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('sponsorships'), 403);
         $this->scopedSponsorshipPaymentQuery()->findOrFail($paymentId)->delete();
 
         $this->refreshSponsorships();

@@ -72,7 +72,7 @@ class GroupVaccinationForm extends Component
     public function mount(): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('health'), 403);
 
         $this->administeredDate = today()->toDateString();
 

@@ -401,8 +401,9 @@ class DocumentationDemoSeeder extends Seeder
                 'neutering_scheduled_at' => ! $isNeutered && $status !== 'adopted' && $index % 2 === 0 ? now()->addDays(10) : null,
                 'checkin_date' => now()->subDays(random_int(10, 500)),
                 'date_of_death' => $status === 'deceased' ? now()->subDays(20) : null,
-                'notes' => $status === 'not_available' ? 'Under behavioural assessment before being listed for adoption.' : null,
-                'internal_notes' => $index % 3 === 0 ? 'Needs to be walked separately from other males.' : null,
+                'internal_notes' => $status === 'not_available'
+                    ? 'Under behavioural assessment before being listed for adoption.'
+                    : ($index % 3 === 0 ? 'Needs to be walked separately from other males.' : null),
                 'clinical_notes' => $index % 4 === 1 ? 'Sensitive stomach — hypoallergenic diet only.' : null,
                 'view_count' => random_int(15, 900),
             ]);

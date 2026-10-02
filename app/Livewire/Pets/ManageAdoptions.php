@@ -78,7 +78,7 @@ class ManageAdoptions extends Component
 
     public function deleteAdoption(int $adoptionId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('adoptions'), 403);
         $adoption = Adoption::query()->whereHas('pet')->with('pet')->findOrFail($adoptionId);
 
         DB::transaction(function () use ($adoption): void {

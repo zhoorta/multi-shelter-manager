@@ -1,3 +1,7 @@
+@php
+    $canEdit = auth()->user()->canEditArea('adoptions');
+@endphp
+
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Adoptions') }}</flux:heading>
@@ -98,6 +102,7 @@
                                             wire:navigate
                                         />
 
+                                        @if ($canEdit)
                                         <flux:modal.trigger name="confirm-adoption-deletion-{{ $adoption->id }}">
                                             <flux:button
                                                 size="sm"
@@ -125,6 +130,7 @@
                                                 </div>
                                             </div>
                                         </flux:modal>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

@@ -6,19 +6,24 @@
     editPayment, deletePayment) rely on the including Livewire component
     using the ManagesSponsorshipPayments trait.
 --}}
+@php
+    $canEditSponsorship = auth()->user()->canEditArea('sponsorships');
+@endphp
 <div wire:key="sponsorship-{{ $sponsorship->id }}" class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
     <div class="flex w-full items-center justify-between">
         <flux:label>{{ __('Sponsorship') }}</flux:label>
 
-        <flux:button
-            :href="route('pets.sponsor.edit', [$pet, $sponsorship])"
-            variant="filled"
-            size="sm"
-            icon="pencil"
-            wire:navigate
-        >
-            {{ __('Edit') }}
-        </flux:button>
+        @if ($canEditSponsorship)
+            <flux:button
+                :href="route('pets.sponsor.edit', [$pet, $sponsorship])"
+                variant="filled"
+                size="sm"
+                icon="pencil"
+                wire:navigate
+            >
+                {{ __('Edit') }}
+            </flux:button>
+        @endif
     </div>
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -71,16 +76,18 @@
     <div class="flex w-full items-center justify-between pt-2">
         <flux:label>{{ __('Sponsorship Payments') }}</flux:label>
 
-        <flux:modal.trigger name="sponsorship-payment-form">
-            <flux:button
-                variant="filled"
-                size="sm"
-                icon="plus"
-                wire:click="createPayment({{ $sponsorship->id }})"
-            >
-                {{ __('Add Payment') }}
-            </flux:button>
-        </flux:modal.trigger>
+        @if ($canEditSponsorship)
+            <flux:modal.trigger name="sponsorship-payment-form">
+                <flux:button
+                    variant="filled"
+                    size="sm"
+                    icon="plus"
+                    wire:click="createPayment({{ $sponsorship->id }})"
+                >
+                    {{ __('Add Payment') }}
+                </flux:button>
+            </flux:modal.trigger>
+        @endif
     </div>
 
     <div class="w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
@@ -105,6 +112,7 @@
                             <td class="px-4 py-2">{{ number_format((float) $payment->payment_value, 2, ',', '.') }}</td>
                             <td class="px-4 py-2">{{ $payment->notes ?? '—' }}</td>
                             <td class="px-4 py-2">
+                                @if ($canEditSponsorship)
                                 <div class="flex items-center gap-2">
                                     <flux:modal.trigger name="sponsorship-payment-form">
                                         <flux:button
@@ -144,6 +152,7 @@
                                         </div>
                                     </flux:modal>
                                 </div>
+                                @endif
                             </td>
                         </tr>
                     @empty

@@ -64,7 +64,7 @@ class ManageSponsorships extends Component
 
     public function deleteSponsorship(int $sponsorshipId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('sponsorships'), 403);
         Sponsorship::query()->whereHas('pet')->findOrFail($sponsorshipId)->delete();
 
         unset($this->sponsorships);

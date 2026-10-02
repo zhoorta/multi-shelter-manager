@@ -35,7 +35,7 @@ class DiagnosisForm extends Component
     public function mount(Pet $pet, ?PetSickness $petSickness = null): void
     {
         abort_unless(! Auth::user()->is_admin, 403);
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('health'), 403);
         abort_if($petSickness !== null && $petSickness->pet_id !== $pet->id, 404);
 
         $this->pet = $pet;

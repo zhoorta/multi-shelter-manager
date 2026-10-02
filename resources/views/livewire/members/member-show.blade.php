@@ -1,3 +1,7 @@
+@php
+    $canEditMembers = auth()->user()->canEditArea('members');
+@endphp
+
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
@@ -10,9 +14,11 @@
                 {{ __('Members') }}
             </flux:button>
 
-            <flux:button :href="route('members.edit', $member)" variant="primary" icon="pencil" wire:navigate>
-                {{ __('Edit') }}
-            </flux:button>
+            @if ($canEditMembers)
+                <flux:button :href="route('members.edit', $member)" variant="primary" icon="pencil" wire:navigate>
+                    {{ __('Edit') }}
+                </flux:button>
+            @endif
         </div>
     </div>
 
@@ -117,7 +123,7 @@
             <flux:label>{{ __('Payments') }}</flux:label>
 
             <div class="flex items-center gap-2">
-                @if ($owesJoiningFee)
+                @if ($canEditMembers && $owesJoiningFee)
                     <flux:modal.trigger name="member-payment-form">
                         <flux:button variant="filled" size="sm" icon="plus" wire:click="createPayment('joining_fee')">
                             {{ __('Joining Fee') }}
@@ -125,11 +131,13 @@
                     </flux:modal.trigger>
                 @endif
 
-                <flux:modal.trigger name="member-payment-form">
-                    <flux:button variant="filled" size="sm" icon="plus" wire:click="createPayment('membership_fee')">
-                        {{ __('Membership Fee') }}
-                    </flux:button>
-                </flux:modal.trigger>
+                @if ($canEditMembers)
+                    <flux:modal.trigger name="member-payment-form">
+                        <flux:button variant="filled" size="sm" icon="plus" wire:click="createPayment('membership_fee')">
+                            {{ __('Membership Fee') }}
+                        </flux:button>
+                    </flux:modal.trigger>
+                @endif
             </div>
         </div>
 
@@ -159,6 +167,7 @@
                                 <td class="px-4 py-2">{{ $payment->payment_method ? __('payment_'.$payment->payment_method) : '—' }}</td>
                                 <td class="px-4 py-2">{{ $payment->notes ?? '—' }}</td>
                                 <td class="px-4 py-2">
+                                    @if ($canEditMembers)
                                     <div class="flex items-center gap-2">
                                         <flux:modal.trigger name="member-payment-form">
                                             <flux:button
@@ -198,6 +207,7 @@
                                             </div>
                                         </flux:modal>
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

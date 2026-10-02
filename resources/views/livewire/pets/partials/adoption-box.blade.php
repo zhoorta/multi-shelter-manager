@@ -7,6 +7,9 @@
     $backToAdoptionsList set (see .ai/rules/pets.md — mirrors the
     sponsorship-box partial).
 --}}
+@php
+    $canEditAdoption = auth()->user()->canEditArea('adoptions');
+@endphp
 <div wire:key="adoption-{{ $adoption->id }}" class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
     <div class="flex w-full items-center justify-between">
         <div class="flex items-center gap-2">
@@ -17,17 +20,19 @@
             @endif
         </div>
 
-        <flux:button
-            :href="route('pets.adopt.edit', ($backToAdoptionsList ?? false)
-                ? ['pet' => $pet, 'adoption' => $adoption, 'from' => 'adoptions']
-                : ['pet' => $pet, 'adoption' => $adoption])"
-            variant="filled"
-            size="sm"
-            icon="pencil"
-            wire:navigate
-        >
-            {{ __('Edit') }}
-        </flux:button>
+        @if ($canEditAdoption)
+            <flux:button
+                :href="route('pets.adopt.edit', ($backToAdoptionsList ?? false)
+                    ? ['pet' => $pet, 'adoption' => $adoption, 'from' => 'adoptions']
+                    : ['pet' => $pet, 'adoption' => $adoption])"
+                variant="filled"
+                size="sm"
+                icon="pencil"
+                wire:navigate
+            >
+                {{ __('Edit') }}
+            </flux:button>
+        @endif
     </div>
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

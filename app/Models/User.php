@@ -88,7 +88,7 @@ class User extends Authenticatable implements HasLocalePreference
     {
         return $this->belongsToMany(Shelter::class, 'shelter_users')
             ->using(ShelterUser::class)
-            ->withPivot(['role', 'vaccination_notifications', 'adoption_application_notifications'])
+            ->withPivot(['role', 'edit_areas', 'vaccination_notifications', 'adoption_application_notifications'])
             ->withTimestamps();
     }
 
@@ -175,6 +175,27 @@ class User extends Authenticatable implements HasLocalePreference
     {
         return $this->current_shelter_id !== null
             && in_array($this->roleForShelter($this->current_shelter_id), ['manager', 'staff'], true);
+    }
+
+    /**
+     * Whether this user may change one area of the daily work (one of
+     * ShelterUser::EDIT_AREAS) in the shelter they are currently acting
+     * within: managers can edit every area, staff the areas they are limited
+     * to (all of them when not limited), viewers none.
+     */
+    public function canEditArea(string $area): bool
+    {
+        if ($this->current_shelter_id === null) {
+            return false;
+        }
+
+        $membership = $this->shelters()->wherePivot('shelter_id', $this->current_shelter_id)->first()?->pivot;
+
+        return match ($membership?->role) {
+            'manager' => true,
+            'staff' => $membership->edit_areas === null || in_array($area, $membership->edit_areas, true),
+            default => false,
+        };
     }
 
     /**

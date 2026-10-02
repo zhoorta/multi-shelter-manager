@@ -1,5 +1,11 @@
 @php
-    $canEdit = auth()->user()->canEditCurrentShelter();
+    $user = auth()->user();
+    $canEditPet = $user->canEditArea('pets');
+    $canEditHealth = $user->canEditArea('health');
+    $canAdopt = $user->canEditArea('adoptions') && $pet->status !== 'adopted';
+    $canSponsor = $user->canEditArea('sponsorships') && $pet->is_sponsorable && $user->currentShelterHasModule('sponsorships');
+    // Viewers never see people's data (adopters, sponsors, foster families).
+    $seesPeople = $user->canEditCurrentShelter();
 @endphp
 
 <div class="flex h-full w-full flex-1 flex-col gap-6">
@@ -21,13 +27,13 @@
                 {{ $pet->species->name_plural }}
             </flux:button>
 
-            @if ($canEdit)
+            @if ($canEditPet)
                 <flux:button :href="route('pets.edit', $pet)" variant="primary" icon="pencil" wire:navigate>
                     {{ __('Edit') }}
                 </flux:button>
             @endif
 
-            @if ($canEdit && ($pet->status !== 'adopted' || ($pet->is_sponsorable && auth()->user()->currentShelterHasModule('sponsorships'))))
+            @if ($canAdopt || $canSponsor)
                 <flux:dropdown position="bottom" align="end">
                     <flux:button
                         icon="heart"
@@ -35,13 +41,13 @@
                     />
 
                     <flux:menu>
-                        @unless ($pet->status === 'adopted')
+                        @if ($canAdopt)
                             <flux:menu.item :href="route('pets.adopt', $pet)" icon="heart" wire:navigate>
                                 {{ __('Adoption Registration') }}
                             </flux:menu.item>
-                        @endunless
+                        @endif
 
-                        @if ($pet->is_sponsorable && auth()->user()->currentShelterHasModule('sponsorships'))
+                        @if ($canSponsor)
                             <flux:menu.item :href="route('pets.sponsor', $pet)" icon="gift" wire:navigate>
                                 {{ __('Sponsorship Registration') }}
                             </flux:menu.item>
@@ -402,7 +408,7 @@
                             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Foster family') }}</flux:text>
                             <flux:text class="text-neutral-700 dark:text-neutral-300">🏠 {{ $pet->cage->code }}</flux:text>
                             {{-- Viewers never see people's data, so the family's contact stays hidden from them. --}}
-                            @if ($canEdit && $pet->cage->volunteer && auth()->user()->currentShelterHasModule('volunteers'))
+                            @if ($seesPeople && $pet->cage->volunteer && auth()->user()->currentShelterHasModule('volunteers'))
                                 <flux:text class="text-neutral-700 dark:text-neutral-300">
                                     <a href="{{ route('volunteers.show', $pet->cage->volunteer) }}" wire:navigate class="hover:underline">{{ $pet->cage->volunteer->name }}</a>@if ($pet->cage->volunteer->phone) &middot; <a href="tel:{{ $pet->cage->volunteer->phone }}" class="hover:underline">{{ $pet->cage->volunteer->phone }}</a>@endif
                                 </flux:text>
@@ -445,7 +451,7 @@
         </div>
 
         {{-- Viewers are read-only and must not see adopter or sponsor personal data. --}}
-        @if ($canEdit)
+        @if ($seesPeople)
             @foreach ($pet->adoptions as $adoption)
                 @include('livewire.pets.partials.adoption-box', ['pet' => $pet, 'adoption' => $adoption])
             @endforeach
@@ -465,7 +471,7 @@
             <div class="flex w-full items-center justify-between">
                 <flux:label>{{ __('Diagnoses') }}</flux:label>
 
-                @if ($canEdit)
+                @if ($canEditHealth)
                     <flux:button :href="route('pets.diagnose', $pet)" variant="filled" size="sm" icon="plus" wire:navigate>
                         {{ __('New Diagnosis') }}
                     </flux:button>
@@ -482,7 +488,7 @@
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Status') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Resolution Date') }}</th>
                                 <th scope="col" class="px-4 py-2 font-medium">{{ __('Treatment Notes') }}</th>
-                                @if ($canEdit)
+                                @if ($canEditHealth)
                                     <th scope="col" class="px-4 py-2 font-medium">{{ __('Actions') }}</th>
                                 @endif
                             </tr>
@@ -497,7 +503,7 @@
                                     </td>
                                     <td class="px-4 py-2">{{ $sickness->pivot->resolved_at?->format('d/m/Y') ?? '—' }}</td>
                                     <td class="px-4 py-2 whitespace-pre-line">{{ $sickness->pivot->treatment_notes ?? '—' }}</td>
-                                    @if ($canEdit)
+                                    @if ($canEditHealth)
                                         <td class="px-4 py-2">
                                             <div class="flex items-center gap-2">
                                                 <flux:button
@@ -537,7 +543,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="{{ $canEdit ? 6 : 5 }}" class="px-4 py-4 text-center text-neutral-500 dark:text-neutral-400">
+                                    <td colspan="{{ $canEditHealth ? 6 : 5 }}" class="px-4 py-4 text-center text-neutral-500 dark:text-neutral-400">
                                         {{ __('No diagnoses registered') }}
                                     </td>
                                 </tr>
@@ -553,7 +559,7 @@
                 <div class="flex w-full items-center justify-between">
                     <flux:label>{{ __('Vaccinations') }}</flux:label>
 
-                    @if ($canEdit)
+                    @if ($canEditHealth)
                         <flux:button :href="route('pets.vaccinate', $pet)" variant="filled" size="sm" icon="plus" wire:navigate>
                             {{ __('New Vaccination') }}
                         </flux:button>
@@ -599,7 +605,7 @@
                                                     <flux:button size="sm" variant="subtle" icon="eye" :aria-label="__('Show')" />
                                                 </flux:modal.trigger>
 
-                                                @if ($canEdit)
+                                                @if ($canEditHealth)
                                                     <flux:button
                                                         :href="route('pets.vaccinate.edit', [$pet, $vaccine->pivot])"
                                                         size="sm"
@@ -650,7 +656,7 @@
                                                     </div>
                                                 </flux:modal>
 
-                                                @if ($canEdit)
+                                                @if ($canEditHealth)
                                                     <flux:modal name="confirm-vaccination-deletion-{{ $vaccine->pivot->id }}" class="max-w-lg">
                                                         <div class="space-y-6">
                                                             <div>
@@ -689,7 +695,7 @@
                 <div class="flex w-full items-center justify-between">
                     <flux:label>{{ __('Treatments') }}</flux:label>
 
-                    @if ($canEdit)
+                    @if ($canEditHealth)
                         <flux:button :href="route('pets.treat', $pet)" variant="filled" size="sm" icon="plus" wire:navigate>
                             {{ __('New Treatment') }}
                         </flux:button>
@@ -735,7 +741,7 @@
                                                     <flux:button size="sm" variant="subtle" icon="eye" :aria-label="__('Show')" />
                                                 </flux:modal.trigger>
 
-                                                @if ($canEdit)
+                                                @if ($canEditHealth)
                                                     <flux:button
                                                         :href="route('pets.treat.edit', [$pet, $petTreatment])"
                                                         size="sm"
@@ -786,7 +792,7 @@
                                                     </div>
                                                 </flux:modal>
 
-                                                @if ($canEdit)
+                                                @if ($canEditHealth)
                                                     <flux:modal name="confirm-treatment-deletion-{{ $petTreatment->id }}" class="max-w-lg">
                                                         <div class="space-y-6">
                                                             <div>

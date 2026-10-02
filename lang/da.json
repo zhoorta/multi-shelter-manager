@@ -747,5 +747,8 @@
     "Registry: all": "Register: alle",
     "Registry: pending": "Register: afventer",
     "Export lists": "Eksportér lister",
-    "Returned after adoption": "Afleveret tilbage efter adoption"
+    "Returned after adoption": "Afleveret tilbage efter adoption",
+    "Can edit": "Må redigere",
+    "Turn off an area to make it view-only for this user.": "Slå et område fra for at gøre det skrivebeskyttet for denne bruger.",
+    "Select at least one area this user can edit.": "Vælg mindst ét område, som denne bruger må redigere."
 }

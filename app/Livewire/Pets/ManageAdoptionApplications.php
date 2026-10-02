@@ -85,7 +85,7 @@ class ManageAdoptionApplications extends Component
 
     public function rejectApplication(int $applicationId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('adoptions'), 403);
 
         $this->scopedApplicationsQuery()
             ->where('status', 'pending')
@@ -99,7 +99,7 @@ class ManageAdoptionApplications extends Component
 
     public function rejectStaleApplications(): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('adoptions'), 403);
 
         $rejectedCount = 0;
 
@@ -116,7 +116,7 @@ class ManageAdoptionApplications extends Component
 
     public function deleteApplication(int $applicationId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('adoptions'), 403);
 
         $this->scopedApplicationsQuery()->findOrFail($applicationId)->delete();
 

@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="flex-1">
-                            <flux:select wire:model="userMemberships.{{ $i }}.role" :label="__('Role')" :disabled="$this->isManagerEditingOwnAccount">
+                            <flux:select wire:model.live="userMemberships.{{ $i }}.role" :label="__('Role')" :disabled="$this->isManagerEditingOwnAccount">
                                 <flux:select.option value="staff">{{ __('Staff') }}</flux:select.option>
                                 <flux:select.option value="manager">{{ __('Manager') }}</flux:select.option>
                                 <flux:select.option value="viewer">{{ __('Viewer') }}</flux:select.option>
@@ -69,8 +69,25 @@
                         @endunless
                     </div>
 
-                    <flux:switch wire:model="userMemberships.{{ $i }}.vaccination_notifications" :label="__('Vaccination and Treatment Notifications')" align="left" />
-                    <flux:switch wire:model="userMemberships.{{ $i }}.adoption_application_notifications" :label="__('Adoption Application Notifications')" align="left" />
+                    @if (($membership['role'] ?? null) === 'staff')
+                        <div class="flex flex-col gap-2">
+                            <flux:label>{{ __('Can edit') }}</flux:label>
+                            <flux:text size="sm">{{ __('Turn off an area to make it view-only for this user.') }}</flux:text>
+
+                            @foreach (\App\Models\ShelterUser::areaLabels() as $area => $areaLabel)
+                                <flux:switch wire:model="userMemberships.{{ $i }}.edit_areas.{{ $area }}" :label="$areaLabel" align="left" />
+                            @endforeach
+
+                            <flux:error name="userMemberships.{{ $i }}.edit_areas" />
+                        </div>
+                    @endif
+
+                    <div class="flex flex-col gap-2">
+                        <flux:label>{{ __('Notifications') }}</flux:label>
+
+                        <flux:switch wire:model="userMemberships.{{ $i }}.vaccination_notifications" :label="__('Vaccination and Treatment Notifications')" align="left" />
+                        <flux:switch wire:model="userMemberships.{{ $i }}.adoption_application_notifications" :label="__('Adoption Application Notifications')" align="left" />
+                    </div>
                 </div>
             @endforeach
 

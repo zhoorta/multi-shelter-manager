@@ -747,5 +747,8 @@
     "Registry: all": "Register: alle",
     "Registry: pending": "Register: in afwachting",
     "Export lists": "Lijsten exporteren",
-    "Returned after adoption": "Teruggebracht na adoptie"
+    "Returned after adoption": "Teruggebracht na adoptie",
+    "Can edit": "Mag bewerken",
+    "Turn off an area to make it view-only for this user.": "Zet een gebied uit om het voor deze gebruiker alleen-lezen te maken.",
+    "Select at least one area this user can edit.": "Selecteer minstens één gebied dat deze gebruiker mag bewerken."
 }

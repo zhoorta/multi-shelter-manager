@@ -1,5 +1,5 @@
 @php
-    $canEdit = auth()->user()->canEditCurrentShelter();
+    $canEdit = auth()->user()->canEditArea('health');
     $currentYear = today()->year;
     $currentMonth = today()->month;
     $planMonths = range(1, 12);

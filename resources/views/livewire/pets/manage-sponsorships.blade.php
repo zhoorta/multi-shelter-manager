@@ -1,3 +1,7 @@
+@php
+    $canEdit = auth()->user()->canEditArea('sponsorships');
+@endphp
+
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Sponsorships') }}</flux:heading>
@@ -87,6 +91,7 @@
                                             wire:navigate
                                         />
 
+                                        @if ($canEdit)
                                         <flux:modal.trigger name="confirm-sponsorship-deletion-{{ $sponsorship->id }}">
                                             <flux:button
                                                 size="sm"
@@ -114,6 +119,7 @@
                                                 </div>
                                             </div>
                                         </flux:modal>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

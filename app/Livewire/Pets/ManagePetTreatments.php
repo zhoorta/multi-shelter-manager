@@ -106,7 +106,7 @@ class ManagePetTreatments extends Component
 
     public function deleteTreatment(int $petTreatmentId): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('health'), 403);
         PetTreatment::query()->whereHas('pet')->findOrFail($petTreatmentId)->delete();
 
         unset($this->petTreatments, $this->pendingTreatmentIds);

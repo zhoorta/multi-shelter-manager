@@ -1,5 +1,5 @@
 @php
-    $canEdit = auth()->user()->canEditCurrentShelter();
+    $canEdit = auth()->user()->canEditArea('adoptions');
     $statusColors = ['pending' => 'amber', 'approved' => 'lime', 'rejected' => 'zinc'];
 @endphp
 

@@ -137,7 +137,7 @@ class Shelter extends Model
     {
         return $this->belongsToMany(User::class, 'shelter_users')
             ->using(ShelterUser::class)
-            ->withPivot(['role', 'vaccination_notifications', 'adoption_application_notifications'])
+            ->withPivot(['role', 'edit_areas', 'vaccination_notifications', 'adoption_application_notifications'])
             ->withTimestamps();
     }
 

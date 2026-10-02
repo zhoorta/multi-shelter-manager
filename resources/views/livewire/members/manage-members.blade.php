@@ -1,3 +1,7 @@
+@php
+    $canEditMembers = auth()->user()->canEditArea('members');
+@endphp
+
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Members') }}</flux:heading>
@@ -11,9 +15,11 @@
                 </flux:modal.trigger>
             @endif
 
-            <flux:button variant="primary" icon="plus" :href="route('members.create')" wire:navigate>
-                {{ __('Create') }}
-            </flux:button>
+            @if ($canEditMembers)
+                <flux:button variant="primary" icon="plus" :href="route('members.create')" wire:navigate>
+                    {{ __('Create') }}
+                </flux:button>
+            @endif
         </div>
     </div>
 

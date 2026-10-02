@@ -747,5 +747,8 @@
     "Registry: all": "Registry: all",
     "Registry: pending": "Registry: pending",
     "Export lists": "Export lists",
-    "Returned after adoption": "Returned after adoption"
+    "Returned after adoption": "Returned after adoption",
+    "Can edit": "Can edit",
+    "Turn off an area to make it view-only for this user.": "Turn off an area to make it view-only for this user.",
+    "Select at least one area this user can edit.": "Select at least one area this user can edit."
 }

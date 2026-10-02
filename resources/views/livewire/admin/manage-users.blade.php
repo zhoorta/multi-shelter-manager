@@ -43,7 +43,7 @@
                                         <div class="flex flex-wrap gap-1">
                                             @foreach ($item->shelters as $shelter)
                                                 <flux:badge size="sm" title="{{ $shelter->name }}">
-                                                    {{ $shelter->short_name ?: $shelter->name }} ({{ __(\Illuminate\Support\Str::title($shelter->pivot->role)) }})
+                                                    {{ $shelter->short_name ?: $shelter->name }} ({{ __(\Illuminate\Support\Str::title($shelter->pivot->role)) }}@if ($shelter->pivot->role === 'staff' && $shelter->pivot->edit_areas !== null): {{ collect($shelter->pivot->edit_areas)->map(fn (string $area): string => \App\Models\ShelterUser::areaLabels()[$area] ?? $area)->implode(', ') }}@endif)
                                                     @if ($shelter->pivot->vaccination_notifications)
                                                         <flux:icon name="bell-alert" variant="micro" class="ms-1" title="{{ __('Vaccination and Treatment Notifications') }}" aria-label="{{ __('Vaccination and Treatment Notifications') }}" data-test="vaccination-notifications-icon" />
                                                     @endif

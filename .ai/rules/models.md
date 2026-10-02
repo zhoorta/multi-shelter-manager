@@ -5,6 +5,7 @@ paths:
   - app/Models/FurType.php
   - app/Models/Cage.php
   - app/Models/Shelter.php
+  - app/Models/User.php
 ---
 
 # Models
@@ -44,3 +45,6 @@ cages.capacity is only a guideline: a cage can hold more animals than its capaci
 
 ## Optional modules are per-shelter switches in shelters.modules
 Shelter::MODULES (members, volunteers, sponsorships, adoption_applications, reports) are toggled per shelter in the nullable JSON shelters.modules; a missing key means ON, so never backfill. Check with Shelter::hasModule() / User::currentShelterHasModule() (admins always true). Gate a module in three places: the sidebar link, the route (middleware 'module:<key>' answers 404), and any cross-module UI (dashboard counters, pet-show/pet-form sponsorship bits, public adopt button + AdoptionApplicationForm::mount). Switches live in EditsShelterProfile (shelterModules) + partial shelter-modules-fields, editable by the shelter manager and admin. Turning off never deletes data. A new module needs: key in MODULES, label in moduleLabels(), route middleware, sidebar check, test in ShelterModulesTest.
+
+## Staff can be limited to editing some areas: use canEditArea(), not canEditCurrentShelter()
+shelter_users.edit_areas (json, cast to array on ShelterUser) limits a STAFF membership to some of ShelterUser::EDIT_AREAS (pets, health, adoptions, sponsorships, members); null = every area, so old rows are unchanged. User::canEditArea($area): manager always true, staff when null or listed, viewer never. Every write path and its buttons check the area (health = vaccinations/treatments/diagnoses + group forms + vaccination plan; adoptions incl. applications; sponsorships incl. payments; members incl. payments), never canEditCurrentShelter(), which now only means "not a viewer" (people's data visibility). Facilities and volunteers stay manager-only. UserForm saves all ticked areas as null, requires at least one for staff, and ignores the list for manager/viewer. Pass edit_areas to attach()/updateExistingPivot() as an ARRAY: the pivot cast encodes it, a pre-encoded json_encode() string gets double-encoded. A new area must be added to EDIT_AREAS, areaLabels(), the lang files and the form checks. Viewers stay blocked from adopter/sponsor/volunteer/member personal data (decision 2026-10-02).

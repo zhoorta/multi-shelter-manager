@@ -747,5 +747,8 @@
     "Registry: all": "Register: alla",
     "Registry: pending": "Register: väntar",
     "Export lists": "Exportera listor",
-    "Returned after adoption": "Återlämnade efter adoption"
+    "Returned after adoption": "Återlämnade efter adoption",
+    "Can edit": "Får redigera",
+    "Turn off an area to make it view-only for this user.": "Stäng av ett område för att göra det skrivskyddat för den här användaren.",
+    "Select at least one area this user can edit.": "Välj minst ett område som den här användaren får redigera."
 }

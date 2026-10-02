@@ -51,7 +51,7 @@ class MemberForm extends Component
 
     public function mount(?Member $member = null): void
     {
-        abort_unless(Auth::user()->canEditCurrentShelter(), 403);
+        abort_unless(Auth::user()->canEditArea('members'), 403);
 
         if ($member === null) {
             // New members start with the shelter's default fees.

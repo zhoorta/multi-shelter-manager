@@ -63,16 +63,20 @@ class UserFactory extends Factory
 
     /**
      * Attach the created user to a shelter with the given membership role
-     * and notification preferences, and set it as their active shelter.
+     * and notification preferences, and set it as their active shelter. Staff
+     * can be limited to editing some areas (see ShelterUser::EDIT_AREAS).
+     *
+     * @param  array<int, string>|null  $editAreas
      */
-    public function forShelter(Shelter|int $shelter, string $role = 'staff', bool $vaccinationNotifications = false, bool $adoptionApplicationNotifications = false): static
+    public function forShelter(Shelter|int $shelter, string $role = 'staff', bool $vaccinationNotifications = false, bool $adoptionApplicationNotifications = false, ?array $editAreas = null): static
     {
         $shelterId = $shelter instanceof Shelter ? $shelter->id : $shelter;
 
         return $this->state(['current_shelter_id' => $shelterId])
-            ->afterCreating(function (User $user) use ($shelterId, $role, $vaccinationNotifications, $adoptionApplicationNotifications): void {
+            ->afterCreating(function (User $user) use ($shelterId, $role, $vaccinationNotifications, $adoptionApplicationNotifications, $editAreas): void {
                 $user->shelters()->attach($shelterId, [
                     'role' => $role,
+                    'edit_areas' => $editAreas,
                     'vaccination_notifications' => $vaccinationNotifications,
                     'adoption_application_notifications' => $adoptionApplicationNotifications,
                 ]);

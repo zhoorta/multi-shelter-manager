@@ -747,5 +747,8 @@
     "Registry: all": "Registro: todas",
     "Registry: pending": "Registro: pendiente",
     "Export lists": "Exportar listas",
-    "Returned after adoption": "Devueltos tras la adopción"
+    "Returned after adoption": "Devueltos tras la adopción",
+    "Can edit": "Puede editar",
+    "Turn off an area to make it view-only for this user.": "Desactiva un área para dejarla solo de lectura para este usuario.",
+    "Select at least one area this user can edit.": "Selecciona al menos un área que este usuario pueda editar."
 }

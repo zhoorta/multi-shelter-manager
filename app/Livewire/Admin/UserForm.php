@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Admin;
 
 use App\Models\Shelter;
+use App\Models\ShelterUser;
 use App\Models\User;
 use App\Notifications\ShelterMembershipAdded;
 use App\Notifications\UserInvitation;
@@ -34,7 +35,7 @@ class UserForm extends Component
     /**
      * One row per shelter membership being created/edited.
      *
-     * @var array<int, array{shelter_id: int|null, role: string, vaccination_notifications: bool, adoption_application_notifications: bool}>
+     * @var array<int, array{shelter_id: int|null, role: string, edit_areas: array<string, bool>, vaccination_notifications: bool, adoption_application_notifications: bool}>
      */
     public array $userMemberships = [];
 
@@ -72,6 +73,7 @@ class UserForm extends Component
         $this->userMemberships = $memberships->map(fn ($shelter) => [
             'shelter_id' => $shelter->id,
             'role' => $shelter->pivot->role,
+            'edit_areas' => $this->editAreaSwitches($shelter->pivot->edit_areas),
             'vaccination_notifications' => (bool) $shelter->pivot->vaccination_notifications,
             'adoption_application_notifications' => (bool) $shelter->pivot->adoption_application_notifications,
         ])->all();
@@ -118,6 +120,7 @@ class UserForm extends Component
         $this->userMemberships[] = [
             'shelter_id' => $viewer->is_admin ? null : $viewer->current_shelter_id,
             'role' => 'staff',
+            'edit_areas' => $this->editAreaSwitches(null),
             'vaccination_notifications' => false,
             'adoption_application_notifications' => false,
         ];
@@ -154,6 +157,14 @@ class UserForm extends Component
             $this->userMemberships = [];
         }
 
+        foreach ($this->userMemberships as $i => $membership) {
+            if (($membership['role'] ?? null) === 'staff' && ! in_array(true, $membership['edit_areas'] ?? [], true)) {
+                $this->addError("userMemberships.{$i}.edit_areas", __('Select at least one area this user can edit.'));
+
+                return;
+            }
+        }
+
         $validated = $this->validate([
             'userName' => [$this->existingUserId ? 'nullable' : 'required', 'string', 'max:255'],
             'userEmail' => ['required', 'string', 'email', 'max:255'],
@@ -168,6 +179,8 @@ class UserForm extends Component
                 $viewer->is_admin ? 'exists:shelters,id' : Rule::in($viewer->managedShelterIds()),
             ],
             'userMemberships.*.role' => ['required', Rule::in(['staff', 'manager', 'viewer'])],
+            'userMemberships.*.edit_areas' => ['array'],
+            'userMemberships.*.edit_areas.*' => ['boolean'],
             'userMemberships.*.vaccination_notifications' => ['boolean'],
             'userMemberships.*.adoption_application_notifications' => ['boolean'],
         ], [
@@ -209,11 +222,7 @@ class UserForm extends Component
         }
 
         foreach ($validated['userMemberships'] as $membership) {
-            $user->shelters()->attach($membership['shelter_id'], [
-                'role' => $membership['role'],
-                'vaccination_notifications' => $membership['vaccination_notifications'],
-                'adoption_application_notifications' => $membership['adoption_application_notifications'],
-            ]);
+            $user->shelters()->attach($membership['shelter_id'], $this->pivotAttributes($membership));
 
             $user->notify(new ShelterMembershipAdded(Shelter::query()->findOrFail($membership['shelter_id']), $membership['role']));
         }
@@ -254,11 +263,7 @@ class UserForm extends Component
         $user->shelters()->detach($shelterIdsToDetach);
 
         foreach ($validated['userMemberships'] ?? [] as $membership) {
-            $user->shelters()->attach($membership['shelter_id'], [
-                'role' => $membership['role'],
-                'vaccination_notifications' => $membership['vaccination_notifications'],
-                'adoption_application_notifications' => $membership['adoption_application_notifications'],
-            ]);
+            $user->shelters()->attach($membership['shelter_id'], $this->pivotAttributes($membership));
         }
 
         if ($user->current_shelter_id !== null && ! $user->belongsToShelter($user->current_shelter_id)) {
@@ -310,11 +315,7 @@ class UserForm extends Component
 
         if (! $isAdmin) {
             foreach ($validated['userMemberships'] as $membership) {
-                $user->shelters()->attach($membership['shelter_id'], [
-                    'role' => $membership['role'],
-                    'vaccination_notifications' => $membership['vaccination_notifications'],
-                    'adoption_application_notifications' => $membership['adoption_application_notifications'],
-                ]);
+                $user->shelters()->attach($membership['shelter_id'], $this->pivotAttributes($membership));
             }
         }
 
@@ -323,6 +324,41 @@ class UserForm extends Component
         Flux::toast(variant: 'success', text: __('User invited successfully'));
 
         return true;
+    }
+
+    /**
+     * The form's switch per area: on for the areas the membership can edit
+     * (every area when it has no limit).
+     *
+     * @param  array<int, string>|null  $editAreas
+     * @return array<string, bool>
+     */
+    private function editAreaSwitches(?array $editAreas): array
+    {
+        return collect(ShelterUser::EDIT_AREAS)
+            ->mapWithKeys(fn (string $area): array => [$area => $editAreas === null || in_array($area, $editAreas, true)])
+            ->all();
+    }
+
+    /**
+     * The shelter_users columns of one membership row. Only staff can be
+     * limited to some areas; no list at all means they edit everything, so
+     * ticking every area is saved as no limit.
+     *
+     * @param  array{role: string, edit_areas?: array<string, bool>, vaccination_notifications: bool, adoption_application_notifications: bool}  $membership
+     * @return array<string, mixed>
+     */
+    private function pivotAttributes(array $membership): array
+    {
+        $areas = array_values(array_intersect(ShelterUser::EDIT_AREAS, array_keys(array_filter($membership['edit_areas'] ?? []))));
+        $isLimited = $membership['role'] === 'staff' && count($areas) < count(ShelterUser::EDIT_AREAS);
+
+        return [
+            'role' => $membership['role'],
+            'edit_areas' => $isLimited ? $areas : null,
+            'vaccination_notifications' => $membership['vaccination_notifications'],
+            'adoption_application_notifications' => $membership['adoption_application_notifications'],
+        ];
     }
 
     public function render(): View

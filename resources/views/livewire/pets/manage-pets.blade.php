@@ -1,5 +1,5 @@
 @php
-    $canEdit = auth()->user()->canEditCurrentShelter();
+    $canEdit = auth()->user()->canEditArea('pets');
 @endphp
 
 <div class="flex h-full w-full flex-1 flex-col gap-6">
