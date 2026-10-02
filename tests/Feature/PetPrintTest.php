@@ -106,7 +106,7 @@ test('shows the adoption date instead of time in captivity when the pet is adopt
         ->assertDontSee(__('In captivity'));
 });
 
-test('shows the death date and hides the age field when the pet is deceased', function () {
+test('shows the death date instead of the time in captivity when the pet is deceased', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create([
         'birth_date' => now()->subYears(2),
@@ -121,8 +121,7 @@ test('shows the death date and hides the age field when the pet is deceased', fu
         ->assertSee(__('Deceased at'))
         ->assertSee($pet->date_of_death->format('d/m/Y'))
         ->assertDontSee(__('In captivity'))
-        ->assertDontSee(__('Adopted at'))
-        ->assertDontSee(__('Age'));
+        ->assertDontSee(__('Adopted at'));
 });
 
 test('viewers can print a pet', function () {
@@ -131,4 +130,28 @@ test('viewers can print a pet', function () {
     $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
 
     $this->get(route('pets.print', $pet))->assertOk()->assertSee('Rex');
+});
+
+test('shows the chip, birth date, biography and every kind of notes for the paper sheet', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create([
+        'chip' => '941000023525681',
+        'birth_date' => '2020-03-04',
+        'description' => '<p>Found at the harbour</p>',
+        'clinical_notes' => 'Allergic to chicken',
+        'notes' => 'Walks with Ana',
+        'internal_notes' => 'Do not adopt to cats owners',
+    ]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $this->get(route('pets.print', $pet))
+        ->assertOk()
+        ->assertSee('941000023525681')
+        ->assertSee('04/03/2020')
+        ->assertDontSee(__('Age'))
+        ->assertSee('Found at the harbour', false)
+        ->assertSee('Allergic to chicken')
+        ->assertSee('Walks with Ana')
+        ->assertSee('Do not adopt to cats owners');
 });

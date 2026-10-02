@@ -53,12 +53,14 @@
                 <p class="text-neutral-500">{{ __('Name') }}</p>
                 <p class="font-medium text-neutral-900">{{ $pet->name }}</p>
             </div>
-            @unless ($pet->date_of_death)
-                <div>
-                    <p class="text-neutral-500">{{ __('Age') }}</p>
-                    <p class="font-medium text-neutral-900">{{ $pet->age_in_words ?? '—' }}</p>
-                </div>
-            @endunless
+            <div>
+                <p class="text-neutral-500">{{ __('Birth Date') }}</p>
+                <p class="font-medium text-neutral-900">{{ $pet->birth_date?->format('d/m/Y') ?? '—' }}</p>
+            </div>
+            <div>
+                <p class="text-neutral-500">{{ __('Microchip / Chip') }}</p>
+                <p class="font-medium text-neutral-900">{{ $pet->chip ?? '—' }}</p>
+            </div>
             <div>
                 <p class="text-neutral-500">{{ __('Breed') }}</p>
                 <p class="font-medium text-neutral-900">{{ $pet->breed->name }}</p>
@@ -113,4 +115,17 @@
             —
         @endif
     </div>
+
+    @foreach ([
+        __('Clinical Notes') => $pet->clinical_notes,
+        __('Notes') => $pet->notes,
+        __('Internal Notes') => $pet->internal_notes,
+    ] as $notesLabel => $notesText)
+        @if ($notesText)
+            <div class="mt-6 border-t border-neutral-300 pt-6 text-sm leading-relaxed text-neutral-800 print:break-inside-avoid">
+                <p class="font-semibold">{{ $notesLabel }}</p>
+                <p class="mt-1 whitespace-pre-line">{{ $notesText }}</p>
+            </div>
+        @endif
+    @endforeach
 </div>
