@@ -33,15 +33,17 @@ trait FiltersPetsList
      */
     protected function filteredPetsQuery(): Builder
     {
+        $search = trim($this->search);
+
         return Pet::query()
             ->with(['species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'latestAdoption', 'openSicknesses'])
             ->when(
-                $this->search !== '',
+                $search !== '',
                 fn (Builder $query) => $query->where(
-                    fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('ref', 'like', '%'.$this->search.'%')
-                        ->orWhere('chip', 'like', '%'.$this->search.'%')
-                        ->orWhere('internal_notes', 'like', '%'.$this->search.'%')
+                    fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
+                        ->orWhere('ref', 'like', '%'.$search.'%')
+                        ->orWhere('chip', 'like', '%'.$search.'%')
+                        ->orWhere('internal_notes', 'like', '%'.$search.'%')
                 ),
             )
             ->when(

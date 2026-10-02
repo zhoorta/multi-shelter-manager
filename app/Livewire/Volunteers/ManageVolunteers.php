@@ -68,16 +68,18 @@ class ManageVolunteers extends Component
     #[Computed]
     public function volunteers(): LengthAwarePaginator
     {
+        $search = trim($this->search);
+
         return Volunteer::query()
             ->with(['activities', 'species', 'availabilities'])
             ->when(
-                $this->search !== '',
+                $search !== '',
                 fn (Builder $query) => $query->where(
-                    fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('phone', 'like', '%'.$this->search.'%')
-                        ->orWhere('email', 'like', '%'.$this->search.'%')
-                        ->orWhere('tin', 'like', '%'.$this->search.'%')
-                        ->orWhere('notes', 'like', '%'.$this->search.'%')
+                    fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
+                        ->orWhere('phone', 'like', '%'.$search.'%')
+                        ->orWhere('email', 'like', '%'.$search.'%')
+                        ->orWhere('tin', 'like', '%'.$search.'%')
+                        ->orWhere('notes', 'like', '%'.$search.'%')
                 ),
             )
             ->when(

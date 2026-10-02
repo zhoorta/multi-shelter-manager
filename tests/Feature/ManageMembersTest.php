@@ -61,6 +61,20 @@ test('searches members by number or name', function () {
         ->assertDontSee('Maria Silva');
 });
 
+test('ignores spaces around the members search', function () {
+    $shelter = Shelter::factory()->create();
+    $contacts = ['phone' => '912000000', 'email' => 'member@example.com', 'tin' => '100000000'];
+    Member::factory()->for($shelter)->create(['name' => 'Maria Silva', 'member_number' => 7, ...$contacts]);
+    Member::factory()->for($shelter)->create(['name' => 'João Costa', 'member_number' => 8, ...$contacts]);
+
+    $this->actingAs(User::factory()->forShelter($shelter)->create());
+
+    Livewire::test(ManageMembers::class)
+        ->set('search', ' 7 ')
+        ->assertSee('Maria Silva')
+        ->assertDontSee('João Costa');
+});
+
 test('flags and filters the members with fees overdue', function () {
     $this->travelTo('2026-09-25');
     $shelter = Shelter::factory()->create();

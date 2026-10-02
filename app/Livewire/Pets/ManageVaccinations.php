@@ -50,6 +50,8 @@ class ManageVaccinations extends Component
     #[Computed]
     public function vaccinations(): LengthAwarePaginator
     {
+        $search = trim($this->search);
+
         return PetVaccine::query()
             // whereHas('pet') relies on Pet's MultiShelterTrait global scope
             // to keep this scoped to the acting user's shelter, since
@@ -57,14 +59,14 @@ class ManageVaccinations extends Component
             ->whereHas('pet')
             ->with(['pet.species', 'pet.images', 'vaccine'])
             ->when(
-                $this->search !== '',
+                $search !== '',
                 fn (Builder $query) => $query->where(
-                    fn (Builder $query) => $query->where('lot_number', 'like', '%'.$this->search.'%')
-                        ->orWhere('veterinarian_name', 'like', '%'.$this->search.'%')
-                        ->orWhere('notes', 'like', '%'.$this->search.'%')
-                        ->orWhereHas('vaccine', fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%'))
-                        ->orWhereHas('pet', fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                            ->orWhere('ref', 'like', '%'.$this->search.'%'))
+                    fn (Builder $query) => $query->where('lot_number', 'like', '%'.$search.'%')
+                        ->orWhere('veterinarian_name', 'like', '%'.$search.'%')
+                        ->orWhere('notes', 'like', '%'.$search.'%')
+                        ->orWhereHas('vaccine', fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%'))
+                        ->orWhereHas('pet', fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
+                            ->orWhere('ref', 'like', '%'.$search.'%'))
                 ),
             )
             ->when(

@@ -62,17 +62,19 @@ class ManageMembers extends Component
     #[Computed]
     public function members(): LengthAwarePaginator
     {
+        $search = trim($this->search);
+
         return Member::query()
             ->withMax(['payments as fees_paid_until' => fn (Builder $query) => $query->where('type', 'membership_fee')], 'end_date')
             ->when(
-                $this->search !== '',
+                $search !== '',
                 fn (Builder $query) => $query->where(
-                    fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('member_number', $this->search)
-                        ->orWhere('phone', 'like', '%'.$this->search.'%')
-                        ->orWhere('email', 'like', '%'.$this->search.'%')
-                        ->orWhere('tin', 'like', '%'.$this->search.'%')
-                        ->orWhere('notes', 'like', '%'.$this->search.'%')
+                    fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
+                        ->orWhere('member_number', $search)
+                        ->orWhere('phone', 'like', '%'.$search.'%')
+                        ->orWhere('email', 'like', '%'.$search.'%')
+                        ->orWhere('tin', 'like', '%'.$search.'%')
+                        ->orWhere('notes', 'like', '%'.$search.'%')
                 ),
             )
             ->when($this->statusFilter !== '', fn (Builder $query) => $query->where('status', $this->statusFilter))

@@ -84,6 +84,21 @@ test('filters pets by microchip', function () {
         ->assertDontSee('Bella');
 });
 
+test('ignores spaces around the search, as left behind when pasting a chip', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Rex', 'chip' => '985121000123456']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bella', 'chip' => '985121000987654']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManagePets::class)
+        ->set('search', '  985121000123456 ')
+        ->assertSee('Rex')
+        ->assertDontSee('Bella')
+        ->set('search', '   ')
+        ->assertSee('Rex')
+        ->assertSee('Bella');
+});
+
 test('filters pets by ref', function () {
     $shelter = Shelter::factory()->create();
     $rex = Pet::factory()->for($shelter)->create(['name' => 'Rex']);

@@ -51,6 +51,8 @@ class ManageAdoptions extends Component
     #[Computed]
     public function adoptions(): LengthAwarePaginator
     {
+        $search = trim($this->search);
+
         return Adoption::query()
             // whereHas('pet') relies on Pet's MultiShelterTrait global scope
             // to keep this scoped to the acting user's shelter, since
@@ -58,14 +60,14 @@ class ManageAdoptions extends Component
             ->whereHas('pet')
             ->with(['pet.species', 'pet.images'])
             ->when(
-                $this->search !== '',
+                $search !== '',
                 fn (Builder $query) => $query->where(
-                    fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('phone', 'like', '%'.$this->search.'%')
-                        ->orWhere('email', 'like', '%'.$this->search.'%')
-                        ->orWhere('notes', 'like', '%'.$this->search.'%')
-                        ->orWhereHas('pet', fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                            ->orWhere('ref', 'like', '%'.$this->search.'%'))
+                    fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
+                        ->orWhere('phone', 'like', '%'.$search.'%')
+                        ->orWhere('email', 'like', '%'.$search.'%')
+                        ->orWhere('notes', 'like', '%'.$search.'%')
+                        ->orWhereHas('pet', fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
+                            ->orWhere('ref', 'like', '%'.$search.'%'))
                 ),
             )
             ->when($this->siacFilter === 'pending', fn (Builder $query) => $query->whereNull('siac_transferred_at')->whereNull('return_date'))

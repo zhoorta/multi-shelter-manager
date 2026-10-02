@@ -143,6 +143,20 @@ test('filters the adoptions by owner name', function () {
         ->assertDontSee('Joao Costa');
 });
 
+test('ignores spaces around the adoptions search', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    Adoption::factory()->for($pet)->create(['name' => 'Maria Silva', 'phone' => '911111111']);
+    Adoption::factory()->for($pet)->create(['name' => 'Joao Costa', 'phone' => '922222222']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManageAdoptions::class)
+        ->set('search', ' 911111111 ')
+        ->assertSee('Maria Silva')
+        ->assertDontSee('Joao Costa');
+});
+
 test('filters the adoptions by pet ref', function () {
     $shelter = Shelter::factory()->create();
     $rex = Pet::factory()->for($shelter)->create(['name' => 'Rex', 'ref' => 'PET00001']);

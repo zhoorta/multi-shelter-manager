@@ -53,18 +53,20 @@ class ManageAdoptionApplications extends Component
     #[Computed]
     public function applications(): LengthAwarePaginator
     {
+        $search = trim($this->search);
+
         return $this->scopedApplicationsQuery()
             ->with(['pet.species', 'pet.images', 'reviewer'])
             ->when($this->statusFilter !== '', fn (Builder $query) => $query->where('status', $this->statusFilter))
             ->when(
-                $this->search !== '',
+                $search !== '',
                 fn (Builder $query) => $query->where(
-                    fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('phone', 'like', '%'.$this->search.'%')
-                        ->orWhere('email', 'like', '%'.$this->search.'%')
-                        ->orWhere('city', 'like', '%'.$this->search.'%')
-                        ->orWhereHas('pet', fn (Builder $query) => $query->where('name', 'like', '%'.$this->search.'%')
-                            ->orWhere('ref', 'like', '%'.$this->search.'%'))
+                    fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
+                        ->orWhere('phone', 'like', '%'.$search.'%')
+                        ->orWhere('email', 'like', '%'.$search.'%')
+                        ->orWhere('city', 'like', '%'.$search.'%')
+                        ->orWhereHas('pet', fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
+                            ->orWhere('ref', 'like', '%'.$search.'%'))
                 ),
             )
             ->latest()
