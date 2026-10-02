@@ -745,5 +745,6 @@
     "The vet already moved the animal to the owner's name in the pet registry": "Der Tierarzt hat das Tier im Register bereits auf den Besitzer umgeschrieben",
     "Transferred on :date": "Umgeschrieben am :date",
     "Registry: all": "Register: alle",
-    "Registry: pending": "Register: ausstehend"
+    "Registry: pending": "Register: ausstehend",
+    "Export lists": "Listen exportieren"
 }

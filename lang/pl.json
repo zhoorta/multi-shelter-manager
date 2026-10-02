@@ -745,5 +745,6 @@
     "The vet already moved the animal to the owner's name in the pet registry": "Weterynarz przepisał już zwierzę na właściciela w rejestrze",
     "Transferred on :date": "Przeniesiono :date",
     "Registry: all": "Rejestr: wszystkie",
-    "Registry: pending": "Rejestr: oczekuje"
+    "Registry: pending": "Rejestr: oczekuje",
+    "Export lists": "Eksportuj listy"
 }

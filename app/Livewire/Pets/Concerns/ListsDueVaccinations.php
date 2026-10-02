@@ -98,44 +98,37 @@ trait ListsDueVaccinations
             ->sortBy('name')
             ->values();
 
-        $stream = fopen('php://temp', 'r+');
+        return ExportShelterData::csv(
+            [
+                __('Name'),
+                __('Microchip / Chip'),
+                __('Birth Date'),
+                __('Facility'),
+                __('Wing'),
+                __('Cage'),
+                ...$vaccines->flatMap(fn ($vaccine): array => [
+                    $vaccine->name.' — '.__('Administered Date'),
+                    $vaccine->name.' — '.__('Next Due Date'),
+                ])->all(),
+            ],
+            $duePets->map(function (array $row) use ($vaccines): array {
+                $pet = $row['pet'];
 
-        // BOM and ';' so Excel (Portuguese settings) opens the accents and columns correctly.
-        fwrite($stream, "\xEF\xBB\xBF");
-        fputcsv($stream, [
-            __('Name'),
-            __('Microchip / Chip'),
-            __('Birth Date'),
-            __('Facility'),
-            __('Wing'),
-            __('Cage'),
-            ...$vaccines->flatMap(fn ($vaccine): array => [
-                $vaccine->name.' — '.__('Administered Date'),
-                $vaccine->name.' — '.__('Next Due Date'),
-            ])->all(),
-        ], ';', '"', '');
+                return [
+                    $pet->name,
+                    $pet->chip,
+                    $pet->birth_date?->format('d/m/Y'),
+                    $pet->cage?->wing?->facility?->name,
+                    $pet->cage?->wing?->name,
+                    $pet->cage?->code,
+                    ...$vaccines->flatMap(function ($vaccine) use ($row): array {
+                        $vaccination = $row['vaccinations']->firstWhere('vaccine_id', $vaccine->id);
 
-        foreach ($duePets as $row) {
-            $pet = $row['pet'];
-
-            fputcsv($stream, array_map(ExportShelterData::cell(...), [
-                $pet->name,
-                $pet->chip,
-                $pet->birth_date?->format('d/m/Y'),
-                $pet->cage?->wing?->facility?->name,
-                $pet->cage?->wing?->name,
-                $pet->cage?->code,
-                ...$vaccines->flatMap(function ($vaccine) use ($row): array {
-                    $vaccination = $row['vaccinations']->firstWhere('vaccine_id', $vaccine->id);
-
-                    return [$vaccination?->administered_date?->format('d/m/Y'), $vaccination?->due_date->format('d/m/Y')];
-                })->all(),
-            ]), ';', '"', '');
-        }
-
-        rewind($stream);
-
-        return (string) stream_get_contents($stream);
+                        return [$vaccination?->administered_date?->format('d/m/Y'), $vaccination?->due_date->format('d/m/Y')];
+                    })->all(),
+                ];
+            }),
+        );
     }
 
     /**

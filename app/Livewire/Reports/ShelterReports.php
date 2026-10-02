@@ -8,6 +8,7 @@ use App\Livewire\Reports\Concerns\BuildsFinanceReport;
 use App\Livewire\Reports\Concerns\BuildsHealthReport;
 use App\Livewire\Reports\Concerns\BuildsOccupancyReport;
 use App\Livewire\Reports\Concerns\BuildsShelterReport;
+use App\Livewire\Reports\Concerns\ExportsReportLists;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
@@ -16,7 +17,7 @@ use Livewire\Component;
 #[Title('Reports')]
 class ShelterReports extends Component
 {
-    use BuildsFinanceReport, BuildsHealthReport, BuildsOccupancyReport, BuildsShelterReport;
+    use BuildsFinanceReport, BuildsHealthReport, BuildsOccupancyReport, BuildsShelterReport, ExportsReportLists;
 
     public function mount(): void
     {

@@ -745,5 +745,6 @@
     "The vet already moved the animal to the owner's name in the pet registry": "Dyrlægen har allerede overført dyret til ejerens navn i registret",
     "Transferred on :date": "Overført :date",
     "Registry: all": "Register: alle",
-    "Registry: pending": "Register: afventer"
+    "Registry: pending": "Register: afventer",
+    "Export lists": "Eksportér lister"
 }

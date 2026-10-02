@@ -745,5 +745,6 @@
     "The vet already moved the animal to the owner's name in the pet registry": "O veterinário já passou o animal para o nome do dono no SIAC",
     "Transferred on :date": "Transferido em :date",
     "Registry: all": "SIAC: todas",
-    "Registry: pending": "SIAC: pendente"
+    "Registry: pending": "SIAC: pendente",
+    "Export lists": "Exportar listas"
 }

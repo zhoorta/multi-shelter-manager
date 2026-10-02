@@ -211,6 +211,30 @@ class ExportShelterData
     }
 
     /**
+     * A spreadsheet-ready CSV (BOM and ';' so Excel with Portuguese settings
+     * opens the accents and columns correctly); every cell is made safe
+     * against formula injection.
+     *
+     * @param  list<string>  $headings
+     * @param  iterable<int, array<int, mixed>>  $rows
+     */
+    public static function csv(array $headings, iterable $rows): string
+    {
+        $stream = fopen('php://temp', 'r+');
+
+        fwrite($stream, "\xEF\xBB\xBF");
+        fputcsv($stream, $headings, ';', '"', '');
+
+        foreach ($rows as $row) {
+            fputcsv($stream, array_map(self::cell(...), $row), ';', '"', '');
+        }
+
+        rewind($stream);
+
+        return (string) stream_get_contents($stream);
+    }
+
+    /**
      * Cell text, with a leading apostrophe when a spreadsheet would read it as
      * a formula (typed-in names and notes are not trusted).
      */

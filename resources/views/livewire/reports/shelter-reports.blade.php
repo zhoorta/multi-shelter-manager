@@ -26,6 +26,19 @@
                 <flux:input type="date" wire:model.live.blur="to" :label="__('To')" />
             @endif
 
+            <flux:dropdown align="end">
+                <flux:button icon="arrow-down-tray" icon:trailing="chevron-down">{{ __('Export lists') }}</flux:button>
+
+                <flux:menu>
+                    <flux:menu.item wire:click="exportIntakes" icon="arrow-down-tray">{{ __('Intakes') }}</flux:menu.item>
+                    <flux:menu.item wire:click="exportAdoptions" icon="arrow-down-tray">{{ __('Adoptions') }}</flux:menu.item>
+                    <flux:menu.item wire:click="exportDeaths" icon="arrow-down-tray">{{ __('Deaths') }}</flux:menu.item>
+                    @if (auth()->user()->currentShelterHasModule('health_records'))
+                        <flux:menu.item wire:click="exportVaccinations" icon="arrow-down-tray">{{ __('Vaccinations given') }}</flux:menu.item>
+                    @endif
+                </flux:menu>
+            </flux:dropdown>
+
             {{-- Opens in a new tab with the tab and period on screen, so the printout shows the same section and figures. --}}
             <flux:button
                 :href="route('reports.print', array_filter(['tab' => $this->activeTab() === 'animals' ? '' : $this->activeTab(), 'period' => $period, 'from' => $period === 'custom' ? $from : '', 'to' => $period === 'custom' ? $to : '']))"
