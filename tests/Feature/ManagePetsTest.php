@@ -656,3 +656,23 @@ test('viewers cannot delete a pet', function () {
 
     expect($pet->fresh()->trashed())->toBeFalse();
 });
+
+test('filters the pets that came back after an adoption and were not adopted again', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $back = Pet::factory()->for($shelter)->create(['name' => 'BackAtShelter']);
+    Adoption::factory()->for($back)->create(['adoption_date' => '2025-01-10', 'return_date' => '2025-03-01']);
+
+    $readopted = Pet::factory()->for($shelter)->create(['name' => 'Readopted', 'status' => 'adopted']);
+    Adoption::factory()->for($readopted)->create(['adoption_date' => '2024-01-10', 'return_date' => '2024-03-01']);
+    Adoption::factory()->for($readopted)->create(['adoption_date' => '2024-06-01']);
+
+    Pet::factory()->for($shelter)->create(['name' => 'NeverAdopted']);
+
+    Livewire::test(ManagePets::class)
+        ->set('missingDataFilter', 'returned_adoption')
+        ->assertSee('BackAtShelter')
+        ->assertDontSee('Readopted')
+        ->assertDontSee('NeverAdopted');
+});

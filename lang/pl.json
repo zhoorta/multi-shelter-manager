@@ -746,5 +746,6 @@
     "Transferred on :date": "Przeniesiono :date",
     "Registry: all": "Rejestr: wszystkie",
     "Registry: pending": "Rejestr: oczekuje",
-    "Export lists": "Eksportuj listy"
+    "Export lists": "Eksportuj listy",
+    "Returned after adoption": "Zwrócone po adopcji"
 }

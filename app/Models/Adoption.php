@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Traits\Blameable;
 use Database\Factories\AdoptionFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,6 +58,28 @@ class Adoption extends Model
             'siac_transferred_at' => 'date',
             'adoption_fee' => 'decimal:2',
         ];
+    }
+
+    /**
+     * Whether the animal came back and nobody has adopted it since, i.e. this
+     * return is how the animal's adoption history currently ends. Pass the
+     * pet's adoptions when they are already loaded to avoid a query.
+     *
+     * @param  Collection<int, Adoption>|null  $petAdoptions
+     */
+    public function isReturnedWithoutReadoption(?Collection $petAdoptions = null): bool
+    {
+        if ($this->return_date === null) {
+            return false;
+        }
+
+        $petAdoptions ??= $this->pet->adoptions()->get();
+
+        return $petAdoptions->doesntContain(
+            fn (Adoption $other): bool => $other->id !== $this->id
+                && ($other->adoption_date->greaterThan($this->adoption_date)
+                    || ($other->adoption_date->equalTo($this->adoption_date) && $other->id > $this->id)),
+        );
     }
 
     /**

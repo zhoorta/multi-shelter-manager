@@ -83,6 +83,7 @@
         <flux:select wire:model.live="missingDataFilter" class="sm:max-w-xs">
             <flux:select.option value="">{{ __('All') }}</flux:select.option>
             <flux:select.option value="open_health_issues">{{ __('Open health issues') }}</flux:select.option>
+            <flux:select.option value="returned_adoption">{{ __('Returned after adoption') }}</flux:select.option>
             <flux:select.option value="neutered">{{ __('Neutered') }}</flux:select.option>
             <flux:select.option value="not_neutered">{{ __('Not neutered') }}</flux:select.option>
             <flux:select.option value="neutering_details_missing">{{ __('Neutered, details missing') }}</flux:select.option>

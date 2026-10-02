@@ -1118,3 +1118,23 @@ test('shows the internal notes to the shelter users and hides the box when there
         ->assertOk()
         ->assertDontSee('Internal Notes');
 });
+
+test('badges the returned adoption of a pet nobody adopted again, but not one adopted again later', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $backAtShelter = Pet::factory()->for($shelter)->create(['status' => 'available']);
+    Adoption::factory()->for($backAtShelter)->create(['adoption_date' => '2025-01-10', 'return_date' => '2025-03-01']);
+
+    $readopted = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
+    Adoption::factory()->for($readopted)->create(['adoption_date' => '2024-01-10', 'return_date' => '2024-03-01']);
+    Adoption::factory()->for($readopted)->create(['adoption_date' => '2024-06-01', 'return_date' => null]);
+
+    $this->get(route('pets.show', $backAtShelter))
+        ->assertOk()
+        ->assertSee('Returned at 01/03/2025');
+
+    $this->get(route('pets.show', $readopted))
+        ->assertOk()
+        ->assertDontSee('Returned at');
+});

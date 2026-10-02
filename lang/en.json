@@ -746,5 +746,6 @@
     "Transferred on :date": "Transferred on :date",
     "Registry: all": "Registry: all",
     "Registry: pending": "Registry: pending",
-    "Export lists": "Export lists"
+    "Export lists": "Export lists",
+    "Returned after adoption": "Returned after adoption"
 }

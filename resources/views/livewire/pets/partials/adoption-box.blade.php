@@ -9,7 +9,13 @@
 --}}
 <div wire:key="adoption-{{ $adoption->id }}" class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
     <div class="flex w-full items-center justify-between">
-        <flux:label>{{ __('Adoption') }}</flux:label>
+        <div class="flex items-center gap-2">
+            <flux:label>{{ __('Adoption') }}</flux:label>
+
+            @if ($adoption->isReturnedWithoutReadoption($pet->relationLoaded('adoptions') ? $pet->adoptions : null))
+                <flux:badge size="sm" color="orange">{{ __('Returned at :date', ['date' => $adoption->return_date->format('d/m/Y')]) }}</flux:badge>
+            @endif
+        </div>
 
         <flux:button
             :href="route('pets.adopt.edit', ($backToAdoptionsList ?? false)
