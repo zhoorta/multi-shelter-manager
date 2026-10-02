@@ -45,7 +45,6 @@ use Illuminate\Support\Str;
  * @property string $gender
  * @property Carbon|null $birth_date
  * @property string $status
- * @property string|null $notes
  * @property string|null $description
  * @property bool $is_adoptable
  * @property bool $is_sponsorable
@@ -69,7 +68,7 @@ use Illuminate\Support\Str;
 #[Fillable([
     'shelter_id', 'cage_id', 'species_id', 'breed_id', 'is_pure_breed', 'primary_color_id', 'secondary_color_id',
     'fur_type_id', 'size_id', 'ref', 'name', 'chip', 'is_neutered', 'neutered_at', 'neutered_by_shelter',
-    'neutering_status', 'neutering_scheduled_at', 'neutering_notes', 'gender', 'birth_date', 'status', 'notes',
+    'neutering_status', 'neutering_scheduled_at', 'neutering_notes', 'gender', 'birth_date', 'status',
     'description', 'is_adoptable', 'is_sponsorable', 'publish_to_portal', 'is_featured',
     'checkin_date', 'checkout_date', 'date_of_death', 'age', 'internal_notes', 'clinical_notes',
 ])]

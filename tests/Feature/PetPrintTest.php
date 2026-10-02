@@ -139,7 +139,6 @@ test('shows the chip, birth date, biography and every kind of notes for the pape
         'birth_date' => '2020-03-04',
         'description' => '<p>Found at the harbour</p>',
         'clinical_notes' => 'Allergic to chicken',
-        'notes' => 'Walks with Ana',
         'internal_notes' => 'Do not adopt to cats owners',
     ]);
 
@@ -152,6 +151,5 @@ test('shows the chip, birth date, biography and every kind of notes for the pape
         ->assertDontSee(__('Age'))
         ->assertSee('Found at the harbour', false)
         ->assertSee('Allergic to chicken')
-        ->assertSee('Walks with Ana')
         ->assertSee('Do not adopt to cats owners');
 });

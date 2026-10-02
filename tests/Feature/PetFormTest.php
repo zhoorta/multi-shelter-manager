@@ -304,45 +304,6 @@ test('empty description markup is saved as null', function () {
     expect($pet->description)->toBeNull();
 });
 
-test('saves notes on the pet', function () {
-    $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
-
-    $species = Species::factory()->create();
-    $breed = Breed::factory()->for($species)->create();
-
-    Livewire::test(PetForm::class)
-        ->set('petName', 'Rex')
-        ->set('petSpeciesId', $species->id)
-        ->set('petBreedId', $breed->id)
-        ->set('petGender', 'male')
-        ->set('petNotes', 'Needs a quiet home.')
-        ->call('savePet')
-        ->assertHasNoErrors();
-
-    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
-    expect($pet->notes)->toBe('Needs a quiet home.');
-});
-
-test('empty notes are saved as null', function () {
-    $shelter = Shelter::factory()->create();
-    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
-
-    $species = Species::factory()->create();
-    $breed = Breed::factory()->for($species)->create();
-
-    Livewire::test(PetForm::class)
-        ->set('petName', 'Rex')
-        ->set('petSpeciesId', $species->id)
-        ->set('petBreedId', $breed->id)
-        ->set('petGender', 'male')
-        ->call('savePet')
-        ->assertHasNoErrors();
-
-    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
-    expect($pet->notes)->toBeNull();
-});
-
 test('saves clinical notes on the pet', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
@@ -899,7 +860,6 @@ test('populates the form with the pet\'s current data when editing', function ()
         'date_of_death' => '2024-03-15',
         'checkin_date' => '2023-01-10',
         'size_id' => $size->id,
-        'notes' => 'Needs a quiet home.',
         'clinical_notes' => 'Allergic to penicillin.',
     ]);
 
@@ -916,7 +876,6 @@ test('populates the form with the pet\'s current data when editing', function ()
         ->assertSet('petBirthDate', '2018-05-01')
         ->assertSet('petDeathDate', '2024-03-15')
         ->assertSet('petCheckinDate', '2023-01-10')
-        ->assertSet('petNotes', 'Needs a quiet home.')
         ->assertSet('petClinicalNotes', 'Allergic to penicillin.');
 });
 
@@ -1257,4 +1216,31 @@ test('viewers are forbidden from viewing the form', function () {
     $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
 
     $this->get(route('pets.create'))->assertForbidden();
+});
+
+test('saves internal notes on the pet and loads them back when editing', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $species = Species::factory()->create();
+    $breed = Breed::factory()->for($species)->create();
+
+    Livewire::test(PetForm::class)
+        ->set('petName', 'Rex')
+        ->set('petSpeciesId', $species->id)
+        ->set('petBreedId', $breed->id)
+        ->set('petGender', 'male')
+        ->set('petInternalNotes', 'Came in with the Silva litter.')
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    $pet = Pet::query()->where('name', 'Rex')->firstOrFail();
+    expect($pet->internal_notes)->toBe('Came in with the Silva litter.');
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->assertSet('petInternalNotes', 'Came in with the Silva litter.')
+        ->set('petInternalNotes', '')
+        ->call('savePet');
+
+    expect($pet->refresh()->internal_notes)->toBeNull();
 });

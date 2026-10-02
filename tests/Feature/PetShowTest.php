@@ -379,28 +379,6 @@ test('shows a placeholder when the pet has no description', function () {
         ->assertSeeInOrder(['Description', '—']);
 });
 
-test('shows the pet notes in their own box after the description', function () {
-    $shelter = Shelter::factory()->create();
-    $pet = Pet::factory()->for($shelter)->create(['description' => 'Loves belly rubs.', 'notes' => 'Needs a quiet home.']);
-
-    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
-
-    $this->get(route('pets.show', $pet))
-        ->assertOk()
-        ->assertSeeInOrder(['Description', 'Loves belly rubs.', 'Notes', 'Needs a quiet home.']);
-});
-
-test('shows a placeholder when the pet has no notes', function () {
-    $shelter = Shelter::factory()->create();
-    $pet = Pet::factory()->for($shelter)->create(['notes' => null]);
-
-    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
-
-    $this->get(route('pets.show', $pet))
-        ->assertOk()
-        ->assertSeeInOrder(['Notes', '—']);
-});
-
 test('shows the pet clinical notes in the health section', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['clinical_notes' => 'Allergic to penicillin.']);
@@ -486,9 +464,9 @@ test('does not show the sponsorship box when the pet has no sponsorship', functi
         ->assertDontSeeText('Sponsorship Payments');
 });
 
-test('shows the adoption box after the description and notes', function () {
+test('shows the adoption box after the description', function () {
     $shelter = Shelter::factory()->create();
-    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'description' => 'Loves belly rubs.', 'notes' => 'Needs a quiet home.']);
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'description' => 'Loves belly rubs.']);
     Adoption::factory()->for($pet)->create([
         'name' => 'Maria Silva',
         'email' => 'maria@example.com',
@@ -509,7 +487,6 @@ test('shows the adoption box after the description and notes', function () {
         ->assertOk()
         ->assertSeeInOrder([
             'Description', 'Loves belly rubs.',
-            'Notes', 'Needs a quiet home.',
             'Adoption', 'Maria Silva', 'maria@example.com', '912345678',
             'Rua das Flores, 10', '1000-001', 'Lisboa', '15/01/2026',
             '25,50', 'Approved', 'Great home visit',
@@ -1123,4 +1100,21 @@ test('shows the pet treatments and lets staff delete one', function () {
     Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteTreatment', $petTreatment->id);
 
     expect($petTreatment->fresh()->trashed())->toBeTrue();
+});
+
+test('shows the internal notes to the shelter users and hides the box when there are none', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    $withNotes = Pet::factory()->for($shelter)->create(['internal_notes' => 'Came in with the Silva litter.']);
+    $withoutNotes = Pet::factory()->for($shelter)->create(['internal_notes' => null]);
+
+    $this->get(route('pets.show', $withNotes))
+        ->assertOk()
+        ->assertSee('Internal Notes')
+        ->assertSee('Came in with the Silva litter.');
+
+    $this->get(route('pets.show', $withoutNotes))
+        ->assertOk()
+        ->assertDontSee('Internal Notes');
 });

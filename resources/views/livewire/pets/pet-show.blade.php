@@ -436,10 +436,10 @@
                 </flux:text>
             </div>
 
-            @if ($pet->notes)
+            @if ($pet->internal_notes)
                 <div>
-                    <flux:heading>{{ __('Notes') }}</flux:heading>
-                    <flux:text class="text-neutral-700 dark:text-neutral-300 mt-2 whitespace-pre-line">{{ $pet->notes }}</flux:text>
+                    <flux:heading>{{ __('Internal Notes') }}</flux:heading>
+                    <flux:text class="text-neutral-700 dark:text-neutral-300 mt-2 whitespace-pre-line">{{ $pet->internal_notes }}</flux:text>
                 </div>
             @endif
         </div>

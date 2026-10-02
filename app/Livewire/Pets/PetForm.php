@@ -91,9 +91,9 @@ class PetForm extends Component
 
     public string $petDescription = '';
 
-    public string $petNotes = '';
-
     public string $petClinicalNotes = '';
+
+    public string $petInternalNotes = '';
 
     /**
      * @var array<int, TemporaryUploadedFile>
@@ -142,8 +142,8 @@ class PetForm extends Component
         $this->petCageId = $pet->cage_id;
         $this->petCheckinDate = (string) $pet->checkin_date?->format('Y-m-d');
         $this->petDescription = (string) $pet->description;
-        $this->petNotes = (string) $pet->notes;
         $this->petClinicalNotes = (string) $pet->clinical_notes;
+        $this->petInternalNotes = (string) $pet->internal_notes;
     }
 
     /**
@@ -365,8 +365,8 @@ class PetForm extends Component
             ],
             'petCheckinDate' => ['nullable', 'date'],
             'petDescription' => ['nullable', 'string'],
-            'petNotes' => ['nullable', 'string'],
             'petClinicalNotes' => ['nullable', 'string'],
+            'petInternalNotes' => ['nullable', 'string'],
             'petPhotos' => ['nullable', 'array'],
             'petPhotos.*' => ['image', 'max:2048'],
         ], [], [
@@ -395,8 +395,8 @@ class PetForm extends Component
             'petCageId' => __('Cage'),
             'petCheckinDate' => __('Checkin Date'),
             'petDescription' => __('Description'),
-            'petNotes' => __('Notes'),
             'petClinicalNotes' => __('Clinical Notes'),
+            'petInternalNotes' => __('Internal Notes'),
             'petPhotos.*' => __('Photo'),
         ]);
 
@@ -426,8 +426,8 @@ class PetForm extends Component
             'date_of_death' => $validated['petDeathDate'] !== '' ? $validated['petDeathDate'] : null,
             'checkin_date' => $validated['petCheckinDate'] !== '' ? $validated['petCheckinDate'] : null,
             'description' => Pet::sanitizeDescription($validated['petDescription']),
-            'notes' => $validated['petNotes'] !== '' ? $validated['petNotes'] : null,
             'clinical_notes' => $validated['petClinicalNotes'] !== '' ? $validated['petClinicalNotes'] : null,
+            'internal_notes' => $validated['petInternalNotes'] !== '' ? $validated['petInternalNotes'] : null,
             'is_neutered' => $validated['petIsNeutered'],
             ...$this->neuteringAttributes($validated),
             'is_adoptable' => $validated['petIsAdoptable'],

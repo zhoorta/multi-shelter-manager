@@ -361,7 +361,7 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <flux:textarea wire:model="petNotes" :label="__('Notes')" rows="3" />
+            <flux:textarea wire:model="petInternalNotes" :label="__('Internal Notes')" rows="3" />
         </div>
 
         <div class="flex justify-end gap-2">

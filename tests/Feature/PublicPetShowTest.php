@@ -94,3 +94,15 @@ test('redirects to login when the public portal is disabled', function () {
 
     $this->get($pet->publicPageUrl())->assertRedirect(route('login'));
 });
+
+test('the public page never shows the internal or clinical notes', function () {
+    $pet = Pet::factory()->publishedToPortal()->create([
+        'internal_notes' => 'Secret internal note',
+        'clinical_notes' => 'Secret clinical note',
+    ]);
+
+    $this->get($pet->publicPageUrl())
+        ->assertOk()
+        ->assertDontSee('Secret internal note')
+        ->assertDontSee('Secret clinical note');
+});

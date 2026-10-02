@@ -118,7 +118,6 @@
 
     @foreach ([
         __('Clinical Notes') => $pet->clinical_notes,
-        __('Notes') => $pet->notes,
         __('Internal Notes') => $pet->internal_notes,
     ] as $notesLabel => $notesText)
         @if ($notesText)
