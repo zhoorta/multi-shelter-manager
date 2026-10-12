@@ -73,6 +73,9 @@
                                                     <div>
                                                         <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
                                                         <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                        @if ($colony->cats_count > 0)
+                                                            <flux:subheading class="mt-2">{{ __('Its animals stay registered without a colony and need a new location.') }}</flux:subheading>
+                                                        @endif
                                                     </div>
 
                                                     <div class="flex justify-end space-x-2 rtl:space-x-reverse">

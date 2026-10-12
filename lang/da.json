@@ -771,5 +771,6 @@
     "This species does not belong to the colony": "Denne art hører ikke til kolonien",
     "Add :species": "Tilføj :species",
     "No neutering info": "Ingen kastreringsinfo",
-    "Colony info": "Koloniinfo"
+    "Colony info": "Koloniinfo",
+    "Its animals stay registered without a colony and need a new location.": "Dyrene forbliver registreret uden koloni og har brug for en ny placering."
 }

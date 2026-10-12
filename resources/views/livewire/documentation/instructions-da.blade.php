@@ -182,6 +182,7 @@
             <li>En admin sætter kryds ved <strong>Kolonier</strong> på de arter, der kan bo i kolonier, under <strong>Administration &gt; Dyrearter</strong> (oftest kun katte).</li>
             <li>Et herberg, der ikke har brug for kolonier, slår modulet <strong>Kolonier</strong> fra, som de andre moduler. Intet slettes.</li>
             <li>En kolonis art kan ikke ændres, når den har dyr. Herbergets dataeksport indeholder kolonierne.</li>
+            <li>Sletning af en koloni sletter ikke dens dyr: de forbliver registreret uden koloni og har brug for en ny placering. Vaccinationsplanen, dens udskriftsliste og regneark viser kolonien som placering for et kolonidyr.</li>
         </ul>
     </section>
 

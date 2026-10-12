@@ -182,6 +182,7 @@
             <li>Un administrador marca <strong>Colonias</strong> en las especies que pueden vivir en colonias, en <strong>Administración &gt; Especies</strong> (normalmente solo los gatos).</li>
             <li>Un refugio que no necesite colonias desactiva el módulo <strong>Colonias</strong>, como los demás módulos. No se borra nada.</li>
             <li>La especie de una colonia no puede cambiar una vez que tiene animales. La exportación de datos del refugio incluye las colonias.</li>
+            <li>Eliminar una colonia no elimina sus animales: siguen registrados sin colonia y necesitan una nueva ubicación. El plan de vacunación, su lista para imprimir y su hoja de cálculo muestran la colonia como ubicación de un animal de colonia.</li>
         </ul>
     </section>
 

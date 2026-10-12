@@ -182,6 +182,7 @@
             <li>Un administrateur coche <strong>Colonies</strong> sur les espèces pouvant vivre en colonie, sous <strong>Administration &gt; Espèces</strong> (généralement seulement les chats).</li>
             <li>Un refuge qui n'a pas besoin de colonies désactive le module <strong>Colonies</strong>, comme les autres modules. Rien n'est supprimé.</li>
             <li>L'espèce d'une colonie ne peut plus changer dès qu'elle a des animaux. L'export des données du refuge inclut les colonies.</li>
+            <li>Supprimer une colonie ne supprime pas ses animaux : ils restent enregistrés sans colonie et ont besoin d'un nouvel emplacement. Le plan de vaccination, sa liste imprimable et son tableur affichent la colonie comme emplacement d'un animal de colonie.</li>
         </ul>
     </section>
 

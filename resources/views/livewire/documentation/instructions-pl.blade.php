@@ -182,6 +182,7 @@
             <li>Administrator zaznacza <strong>Kolonie</strong> przy gatunkach, które mogą żyć w koloniach, w <strong>Administracja &gt; Gatunki</strong> (zwykle tylko koty).</li>
             <li>Schronisko, które nie potrzebuje kolonii, wyłącza moduł <strong>Kolonie</strong>, tak jak inne moduły. Nic nie jest usuwane.</li>
             <li>Gatunku kolonii nie można zmienić, gdy ma już zwierzęta. Eksport danych schroniska zawiera kolonie.</li>
+            <li>Usunięcie kolonii nie usuwa jej zwierząt: pozostają zarejestrowane bez kolonii i potrzebują nowej lokalizacji. Plan szczepień, jego lista do wydruku i arkusz pokazują kolonię jako lokalizację zwierzęcia z kolonii.</li>
         </ul>
     </section>
 

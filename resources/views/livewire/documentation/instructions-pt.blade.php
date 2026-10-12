@@ -182,6 +182,7 @@
             <li>Um administrador marca <strong>Colónias</strong> nas espécies que podem viver em colónias, em <strong>Administração &gt; Espécies</strong> (normalmente só os gatos).</li>
             <li>Um abrigo que não precise de colónias desliga o módulo <strong>Colónias</strong>, como os outros módulos. Nada é apagado.</li>
             <li>A espécie de uma colónia não pode mudar depois de ter animais. A exportação de dados do abrigo inclui as colónias.</li>
+            <li>Apagar uma colónia não apaga os seus animais: ficam registados sem colónia e precisam de uma nova localização. O plano de vacinação, a sua lista para imprimir e a folha de cálculo mostram a colónia como localização de um animal de colónia.</li>
         </ul>
     </section>
 

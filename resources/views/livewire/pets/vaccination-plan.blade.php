@@ -184,7 +184,7 @@
                                     <div class="text-xs text-neutral-500 dark:text-neutral-400">{{ $row['pet']->species->name }} - {{ $row['pet']->ref }}</div>
                                 </td>
                                 <td class="py-2 pr-4">{{ $row['pet']->chip ?? '—' }}</td>
-                                <td class="py-2 pr-4">{{ collect([$row['pet']->cage?->wing?->facility?->name, $row['pet']->cage?->wing?->name, $row['pet']->cage?->code])->filter()->implode(' · ') ?: '—' }}</td>
+                                <td class="py-2 pr-4">{{ $row['pet']->locationLabel() ?: '—' }}</td>
                                 <td class="py-2">
                                     @foreach ($row['vaccinations'] as $vaccination)
                                         <div>

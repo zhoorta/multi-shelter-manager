@@ -497,6 +497,20 @@ class Pet extends Model
     }
 
     /**
+     * Where the pet lives, for lists: "facility · wing · cage", or the colony
+     * name for an animal in a colony; empty when it has no location. Needs
+     * cage.wing.facility and colony loaded to avoid extra queries.
+     */
+    public function locationLabel(): string
+    {
+        if ($this->cage !== null) {
+            return collect([$this->cage->wing?->facility?->name, $this->cage->wing?->name, $this->cage->code])->filter()->implode(' · ');
+        }
+
+        return (string) $this->colony?->name;
+    }
+
+    /**
      * Whether the pet is with a foster family: its cage is in a foster wing.
      * Needs cage.wing loaded to avoid extra queries.
      */

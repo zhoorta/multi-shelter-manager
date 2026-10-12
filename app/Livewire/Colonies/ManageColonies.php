@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
@@ -163,7 +164,14 @@ class ManageColonies extends Component
     {
         abort_unless($this->canEdit(), 403);
 
-        Colony::query()->findOrFail($colonyId)->delete();
+        $colony = Colony::query()->findOrFail($colonyId);
+
+        // A deleted colony must not keep its animals: without a colony they
+        // are shown (and editable) as animals with no location again.
+        DB::transaction(function () use ($colony): void {
+            $colony->pets()->get()->each->update(['colony_id' => null]);
+            $colony->delete();
+        });
 
         unset($this->colonies);
 

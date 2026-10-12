@@ -771,5 +771,6 @@
     "This species does not belong to the colony": "This species does not belong to the colony",
     "Add :species": "Add :species",
     "No neutering info": "No neutering info",
-    "Colony info": "Colony info"
+    "Colony info": "Colony info",
+    "Its animals stay registered without a colony and need a new location.": "Its animals stay registered without a colony and need a new location."
 }

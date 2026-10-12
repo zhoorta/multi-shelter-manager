@@ -182,6 +182,7 @@
             <li>Een beheerder vinkt <strong>Kolonies</strong> aan bij de soorten die in kolonies kunnen leven, onder <strong>Beheer &gt; Diersoorten</strong> (meestal alleen katten).</li>
             <li>Een asiel dat geen kolonies nodig heeft, zet de module <strong>Kolonies</strong> uit, zoals de andere modules. Er wordt niets verwijderd.</li>
             <li>De soort van een kolonie kan niet meer veranderen zodra er dieren zijn. De gegevensexport van het asiel bevat de kolonies.</li>
+            <li>Het verwijderen van een kolonie verwijdert haar dieren niet: ze blijven zonder kolonie geregistreerd en hebben een nieuwe locatie nodig. Het vaccinatieplan, de afdruklijst en de spreadsheet tonen de kolonie als locatie van een koloniedier.</li>
         </ul>
     </section>
 

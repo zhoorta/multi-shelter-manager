@@ -182,6 +182,7 @@
             <li>Ein Admin setzt bei den Tierarten, die in Kolonien leben können, unter <strong>Verwaltung &gt; Tierarten</strong> den Haken bei <strong>Kolonien</strong> (meist nur Katzen).</li>
             <li>Ein Tierheim ohne Bedarf an Kolonien schaltet das Modul <strong>Kolonien</strong> wie die anderen Module ab. Es wird nichts gelöscht.</li>
             <li>Die Tierart einer Kolonie lässt sich nicht mehr ändern, sobald sie Tiere hat. Der Datenexport des Tierheims enthält die Kolonien.</li>
+            <li>Das Löschen einer Kolonie löscht ihre Tiere nicht: Sie bleiben ohne Kolonie erfasst und brauchen einen neuen Standort. Der Impfplan, seine Druckliste und seine Tabelle zeigen die Kolonie als Standort eines Koloniertieres.</li>
         </ul>
     </section>
 

@@ -182,6 +182,7 @@
             <li>An admin ticks <strong>Colonies</strong> on the species that can live in colonies, under <strong>Administration &gt; Species</strong> (usually only cats).</li>
             <li>A shelter that does not need colonies switches the <strong>Colonies</strong> module off, like the other modules. Nothing is deleted.</li>
             <li>The species of a colony cannot change once it has animals. The data export of the shelter includes the colonies.</li>
+            <li>Deleting a colony does not delete its animals: they stay registered without a colony and need a new location. The vaccination plan, its print list and its spreadsheet show the colony as the location of a colony animal.</li>
         </ul>
     </section>
 

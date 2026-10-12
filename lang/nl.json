@@ -771,5 +771,6 @@
     "This species does not belong to the colony": "Deze soort hoort niet bij de kolonie",
     "Add :species": "Voeg :species toe",
     "No neutering info": "Geen sterilisatie-informatie",
-    "Colony info": "Koloniegegevens"
+    "Colony info": "Koloniegegevens",
+    "Its animals stay registered without a colony and need a new location.": "De dieren blijven zonder kolonie geregistreerd en hebben een nieuwe locatie nodig."
 }

@@ -2,6 +2,7 @@
 
 use App\Livewire\Pets\VaccinationPlan;
 use App\Models\Cage;
+use App\Models\Colony;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
@@ -164,7 +165,24 @@ test('exports the list as a spreadsheet with chip, birth date, box and vaccine d
     $decoded = base64_decode((string) $csv);
 
     expect($decoded)
-        ->toContain('Name;Microchip;"Birth Date";Facility;Wing;Cage;"Rabies — Administered Date";"Rabies — Next Due Date"')
-        ->toContain('Abby;941000023525681;04/03/2020;"Main Kennel";"Corridor A";A2;01/05/2024;01/05/2027')
+        ->toContain('Name;Microchip;"Birth Date";Facility;Wing;Cage;Colony;"Rabies — Administered Date";"Rabies — Next Due Date"')
+        ->toContain('Abby;941000023525681;04/03/2020;"Main Kennel";"Corridor A";A2;;01/05/2024;01/05/2027')
         ->toContain("'=Bad");
+});
+
+test('an animal in a colony shows the colony as its location in the plan, the print list and the spreadsheet', function () {
+    $this->actingAs(User::factory()->forShelter($this->shelter, 'viewer')->create());
+
+    $colony = Colony::factory()->for($this->shelter)->create(['name' => 'Ribeira']);
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2027-05-01']], ['name' => 'Wild', 'colony_id' => $colony->id]);
+
+    $plan = Livewire::withQueryParams(['year' => 2027])
+        ->test(VaccinationPlan::class)
+        ->call('selectWholeYear')
+        ->assertSee('Ribeira');
+
+    $csv = base64_decode((string) ($plan->call('exportCsv')->effects['download']['content'] ?? null));
+    expect($csv)->toContain('Wild;;;;;;Ribeira;');
+
+    $this->get(route('pets.vaccinations.plan.print', ['year' => 2027, 'month' => 5]))->assertSee('Ribeira');
 });

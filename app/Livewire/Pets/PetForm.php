@@ -155,7 +155,7 @@ class PetForm extends Component
         $this->petPublishToPortal = (bool) $pet->publish_to_portal;
         $this->petIsFeatured = (bool) $pet->is_featured;
         $this->petCageId = $pet->cage_id;
-        $this->petColonyId = $pet->colony_id;
+        $this->petColonyId = $pet->colony()->exists() ? $pet->colony_id : null;
         $this->petCapturedAt = (string) $pet->captured_at?->format('Y-m-d');
         $this->petReturnedAt = (string) $pet->returned_at?->format('Y-m-d');
         $this->petIsEarTipped = (bool) $pet->is_ear_tipped;

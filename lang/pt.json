@@ -771,5 +771,6 @@
     "This species does not belong to the colony": "Esta espécie não pertence à colónia",
     "Add :species": "Adicionar :species",
     "No neutering info": "Sem informação de esterilização",
-    "Colony info": "Informação da colónia"
+    "Colony info": "Informação da colónia",
+    "Its animals stay registered without a colony and need a new location.": "Os animais ficam registados sem colónia e precisam de uma nova localização."
 }

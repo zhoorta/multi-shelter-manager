@@ -182,6 +182,7 @@
             <li>Un amministratore spunta <strong>Colonie</strong> sulle specie che possono vivere in colonia, in <strong>Amministrazione &gt; Specie</strong> (di solito solo i gatti).</li>
             <li>Un rifugio che non ha bisogno di colonie disattiva il modulo <strong>Colonie</strong>, come gli altri moduli. Non viene cancellato nulla.</li>
             <li>La specie di una colonia non può cambiare una volta che ha animali. L'esportazione dei dati del rifugio include le colonie.</li>
+            <li>Eliminare una colonia non elimina i suoi animali: restano registrati senza colonia e hanno bisogno di una nuova posizione. Il piano vaccinale, il suo elenco da stampare e il suo foglio di calcolo mostrano la colonia come posizione di un animale di colonia.</li>
         </ul>
     </section>
 

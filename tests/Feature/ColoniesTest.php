@@ -7,10 +7,12 @@ use App\Livewire\Pets\PetForm;
 use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Colony;
+use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\User;
+use App\Models\Wing;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
@@ -347,4 +349,39 @@ test('the colonies list shows the caretaker and notes, hidden from viewers', fun
 
     $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
     Livewire::test(ManageColonies::class)->assertDontSee('Dona Rosa')->assertDontSee('Feed at dusk');
+});
+
+test('deleting a colony releases its animals so they can be given a new location', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $colony = Colony::factory()->for($shelter)->create();
+    $breed = Breed::factory()->for($colony->species)->create();
+    $pet = Pet::factory()->for($shelter)->create(['species_id' => $colony->species_id, 'breed_id' => $breed->id, 'colony_id' => $colony->id]);
+    $cage = Cage::factory()->for(Wing::factory()->for(Facility::factory()->for($shelter)))->create(['species_id' => null]);
+
+    Livewire::test(ManageColonies::class)->call('deleteColony', $colony->id);
+
+    expect($pet->fresh()->colony_id)->toBeNull();
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->assertSet('petColonyId', null)
+        ->set('petCageId', $cage->id)
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh()->cage_id)->toBe($cage->id);
+});
+
+test('a pet whose colony was soft-deleted elsewhere can still be edited and relocated', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $colony = Colony::factory()->for($shelter)->create();
+    $breed = Breed::factory()->for($colony->species)->create();
+    $pet = Pet::factory()->for($shelter)->create(['species_id' => $colony->species_id, 'breed_id' => $breed->id, 'colony_id' => $colony->id]);
+    $colony->delete();
+
+    Livewire::test(PetForm::class, ['pet' => $pet->fresh()])
+        ->assertSet('petColonyId', null)
+        ->call('savePet')
+        ->assertHasNoErrors();
 });

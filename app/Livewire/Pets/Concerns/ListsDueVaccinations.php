@@ -62,7 +62,7 @@ trait ListsDueVaccinations
     protected function dueVaccinationsByPet(int $year, int $month, ?int $vaccineId = null): Collection
     {
         $vaccinations = $this->dueVaccinationsQuery($year, $month, $vaccineId)
-            ->with(['pet.species', 'pet.cage.wing.facility', 'vaccine'])
+            ->with(['pet.species', 'pet.cage.wing.facility', 'pet.colony', 'vaccine'])
             ->orderBy('due_date')
             ->get();
 
@@ -77,11 +77,15 @@ trait ListsDueVaccinations
     }
 
     /**
-     * "facility wing box" of a pet for ordering; a leading "~" sorts unhoused pets last.
+     * "facility wing box" of a pet for ordering; a leading "~" sorts unhoused pets last, colony animals among them by colony.
      */
     private function boxSortKey(Pet $pet): string
     {
-        return $pet->cage === null ? '~' : trim(($pet->cage->wing?->facility?->name ?? '').' '.($pet->cage->wing?->name ?? '').' '.$pet->cage->code);
+        if ($pet->cage === null) {
+            return trim('~ '.$pet->colony?->name);
+        }
+
+        return trim(($pet->cage->wing?->facility?->name ?? '').' '.($pet->cage->wing?->name ?? '').' '.$pet->cage->code);
     }
 
     /**
@@ -106,6 +110,7 @@ trait ListsDueVaccinations
                 __('Facility'),
                 __('Wing'),
                 __('Cage'),
+                __('Colony'),
                 ...$vaccines->flatMap(fn ($vaccine): array => [
                     $vaccine->name.' — '.__('Administered Date'),
                     $vaccine->name.' — '.__('Next Due Date'),
@@ -121,6 +126,7 @@ trait ListsDueVaccinations
                     $pet->cage?->wing?->facility?->name,
                     $pet->cage?->wing?->name,
                     $pet->cage?->code,
+                    $pet->colony?->name,
                     ...$vaccines->flatMap(function ($vaccine) use ($row): array {
                         $vaccination = $row['vaccinations']->firstWhere('vaccine_id', $vaccine->id);
 

@@ -182,6 +182,7 @@
             <li>En admin kryssar i <strong>Kolonier</strong> för de arter som kan leva i kolonier, under <strong>Administration &gt; Djurarter</strong> (oftast bara katter).</li>
             <li>Ett hem som inte behöver kolonier stänger av modulen <strong>Kolonier</strong>, som de andra modulerna. Inget raderas.</li>
             <li>En kolonis art kan inte ändras när den har djur. Hemmets dataexport innehåller kolonierna.</li>
+            <li>Att ta bort en koloni tar inte bort dess djur: de förblir registrerade utan koloni och behöver en ny plats. Vaccinationsplanen, dess utskriftslista och kalkylblad visar kolonin som plats för ett kolonidjur.</li>
         </ul>
     </section>
 
