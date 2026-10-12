@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapporter</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Brugere</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Offentlig portal</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Moduler</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Indstillinger</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>Hvis den offentlige portal er slået til, udgiver teamet de dyr, der er klar til adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Find rundt i applikationen</h3>
-        <p>Sidemenuen viser kun det, din rolle kan bruge. Ledere og personale ser menuen Dyr (ét punkt pr. dyreart, der er slået til for internatet, samt Fadderskaber, Adoptioner, Vaccinationer og Behandlinger), Frivillige, Medlemmer og Anlæg; ledere ser også Brugere. Administratorer ser i stedet Brugere og menuen Administration. Læsere ser de samme menuer som medarbejdere, undtagen Fadderskaber, Adoptioner, Frivillige og Medlemmer, og siderne viser ingen knapper til at oprette, redigere eller slette. Denne dokumentation findes altid nederst i sidemenuen.</p>
+        <p>Sidemenuen viser kun det, din rolle kan bruge. Ledere og personale ser menuen Dyr (ét punkt pr. dyreart, der er slået til for internatet, samt Fadderskaber, Adoptioner, Vaccinationer og Behandlinger), Frivillige, Medlemmer og Anlæg; ledere ser også Brugere. Læsere ser de samme menuer som medarbejdere, undtagen Fadderskaber, Adoptioner, Frivillige og Medlemmer, og siderne viser ingen knapper til at oprette, redigere eller slette. Denne dokumentation findes altid nederst i sidemenuen.</p>
         <p>Menuen Dyr indeholder også <strong>Adoptionsansøgninger</strong> for ledere og personale, og kun ledere ser <strong>Rapporter</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Moduler</h3>
-        <p>Et dyreinternat, der ikke bruger alle dele af appen, kan slå moduler fra: <strong>Medlemmer</strong>, <strong>Frivillige</strong>, <strong>Faddere</strong>, <strong>Adoptionsansøgninger</strong>, <strong>Rapporter</strong>, <strong>Vaccinationer og behandlinger</strong> og <strong>Kolonier</strong>. Ledere gør det under <strong>Indstillinger &gt; Internat</strong> og administratorer i internatets redigeringsformular, i afsnittet <strong>Moduler</strong>. Et frakoblet modul forsvinder fra sidemenuen, oversigten og dyresiderne, og dets sider kan ikke længere åbnes. Når Adoptionsansøgninger er slået fra, viser den offentlige dyreside ikke længere knappen &ldquo;Jeg vil adoptere&rdquo;. Intet slettes: når du slår et modul til igen, er alle dets data tilbage. Dyr, adoptioner, diagnoser og faciliteter er altid slået til.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>Vælg <strong>Koloni</strong> i dyreformularen (kun kolonier af dyrets art vises), og udfyld <strong>Fanget den</strong>, <strong>Genudsat den</strong> og <strong>Øreklip</strong>. Båsfeltet skjules da, fordi dyret ikke bor i herberget. Dyret beholder alt andet: fotos, vaccinationer, behandlinger, diagnoser og kastrationsoplysninger. Kolonien vises under Indkvartering i dyrelisten og på dyrets side og kan bruges i placeringsfilteret i dyrelisten og i formularerne til gruppevaccination og gruppebehandling.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Opsætning</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>En admin sætter kryds ved <strong>Kolonier</strong> på de arter, der kan bo i kolonier, under <strong>Administration &gt; Dyrearter</strong> (oftest kun katte).</li>
+            <li>Platformens administrator angiver de arter, der kan bo i kolonier (oftest kun katte). Hvis koloniformularen ikke tilbyder nogen art, bed platformens administrator om at aktivere den.</li>
             <li>Et herberg, der ikke har brug for kolonier, slår modulet <strong>Kolonier</strong> fra, som de andre moduler. Intet slettes.</li>
             <li>En kolonis art kan ikke ændres, når den har dyr. Herbergets dataeksport indeholder kolonierne.</li>
             <li>Sletning af en koloni sletter ikke dens dyr: de forbliver registreret uden koloni og har brug for en ny placering. Vaccinationsplanen, dens udskriftsliste og regneark viser kolonien som placering for et kolonidyr.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administration</h2>
-        <p>Kun administratorer ser denne menu. Her vedligeholdes internaterne og de referencetabeller, som alle internater deler:</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Moduler</h2>
+        <p>Valgfrie dele af appen er moduler, og herbergets <strong>leder</strong> kan slå hver enkelt til eller fra under <strong>Indstillinger &gt; Internat</strong>, i afsnittet <strong>Moduler</strong>; administratorer kan gøre det i herbergets redigeringsformular. Alle moduler er slået til som standard. Et frakoblet modul forsvinder fra sidemenuen, oversigten og dyresiderne, og dets sider kan ikke længere åbnes. Når Adoptionsansøgninger er slået fra, viser den offentlige dyreside ikke længere knappen &ldquo;Jeg vil adoptere&rdquo;. Intet slettes: når du slår et modul til igen, er alle dets data tilbage. Dyr, adoptioner, diagnoser og faciliteter er altid slået til.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Internater</strong> &mdash; opret, rediger og fjern internater. Ud over navn og by har et internat et kort navn, kontaktoplysninger (e-mail, telefon, websted), adresse, region, en beskrivelse og et logo &mdash; som bruges på den offentlige portal, når den er slået til. Listen <strong>Dyrearter</strong> i internatformularen styrer, hvilke dyrearter der vises i menuen Dyr for internatets leder og personale. E-mailadressen er påkrævet. Når internatet har en internatleder, kan vedkommende selv opdatere alt undtagen navn og arter under <strong>Indstillinger &gt; Internat</strong>.</li>
-            <li><strong>Regioner</strong> &mdash; de regioner, internaterne hører til, bruges også som filter på den offentlige portal.</li>
-            <li><strong>Dyrearter</strong>, <strong>Racer</strong>, <strong>Størrelser</strong> og <strong>Pelstyper</strong> &mdash; de muligheder, der bruges til at beskrive dyrene.</li>
-            <li><strong>Vacciner</strong>, <strong>Behandlinger</strong> og <strong>Sygdomme</strong> &mdash; de muligheder, der bruges i dyrenes helbredsjournaler. Vacciner og behandlinger angiver, hvilke dyrearter de gælder for, og eventuelt en hyppighed i måneder, som bruges til at udfylde næste planlagte dato.</li>
-            <li><strong>Aktiviteter</strong> &mdash; de opgaver, frivillige kan hjælpe med.</li>
+            <li><strong>Medlemmer</strong> &mdash; medlemsregisteret med kontingenter og hvem der er bagud.</li>
+            <li><strong>Frivillige</strong> &mdash; registeret over frivillige og deres tilgængelighed.</li>
+            <li><strong>Faddere</strong> &mdash; faddere for dyr og deres betalinger.</li>
+            <li><strong>Adoptionsansøgninger</strong> &mdash; ansøgningsformularen på den offentlige side og listen over ansøgninger.</li>
+            <li><strong>Rapporter</strong> &mdash; rapporterne og listerne, der eksporteres til kommunen.</li>
+            <li><strong>Vaccinationer og behandlinger</strong> &mdash; vaccinations- og behandlingsregistre, forfaldsdatoer, vaccinationsplanen, grupperunder og påmindelsesmails.</li>
+            <li><strong>Kolonier</strong> &mdash; kolonierne af frilevende katte og deres dyr.</li>
         </ul>
     </section>
 

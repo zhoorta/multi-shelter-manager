@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapports</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utilisateurs</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portail Public</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Modules</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Paramètres</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>Si le portail public est activé, l'équipe publie les animaux prêts à être adoptés.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">S'orienter dans l'application</h3>
-        <p>La barre latérale n'affiche que ce que votre rôle peut utiliser. Les gestionnaires et le personnel voient le menu Animaux (une entrée par espèce activée pour le refuge, plus Parrainages, Adoptions, Vaccinations et Traitements), Bénévoles, Membres et Installations ; les gestionnaires voient aussi Utilisateurs. Les administrateurs voient à la place Utilisateurs et le menu Administration. Les utilisateurs en consultation voient les mêmes menus que les employés, sauf Parrainages, Adoptions, Bénévoles et Membres, et les pages ne leur affichent aucun bouton de création, de modification ou de suppression. Cette documentation est toujours disponible en bas de la barre latérale.</p>
+        <p>La barre latérale n'affiche que ce que votre rôle peut utiliser. Les gestionnaires et le personnel voient le menu Animaux (une entrée par espèce activée pour le refuge, plus Parrainages, Adoptions, Vaccinations et Traitements), Bénévoles, Membres et Installations ; les gestionnaires voient aussi Utilisateurs. Les utilisateurs en consultation voient les mêmes menus que les employés, sauf Parrainages, Adoptions, Bénévoles et Membres, et les pages ne leur affichent aucun bouton de création, de modification ou de suppression. Cette documentation est toujours disponible en bas de la barre latérale.</p>
         <p>Le menu Animaux comprend aussi les <strong>Demandes d'Adoption</strong> pour les gestionnaires et le personnel, et seuls les gestionnaires voient les <strong>Rapports</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Modules</h3>
-        <p>Un refuge qui n'utilise pas toutes les parties de l'application peut désactiver des modules : <strong>Membres</strong>, <strong>Bénévoles</strong>, <strong>Parrainages</strong>, <strong>Demandes d'adoption</strong>, <strong>Rapports</strong>, <strong>Vaccins et traitements</strong> et <strong>Colonies</strong>. Les gestionnaires le font dans <strong>Paramètres &gt; Refuge</strong> et les administrateurs dans le formulaire de modification du refuge, section <strong>Modules</strong>. Un module désactivé disparaît du menu latéral, du tableau de bord et des fiches des animaux, et ses pages ne s'ouvrent plus. Si les demandes d'adoption sont désactivées, la page publique de l'animal n'affiche plus le bouton &laquo; Je veux adopter &raquo;. Rien n'est supprimé : réactiver un module restaure toutes ses données. Les animaux, les adoptions, les diagnostics et les installations sont toujours actifs.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>Dans le formulaire de l'animal, choisissez la <strong>Colonie</strong> (seules les colonies de l'espèce de l'animal sont proposées) et remplissez <strong>Capturé le</strong>, <strong>Relâché le</strong> et <strong>Oreille taillée</strong>. Le champ de la cage est alors masqué, car l'animal ne vit pas au refuge. L'animal garde tout le reste : photos, vaccins, traitements, diagnostics et données de stérilisation. La colonie apparaît sous Hébergement dans la liste des animaux et sur la page de l'animal, et peut servir dans le filtre d'emplacement de la liste des animaux et des formulaires de vaccination et de traitement en groupe.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Configuration</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Un administrateur coche <strong>Colonies</strong> sur les espèces pouvant vivre en colonie, sous <strong>Administration &gt; Espèces</strong> (généralement seulement les chats).</li>
+            <li>L'administrateur de la plateforme indique les espèces pouvant vivre en colonie (généralement seulement les chats). Si le formulaire de colonie ne propose aucune espèce, demandez à l'administrateur de la plateforme de l'activer.</li>
             <li>Un refuge qui n'a pas besoin de colonies désactive le module <strong>Colonies</strong>, comme les autres modules. Rien n'est supprimé.</li>
             <li>L'espèce d'une colonie ne peut plus changer dès qu'elle a des animaux. L'export des données du refuge inclut les colonies.</li>
             <li>Supprimer une colonie ne supprime pas ses animaux : ils restent enregistrés sans colonie et ont besoin d'un nouvel emplacement. Le plan de vaccination, sa liste imprimable et son tableur affichent la colonie comme emplacement d'un animal de colonie.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administration</h2>
-        <p>Seuls les administrateurs voient ce menu. Il permet de gérer les refuges et les tables de référence partagées par tous les refuges :</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Modules</h2>
+        <p>Les parties facultatives de l'application sont des modules, et le <strong>gestionnaire</strong> du refuge peut activer ou désactiver chacun sous <strong>Paramètres &gt; Refuge</strong>, dans la section <strong>Modules</strong> ; les administrateurs peuvent le faire dans le formulaire de modification du refuge. Tous les modules sont activés par défaut. Un module désactivé disparaît du menu latéral, du tableau de bord et des fiches des animaux, et ses pages ne s'ouvrent plus. Si les demandes d'adoption sont désactivées, la page publique de l'animal n'affiche plus le bouton &laquo; Je veux adopter &raquo;. Rien n'est supprimé : réactiver un module restaure toutes ses données. Les animaux, les adoptions, les diagnostics et les installations sont toujours actifs.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Refuges</strong> &mdash; créer, modifier et supprimer des refuges. En plus du nom et de la ville, un refuge a un nom court, des coordonnées (email, téléphone, site web), une adresse, une région, une description et un logo &mdash; utilisés sur le portail public lorsqu'il est activé. La liste des <strong>Espèces</strong> du formulaire du refuge détermine quelles espèces apparaissent dans le menu Animaux pour le gestionnaire et le personnel de ce refuge. L'email est obligatoire. Une fois que le refuge a un gestionnaire, celui-ci peut tout mettre à jour sauf le nom et les espèces dans <strong>Paramètres &gt; Refuge</strong>.</li>
-            <li><strong>Régions</strong> &mdash; les régions auxquelles appartiennent les refuges, également utilisées comme filtre sur le portail public.</li>
-            <li><strong>Espèces</strong>, <strong>Races</strong>, <strong>Tailles</strong> et <strong>Types de Pelage</strong> &mdash; les options utilisées pour décrire les animaux.</li>
-            <li><strong>Vaccins</strong>, <strong>Traitements</strong> et <strong>Maladies</strong> &mdash; les options utilisées dans les dossiers de santé des animaux. Les vaccins et les traitements indiquent les espèces concernées et, en option, une fréquence en mois, utilisée pour remplir la prochaine date prévue.</li>
-            <li><strong>Activités</strong> &mdash; les tâches auxquelles les bénévoles peuvent participer.</li>
+            <li><strong>Membres</strong> &mdash; le registre des membres, de leurs cotisations et de ceux qui sont en retard.</li>
+            <li><strong>Bénévoles</strong> &mdash; le registre des bénévoles et de leur disponibilité.</li>
+            <li><strong>Parrainages</strong> &mdash; les parrainages d'animaux et leurs paiements.</li>
+            <li><strong>Demandes d'adoption</strong> &mdash; le formulaire de demande de la page publique et la liste des demandes.</li>
+            <li><strong>Rapports</strong> &mdash; les rapports et les listes exportées pour la mairie.</li>
+            <li><strong>Vaccins et traitements</strong> &mdash; les registres de vaccins et de traitements, les échéances, le plan de vaccination, les tournées en groupe et les e-mails de rappel.</li>
+            <li><strong>Colonies</strong> &mdash; les colonies de chats errants et leurs animaux.</li>
         </ul>
     </section>
 

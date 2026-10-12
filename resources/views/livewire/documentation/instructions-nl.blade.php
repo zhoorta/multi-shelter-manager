@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapporten</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Gebruikers</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Openbaar portaal</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Beheer</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Modules</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instellingen</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>Als het openbare portaal is ingeschakeld, publiceert het team de dieren die klaar zijn voor adoptie.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Je weg vinden</h3>
-        <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties, Vaccinaties en Behandelingen), Vrijwilligers, Leden en Locaties; managers zien daarnaast Gebruikers. Beheerders zien in plaats daarvan Gebruikers en het menu Beheer. Kijkers zien dezelfde menu's als medewerkers, behalve Sponsorschappen, Adopties, Vrijwilligers en Leden, en de pagina's tonen hun geen knoppen om iets aan te maken, te bewerken of te verwijderen. Deze documentatie staat altijd onderaan de zijbalk.</p>
+        <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties, Vaccinaties en Behandelingen), Vrijwilligers, Leden en Locaties; managers zien daarnaast Gebruikers. Kijkers zien dezelfde menu's als medewerkers, behalve Sponsorschappen, Adopties, Vrijwilligers en Leden, en de pagina's tonen hun geen knoppen om iets aan te maken, te bewerken of te verwijderen. Deze documentatie staat altijd onderaan de zijbalk.</p>
         <p>Het menu Dieren bevat voor beheerders en medewerkers ook <strong>Adoptieaanvragen</strong>, en alleen beheerders zien <strong>Rapporten</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Modules</h3>
-        <p>Een asiel dat niet alle onderdelen van de app gebruikt, kan modules uitschakelen: <strong>Leden</strong>, <strong>Vrijwilligers</strong>, <strong>Sponsorschappen</strong>, <strong>Adoptieaanvragen</strong>, <strong>Rapporten</strong>, <strong>Vaccinaties en behandelingen</strong> en <strong>Kolonies</strong>. Managers doen dit onder <strong>Instellingen &gt; Asiel</strong> en beheerders in het bewerkformulier van het asiel, in het onderdeel <strong>Modules</strong>. Een uitgeschakelde module verdwijnt uit de zijbalk, het dashboard en de dierpagina's, en de pagina's ervan openen niet meer. Als Adoptieaanvragen is uitgeschakeld, toont de openbare dierpagina de knop &ldquo;Ik wil adopteren&rdquo; niet meer. Er wordt niets verwijderd: als je een module weer aanzet, komen alle gegevens terug. Dieren, adopties, diagnoses en voorzieningen staan altijd aan.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>Kies in het dierformulier de <strong>Kolonie</strong> (alleen kolonies van de soort van het dier worden getoond) en vul <strong>Gevangen op</strong>, <strong>Teruggezet op</strong> en <strong>Oor getopt</strong> in. Het hokveld wordt dan verborgen, omdat het dier niet in het asiel woont. Al het andere blijft behouden: foto's, vaccinaties, behandelingen, diagnoses en sterilisatiegegevens. De kolonie staat onder Huisvesting in de dierenlijst en op de dierpagina en kan worden gebruikt in het locatiefilter van de dierenlijst en van de formulieren voor groepsvaccinatie en groepsbehandeling.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Instellen</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Een beheerder vinkt <strong>Kolonies</strong> aan bij de soorten die in kolonies kunnen leven, onder <strong>Beheer &gt; Diersoorten</strong> (meestal alleen katten).</li>
+            <li>De platformbeheerder bepaalt welke soorten in kolonies kunnen leven (meestal alleen katten). Biedt het koloniformulier geen soort aan, vraag dan de platformbeheerder die in te schakelen.</li>
             <li>Een asiel dat geen kolonies nodig heeft, zet de module <strong>Kolonies</strong> uit, zoals de andere modules. Er wordt niets verwijderd.</li>
             <li>De soort van een kolonie kan niet meer veranderen zodra er dieren zijn. De gegevensexport van het asiel bevat de kolonies.</li>
             <li>Het verwijderen van een kolonie verwijdert haar dieren niet: ze blijven zonder kolonie geregistreerd en hebben een nieuwe locatie nodig. Het vaccinatieplan, de afdruklijst en de spreadsheet tonen de kolonie als locatie van een koloniedier.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Beheer</h2>
-        <p>Alleen beheerders zien dit menu. Hier worden de asielen en de referentietabellen onderhouden die door alle asielen worden gedeeld:</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Modules</h2>
+        <p>Optionele onderdelen van de app zijn modules, en de <strong>manager</strong> van het asiel kan elk onderdeel in- of uitschakelen onder <strong>Instellingen &gt; Asiel</strong>, in de sectie <strong>Modules</strong>; beheerders kunnen dat in het bewerkformulier van het asiel doen. Alle modules staan standaard aan. Een uitgeschakelde module verdwijnt uit de zijbalk, het dashboard en de dierpagina's, en de pagina's ervan openen niet meer. Als Adoptieaanvragen is uitgeschakeld, toont de openbare dierpagina de knop &ldquo;Ik wil adopteren&rdquo; niet meer. Er wordt niets verwijderd: als je een module weer aanzet, komen alle gegevens terug. Dieren, adopties, diagnoses en voorzieningen staan altijd aan.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Asielen</strong> &mdash; asielen aanmaken, bewerken en verwijderen. Naast naam en plaats heeft een asiel een korte naam, contactgegevens (e-mail, telefoon, website), adres, regio, een beschrijving en een logo &mdash; gebruikt op het openbare portaal als dat is ingeschakeld. De lijst <strong>Diersoorten</strong> in het asielformulier bepaalt welke diersoorten in het menu Dieren verschijnen voor de manager en medewerkers van dat asiel. Het e-mailadres is verplicht. Zodra het asiel een asielbeheerder heeft, kan die alles behalve de naam en de diersoorten zelf bijwerken via <strong>Instellingen &gt; Asiel</strong>.</li>
-            <li><strong>Regio's</strong> &mdash; de regio's waartoe de asielen behoren, ook gebruikt als filter op het openbare portaal.</li>
-            <li><strong>Diersoorten</strong>, <strong>Rassen</strong>, <strong>Formaten</strong> en <strong>Vachttypes</strong> &mdash; de opties om dieren te beschrijven.</li>
-            <li><strong>Vaccins</strong>, <strong>Behandelingen</strong> en <strong>Ziektes</strong> &mdash; de opties in de gezondheidsdossiers van de dieren. Vaccins en behandelingen geven aan voor welke diersoorten ze gelden en eventueel een frequentie in maanden, waarmee de volgende geplande datum wordt ingevuld.</li>
-            <li><strong>Activiteiten</strong> &mdash; de taken waarbij vrijwilligers kunnen helpen.</li>
+            <li><strong>Leden</strong> &mdash; het ledenregister met bijdragen en wie achterloopt.</li>
+            <li><strong>Vrijwilligers</strong> &mdash; het register van vrijwilligers en hun beschikbaarheid.</li>
+            <li><strong>Sponsorschappen</strong> &mdash; de sponsorschappen van dieren en hun betalingen.</li>
+            <li><strong>Adoptieaanvragen</strong> &mdash; het aanvraagformulier op de openbare pagina en de lijst met aanvragen.</li>
+            <li><strong>Rapporten</strong> &mdash; de rapporten en de lijsten die voor de gemeente worden geëxporteerd.</li>
+            <li><strong>Vaccinaties en behandelingen</strong> &mdash; vaccinatie- en behandelgegevens, vervaldata, het vaccinatieplan, groepsrondes en herinneringsmails.</li>
+            <li><strong>Kolonies</strong> &mdash; de kolonies van zwerfkatten en hun dieren.</li>
         </ul>
     </section>
 

@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Berichte</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Benutzer</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Öffentliches Portal</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Verwaltung</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Module</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Einstellungen</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>Ist das öffentliche Portal aktiviert, veröffentlicht das Team die Tiere, die zur Vermittlung bereit sind.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientierung in der Anwendung</h3>
-        <p>Die Seitenleiste zeigt nur, was Ihre Rolle nutzen darf. Manager und Mitarbeitende sehen das Menü Tiere (ein Eintrag pro für das Tierheim aktivierter Tierart, dazu Patenschaften, Vermittlungen, Impfungen und Behandlungen), Ehrenamtliche, Mitglieder und Einrichtungen; Manager sehen zusätzlich Benutzer. Administratoren sehen stattdessen Benutzer und das Menü Verwaltung. Leser sehen dieselben Menüs wie Mitarbeitende, außer Patenschaften, Vermittlungen, Ehrenamtliche und Mitglieder, und die Seiten zeigen ihnen keine Schaltflächen zum Anlegen, Bearbeiten oder Löschen. Diese Dokumentation ist immer unten in der Seitenleiste erreichbar.</p>
+        <p>Die Seitenleiste zeigt nur, was Ihre Rolle nutzen darf. Manager und Mitarbeitende sehen das Menü Tiere (ein Eintrag pro für das Tierheim aktivierter Tierart, dazu Patenschaften, Vermittlungen, Impfungen und Behandlungen), Ehrenamtliche, Mitglieder und Einrichtungen; Manager sehen zusätzlich Benutzer. Leser sehen dieselben Menüs wie Mitarbeitende, außer Patenschaften, Vermittlungen, Ehrenamtliche und Mitglieder, und die Seiten zeigen ihnen keine Schaltflächen zum Anlegen, Bearbeiten oder Löschen. Diese Dokumentation ist immer unten in der Seitenleiste erreichbar.</p>
         <p>Das Menü Tiere enthält für Leitung und Personal außerdem <strong>Adoptionsanfragen</strong>, und nur die Leitung sieht <strong>Berichte</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Module</h3>
-        <p>Ein Tierheim, das nicht alle Teile der App nutzt, kann Module ausschalten: <strong>Mitglieder</strong>, <strong>Freiwillige</strong>, <strong>Patenschaften</strong>, <strong>Adoptionsanfragen</strong>, <strong>Berichte</strong>, <strong>Impfungen und Behandlungen</strong> sowie <strong>Kolonien</strong>. Manager tun das unter <strong>Einstellungen &gt; Tierheim</strong>, Administratoren im Bearbeitungsformular des Tierheims im Bereich <strong>Module</strong>. Ein ausgeschaltetes Modul verschwindet aus der Seitenleiste, dem Dashboard und den Tierseiten, und seine Seiten lassen sich nicht mehr öffnen. Sind die Adoptionsanfragen ausgeschaltet, zeigt die öffentliche Tierseite den Button &bdquo;Ich möchte adoptieren&ldquo; nicht mehr an. Es wird nichts gelöscht: Beim erneuten Einschalten eines Moduls sind alle seine Daten wieder da. Tiere, Adoptionen, Diagnosen und Einrichtungen sind immer aktiv.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>Wählen Sie im Tierformular die <strong>Kolonie</strong> (es werden nur Kolonien der Tierart des Tieres angeboten) und füllen Sie <strong>Gefangen am</strong>, <strong>Zurückgesetzt am</strong> und <strong>Ohrmarkiert</strong> aus. Das Zwingerfeld wird dann ausgeblendet, weil das Tier nicht im Tierheim lebt. Alles andere bleibt erhalten: Fotos, Impfungen, Behandlungen, Diagnosen und Kastrationsdaten. Die Kolonie erscheint unter Unterbringung in der Tierliste und auf der Tierseite und kann im Standortfilter der Tierliste sowie der Formulare für Gruppenimpfung und Gruppenbehandlung verwendet werden.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Einrichtung</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Ein Admin setzt bei den Tierarten, die in Kolonien leben können, unter <strong>Verwaltung &gt; Tierarten</strong> den Haken bei <strong>Kolonien</strong> (meist nur Katzen).</li>
+            <li>Der Plattform-Administrator legt fest, welche Tierarten in Kolonien leben können (meist nur Katzen). Bietet das Koloniformular keine Tierart an, bitten Sie den Plattform-Administrator, sie freizuschalten.</li>
             <li>Ein Tierheim ohne Bedarf an Kolonien schaltet das Modul <strong>Kolonien</strong> wie die anderen Module ab. Es wird nichts gelöscht.</li>
             <li>Die Tierart einer Kolonie lässt sich nicht mehr ändern, sobald sie Tiere hat. Der Datenexport des Tierheims enthält die Kolonien.</li>
             <li>Das Löschen einer Kolonie löscht ihre Tiere nicht: Sie bleiben ohne Kolonie erfasst und brauchen einen neuen Standort. Der Impfplan, seine Druckliste und seine Tabelle zeigen die Kolonie als Standort eines Koloniertieres.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Verwaltung</h2>
-        <p>Nur Administratoren sehen dieses Menü. Hier werden die Tierheime und die von allen Tierheimen gemeinsam genutzten Stammdatentabellen gepflegt:</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Module</h2>
+        <p>Optionale Teile der App sind Module, und der <strong>Manager</strong> des Tierheims kann jedes unter <strong>Einstellungen &gt; Tierheim</strong> im Abschnitt <strong>Module</strong> ein- oder ausschalten; Administratoren können das im Bearbeitungsformular des Tierheims tun. Standardmäßig sind alle Module eingeschaltet. Ein ausgeschaltetes Modul verschwindet aus der Seitenleiste, dem Dashboard und den Tierseiten, und seine Seiten lassen sich nicht mehr öffnen. Sind die Adoptionsanfragen ausgeschaltet, zeigt die öffentliche Tierseite den Button &bdquo;Ich möchte adoptieren&ldquo; nicht mehr an. Es wird nichts gelöscht: Beim erneuten Einschalten eines Moduls sind alle seine Daten wieder da. Tiere, Adoptionen, Diagnosen und Einrichtungen sind immer aktiv.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Tierheime</strong> &mdash; Tierheime anlegen, bearbeiten und entfernen. Neben Name und Ort hat ein Tierheim einen Kurznamen, Kontaktdaten (E-Mail, Telefon, Website), Adresse, Region, eine Beschreibung und ein Logo &mdash; genutzt im öffentlichen Portal, wenn es aktiviert ist. Die Liste <strong>Tierarten</strong> im Tierheimformular legt fest, welche Tierarten im Menü Tiere für Manager und Mitarbeitende dieses Tierheims erscheinen. Die E-Mail-Adresse ist Pflicht. Sobald das Tierheim eine Leitung hat, kann diese alles außer Name und Tierarten selbst unter <strong>Einstellungen &gt; Tierheim</strong> aktualisieren.</li>
-            <li><strong>Regionen</strong> &mdash; die Regionen, zu denen die Tierheime gehören; auch als Filter im öffentlichen Portal verwendet.</li>
-            <li><strong>Tierarten</strong>, <strong>Rassen</strong>, <strong>Größen</strong> und <strong>Felltypen</strong> &mdash; die Optionen zur Beschreibung der Tiere.</li>
-            <li><strong>Impfstoffe</strong>, <strong>Behandlungen</strong> und <strong>Krankheiten</strong> &mdash; die Optionen für die Gesundheitsakten der Tiere. Impfstoffe und Behandlungen geben die Tierarten an, für die sie gelten, und optional eine Häufigkeit in Monaten, mit der der nächste Fälligkeitstermin ausgefüllt wird.</li>
-            <li><strong>Tätigkeiten</strong> &mdash; die Aufgaben, bei denen Ehrenamtliche helfen können.</li>
+            <li><strong>Mitglieder</strong> &mdash; das Mitgliederregister mit Beiträgen und Zahlungsrückständen.</li>
+            <li><strong>Freiwillige</strong> &mdash; das Register der Freiwilligen und ihrer Verfügbarkeit.</li>
+            <li><strong>Patenschaften</strong> &mdash; die Patenschaften für Tiere und ihre Zahlungen.</li>
+            <li><strong>Adoptionsanfragen</strong> &mdash; das Anfrageformular auf der öffentlichen Seite und die Liste der Anfragen.</li>
+            <li><strong>Berichte</strong> &mdash; die Berichte und die für die Gemeinde exportierten Listen.</li>
+            <li><strong>Impfungen und Behandlungen</strong> &mdash; Impf- und Behandlungsdaten, Fälligkeiten, der Impfplan, Gruppenrunden und Erinnerungs-E-Mails.</li>
+            <li><strong>Kolonien</strong> &mdash; die Kolonien freilebender Katzen und ihre Tiere.</li>
         </ul>
     </section>
 

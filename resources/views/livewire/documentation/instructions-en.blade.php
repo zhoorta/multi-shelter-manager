@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Reports</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Users</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Public Portal</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Modules</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Settings</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>If the public portal is enabled, the team publishes the pets that are ready for adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Finding your way around</h3>
-        <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions, Vaccinations and Treatments), Volunteers, Members and Facilities; managers also see Users. Admins see Users and the Administration menu instead. Viewers see the same menus as staff, except Sponsorships, Adoptions, Volunteers and Members, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
+        <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions, Vaccinations and Treatments), Volunteers, Members and Facilities; managers also see Users. Viewers see the same menus as staff, except Sponsorships, Adoptions, Volunteers and Members, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
         <p>The Pets menu also includes <strong>Adoption Applications</strong> for managers and staff, and only managers see <strong>Reports</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Modules</h3>
-        <p>A shelter that does not use every part of the app can switch modules off: <strong>Members</strong>, <strong>Volunteers</strong>, <strong>Sponsorships</strong>, <strong>Adoption Applications</strong>, <strong>Reports</strong>, <strong>Vaccinations and Treatments</strong>, and <strong>Colonies</strong>. Managers do it under <strong>Settings &gt; Shelter</strong> and admins in the shelter's edit form, in the <strong>Modules</strong> section. A module that is switched off disappears from the sidebar, the dashboard and the pet pages, and its pages no longer open. With Adoption Applications off, the public pet page no longer shows the &ldquo;I want to adopt&rdquo; button. Nothing is deleted: switching a module back on restores all its data. Pets, adoptions, diagnoses and facilities are always on.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>In the pet form, choose the <strong>Colony</strong> (only the colonies of the animal's species are offered) and fill in <strong>Captured on</strong>, <strong>Returned on</strong> and <strong>Ear-tipped</strong>. The cage field is then hidden, because the animal does not live in the shelter. The animal keeps everything else: photos, vaccinations, treatments, diagnoses and neutering details. The colony is shown under Accommodation in the pets list and on the pet page, and it can be used in the location filter of the pets list and of the group vaccination and group treatment forms.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Setting up</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>An admin ticks <strong>Colonies</strong> on the species that can live in colonies, under <strong>Administration &gt; Species</strong> (usually only cats).</li>
+            <li>The platform administrator marks the species that can live in colonies (usually only cats). If your colony form offers no species, ask the platform administrator to enable it.</li>
             <li>A shelter that does not need colonies switches the <strong>Colonies</strong> module off, like the other modules. Nothing is deleted.</li>
             <li>The species of a colony cannot change once it has animals. The data export of the shelter includes the colonies.</li>
             <li>Deleting a colony does not delete its animals: they stay registered without a colony and need a new location. The vaccination plan, its print list and its spreadsheet show the colony as the location of a colony animal.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administration</h2>
-        <p>Only admins see this menu. It maintains the shelters and the lookup tables shared by every shelter:</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Modules</h2>
+        <p>Optional parts of the app are modules, and the shelter's <strong>manager</strong> can switch each one on or off under <strong>Settings &gt; Shelter</strong>, in the <strong>Modules</strong> section; admins can do it in the shelter's edit form. All modules are on by default. A module that is switched off disappears from the sidebar, the dashboard and the pet pages, and its pages no longer open. With Adoption Applications off, the public pet page no longer shows the &ldquo;I want to adopt&rdquo; button. Nothing is deleted: switching a module back on restores all its data. Pets, adoptions, diagnoses and facilities are always on.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Shelters</strong> &mdash; create, edit and remove shelters. Besides the name and city, a shelter has a short name, contacts (email, phone, website), address, region, a description and a logo &mdash; used on the public portal when enabled. The <strong>Species</strong> checklist on the shelter form controls which species appear in the Pets menu for that shelter's manager and staff. The email is required. Once the shelter has a manager, they can update everything except the name and species themselves in <strong>Settings &gt; Shelter</strong>.</li>
-            <li><strong>Regions</strong> &mdash; the districts shelters belong to, also used as a filter on the public portal.</li>
-            <li><strong>Species</strong>, <strong>Breeds</strong>, <strong>Sizes</strong> and <strong>Fur Types</strong> &mdash; the options used to describe pets.</li>
-            <li><strong>Vaccines</strong>, <strong>Treatments</strong> and <strong>Sicknesses</strong> &mdash; the options used in pet health records. Vaccines and treatments have the species they apply to and an optional frequency in months, used to fill in the next due date.</li>
-            <li><strong>Activities</strong> &mdash; the tasks volunteers can help with.</li>
+            <li><strong>Members</strong> &mdash; the register of members, their fees and who is overdue.</li>
+            <li><strong>Volunteers</strong> &mdash; the register of volunteers and their availability.</li>
+            <li><strong>Sponsorships</strong> &mdash; sponsorships of animals and their payments.</li>
+            <li><strong>Adoption Applications</strong> &mdash; the application form on the public page and the list of applications.</li>
+            <li><strong>Reports</strong> &mdash; the reports and the lists exported for the town hall.</li>
+            <li><strong>Vaccinations and Treatments</strong> &mdash; vaccine and treatment records, due dates, the vaccination plan, group rounds and reminder emails.</li>
+            <li><strong>Colonies</strong> &mdash; colonies of free-roaming cats and their animals.</li>
         </ul>
     </section>
 

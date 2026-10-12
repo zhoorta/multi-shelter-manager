@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Relatórios</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utilizadores</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal Público</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administração</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Módulos</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Definições</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>Se o portal público estiver ativo, a equipa publica os animais que estão prontos para adoção.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientar-se na aplicação</h3>
-        <p>O menu lateral mostra apenas o que o seu perfil pode usar. Gestores e funcionários veem o menu Animais (uma entrada por cada espécie ativa no abrigo, mais Apadrinhamentos, Adoções, Vacinações e Tratamentos), Voluntários, Sócios e Instalações; os gestores veem também Utilizadores. Os administradores veem, em vez disso, Utilizadores e o menu Administração. Os utilizadores de consulta veem os mesmos menus que os funcionários, exceto Apadrinhamentos, Adoções, Voluntários e Sócios, e as páginas não lhes mostram botões para criar, editar ou apagar. Esta documentação está sempre disponível no fundo do menu lateral.</p>
+        <p>O menu lateral mostra apenas o que o seu perfil pode usar. Gestores e funcionários veem o menu Animais (uma entrada por cada espécie ativa no abrigo, mais Apadrinhamentos, Adoções, Vacinações e Tratamentos), Voluntários, Sócios e Instalações; os gestores veem também Utilizadores. Os utilizadores de consulta veem os mesmos menus que os funcionários, exceto Apadrinhamentos, Adoções, Voluntários e Sócios, e as páginas não lhes mostram botões para criar, editar ou apagar. Esta documentação está sempre disponível no fundo do menu lateral.</p>
         <p>O menu Animais inclui também <strong>Candidaturas de Adoção</strong> para gestores e funcionários, e só os gestores veem os <strong>Relatórios</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Módulos</h3>
-        <p>Um abrigo que não utiliza todas as partes da aplicação pode desligar módulos: <strong>Sócios</strong>, <strong>Voluntários</strong>, <strong>Apadrinhamentos</strong>, <strong>Candidaturas de Adoção</strong>, <strong>Relatórios</strong>, <strong>Vacinas e Tratamentos</strong> e <strong>Colónias</strong>. Os gestores fazem-no em <strong>Definições &gt; Abrigo</strong> e os administradores no formulário de edição do abrigo, na secção <strong>Módulos</strong>. Um módulo desligado desaparece do menu lateral, do painel e das fichas dos animais, e as suas páginas deixam de abrir. Com as Candidaturas de Adoção desligadas, a página pública do animal deixa de mostrar o botão &ldquo;Quero adotar&rdquo;. Nada é apagado: ao voltar a ligar um módulo, todos os seus dados regressam. Os animais, as adoções, os diagnósticos e as instalações estão sempre ativos.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>No formulário do animal, escolha a <strong>Colónia</strong> (só aparecem as colónias da espécie do animal) e preencha <strong>Capturado em</strong>, <strong>Devolvido em</strong> e <strong>Orelha cortada</strong>. O campo da box fica então escondido, porque o animal não vive no abrigo. O animal mantém tudo o resto: fotografias, vacinas, tratamentos, diagnósticos e dados de esterilização. A colónia aparece em Acomodação na lista de animais e na página do animal, e pode usar-se no filtro de localização da lista de animais e dos formulários de vacinação e de tratamento em grupo.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Configuração</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Um administrador marca <strong>Colónias</strong> nas espécies que podem viver em colónias, em <strong>Administração &gt; Espécies</strong> (normalmente só os gatos).</li>
+            <li>O administrador da plataforma marca as espécies que podem viver em colónias (normalmente só os gatos). Se o formulário da colónia não oferecer nenhuma espécie, peça ao administrador da plataforma que a ative.</li>
             <li>Um abrigo que não precise de colónias desliga o módulo <strong>Colónias</strong>, como os outros módulos. Nada é apagado.</li>
             <li>A espécie de uma colónia não pode mudar depois de ter animais. A exportação de dados do abrigo inclui as colónias.</li>
             <li>Apagar uma colónia não apaga os seus animais: ficam registados sem colónia e precisam de uma nova localização. O plano de vacinação, a sua lista para imprimir e a folha de cálculo mostram a colónia como localização de um animal de colónia.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administração</h2>
-        <p>Apenas os administradores veem este menu. Nele mantêm-se os abrigos e as tabelas de referência partilhadas por todos os abrigos:</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Módulos</h2>
+        <p>As partes opcionais da aplicação são módulos, e o <strong>gestor</strong> do abrigo pode ligar ou desligar cada um em <strong>Definições &gt; Abrigo</strong>, na secção <strong>Módulos</strong>; os administradores podem fazê-lo no formulário de edição do abrigo. Todos os módulos estão ligados por omissão. Um módulo desligado desaparece do menu lateral, do painel e das fichas dos animais, e as suas páginas deixam de abrir. Com as Candidaturas de Adoção desligadas, a página pública do animal deixa de mostrar o botão &ldquo;Quero adotar&rdquo;. Nada é apagado: ao voltar a ligar um módulo, todos os seus dados regressam. Os animais, as adoções, os diagnósticos e as instalações estão sempre ativos.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Abrigos</strong> &mdash; criar, editar e remover abrigos. Além do nome e da localidade, um abrigo tem um nome curto, contactos (email, telefone, site), morada, distrito, uma descrição e um logótipo &mdash; usados no portal público quando ativo. A lista de <strong>Espécies</strong> no formulário do abrigo define que espécies aparecem no menu Animais para o gestor e os funcionários desse abrigo. O email é obrigatório. Depois de o abrigo ter um gestor, este pode atualizar tudo exceto o nome e as espécies em <strong>Definições &gt; Abrigo</strong>.</li>
-            <li><strong>Distritos</strong> &mdash; os distritos a que os abrigos pertencem, também usados como filtro no portal público.</li>
-            <li><strong>Espécies</strong>, <strong>Raças</strong>, <strong>Tamanhos</strong> e <strong>Tipos de Pelo</strong> &mdash; as opções usadas para descrever os animais.</li>
-            <li><strong>Vacinas</strong>, <strong>Tratamentos</strong> e <strong>Doenças</strong> &mdash; as opções usadas nos registos de saúde. As vacinas e os tratamentos indicam as espécies a que se aplicam e, opcionalmente, uma frequência em meses, usada para preencher a próxima data prevista.</li>
-            <li><strong>Atividades</strong> &mdash; as tarefas em que os voluntários podem ajudar.</li>
+            <li><strong>Sócios</strong> &mdash; o registo dos sócios, das suas quotas e de quem está em atraso.</li>
+            <li><strong>Voluntários</strong> &mdash; o registo dos voluntários e da sua disponibilidade.</li>
+            <li><strong>Apadrinhamentos</strong> &mdash; os apadrinhamentos dos animais e os respetivos pagamentos.</li>
+            <li><strong>Candidaturas de Adoção</strong> &mdash; o formulário de candidatura na página pública e a lista de candidaturas.</li>
+            <li><strong>Relatórios</strong> &mdash; os relatórios e as listas exportadas para a câmara municipal.</li>
+            <li><strong>Vacinas e Tratamentos</strong> &mdash; os registos de vacinas e tratamentos, as datas a vencer, o plano de vacinação, as rondas em grupo e os e-mails de lembrete.</li>
+            <li><strong>Colónias</strong> &mdash; as colónias de gatos de rua e os seus animais.</li>
         </ul>
     </section>
 

@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Informes</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Usuarios</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portal Público</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administración</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Módulos</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Ajustes</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>Si el portal público está activado, el equipo publica los animales que están listos para ser adoptados.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarse en la aplicación</h3>
-        <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones, Vacunaciones y Tratamientos), Voluntarios, Socios e Instalaciones; los gestores ven también Usuarios. Los administradores ven, en su lugar, Usuarios y el menú Administración. Los usuarios de consulta ven los mismos menús que los empleados, salvo Apadrinamientos, Adopciones, Voluntarios y Socios, y las páginas no les muestran botones para crear, editar o eliminar. Esta documentación está siempre disponible al final del menú lateral.</p>
+        <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones, Vacunaciones y Tratamientos), Voluntarios, Socios e Instalaciones; los gestores ven también Usuarios. Los usuarios de consulta ven los mismos menús que los empleados, salvo Apadrinamientos, Adopciones, Voluntarios y Socios, y las páginas no les muestran botones para crear, editar o eliminar. Esta documentación está siempre disponible al final del menú lateral.</p>
         <p>El menú Animales incluye también <strong>Solicitudes de Adopción</strong> para gestores y personal, y solo los gestores ven los <strong>Informes</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Módulos</h3>
-        <p>Un refugio que no utiliza todas las partes de la aplicación puede desactivar módulos: <strong>Socios</strong>, <strong>Voluntarios</strong>, <strong>Apadrinamientos</strong>, <strong>Solicitudes de adopción</strong>, <strong>Informes</strong>, <strong>Vacunas y tratamientos</strong> y <strong>Colonias</strong>. Los gestores lo hacen en <strong>Ajustes &gt; Refugio</strong> y los administradores en el formulario de edición del refugio, en la sección <strong>Módulos</strong>. Un módulo desactivado desaparece del menú lateral, del panel y de las fichas de los animales, y sus páginas dejan de abrirse. Con las solicitudes de adopción desactivadas, la página pública del animal deja de mostrar el botón &ldquo;Quiero adoptar&rdquo;. No se borra nada: al volver a activar un módulo se recuperan todos sus datos. Los animales, las adopciones, los diagnósticos y las instalaciones están siempre activos.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>En el formulario del animal, elija la <strong>Colonia</strong> (solo aparecen las colonias de la especie del animal) y rellene <strong>Capturado el</strong>, <strong>Devuelto el</strong> y <strong>Oreja marcada</strong>. El campo de la jaula se oculta, porque el animal no vive en el refugio. El animal conserva todo lo demás: fotos, vacunas, tratamientos, diagnósticos y datos de esterilización. La colonia aparece en Alojamiento en la lista de animales y en la página del animal, y puede usarse en el filtro de ubicación de la lista de animales y de los formularios de vacunación y tratamiento en grupo.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Configuración</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Un administrador marca <strong>Colonias</strong> en las especies que pueden vivir en colonias, en <strong>Administración &gt; Especies</strong> (normalmente solo los gatos).</li>
+            <li>El administrador de la plataforma marca las especies que pueden vivir en colonias (normalmente solo los gatos). Si el formulario de la colonia no ofrece ninguna especie, pida al administrador de la plataforma que la active.</li>
             <li>Un refugio que no necesite colonias desactiva el módulo <strong>Colonias</strong>, como los demás módulos. No se borra nada.</li>
             <li>La especie de una colonia no puede cambiar una vez que tiene animales. La exportación de datos del refugio incluye las colonias.</li>
             <li>Eliminar una colonia no elimina sus animales: siguen registrados sin colonia y necesitan una nueva ubicación. El plan de vacunación, su lista para imprimir y su hoja de cálculo muestran la colonia como ubicación de un animal de colonia.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administración</h2>
-        <p>Solo los administradores ven este menú. En él se mantienen los refugios y las tablas de referencia compartidas por todos los refugios:</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Módulos</h2>
+        <p>Las partes opcionales de la aplicación son módulos, y el <strong>gestor</strong> del refugio puede activar o desactivar cada uno en <strong>Ajustes &gt; Refugio</strong>, en la sección <strong>Módulos</strong>; los administradores pueden hacerlo en el formulario de edición del refugio. Todos los módulos están activados por defecto. Un módulo desactivado desaparece del menú lateral, del panel y de las fichas de los animales, y sus páginas dejan de abrirse. Con las solicitudes de adopción desactivadas, la página pública del animal deja de mostrar el botón &ldquo;Quiero adoptar&rdquo;. No se borra nada: al volver a activar un módulo se recuperan todos sus datos. Los animales, las adopciones, los diagnósticos y las instalaciones están siempre activos.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Refugios</strong> &mdash; crear, editar y eliminar refugios. Además del nombre y la ciudad, un refugio tiene un nombre corto, contactos (email, teléfono, web), dirección, región, una descripción y un logotipo &mdash; usados en el portal público cuando está activado. La lista de <strong>Especies</strong> del formulario del refugio define qué especies aparecen en el menú Animales para el gestor y el personal de ese refugio. El email es obligatorio. Cuando el refugio tiene un gestor, este puede actualizar todo excepto el nombre y las especies en <strong>Configuración &gt; Refugio</strong>.</li>
-            <li><strong>Regiones</strong> &mdash; las regiones a las que pertenecen los refugios, también usadas como filtro en el portal público.</li>
-            <li><strong>Especies</strong>, <strong>Razas</strong>, <strong>Tamaños</strong> y <strong>Tipos de Pelo</strong> &mdash; las opciones usadas para describir a los animales.</li>
-            <li><strong>Vacunas</strong>, <strong>Tratamientos</strong> y <strong>Enfermedades</strong> &mdash; las opciones usadas en los registros de salud de los animales. Las vacunas y los tratamientos indican las especies a las que se aplican y, opcionalmente, una frecuencia en meses, que se usa para rellenar la próxima fecha prevista.</li>
-            <li><strong>Actividades</strong> &mdash; las tareas en las que pueden ayudar los voluntarios.</li>
+            <li><strong>Socios</strong> &mdash; el registro de socios, sus cuotas y quién está en mora.</li>
+            <li><strong>Voluntarios</strong> &mdash; el registro de voluntarios y su disponibilidad.</li>
+            <li><strong>Apadrinamientos</strong> &mdash; los apadrinamientos de animales y sus pagos.</li>
+            <li><strong>Solicitudes de adopción</strong> &mdash; el formulario de solicitud de la página pública y la lista de solicitudes.</li>
+            <li><strong>Informes</strong> &mdash; los informes y las listas exportadas para el ayuntamiento.</li>
+            <li><strong>Vacunas y tratamientos</strong> &mdash; los registros de vacunas y tratamientos, las fechas de vencimiento, el plan de vacunación, las rondas en grupo y los correos de recordatorio.</li>
+            <li><strong>Colonias</strong> &mdash; las colonias de gatos callejeros y sus animales.</li>
         </ul>
     </section>
 

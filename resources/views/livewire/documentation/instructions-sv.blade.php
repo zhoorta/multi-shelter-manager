@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapporter</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Användare</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Öppen portal</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Administration</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Moduler</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Inställningar</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>Om den öppna portalen är aktiverad publicerar teamet de djur som är redo för adoption.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Hitta rätt i applikationen</h3>
-        <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner, Vaccinationer och Behandlingar), Volontärer, Medlemmar och Anläggningar; chefer ser även Användare. Administratörer ser i stället Användare och menyn Administration. Läsare ser samma menyer som personal, utom Fadderskap, Adoptioner, Volontärer och Medlemmar, och sidorna visar inga knappar för att skapa, redigera eller ta bort. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
+        <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner, Vaccinationer och Behandlingar), Volontärer, Medlemmar och Anläggningar; chefer ser även Användare. Läsare ser samma menyer som personal, utom Fadderskap, Adoptioner, Volontärer och Medlemmar, och sidorna visar inga knappar för att skapa, redigera eller ta bort. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
         <p>Menyn Djur innehåller också <strong>Adoptionsansökningar</strong> för chefer och personal, och bara chefer ser <strong>Rapporter</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Moduler</h3>
-        <p>Ett djurhem som inte använder alla delar av appen kan stänga av moduler: <strong>Medlemmar</strong>, <strong>Volontärer</strong>, <strong>Fadderskap</strong>, <strong>Adoptionsansökningar</strong>, <strong>Rapporter</strong>, <strong>Vaccinationer och behandlingar</strong> samt <strong>Kolonier</strong>. Chefer gör det under <strong>Inställningar &gt; Djurhem</strong> och administratörer i djurhemmets redigeringsformulär, i avsnittet <strong>Moduler</strong>. En avstängd modul försvinner från sidomenyn, översikten och djursidorna, och dess sidor går inte längre att öppna. När Adoptionsansökningar är avstängda visar den publika djursidan inte längre knappen &ldquo;Jag vill adoptera&rdquo;. Inget raderas: när du slår på en modul igen finns all dess data kvar. Djur, adoptioner, diagnoser och anläggningar är alltid på.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>Välj <strong>Koloni</strong> i djurformuläret (bara kolonier av djurets art visas) och fyll i <strong>Fångad den</strong>, <strong>Återsläppt den</strong> och <strong>Örontopp</strong>. Burfältet döljs då, eftersom djuret inte bor på hemmet. Djuret behåller allt annat: foton, vaccinationer, behandlingar, diagnoser och kastreringsuppgifter. Kolonin visas under Boende i djurlistan och på djursidan och kan användas i platsfiltret i djurlistan och i formulären för gruppvaccination och gruppbehandling.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Inställning</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>En admin kryssar i <strong>Kolonier</strong> för de arter som kan leva i kolonier, under <strong>Administration &gt; Djurarter</strong> (oftast bara katter).</li>
+            <li>Plattformens administratör anger vilka arter som kan leva i kolonier (oftast bara katter). Om koloniformuläret inte erbjuder någon art, be plattformens administratör aktivera den.</li>
             <li>Ett hem som inte behöver kolonier stänger av modulen <strong>Kolonier</strong>, som de andra modulerna. Inget raderas.</li>
             <li>En kolonis art kan inte ändras när den har djur. Hemmets dataexport innehåller kolonierna.</li>
             <li>Att ta bort en koloni tar inte bort dess djur: de förblir registrerade utan koloni och behöver en ny plats. Vaccinationsplanen, dess utskriftslista och kalkylblad visar kolonin som plats för ett kolonidjur.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Administration</h2>
-        <p>Endast administratörer ser denna meny. Här underhålls djurhemmen och de referenstabeller som delas av alla djurhem:</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Moduler</h2>
+        <p>Valfria delar av appen är moduler, och djurhemmets <strong>chef</strong> kan slå på eller av varje modul under <strong>Inställningar &gt; Djurhem</strong>, i avsnittet <strong>Moduler</strong>; administratörer kan göra det i djurhemmets redigeringsformulär. Alla moduler är påslagna som standard. En avstängd modul försvinner från sidomenyn, översikten och djursidorna, och dess sidor går inte längre att öppna. När Adoptionsansökningar är avstängda visar den publika djursidan inte längre knappen &ldquo;Jag vill adoptera&rdquo;. Inget raderas: när du slår på en modul igen finns all dess data kvar. Djur, adoptioner, diagnoser och anläggningar är alltid på.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Djurhem</strong> &mdash; skapa, redigera och ta bort djurhem. Förutom namn och ort har ett djurhem ett kortnamn, kontaktuppgifter (e-post, telefon, webbplats), adress, region, en beskrivning och en logotyp &mdash; som används på den öppna portalen när den är aktiverad. Listan <strong>Djurarter</strong> i djurhemsformuläret styr vilka djurarter som visas i menyn Djur för djurhemmets chef och personal. E-postadressen är obligatorisk. När djurhemmet har en föreståndare kan hen själv uppdatera allt utom namn och arter under <strong>Inställningar &gt; Djurhem</strong>.</li>
-            <li><strong>Regioner</strong> &mdash; de regioner som djurhemmen tillhör, används även som filter på den öppna portalen.</li>
-            <li><strong>Djurarter</strong>, <strong>Raser</strong>, <strong>Storlekar</strong> och <strong>Pälstyper</strong> &mdash; alternativen som används för att beskriva djuren.</li>
-            <li><strong>Vacciner</strong>, <strong>Behandlingar</strong> och <strong>Sjukdomar</strong> &mdash; alternativen som används i djurens hälsojournaler. Vacciner och behandlingar anger vilka djurarter de gäller och eventuellt en frekvens i månader, som används för att fylla i nästa planerade datum.</li>
-            <li><strong>Aktiviteter</strong> &mdash; uppgifterna som volontärer kan hjälpa till med.</li>
+            <li><strong>Medlemmar</strong> &mdash; medlemsregistret med avgifter och vilka som är försenade.</li>
+            <li><strong>Volontärer</strong> &mdash; registret över volontärer och deras tillgänglighet.</li>
+            <li><strong>Fadderskap</strong> &mdash; fadderskap för djur och deras betalningar.</li>
+            <li><strong>Adoptionsansökningar</strong> &mdash; ansökningsformuläret på den publika sidan och listan över ansökningar.</li>
+            <li><strong>Rapporter</strong> &mdash; rapporterna och listorna som exporteras till kommunen.</li>
+            <li><strong>Vaccinationer och behandlingar</strong> &mdash; vaccinations- och behandlingsregister, förfallodatum, vaccinationsplanen, gruppomgångar och påminnelsemejl.</li>
+            <li><strong>Kolonier</strong> &mdash; kolonierna av frilevande katter och deras djur.</li>
         </ul>
     </section>
 

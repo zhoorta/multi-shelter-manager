@@ -19,7 +19,7 @@
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Report</a>
         <a href="#users" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Utenti</a>
         <a href="#public-portal" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Portale Pubblico</a>
-        <a href="#administration" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Amministrazione</a>
+        <a href="#modules" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Moduli</a>
         <a href="#settings" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Impostazioni</a>
     </nav>
 
@@ -45,10 +45,9 @@
             <li>Se il portale pubblico è attivo, il team pubblica gli animali pronti per l'adozione.</li>
         </ol>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Orientarsi nell'applicazione</h3>
-        <p>La barra laterale mostra solo ciò che il tuo ruolo può usare. Responsabili e staff vedono il menu Animali (una voce per ogni specie attivata per il rifugio, più Adozioni a Distanza, Adozioni, Vaccinazioni e Trattamenti), Volontari, Soci e Strutture; i responsabili vedono anche Utenti. Gli amministratori vedono invece Utenti e il menu Amministrazione. Gli utenti in consultazione vedono gli stessi menu dello staff, tranne Adozioni a Distanza, Adozioni, Volontari e Soci, e le pagine non mostrano loro pulsanti per creare, modificare o eliminare. Questa documentazione è sempre disponibile in fondo alla barra laterale.</p>
+        <p>La barra laterale mostra solo ciò che il tuo ruolo può usare. Responsabili e staff vedono il menu Animali (una voce per ogni specie attivata per il rifugio, più Adozioni a Distanza, Adozioni, Vaccinazioni e Trattamenti), Volontari, Soci e Strutture; i responsabili vedono anche Utenti. Gli utenti in consultazione vedono gli stessi menu dello staff, tranne Adozioni a Distanza, Adozioni, Volontari e Soci, e le pagine non mostrano loro pulsanti per creare, modificare o eliminare. Questa documentazione è sempre disponibile in fondo alla barra laterale.</p>
         <p>Il menu Animali include anche le <strong>Richieste di Adozione</strong> per responsabili e personale, e solo i responsabili vedono i <strong>Report</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Moduli</h3>
-        <p>Un rifugio che non usa tutte le parti dell'app può disattivare dei moduli: <strong>Soci</strong>, <strong>Volontari</strong>, <strong>Adozioni a Distanza</strong>, <strong>Richieste di adozione</strong>, <strong>Report</strong>, <strong>Vaccini e trattamenti</strong> e <strong>Colonie</strong>. I gestori lo fanno in <strong>Impostazioni &gt; Rifugio</strong> e gli amministratori nel modulo di modifica del rifugio, nella sezione <strong>Moduli</strong>. Un modulo disattivato scompare dal menu laterale, dalla dashboard e dalle schede degli animali, e le sue pagine non si aprono più. Con le richieste di adozione disattivate, la pagina pubblica dell'animale non mostra più il pulsante &ldquo;Voglio adottare&rdquo;. Non viene cancellato nulla: riattivando un modulo tornano disponibili tutti i suoi dati. Animali, adozioni, diagnosi e strutture sono sempre attivi.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -179,7 +178,7 @@
         <p>Nel modulo dell'animale scegli la <strong>Colonia</strong> (sono proposte solo le colonie della specie dell'animale) e compila <strong>Catturato il</strong>, <strong>Rilasciato il</strong> e <strong>Orecchio tagliato</strong>. Il campo del box viene nascosto, perché l'animale non vive nel rifugio. L'animale conserva tutto il resto: foto, vaccini, trattamenti, diagnosi e dati di sterilizzazione. La colonia compare sotto Sistemazione nell'elenco degli animali e nella pagina dell'animale, e può essere usata nel filtro di posizione dell'elenco degli animali e dei moduli di vaccinazione e trattamento di gruppo.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Configurazione</h3>
         <ul class="list-disc space-y-1 ps-6">
-            <li>Un amministratore spunta <strong>Colonie</strong> sulle specie che possono vivere in colonia, in <strong>Amministrazione &gt; Specie</strong> (di solito solo i gatti).</li>
+            <li>L'amministratore della piattaforma indica le specie che possono vivere in colonia (di solito solo i gatti). Se il modulo della colonia non offre alcuna specie, chiedi all'amministratore della piattaforma di attivarla.</li>
             <li>Un rifugio che non ha bisogno di colonie disattiva il modulo <strong>Colonie</strong>, come gli altri moduli. Non viene cancellato nulla.</li>
             <li>La specie di una colonia non può cambiare una volta che ha animali. L'esportazione dei dati del rifugio include le colonie.</li>
             <li>Eliminare una colonia non elimina i suoi animali: restano registrati senza colonia e hanno bisogno di una nuova posizione. Il piano vaccinale, il suo elenco da stampare e il suo foglio di calcolo mostrano la colonia come posizione di un animale di colonia.</li>
@@ -273,15 +272,17 @@
         </ul>
     </section>
 
-    <section id="administration" class="flex scroll-mt-6 flex-col gap-2">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Amministrazione</h2>
-        <p>Solo gli amministratori vedono questo menu. Serve a gestire i rifugi e le tabelle di riferimento condivise da tutti i rifugi:</p>
+    <section id="modules" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Moduli</h2>
+        <p>Le parti facoltative dell'app sono moduli, e il <strong>responsabile</strong> del rifugio può attivare o disattivare ciascuno in <strong>Impostazioni &gt; Rifugio</strong>, nella sezione <strong>Moduli</strong>; gli amministratori possono farlo nel modulo di modifica del rifugio. Tutti i moduli sono attivi per impostazione predefinita. Un modulo disattivato scompare dal menu laterale, dalla dashboard e dalle schede degli animali, e le sue pagine non si aprono più. Con le richieste di adozione disattivate, la pagina pubblica dell'animale non mostra più il pulsante &ldquo;Voglio adottare&rdquo;. Non viene cancellato nulla: riattivando un modulo tornano disponibili tutti i suoi dati. Animali, adozioni, diagnosi e strutture sono sempre attivi.</p>
         <ul class="list-disc space-y-1 ps-6">
-            <li><strong>Rifugi</strong> &mdash; creare, modificare e rimuovere rifugi. Oltre al nome e alla città, un rifugio ha un nome breve, contatti (email, telefono, sito web), indirizzo, regione, una descrizione e un logo &mdash; usati sul portale pubblico quando è attivo. L'elenco <strong>Specie</strong> nel modulo del rifugio stabilisce quali specie compaiono nel menu Animali per il responsabile e lo staff di quel rifugio. L'email è obbligatoria. Quando il rifugio ha un responsabile, questi può aggiornare tutto tranne il nome e le specie in <strong>Impostazioni &gt; Rifugio</strong>.</li>
-            <li><strong>Regioni</strong> &mdash; le regioni a cui appartengono i rifugi, usate anche come filtro sul portale pubblico.</li>
-            <li><strong>Specie</strong>, <strong>Razze</strong>, <strong>Taglie</strong> e <strong>Tipi di Mantello</strong> &mdash; le opzioni usate per descrivere gli animali.</li>
-            <li><strong>Vaccini</strong>, <strong>Trattamenti</strong> e <strong>Malattie</strong> &mdash; le opzioni usate nelle cartelle sanitarie degli animali. Vaccini e trattamenti indicano le specie a cui si applicano e, facoltativamente, una frequenza in mesi, usata per compilare la prossima data prevista.</li>
-            <li><strong>Attività</strong> &mdash; i compiti in cui i volontari possono aiutare.</li>
+            <li><strong>Soci</strong> &mdash; il registro dei soci, delle loro quote e di chi è in ritardo.</li>
+            <li><strong>Volontari</strong> &mdash; il registro dei volontari e della loro disponibilità.</li>
+            <li><strong>Adozioni a Distanza</strong> &mdash; le adozioni a distanza degli animali e i relativi pagamenti.</li>
+            <li><strong>Richieste di adozione</strong> &mdash; il modulo di richiesta della pagina pubblica e l'elenco delle richieste.</li>
+            <li><strong>Report</strong> &mdash; i report e gli elenchi esportati per il comune.</li>
+            <li><strong>Vaccini e trattamenti</strong> &mdash; i registri di vaccini e trattamenti, le scadenze, il piano vaccinale, i giri di gruppo e le e-mail di promemoria.</li>
+            <li><strong>Colonie</strong> &mdash; le colonie di gatti liberi e i loro animali.</li>
         </ul>
     </section>
 
