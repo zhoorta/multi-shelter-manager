@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopties</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sponsorschappen</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vrijwilligers</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Kolonies</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Leden</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Locaties</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapporten</a>
@@ -47,7 +48,7 @@
         <p>De zijbalk toont alleen wat jouw rol mag gebruiken. Managers en medewerkers zien het menu Dieren (één item per diersoort die voor het asiel is ingeschakeld, plus Sponsorschappen, Adopties, Vaccinaties en Behandelingen), Vrijwilligers, Leden en Locaties; managers zien daarnaast Gebruikers. Beheerders zien in plaats daarvan Gebruikers en het menu Beheer. Kijkers zien dezelfde menu's als medewerkers, behalve Sponsorschappen, Adopties, Vrijwilligers en Leden, en de pagina's tonen hun geen knoppen om iets aan te maken, te bewerken of te verwijderen. Deze documentatie staat altijd onderaan de zijbalk.</p>
         <p>Het menu Dieren bevat voor beheerders en medewerkers ook <strong>Adoptieaanvragen</strong>, en alleen beheerders zien <strong>Rapporten</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Modules</h3>
-        <p>Een asiel dat niet alle onderdelen van de app gebruikt, kan modules uitschakelen: <strong>Leden</strong>, <strong>Vrijwilligers</strong>, <strong>Sponsorschappen</strong>, <strong>Adoptieaanvragen</strong>, <strong>Rapporten</strong> en <strong>Vaccinaties en behandelingen</strong>. Managers doen dit onder <strong>Instellingen &gt; Asiel</strong> en beheerders in het bewerkformulier van het asiel, in het onderdeel <strong>Modules</strong>. Een uitgeschakelde module verdwijnt uit de zijbalk, het dashboard en de dierpagina's, en de pagina's ervan openen niet meer. Als Adoptieaanvragen is uitgeschakeld, toont de openbare dierpagina de knop &ldquo;Ik wil adopteren&rdquo; niet meer. Er wordt niets verwijderd: als je een module weer aanzet, komen alle gegevens terug. Dieren, adopties, diagnoses en voorzieningen staan altijd aan.</p>
+        <p>Een asiel dat niet alle onderdelen van de app gebruikt, kan modules uitschakelen: <strong>Leden</strong>, <strong>Vrijwilligers</strong>, <strong>Sponsorschappen</strong>, <strong>Adoptieaanvragen</strong>, <strong>Rapporten</strong>, <strong>Vaccinaties en behandelingen</strong> en <strong>Kolonies</strong>. Managers doen dit onder <strong>Instellingen &gt; Asiel</strong> en beheerders in het bewerkformulier van het asiel, in het onderdeel <strong>Modules</strong>. Een uitgeschakelde module verdwijnt uit de zijbalk, het dashboard en de dierpagina's, en de pagina's ervan openen niet meer. Als Adoptieaanvragen is uitgeschakeld, toont de openbare dierpagina de knop &ldquo;Ik wil adopteren&rdquo; niet meer. Er wordt niets verwijderd: als je een module weer aanzet, komen alle gegevens terug. Dieren, adopties, diagnoses en voorzieningen staan altijd aan.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Beoordelingen van aanwezigheid en prestaties.</li>
         </ul>
         <p>De vrijwilligerslijst is doorzoekbaar op naam, telefoon, e-mail, fiscaal nummer of notities, en te filteren op voorkeursdiersoort, beschikbare dag en activiteit &mdash; handig om te zien wie op een bepaalde dag kan helpen.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Kolonies</h2>
+        <p>Registreer de kolonies van zwerfdieren (meestal katten) waar uw vereniging voor zorgt, bijvoorbeeld in de CED/CER-programma's (vangen, steriliseren, terugzetten). Elke kolonie heeft <strong>één soort</strong>, een naam, een locatie en stad, een verzorger met telefoonnummer, notities en een actief-markering. De kolonies staan in de zijbalk onder <strong>Kolonies</strong>, en een dier in een kolonie is een gewoon dier dat daar leeft in plaats van in een hok.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Lijst van kolonies</h3>
+        <p>De lijst toont per kolonie de soort, de <strong>Koloniegegevens</strong> (locatie, verzorger en telefoon, notities), hoeveel dieren er zijn en hoeveel daarvan gesteriliseerd zijn. Maak, bewerk en verwijder kolonies met de knoppen op de pagina. Kijkers zien de locatie, maar nooit de verzorger of de notities.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Koloniepagina</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>De totalen van de kolonie: dieren, <strong>Gecastreerd</strong>, <strong>Sterilisatie in afwachting</strong>, <strong>Geen sterilisatie-informatie</strong> (niets vastgelegd over sterilisatie) en <strong>Oor getopt</strong>. De totalen tellen altijd de hele kolonie, wat de filters ook tonen.</li>
+            <li>Zoek dieren op naam, referentie of chip en filter op sterilisatiestatus of getopt oor.</li>
+            <li>De knop <strong>Voeg … toe</strong> opent het dierformulier met de kolonie en soort al ingevuld.</li>
+            <li><strong>Exporteren als CSV</strong> downloadt een spreadsheet met alle levende dieren van de kolonie (gegevens over vangst, sterilisatie, getopt oor en terugzetting) voor de rapporten aan de gemeente.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Dieren in een kolonie</h3>
+        <p>Kies in het dierformulier de <strong>Kolonie</strong> (alleen kolonies van de soort van het dier worden getoond) en vul <strong>Gevangen op</strong>, <strong>Teruggezet op</strong> en <strong>Oor getopt</strong> in. Het hokveld wordt dan verborgen, omdat het dier niet in het asiel woont. Al het andere blijft behouden: foto's, vaccinaties, behandelingen, diagnoses en sterilisatiegegevens. De kolonie staat onder Huisvesting in de dierenlijst en op de dierpagina en kan worden gebruikt in het locatiefilter van de dierenlijst en van de formulieren voor groepsvaccinatie en groepsbehandeling.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Instellen</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Een beheerder vinkt <strong>Kolonies</strong> aan bij de soorten die in kolonies kunnen leven, onder <strong>Beheer &gt; Diersoorten</strong> (meestal alleen katten).</li>
+            <li>Een asiel dat geen kolonies nodig heeft, zet de module <strong>Kolonies</strong> uit, zoals de andere modules. Er wordt niets verwijderd.</li>
+            <li>De soort van een kolonie kan niet meer veranderen zodra er dieren zijn. De gegevensexport van het asiel bevat de kolonies.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

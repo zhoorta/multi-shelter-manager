@@ -134,9 +134,11 @@ test('updates an existing species', function () {
         ->set('speciesName', 'Canine')
         ->set('speciesNamePlural', 'Canines')
         ->set('speciesHasPureBreedField', true)
+        ->set('speciesHasColonies', true)
         ->call('saveSpecies')
         ->assertHasNoErrors();
 
+    expect($species->fresh()->has_colonies)->toBeTrue();
     expect($species->fresh()->name)->toBe('Canine');
     expect($species->fresh()->name_plural)->toBe('Canines');
     expect($species->fresh()->has_pure_breed_field)->toBeTrue();

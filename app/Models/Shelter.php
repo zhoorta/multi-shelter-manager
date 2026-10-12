@@ -49,7 +49,7 @@ class Shelter extends Model
      *
      * @var list<string>
      */
-    public const MODULES = ['members', 'volunteers', 'sponsorships', 'adoption_applications', 'reports', 'health_records'];
+    public const MODULES = ['members', 'volunteers', 'sponsorships', 'adoption_applications', 'reports', 'health_records', 'colonies'];
 
     /**
      * Give new shelters a public URL slug when none was chosen.

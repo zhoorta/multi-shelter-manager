@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Pets\GroupVaccinationForm;
+use App\Models\Colony;
 use App\Models\Pet;
 use App\Models\PetVaccine;
 use App\Models\Shelter;
@@ -167,4 +168,20 @@ test('requires at least one animal', function () {
         ->set('vaccineId', (string) $vaccine->id)
         ->call('saveGroupVaccination')
         ->assertHasErrors(['selectedPetIds' => 'required']);
+});
+
+test('filtering by colony only ticks the animals of that colony', function () {
+    [$shelter, $dogs, $vaccine] = shelterWithDogRabies();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $colony = Colony::factory()->for($shelter)->create(['species_id' => $dogs->id, 'name' => 'Ribeira']);
+    $inColony = dogWithVaccineDue($shelter, $dogs, $vaccine, '2026-09-30');
+    $inColony->update(['colony_id' => $colony->id]);
+    dogWithVaccineDue($shelter, $dogs, $vaccine, '2026-09-30');
+
+    Livewire::test(GroupVaccinationForm::class)
+        ->set('vaccineId', (string) $vaccine->id)
+        ->assertSee('Ribeira')
+        ->set('locationFilter', 'colony:'.$colony->id)
+        ->assertSet('selectedPetIds', [(string) $inColony->id]);
 });

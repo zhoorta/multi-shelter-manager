@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Vermittlungen</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Patenschaften</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Ehrenamtliche</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Kolonien</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Mitglieder</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Einrichtungen</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Berichte</a>
@@ -47,7 +48,7 @@
         <p>Die Seitenleiste zeigt nur, was Ihre Rolle nutzen darf. Manager und Mitarbeitende sehen das Menü Tiere (ein Eintrag pro für das Tierheim aktivierter Tierart, dazu Patenschaften, Vermittlungen, Impfungen und Behandlungen), Ehrenamtliche, Mitglieder und Einrichtungen; Manager sehen zusätzlich Benutzer. Administratoren sehen stattdessen Benutzer und das Menü Verwaltung. Leser sehen dieselben Menüs wie Mitarbeitende, außer Patenschaften, Vermittlungen, Ehrenamtliche und Mitglieder, und die Seiten zeigen ihnen keine Schaltflächen zum Anlegen, Bearbeiten oder Löschen. Diese Dokumentation ist immer unten in der Seitenleiste erreichbar.</p>
         <p>Das Menü Tiere enthält für Leitung und Personal außerdem <strong>Adoptionsanfragen</strong>, und nur die Leitung sieht <strong>Berichte</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Module</h3>
-        <p>Ein Tierheim, das nicht alle Teile der App nutzt, kann Module ausschalten: <strong>Mitglieder</strong>, <strong>Freiwillige</strong>, <strong>Patenschaften</strong>, <strong>Adoptionsanfragen</strong>, <strong>Berichte</strong> sowie <strong>Impfungen und Behandlungen</strong>. Manager tun das unter <strong>Einstellungen &gt; Tierheim</strong>, Administratoren im Bearbeitungsformular des Tierheims im Bereich <strong>Module</strong>. Ein ausgeschaltetes Modul verschwindet aus der Seitenleiste, dem Dashboard und den Tierseiten, und seine Seiten lassen sich nicht mehr öffnen. Sind die Adoptionsanfragen ausgeschaltet, zeigt die öffentliche Tierseite den Button &bdquo;Ich möchte adoptieren&ldquo; nicht mehr an. Es wird nichts gelöscht: Beim erneuten Einschalten eines Moduls sind alle seine Daten wieder da. Tiere, Adoptionen, Diagnosen und Einrichtungen sind immer aktiv.</p>
+        <p>Ein Tierheim, das nicht alle Teile der App nutzt, kann Module ausschalten: <strong>Mitglieder</strong>, <strong>Freiwillige</strong>, <strong>Patenschaften</strong>, <strong>Adoptionsanfragen</strong>, <strong>Berichte</strong>, <strong>Impfungen und Behandlungen</strong> sowie <strong>Kolonien</strong>. Manager tun das unter <strong>Einstellungen &gt; Tierheim</strong>, Administratoren im Bearbeitungsformular des Tierheims im Bereich <strong>Module</strong>. Ein ausgeschaltetes Modul verschwindet aus der Seitenleiste, dem Dashboard und den Tierseiten, und seine Seiten lassen sich nicht mehr öffnen. Sind die Adoptionsanfragen ausgeschaltet, zeigt die öffentliche Tierseite den Button &bdquo;Ich möchte adoptieren&ldquo; nicht mehr an. Es wird nichts gelöscht: Beim erneuten Einschalten eines Moduls sind alle seine Daten wieder da. Tiere, Adoptionen, Diagnosen und Einrichtungen sind immer aktiv.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Bewertungen von Anwesenheit und Leistung.</li>
         </ul>
         <p>Die Liste der Ehrenamtlichen lässt sich nach Name, Telefon, E-Mail, Steuernummer oder Notizen durchsuchen und nach bevorzugter Tierart, Verfügbarkeitstag und Tätigkeit filtern &mdash; praktisch, um zu sehen, wer an einem bestimmten Tag helfen kann.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Kolonien</h2>
+        <p>Erfassen Sie die Kolonien freilebender Tiere (meist Katzen), die Ihr Verein betreut, zum Beispiel in den CED/CER-Programmen (einfangen, kastrieren, zurücksetzen). Jede Kolonie hat <strong>eine Tierart</strong>, einen Namen, einen Standort und eine Stadt, einen Betreuer mit Telefonnummer, Notizen und eine Markierung für aktiv. Die Kolonien finden Sie in der Seitenleiste unter <strong>Kolonien</strong>; ein Tier in einer Kolonie ist ein normales Tier, das dort statt in einem Zwinger lebt.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Koloniliste</h3>
+        <p>Die Liste zeigt für jede Kolonie die Tierart, die <strong>Koloniedaten</strong> (Standort, Betreuer und Telefon, Notizen), wie viele Tiere sie hat und wie viele davon kastriert sind. Kolonien legen Sie mit den Schaltflächen auf der Seite an, bearbeiten und löschen sie. Betrachter sehen den Standort, aber nie den Betreuer oder die Notizen.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Koloniseite</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Die Summen der Kolonie: Tiere, <strong>Kastriert</strong>, <strong>Kastration ausstehend</strong>, <strong>Keine Kastrationsinfo</strong> (nichts zur Kastration erfasst) und <strong>Ohrmarkiert</strong>. Die Summen zählen immer die ganze Kolonie, unabhängig von den Filtern.</li>
+            <li>Suchen Sie Tiere nach Name, Referenz oder Chip und filtern Sie nach Kastrationsstatus oder Ohrmarkierung.</li>
+            <li>Die Schaltfläche <strong>Hinzufügen: …</strong> öffnet das Tierformular mit bereits eingetragener Kolonie und Tierart.</li>
+            <li><strong>Als CSV exportieren</strong> lädt eine Tabelle mit allen lebenden Tieren der Kolonie herunter (Fang-, Kastrations-, Ohrmarkierungs- und Rücksetzdaten) für die Berichte an die Gemeinde.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tiere in einer Kolonie</h3>
+        <p>Wählen Sie im Tierformular die <strong>Kolonie</strong> (es werden nur Kolonien der Tierart des Tieres angeboten) und füllen Sie <strong>Gefangen am</strong>, <strong>Zurückgesetzt am</strong> und <strong>Ohrmarkiert</strong> aus. Das Zwingerfeld wird dann ausgeblendet, weil das Tier nicht im Tierheim lebt. Alles andere bleibt erhalten: Fotos, Impfungen, Behandlungen, Diagnosen und Kastrationsdaten. Die Kolonie erscheint unter Unterbringung in der Tierliste und auf der Tierseite und kann im Standortfilter der Tierliste sowie der Formulare für Gruppenimpfung und Gruppenbehandlung verwendet werden.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Einrichtung</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Ein Admin setzt bei den Tierarten, die in Kolonien leben können, unter <strong>Verwaltung &gt; Tierarten</strong> den Haken bei <strong>Kolonien</strong> (meist nur Katzen).</li>
+            <li>Ein Tierheim ohne Bedarf an Kolonien schaltet das Modul <strong>Kolonien</strong> wie die anderen Module ab. Es wird nichts gelöscht.</li>
+            <li>Die Tierart einer Kolonie lässt sich nicht mehr ändern, sobald sie Tiere hat. Der Datenexport des Tierheims enthält die Kolonien.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

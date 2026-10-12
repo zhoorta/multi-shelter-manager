@@ -1,6 +1,7 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     @php
         $petsIndexRoute = route('pets.index', $this->currentSpecies ? ['speciesFilter' => $this->currentSpecies->id] : []);
+        $backColony = ! $pet && $petColonyId ? $this->colonies->firstWhere('id', $petColonyId) : null;
     @endphp
 
     <div class="flex items-center justify-between">
@@ -14,9 +15,15 @@
             @endif
         </div>
 
-        <flux:button :href="$pet ? route('pets.show', $pet) : $petsIndexRoute" variant="filled" icon="arrow-left" wire:navigate>
-            {{ $pet ? $pet->name : ($this->currentSpecies?->name_plural ?? __('Pets')) }}
-        </flux:button>
+        @if ($backColony)
+            <flux:button :href="route('colonies.show', $backColony)" variant="filled" icon="arrow-left" wire:navigate>
+                {{ $backColony->name }}
+            </flux:button>
+        @else
+            <flux:button :href="$pet ? route('pets.show', $pet) : $petsIndexRoute" variant="filled" icon="arrow-left" wire:navigate>
+                {{ $pet ? $pet->name : ($this->currentSpecies?->name_plural ?? __('Pets')) }}
+            </flux:button>
+        @endif
     </div>
 
     <form wire:submit="savePet" autocomplete="off" class="flex flex-col gap-8">
@@ -269,6 +276,44 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            @if ($this->colonies->isNotEmpty())
+                <flux:select wire:model.live="petColonyId" :label="__('Colony')">
+                    <flux:select.option value="">{{ __('Not in a colony') }}</flux:select.option>
+                    @foreach ($this->colonies as $colonyOption)
+                        <flux:select.option value="{{ $colonyOption->id }}">{{ $colonyOption->name }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+            @endif
+
+            @if ($petColonyId)
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <flux:input
+                        type="text"
+                        wire:model="petCapturedAt"
+                        :label="__('Captured on')"
+                        :placeholder="__('Select a date')"
+                        autocomplete="off"
+                        clearable
+                        x-data="{ dateFieldType: '{{ $petCapturedAt !== '' ? 'date' : 'text' }}' }"
+                        x-bind:type="dateFieldType"
+                        x-on:focus="dateFieldType = 'date'"
+                        x-on:blur="if (! $el.value) dateFieldType = 'text'"
+                    />
+                    <flux:input
+                        type="text"
+                        wire:model="petReturnedAt"
+                        :label="__('Returned on')"
+                        :placeholder="__('Select a date')"
+                        autocomplete="off"
+                        clearable
+                        x-data="{ dateFieldType: '{{ $petReturnedAt !== '' ? 'date' : 'text' }}' }"
+                        x-bind:type="dateFieldType"
+                        x-on:focus="dateFieldType = 'date'"
+                        x-on:blur="if (! $el.value) dateFieldType = 'text'"
+                    />
+                </div>
+                <flux:switch wire:model="petIsEarTipped" :label="__('Ear-tipped')" align="left" />
+            @else
             <div class="grid grid-cols-1 gap-4">
                 <flux:select wire:model="petCageId" :label="__('Cage')">
                     <flux:select.option value="">{{ __('No Cage Assigned') }}</flux:select.option>
@@ -288,6 +333,7 @@
                     @endforeach
                 </flux:select>
             </div>
+            @endif
 
             {{-- Safari renders an empty native date input showing today's date instead of a
                  blank placeholder, so the field starts as plain text and only switches to the

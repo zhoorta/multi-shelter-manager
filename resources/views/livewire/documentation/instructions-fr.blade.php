@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptions</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Parrainages</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Bénévoles</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Colonies</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Membres</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Installations</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapports</a>
@@ -47,7 +48,7 @@
         <p>La barre latérale n'affiche que ce que votre rôle peut utiliser. Les gestionnaires et le personnel voient le menu Animaux (une entrée par espèce activée pour le refuge, plus Parrainages, Adoptions, Vaccinations et Traitements), Bénévoles, Membres et Installations ; les gestionnaires voient aussi Utilisateurs. Les administrateurs voient à la place Utilisateurs et le menu Administration. Les utilisateurs en consultation voient les mêmes menus que les employés, sauf Parrainages, Adoptions, Bénévoles et Membres, et les pages ne leur affichent aucun bouton de création, de modification ou de suppression. Cette documentation est toujours disponible en bas de la barre latérale.</p>
         <p>Le menu Animaux comprend aussi les <strong>Demandes d'Adoption</strong> pour les gestionnaires et le personnel, et seuls les gestionnaires voient les <strong>Rapports</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Modules</h3>
-        <p>Un refuge qui n'utilise pas toutes les parties de l'application peut désactiver des modules : <strong>Membres</strong>, <strong>Bénévoles</strong>, <strong>Parrainages</strong>, <strong>Demandes d'adoption</strong>, <strong>Rapports</strong> et <strong>Vaccins et traitements</strong>. Les gestionnaires le font dans <strong>Paramètres &gt; Refuge</strong> et les administrateurs dans le formulaire de modification du refuge, section <strong>Modules</strong>. Un module désactivé disparaît du menu latéral, du tableau de bord et des fiches des animaux, et ses pages ne s'ouvrent plus. Si les demandes d'adoption sont désactivées, la page publique de l'animal n'affiche plus le bouton &laquo; Je veux adopter &raquo;. Rien n'est supprimé : réactiver un module restaure toutes ses données. Les animaux, les adoptions, les diagnostics et les installations sont toujours actifs.</p>
+        <p>Un refuge qui n'utilise pas toutes les parties de l'application peut désactiver des modules : <strong>Membres</strong>, <strong>Bénévoles</strong>, <strong>Parrainages</strong>, <strong>Demandes d'adoption</strong>, <strong>Rapports</strong>, <strong>Vaccins et traitements</strong> et <strong>Colonies</strong>. Les gestionnaires le font dans <strong>Paramètres &gt; Refuge</strong> et les administrateurs dans le formulaire de modification du refuge, section <strong>Modules</strong>. Un module désactivé disparaît du menu latéral, du tableau de bord et des fiches des animaux, et ses pages ne s'ouvrent plus. Si les demandes d'adoption sont désactivées, la page publique de l'animal n'affiche plus le bouton &laquo; Je veux adopter &raquo;. Rien n'est supprimé : réactiver un module restaure toutes ses données. Les animaux, les adoptions, les diagnostics et les installations sont toujours actifs.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Des évaluations d'assiduité et de performance.</li>
         </ul>
         <p>La liste des bénévoles peut être recherchée par nom, téléphone, email, numéro fiscal ou notes, et filtrée par espèce préférée, jour de disponibilité et activité &mdash; pratique pour savoir qui peut aider un jour donné.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Colonies</h2>
+        <p>Enregistrez les colonies d'animaux errants (généralement des chats) dont votre association s'occupe, par exemple dans le cadre des programmes CED/CER (capturer, stériliser, relâcher). Chaque colonie a <strong>une espèce</strong>, un nom, un emplacement et une ville, un soigneur avec son téléphone, des notes et un indicateur d'activité. Les colonies se trouvent dans la barre latérale, sous <strong>Colonies</strong>, et un animal d'une colonie est un animal normal qui y vit au lieu d'être dans une cage.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Liste des colonies</h3>
+        <p>La liste affiche, pour chaque colonie, l'espèce, les <strong>Informations sur la colonie</strong> (emplacement, soigneur et téléphone, notes), le nombre d'animaux et combien sont stérilisés. Créez, modifiez et supprimez les colonies avec les boutons de la page. Les observateurs voient l'emplacement, mais jamais le soigneur ni les notes.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Page de la colonie</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Les totaux de la colonie : animaux, <strong>Stérilisé</strong>, <strong>Stérilisation en attente</strong>, <strong>Aucune information de stérilisation</strong> (rien d'enregistré sur la stérilisation) et <strong>Oreille taillée</strong>. Les totaux comptent toujours toute la colonie, quels que soient les filtres.</li>
+            <li>Recherchez les animaux par nom, référence ou puce et filtrez-les selon la situation de stérilisation ou l'oreille taillée.</li>
+            <li>Le bouton <strong>Ajouter …</strong> ouvre le formulaire de l'animal avec la colonie et l'espèce déjà remplies.</li>
+            <li><strong>Exporter en CSV</strong> télécharge un tableur avec tous les animaux vivants de la colonie (données de capture, stérilisation, oreille taillée et relâche) pour les rapports envoyés à la mairie.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Animaux d'une colonie</h3>
+        <p>Dans le formulaire de l'animal, choisissez la <strong>Colonie</strong> (seules les colonies de l'espèce de l'animal sont proposées) et remplissez <strong>Capturé le</strong>, <strong>Relâché le</strong> et <strong>Oreille taillée</strong>. Le champ de la cage est alors masqué, car l'animal ne vit pas au refuge. L'animal garde tout le reste : photos, vaccins, traitements, diagnostics et données de stérilisation. La colonie apparaît sous Hébergement dans la liste des animaux et sur la page de l'animal, et peut servir dans le filtre d'emplacement de la liste des animaux et des formulaires de vaccination et de traitement en groupe.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Configuration</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Un administrateur coche <strong>Colonies</strong> sur les espèces pouvant vivre en colonie, sous <strong>Administration &gt; Espèces</strong> (généralement seulement les chats).</li>
+            <li>Un refuge qui n'a pas besoin de colonies désactive le module <strong>Colonies</strong>, comme les autres modules. Rien n'est supprimé.</li>
+            <li>L'espèce d'une colonie ne peut plus changer dès qu'elle a des animaux. L'export des données du refuge inclut les colonies.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
  * @property string $name
  * @property string $name_plural
  * @property bool $has_pure_breed_field
+ * @property bool $has_colonies
  * @property-read string $emoji
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -28,7 +29,7 @@ use Illuminate\Support\Str;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'name_plural', 'has_pure_breed_field'])]
+#[Fillable(['name', 'name_plural', 'has_pure_breed_field', 'has_colonies'])]
 class Species extends Model
 {
     /** @use HasFactory<SpeciesFactory> */
@@ -41,6 +42,7 @@ class Species extends Model
     {
         return [
             'has_pure_breed_field' => 'boolean',
+            'has_colonies' => 'boolean',
         ];
     }
 

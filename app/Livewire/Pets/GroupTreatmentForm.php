@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pets;
 
 use App\Livewire\Pets\Concerns\FillsDueDateFromFrequency;
+use App\Models\Colony;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\PetTreatment;
@@ -27,6 +28,7 @@ use Livewire\Component;
  * @property-read Collection<int, Treatment> $treatments
  * @property-read Treatment|null $selectedTreatment
  * @property-read Collection<int, Facility> $facilities
+ * @property-read Collection<int, Colony> $colonies
  * @property-read Collection<int, Pet> $candidatePets
  */
 #[Title('Group Treatment')]
@@ -97,6 +99,24 @@ class GroupTreatmentForm extends Component
     }
 
     /**
+     * Colonies of the shelter, for the location filter.
+     *
+     * @return Collection<int, Colony>
+     */
+    #[Computed]
+    public function colonies(): Collection
+    {
+        if (! Auth::user()->currentShelterHasModule('colonies')) {
+            return new Collection;
+        }
+
+        return Colony::query()
+            ->when($this->speciesFilter !== '', fn ($query) => $query->where('species_id', (int) $this->speciesFilter))
+            ->orderBy('name')
+            ->get();
+    }
+
+    /**
      * Resident pets the selected treatment can be given to, narrowed by the
      * species and location filters. Empty until a treatment is chosen.
      *
@@ -110,7 +130,7 @@ class GroupTreatmentForm extends Component
         }
 
         return $this->candidatePetsQuery()
-            ->with(['species', 'cage.wing'])
+            ->with(['species', 'cage.wing', 'colony'])
             ->orderBy('name')
             ->get();
     }
@@ -137,6 +157,7 @@ class GroupTreatmentForm extends Component
                     match ($type) {
                         'facility' => $query->whereHas('cage.wing', fn (Builder $query) => $query->where('facility_id', (int) $id)),
                         'wing' => $query->whereHas('cage', fn (Builder $query) => $query->where('wing_id', (int) $id)),
+                        'colony' => $query->where('colony_id', (int) $id),
                         default => null,
                     };
                 },

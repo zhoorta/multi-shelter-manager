@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoções</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Apadrinhamentos</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntários</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Colónias</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sócios</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instalações</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Relatórios</a>
@@ -47,7 +48,7 @@
         <p>O menu lateral mostra apenas o que o seu perfil pode usar. Gestores e funcionários veem o menu Animais (uma entrada por cada espécie ativa no abrigo, mais Apadrinhamentos, Adoções, Vacinações e Tratamentos), Voluntários, Sócios e Instalações; os gestores veem também Utilizadores. Os administradores veem, em vez disso, Utilizadores e o menu Administração. Os utilizadores de consulta veem os mesmos menus que os funcionários, exceto Apadrinhamentos, Adoções, Voluntários e Sócios, e as páginas não lhes mostram botões para criar, editar ou apagar. Esta documentação está sempre disponível no fundo do menu lateral.</p>
         <p>O menu Animais inclui também <strong>Candidaturas de Adoção</strong> para gestores e funcionários, e só os gestores veem os <strong>Relatórios</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Módulos</h3>
-        <p>Um abrigo que não utiliza todas as partes da aplicação pode desligar módulos: <strong>Sócios</strong>, <strong>Voluntários</strong>, <strong>Apadrinhamentos</strong>, <strong>Candidaturas de Adoção</strong>, <strong>Relatórios</strong> e <strong>Vacinas e Tratamentos</strong>. Os gestores fazem-no em <strong>Definições &gt; Abrigo</strong> e os administradores no formulário de edição do abrigo, na secção <strong>Módulos</strong>. Um módulo desligado desaparece do menu lateral, do painel e das fichas dos animais, e as suas páginas deixam de abrir. Com as Candidaturas de Adoção desligadas, a página pública do animal deixa de mostrar o botão &ldquo;Quero adotar&rdquo;. Nada é apagado: ao voltar a ligar um módulo, todos os seus dados regressam. Os animais, as adoções, os diagnósticos e as instalações estão sempre ativos.</p>
+        <p>Um abrigo que não utiliza todas as partes da aplicação pode desligar módulos: <strong>Sócios</strong>, <strong>Voluntários</strong>, <strong>Apadrinhamentos</strong>, <strong>Candidaturas de Adoção</strong>, <strong>Relatórios</strong>, <strong>Vacinas e Tratamentos</strong> e <strong>Colónias</strong>. Os gestores fazem-no em <strong>Definições &gt; Abrigo</strong> e os administradores no formulário de edição do abrigo, na secção <strong>Módulos</strong>. Um módulo desligado desaparece do menu lateral, do painel e das fichas dos animais, e as suas páginas deixam de abrir. Com as Candidaturas de Adoção desligadas, a página pública do animal deixa de mostrar o botão &ldquo;Quero adotar&rdquo;. Nada é apagado: ao voltar a ligar um módulo, todos os seus dados regressam. Os animais, as adoções, os diagnósticos e as instalações estão sempre ativos.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Avaliações de assiduidade e de desempenho.</li>
         </ul>
         <p>A lista de voluntários pode ser pesquisada por nome, telefone, email, NIF ou notas, e filtrada por espécie preferida, dia de disponibilidade e atividade &mdash; útil para saber quem pode ajudar num determinado dia.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Colónias</h2>
+        <p>Registe as colónias de animais de rua (normalmente gatos) de que a associação cuida, por exemplo nos programas CED/CER (capturar, esterilizar, devolver). Cada colónia tem <strong>uma espécie</strong>, um nome, uma localização e cidade, um cuidador com telefone, notas e a indicação de ativa. As colónias estão na barra lateral, em <strong>Colónias</strong>, e um animal numa colónia é um animal normal que vive lá em vez de numa box.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Lista de colónias</h3>
+        <p>A lista mostra, para cada colónia, a espécie, a <strong>Informação da colónia</strong> (localização, cuidador e telefone, notas), quantos animais tem e quantos estão esterilizados. Crie, edite e apague colónias com os botões da página. Os observadores veem a localização, mas nunca o cuidador nem as notas.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Página da colónia</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Os totais da colónia: animais, <strong>Esterilizado</strong>, <strong>Esterilização pendente</strong>, <strong>Sem informação de esterilização</strong> (nada registado sobre a esterilização) e <strong>Orelha cortada</strong>. Os totais contam sempre a colónia inteira, sejam quais forem os filtros.</li>
+            <li>Pesquise os animais por nome, referência ou chip e filtre-os pela situação de esterilização ou por orelha cortada.</li>
+            <li>O botão <strong>Adicionar …</strong> abre o formulário do animal já com a colónia e a espécie preenchidas.</li>
+            <li><strong>Exportar CSV</strong> descarrega uma folha de cálculo com todos os animais vivos da colónia (dados de captura, esterilização, orelha cortada e devolução) para os relatórios que envia à Câmara.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Animais numa colónia</h3>
+        <p>No formulário do animal, escolha a <strong>Colónia</strong> (só aparecem as colónias da espécie do animal) e preencha <strong>Capturado em</strong>, <strong>Devolvido em</strong> e <strong>Orelha cortada</strong>. O campo da box fica então escondido, porque o animal não vive no abrigo. O animal mantém tudo o resto: fotografias, vacinas, tratamentos, diagnósticos e dados de esterilização. A colónia aparece em Acomodação na lista de animais e na página do animal, e pode usar-se no filtro de localização da lista de animais e dos formulários de vacinação e de tratamento em grupo.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Configuração</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Um administrador marca <strong>Colónias</strong> nas espécies que podem viver em colónias, em <strong>Administração &gt; Espécies</strong> (normalmente só os gatos).</li>
+            <li>Um abrigo que não precise de colónias desliga o módulo <strong>Colónias</strong>, como os outros módulos. Nada é apagado.</li>
+            <li>A espécie de uma colónia não pode mudar depois de ter animais. A exportação de dados do abrigo inclui as colónias.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

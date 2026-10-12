@@ -2,6 +2,7 @@
 
 use App\Livewire\Pets\GroupTreatmentForm;
 use App\Models\Cage;
+use App\Models\Colony;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\PetTreatment;
@@ -150,4 +151,19 @@ test('requires at least one animal', function () {
         ->call('saveGroupTreatment')
         ->assertHasErrors(['selectedPetIds' => 'required'])
         ->assertSee(__('Select at least one animal.'));
+});
+
+test('filtering by colony only ticks the animals of that colony', function () {
+    [$shelter, $dogs, $treatment] = shelterWithDogDeworming();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $colony = Colony::factory()->for($shelter)->create(['species_id' => $dogs->id, 'name' => 'Ribeira']);
+    $inColony = Pet::factory()->for($shelter)->create(['species_id' => $dogs->id, 'colony_id' => $colony->id]);
+    Pet::factory()->for($shelter)->create(['species_id' => $dogs->id]);
+
+    Livewire::test(GroupTreatmentForm::class)
+        ->set('treatmentId', (string) $treatment->id)
+        ->assertSee('Ribeira')
+        ->set('locationFilter', 'colony:'.$colony->id)
+        ->assertSet('selectedPetIds', [(string) $inColony->id]);
 });

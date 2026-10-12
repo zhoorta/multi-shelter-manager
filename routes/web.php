@@ -22,6 +22,8 @@ use App\Livewire\Admin\ManageVaccines;
 use App\Livewire\Admin\ShelterForm;
 use App\Livewire\Admin\UserForm;
 use App\Livewire\AdoptionApplicationForm;
+use App\Livewire\Colonies\ColonyShow;
+use App\Livewire\Colonies\ManageColonies;
 use App\Livewire\Dashboard;
 use App\Livewire\Documentation;
 use App\Livewire\Facilities\ManageSpaces;
@@ -128,6 +130,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets/{pet}/treat/{petTreatment}/edit', TreatmentForm::class)->middleware('module:health_records')->name('pets.treat.edit');
     Route::livewire('pets/{pet}/diagnose', DiagnosisForm::class)->name('pets.diagnose');
     Route::livewire('pets/{pet}/diagnose/{petSickness}/edit', DiagnosisForm::class)->name('pets.diagnose.edit');
+
+    Route::livewire('colonies', ManageColonies::class)->middleware('module:colonies')->name('colonies.index');
+    Route::livewire('colonies/{colony}', ColonyShow::class)->middleware('module:colonies')->name('colonies.show');
 
     Route::livewire('volunteers', ManageVolunteers::class)->middleware('module:volunteers')->name('volunteers.index');
     Route::livewire('volunteers/create', VolunteerForm::class)->middleware('module:volunteers')->name('volunteers.create');

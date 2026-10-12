@@ -7,6 +7,7 @@ namespace App\Actions;
 use App\Models\Adoption;
 use App\Models\AdoptionApplication;
 use App\Models\Cage;
+use App\Models\Colony;
 use App\Models\Facility;
 use App\Models\Member;
 use App\Models\MemberPayment;
@@ -91,7 +92,7 @@ class ExportShelterData
         return [
             'pets' => [
                 Pet::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelterId)
-                    ->with(['species', 'breed', 'primaryColor', 'secondaryColor', 'furType', 'size', 'cage.wing']),
+                    ->with(['species', 'breed', 'primaryColor', 'secondaryColor', 'furType', 'size', 'cage.wing', 'colony']),
                 [
                     'species_id' => fn (Pet $pet): mixed => $pet->species?->name,
                     'breed_id' => fn (Pet $pet): mixed => $pet->breed?->name,
@@ -101,6 +102,7 @@ class ExportShelterData
                     'size_id' => fn (Pet $pet): mixed => $pet->size?->name,
                     'wing' => fn (Pet $pet): mixed => $pet->cage?->wing?->name,
                     'cage_id' => fn (Pet $pet): mixed => $pet->cage?->code,
+                    'colony_id' => fn (Pet $pet): mixed => $pet->colony?->name,
                 ],
             ],
             'vaccinations' => [
@@ -156,6 +158,10 @@ class ExportShelterData
             'volunteer_availabilities' => [
                 VolunteerAvailability::query()->whereHas('volunteer', $ownRow)->with(['volunteer' => fn (Builder|Relation $query): Builder|Relation => $query->withoutGlobalScope('shelter')]),
                 ['volunteer_name' => fn (VolunteerAvailability $row): mixed => $row->volunteer?->name],
+            ],
+            'colonies' => [
+                Colony::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelterId),
+                [],
             ],
             'facilities' => [
                 Facility::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelterId),

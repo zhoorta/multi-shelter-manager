@@ -100,6 +100,7 @@ trait EditsShelterProfile
             'adoption_applications' => __('Adoption Applications'),
             'reports' => __('Reports'),
             'health_records' => __('Vaccinations and Treatments'),
+            'colonies' => __('Colonies'),
         ];
     }
 

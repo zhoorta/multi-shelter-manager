@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptioner</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Fadderskap</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontärer</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Kolonier</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Medlemmar</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Anläggningar</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Rapporter</a>
@@ -47,7 +48,7 @@
         <p>Sidomenyn visar bara det som din roll kan använda. Chefer och personal ser menyn Djur (en post per djurart som är aktiverad för djurhemmet, samt Fadderskap, Adoptioner, Vaccinationer och Behandlingar), Volontärer, Medlemmar och Anläggningar; chefer ser även Användare. Administratörer ser i stället Användare och menyn Administration. Läsare ser samma menyer som personal, utom Fadderskap, Adoptioner, Volontärer och Medlemmar, och sidorna visar inga knappar för att skapa, redigera eller ta bort. Den här dokumentationen finns alltid längst ned i sidomenyn.</p>
         <p>Menyn Djur innehåller också <strong>Adoptionsansökningar</strong> för chefer och personal, och bara chefer ser <strong>Rapporter</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Moduler</h3>
-        <p>Ett djurhem som inte använder alla delar av appen kan stänga av moduler: <strong>Medlemmar</strong>, <strong>Volontärer</strong>, <strong>Fadderskap</strong>, <strong>Adoptionsansökningar</strong>, <strong>Rapporter</strong> samt <strong>Vaccinationer och behandlingar</strong>. Chefer gör det under <strong>Inställningar &gt; Djurhem</strong> och administratörer i djurhemmets redigeringsformulär, i avsnittet <strong>Moduler</strong>. En avstängd modul försvinner från sidomenyn, översikten och djursidorna, och dess sidor går inte längre att öppna. När Adoptionsansökningar är avstängda visar den publika djursidan inte längre knappen &ldquo;Jag vill adoptera&rdquo;. Inget raderas: när du slår på en modul igen finns all dess data kvar. Djur, adoptioner, diagnoser och anläggningar är alltid på.</p>
+        <p>Ett djurhem som inte använder alla delar av appen kan stänga av moduler: <strong>Medlemmar</strong>, <strong>Volontärer</strong>, <strong>Fadderskap</strong>, <strong>Adoptionsansökningar</strong>, <strong>Rapporter</strong>, <strong>Vaccinationer och behandlingar</strong> samt <strong>Kolonier</strong>. Chefer gör det under <strong>Inställningar &gt; Djurhem</strong> och administratörer i djurhemmets redigeringsformulär, i avsnittet <strong>Moduler</strong>. En avstängd modul försvinner från sidomenyn, översikten och djursidorna, och dess sidor går inte längre att öppna. När Adoptionsansökningar är avstängda visar den publika djursidan inte längre knappen &ldquo;Jag vill adoptera&rdquo;. Inget raderas: när du slår på en modul igen finns all dess data kvar. Djur, adoptioner, diagnoser och anläggningar är alltid på.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Bedömningar av närvaro och insats.</li>
         </ul>
         <p>Volontärlistan kan sökas på namn, telefon, e-post, personnummer eller anteckningar och filtreras på föredragen djurart, tillgänglig dag och aktivitet &mdash; praktiskt för att se vem som kan hjälpa till en viss dag.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Kolonier</h2>
+        <p>Registrera de kolonier av frilevande djur (oftast katter) som er förening tar hand om, till exempel i CED/CER-programmen (fånga, kastrera, släppa tillbaka). Varje koloni har <strong>en art</strong>, ett namn, en plats och stad, en skötare med telefonnummer, anteckningar och en aktiv-markering. Kolonierna finns i sidomenyn under <strong>Kolonier</strong>, och ett djur i en koloni är ett vanligt djur som bor där i stället för i en bur.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kolonilistan</h3>
+        <p>Listan visar för varje koloni arten, <strong>Koloniinformation</strong> (plats, skötare och telefon, anteckningar), hur många djur den har och hur många av dem som är kastrerade. Skapa, redigera och ta bort kolonier med knapparna på sidan. Läsare ser platsen men aldrig skötaren eller anteckningarna.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Kolonisidan</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Koloniens summor: djur, <strong>Kastrerad</strong>, <strong>Kastrering väntar</strong>, <strong>Ingen kastreringsinfo</strong> (inget registrerat om kastrering) och <strong>Örontopp</strong>. Summorna räknar alltid hela kolonin, oavsett vad filtren visar.</li>
+            <li>Sök djuren på namn, referens eller chip och filtrera efter kastreringsläge eller örontopp.</li>
+            <li>Knappen <strong>Lägg till …</strong> öppnar djurformuläret med kolonin och arten redan ifyllda.</li>
+            <li><strong>Exportera som CSV</strong> laddar ner ett kalkylblad med alla levande djur i kolonin (uppgifter om fångst, kastrering, örontopp och återsläppning) till rapporterna till kommunen.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Djur i en koloni</h3>
+        <p>Välj <strong>Koloni</strong> i djurformuläret (bara kolonier av djurets art visas) och fyll i <strong>Fångad den</strong>, <strong>Återsläppt den</strong> och <strong>Örontopp</strong>. Burfältet döljs då, eftersom djuret inte bor på hemmet. Djuret behåller allt annat: foton, vaccinationer, behandlingar, diagnoser och kastreringsuppgifter. Kolonin visas under Boende i djurlistan och på djursidan och kan användas i platsfiltret i djurlistan och i formulären för gruppvaccination och gruppbehandling.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Inställning</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>En admin kryssar i <strong>Kolonier</strong> för de arter som kan leva i kolonier, under <strong>Administration &gt; Djurarter</strong> (oftast bara katter).</li>
+            <li>Ett hem som inte behöver kolonier stänger av modulen <strong>Kolonier</strong>, som de andra modulerna. Inget raderas.</li>
+            <li>En kolonis art kan inte ändras när den har djur. Hemmets dataexport innehåller kolonierna.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

@@ -89,7 +89,7 @@ test('the export holds one CSV per area with only the shelter\'s own rows', func
     expect(array_keys($files))->toEqualCanonicalizing([
         'pets', 'vaccinations', 'treatments', 'diagnoses', 'adoptions', 'adoption_applications',
         'sponsorships', 'sponsorship_payments', 'members', 'member_payments', 'volunteers',
-        'volunteer_availabilities', 'facilities', 'wings', 'cages',
+        'volunteer_availabilities', 'colonies', 'facilities', 'wings', 'cages',
     ])
         ->and(implode("\n", $files['pets']))->toContain('Rex')->not->toContain('Stranger')
         ->and(implode("\n", $files['vaccinations']))->toContain('Rabies')->toContain('Rex')

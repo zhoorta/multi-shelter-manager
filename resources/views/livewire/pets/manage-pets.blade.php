@@ -70,6 +70,13 @@
                     @endforeach
                 @endforeach
             @endforeach
+            @if ($this->colonies->isNotEmpty())
+                <flux:select.group :label="__('Colonies')">
+                    @foreach ($this->colonies as $colony)
+                        <flux:select.option value="colony:{{ $colony->id }}">{{ $colony->name }}</flux:select.option>
+                    @endforeach
+                </flux:select.group>
+            @endif
         </flux:select>
 
         <flux:select wire:model.live="statusFilter" class="sm:max-w-xs">
@@ -185,6 +192,9 @@
                                             <span>{{ $pet->cage->wing->facility->name }}</span>
                                             <span>{{ $pet->cage->wing->name }}</span>
                                             <span>{{ $pet->cage->code }}</span>
+                                        @elseif ($pet->colony)
+                                            <span>{{ __('Colony') }}</span>
+                                            <span>{{ $pet->colony->name }}</span>
                                         @else
                                             <span>-</span>
                                         @endif

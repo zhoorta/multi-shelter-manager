@@ -6,6 +6,7 @@ namespace App\Livewire\Pets;
 
 use App\Models\Breed;
 use App\Models\Cage;
+use App\Models\Colony;
 use App\Models\Color;
 use App\Models\FurType;
 use App\Models\Pet;
@@ -87,6 +88,15 @@ class PetForm extends Component
 
     public ?int $petCageId = null;
 
+    #[Url(as: 'colony')]
+    public ?int $petColonyId = null;
+
+    public string $petCapturedAt = '';
+
+    public string $petReturnedAt = '';
+
+    public bool $petIsEarTipped = false;
+
     public string $petCheckinDate = '';
 
     public string $petDescription = '';
@@ -106,6 +116,11 @@ class PetForm extends Component
         abort_unless(Auth::user()->canEditArea('pets'), 403);
 
         if ($pet === null) {
+            if ($this->petColonyId !== null && $this->lockedSpeciesId === '') {
+                $colonySpeciesId = Colony::query()->whereKey($this->petColonyId)->value('species_id');
+                $this->lockedSpeciesId = $colonySpeciesId !== null ? (string) $colonySpeciesId : '';
+            }
+
             if ($this->lockedSpeciesId !== '') {
                 $this->petSpeciesId = Species::query()->whereKey($this->lockedSpeciesId)->value('id');
                 $this->petBreedId = $this->petSpeciesId !== null
@@ -140,6 +155,10 @@ class PetForm extends Component
         $this->petPublishToPortal = (bool) $pet->publish_to_portal;
         $this->petIsFeatured = (bool) $pet->is_featured;
         $this->petCageId = $pet->cage_id;
+        $this->petColonyId = $pet->colony_id;
+        $this->petCapturedAt = (string) $pet->captured_at?->format('Y-m-d');
+        $this->petReturnedAt = (string) $pet->returned_at?->format('Y-m-d');
+        $this->petIsEarTipped = (bool) $pet->is_ear_tipped;
         $this->petCheckinDate = (string) $pet->checkin_date?->format('Y-m-d');
         $this->petDescription = (string) $pet->description;
         $this->petClinicalNotes = (string) $pet->clinical_notes;
@@ -215,6 +234,25 @@ class PetForm extends Component
     public function furTypes(): Collection
     {
         return FurType::query()->orderBy('name')->get();
+    }
+
+    /**
+     * Active colonies (plus the pet's own) a cat can be registered in.
+     *
+     * @return Collection<int, Colony>
+     */
+    #[Computed]
+    public function colonies(): Collection
+    {
+        if (! Auth::user()->currentShelterHasModule('colonies')) {
+            return new Collection;
+        }
+
+        return Colony::query()
+            ->where('species_id', $this->petSpeciesId)
+            ->where(fn (Builder $query) => $query->where('is_active', true)->orWhere('id', $this->petColonyId))
+            ->orderBy('name')
+            ->get();
     }
 
     /**
@@ -311,6 +349,12 @@ class PetForm extends Component
         if ($this->petCageId !== null && ! $this->cages->contains('id', $this->petCageId)) {
             $this->petCageId = null;
         }
+
+        unset($this->colonies);
+
+        if ($this->petColonyId !== null && ! $this->colonies->contains('id', $this->petColonyId)) {
+            $this->petColonyId = null;
+        }
     }
 
     /**
@@ -363,6 +407,10 @@ class PetForm extends Component
                 'integer',
                 Rule::exists('cages', 'id')->where(fn ($query) => $query->where('species_id', $this->petSpeciesId)->orWhereNull('species_id')),
             ],
+            'petColonyId' => ['nullable', 'integer', Rule::exists('colonies', 'id')->withoutTrashed()],
+            'petCapturedAt' => ['nullable', 'date'],
+            'petReturnedAt' => ['nullable', 'date', 'after_or_equal:petCapturedAt'],
+            'petIsEarTipped' => ['boolean'],
             'petCheckinDate' => ['nullable', 'date'],
             'petDescription' => ['nullable', 'string'],
             'petClinicalNotes' => ['nullable', 'string'],
@@ -393,6 +441,10 @@ class PetForm extends Component
             'petPublishToPortal' => __('Publish to Portal'),
             'petIsFeatured' => __('Is Featured'),
             'petCageId' => __('Cage'),
+            'petColonyId' => __('Colony'),
+            'petCapturedAt' => __('Captured on'),
+            'petReturnedAt' => __('Returned on'),
+            'petIsEarTipped' => __('Ear-tipped'),
             'petCheckinDate' => __('Checkin Date'),
             'petDescription' => __('Description'),
             'petClinicalNotes' => __('Clinical Notes'),
@@ -404,7 +456,17 @@ class PetForm extends Component
         // enforce tenancy — re-fetch through the scoped query (transitive
         // through wing.facility) so a cage id from another shelter 404s
         // instead of silently housing the pet there (see .ai/rules/facilities.md).
-        $cage = $validated['petCageId'] !== null
+        if ($validated['petColonyId'] !== null && ! Colony::query()->whereKey($validated['petColonyId'])->where('species_id', $validated['petSpeciesId'])->exists()) {
+            $this->addError('petColonyId', __('This species does not belong to the colony'));
+
+            return;
+        }
+
+        $colony = $validated['petColonyId'] !== null
+            ? Colony::query()->findOrFail($validated['petColonyId'])
+            : null;
+
+        $cage = $validated['petCageId'] !== null && $colony === null
             ? $this->scopedCageQuery()->findOrFail($validated['petCageId'])
             : null;
 
@@ -412,6 +474,10 @@ class PetForm extends Component
 
         $petAttributes = [
             'cage_id' => $cage?->id,
+            'colony_id' => $colony?->id,
+            'captured_at' => $colony !== null && $validated['petCapturedAt'] !== '' ? $validated['petCapturedAt'] : null,
+            'returned_at' => $colony !== null && $validated['petReturnedAt'] !== '' ? $validated['petReturnedAt'] : null,
+            'is_ear_tipped' => $colony !== null && $validated['petIsEarTipped'],
             'species_id' => $validated['petSpeciesId'],
             'breed_id' => $validated['petBreedId'],
             'is_pure_breed' => $validated['petIsPureBreed'],

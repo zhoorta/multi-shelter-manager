@@ -26,6 +26,10 @@ use Illuminate\Support\Str;
  * @property int $id
  * @property int $shelter_id
  * @property int|null $cage_id
+ * @property int|null $colony_id
+ * @property Carbon|null $captured_at
+ * @property Carbon|null $returned_at
+ * @property bool $is_ear_tipped
  * @property int $species_id
  * @property int $breed_id
  * @property bool $is_pure_breed
@@ -66,7 +70,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $deleted_at
  */
 #[Fillable([
-    'shelter_id', 'cage_id', 'species_id', 'breed_id', 'is_pure_breed', 'primary_color_id', 'secondary_color_id',
+    'shelter_id', 'cage_id', 'colony_id', 'captured_at', 'returned_at', 'is_ear_tipped', 'species_id', 'breed_id', 'is_pure_breed', 'primary_color_id', 'secondary_color_id',
     'fur_type_id', 'size_id', 'ref', 'name', 'chip', 'is_neutered', 'neutered_at', 'neutered_by_shelter',
     'neutering_status', 'neutering_scheduled_at', 'neutering_notes', 'gender', 'birth_date', 'status',
     'description', 'is_adoptable', 'is_sponsorable', 'publish_to_portal', 'is_featured',
@@ -113,6 +117,9 @@ class Pet extends Model
             'is_sponsorable' => 'boolean',
             'publish_to_portal' => 'boolean',
             'is_featured' => 'boolean',
+            'captured_at' => 'date',
+            'returned_at' => 'date',
+            'is_ear_tipped' => 'boolean',
             'checkin_date' => 'date',
             'checkout_date' => 'date',
             'date_of_death' => 'date',
@@ -311,6 +318,16 @@ class Pet extends Model
     public function shelter(): BelongsTo
     {
         return $this->belongsTo(Shelter::class);
+    }
+
+    /**
+     * Get the cat colony the pet belongs to, if it lives outside the shelter.
+     *
+     * @return BelongsTo<Colony, $this>
+     */
+    public function colony(): BelongsTo
+    {
+        return $this->belongsTo(Colony::class);
     }
 
     /**

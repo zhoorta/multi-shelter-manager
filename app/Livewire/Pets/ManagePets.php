@@ -6,6 +6,7 @@ namespace App\Livewire\Pets;
 
 use App\Livewire\Pets\Concerns\FiltersPetsList;
 use App\Models\Cage;
+use App\Models\Colony;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\Species;
@@ -65,7 +66,7 @@ class ManagePets extends Component
      */
     public function updatedSpeciesFilter(): void
     {
-        unset($this->facilities);
+        unset($this->facilities, $this->colonies);
 
         if ($this->locationFilter === '') {
             return;
@@ -78,6 +79,7 @@ class ManagePets extends Component
             'facility' => $facilities->contains('id', (int) $id),
             'wing' => $facilities->flatMap->wings->contains('id', (int) $id),
             'cage' => $facilities->flatMap->wings->flatMap->cages->contains('id', (int) $id),
+            'colony' => $this->colonies()->contains('id', (int) $id),
             default => false,
         };
 
@@ -161,6 +163,24 @@ class ManagePets extends Component
             ->each(fn (Facility $facility) => $facility->setRelation('wings', $facility->wings->filter(fn (Wing $wing) => $wing->cages->isNotEmpty())->values()))
             ->filter(fn (Facility $facility) => $facility->wings->isNotEmpty())
             ->values();
+    }
+
+    /**
+     * Colonies for the location filter, limited to the selected species.
+     *
+     * @return Collection<int, Colony>
+     */
+    #[Computed]
+    public function colonies(): Collection
+    {
+        if (! Auth::user()->currentShelterHasModule('colonies')) {
+            return new Collection;
+        }
+
+        return Colony::query()
+            ->when($this->speciesFilter !== '', fn (Builder $query) => $query->where('species_id', $this->speciesFilter))
+            ->orderBy('name')
+            ->get();
     }
 
     /**

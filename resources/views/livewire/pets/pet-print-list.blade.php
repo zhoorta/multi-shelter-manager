@@ -106,6 +106,9 @@
                                 <span>{{ $pet->cage->wing->facility->name }}</span>
                                 <span>{{ $pet->cage->wing->name }}</span>
                                 <span>{{ $pet->cage->code }}</span>
+                            @elseif ($pet->colony)
+                                <span>{{ __('Colony') }}</span>
+                                <span>{{ $pet->colony->name }}</span>
                             @else
                                 <span>-</span>
                             @endif

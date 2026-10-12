@@ -87,6 +87,13 @@
                                 <flux:select.option value="wing:{{ $wing->id }}">{{ str_repeat("\u{00A0}", 4) }}{{ $wing->name }}</flux:select.option>
                             @endforeach
                         @endforeach
+                        @if ($this->colonies->isNotEmpty())
+                            <flux:select.group :label="__('Colonies')">
+                                @foreach ($this->colonies as $colony)
+                                    <flux:select.option value="colony:{{ $colony->id }}">{{ $colony->name }}</flux:select.option>
+                                @endforeach
+                            </flux:select.group>
+                        @endif
                     </flux:select>
                 </div>
 
@@ -99,7 +106,7 @@
                                 wire:key="candidate-pet-{{ $candidatePet->id }}"
                                 value="{{ $candidatePet->id }}"
                                 :label="$candidatePet->name.' ('.$candidatePet->ref.')'"
-                                :description="collect([$candidatePet->species?->name, $candidatePet->cage?->wing?->name, $candidatePet->cage?->code])->filter()->implode(' · ')"
+                                :description="collect([$candidatePet->species?->name, $candidatePet->cage?->wing?->name, $candidatePet->cage?->code, $candidatePet->colony?->name])->filter()->implode(' · ')"
                             />
                         @endforeach
                     </flux:checkbox.group>

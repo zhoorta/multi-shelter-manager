@@ -23,9 +23,15 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <flux:button :href="route('pets.index', ['speciesFilter' => $pet->species_id])" variant="filled" icon="arrow-left" wire:navigate>
-                {{ $pet->species->name_plural }}
-            </flux:button>
+            @if ($pet->colony && auth()->user()->currentShelterHasModule('colonies'))
+                <flux:button :href="route('colonies.show', $pet->colony)" variant="filled" icon="arrow-left" wire:navigate>
+                    {{ $pet->colony->name }}
+                </flux:button>
+            @else
+                <flux:button :href="route('pets.index', ['speciesFilter' => $pet->species_id])" variant="filled" icon="arrow-left" wire:navigate>
+                    {{ $pet->species->name_plural }}
+                </flux:button>
+            @endif
 
             @if ($canEditPet)
                 <flux:button :href="route('pets.edit', $pet)" variant="primary" icon="pencil" wire:navigate>
@@ -413,6 +419,17 @@
                                     <a href="{{ route('volunteers.show', $pet->cage->volunteer) }}" wire:navigate class="hover:underline">{{ $pet->cage->volunteer->name }}</a>@if ($pet->cage->volunteer->phone) &middot; <a href="tel:{{ $pet->cage->volunteer->phone }}" class="hover:underline">{{ $pet->cage->volunteer->phone }}</a>@endif
                                 </flux:text>
                             @endif
+                        </div>
+                    @elseif ($pet->colony)
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Colony') }}</flux:text>
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">
+                                <a href="{{ route('colonies.show', $pet->colony) }}" wire:navigate class="hover:underline">{{ $pet->colony->name }}</a>
+                            </flux:text>
+                        </div>
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Captured on') }} / {{ __('Returned on') }}</flux:text>
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->captured_at?->format('d/m/Y') ?? '—' }} / {{ $pet->returned_at?->format('d/m/Y') ?? '—' }}@if ($pet->is_ear_tipped) &middot; {{ __('Ear-tipped') }}@endif</flux:text>
                         </div>
                     @else
                         <div>

@@ -80,6 +80,11 @@
                                     {{ __('Volunteers') }}
                                 </flux:sidebar.item>
                             @endif
+                            @if (auth()->user()->currentShelterHasModule('colonies'))
+                                <flux:sidebar.item icon="map-pin" :href="route('colonies.index')" :current="request()->routeIs('colonies.*')" wire:navigate>
+                                    {{ __('Colonies') }}
+                                </flux:sidebar.item>
+                            @endif
                             @if (auth()->user()->currentShelterHasModule('members'))
                                 <flux:sidebar.item icon="identification" :href="route('members.index')" :current="request()->routeIs('members.*')" wire:navigate>
                                     {{ __('Members') }}

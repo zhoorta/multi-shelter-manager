@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adoptions</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Sponsorships</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volunteers</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Colonies</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Members</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Facilities</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Reports</a>
@@ -47,7 +48,7 @@
         <p>The sidebar only shows what your role can use. Managers and staff see the Pets menu (one entry per species enabled for the active shelter, plus Sponsorships, Adoptions, Vaccinations and Treatments), Volunteers, Members and Facilities; managers also see Users. Admins see Users and the Administration menu instead. Viewers see the same menus as staff, except Sponsorships, Adoptions, Volunteers and Members, and pages have no create, edit or delete buttons for them. This documentation is always available at the bottom of the sidebar.</p>
         <p>The Pets menu also includes <strong>Adoption Applications</strong> for managers and staff, and only managers see <strong>Reports</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Modules</h3>
-        <p>A shelter that does not use every part of the app can switch modules off: <strong>Members</strong>, <strong>Volunteers</strong>, <strong>Sponsorships</strong>, <strong>Adoption Applications</strong>, <strong>Reports</strong>, and <strong>Vaccinations and Treatments</strong>. Managers do it under <strong>Settings &gt; Shelter</strong> and admins in the shelter's edit form, in the <strong>Modules</strong> section. A module that is switched off disappears from the sidebar, the dashboard and the pet pages, and its pages no longer open. With Adoption Applications off, the public pet page no longer shows the &ldquo;I want to adopt&rdquo; button. Nothing is deleted: switching a module back on restores all its data. Pets, adoptions, diagnoses and facilities are always on.</p>
+        <p>A shelter that does not use every part of the app can switch modules off: <strong>Members</strong>, <strong>Volunteers</strong>, <strong>Sponsorships</strong>, <strong>Adoption Applications</strong>, <strong>Reports</strong>, <strong>Vaccinations and Treatments</strong>, and <strong>Colonies</strong>. Managers do it under <strong>Settings &gt; Shelter</strong> and admins in the shelter's edit form, in the <strong>Modules</strong> section. A module that is switched off disappears from the sidebar, the dashboard and the pet pages, and its pages no longer open. With Adoption Applications off, the public pet page no longer shows the &ldquo;I want to adopt&rdquo; button. Nothing is deleted: switching a module back on restores all its data. Pets, adoptions, diagnoses and facilities are always on.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Attendance and performance evaluations.</li>
         </ul>
         <p>The volunteers list can be searched by name, phone, email, tax number or notes, and filtered by preferred species, day of availability and activity &mdash; handy to find who can help on a given day.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Colonies</h2>
+        <p>Keep a record of the colonies of free-roaming animals (usually cats) your association looks after, for example under CED/CER programmes (catch, neuter, return). Each colony has <strong>one species</strong>, a name, a location and city, a caretaker with phone number, notes and an active flag. Colonies are in the sidebar under <strong>Colonies</strong>, and an animal in a colony is a normal pet that lives there instead of in a cage.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Colonies list</h3>
+        <p>The list shows, for each colony, its species, the <strong>Colony info</strong> (location, caretaker and phone, notes), how many animals it has and how many of them are neutered. Create, edit and delete colonies with the buttons on the page. Viewers see the location but never the caretaker or the notes.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Colony page</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>The totals of the colony: animals, <strong>Neutered</strong>, <strong>Pending neutering</strong>, <strong>No neutering info</strong> (nothing recorded about neutering) and <strong>Ear-tipped</strong>. The totals always count the whole colony, whatever the filters show.</li>
+            <li>Search the animals by name, reference or chip, and filter them by neutering situation or ear-tipped.</li>
+            <li>The <strong>Add …</strong> button opens the pet form already set to the colony and its species.</li>
+            <li><strong>Export CSV</strong> downloads a spreadsheet with all the colony's living animals (capture, neutering, ear-tip and return data) for the reports you send to the town hall.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Animals in a colony</h3>
+        <p>In the pet form, choose the <strong>Colony</strong> (only the colonies of the animal's species are offered) and fill in <strong>Captured on</strong>, <strong>Returned on</strong> and <strong>Ear-tipped</strong>. The cage field is then hidden, because the animal does not live in the shelter. The animal keeps everything else: photos, vaccinations, treatments, diagnoses and neutering details. The colony is shown under Accommodation in the pets list and on the pet page, and it can be used in the location filter of the pets list and of the group vaccination and group treatment forms.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Setting up</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>An admin ticks <strong>Colonies</strong> on the species that can live in colonies, under <strong>Administration &gt; Species</strong> (usually only cats).</li>
+            <li>A shelter that does not need colonies switches the <strong>Colonies</strong> module off, like the other modules. Nothing is deleted.</li>
+            <li>The species of a colony cannot change once it has animals. The data export of the shelter includes the colonies.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

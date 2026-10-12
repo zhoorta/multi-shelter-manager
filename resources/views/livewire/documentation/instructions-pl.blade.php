@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopcje</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopcje wirtualne</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Wolontariusze</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Kolonie</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Członkowie</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Obiekty</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Raporty</a>
@@ -47,7 +48,7 @@
         <p>Panel boczny pokazuje tylko to, z czego może korzystać Twoja rola. Kierownicy i pracownicy widzą menu Zwierzęta (po jednej pozycji dla każdego gatunku włączonego w schronisku oraz Adopcje wirtualne, Adopcje, Szczepienia i Zabiegi), Wolontariusze, Członkowie i Obiekty; kierownicy widzą też Użytkownicy. Administratorzy widzą zamiast tego Użytkownicy i menu Administracja. Użytkownicy z rolą podglądu widzą te same menu co pracownicy, z wyjątkiem Adopcji wirtualnych, Adopcji, Wolontariuszy i Członków, a na stronach nie mają przycisków tworzenia, edycji ani usuwania. Ta dokumentacja jest zawsze dostępna na dole panelu bocznego.</p>
         <p>Menu Zwierzęta zawiera też <strong>Wnioski adopcyjne</strong> dla kierowników i personelu, a <strong>Raporty</strong> widzą tylko kierownicy.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Moduły</h3>
-        <p>Schronisko, które nie korzysta ze wszystkich części aplikacji, może wyłączyć moduły: <strong>Członkowie</strong>, <strong>Wolontariusze</strong>, <strong>Adopcje wirtualne</strong>, <strong>Wnioski adopcyjne</strong>, <strong>Raporty</strong> oraz <strong>Szczepienia i zabiegi</strong>. Kierownicy robią to w <strong>Ustawienia &gt; Schronisko</strong>, a administratorzy w formularzu edycji schroniska, w sekcji <strong>Moduły</strong>. Wyłączony moduł znika z menu bocznego, panelu i kart zwierząt, a jego strony przestają się otwierać. Gdy wnioski adopcyjne są wyłączone, publiczna strona zwierzęcia nie pokazuje już przycisku &bdquo;Chcę adoptować&rdquo;. Nic nie jest usuwane: po ponownym włączeniu modułu wszystkie jego dane wracają. Zwierzęta, adopcje, diagnozy i obiekty są zawsze włączone.</p>
+        <p>Schronisko, które nie korzysta ze wszystkich części aplikacji, może wyłączyć moduły: <strong>Członkowie</strong>, <strong>Wolontariusze</strong>, <strong>Adopcje wirtualne</strong>, <strong>Wnioski adopcyjne</strong>, <strong>Raporty</strong>, <strong>Szczepienia i zabiegi</strong> oraz <strong>Kolonie</strong>. Kierownicy robią to w <strong>Ustawienia &gt; Schronisko</strong>, a administratorzy w formularzu edycji schroniska, w sekcji <strong>Moduły</strong>. Wyłączony moduł znika z menu bocznego, panelu i kart zwierząt, a jego strony przestają się otwierać. Gdy wnioski adopcyjne są wyłączone, publiczna strona zwierzęcia nie pokazuje już przycisku &bdquo;Chcę adoptować&rdquo;. Nic nie jest usuwane: po ponownym włączeniu modułu wszystkie jego dane wracają. Zwierzęta, adopcje, diagnozy i obiekty są zawsze włączone.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Oceny obecności i pracy.</li>
         </ul>
         <p>Listę wolontariuszy można przeszukiwać po imieniu i nazwisku, telefonie, e-mailu, numerze podatkowym lub notatkach oraz filtrować według preferowanego gatunku, dnia dostępności i zajęcia &mdash; przydatne, by sprawdzić, kto może pomóc danego dnia.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Kolonie</h2>
+        <p>Rejestruj kolonie wolno żyjących zwierząt (zwykle kotów), którymi opiekuje się Twoje stowarzyszenie, na przykład w programach CED/CER (złapać, wysterylizować, wypuścić). Każda kolonia ma <strong>jeden gatunek</strong>, nazwę, lokalizację i miasto, opiekuna z numerem telefonu, notatki oraz znacznik aktywności. Kolonie znajdziesz w menu bocznym w sekcji <strong>Kolonie</strong>, a zwierzę w kolonii to zwykłe zwierzę, które mieszka tam zamiast w boksie.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Lista kolonii</h3>
+        <p>Lista pokazuje dla każdej kolonii gatunek, <strong>Informacje o kolonii</strong> (lokalizacja, opiekun i telefon, notatki), liczbę zwierząt i ile z nich jest wysterylizowanych. Kolonie tworzysz, edytujesz i usuwasz przyciskami na stronie. Obserwatorzy widzą lokalizację, ale nigdy opiekuna ani notatek.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Strona kolonii</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Sumy dla kolonii: zwierzęta, <strong>Wykastrowany</strong>, <strong>Sterylizacja oczekuje</strong>, <strong>Brak informacji o sterylizacji</strong> (brak zapisanych danych o sterylizacji) i <strong>Przycięte ucho</strong>. Sumy zawsze obejmują całą kolonię, niezależnie od filtrów.</li>
+            <li>Wyszukuj zwierzęta po imieniu, numerze referencyjnym lub chipie i filtruj według sytuacji sterylizacji lub przyciętego ucha.</li>
+            <li>Przycisk <strong>Dodaj: …</strong> otwiera formularz zwierzęcia z już wypełnioną kolonią i gatunkiem.</li>
+            <li><strong>Eksportuj do CSV</strong> pobiera arkusz ze wszystkimi żyjącymi zwierzętami kolonii (dane o złapaniu, sterylizacji, przyciętym uchu i wypuszczeniu) do raportów dla urzędu miasta.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zwierzęta w kolonii</h3>
+        <p>W formularzu zwierzęcia wybierz <strong>Kolonia</strong> (widoczne są tylko kolonie gatunku zwierzęcia) i wypełnij <strong>Złapany dnia</strong>, <strong>Wypuszczony dnia</strong> oraz <strong>Przycięte ucho</strong>. Pole boksu zostaje wtedy ukryte, bo zwierzę nie mieszka w schronisku. Zwierzę zachowuje wszystko inne: zdjęcia, szczepienia, zabiegi, diagnozy i dane o sterylizacji. Kolonia pojawia się w Zakwaterowaniu na liście zwierząt i na stronie zwierzęcia i można jej użyć w filtrze lokalizacji listy zwierząt oraz formularzy szczepień i zabiegów grupowych.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Konfiguracja</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Administrator zaznacza <strong>Kolonie</strong> przy gatunkach, które mogą żyć w koloniach, w <strong>Administracja &gt; Gatunki</strong> (zwykle tylko koty).</li>
+            <li>Schronisko, które nie potrzebuje kolonii, wyłącza moduł <strong>Kolonie</strong>, tak jak inne moduły. Nic nie jest usuwane.</li>
+            <li>Gatunku kolonii nie można zmienić, gdy ma już zwierzęta. Eksport danych schroniska zawiera kolonie.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

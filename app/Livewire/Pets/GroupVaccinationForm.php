@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pets;
 
 use App\Livewire\Pets\Concerns\FillsDueDateFromFrequency;
+use App\Models\Colony;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\PetVaccine;
@@ -34,6 +35,7 @@ use Livewire\Component;
  * @property-read Collection<int, Vaccine> $vaccines
  * @property-read Vaccine|null $selectedVaccine
  * @property-read Collection<int, Facility> $facilities
+ * @property-read Collection<int, Colony> $colonies
  * @property-read Collection<int, Pet> $candidatePets
  * @property-read array<int, string> $pendingDueDates
  * @property-read array<string, string> $dueMonthOptions
@@ -152,6 +154,24 @@ class GroupVaccinationForm extends Component
     }
 
     /**
+     * Colonies of the shelter, for the location filter.
+     *
+     * @return Collection<int, Colony>
+     */
+    #[Computed]
+    public function colonies(): Collection
+    {
+        if (! Auth::user()->currentShelterHasModule('colonies')) {
+            return new Collection;
+        }
+
+        return Colony::query()
+            ->when($this->speciesFilter !== '', fn ($query) => $query->where('species_id', (int) $this->speciesFilter))
+            ->orderBy('name')
+            ->get();
+    }
+
+    /**
      * Resident pets the selected vaccine can be given to, narrowed by the
      * "due by" month and the species and location filters. Empty until a
      * vaccine is chosen.
@@ -166,7 +186,7 @@ class GroupVaccinationForm extends Component
         }
 
         return $this->candidatePetsQuery()
-            ->with(['species', 'cage.wing'])
+            ->with(['species', 'cage.wing', 'colony'])
             ->orderBy('name')
             ->get();
     }
@@ -220,6 +240,7 @@ class GroupVaccinationForm extends Component
                     match ($type) {
                         'facility' => $query->whereHas('cage.wing', fn (Builder $query) => $query->where('facility_id', (int) $id)),
                         'wing' => $query->whereHas('cage', fn (Builder $query) => $query->where('wing_id', (int) $id)),
+                        'colony' => $query->where('colony_id', (int) $id),
                         default => null,
                     };
                 },

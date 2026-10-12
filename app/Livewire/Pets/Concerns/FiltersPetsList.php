@@ -36,7 +36,7 @@ trait FiltersPetsList
         $search = trim($this->search);
 
         return Pet::query()
-            ->with(['species', 'breed', 'cage.wing.facility', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'latestAdoption', 'openSicknesses'])
+            ->with(['species', 'breed', 'cage.wing.facility', 'colony', 'images', 'primaryColor', 'secondaryColor', 'furType', 'size', 'latestAdoption', 'openSicknesses'])
             ->when(
                 $search !== '',
                 fn (Builder $query) => $query->where(
@@ -59,6 +59,7 @@ trait FiltersPetsList
                         'facility' => $query->whereHas('cage.wing', fn (Builder $q) => $q->where('facility_id', $id)),
                         'wing' => $query->whereHas('cage', fn (Builder $q) => $q->where('wing_id', $id)),
                         'cage' => $query->where('cage_id', $id),
+                        'colony' => $query->where('colony_id', $id),
                         default => null,
                     };
                 },
@@ -74,7 +75,7 @@ trait FiltersPetsList
                         'no_age' => $query->whereNull('birth_date'),
                         'no_photo' => $query->whereDoesntHave('images'),
                         'no_checkin_date' => $query->whereNull('checkin_date'),
-                        'no_location' => $query->whereNull('cage_id')->whereNotIn('status', ['adopted', 'deceased']),
+                        'no_location' => $query->whereNull('cage_id')->whereNull('colony_id')->whereNotIn('status', ['adopted', 'deceased']),
                         'open_health_issues' => $query->whereHas('openSicknesses')->whereNotIn('status', ['adopted', 'deceased']),
                         'returned_adoption' => $query->whereHas('adoptions', fn (Builder $adoptions) => $adoptions->whereNotNull('return_date'))
                             ->whereDoesntHave('adoptions', fn (Builder $adoptions) => $adoptions->whereNull('return_date'))

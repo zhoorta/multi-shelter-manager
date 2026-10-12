@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adozioni</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adozioni a Distanza</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Volontari</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Colonie</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Soci</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Strutture</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Report</a>
@@ -47,7 +48,7 @@
         <p>La barra laterale mostra solo ciò che il tuo ruolo può usare. Responsabili e staff vedono il menu Animali (una voce per ogni specie attivata per il rifugio, più Adozioni a Distanza, Adozioni, Vaccinazioni e Trattamenti), Volontari, Soci e Strutture; i responsabili vedono anche Utenti. Gli amministratori vedono invece Utenti e il menu Amministrazione. Gli utenti in consultazione vedono gli stessi menu dello staff, tranne Adozioni a Distanza, Adozioni, Volontari e Soci, e le pagine non mostrano loro pulsanti per creare, modificare o eliminare. Questa documentazione è sempre disponibile in fondo alla barra laterale.</p>
         <p>Il menu Animali include anche le <strong>Richieste di Adozione</strong> per responsabili e personale, e solo i responsabili vedono i <strong>Report</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Moduli</h3>
-        <p>Un rifugio che non usa tutte le parti dell'app può disattivare dei moduli: <strong>Soci</strong>, <strong>Volontari</strong>, <strong>Adozioni a Distanza</strong>, <strong>Richieste di adozione</strong>, <strong>Report</strong> e <strong>Vaccini e trattamenti</strong>. I gestori lo fanno in <strong>Impostazioni &gt; Rifugio</strong> e gli amministratori nel modulo di modifica del rifugio, nella sezione <strong>Moduli</strong>. Un modulo disattivato scompare dal menu laterale, dalla dashboard e dalle schede degli animali, e le sue pagine non si aprono più. Con le richieste di adozione disattivate, la pagina pubblica dell'animale non mostra più il pulsante &ldquo;Voglio adottare&rdquo;. Non viene cancellato nulla: riattivando un modulo tornano disponibili tutti i suoi dati. Animali, adozioni, diagnosi e strutture sono sempre attivi.</p>
+        <p>Un rifugio che non usa tutte le parti dell'app può disattivare dei moduli: <strong>Soci</strong>, <strong>Volontari</strong>, <strong>Adozioni a Distanza</strong>, <strong>Richieste di adozione</strong>, <strong>Report</strong>, <strong>Vaccini e trattamenti</strong> e <strong>Colonie</strong>. I gestori lo fanno in <strong>Impostazioni &gt; Rifugio</strong> e gli amministratori nel modulo di modifica del rifugio, nella sezione <strong>Moduli</strong>. Un modulo disattivato scompare dal menu laterale, dalla dashboard e dalle schede degli animali, e le sue pagine non si aprono più. Con le richieste di adozione disattivate, la pagina pubblica dell'animale non mostra più il pulsante &ldquo;Voglio adottare&rdquo;. Non viene cancellato nulla: riattivando un modulo tornano disponibili tutti i suoi dati. Animali, adozioni, diagnosi e strutture sono sempre attivi.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Le valutazioni di presenza e prestazioni.</li>
         </ul>
         <p>L'elenco dei volontari si può cercare per nome, telefono, email, codice fiscale o note, e filtrare per specie preferita, giorno di disponibilità e attività &mdash; utile per sapere chi può aiutare in un certo giorno.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Colonie</h2>
+        <p>Registra le colonie di animali liberi (di solito gatti) di cui si occupa la tua associazione, ad esempio nei programmi CED/CER (catturare, sterilizzare, rilasciare). Ogni colonia ha <strong>una specie</strong>, un nome, una posizione e una città, un referente con telefono, note e un indicatore di attiva. Le colonie sono nella barra laterale, sotto <strong>Colonie</strong>, e un animale in una colonia è un animale normale che vive lì invece che in un box.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Elenco delle colonie</h3>
+        <p>L'elenco mostra, per ogni colonia, la specie, le <strong>Informazioni sulla colonia</strong> (posizione, referente e telefono, note), quanti animali ha e quanti sono sterilizzati. Crea, modifica ed elimina le colonie con i pulsanti della pagina. Gli osservatori vedono la posizione, ma mai il referente né le note.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pagina della colonia</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>I totali della colonia: animali, <strong>Sterilizzato</strong>, <strong>Sterilizzazione in sospeso</strong>, <strong>Nessuna informazione sulla sterilizzazione</strong> (nulla registrato sulla sterilizzazione) e <strong>Orecchio tagliato</strong>. I totali contano sempre l'intera colonia, qualunque siano i filtri.</li>
+            <li>Cerca gli animali per nome, riferimento o chip e filtrali per situazione di sterilizzazione o per orecchio tagliato.</li>
+            <li>Il pulsante <strong>Aggiungi …</strong> apre il modulo dell'animale con la colonia e la specie già compilate.</li>
+            <li><strong>Esporta CSV</strong> scarica un foglio di calcolo con tutti gli animali vivi della colonia (dati di cattura, sterilizzazione, orecchio tagliato e rilascio) per i rapporti inviati al comune.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Animali in una colonia</h3>
+        <p>Nel modulo dell'animale scegli la <strong>Colonia</strong> (sono proposte solo le colonie della specie dell'animale) e compila <strong>Catturato il</strong>, <strong>Rilasciato il</strong> e <strong>Orecchio tagliato</strong>. Il campo del box viene nascosto, perché l'animale non vive nel rifugio. L'animale conserva tutto il resto: foto, vaccini, trattamenti, diagnosi e dati di sterilizzazione. La colonia compare sotto Sistemazione nell'elenco degli animali e nella pagina dell'animale, e può essere usata nel filtro di posizione dell'elenco degli animali e dei moduli di vaccinazione e trattamento di gruppo.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Configurazione</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Un amministratore spunta <strong>Colonie</strong> sulle specie che possono vivere in colonia, in <strong>Amministrazione &gt; Specie</strong> (di solito solo i gatti).</li>
+            <li>Un rifugio che non ha bisogno di colonie disattiva il modulo <strong>Colonie</strong>, come gli altri moduli. Non viene cancellato nulla.</li>
+            <li>La specie di una colonia non può cambiare una volta che ha animali. L'esportazione dei dati del rifugio include le colonie.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

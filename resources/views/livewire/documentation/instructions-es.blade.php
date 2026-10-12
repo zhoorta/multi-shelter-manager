@@ -13,6 +13,7 @@
         <a href="#adoptions" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Adopciones</a>
         <a href="#sponsorships" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Apadrinamientos</a>
         <a href="#volunteers" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Voluntarios</a>
+        <a href="#colonies" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Colonias</a>
         <a href="#members" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Socios</a>
         <a href="#facilities" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Instalaciones</a>
         <a href="#reports" class="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-white">Informes</a>
@@ -47,7 +48,7 @@
         <p>El menú lateral solo muestra lo que tu rol puede usar. Gestores y personal ven el menú Animales (una entrada por cada especie activada en el refugio, más Apadrinamientos, Adopciones, Vacunaciones y Tratamientos), Voluntarios, Socios e Instalaciones; los gestores ven también Usuarios. Los administradores ven, en su lugar, Usuarios y el menú Administración. Los usuarios de consulta ven los mismos menús que los empleados, salvo Apadrinamientos, Adopciones, Voluntarios y Socios, y las páginas no les muestran botones para crear, editar o eliminar. Esta documentación está siempre disponible al final del menú lateral.</p>
         <p>El menú Animales incluye también <strong>Solicitudes de Adopción</strong> para gestores y personal, y solo los gestores ven los <strong>Informes</strong>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Módulos</h3>
-        <p>Un refugio que no utiliza todas las partes de la aplicación puede desactivar módulos: <strong>Socios</strong>, <strong>Voluntarios</strong>, <strong>Apadrinamientos</strong>, <strong>Solicitudes de adopción</strong>, <strong>Informes</strong> y <strong>Vacunas y tratamientos</strong>. Los gestores lo hacen en <strong>Ajustes &gt; Refugio</strong> y los administradores en el formulario de edición del refugio, en la sección <strong>Módulos</strong>. Un módulo desactivado desaparece del menú lateral, del panel y de las fichas de los animales, y sus páginas dejan de abrirse. Con las solicitudes de adopción desactivadas, la página pública del animal deja de mostrar el botón &ldquo;Quiero adoptar&rdquo;. No se borra nada: al volver a activar un módulo se recuperan todos sus datos. Los animales, las adopciones, los diagnósticos y las instalaciones están siempre activos.</p>
+        <p>Un refugio que no utiliza todas las partes de la aplicación puede desactivar módulos: <strong>Socios</strong>, <strong>Voluntarios</strong>, <strong>Apadrinamientos</strong>, <strong>Solicitudes de adopción</strong>, <strong>Informes</strong>, <strong>Vacunas y tratamientos</strong> y <strong>Colonias</strong>. Los gestores lo hacen en <strong>Ajustes &gt; Refugio</strong> y los administradores en el formulario de edición del refugio, en la sección <strong>Módulos</strong>. Un módulo desactivado desaparece del menú lateral, del panel y de las fichas de los animales, y sus páginas dejan de abrirse. Con las solicitudes de adopción desactivadas, la página pública del animal deja de mostrar el botón &ldquo;Quiero adoptar&rdquo;. No se borra nada: al volver a activar un módulo se recuperan todos sus datos. Los animales, las adopciones, los diagnósticos y las instalaciones están siempre activos.</p>
     </section>
 
     <section id="dashboard" class="flex scroll-mt-6 flex-col gap-2">
@@ -160,6 +161,28 @@
             <li>Evaluaciones de asistencia y desempeño.</li>
         </ul>
         <p>La lista de voluntarios se puede buscar por nombre, teléfono, email, NIF o notas, y filtrar por especie preferida, día de disponibilidad y actividad &mdash; útil para saber quién puede ayudar un día concreto.</p>
+    </section>
+
+    <section id="colonies" class="flex scroll-mt-6 flex-col gap-2">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Colonias</h2>
+        <p>Registre las colonias de animales callejeros (normalmente gatos) que cuida su asociación, por ejemplo en los programas CED/CER (capturar, esterilizar, devolver). Cada colonia tiene <strong>una especie</strong>, un nombre, una ubicación y ciudad, un cuidador con teléfono, notas y un indicador de activa. Las colonias están en la barra lateral, en <strong>Colonias</strong>, y un animal en una colonia es un animal normal que vive allí en lugar de en una jaula.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Lista de colonias</h3>
+        <p>La lista muestra, de cada colonia, la especie, la <strong>Información de la colonia</strong> (ubicación, cuidador y teléfono, notas), cuántos animales tiene y cuántos están esterilizados. Cree, edite y elimine colonias con los botones de la página. Los observadores ven la ubicación, pero nunca el cuidador ni las notas.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Página de la colonia</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Los totales de la colonia: animales, <strong>Esterilizado</strong>, <strong>Esterilización pendiente</strong>, <strong>Sin información de esterilización</strong> (nada registrado sobre la esterilización) y <strong>Oreja marcada</strong>. Los totales cuentan siempre toda la colonia, sean cuales sean los filtros.</li>
+            <li>Busque los animales por nombre, referencia o chip y fíltrelos por situación de esterilización o por oreja marcada.</li>
+            <li>El botón <strong>Añadir …</strong> abre el formulario del animal con la colonia y la especie ya rellenas.</li>
+            <li><strong>Exportar CSV</strong> descarga una hoja de cálculo con todos los animales vivos de la colonia (datos de captura, esterilización, oreja marcada y devolución) para los informes que envía al ayuntamiento.</li>
+        </ul>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Animales en una colonia</h3>
+        <p>En el formulario del animal, elija la <strong>Colonia</strong> (solo aparecen las colonias de la especie del animal) y rellene <strong>Capturado el</strong>, <strong>Devuelto el</strong> y <strong>Oreja marcada</strong>. El campo de la jaula se oculta, porque el animal no vive en el refugio. El animal conserva todo lo demás: fotos, vacunas, tratamientos, diagnósticos y datos de esterilización. La colonia aparece en Alojamiento en la lista de animales y en la página del animal, y puede usarse en el filtro de ubicación de la lista de animales y de los formularios de vacunación y tratamiento en grupo.</p>
+        <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Configuración</h3>
+        <ul class="list-disc space-y-1 ps-6">
+            <li>Un administrador marca <strong>Colonias</strong> en las especies que pueden vivir en colonias, en <strong>Administración &gt; Especies</strong> (normalmente solo los gatos).</li>
+            <li>Un refugio que no necesite colonias desactiva el módulo <strong>Colonias</strong>, como los demás módulos. No se borra nada.</li>
+            <li>La especie de una colonia no puede cambiar una vez que tiene animales. La exportación de datos del refugio incluye las colonias.</li>
+        </ul>
     </section>
 
     <section id="members" class="flex scroll-mt-6 flex-col gap-2">

@@ -19,6 +19,7 @@
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Plural Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Breeds') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Pure breeds') }}</th>
+                            <th scope="col" class="px-6 py-3 font-medium">{{ __('Colonies') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
@@ -33,6 +34,11 @@
                                 <td class="px-6 py-3">
                                     <flux:badge size="sm" :color="$item->has_pure_breed_field ? 'lime' : 'zinc'">
                                         {{ $item->has_pure_breed_field ? __('Yes') : __('No') }}
+                                    </flux:badge>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <flux:badge size="sm" :color="$item->has_colonies ? 'lime' : 'zinc'">
+                                        {{ $item->has_colonies ? __('Yes') : __('No') }}
                                     </flux:badge>
                                 </td>
                                 <td class="px-6 py-3">
@@ -79,7 +85,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="6" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No species registered') }}
                                 </td>
                             </tr>
@@ -101,6 +107,8 @@
             <flux:input wire:model="speciesNamePlural" :label="__('Plural Name')" />
 
             <flux:switch wire:model="speciesHasPureBreedField" :label="__('Pure breeds')" align="left" />
+
+            <flux:switch wire:model="speciesHasColonies" :label="__('Colonies')" :description="__('Animals of this species can live in colonies')" align="left" />
 
             <div class="flex justify-end gap-2">
                 <flux:modal.close>

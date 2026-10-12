@@ -25,6 +25,8 @@ class ManageSpecies extends Component
 
     public bool $speciesHasPureBreedField = false;
 
+    public bool $speciesHasColonies = false;
+
     public function mount(): void
     {
         abort_unless(Auth::user()->is_admin, 403);
@@ -55,6 +57,7 @@ class ManageSpecies extends Component
         $this->speciesName = $species->name;
         $this->speciesNamePlural = $species->name_plural;
         $this->speciesHasPureBreedField = $species->has_pure_breed_field;
+        $this->speciesHasColonies = $species->has_colonies;
     }
 
     public function saveSpecies(): void
@@ -73,6 +76,7 @@ class ManageSpecies extends Component
                 Rule::unique('species', 'name_plural')->ignore($this->editingSpeciesId),
             ],
             'speciesHasPureBreedField' => ['boolean'],
+            'speciesHasColonies' => ['boolean'],
         ], [], [
             'speciesName' => __('Name'),
             'speciesNamePlural' => __('Plural Name'),
@@ -83,6 +87,7 @@ class ManageSpecies extends Component
                 'name' => $validated['speciesName'],
                 'name_plural' => $validated['speciesNamePlural'],
                 'has_pure_breed_field' => $validated['speciesHasPureBreedField'],
+                'has_colonies' => $validated['speciesHasColonies'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record updated successfully'));
@@ -91,6 +96,7 @@ class ManageSpecies extends Component
                 'name' => $validated['speciesName'],
                 'name_plural' => $validated['speciesNamePlural'],
                 'has_pure_breed_field' => $validated['speciesHasPureBreedField'],
+                'has_colonies' => $validated['speciesHasColonies'],
             ]);
 
             Flux::toast(variant: 'success', text: __('Record created successfully'));
@@ -117,7 +123,7 @@ class ManageSpecies extends Component
 
     protected function resetSpeciesForm(): void
     {
-        $this->reset(['editingSpeciesId', 'speciesName', 'speciesNamePlural', 'speciesHasPureBreedField']);
+        $this->reset(['editingSpeciesId', 'speciesName', 'speciesNamePlural', 'speciesHasPureBreedField', 'speciesHasColonies']);
         $this->resetErrorBag();
     }
 
