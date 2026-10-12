@@ -241,7 +241,7 @@
             <li>Um administrador pode adicionar utilizadores a qualquer abrigo e criar outros administradores.</li>
         </ul>
         <p>Em cada ligação a um abrigo também pode ativar as <strong>Notificações de Candidaturas de Adoção</strong>: esses utilizadores recebem um email por cada nova candidatura de adoção.</p>
-        <p>Enquanto a pessoa convidada não iniciar sessão pela primeira vez, a lista de utilizadores mostra um botão <strong>Reenviar convite</strong> na sua linha. Envia por email uma nova ligação e anula a anterior; a ligação expira ao fim de 48 horas.</p>
+        <p>Enquanto a pessoa convidada não iniciar sessão pela primeira vez, a lista de utilizadores mostra um botão <strong>Reenviar convite</strong> na sua linha. Envia por email uma nova ligação e anula a anterior; a ligação expira ao fim de 15 dias.</p>
         <p>Uma participação como <strong>Funcionário / Operacional</strong> pode ser limitada a algumas áreas: desative, em <strong>Pode editar</strong>, as que o utilizador não deve editar (Animais, Saúde, Adoções, Apadrinhamentos, Sócios). Com todas ativas, o utilizador edita tudo, como antes. Quem tem <strong>Consulta (só leitura)</strong> só consulta e nunca vê dados pessoais de adotantes, padrinhos, voluntários ou sócios; o <strong>Gestor de Abrigo</strong> edita tudo.</p>
     </section>
 

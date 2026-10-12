@@ -253,7 +253,6 @@
     "Your role: :role": "Twoja rola: :role",
     "Your shelter: :shelter": "Twoje schronisko: :shelter",
     "Create Password": "Utwórz hasło",
-    "This invitation link will expire in :count hours.": "Ten link z zaproszeniem wygaśnie za :count godz.",
     "If you did not expect this invitation, you can safely ignore this email.": "Jeśli nie spodziewałeś się tego zaproszenia, możesz bezpiecznie zignorować tę wiadomość.",
     "Regards,": "Pozdrawiamy,",
     "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Jeśli masz problem z kliknięciem przycisku \":actionText\", skopiuj i wklej poniższy adres URL\ndo przeglądarki:",
@@ -772,5 +771,6 @@
     "Add :species": "Dodaj: :species",
     "No neutering info": "Brak informacji o sterylizacji",
     "Colony info": "Informacje o kolonii",
-    "Its animals stay registered without a colony and need a new location.": "Zwierzęta pozostają zarejestrowane bez kolonii i potrzebują nowej lokalizacji."
+    "Its animals stay registered without a colony and need a new location.": "Zwierzęta pozostają zarejestrowane bez kolonii i potrzebują nowej lokalizacji.",
+    "This invitation link will expire in :count days.": "Ten link z zaproszeniem wygaśnie za :count dni."
 }

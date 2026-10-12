@@ -241,7 +241,7 @@
             <li>An admin can add users to any shelter and can create other admins.</li>
         </ul>
         <p>Each membership can also have <strong>Adoption Application Notifications</strong> turned on: those users receive an email for each new adoption application.</p>
-        <p>Until an invited person logs in for the first time, the Users list shows a <strong>Resend invitation</strong> button on their row. It emails a new link and cancels the previous one; the link expires after 48 hours.</p>
+        <p>Until an invited person logs in for the first time, the Users list shows a <strong>Resend invitation</strong> button on their row. It emails a new link and cancels the previous one; the link expires after 15 days.</p>
         <p>A <strong>Staff / Worker</strong> membership can be limited to some areas: switch off, under <strong>Can edit</strong>, the ones the user must not edit (Animals, Health, Adoptions, Sponsorships, Members). With all of them on, the user edits everything, as before. A <strong>Viewer (read-only)</strong> only views, and never sees adopters', sponsors', volunteers' or members' personal data; a <strong>Shelter Manager</strong> edits everything.</p>
     </section>
 

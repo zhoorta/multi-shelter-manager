@@ -241,7 +241,7 @@
             <li>En administrator kan tilføje brugere til ethvert internat og kan oprette andre administratorer.</li>
         </ul>
         <p>For hvert medlemskab af et internat kan man også slå <strong>Notifikationer om adoptionsansøgninger</strong> til: de brugere får en e-mail for hver ny adoptionsansøgning.</p>
-        <p>Indtil den inviterede person har logget ind for første gang, viser brugerlisten en knap <strong>Send invitation igen</strong> på personens række. Den sender et nyt link via e-mail og annullerer det forrige; linket udløber efter 48 timer.</p>
+        <p>Indtil den inviterede person har logget ind for første gang, viser brugerlisten en knap <strong>Send invitation igen</strong> på personens række. Den sender et nyt link via e-mail og annullerer det forrige; linket udløber efter 15 dage.</p>
         <p>Et <strong>Medarbejder</strong>-medlemskab kan begrænses til nogle områder: slå, under <strong>Må redigere</strong>, de områder fra, som brugeren ikke må redigere (Dyr, Helbred, Adoptioner, Fadderskaber, Medlemmer). Med alle slået til redigerer brugeren alt, som før. En <strong>Læser (kun læseadgang)</strong> kan kun se og ser aldrig personoplysninger om adoptanter, faddere, frivillige eller medlemmer; en <strong>Internatleder</strong> redigerer alt.</p>
     </section>
 

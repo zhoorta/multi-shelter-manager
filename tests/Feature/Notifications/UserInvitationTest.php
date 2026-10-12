@@ -37,3 +37,14 @@ test('admin invitation email names the app from the configured app name', functi
 
     expect($lines)->toContain('Foi convidado a juntar-se à plataforma Abrigo Teste como administrador.');
 });
+
+test('invitation and password reset links last 15 days, and the email says so', function () {
+    app()->setLocale('pt');
+
+    $recipient = User::factory()->admin()->create();
+
+    $outroLines = (new UserInvitation('token'))->toMail($recipient)->outroLines;
+
+    expect(config('auth.passwords.users.expire'))->toBe(15 * 24 * 60)
+        ->and($outroLines)->toContain('Este link de convite expira em 15 dias.');
+});

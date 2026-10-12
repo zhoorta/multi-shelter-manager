@@ -253,7 +253,6 @@
     "Your role: :role": "Din rolle: :role",
     "Your shelter: :shelter": "Dit internat: :shelter",
     "Create Password": "Opret adgangskode",
-    "This invitation link will expire in :count hours.": "Dette invitationslink udløber om :count timer.",
     "If you did not expect this invitation, you can safely ignore this email.": "Hvis du ikke forventede denne invitation, kan du roligt se bort fra denne e-mail.",
     "Regards,": "Venlig hilsen,",
     "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Hvis du har problemer med at klikke på knappen \":actionText\", så kopier og indsæt nedenstående URL\ni din webbrowser:",
@@ -772,5 +771,6 @@
     "Add :species": "Tilføj :species",
     "No neutering info": "Ingen kastreringsinfo",
     "Colony info": "Koloniinfo",
-    "Its animals stay registered without a colony and need a new location.": "Dyrene forbliver registreret uden koloni og har brug for en ny placering."
+    "Its animals stay registered without a colony and need a new location.": "Dyrene forbliver registreret uden koloni og har brug for en ny placering.",
+    "This invitation link will expire in :count days.": "Dette invitationslink udløber om :count dage."
 }

@@ -241,7 +241,7 @@
             <li>Un administrador puede añadir usuarios a cualquier refugio y puede crear otros administradores.</li>
         </ul>
         <p>En cada vinculación con un refugio también se pueden activar las <strong>Notificaciones de Solicitudes de Adopción</strong>: esos usuarios reciben un email por cada nueva solicitud de adopción.</p>
-        <p>Mientras la persona invitada no haya iniciado sesión por primera vez, la lista de usuarios muestra un botón <strong>Reenviar invitación</strong> en su fila. Envía por email un enlace nuevo y anula el anterior; el enlace caduca a las 48 horas.</p>
+        <p>Mientras la persona invitada no haya iniciado sesión por primera vez, la lista de usuarios muestra un botón <strong>Reenviar invitación</strong> en su fila. Envía por email un enlace nuevo y anula el anterior; el enlace caduca a los 15 días.</p>
         <p>Una pertenencia como <strong>Empleado / Operativo</strong> puede limitarse a algunas áreas: desactive, en <strong>Puede editar</strong>, las que el usuario no debe editar (Animales, Salud, Adopciones, Apadrinamientos, Socios). Con todas activadas, el usuario edita todo, como antes. Quien tiene <strong>Consulta (solo lectura)</strong> solo consulta y nunca ve datos personales de adoptantes, padrinos, voluntarios ni socios; el <strong>Gestor de Refugio</strong> edita todo.</p>
     </section>
 

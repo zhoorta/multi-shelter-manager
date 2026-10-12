@@ -241,7 +241,7 @@
             <li>Un amministratore può aggiungere utenti a qualsiasi rifugio e può creare altri amministratori.</li>
         </ul>
         <p>Per ogni appartenenza a un rifugio si possono attivare anche le <strong>Notifiche delle Richieste di Adozione</strong>: questi utenti ricevono un'email per ogni nuova richiesta di adozione.</p>
-        <p>Finché la persona invitata non accede per la prima volta, l'elenco degli utenti mostra un pulsante <strong>Invia di nuovo l'invito</strong> sulla sua riga. Invia via email un nuovo link e annulla il precedente; il link scade dopo 48 ore.</p>
+        <p>Finché la persona invitata non accede per la prima volta, l'elenco degli utenti mostra un pulsante <strong>Invia di nuovo l'invito</strong> sulla sua riga. Invia via email un nuovo link e annulla il precedente; il link scade dopo 15 giorni.</p>
         <p>Un'appartenenza <strong>Operatore</strong> può essere limitata ad alcune aree: disattivi, sotto <strong>Può modificare</strong>, quelle che l'utente non deve modificare (Animali, Salute, Adozioni, Adozioni a Distanza, Soci). Con tutte attive, l'utente modifica tutto, come prima. Chi ha <strong>Consultazione (sola lettura)</strong> può solo consultare e non vede mai i dati personali di adottanti, padrini, volontari o soci; il <strong>Responsabile del Rifugio</strong> modifica tutto.</p>
     </section>
 

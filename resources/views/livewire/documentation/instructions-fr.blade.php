@@ -241,7 +241,7 @@
             <li>Un administrateur peut ajouter des utilisateurs à n'importe quel refuge et peut créer d'autres administrateurs.</li>
         </ul>
         <p>Chaque rattachement à un refuge peut aussi activer les <strong>Notifications de Demandes d'Adoption</strong> : ces utilisateurs reçoivent un email pour chaque nouvelle demande d'adoption.</p>
-        <p>Tant que la personne invitée ne s'est pas connectée une première fois, la liste des utilisateurs affiche un bouton <strong>Renvoyer l'invitation</strong> sur sa ligne. Il envoie par email un nouveau lien et annule le précédent ; le lien expire au bout de 48 heures.</p>
+        <p>Tant que la personne invitée ne s'est pas connectée une première fois, la liste des utilisateurs affiche un bouton <strong>Renvoyer l'invitation</strong> sur sa ligne. Il envoie par email un nouveau lien et annule le précédent ; le lien expire au bout de 15 jours.</p>
         <p>Une appartenance <strong>Employé / Opérationnel</strong> peut être limitée à certains domaines : désactivez, sous <strong>Peut modifier</strong>, ceux que l'utilisateur ne doit pas modifier (Animaux, Santé, Adoptions, Parrainages, Membres). Avec tous activés, l'utilisateur modifie tout, comme avant. Un <strong>Consultation (lecture seule)</strong> consulte seulement et ne voit jamais les données personnelles des adoptants, parrains, bénévoles ou membres ; un <strong>Gestionnaire de Refuge</strong> modifie tout.</p>
     </section>
 

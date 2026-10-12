@@ -241,7 +241,7 @@
             <li>Ein Administrator kann Benutzer zu jedem Tierheim hinzufügen und weitere Administratoren anlegen.</li>
         </ul>
         <p>Für jede Zugehörigkeit zu einem Tierheim lassen sich auch die <strong>Benachrichtigungen zu Adoptionsanfragen</strong> aktivieren: Diese Nutzer erhalten für jede neue Adoptionsanfrage eine E-Mail.</p>
-        <p>Solange die eingeladene Person sich noch nie angemeldet hat, zeigt die Benutzerliste in ihrer Zeile die Schaltfläche <strong>Einladung erneut senden</strong>. Sie verschickt per E-Mail einen neuen Link und macht den vorherigen ungültig; der Link läuft nach 48 Stunden ab.</p>
+        <p>Solange die eingeladene Person sich noch nie angemeldet hat, zeigt die Benutzerliste in ihrer Zeile die Schaltfläche <strong>Einladung erneut senden</strong>. Sie verschickt per E-Mail einen neuen Link und macht den vorherigen ungültig; der Link läuft nach 15 Tagen ab.</p>
         <p>Eine <strong>Mitarbeiter / Betrieb</strong>-Mitgliedschaft kann auf einige Bereiche beschränkt werden: Schalten Sie unter <strong>Darf bearbeiten</strong> die Bereiche aus, die der Benutzer nicht bearbeiten darf (Tiere, Gesundheit, Vermittlungen, Patenschaften, Mitglieder). Sind alle eingeschaltet, bearbeitet der Benutzer wie bisher alles. Wer <strong>Leser (nur Lesezugriff)</strong> ist, kann nur ansehen und sieht nie persönliche Daten von Adoptierenden, Paten, Freiwilligen oder Mitgliedern; ein <strong>Tierheimleitung</strong> bearbeitet alles.</p>
     </section>
 

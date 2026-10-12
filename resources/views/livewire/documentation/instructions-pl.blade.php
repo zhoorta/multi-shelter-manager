@@ -241,7 +241,7 @@
             <li>Administrator może dodawać użytkowników do dowolnego schroniska i tworzyć innych administratorów.</li>
         </ul>
         <p>Przy każdym członkostwie w schronisku można też włączyć <strong>Powiadomienia o wnioskach adopcyjnych</strong>: ci użytkownicy otrzymują e-mail o każdym nowym wniosku adopcyjnym.</p>
-        <p>Dopóki zaproszona osoba nie zaloguje się po raz pierwszy, lista użytkowników pokazuje w jej wierszu przycisk <strong>Wyślij zaproszenie ponownie</strong>. Wysyła e-mailem nowy link i unieważnia poprzedni; link wygasa po 48 godzinach.</p>
+        <p>Dopóki zaproszona osoba nie zaloguje się po raz pierwszy, lista użytkowników pokazuje w jej wierszu przycisk <strong>Wyślij zaproszenie ponownie</strong>. Wysyła e-mailem nowy link i unieważnia poprzedni; link wygasa po 15 dniach.</p>
         <p>Członkostwo <strong>Pracownik</strong> można ograniczyć do wybranych obszarów: wyłącz w sekcji <strong>Może edytować</strong> te, których użytkownik nie może edytować (Zwierzęta, Zdrowie, Adopcje, Adopcje wirtualne, Członkowie). Przy wszystkich włączonych użytkownik edytuje wszystko, jak dotąd. Osoba z rolą <strong>Podgląd (tylko odczyt)</strong> tylko przegląda i nigdy nie widzi danych osobowych adoptujących, patronów, wolontariuszy ani członków; <strong>Kierownik schroniska</strong> edytuje wszystko.</p>
     </section>
 

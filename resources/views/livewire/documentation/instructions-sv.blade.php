@@ -241,7 +241,7 @@
             <li>En administratör kan lägga till användare i vilket djurhem som helst och kan skapa andra administratörer.</li>
         </ul>
         <p>För varje medlemskap i ett härbärge kan man också slå på <strong>Aviseringar om adoptionsansökningar</strong>: de användarna får ett e-postmeddelande för varje ny adoptionsansökan.</p>
-        <p>Tills den inbjudna personen har loggat in för första gången visar användarlistan en knapp <strong>Skicka inbjudan igen</strong> på personens rad. Den skickar en ny länk via e-post och gör den tidigare ogiltig; länken går ut efter 48 timmar.</p>
+        <p>Tills den inbjudna personen har loggat in för första gången visar användarlistan en knapp <strong>Skicka inbjudan igen</strong> på personens rad. Den skickar en ny länk via e-post och gör den tidigare ogiltig; länken går ut efter 15 dagar.</p>
         <p>Ett <strong>Personal</strong>-medlemskap kan begränsas till vissa områden: stäng av, under <strong>Får redigera</strong>, de som användaren inte ska redigera (Djur, Hälsa, Adoptioner, Fadderskap, Medlemmar). Med alla på redigerar användaren allt, som förut. En <strong>Läsare (endast läsning)</strong> kan bara titta och ser aldrig personuppgifter om adoptanter, fadderer, volontärer eller medlemmar; en <strong>Föreståndare</strong> redigerar allt.</p>
     </section>
 

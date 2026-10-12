@@ -55,7 +55,7 @@ The invited person receives an e-mail titled *"You've Been Invited to Multi Shel
 2. They choose their password.
 3. They are logged in and can start working.
 
-The invitation link is valid for **48 hours**. If it expires, the person can use **Forgot your password?** on the login page to get a new link.
+The invitation link is valid for **15 days**. If it expires, the person can use **Forgot your password?** on the login page to get a new link.
 
 > **Already has an account?** If you invite an e-mail that already belongs to a user, no new account is created. The existing user is added to the new shelter and receives an e-mail saying so. They can then pick that shelter with the shelter switcher at the top of the page.
 
