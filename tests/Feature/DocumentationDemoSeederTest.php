@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\AdoptionApplication;
+use App\Models\Colony;
 use App\Models\Member;
 use App\Models\Pet;
 use App\Models\Shelter;
@@ -49,4 +50,18 @@ test('creates a foster families wing and adoption applications for the documenta
         ->and($coco->cage->volunteer->name)->toBe('Emma Carter')
         ->and(AdoptionApplication::query()->where('status', 'pending')->count())->toBe(4)
         ->and(AdoptionApplication::query()->where('status', 'approved')->value('adoption_id'))->not->toBeNull();
+});
+
+test('creates demo cat colonies whose cats live outside the cages', function () {
+    Http::fake();
+    Storage::fake('public');
+
+    $this->seed(DocumentationDemoSeeder::class);
+
+    $colony = Colony::query()->where('name', 'Harbour Street')->firstOrFail();
+
+    expect($colony->species->name)->toBe('Cat')
+        ->and($colony->species->has_colonies)->toBeTrue()
+        ->and($colony->pets)->toHaveCount(5)
+        ->and($colony->pets->whereNotNull('cage_id'))->toBeEmpty();
 });

@@ -7,6 +7,7 @@ use App\Models\Adoption;
 use App\Models\AdoptionApplication;
 use App\Models\Breed;
 use App\Models\Cage;
+use App\Models\Colony;
 use App\Models\Color;
 use App\Models\Facility;
 use App\Models\FurType;
@@ -242,12 +243,13 @@ class DocumentationDemoSeeder extends Seeder
         $this->seedVolunteers($mainShelter);
         $this->seedFosterFamilies($mainShelter, $mainPets);
         $this->seedMembers($mainShelter);
+        $this->seedColonies($mainShelter);
     }
 
     private function seedLookups(): void
     {
         $dog = Species::query()->create(['name' => 'Dog', 'name_plural' => 'Dogs', 'has_pure_breed_field' => true]);
-        $cat = Species::query()->create(['name' => 'Cat', 'name_plural' => 'Cats', 'has_pure_breed_field' => true]);
+        $cat = Species::query()->create(['name' => 'Cat', 'name_plural' => 'Cats', 'has_pure_breed_field' => true, 'has_colonies' => true]);
         $this->species = ['dog' => $dog->id, 'cat' => $cat->id];
 
         foreach (['dog' => self::DOG_BREEDS, 'cat' => self::CAT_BREEDS] as $speciesKey => $breeds) {
@@ -482,6 +484,58 @@ class DocumentationDemoSeeder extends Seeder
         $this->command?->info("  {$pet->ref} {$pet->name} ({$shelter->short_name})".($imagePath ? ' 📷' : ''));
 
         return $pet;
+    }
+
+    /**
+     * Two cat colonies looked after under a catch, neuter and return programme,
+     * with cats in different neutering situations.
+     */
+    private function seedColonies(Shelter $shelter): void
+    {
+        $colonies = [
+            ['Harbour Street', 'Behind the fish market', 'Maria Santos', '912 345 678', 'Fed every evening at 18:00. Water points near the old crates.', [
+                ['Tiger', 'male', true, 'ear', 40], ['Smokey', 'female', true, 'ear', 55], ['Ginger', 'male', true, 'ear', 25],
+                ['Patches', 'female', false, 'pending', 10], ['Shadow', 'male', false, 'pending', 6],
+            ]],
+            ['Old Mill', 'Car park of the old mill', 'João Ferreira', '934 567 890', 'Two feeding spots. A neighbour reports new kittens in spring.', [
+                ['Whiskers', 'female', true, 'ear', 70], ['Socks', 'male', true, 'ear', 33], ['Misty', 'female', false, 'scheduled', 12], ['Bandit', 'male', false, 'unknown', 4],
+            ]],
+        ];
+
+        foreach ($colonies as [$name, $location, $caretaker, $phone, $notes, $cats]) {
+            $colony = Colony::query()->create([
+                'shelter_id' => $shelter->id,
+                'species_id' => $this->species['cat'],
+                'name' => $name,
+                'location' => $location,
+                'city' => $shelter->city,
+                'caretaker_name' => $caretaker,
+                'caretaker_phone' => $phone,
+                'notes' => $notes,
+            ]);
+
+            foreach ($cats as $index => [$catName, $gender, $isNeutered, $situation, $capturedDaysAgo]) {
+                $this->createPet($shelter, 'cat', 'Domestic Shorthair', [
+                    'name' => $catName,
+                    'gender' => $gender,
+                    'colony_id' => $colony->id,
+                    'status' => 'not_available',
+                    'is_adoptable' => false,
+                    'primary_color_id' => $this->colors['Brown'],
+                    'fur_type_id' => $this->furTypes['Short'],
+                    'chip' => $index % 2 === 0 ? '620'.str_pad((string) random_int(0, 999999999999), 12, '0', STR_PAD_LEFT) : null,
+                    'captured_at' => now()->subDays($capturedDaysAgo * 7),
+                    'returned_at' => $isNeutered ? now()->subDays($capturedDaysAgo * 7 - 3) : null,
+                    'is_ear_tipped' => $situation === 'ear',
+                    'is_neutered' => $isNeutered,
+                    'neutered_at' => $isNeutered ? now()->subDays($capturedDaysAgo * 7 - 1) : null,
+                    'neutered_by_shelter' => $isNeutered ? true : null,
+                    'neutering_status' => $isNeutered || $situation === 'unknown' ? null : $situation,
+                    'neutering_scheduled_at' => $situation === 'scheduled' ? now()->addDays(9) : null,
+                    'view_count' => 0,
+                ]);
+            }
+        }
     }
 
     /**
