@@ -50,7 +50,8 @@ test('lists shelters with their user and pet counts', function () {
         ->assertSee('Happy Paws')
         ->assertSee('HP')
         ->assertSee('Lisbon')
-        ->assertSee('Setúbal');
+        ->assertSee('Setúbal')
+        ->assertSeeHtml('<td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">'.$shelter->id.'</td>');
 });
 
 test('does not show a short name when the shelter has none', function () {

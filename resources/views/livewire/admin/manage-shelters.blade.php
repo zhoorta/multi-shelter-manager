@@ -13,6 +13,7 @@
                 <table class="w-full text-left text-sm">
                     <thead class="bg-neutral-50 text-xs uppercase text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
                         <tr>
+                            <th scope="col" class="px-6 py-3 font-medium">ID</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Logo') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('Name') }}</th>
                             <th scope="col" class="px-6 py-3 font-medium">{{ __('City') }}</th>
@@ -25,6 +26,7 @@
                     <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                         @forelse ($this->shelters as $item)
                             <tr wire:key="shelter-{{ $item->id }}">
+                                <td class="px-6 py-3 text-neutral-500 dark:text-neutral-400">{{ $item->id }}</td>
                                 <td class="px-6 py-3">
                                     @if ($item->logo_path)
                                         <img
@@ -95,7 +97,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
+                                <td colspan="8" class="px-6 py-6 text-center text-neutral-500 dark:text-neutral-400">
                                     {{ __('No shelters registered') }}
                                 </td>
                             </tr>
