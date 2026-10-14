@@ -43,7 +43,7 @@ class BackfillFileSizes extends Command
         $updated = 0;
         $missing = 0;
 
-        $query->whereNotNull($pathColumn)->whereNull($sizeColumn)->each(function ($model) use ($pathColumn, $sizeColumn, &$updated, &$missing): void {
+        $query->whereNotNull($pathColumn)->whereNull($sizeColumn)->eachById(function ($model) use ($pathColumn, $sizeColumn, &$updated, &$missing): void {
             if (! Storage::exists($model->{$pathColumn})) {
                 $missing++;
 

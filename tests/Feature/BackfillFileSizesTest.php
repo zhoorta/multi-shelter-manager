@@ -30,3 +30,19 @@ test('fills in the size of files that have none and reports the missing ones', f
         ->and($volunteer->fresh()->image_size)->toBe(200)
         ->and($shelter->fresh()->logo_size)->toBe(300);
 });
+
+test('fills in every file when there are more rows than one chunk', function () {
+    Storage::fake();
+    $pet = Pet::factory()->create();
+
+    $rows = collect(range(1, 1100))->map(function (int $number) use ($pet): array {
+        Storage::put("pets/{$number}.jpg", 'x');
+
+        return ['pet_id' => $pet->id, 'image_path' => "pets/{$number}.jpg", 'file_size' => null, 'is_main' => false];
+    });
+    $rows->chunk(200)->each(fn ($chunk) => PetImage::query()->insert($chunk->all()));
+
+    $this->artisan('app:backfill-file-sizes')->expectsOutputToContain('pet photos: 1100 updated, 0 missing on disk.')->assertSuccessful();
+
+    expect(PetImage::query()->whereNull('file_size')->count())->toBe(0);
+});
