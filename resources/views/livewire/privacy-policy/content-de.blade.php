@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. An wen wir Daten weitergeben</h2>
         <p>Wir verkaufen Ihre Daten nicht und geben sie nicht zu kommerziellen Zwecken weiter. Die Daten jedes Tierheims sind nur für das Team dieses Tierheims und die Administratoren der Plattform zugänglich. Sie können außerdem von Dienstleistern verarbeitet werden, die uns beim Betrieb der Plattform unterstützen (Hosting und E-Mail-Versand), stets unter angemessenen vertraglichen Garantien, oder Behörden offengelegt werden, wenn das Gesetz dies verlangt. Für den Support können Plattformadministratoren die Daten eines Tierheims über eine Nur-Lese-Funktion als einer seiner Benutzer einsehen; jede Nutzung wird protokolliert.</p>
+        @if (config('mail.default') === 'resend')
+            <p>E-Mails der Plattform (Einladungen, Verifizierung, Passwort-Zurücksetzung, Benachrichtigungen und Nachrichten zu Adoptionsanträgen) werden über <strong>Resend</strong> (Resend, Inc.) zugestellt, das in unserem Auftrag Namen und E-Mail-Adresse der Empfänger sowie den Inhalt der Nachricht verarbeitet. Wir nutzen die Server von Resend in der Europäischen Union (Irland), auf Grundlage eines Auftragsverarbeitungsvertrags, der Standardvertragsklauseln für jede Übermittlung außerhalb der EU enthält. Die Verfolgung von Öffnungen und Klicks ist deaktiviert.</p>
+        @endif
     </section>
 
     <section id="retention">

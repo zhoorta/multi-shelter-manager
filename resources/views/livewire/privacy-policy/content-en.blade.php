@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. Who we share data with</h2>
         <p>We do not sell or hand over your data for commercial purposes. Each shelter's data is only accessible to that shelter's team and to the platform administrators. It may also be processed by service providers that help us run the platform (hosting and e-mail delivery), always under appropriate contractual safeguards, or disclosed to authorities where required by law. For support, platform administrators can view a shelter's data as one of its users through a read-only function; every use is logged.</p>
+        @if (config('mail.default') === 'resend')
+            <p>E-mails sent by the platform (invitations, verification, password reset, notifications and adoption application messages) are delivered through <strong>Resend</strong> (Resend, Inc.), which processes the recipient's name and e-mail address and the content of the message on our behalf. We use Resend's servers in the European Union (Ireland), under a data processing agreement that includes Standard Contractual Clauses for any transfer outside the EU. Open and click tracking is switched off.</p>
+        @endif
     </section>
 
     <section id="retention">

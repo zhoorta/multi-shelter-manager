@@ -167,3 +167,13 @@ test('the privacy policy stays available when the public portal is disabled', fu
 
     $this->get(route('privacy-policy'))->assertOk();
 });
+
+test('each policy names Resend as the e-mail provider only when the resend mailer is active', function (string $locale) {
+    app()->setLocale($locale);
+
+    config(['mail.default' => 'resend']);
+    $this->get(route('privacy-policy'))->assertOk()->assertSee('<strong>Resend</strong>', false);
+
+    config(['mail.default' => 'log']);
+    $this->get(route('privacy-policy'))->assertOk()->assertDontSee('Resend', false);
+})->with(['en', 'pt', 'es', 'fr', 'de', 'nl', 'pl', 'it', 'sv', 'da']);

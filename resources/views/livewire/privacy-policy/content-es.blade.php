@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. Con quién compartimos los datos</h2>
         <p>No vendemos ni cedemos sus datos con fines comerciales. Los datos de cada refugio solo son accesibles para el equipo de ese refugio y para los administradores de la plataforma. También pueden ser tratados por proveedores de servicios que nos ayudan a operar la plataforma (alojamiento y envío de emails), siempre con las garantías contractuales adecuadas, o comunicados a las autoridades cuando así lo exija la ley. Para dar soporte, los administradores de la plataforma pueden consultar los datos de un refugio como si fueran uno de sus usuarios mediante una función de solo lectura; cada uso queda registrado.</p>
+        @if (config('mail.default') === 'resend')
+            <p>Los emails enviados por la plataforma (invitaciones, verificación, restablecimiento de contraseña, notificaciones y mensajes sobre solicitudes de adopción) se entregan a través de <strong>Resend</strong> (Resend, Inc.), que trata en nuestro nombre el nombre y el email del destinatario y el contenido del mensaje. Utilizamos los servidores de Resend en la Unión Europea (Irlanda), con un acuerdo de encargo de tratamiento que incluye Cláusulas Contractuales Tipo para cualquier transferencia fuera de la UE. El seguimiento de aperturas y clics está desactivado.</p>
+        @endif
     </section>
 
     <section id="retention">

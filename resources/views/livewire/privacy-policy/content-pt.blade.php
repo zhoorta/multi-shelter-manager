@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. Com quem partilhamos os dados</h2>
         <p>Não vendemos nem cedemos os seus dados para fins comerciais. Os dados de cada abrigo só são acessíveis à equipa desse abrigo e aos administradores da plataforma. Podem ainda ser tratados por prestadores de serviços que nos ajudam a operar a plataforma (alojamento e envio de e-mails), sempre com garantias contratuais adequadas, ou comunicados às autoridades quando a lei o exija. Para dar apoio, os administradores da plataforma podem consultar os dados de um abrigo como se fossem um dos seus utilizadores, através de uma função só de leitura; cada utilização fica registada.</p>
+        @if (config('mail.default') === 'resend')
+            <p>Os e-mails enviados pela plataforma (convites, verificação, recuperação de palavra-passe, notificações e mensagens sobre candidaturas de adoção) são entregues através da <strong>Resend</strong> (Resend, Inc.), que trata em nosso nome o nome e o e-mail do destinatário e o conteúdo da mensagem. Utilizamos os servidores da Resend na União Europeia (Irlanda), ao abrigo de um acordo de tratamento de dados que inclui Cláusulas Contratuais-Tipo para qualquer transferência para fora da UE. O rastreio de aberturas e de cliques está desativado.</p>
+        @endif
     </section>
 
     <section id="retention">

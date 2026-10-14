@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. Avec qui nous partageons les données</h2>
         <p>Nous ne vendons ni ne cédons vos données à des fins commerciales. Les données de chaque refuge ne sont accessibles qu'à l'équipe de ce refuge et aux administrateurs de la plateforme. Elles peuvent également être traitées par des prestataires qui nous aident à exploiter la plateforme (hébergement et envoi d'emails), toujours avec des garanties contractuelles appropriées, ou communiquées aux autorités lorsque la loi l'exige. Pour le support, les administrateurs de la plateforme peuvent consulter les données d'un refuge en tant que l'un de ses utilisateurs, via une fonction en lecture seule ; chaque utilisation est enregistrée.</p>
+        @if (config('mail.default') === 'resend')
+            <p>Les emails envoyés par la plateforme (invitations, vérification, réinitialisation du mot de passe, notifications et messages relatifs aux demandes d'adoption) sont acheminés par <strong>Resend</strong> (Resend, Inc.), qui traite pour notre compte le nom et l'adresse email du destinataire ainsi que le contenu du message. Nous utilisons les serveurs de Resend dans l'Union européenne (Irlande), dans le cadre d'un accord de traitement des données comprenant des clauses contractuelles types pour tout transfert hors de l'UE. Le suivi des ouvertures et des clics est désactivé.</p>
+        @endif
     </section>
 
     <section id="retention">

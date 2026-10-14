@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. Komu udostępniamy dane</h2>
         <p>Nie sprzedajemy Twoich danych ani nie przekazujemy ich w celach komercyjnych. Dane każdego schroniska są dostępne wyłącznie dla zespołu tego schroniska i administratorów platformy. Mogą być również przetwarzane przez dostawców usług, którzy pomagają nam prowadzić platformę (hosting i wysyłka e-maili), zawsze z odpowiednimi zabezpieczeniami umownymi, lub ujawniane organom, gdy wymaga tego prawo. W ramach wsparcia administratorzy platformy mogą przeglądać dane schroniska jako jeden z jego użytkowników za pomocą funkcji tylko do odczytu; każde użycie jest rejestrowane.</p>
+        @if (config('mail.default') === 'resend')
+            <p>E-maile wysyłane przez platformę (zaproszenia, weryfikacja, resetowanie hasła, powiadomienia i wiadomości dotyczące wniosków adopcyjnych) są dostarczane przez <strong>Resend</strong> (Resend, Inc.), który w naszym imieniu przetwarza imię i adres e-mail odbiorcy oraz treść wiadomości. Korzystamy z serwerów Resend w Unii Europejskiej (Irlandia), na podstawie umowy powierzenia przetwarzania danych zawierającej standardowe klauzule umowne dla każdego przekazania poza UE. Śledzenie otwarć i kliknięć jest wyłączone.</p>
+        @endif
     </section>
 
     <section id="retention">

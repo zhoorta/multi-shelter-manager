@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. Hvem vi deler oplysninger med</h2>
         <p>Vi sælger ikke dine oplysninger og videregiver dem ikke til kommercielle formål. Hvert internats oplysninger er kun tilgængelige for internatets team og for platformens administratorer. De kan også behandles af leverandører, der hjælper os med at drive platformen (hosting og afsendelse af e-mails), altid med passende kontraktlige garantier, eller videregives til myndigheder, når loven kræver det. Til support kan platformens administratorer se et internats oplysninger som en af dets brugere via en skrivebeskyttet funktion; hver brug logføres.</p>
+        @if (config('mail.default') === 'resend')
+            <p>E-mails sendt fra platformen (invitationer, verificering, nulstilling af adgangskode, notifikationer og beskeder om adoptionsansøgninger) leveres via <strong>Resend</strong> (Resend, Inc.), som på vores vegne behandler modtagerens navn og e-mailadresse samt beskedens indhold. Vi bruger Resends servere i Den Europæiske Union (Irland) under en databehandleraftale, der indeholder standardkontraktbestemmelser for enhver overførsel uden for EU. Sporing af åbninger og klik er slået fra.</p>
+        @endif
     </section>
 
     <section id="retention">

@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. Vem vi delar uppgifter med</h2>
         <p>Vi säljer inte dina uppgifter och lämnar inte ut dem i kommersiellt syfte. Varje djurhems uppgifter är endast åtkomliga för det djurhemmets team och för plattformens administratörer. De kan även behandlas av tjänsteleverantörer som hjälper oss att driva plattformen (drift och utskick av e-post), alltid med lämpliga avtalsmässiga skyddsåtgärder, eller lämnas ut till myndigheter när lagen kräver det. För support kan plattformens administratörer se ett djurskydds uppgifter som en av dess användare via en skrivskyddad funktion; varje användning loggas.</p>
+        @if (config('mail.default') === 'resend')
+            <p>E-post som skickas från plattformen (inbjudningar, verifiering, återställning av lösenord, aviseringar och meddelanden om adoptionsansökningar) levereras via <strong>Resend</strong> (Resend, Inc.), som för vår räkning behandlar mottagarens namn och e-postadress samt meddelandets innehåll. Vi använder Resends servrar i Europeiska unionen (Irland), enligt ett personuppgiftsbiträdesavtal som innehåller standardavtalsklausuler för all överföring utanför EU. Spårning av öppningar och klick är avstängd.</p>
+        @endif
     </section>
 
     <section id="retention">

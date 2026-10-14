@@ -129,6 +129,9 @@
     <section id="sharing">
         <h2>5. Met wie we gegevens delen</h2>
         <p>We verkopen uw gegevens niet en geven ze niet door voor commerciële doeleinden. De gegevens van elk asiel zijn alleen toegankelijk voor het team van dat asiel en voor de beheerders van het platform. Ze kunnen ook worden verwerkt door dienstverleners die ons helpen het platform te laten draaien (hosting en e-mailverzending), altijd met passende contractuele waarborgen, of worden verstrekt aan autoriteiten wanneer de wet dat vereist. Voor ondersteuning kunnen platformbeheerders de gegevens van een asiel bekijken als een van de gebruikers, via een alleen-lezenfunctie; elk gebruik wordt vastgelegd.</p>
+        @if (config('mail.default') === 'resend')
+            <p>E-mails van het platform (uitnodigingen, verificatie, wachtwoordherstel, meldingen en berichten over adoptieaanvragen) worden verzonden via <strong>Resend</strong> (Resend, Inc.), dat namens ons de naam en het e-mailadres van de ontvanger en de inhoud van het bericht verwerkt. We gebruiken de servers van Resend in de Europese Unie (Ierland), op basis van een verwerkersovereenkomst met standaardcontractbepalingen voor elke doorgifte buiten de EU. Het volgen van openingen en klikken staat uit.</p>
+        @endif
     </section>
 
     <section id="retention">
