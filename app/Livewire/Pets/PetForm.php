@@ -596,8 +596,8 @@ class PetForm extends Component
     {
         $image = $this->scopedPetImageQuery()->findOrFail($imageId);
 
-        Storage::delete($image->image_path);
         $image->delete();
+        Storage::delete($image->image_path);
 
         unset($this->petImages);
     }

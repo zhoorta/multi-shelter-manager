@@ -1,9 +1,12 @@
 <?php
 
+use App\Livewire\Pets\PetForm;
 use App\Livewire\ShelterSwitcher;
 use App\Models\Pet;
+use App\Models\PetImage;
 use App\Models\Shelter;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -93,4 +96,19 @@ test('an invited user who has not verified their email can still be viewed, with
     $this->get(route('dashboard'))->assertOk();
 
     expect($invited->fresh())->email_verified_at->toBeNull()->last_login->toBeNull();
+});
+
+test('a photo file is not lost when its deletion is refused while viewing', function () {
+    Storage::fake();
+    Storage::put('pets/photo.jpg', 'x');
+    $pet = Pet::factory()->for($this->shelter)->create();
+    $image = PetImage::query()->create(['pet_id' => $pet->id, 'image_path' => 'pets/photo.jpg', 'is_main' => true]);
+
+    $this->actingAs($this->admin)->post(route('impersonation.start', $this->manager));
+    $this->get(route('dashboard'))->assertOk();
+
+    Livewire::actingAs($this->manager)->test(PetForm::class, ['pet' => $pet])->call('deletePetImage', $image->id)->assertForbidden();
+
+    Storage::assertExists('pets/photo.jpg');
+    expect(PetImage::query()->whereKey($image->id)->exists())->toBeTrue();
 });
