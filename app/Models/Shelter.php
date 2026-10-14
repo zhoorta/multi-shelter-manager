@@ -109,11 +109,24 @@ class Shelter extends Model
 
     /**
      * Whether an optional module is on for the shelter. A module that was
-     * never switched off (no stored choice) counts as on.
+     * never switched off (no stored choice) counts as on. Colonies also need
+     * an enabled species that has them.
      */
     public function hasModule(string $module): bool
     {
+        if ($module === 'colonies' && ! $this->hasColonySpecies()) {
+            return false;
+        }
+
         return ($this->modules[$module] ?? true) !== false;
+    }
+
+    /**
+     * Whether any species enabled for the shelter can live in colonies.
+     */
+    public function hasColonySpecies(): bool
+    {
+        return $this->species->contains('has_colonies', true);
     }
 
     /**

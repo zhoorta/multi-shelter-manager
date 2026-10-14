@@ -47,20 +47,31 @@ class ShelterProfile extends Component
         $this->shelterName = $shelter->name;
         $this->publicPageUrl = route('shelters.show', $shelter);
         $this->fillShelterProfile($shelter);
+        $this->shelterSpeciesIds = $shelter->species()->pluck('species.id')->all();
     }
 
     public function saveShelter(): void
     {
         abort_unless(Auth::user()->isManagerOf($this->shelterId), 403);
 
-        $validated = $this->validate($this->shelterProfileRules(), [], $this->shelterProfileAttributes());
+        $validated = $this->validate([
+            ...$this->shelterProfileRules(),
+            'shelterSpeciesIds' => ['array'],
+            'shelterSpeciesIds.*' => ['integer', 'exists:species,id'],
+        ], [], $this->shelterProfileAttributes());
 
         $shelter = Shelter::query()->findOrFail($this->shelterId);
         $shelter->update($this->shelterProfileData($validated));
+        $shelter->species()->sync($validated['shelterSpeciesIds'] ?? []);
 
         $this->existingLogoPath = $shelter->logo_path;
         $this->shelterLogo = null;
 
         Flux::toast(variant: 'success', text: __('Record updated successfully'));
+    }
+
+    protected function editedShelter(): ?Shelter
+    {
+        return Shelter::query()->findOrFail($this->shelterId);
     }
 }

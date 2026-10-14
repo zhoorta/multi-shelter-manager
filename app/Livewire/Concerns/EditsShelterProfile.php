@@ -4,9 +4,16 @@ declare(strict_types=1);
 
 namespace App\Livewire\Concerns;
 
+use App\Models\Cage;
+use App\Models\Colony;
+use App\Models\Pet;
 use App\Models\Region;
 use App\Models\Shelter;
+use App\Models\Species;
+use Flux\Flux;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
@@ -47,6 +54,71 @@ trait EditsShelterProfile
      * @var array<string, bool>
      */
     public array $shelterModules = [];
+
+    /**
+     * The species enabled for the shelter, kept in memory until it is saved.
+     *
+     * @var array<int, int>
+     */
+    public array $shelterSpeciesIds = [];
+
+    /**
+     * All species available to be enabled for the shelter.
+     *
+     * @return Collection<int, Species>
+     */
+    #[Computed]
+    public function species(): Collection
+    {
+        return Species::query()->orderBy('name')->get();
+    }
+
+    public function toggleSpecies(int $speciesId): void
+    {
+        if (! in_array($speciesId, $this->shelterSpeciesIds, true)) {
+            $this->shelterSpeciesIds[] = $speciesId;
+
+            return;
+        }
+
+        if ($this->speciesIsInUse($speciesId)) {
+            Flux::toast(variant: 'warning', text: __('This species has animals, cages or colonies in the shelter, so it cannot be turned off.'));
+
+            return;
+        }
+
+        $this->shelterSpeciesIds = array_values(array_diff($this->shelterSpeciesIds, [$speciesId]));
+    }
+
+    /**
+     * The shelter being edited, or null while an admin is creating it.
+     */
+    abstract protected function editedShelter(): ?Shelter;
+
+    /**
+     * Whether the shelter has animals, cages or colonies of the species, which
+     * would be orphaned by turning it off.
+     */
+    private function speciesIsInUse(int $speciesId): bool
+    {
+        $shelter = $this->editedShelter();
+
+        if ($shelter === null) {
+            return false;
+        }
+
+        return Pet::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelter->id)->where('species_id', $speciesId)->exists()
+            || Colony::query()->withoutGlobalScope('shelter')->where('shelter_id', $shelter->id)->where('species_id', $speciesId)->exists()
+            || Cage::query()->where('species_id', $speciesId)->whereHas('wing.facility', fn (Builder $query) => $query->withoutGlobalScope('shelter')->where('shelter_id', $shelter->id))->exists();
+    }
+
+    /**
+     * Whether the shelter being edited has a species that can live in colonies.
+     */
+    protected function offersColonies(): bool
+    {
+        return Species::query()->whereIn('id', $this->shelterSpeciesIds)->where('has_colonies', true)->exists();
+    }
 
     /**
      * All regions (distritos) a shelter can be located in.
@@ -93,7 +165,7 @@ trait EditsShelterProfile
      */
     public function moduleLabels(): array
     {
-        return [
+        $labels = [
             'members' => __('Members'),
             'volunteers' => __('Volunteers'),
             'sponsorships' => __('Sponsorships'),
@@ -102,6 +174,8 @@ trait EditsShelterProfile
             'health_records' => __('Vaccinations and Treatments'),
             'colonies' => __('Colonies'),
         ];
+
+        return $this->offersColonies() ? $labels : Arr::except($labels, 'colonies');
     }
 
     /**

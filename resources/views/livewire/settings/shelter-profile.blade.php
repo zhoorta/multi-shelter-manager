@@ -27,6 +27,10 @@
 
             <flux:separator class="my-2" />
 
+            @include('livewire.partials.shelter-species-fields')
+
+            <flux:separator class="my-2" />
+
             @include('livewire.partials.shelter-modules-fields')
 
             <div class="flex justify-end">

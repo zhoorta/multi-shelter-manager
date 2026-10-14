@@ -12,6 +12,7 @@ use Livewire\Livewire;
 
 beforeEach(function () {
     $this->shelter = Shelter::factory()->create();
+    $this->shelter->species()->attach(Species::factory()->create(['has_colonies' => true]));
     $this->manager = User::factory()->forShelter($this->shelter, 'manager')->create();
 });
 
@@ -88,6 +89,7 @@ test('a new shelter made by an admin starts with every module on', function () {
         ->set('shelterName', 'Novo Abrigo')
         ->set('shelterCity', 'Horta')
         ->set('shelterEmail', 'geral@novo.pt')
+        ->set('shelterSpeciesIds', [Species::factory()->create(['has_colonies' => true])->id])
         ->call('saveShelter')
         ->assertHasNoErrors();
 
@@ -138,4 +140,60 @@ test('reminder commands skip shelters with health records switched off', functio
     $this->artisan('app:send-vaccination-due-notifications')->assertSuccessful();
 
     Notification::assertNothingSent();
+});
+
+test('the colonies module needs a species with colonies and its switch is hidden without one', function () {
+    $dogsOnly = Shelter::factory()->create();
+    $dogsOnly->species()->attach(Species::factory()->create(['has_colonies' => false]));
+    $dogsManager = User::factory()->forShelter($dogsOnly, 'manager')->create();
+
+    expect($dogsOnly->hasModule('colonies'))->toBeFalse();
+    $this->actingAs($dogsManager)->get(route('colonies.index'))->assertNotFound();
+    Livewire::actingAs($dogsManager)->test(ShelterProfile::class)->assertDontSee('Colonies');
+
+    Livewire::actingAs($this->manager)->test(ShelterProfile::class)->assertSee('Colonies');
+});
+
+test('the admin form shows the colonies switch once a species with colonies is ticked', function () {
+    $dog = Species::factory()->create(['has_colonies' => false]);
+    $cat = Species::factory()->create(['has_colonies' => true]);
+
+    Livewire::actingAs(User::factory()->admin()->create())
+        ->test(ShelterForm::class)
+        ->call('toggleSpecies', $dog->id)
+        ->assertDontSeeHtml('shelterModules.colonies')
+        ->call('toggleSpecies', $cat->id)
+        ->assertSeeHtml('shelterModules.colonies');
+});
+
+test('managers turn species on and off from the shelter settings, and save the choice', function () {
+    $cat = Species::factory()->create(['name' => 'Cat']);
+    $colonySpecies = $this->shelter->species()->sole();
+
+    Livewire::actingAs($this->manager)
+        ->test(ShelterProfile::class)
+        ->assertSet('shelterSpeciesIds', [$colonySpecies->id])
+        ->call('toggleSpecies', $cat->id)
+        ->call('toggleSpecies', $colonySpecies->id)
+        ->call('saveShelter')
+        ->assertHasNoErrors();
+
+    expect($this->shelter->species()->pluck('species.id')->all())->toBe([$cat->id]);
+});
+
+test('a species with animals in the shelter cannot be turned off, but another shelter\'s animals do not block it', function () {
+    $species = $this->shelter->species()->sole();
+    $other = Shelter::factory()->create();
+    Pet::factory()->for($other)->for($species)->create();
+
+    $component = Livewire::actingAs($this->manager)
+        ->test(ShelterProfile::class)
+        ->call('toggleSpecies', $species->id)
+        ->assertSet('shelterSpeciesIds', []);
+
+    Pet::factory()->for($this->shelter)->for($species)->create();
+
+    $component->call('toggleSpecies', $species->id)
+        ->call('toggleSpecies', $species->id)
+        ->assertSet('shelterSpeciesIds', [$species->id]);
 });

@@ -133,6 +133,7 @@ test('a colony of another shelter answers 404', function () {
 function colonyPetForm(Shelter $shelter): array
 {
     $species = Species::factory()->create(['has_colonies' => true]);
+    $shelter->species()->attach($species);
 
     return [$species, Breed::factory()->for($species)->create()];
 }
@@ -239,6 +240,7 @@ test('adding an animal from a colony opens the form with the colony species', fu
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
     $colony = Colony::factory()->for($shelter)->create();
+    $shelter->species()->attach($colony->species_id);
 
     $this->get(route('colonies.show', $colony))
         ->assertSee(e(route('pets.create', ['colony' => $colony->id, 'species' => $colony->species_id])), false);
@@ -275,6 +277,7 @@ test('the add button names the colony species', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
     $colony = Colony::factory()->for($shelter)->for(Species::factory()->state(['name' => 'Gato', 'has_colonies' => true]))->create();
+    $shelter->species()->attach($colony->species_id);
 
     $this->get(route('colonies.show', $colony))->assertSee('Add Gato');
 });
@@ -283,6 +286,7 @@ test('the back buttons of the page and add form of a colony animal lead to its c
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
     $colony = Colony::factory()->for($shelter)->create(['name' => 'Cacilhas']);
+    $shelter->species()->attach($colony->species_id);
     $pet = Pet::factory()->for($shelter)->create(['species_id' => $colony->species_id, 'colony_id' => $colony->id]);
     $backLink = 'href="'.route('colonies.show', $colony).'"';
 

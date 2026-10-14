@@ -6,14 +6,11 @@ namespace App\Livewire\Admin;
 
 use App\Livewire\Concerns\EditsShelterProfile;
 use App\Models\Shelter;
-use App\Models\Species;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -31,11 +28,6 @@ class ShelterForm extends Component
      */
     public string $shelterSlug = '';
 
-    /**
-     * @var array<int, int>
-     */
-    public array $shelterSpeciesIds = [];
-
     public function mount(?Shelter $shelter = null): void
     {
         abort_unless(Auth::user()->is_admin, 403);
@@ -51,26 +43,9 @@ class ShelterForm extends Component
         $this->shelterSpeciesIds = $shelter->species()->pluck('species.id')->all();
     }
 
-    /**
-     * All species available to be enabled for the shelter.
-     *
-     * @return Collection<int, Species>
-     */
-    #[Computed]
-    public function species(): Collection
+    protected function editedShelter(): ?Shelter
     {
-        return Species::query()->orderBy('name')->get();
-    }
-
-    public function toggleSpecies(int $speciesId): void
-    {
-        if (in_array($speciesId, $this->shelterSpeciesIds, true)) {
-            $this->shelterSpeciesIds = array_values(array_diff($this->shelterSpeciesIds, [$speciesId]));
-
-            return;
-        }
-
-        $this->shelterSpeciesIds[] = $speciesId;
+        return $this->shelter;
     }
 
     public function saveShelter(): void

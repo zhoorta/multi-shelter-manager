@@ -30,21 +30,7 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-            <div class="flex flex-col gap-1">
-                <flux:heading size="lg">{{ __('Species') }}</flux:heading>
-                <flux:subheading>
-                    {{ __('Controls which species appear on the sidebar for this shelter\'s manager and staff users.') }}
-                </flux:subheading>
-            </div>
-
-            @foreach ($this->species as $item)
-                <flux:switch
-                    :checked="in_array($item->id, $shelterSpeciesIds, true)"
-                    wire:click="toggleSpecies({{ $item->id }})"
-                    :label="$item->name"
-                    align="left"
-                />
-            @endforeach
+            @include('livewire.partials.shelter-species-fields')
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
