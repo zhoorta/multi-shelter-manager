@@ -6,9 +6,11 @@ use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
+use App\Models\PetImage;
 use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\User;
+use App\Models\Volunteer;
 use App\Models\Wing;
 use Livewire\Livewire;
 
@@ -108,4 +110,23 @@ test('lists invited users who never logged in, oldest invitation first', functio
 
     Livewire::test(PlatformOverview::class)
         ->assertSeeInOrder([__('Invitations not accepted'), 'Older Invite', 'older@example.com', 'Faial Shelter', '01/09/2026', 'Newer Invite']);
+});
+
+test('shows the storage used by each shelter and the platform total', function () {
+    $shelter = Shelter::factory()->create(['logo_size' => 1024 * 1024]);
+    $other = Shelter::factory()->create(['logo_size' => null]);
+
+    $pet = Pet::factory()->create(['shelter_id' => $shelter->id]);
+    PetImage::factory()->create(['pet_id' => $pet->id, 'file_size' => 2 * 1024 * 1024]);
+    PetImage::factory()->create(['pet_id' => $pet->id, 'file_size' => null]);
+    Volunteer::factory()->create(['shelter_id' => $shelter->id, 'image_size' => 512 * 1024]);
+
+    $component = Livewire::test(PlatformOverview::class);
+
+    expect($component->instance()->storageByShelter)->toEqual([
+        $shelter->id => 1024 * 1024 + 2 * 1024 * 1024 + 512 * 1024,
+        $other->id => 0,
+    ]);
+
+    $component->assertSee(__('Total storage'))->assertSee('3.5 MB');
 });

@@ -572,6 +572,7 @@ class PetForm extends Component
             PetImage::query()->create([
                 'pet_id' => $pet->id,
                 'image_path' => $photo->store('pets'),
+                'file_size' => $photo->getSize(),
                 'is_main' => ! $hasMainImage,
             ]);
 

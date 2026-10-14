@@ -249,6 +249,7 @@ trait EditsShelterProfile
             }
 
             $data['logo_path'] = $this->shelterLogo->store('shelters');
+            $data['logo_size'] = $this->shelterLogo->getSize();
         }
 
         return $data;

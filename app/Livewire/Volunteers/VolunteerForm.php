@@ -250,6 +250,7 @@ class VolunteerForm extends Component
             }
 
             $attributes['image_path'] = $this->volunteerImage->store('volunteers');
+            $attributes['image_size'] = $this->volunteerImage->getSize();
         }
 
         $isEditing = $this->volunteer !== null;

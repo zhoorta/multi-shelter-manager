@@ -16,12 +16,13 @@
             || $this->speciesWithoutBreeds->isNotEmpty();
     @endphp
 
-    <div class="grid gap-4 sm:grid-cols-2">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         @foreach ([
             ['label' => __('Shelters'), 'count' => $this->totals['shelters']],
             ['label' => __('Active users (last 30 days)'), 'count' => $this->totals['activeUsers']],
             ['label' => __('Pets in Shelter'), 'count' => $this->totals['petsInCare']],
             ['label' => __('Adoptions This Year'), 'count' => $this->totals['adoptionsThisYear']],
+            ['label' => __('Total storage'), 'count' => \Illuminate\Support\Number::fileSize(array_sum($this->storageByShelter), precision: 1)],
         ] as $counter)
             <div wire:key="platform-counter-{{ $loop->index }}" class="{{ $cardClass }}">
                 <span class="text-sm font-medium {{ $mutedClass }}">{{ $counter['label'] }}</span>
@@ -44,6 +45,7 @@
                         <th scope="col" class="px-6 py-3 text-center font-medium">{{ __('Adoptions This Year') }}</th>
                         <th scope="col" class="px-6 py-3 font-medium">{{ __('Last login') }}</th>
                         <th scope="col" class="px-6 py-3 font-medium">{{ __('Last pet update') }}</th>
+                        <th scope="col" class="px-6 py-3 font-medium">{{ __('Storage') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -68,10 +70,11 @@
                                 'text-amber-600 dark:text-amber-400' => ! $lastLogin || $lastLogin->lessThan($inactiveSince),
                             ])>{{ $lastLogin?->format('d/m/Y') ?? __('Never') }}</td>
                             <td class="px-6 py-3">{{ $lastPetUpdate?->format('d/m/Y') ?? '—' }}</td>
+                            <td class="px-6 py-3">{{ \Illuminate\Support\Number::fileSize($this->storageByShelter[$shelter->id] ?? 0, precision: 1) }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-6 text-center {{ $mutedClass }}">{{ __('No shelters registered') }}</td>
+                            <td colspan="6" class="px-6 py-6 text-center {{ $mutedClass }}">{{ __('No shelters registered') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

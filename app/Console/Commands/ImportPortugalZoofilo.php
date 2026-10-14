@@ -1121,6 +1121,7 @@ class ImportPortugalZoofilo extends Command
             PetImage::query()->create([
                 'pet_id' => $pet->id,
                 'image_path' => $path,
+                'file_size' => strlen($response->body()),
                 'is_main' => $saved === 0,
             ]);
 

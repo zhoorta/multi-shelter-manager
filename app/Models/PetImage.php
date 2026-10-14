@@ -16,13 +16,14 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $pet_id
  * @property string $image_path
+ * @property int|null $file_size
  * @property bool $is_main
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
  */
-#[Fillable(['pet_id', 'image_path', 'is_main'])]
+#[Fillable(['pet_id', 'image_path', 'file_size', 'is_main'])]
 class PetImage extends Model
 {
     /** @use HasFactory<PetImageFactory> */

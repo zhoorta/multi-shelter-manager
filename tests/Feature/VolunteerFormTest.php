@@ -133,6 +133,7 @@ test('uploads and replaces a volunteer photo', function () {
     $firstImagePath = $volunteer->fresh()->image_path;
     expect($firstImagePath)->not->toBeNull();
     Storage::disk('public')->assertExists($firstImagePath);
+    expect($volunteer->fresh()->image_size)->toBe(Storage::disk('public')->size($firstImagePath));
 
     Livewire::test(VolunteerForm::class, ['volunteer' => $volunteer->fresh()])
         ->set('volunteerImage', UploadedFile::fake()->image('photo-2.png'))

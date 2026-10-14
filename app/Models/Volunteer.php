@@ -26,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $tin
  * @property Carbon|null $birth_date
  * @property string|null $image_path
+ * @property int|null $image_size
  * @property string|null $professional_activity
  * @property string|null $email
  * @property string|null $phone
@@ -47,7 +48,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  */
 #[Fillable([
-    'shelter_id', 'name', 'gender', 'id_card', 'tin', 'birth_date', 'image_path', 'professional_activity',
+    'shelter_id', 'name', 'gender', 'id_card', 'tin', 'birth_date', 'image_path', 'image_size', 'professional_activity',
     'email', 'phone', 'address', 'postal_code', 'city', 'transport_mode', 'attendance_evaluation',
     'performance_evaluation', 'start_date', 'end_date', 'send_newsletter', 'notes',
 ])]

@@ -183,6 +183,7 @@ test('uploads and replaces a shelter logo', function () {
     $firstLogoPath = $shelter->fresh()->logo_path;
     expect($firstLogoPath)->not->toBeNull();
     Storage::disk('public')->assertExists($firstLogoPath);
+    expect($shelter->fresh()->logo_size)->toBe(Storage::disk('public')->size($firstLogoPath));
 
     Livewire::test(ShelterForm::class, ['shelter' => $shelter->fresh()])
         ->set('shelterLogo', UploadedFile::fake()->image('logo-2.png'))

@@ -81,6 +81,37 @@ class PlatformOverview extends Component
     }
 
     /**
+     * Bytes of uploaded files per shelter id: pet photos, volunteer photos
+     * and the logo. Soft-deleted pets and volunteers still hold their files.
+     *
+     * @return array<int, int>
+     */
+    #[Computed]
+    public function storageByShelter(): array
+    {
+        $petPhotos = DB::table('pet_images')
+            ->join('pets', 'pets.id', '=', 'pet_images.pet_id')
+            ->groupBy('pets.shelter_id')
+            ->selectRaw('pets.shelter_id as shelter_id, SUM(pet_images.file_size) as bytes')
+            ->pluck('bytes', 'shelter_id');
+
+        $volunteerPhotos = DB::table('volunteers')
+            ->groupBy('shelter_id')
+            ->selectRaw('shelter_id, SUM(image_size) as bytes')
+            ->pluck('bytes', 'shelter_id');
+
+        $logos = DB::table('shelters')->pluck('logo_size', 'id');
+
+        return $this->shelters
+            ->mapWithKeys(fn (Shelter $shelter): array => [
+                $shelter->id => (int) ($petPhotos[$shelter->id] ?? 0)
+                    + (int) ($volunteerPhotos[$shelter->id] ?? 0)
+                    + (int) ($logos[$shelter->id] ?? 0),
+            ])
+            ->all();
+    }
+
+    /**
      * Shelters their users can't work in yet: no species enabled, no cage
      * to place animals in, or nobody invited.
      *

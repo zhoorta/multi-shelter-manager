@@ -735,6 +735,7 @@ test('stores an uploaded photo as the pet\'s main image', function () {
     expect($image)->not->toBeNull();
     expect($image->is_main)->toBeTrue();
     Storage::disk('public')->assertExists($image->image_path);
+    expect($image->file_size)->toBe(Storage::disk('public')->size($image->image_path));
 });
 
 test('stores multiple uploaded photos, flagging only the first as main', function () {

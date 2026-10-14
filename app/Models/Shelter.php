@@ -23,6 +23,7 @@ use Illuminate\Support\Str;
  * @property string $city
  * @property int|null $region_id
  * @property string|null $logo_path
+ * @property int|null $logo_size
  * @property string|null $address
  * @property string|null $postal_code
  * @property string|null $phone
@@ -37,7 +38,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['name', 'short_name', 'slug', 'city', 'region_id', 'logo_path', 'address', 'postal_code', 'phone', 'email', 'website', 'description', 'joining_fee', 'membership_fee', 'membership_fee_frequency', 'modules'])]
+#[Fillable(['name', 'short_name', 'slug', 'city', 'region_id', 'logo_path', 'logo_size', 'address', 'postal_code', 'phone', 'email', 'website', 'description', 'joining_fee', 'membership_fee', 'membership_fee_frequency', 'modules'])]
 class Shelter extends Model
 {
     /** @use HasFactory<ShelterFactory> */
