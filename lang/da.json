@@ -772,5 +772,6 @@
     "No neutering info": "Ingen kastreringsinfo",
     "Colony info": "Koloniinfo",
     "Its animals stay registered without a colony and need a new location.": "Dyrene forbliver registreret uden koloni og har brug for en ny placering.",
-    "This invitation link will expire in :count days.": "Dette invitationslink udløber om :count dage."
+    "This invitation link will expire in :count days.": "Dette invitationslink udløber om :count dage.",
+    "This password reset link will expire in :count days.": "Dette link til nulstilling af adgangskoden udløber om :count dage."
 }

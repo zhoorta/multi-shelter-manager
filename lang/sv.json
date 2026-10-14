@@ -772,5 +772,6 @@
     "No neutering info": "Ingen kastreringsinfo",
     "Colony info": "Koloniinformation",
     "Its animals stay registered without a colony and need a new location.": "Djuren förblir registrerade utan koloni och behöver en ny plats.",
-    "This invitation link will expire in :count days.": "Denna inbjudningslänk upphör att gälla om :count dagar."
+    "This invitation link will expire in :count days.": "Denna inbjudningslänk upphör att gälla om :count dagar.",
+    "This password reset link will expire in :count days.": "Denna länk för att återställa lösenordet upphör att gälla om :count dagar."
 }

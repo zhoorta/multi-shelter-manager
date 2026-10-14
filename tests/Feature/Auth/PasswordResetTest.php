@@ -157,3 +157,17 @@ test('reset password email subject is translated to portuguese', function () {
         return $notification->toMail($user)->subject === 'Redefina a sua palavra-passe';
     });
 });
+
+test('reset password email shows the expiry in days', function () {
+    Notification::fake();
+
+    $user = User::factory()->create();
+
+    $this->post(route('password.email'), ['email' => $user->email]);
+
+    Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
+        $mail = $notification->toMail($user);
+
+        return in_array(__('This password reset link will expire in :count days.', ['count' => 15]), $mail->outroLines, true);
+    });
+});

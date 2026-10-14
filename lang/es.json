@@ -772,5 +772,6 @@
     "No neutering info": "Sin información de esterilización",
     "Colony info": "Información de la colonia",
     "Its animals stay registered without a colony and need a new location.": "Sus animales siguen registrados sin colonia y necesitan una nueva ubicación.",
-    "This invitation link will expire in :count days.": "Este enlace de invitación caduca en :count días."
+    "This invitation link will expire in :count days.": "Este enlace de invitación caduca en :count días.",
+    "This password reset link will expire in :count days.": "Este enlace de restablecimiento de contraseña caduca en :count días."
 }

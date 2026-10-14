@@ -772,5 +772,6 @@
     "No neutering info": "Geen sterilisatie-informatie",
     "Colony info": "Koloniegegevens",
     "Its animals stay registered without a colony and need a new location.": "De dieren blijven zonder kolonie geregistreerd en hebben een nieuwe locatie nodig.",
-    "This invitation link will expire in :count days.": "Deze uitnodigingslink verloopt over :count dagen."
+    "This invitation link will expire in :count days.": "Deze uitnodigingslink verloopt over :count dagen.",
+    "This password reset link will expire in :count days.": "Deze link om uw wachtwoord opnieuw in te stellen verloopt over :count dagen."
 }
