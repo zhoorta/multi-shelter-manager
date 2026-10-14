@@ -85,3 +85,12 @@ test('the users list offers the view-as button to admins only, for non-admin use
     $this->actingAs($this->manager)->get(route('admin.users.index'))
         ->assertDontSee('data-test="impersonate-', false);
 });
+
+test('an invited user who has not verified their email can still be viewed, without being verified or logged in', function () {
+    $invited = User::factory()->unverified()->forShelter($this->shelter, 'manager')->create(['last_login' => null]);
+
+    $this->actingAs($this->admin)->post(route('impersonation.start', $invited));
+    $this->get(route('dashboard'))->assertOk();
+
+    expect($invited->fresh())->email_verified_at->toBeNull()->last_login->toBeNull();
+});

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureEmailIsVerifiedUnlessImpersonating;
 use App\Http\Middleware\EnsureModuleEnabled;
 use App\Http\Middleware\ReadOnlyWhileImpersonating;
 use App\Http\Middleware\SetLocale;
@@ -22,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'module' => EnsureModuleEnabled::class,
+            'verified' => EnsureEmailIsVerifiedUnlessImpersonating::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
