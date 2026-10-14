@@ -112,12 +112,12 @@ img {
 /* Logo */
 
 .logo {
-    height: 64px;
+    height: 48px;
     margin-top: 15px;
     margin-bottom: 10px;
-    max-height: 64px;
-    width: 64px;
-    border-radius: 16px;
+    max-height: 48px;
+    width: 48px;
+    border-radius: 12px;
 }
 
 /* Body */

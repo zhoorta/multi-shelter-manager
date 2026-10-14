@@ -10,5 +10,6 @@ test('mails use the app logo and the orange brand colour', function () {
 
     expect($html)
         ->toContain(asset('apple-touch-icon.png'))
-        ->toContain('#ff8904');
+        ->toContain('#ff8904')
+        ->toContain('>Focinhos</span>');
 });
