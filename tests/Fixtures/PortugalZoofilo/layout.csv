@@ -1,0 +1,5 @@
+jaula_id;jaula_referencia;tipanim_nome;ala_id;ala_nome;instal_id;instal_nome;jaula_lotacao_actual;jaula_lotacao_max
+210;box 01;Cão;18;Zona Interior;9;canil;0;1
+212;box 03;Cão;18;Zona Interior;9;canil;5;5
+226;em FAT;Cão;21;FAT;9;canil;0;0
+245;Gatos;Gato;26;Apelos;9;canil;0;1

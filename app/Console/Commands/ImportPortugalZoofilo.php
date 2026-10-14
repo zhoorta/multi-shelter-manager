@@ -8,6 +8,7 @@ use App\Models\Adoption;
 use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Color;
+use App\Models\Facility;
 use App\Models\FurType;
 use App\Models\Member;
 use App\Models\Pet;
@@ -17,6 +18,7 @@ use App\Models\Size;
 use App\Models\Species;
 use App\Models\Sponsorship;
 use App\Models\Volunteer;
+use App\Models\Wing;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
@@ -38,6 +40,8 @@ use Throwable;
     {--sponsorships= : Sponsorships CSV (optional)}
     {--members= : Members (sócios) CSV, which can be imported on its own without --animal and --animals}
     {--volunteers= : Volunteers CSV, which can be imported on its own without --animal and --animals}
+    {--layout= : Capacity ("Lotação") CSV that creates the facilities, wings and cages the animals sit in, before they are imported}
+    {--foster-wings=* : Names of the wings in --layout that are foster homes}
     {--quotas=* : Paid quotas CSVs (one per year), imported with or after --members}
     {--with-portal : Also download each animal\'s biography and photos from portugalzoofilo.net}
     {--institution= : The shelter\'s Portugal Zoófilo institution id, required by --with-portal}
@@ -70,7 +74,7 @@ class ImportPortugalZoofilo extends Command
      * The export's file header columns: the first column of the header
      * line of each kind of file.
      */
-    private const array HEADER_COLUMNS = ['animal_id', 'pessoa_id', 'quota_id'];
+    private const array HEADER_COLUMNS = ['animal_id', 'pessoa_id', 'quota_id', 'jaula_id'];
 
     /**
      * The export's availability column prefix for each day, Monday first,
@@ -155,6 +159,14 @@ class ImportPortugalZoofilo extends Command
             return self::FAILURE;
         }
 
+        $layoutRows = $this->readCsv($this->option('layout'));
+
+        if ($this->option('layout') !== null && $layoutRows === null) {
+            $this->error("Layout file not found: {$this->option('layout')}");
+
+            return self::FAILURE;
+        }
+
         $quotaRows = [];
 
         foreach ($this->option('quotas') as $quotasFile) {
@@ -169,7 +181,7 @@ class ImportPortugalZoofilo extends Command
             array_push($quotaRows, ...$rows);
         }
 
-        $importsAnimals = $this->option('animals') !== null || ($memberRows === null && $volunteerRows === null && $quotaRows === []);
+        $importsAnimals = $this->option('animals') !== null || ($memberRows === null && $volunteerRows === null && $layoutRows === null && $quotaRows === []);
         $animal = self::ANIMALS[$this->option('animal')] ?? null;
 
         if ($importsAnimals && $animal === null) {
@@ -206,6 +218,7 @@ class ImportPortugalZoofilo extends Command
         DB::beginTransaction();
 
         try {
+            $this->importLayout($shelter, $layoutRows ?? []);
             $pets = $importsAnimals ? $this->importAnimals($shelter, $species, $animalRows) : [];
             $adoptionCount = $this->importAdoptions($pets, $adoptionRows);
             $sponsorshipCount = $this->importSponsorships($pets, $sponsorshipRows);
@@ -278,6 +291,46 @@ class ImportPortugalZoofilo extends Command
         fclose($handle);
 
         return $rows;
+    }
+
+    /**
+     * Create the facilities, wings and cages listed in the capacity export,
+     * for the species the shelter has enabled, so a re-run adds only what is
+     * missing. The cage's capacity is the export's maximum occupancy.
+     *
+     * @param  array<int, array<string, string>>  $rows
+     */
+    private function importLayout(Shelter $shelter, array $rows): void
+    {
+        $speciesByName = $shelter->species()->get()->keyBy(fn (Species $species): string => mb_strtolower($species->name));
+        $fosterWings = array_map(mb_strtolower(...), $this->option('foster-wings'));
+        $created = 0;
+
+        foreach ($rows as $row) {
+            $species = $speciesByName->get(mb_strtolower($row['tipanim_nome']));
+
+            if ($species === null) {
+                $this->addWarning($row['jaula_referencia'], "Cage skipped: {$row['tipanim_nome']} is not enabled for the shelter");
+
+                continue;
+            }
+
+            $facility = Facility::query()->firstOrCreate(['shelter_id' => $shelter->id, 'name' => $row['instal_nome']]);
+            $wing = Wing::query()->firstOrCreate(
+                ['facility_id' => $facility->id, 'name' => $row['ala_nome']],
+                ['is_foster' => in_array(mb_strtolower($row['ala_nome']), $fosterWings, true)],
+            );
+            $cage = Cage::query()->firstOrCreate(
+                ['wing_id' => $wing->id, 'code' => $row['jaula_referencia']],
+                ['species_id' => $species->id, 'capacity' => max((int) $row['jaula_lotacao_max'], 1)],
+            );
+
+            $created += (int) $cage->wasRecentlyCreated;
+        }
+
+        if ($rows !== []) {
+            $this->info("Layout: {$created} new cages.");
+        }
     }
 
     /**

@@ -500,3 +500,22 @@ test('fails without importing when a quotas file does not exist', function () {
         ->expectsOutputToContain('Quotas file not found: missing.csv')
         ->assertFailed();
 });
+
+test('creates the facility, wings and cages from the layout for the enabled species only, and can be re-run', function () {
+    $shelter = Shelter::factory()->create();
+    $shelter->species()->attach(Species::factory()->create(['name' => 'Cão']));
+    $options = [
+        '--shelter' => $shelter->id,
+        '--layout' => base_path('tests/Fixtures/PortugalZoofilo/layout.csv'),
+        '--foster-wings' => ['FAT'],
+    ];
+
+    $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
+    $this->artisan('app:import-portugal-zoofilo', $options)->assertSuccessful();
+
+    $facility = Facility::query()->where('shelter_id', $shelter->id)->sole();
+    expect($facility->name)->toBe('canil')
+        ->and(Wing::query()->where('facility_id', $facility->id)->pluck('is_foster', 'name')->all())->toBe(['Zona Interior' => false, 'FAT' => true])
+        ->and(Cage::query()->whereIn('wing_id', Wing::query()->where('facility_id', $facility->id)->select('id'))->pluck('capacity', 'code')->all())
+        ->toBe(['box 01' => 1, 'box 03' => 5, 'em FAT' => 1]);
+});
