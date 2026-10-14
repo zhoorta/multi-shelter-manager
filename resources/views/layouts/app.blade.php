@@ -6,6 +6,14 @@
             <div class="absolute bottom-0 left-1/2 size-72 rounded-full bg-sky-200/50 blur-3xl dark:bg-sky-900/20"></div>
         </div>
 
+        @if (session()->has(\App\Http\Middleware\ReadOnlyWhileImpersonating::SESSION_KEY))
+            <form method="POST" action="{{ route('impersonation.stop') }}" data-test="impersonation-banner" class="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-amber-300 bg-amber-100 px-4 py-2 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-900/40 dark:text-amber-100">
+                @csrf
+                <span>{{ __('Viewing as :name (read-only)', ['name' => auth()->user()->name]) }}</span>
+                <flux:button type="submit" size="sm" variant="filled">{{ __('Stop viewing') }}</flux:button>
+            </form>
+        @endif
+
         {{ $slot }}
     </flux:main>
 </x-layouts::app.sidebar>

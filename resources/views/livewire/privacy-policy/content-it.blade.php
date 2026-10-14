@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Informativa sulla Privacy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Ultimo aggiornamento: 26 settembre 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Ultimo aggiornamento: 14 ottobre 2026</p>
         <p>{{ config('app.name') }} è una piattaforma che riunisce diversi rifugi per animali. Prendiamo sul serio la protezione dei tuoi dati personali e li trattiamo in conformità al Regolamento Generale sulla Protezione dei Dati (GDPR) e al Codice in materia di protezione dei dati personali (D.Lgs. 196/2003, come modificato dal D.Lgs. 101/2018). Questa informativa spiega quali dati trattiamo, perché, per quanto tempo e quali sono i tuoi diritti.</p>
     </header>
 
@@ -128,7 +128,7 @@
 
     <section id="sharing">
         <h2>5. Con chi condividiamo i dati</h2>
-        <p>Non vendiamo né cediamo i tuoi dati a fini commerciali. I dati di ogni rifugio sono accessibili solo al team di quel rifugio e agli amministratori della piattaforma. Possono inoltre essere trattati da fornitori di servizi che ci aiutano a gestire la piattaforma (hosting e invio email), sempre con adeguate garanzie contrattuali, oppure comunicati alle autorità quando richiesto dalla legge.</p>
+        <p>Non vendiamo né cediamo i tuoi dati a fini commerciali. I dati di ogni rifugio sono accessibili solo al team di quel rifugio e agli amministratori della piattaforma. Possono inoltre essere trattati da fornitori di servizi che ci aiutano a gestire la piattaforma (hosting e invio email), sempre con adeguate garanzie contrattuali, oppure comunicati alle autorità quando richiesto dalla legge. Per l'assistenza, gli amministratori della piattaforma possono consultare i dati di un rifugio come se fossero uno dei suoi utenti, tramite una funzione di sola lettura; ogni utilizzo viene registrato.</p>
     </section>
 
     <section id="retention">

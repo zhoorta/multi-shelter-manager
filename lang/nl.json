@@ -774,5 +774,10 @@
     "Its animals stay registered without a colony and need a new location.": "De dieren blijven zonder kolonie geregistreerd en hebben een nieuwe locatie nodig.",
     "This invitation link will expire in :count days.": "Deze uitnodigingslink verloopt over :count dagen.",
     "This password reset link will expire in :count days.": "Deze link om uw wachtwoord opnieuw in te stellen verloopt over :count dagen.",
-    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "Deze soort heeft dieren, kooien of kolonies in het asiel en kan daarom niet worden uitgezet."
+    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "Deze soort heeft dieren, kooien of kolonies in het asiel en kan daarom niet worden uitgezet.",
+    "Not available while viewing as another user.": "Niet beschikbaar tijdens het bekijken als een andere gebruiker.",
+    "Read-only while viewing as another user.": "Alleen lezen tijdens het bekijken als een andere gebruiker.",
+    "Viewing as :name (read-only)": "Bekijken als :name (alleen lezen)",
+    "Stop viewing": "Stoppen",
+    "View as this user": "Bekijken als deze gebruiker"
 }

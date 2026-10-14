@@ -774,5 +774,10 @@
     "Its animals stay registered without a colony and need a new location.": "Dyrene forbliver registreret uden koloni og har brug for en ny placering.",
     "This invitation link will expire in :count days.": "Dette invitationslink udløber om :count dage.",
     "This password reset link will expire in :count days.": "Dette link til nulstilling af adgangskoden udløber om :count dage.",
-    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "Denne art har dyr, bure eller kolonier i internatet og kan derfor ikke slås fra."
+    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "Denne art har dyr, bure eller kolonier i internatet og kan derfor ikke slås fra.",
+    "Not available while viewing as another user.": "Ikke tilgængeligt, mens du ser som en anden bruger.",
+    "Read-only while viewing as another user.": "Skrivebeskyttet, mens du ser som en anden bruger.",
+    "Viewing as :name (read-only)": "Ser som :name (skrivebeskyttet)",
+    "Stop viewing": "Afslut",
+    "View as this user": "Se som denne bruger"
 }

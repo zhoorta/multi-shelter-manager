@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privatlivspolitik</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Senest opdateret: 26. september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Senest opdateret: 14. oktober 2026</p>
         <p>{{ config('app.name') }} er en platform, der samler flere dyreinternater. Vi tager beskyttelsen af dine personoplysninger alvorligt og behandler dem i overensstemmelse med databeskyttelsesforordningen (GDPR) og databeskyttelsesloven (lov nr. 502 af 23. maj 2018). Denne politik forklarer, hvilke oplysninger vi behandler, hvorfor, hvor længe, og hvilke rettigheder du har.</p>
     </header>
 
@@ -128,7 +128,7 @@
 
     <section id="sharing">
         <h2>5. Hvem vi deler oplysninger med</h2>
-        <p>Vi sælger ikke dine oplysninger og videregiver dem ikke til kommercielle formål. Hvert internats oplysninger er kun tilgængelige for internatets team og for platformens administratorer. De kan også behandles af leverandører, der hjælper os med at drive platformen (hosting og afsendelse af e-mails), altid med passende kontraktlige garantier, eller videregives til myndigheder, når loven kræver det.</p>
+        <p>Vi sælger ikke dine oplysninger og videregiver dem ikke til kommercielle formål. Hvert internats oplysninger er kun tilgængelige for internatets team og for platformens administratorer. De kan også behandles af leverandører, der hjælper os med at drive platformen (hosting og afsendelse af e-mails), altid med passende kontraktlige garantier, eller videregives til myndigheder, når loven kræver det. Til support kan platformens administratorer se et internats oplysninger som en af dets brugere via en skrivebeskyttet funktion; hver brug logføres.</p>
     </section>
 
     <section id="retention">

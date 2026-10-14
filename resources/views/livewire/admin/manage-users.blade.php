@@ -81,6 +81,21 @@
                                             />
                                         @endif
 
+                                        @if (auth()->user()->is_admin && ! $item->is_admin && $item->id !== auth()->id())
+                                            <form method="POST" action="{{ route('impersonation.start', $item) }}">
+                                                @csrf
+                                                <flux:button
+                                                    type="submit"
+                                                    size="sm"
+                                                    variant="subtle"
+                                                    icon="eye"
+                                                    :title="__('View as this user')"
+                                                    :aria-label="__('View as this user')"
+                                                    data-test="impersonate-{{ $item->id }}"
+                                                />
+                                            </form>
+                                        @endif
+
                                         @unless ($item->id === auth()->id())
                                             <flux:modal.trigger name="confirm-user-deletion-{{ $item->id }}">
                                                 <flux:button

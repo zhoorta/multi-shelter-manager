@@ -774,5 +774,10 @@
     "Its animals stay registered without a colony and need a new location.": "Djuren förblir registrerade utan koloni och behöver en ny plats.",
     "This invitation link will expire in :count days.": "Denna inbjudningslänk upphör att gälla om :count dagar.",
     "This password reset link will expire in :count days.": "Denna länk för att återställa lösenordet upphör att gälla om :count dagar.",
-    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "Den här arten har djur, burar eller kolonier i djurskyddet och kan därför inte stängas av."
+    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "Den här arten har djur, burar eller kolonier i djurskyddet och kan därför inte stängas av.",
+    "Not available while viewing as another user.": "Inte tillgängligt när du visar som en annan användare.",
+    "Read-only while viewing as another user.": "Skrivskyddat när du visar som en annan användare.",
+    "Viewing as :name (read-only)": "Visar som :name (skrivskyddat)",
+    "Stop viewing": "Avsluta",
+    "View as this user": "Visa som den här användaren"
 }

@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Integritetspolicy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Senast uppdaterad: 26 september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Senast uppdaterad: 14 oktober 2026</p>
         <p>{{ config('app.name') }} är en plattform som samlar flera djurhem. Vi tar skyddet av dina personuppgifter på allvar och behandlar dem i enlighet med dataskyddsförordningen (GDPR) och lagen (2018:218) med kompletterande bestämmelser till EU:s dataskyddsförordning (dataskyddslagen). Denna policy förklarar vilka uppgifter vi behandlar, varför, hur länge och vilka rättigheter du har.</p>
     </header>
 
@@ -128,7 +128,7 @@
 
     <section id="sharing">
         <h2>5. Vem vi delar uppgifter med</h2>
-        <p>Vi säljer inte dina uppgifter och lämnar inte ut dem i kommersiellt syfte. Varje djurhems uppgifter är endast åtkomliga för det djurhemmets team och för plattformens administratörer. De kan även behandlas av tjänsteleverantörer som hjälper oss att driva plattformen (drift och utskick av e-post), alltid med lämpliga avtalsmässiga skyddsåtgärder, eller lämnas ut till myndigheter när lagen kräver det.</p>
+        <p>Vi säljer inte dina uppgifter och lämnar inte ut dem i kommersiellt syfte. Varje djurhems uppgifter är endast åtkomliga för det djurhemmets team och för plattformens administratörer. De kan även behandlas av tjänsteleverantörer som hjälper oss att driva plattformen (drift och utskick av e-post), alltid med lämpliga avtalsmässiga skyddsåtgärder, eller lämnas ut till myndigheter när lagen kräver det. För support kan plattformens administratörer se ett djurskydds uppgifter som en av dess användare via en skrivskyddad funktion; varje användning loggas.</p>
     </section>
 
     <section id="retention">

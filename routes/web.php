@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\RobotsController;
 use App\Http\Controllers\ShelterFeedController;
@@ -148,6 +149,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     Route::livewire('reports', ShelterReports::class)->middleware('module:reports')->name('reports.index');
     Route::livewire('reports/print', ShelterReportPrint::class)->middleware('module:reports')->name('reports.print');
+
+    Route::post('admin/users/{user}/impersonate', [ImpersonationController::class, 'start'])->name('impersonation.start');
+    Route::post('impersonation/stop', [ImpersonationController::class, 'stop'])->name('impersonation.stop');
 
     // Administration routes.
     Route::livewire('admin/users', ManageUsers::class)->name('admin.users.index');

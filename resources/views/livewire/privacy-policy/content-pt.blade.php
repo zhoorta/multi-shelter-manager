@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Política de Privacidade</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Última atualização: 26 de setembro de 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Última atualização: 14 de outubro de 2026</p>
         <p>O {{ config('app.name') }} é uma plataforma que junta vários abrigos de animais. Levamos a proteção dos seus dados pessoais a sério e tratamo-los de acordo com o Regulamento Geral sobre a Proteção de Dados (RGPD) e a legislação portuguesa aplicável. Esta política explica que dados tratamos, para quê, durante quanto tempo e quais são os seus direitos.</p>
     </header>
 
@@ -128,7 +128,7 @@
 
     <section id="sharing">
         <h2>5. Com quem partilhamos os dados</h2>
-        <p>Não vendemos nem cedemos os seus dados para fins comerciais. Os dados de cada abrigo só são acessíveis à equipa desse abrigo e aos administradores da plataforma. Podem ainda ser tratados por prestadores de serviços que nos ajudam a operar a plataforma (alojamento e envio de e-mails), sempre com garantias contratuais adequadas, ou comunicados às autoridades quando a lei o exija.</p>
+        <p>Não vendemos nem cedemos os seus dados para fins comerciais. Os dados de cada abrigo só são acessíveis à equipa desse abrigo e aos administradores da plataforma. Podem ainda ser tratados por prestadores de serviços que nos ajudam a operar a plataforma (alojamento e envio de e-mails), sempre com garantias contratuais adequadas, ou comunicados às autoridades quando a lei o exija. Para dar apoio, os administradores da plataforma podem consultar os dados de um abrigo como se fossem um dos seus utilizadores, através de uma função só de leitura; cada utilização fica registada.</p>
     </section>
 
     <section id="retention">

@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Política de Privacidad</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Última actualización: 26 de septiembre de 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Última actualización: 14 de octubre de 2026</p>
         <p>{{ config('app.name') }} es una plataforma que reúne a varios refugios de animales. Nos tomamos en serio la protección de sus datos personales y los tratamos de acuerdo con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Esta política explica qué datos tratamos, por qué, durante cuánto tiempo y cuáles son sus derechos.</p>
     </header>
 
@@ -128,7 +128,7 @@
 
     <section id="sharing">
         <h2>5. Con quién compartimos los datos</h2>
-        <p>No vendemos ni cedemos sus datos con fines comerciales. Los datos de cada refugio solo son accesibles para el equipo de ese refugio y para los administradores de la plataforma. También pueden ser tratados por proveedores de servicios que nos ayudan a operar la plataforma (alojamiento y envío de emails), siempre con las garantías contractuales adecuadas, o comunicados a las autoridades cuando así lo exija la ley.</p>
+        <p>No vendemos ni cedemos sus datos con fines comerciales. Los datos de cada refugio solo son accesibles para el equipo de ese refugio y para los administradores de la plataforma. También pueden ser tratados por proveedores de servicios que nos ayudan a operar la plataforma (alojamiento y envío de emails), siempre con las garantías contractuales adecuadas, o comunicados a las autoridades cuando así lo exija la ley. Para dar soporte, los administradores de la plataforma pueden consultar los datos de un refugio como si fueran uno de sus usuarios mediante una función de solo lectura; cada uso queda registrado.</p>
     </section>
 
     <section id="retention">

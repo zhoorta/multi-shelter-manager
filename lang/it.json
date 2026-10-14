@@ -774,5 +774,10 @@
     "Its animals stay registered without a colony and need a new location.": "I suoi animali restano registrati senza colonia e hanno bisogno di una nuova posizione.",
     "This invitation link will expire in :count days.": "Questo link di invito scadrà tra :count giorni.",
     "This password reset link will expire in :count days.": "Questo link di reimpostazione della password scadrà tra :count giorni.",
-    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "Questa specie ha animali, gabbie o colonie nel rifugio, quindi non può essere disattivata."
+    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "Questa specie ha animali, gabbie o colonie nel rifugio, quindi non può essere disattivata.",
+    "Not available while viewing as another user.": "Non disponibile mentre visualizzi come un altro utente.",
+    "Read-only while viewing as another user.": "Sola lettura mentre visualizzi come un altro utente.",
+    "Viewing as :name (read-only)": "Visualizzazione come :name (sola lettura)",
+    "Stop viewing": "Termina",
+    "View as this user": "Visualizza come questo utente"
 }

@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Politique de Confidentialité</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Dernière mise à jour : 26 septembre 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Dernière mise à jour : 14 octobre 2026</p>
         <p>{{ config('app.name') }} est une plateforme qui réunit plusieurs refuges pour animaux. Nous prenons au sérieux la protection de vos données personnelles et les traitons conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés (loi Informatique et Libertés). Cette politique explique quelles données nous traitons, pourquoi, pendant combien de temps et quels sont vos droits.</p>
     </header>
 
@@ -128,7 +128,7 @@
 
     <section id="sharing">
         <h2>5. Avec qui nous partageons les données</h2>
-        <p>Nous ne vendons ni ne cédons vos données à des fins commerciales. Les données de chaque refuge ne sont accessibles qu'à l'équipe de ce refuge et aux administrateurs de la plateforme. Elles peuvent également être traitées par des prestataires qui nous aident à exploiter la plateforme (hébergement et envoi d'emails), toujours avec des garanties contractuelles appropriées, ou communiquées aux autorités lorsque la loi l'exige.</p>
+        <p>Nous ne vendons ni ne cédons vos données à des fins commerciales. Les données de chaque refuge ne sont accessibles qu'à l'équipe de ce refuge et aux administrateurs de la plateforme. Elles peuvent également être traitées par des prestataires qui nous aident à exploiter la plateforme (hébergement et envoi d'emails), toujours avec des garanties contractuelles appropriées, ou communiquées aux autorités lorsque la loi l'exige. Pour le support, les administrateurs de la plateforme peuvent consulter les données d'un refuge en tant que l'un de ses utilisateurs, via une fonction en lecture seule ; chaque utilisation est enregistrée.</p>
     </section>
 
     <section id="retention">

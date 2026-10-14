@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privacybeleid</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Laatst bijgewerkt: 26 september 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Laatst bijgewerkt: 14 oktober 2026</p>
         <p>{{ config('app.name') }} is een platform dat verschillende dierenasielen samenbrengt. We nemen de bescherming van uw persoonsgegevens serieus en verwerken ze in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG) en de Uitvoeringswet Algemene verordening gegevensbescherming (UAVG). Dit beleid legt uit welke gegevens we verwerken, waarom, hoe lang en wat uw rechten zijn.</p>
     </header>
 
@@ -128,7 +128,7 @@
 
     <section id="sharing">
         <h2>5. Met wie we gegevens delen</h2>
-        <p>We verkopen uw gegevens niet en geven ze niet door voor commerciële doeleinden. De gegevens van elk asiel zijn alleen toegankelijk voor het team van dat asiel en voor de beheerders van het platform. Ze kunnen ook worden verwerkt door dienstverleners die ons helpen het platform te laten draaien (hosting en e-mailverzending), altijd met passende contractuele waarborgen, of worden verstrekt aan autoriteiten wanneer de wet dat vereist.</p>
+        <p>We verkopen uw gegevens niet en geven ze niet door voor commerciële doeleinden. De gegevens van elk asiel zijn alleen toegankelijk voor het team van dat asiel en voor de beheerders van het platform. Ze kunnen ook worden verwerkt door dienstverleners die ons helpen het platform te laten draaien (hosting en e-mailverzending), altijd met passende contractuele waarborgen, of worden verstrekt aan autoriteiten wanneer de wet dat vereist. Voor ondersteuning kunnen platformbeheerders de gegevens van een asiel bekijken als een van de gebruikers, via een alleen-lezenfunctie; elk gebruik wordt vastgelegd.</p>
     </section>
 
     <section id="retention">

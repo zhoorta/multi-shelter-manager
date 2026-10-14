@@ -774,5 +774,10 @@
     "Its animals stay registered without a colony and need a new location.": "Its animals stay registered without a colony and need a new location.",
     "This invitation link will expire in :count days.": "This invitation link will expire in :count days.",
     "This password reset link will expire in :count days.": "This password reset link will expire in :count days.",
-    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "This species has animals, cages or colonies in the shelter, so it cannot be turned off."
+    "This species has animals, cages or colonies in the shelter, so it cannot be turned off.": "This species has animals, cages or colonies in the shelter, so it cannot be turned off.",
+    "Not available while viewing as another user.": "Not available while viewing as another user.",
+    "Read-only while viewing as another user.": "Read-only while viewing as another user.",
+    "Viewing as :name (read-only)": "Viewing as :name (read-only)",
+    "Stop viewing": "Stop viewing",
+    "View as this user": "View as this user"
 }

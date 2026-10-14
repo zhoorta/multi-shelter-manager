@@ -2,7 +2,7 @@
     <header class="flex flex-col gap-2">
         <span class="text-4xl">🔒</span>
         <h1 class="font-display text-4xl font-bold text-stone-900 dark:text-white">Privacy Policy</h1>
-        <p class="text-sm text-stone-500 dark:text-stone-400">Last updated: 26 September 2026</p>
+        <p class="text-sm text-stone-500 dark:text-stone-400">Last updated: 14 October 2026</p>
         <p>{{ config('app.name') }} is a platform that brings several animal shelters together. We take the protection of your personal data seriously and process it in accordance with the General Data Protection Regulation (GDPR) and the national data protection laws of the European Union member states. This policy explains what data we process, why, for how long, and what your rights are.</p>
     </header>
 
@@ -128,7 +128,7 @@
 
     <section id="sharing">
         <h2>5. Who we share data with</h2>
-        <p>We do not sell or hand over your data for commercial purposes. Each shelter's data is only accessible to that shelter's team and to the platform administrators. It may also be processed by service providers that help us run the platform (hosting and e-mail delivery), always under appropriate contractual safeguards, or disclosed to authorities where required by law.</p>
+        <p>We do not sell or hand over your data for commercial purposes. Each shelter's data is only accessible to that shelter's team and to the platform administrators. It may also be processed by service providers that help us run the platform (hosting and e-mail delivery), always under appropriate contractual safeguards, or disclosed to authorities where required by law. For support, platform administrators can view a shelter's data as one of its users through a read-only function; every use is logged.</p>
     </section>
 
     <section id="retention">

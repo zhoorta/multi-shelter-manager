@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Http\Middleware\ReadOnlyWhileImpersonating;
 use App\Models\Shelter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -30,7 +31,7 @@ class ShelterSwitcher extends Component
 
         abort_unless($user->belongsToShelter($shelterId), 403);
 
-        $user->update(['current_shelter_id' => $shelterId]);
+        ReadOnlyWhileImpersonating::allowWrites(fn () => $user->update(['current_shelter_id' => $shelterId]));
 
         $this->redirect(route('dashboard'), navigate: true);
     }
