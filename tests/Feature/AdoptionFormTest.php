@@ -2,6 +2,7 @@
 
 use App\Livewire\Pets\AdoptionForm;
 use App\Models\Adoption;
+use App\Models\Cage;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
@@ -224,7 +225,7 @@ test('setting a return date marks the pet as available again and clears its chec
     expect($pet->checkout_date)->toBeNull();
 });
 
-test('setting a return date marks a non-adoptable pet not_available instead of available', function () {
+test('setting a return date makes the pet adoptable again, so it is available', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create([
         'status' => 'adopted',
@@ -241,7 +242,8 @@ test('setting a return date marks a non-adoptable pet not_available instead of a
         ->assertHasNoErrors();
 
     $pet->refresh();
-    expect($pet->status)->toBe('not_available');
+    expect($pet->status)->toBe('available');
+    expect($pet->is_adoptable)->toBeTrue();
     expect($pet->checkout_date)->toBeNull();
 });
 
@@ -437,4 +439,55 @@ test('a new adoption starts without the SIAC transfer', function () {
         ->assertHasNoErrors();
 
     expect($pet->adoptions()->first()->siac_transferred_at)->toBeNull();
+});
+
+test('registering an adoption frees the pet\'s box and stops offering it for adoption', function () {
+    $shelter = Shelter::factory()->create();
+    $cage = Cage::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['cage_id' => $cage->id, 'is_adoptable' => true, 'status' => 'available']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet])
+        ->set('adopterName', 'Maria Silva')
+        ->set('adoptionDate', '2026-01-15')
+        ->call('saveAdoption')
+        ->assertHasNoErrors();
+
+    $pet->refresh();
+    expect($pet->status)->toBe('adopted')
+        ->and($pet->cage_id)->toBeNull()
+        ->and($pet->is_adoptable)->toBeFalse();
+});
+
+test('editing an adoption that is still open does not touch the pet\'s box again', function () {
+    $shelter = Shelter::factory()->create();
+    $cage = Cage::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['cage_id' => $cage->id, 'is_adoptable' => true, 'status' => 'adopted']);
+    $adoption = Adoption::factory()->for($pet)->create(['adoption_date' => '2026-01-15', 'return_date' => null]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
+        ->set('adoptionNotes', 'Visited')
+        ->call('saveAdoption')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh()->cage_id)->toBe($cage->id);
+});
+
+test('clearing the return date of the last adoption frees the box again', function () {
+    $shelter = Shelter::factory()->create();
+    $cage = Cage::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['cage_id' => $cage->id, 'is_adoptable' => true, 'status' => 'available']);
+    $adoption = Adoption::factory()->for($pet)->create(['adoption_date' => '2026-01-15', 'return_date' => '2026-03-01']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
+        ->set('returnDate', '')
+        ->call('saveAdoption')
+        ->assertHasNoErrors();
+
+    $pet->refresh();
+    expect($pet->status)->toBe('adopted')
+        ->and($pet->cage_id)->toBeNull()
+        ->and($pet->is_adoptable)->toBeFalse();
 });

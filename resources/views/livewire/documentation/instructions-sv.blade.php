@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adoptioner</h2>
         <p>En adoption registrerar adoptantens kontaktuppgifter, adoptionsdatum, avgift, anteckningar och ansökningsstatus (Väntande, Godkänd eller Avslagen). Påbörja den från djurets sida.</p>
         <p>Sidan Adoptioner (under Djur i sidomenyn) visar djurhemmets alla adoptioner; sök på adoptantens namn, telefon, e-post eller anteckningar, eller på djurets namn eller referens.</p>
-        <p>Om ett adopterat djur kommer tillbaka till djurhemmet fyller du i <strong>returdatumet</strong> på adoptionen: djuret blir tillgängligt igen och adoptionen finns kvar i dess historik.</p>
+        <p>Om ett adopterat djur kommer tillbaka till djurhemmet fyller du i <strong>returdatumet</strong> på adoptionen: djuret blir tillgängligt igen och adoptionen finns kvar i dess historik. När en adoption registreras förlorar djuret automatiskt sin bur och är inte längre tillgängligt för adoption; när det kommer tillbaka är det tillgängligt igen och du tilldelar en bur.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Adoptionsansökningar</h3>
         <p>När den publika portalen är på kan besökare skicka en adoptionsansökan från ett djurs kort med knappen <strong>Jag vill adoptera</strong>. Formuläret frågar efter kontaktuppgifter, typ av bostad, om det finns trädgård, barn eller andra djur, och varför de vill adoptera.</p>
         <p>Ansökningarna visas under <strong>Adoptionsansökningar</strong> i menyn Djur, väntande först, och sidofältet visar hur många som väntar. För varje ansökan kan du:</p>

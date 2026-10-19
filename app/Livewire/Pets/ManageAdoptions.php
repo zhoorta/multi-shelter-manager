@@ -87,10 +87,14 @@ class ManageAdoptions extends Component
             $adoption->delete();
 
             if ($wasOpenAdoption) {
-                $adoption->pet->update([
-                    'status' => $adoption->pet->determineStatus(),
-                    'checkout_date' => null,
-                ]);
+                $adoption->pet->fill(['checkout_date' => null]);
+
+                if ($adoption->pet->date_of_death === null) {
+                    $adoption->pet->is_adoptable = true;
+                }
+
+                $adoption->pet->status = $adoption->pet->determineStatus();
+                $adoption->pet->save();
             }
         });
 

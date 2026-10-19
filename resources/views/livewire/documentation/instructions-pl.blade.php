@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adopcje</h2>
         <p>Adopcja zapisuje dane kontaktowe adoptującego, datę adopcji, opłatę, notatki i status wniosku (Oczekujący, Zatwierdzony lub Odrzucony). Rozpocznij ją ze strony zwierzęcia.</p>
         <p>Strona Adopcje (w menu Zwierzęta w panelu bocznym) zawiera wszystkie adopcje schroniska; szukaj po imieniu i nazwisku, telefonie, e-mailu lub notatkach adoptującego albo po imieniu lub numerze referencyjnym zwierzęcia.</p>
-        <p>Jeśli adoptowane zwierzę wraca do schroniska, wpisz w adopcji <strong>datę zwrotu</strong>: zwierzę znów staje się dostępne, a adopcja pozostaje w jego historii.</p>
+        <p>Jeśli adoptowane zwierzę wraca do schroniska, wpisz w adopcji <strong>datę zwrotu</strong>: zwierzę znów staje się dostępne, a adopcja pozostaje w jego historii. Po zarejestrowaniu adopcji zwierzę automatycznie traci boks i przestaje być oznaczone jako dostępne do adopcji; gdy wraca, jest znów dostępne, a Ty przypisujesz mu boks.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Wnioski adopcyjne</h3>
         <p>Gdy portal publiczny jest włączony, odwiedzający mogą wysłać wniosek adopcyjny z karty zwierzęcia przyciskiem <strong>Chcę adoptować</strong>. Formularz pyta o dane kontaktowe, rodzaj mieszkania, czy jest ogród, dzieci lub inne zwierzęta oraz dlaczego chcą adoptować.</p>
         <p>Wnioski pojawiają się w <strong>Wnioski adopcyjne</strong> w menu Zwierzęta, najpierw oczekujące, a pasek boczny pokazuje, ile jest oczekujących. Przy każdym możesz:</p>

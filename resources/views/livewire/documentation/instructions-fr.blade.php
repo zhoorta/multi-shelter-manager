@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adoptions</h2>
         <p>Une adoption enregistre les coordonnées de l'adoptant, la date d'adoption, les frais, des notes et le statut de la demande (En attente, Approuvée ou Refusée). Commencez-la depuis la page de l'animal.</p>
         <p>La page Adoptions (sous Animaux dans la barre latérale) liste toutes les adoptions du refuge ; recherchez par nom, téléphone, email ou notes de l'adoptant, ou par le nom ou la référence de l'animal.</p>
-        <p>Si un animal adopté revient au refuge, renseignez la <strong>date de retour</strong> sur l'adoption : l'animal redevient disponible et l'adoption reste dans son historique.</p>
+        <p>Si un animal adopté revient au refuge, renseignez la <strong>date de retour</strong> sur l'adoption : l'animal redevient disponible et l'adoption reste dans son historique. Quand une adoption est enregistrée, l'animal perd automatiquement son box et n'est plus disponible à l'adoption ; à son retour, il est de nouveau disponible et vous lui attribuez un box.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Demandes d'adoption</h3>
         <p>Lorsque le portail public est activé, les visiteurs peuvent envoyer une demande d'adoption depuis la fiche d'un animal avec le bouton <strong>Je veux adopter</strong>. Le formulaire demande leurs coordonnées, le type de logement, la présence d'un jardin, d'enfants ou d'autres animaux, et pourquoi ils veulent adopter.</p>
         <p>Les demandes apparaissent dans <strong>Demandes d'Adoption</strong>, dans le menu Animaux, les demandes en attente d'abord, et la barre latérale indique combien sont en attente. Pour chacune, vous pouvez :</p>

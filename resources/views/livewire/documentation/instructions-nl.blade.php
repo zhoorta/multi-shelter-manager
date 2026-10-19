@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adopties</h2>
         <p>Een adoptie legt de contactgegevens van de adoptant vast, de adoptiedatum, de bijdrage, notities en de status van de aanvraag (In behandeling, Goedgekeurd of Afgewezen). Start een adoptie vanaf de pagina van het dier.</p>
         <p>De pagina Adopties (onder Dieren in de zijbalk) toont alle adopties van het asiel; zoek op naam, telefoon, e-mail of notities van de adoptant, of op naam of referentie van het dier.</p>
-        <p>Als een geadopteerd dier terugkomt in het asiel, vul dan de <strong>terugbrengdatum</strong> in bij de adoptie: het dier wordt weer beschikbaar en de adoptie blijft in de geschiedenis bewaard.</p>
+        <p>Als een geadopteerd dier terugkomt in het asiel, vul dan de <strong>terugbrengdatum</strong> in bij de adoptie: het dier wordt weer beschikbaar en de adoptie blijft in de geschiedenis bewaard. Als een adoptie wordt geregistreerd, verliest het dier automatisch zijn hok en is het niet meer beschikbaar voor adoptie; als het terugkomt, is het weer beschikbaar en wijst u een hok toe.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Adoptieaanvragen</h3>
         <p>Als het publieke portaal aanstaat, kunnen bezoekers vanaf de kaart van een dier een adoptieaanvraag sturen met de knop <strong>Ik wil adopteren</strong>. Het formulier vraagt naar hun contactgegevens, het type woning, of er een tuin, kinderen of andere dieren zijn, en waarom ze willen adopteren.</p>
         <p>Aanvragen verschijnen onder <strong>Adoptieaanvragen</strong> in het menu Dieren, openstaande eerst, en de zijbalk toont hoeveel er openstaan. Bij elke aanvraag kunt u:</p>

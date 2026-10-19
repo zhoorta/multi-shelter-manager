@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adozioni</h2>
         <p>Un'adozione registra i contatti dell'adottante, la data di adozione, il contributo, le note e lo stato della richiesta (In attesa, Approvata o Respinta). Avviala dalla pagina dell'animale.</p>
         <p>La pagina Adozioni (sotto Animali nella barra laterale) elenca tutte le adozioni del rifugio; cerca per nome, telefono, email o note dell'adottante, oppure per nome o riferimento dell'animale.</p>
-        <p>Se un animale adottato torna al rifugio, compila la <strong>data di restituzione</strong> nell'adozione: l'animale torna disponibile e l'adozione resta nel suo storico.</p>
+        <p>Se un animale adottato torna al rifugio, compila la <strong>data di restituzione</strong> nell'adozione: l'animale torna disponibile e l'adozione resta nel suo storico. Quando si registra un'adozione, l'animale perde automaticamente il box e non è più disponibile per l'adozione; quando torna, è di nuovo disponibile e si assegna un box.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Richieste di adozione</h3>
         <p>Con il portale pubblico attivo, i visitatori possono inviare una richiesta di adozione dalla scheda di un animale con il pulsante <strong>Voglio adottare</strong>. Il modulo chiede i contatti, il tipo di casa, se ci sono giardino, bambini o altri animali, e perché vogliono adottare.</p>
         <p>Le richieste compaiono in <strong>Richieste di Adozione</strong>, nel menu Animali, prima quelle in attesa, e la barra laterale mostra quante sono in attesa. Per ognuna puoi:</p>

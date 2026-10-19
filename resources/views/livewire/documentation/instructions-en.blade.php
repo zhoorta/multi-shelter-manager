@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adoptions</h2>
         <p>An adoption records the adopter's contact details, the adoption date, the fee, notes and the application status (Pending, Approved or Rejected). Start one from the pet's page.</p>
         <p>The Adoptions page (under Pets in the sidebar) lists every adoption of the shelter; search by adopter name, phone, email, notes, or by the pet's name or reference.</p>
-        <p>If an adopted pet comes back to the shelter, fill in the <strong>return date</strong> on the adoption: the pet becomes available again and the adoption stays in its history.</p>
+        <p>If an adopted pet comes back to the shelter, fill in the <strong>return date</strong> on the adoption: the pet becomes available again and the adoption stays in its history. When an adoption is registered, the pet automatically loses its box and is no longer marked available for adoption; when it comes back, it is available again and you assign a box.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Adoption applications</h3>
         <p>When the public portal is on, visitors can send an adoption application from a pet's card with the <strong>I want to adopt</strong> button. The form asks for their contacts, the type of home, whether there is a garden, children or other animals, and why they want to adopt.</p>
         <p>Applications appear in <strong>Adoption Applications</strong> under Pets, pending ones first, and the sidebar shows how many are pending. For each one you can:</p>

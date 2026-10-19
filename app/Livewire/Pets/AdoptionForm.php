@@ -144,7 +144,9 @@ class AdoptionForm extends Component
             return;
         }
 
-        DB::transaction(function () use ($validated, $isEditing, $hasAnotherOpenAdoption): void {
+        $wasOpenAdoption = $isEditing && $this->adoption->return_date === null;
+
+        DB::transaction(function () use ($validated, $isEditing, $hasAnotherOpenAdoption, $wasOpenAdoption): void {
             $adoptionAttributes = [
                 'name' => $validated['adopterName'],
                 'email' => $validated['adopterEmail'] !== '' ? $validated['adopterEmail'] : null,
@@ -180,10 +182,17 @@ class AdoptionForm extends Component
 
             $isReturned = $adoptionAttributes['return_date'] !== null;
 
-            $this->pet->update([
-                'status' => $this->pet->determineStatus(),
-                'checkout_date' => $isReturned ? null : $validated['adoptionDate'],
-            ]);
+            $this->pet->fill(['checkout_date' => $isReturned ? null : $validated['adoptionDate']]);
+
+            if ($isReturned) {
+                $this->pet->is_adoptable = $this->pet->date_of_death === null ? true : $this->pet->is_adoptable;
+            } elseif (! $wasOpenAdoption) {
+                // The animal leaves the shelter: free its box and stop offering it.
+                $this->pet->fill(['cage_id' => null, 'is_adoptable' => false]);
+            }
+
+            $this->pet->status = $this->pet->determineStatus();
+            $this->pet->save();
         });
 
         Flux::toast(

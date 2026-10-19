@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adoções</h2>
         <p>Uma adoção regista os contactos do adotante, a data de adoção, o valor, notas e o estado da candidatura (Pendente, Aprovada ou Rejeitada). Inicie-a a partir da página do animal.</p>
         <p>A página Adoções (em Animais, no menu lateral) lista todas as adoções do abrigo; pesquise pelo nome, telefone, email ou notas do adotante, ou pelo nome ou referência do animal.</p>
-        <p>Se um animal adotado regressar ao abrigo, preencha a <strong>data de devolução</strong> na adoção: o animal volta a ficar disponível e a adoção fica no seu histórico.</p>
+        <p>Se um animal adotado regressar ao abrigo, preencha a <strong>data de devolução</strong> na adoção: o animal volta a ficar disponível e a adoção fica no seu histórico. Quando uma adoção é registada, o animal deixa automaticamente de ter box e deixa de estar disponível para adoção; quando regressa, volta a ficar disponível e atribui-se uma box.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Candidaturas de adoção</h3>
         <p>Com o portal público ativo, os visitantes podem enviar uma candidatura de adoção a partir da ficha do animal, com o botão <strong>Quero adotar</strong>. O formulário pede os contactos, o tipo de casa, se há quintal, crianças ou outros animais, e porque querem adotar.</p>
         <p>As candidaturas aparecem em <strong>Candidaturas de Adoção</strong>, no menu Animais, primeiro as pendentes, e a barra lateral mostra quantas estão pendentes. Em cada uma pode:</p>

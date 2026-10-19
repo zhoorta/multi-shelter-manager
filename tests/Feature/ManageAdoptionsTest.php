@@ -284,7 +284,7 @@ test('deleting an open adoption clears the pet checkout date and marks it availa
     expect($pet->checkout_date)->toBeNull();
 });
 
-test('deleting an open adoption marks a non-adoptable pet not_available instead of available', function () {
+test('deleting an open adoption makes the pet adoptable and available again', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
@@ -302,7 +302,8 @@ test('deleting an open adoption marks a non-adoptable pet not_available instead 
     Livewire::test(ManageAdoptions::class)->call('deleteAdoption', $adoption->id);
 
     $pet->refresh();
-    expect($pet->status)->toBe('not_available');
+    expect($pet->status)->toBe('available');
+    expect($pet->is_adoptable)->toBeTrue();
     expect($pet->checkout_date)->toBeNull();
 });
 

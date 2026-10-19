@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adoptioner</h2>
         <p>En adoption registrerer adoptantens kontaktoplysninger, adoptionsdato, gebyr, noter og ansøgningsstatus (Afventer, Godkendt eller Afvist). Start den fra dyrets side.</p>
         <p>Siden Adoptioner (under Dyr i sidemenuen) viser alle internatets adoptioner; søg på adoptantens navn, telefon, e-mail eller noter eller på dyrets navn eller reference.</p>
-        <p>Hvis et adopteret dyr kommer tilbage til internatet, udfylder du <strong>returdatoen</strong> på adoptionen: dyret bliver klar til adoption igen, og adoptionen bevares i dets historik.</p>
+        <p>Hvis et adopteret dyr kommer tilbage til internatet, udfylder du <strong>returdatoen</strong> på adoptionen: dyret bliver klar til adoption igen, og adoptionen bevares i dets historik. Når en adoption registreres, mister dyret automatisk sit bur og er ikke længere klar til adoption; når det kommer tilbage, er det klar igen, og du tildeler et bur.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Adoptionsansøgninger</h3>
         <p>Når den offentlige portal er slået til, kan besøgende sende en adoptionsansøgning fra et dyrs kort med knappen <strong>Jeg vil adoptere</strong>. Formularen spørger om kontaktoplysninger, boligtype, om der er have, børn eller andre dyr, og hvorfor de vil adoptere.</p>
         <p>Ansøgningerne vises under <strong>Adoptionsansøgninger</strong> i menuen Dyr, afventende først, og sidepanelet viser, hvor mange der afventer. For hver ansøgning kan du:</p>

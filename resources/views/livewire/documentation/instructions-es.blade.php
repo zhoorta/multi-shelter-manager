@@ -129,7 +129,7 @@
         <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Adopciones</h2>
         <p>Una adopción registra los datos de contacto del adoptante, la fecha de adopción, la tasa, notas y el estado de la solicitud (Pendiente, Aprobada o Rechazada). Iníciela desde la página del animal.</p>
         <p>La página Adopciones (en Animales, en el menú lateral) lista todas las adopciones del refugio; busca por nombre, teléfono, email o notas del adoptante, o por el nombre o la referencia del animal.</p>
-        <p>Si un animal adoptado vuelve al refugio, rellene la <strong>fecha de devolución</strong> en la adopción: el animal vuelve a estar disponible y la adopción se mantiene en su historial.</p>
+        <p>Si un animal adoptado vuelve al refugio, rellene la <strong>fecha de devolución</strong> en la adopción: el animal vuelve a estar disponible y la adopción se mantiene en su historial. Al registrar una adopción, el animal pierde automáticamente su jaula y deja de estar disponible para adopción; cuando vuelve, vuelve a estar disponible y se le asigna una jaula.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Solicitudes de adopción</h3>
         <p>Con el portal público activo, los visitantes pueden enviar una solicitud de adopción desde la ficha del animal con el botón <strong>Quiero adoptar</strong>. El formulario pide sus contactos, el tipo de vivienda, si hay jardín, niños u otros animales, y por qué quieren adoptar.</p>
         <p>Las solicitudes aparecen en <strong>Solicitudes de Adopción</strong>, en el menú Animales, primero las pendientes, y la barra lateral muestra cuántas hay pendientes. En cada una puede:</p>
