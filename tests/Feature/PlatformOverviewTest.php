@@ -6,6 +6,7 @@ use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
+use App\Models\PetClinicalPhoto;
 use App\Models\PetImage;
 use App\Models\Shelter;
 use App\Models\Species;
@@ -120,13 +121,14 @@ test('shows the storage used by each shelter and the platform total', function (
     PetImage::factory()->create(['pet_id' => $pet->id, 'file_size' => 2 * 1024 * 1024]);
     PetImage::factory()->create(['pet_id' => $pet->id, 'file_size' => null]);
     Volunteer::factory()->create(['shelter_id' => $shelter->id, 'image_size' => 512 * 1024]);
+    PetClinicalPhoto::factory()->create(['pet_id' => $pet->id, 'file_size' => 1024 * 1024]);
 
     $component = Livewire::test(PlatformOverview::class);
 
     expect($component->instance()->storageByShelter)->toEqual([
-        $shelter->id => 1024 * 1024 + 2 * 1024 * 1024 + 512 * 1024,
+        $shelter->id => 1024 * 1024 + 2 * 1024 * 1024 + 1024 * 1024 + 512 * 1024,
         $other->id => 0,
     ]);
 
-    $component->assertSee(__('Total storage'))->assertSee('3.5 MB');
+    $component->assertSee(__('Total storage'))->assertSee('4.5 MB');
 });

@@ -87,7 +87,7 @@ test('the export holds one CSV per area with only the shelter\'s own rows', func
     $files = exportedFiles($this->shelter);
 
     expect(array_keys($files))->toEqualCanonicalizing([
-        'pets', 'vaccinations', 'treatments', 'diagnoses', 'adoptions', 'adoption_applications',
+        'pets', 'vaccinations', 'treatments', 'diagnoses', 'clinical_photos', 'adoptions', 'adoption_applications',
         'sponsorships', 'sponsorship_payments', 'members', 'member_payments', 'volunteers',
         'volunteer_availabilities', 'colonies', 'facilities', 'wings', 'cages',
     ])

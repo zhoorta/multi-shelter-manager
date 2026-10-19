@@ -12,6 +12,7 @@ use App\Models\Facility;
 use App\Models\Member;
 use App\Models\MemberPayment;
 use App\Models\Pet;
+use App\Models\PetClinicalPhoto;
 use App\Models\PetSickness;
 use App\Models\PetTreatment;
 use App\Models\PetVaccine;
@@ -120,6 +121,10 @@ class ExportShelterData
             'diagnoses' => [
                 PetSickness::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet, 'sickness']),
                 $petLabels() + ['sickness_id' => fn (PetSickness $row): mixed => $row->sickness?->name],
+            ],
+            'clinical_photos' => [
+                PetClinicalPhoto::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet]),
+                $petLabels(),
             ],
             'adoptions' => [
                 Adoption::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet]),

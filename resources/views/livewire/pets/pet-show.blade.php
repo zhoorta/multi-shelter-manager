@@ -897,6 +897,188 @@
                     </div>
                 </div>
             </div>
+
+            @php
+                $photoGroups = $pet->clinicalPhotos
+                    ->groupBy(fn ($photo) => mb_strtolower(trim($photo->label)))
+                    ->sortByDesc(fn ($group) => $group->max('taken_at'))
+                    ->values();
+
+                $galleryPhotos = [];
+                $galleryIndexes = [];
+
+                foreach ($photoGroups as $groupIndex => $group) {
+                    foreach ($group as $photo) {
+                        $galleryIndexes[$photo->id] = count($galleryPhotos);
+                        $galleryPhotos[] = [
+                            'group' => $groupIndex,
+                            'url' => route('pets.clinical-photos.file', ['pet' => $pet, 'clinicalPhoto' => $photo, 'size' => 'full']),
+                            'download' => route('pets.clinical-photos.file', ['pet' => $pet, 'clinicalPhoto' => $photo, 'download' => 1]),
+                            'label' => $photo->label,
+                            'date' => $photo->taken_at->format('d/m/Y'),
+                            'notes' => $photo->notes,
+                        ];
+                    }
+                }
+            @endphp
+            <div
+                wire:key="clinical-photos-{{ $pet->clinicalPhotos->pluck('id')->implode('-') }}"
+                class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900"
+                x-data="{
+                    photos: @js($galleryPhotos),
+                    index: 0,
+                    open: false,
+                    get current() { return this.photos[this.index] },
+                    get siblings() { return this.photos.map((photo, i) => i).filter((i) => this.photos[i].group === this.current.group) },
+                    step(direction) {
+                        const siblings = this.siblings
+                        this.index = siblings[(siblings.indexOf(this.index) + direction + siblings.length) % siblings.length]
+                    },
+                }"
+                x-on:modal-show.window="$event.detail.name === 'clinical-photo-gallery' && (open = true)"
+                x-on:modal-close.window="(!$event.detail.name || $event.detail.name === 'clinical-photo-gallery') && (open = false)"
+                x-on:keydown.left.window="open && siblings.length > 1 && step(-1)"
+                x-on:keydown.right.window="open && siblings.length > 1 && step(1)"
+            >
+                <div class="flex w-full items-center justify-between">
+                    <flux:label>{{ __('Clinical Photos') }}</flux:label>
+
+                    @if ($canEditHealth)
+                        <flux:button :href="route('pets.clinical-photos.create', $pet)" variant="filled" size="sm" icon="plus" wire:navigate>
+                            {{ __('New Clinical Photo') }}
+                        </flux:button>
+                    @endif
+                </div>
+
+                @forelse ($photoGroups as $group)
+                    <div wire:key="photo-group-{{ md5(mb_strtolower(trim($group->first()->label))) }}">
+                        <flux:heading>
+                            {{ $group->last()->label }}
+                            <span class="font-normal text-neutral-500 dark:text-neutral-400">({{ $group->count() }})</span>
+                        </flux:heading>
+
+                        <div class="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                            @foreach ($group as $photo)
+                                <div wire:key="clinical-photo-{{ $photo->id }}" class="flex flex-col gap-1">
+                                    <a
+                                        href="{{ route('pets.clinical-photos.file', ['pet' => $pet, 'clinicalPhoto' => $photo, 'size' => 'full']) }}"
+                                        target="_blank"
+                                        rel="noopener"
+                                        class="cursor-zoom-in"
+                                        x-on:click.prevent="index = {{ $galleryIndexes[$photo->id] }}; $dispatch('modal-show', { name: 'clinical-photo-gallery' })"
+                                    >
+                                        <img
+                                            src="{{ route('pets.clinical-photos.file', ['pet' => $pet, 'clinicalPhoto' => $photo]) }}"
+                                            alt="{{ $photo->label }} — {{ $photo->taken_at->format('d/m/Y') }}"
+                                            loading="lazy"
+                                            class="aspect-square w-full rounded-lg object-cover ring-1 ring-neutral-200 dark:ring-neutral-700"
+                                        >
+                                    </a>
+
+                                    <flux:text size="sm" class="font-medium text-neutral-700 dark:text-neutral-300">{{ $photo->taken_at->format('d/m/Y') }}</flux:text>
+
+                                    @if ($photo->notes)
+                                        <flux:text size="sm" class="whitespace-pre-line text-neutral-500 dark:text-neutral-400">{{ $photo->notes }}</flux:text>
+                                    @endif
+
+                                    <div class="flex gap-1">
+                                        <flux:button
+                                            size="xs"
+                                            variant="subtle"
+                                            icon="arrow-down-tray"
+                                            :href="route('pets.clinical-photos.file', ['pet' => $pet, 'clinicalPhoto' => $photo, 'download' => 1])"
+                                            :aria-label="__('Download photo')"
+                                        />
+
+                                        @if ($canEditHealth)
+                                            <flux:button
+                                                size="xs"
+                                                variant="subtle"
+                                                icon="pencil"
+                                                :href="route('pets.clinical-photos.edit', ['pet' => $pet, 'clinicalPhoto' => $photo])"
+                                                :aria-label="__('Edit')"
+                                                wire:navigate
+                                            />
+
+                                            <flux:modal.trigger name="confirm-clinical-photo-deletion-{{ $photo->id }}">
+                                                <flux:button size="xs" variant="subtle" icon="trash" :aria-label="__('Delete')" />
+                                            </flux:modal.trigger>
+
+                                            <flux:modal name="confirm-clinical-photo-deletion-{{ $photo->id }}" class="max-w-lg">
+                                                <div class="space-y-6">
+                                                    <div>
+                                                        <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                        <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
+                                                    </div>
+
+                                                    <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                                        <flux:modal.close>
+                                                            <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                                        </flux:modal.close>
+
+                                                        <flux:button variant="danger" wire:click="deleteClinicalPhoto({{ $photo->id }})">
+                                                            {{ __('Delete') }}
+                                                        </flux:button>
+                                                    </div>
+                                                </div>
+                                            </flux:modal>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @empty
+                    <flux:text>{{ __('No clinical photos registered') }}</flux:text>
+                @endforelse
+
+                @if ($galleryPhotos !== [])
+                    <flux:modal name="clinical-photo-gallery" variant="bare" class="h-dvh w-screen max-w-none p-0">
+                        <div class="relative flex h-full w-full items-center justify-center bg-black/70">
+                            <div class="absolute top-4 end-4 z-20 flex items-center gap-2">
+                                <a
+                                    :href="current.download"
+                                    class="inline-flex h-8 items-center gap-2 rounded-md px-3 text-sm font-medium text-white hover:bg-white/10"
+                                >
+                                    <flux:icon name="arrow-down-tray" class="size-4" />
+                                    {{ __('Download photo') }}
+                                </a>
+
+                                <flux:modal.close>
+                                    <flux:button variant="ghost" icon="x-mark" size="sm" :aria-label="__('Close')" class="text-white! hover:text-white/70!" />
+                                </flux:modal.close>
+                            </div>
+
+                            <button
+                                type="button"
+                                x-show="siblings.length > 1"
+                                x-on:click="step(-1)"
+                                class="absolute top-1/2 start-4 z-10 -translate-y-1/2 text-white/80 hover:text-white"
+                                aria-label="{{ __('Previous photo') }}"
+                            >
+                                <flux:icon name="chevron-left" class="size-10" />
+                            </button>
+
+                            <img :src="current.url" :alt="current.label" class="max-h-full max-w-full object-contain">
+
+                            <button
+                                type="button"
+                                x-show="siblings.length > 1"
+                                x-on:click="step(1)"
+                                class="absolute top-1/2 end-4 z-10 -translate-y-1/2 text-white/80 hover:text-white"
+                                aria-label="{{ __('Next photo') }}"
+                            >
+                                <flux:icon name="chevron-right" class="size-10" />
+                            </button>
+
+                            <div class="absolute bottom-4 z-10 max-w-xl rounded-lg bg-black/60 px-4 py-2 text-center text-sm text-white">
+                                <div class="font-medium"><span x-text="current.label"></span> &middot; <span x-text="current.date"></span></div>
+                                <div x-show="current.notes" x-text="current.notes" class="whitespace-pre-line text-white/80"></div>
+                            </div>
+                        </div>
+                    </flux:modal>
+                @endif
+            </div>
         @endif
         @endif
     </div>

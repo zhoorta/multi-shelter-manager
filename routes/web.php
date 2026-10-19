@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\ClinicalPhotoController;
 use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\RobotsController;
@@ -35,6 +36,7 @@ use App\Livewire\PartnerShelters;
 use App\Livewire\PartnerShelterShow;
 use App\Livewire\Pets\AdoptionForm;
 use App\Livewire\Pets\AdoptionShow;
+use App\Livewire\Pets\ClinicalPhotoForm;
 use App\Livewire\Pets\DiagnosisForm;
 use App\Livewire\Pets\GroupTreatmentForm;
 use App\Livewire\Pets\GroupVaccinationForm;
@@ -129,6 +131,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::livewire('pets/{pet}/vaccinate/{petVaccine}/edit', VaccinationForm::class)->middleware('module:health_records')->name('pets.vaccinate.edit');
     Route::livewire('pets/{pet}/treat', TreatmentForm::class)->middleware('module:health_records')->name('pets.treat');
     Route::livewire('pets/{pet}/treat/{petTreatment}/edit', TreatmentForm::class)->middleware('module:health_records')->name('pets.treat.edit');
+    Route::livewire('pets/{pet}/clinical-photos/create', ClinicalPhotoForm::class)->middleware('module:health_records')->name('pets.clinical-photos.create');
+    Route::livewire('pets/{pet}/clinical-photos/{clinicalPhoto}/edit', ClinicalPhotoForm::class)->middleware('module:health_records')->name('pets.clinical-photos.edit');
+    Route::get('pets/{pet}/clinical-photos/{clinicalPhoto}', ClinicalPhotoController::class)->middleware('module:health_records')->name('pets.clinical-photos.file');
     Route::livewire('pets/{pet}/diagnose', DiagnosisForm::class)->name('pets.diagnose');
     Route::livewire('pets/{pet}/diagnose/{petSickness}/edit', DiagnosisForm::class)->name('pets.diagnose.edit');
 

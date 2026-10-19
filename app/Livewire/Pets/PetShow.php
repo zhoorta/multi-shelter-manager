@@ -45,6 +45,7 @@ class PetShow extends Component
             'vaccines' => fn ($query) => $query->orderByRaw('COALESCE(pet_vaccines.administered_date, pet_vaccines.due_date) desc'),
             'treatments' => fn ($query) => $query->with('treatment')->orderByRaw('COALESCE(administered_date, due_date) desc'),
             'sicknesses' => fn ($query) => $query->orderByPivot('diagnosed_at', 'desc'),
+            'clinicalPhotos',
         ]);
     }
 
@@ -89,12 +90,12 @@ class PetShow extends Component
 
     /**
      * Records listed in the health tab: diagnoses plus, when the shelter
-     * uses health records, vaccinations and treatments.
+     * uses health records, vaccinations, treatments and clinical photos.
      */
     public function healthCount(): int
     {
         return $this->pet->sicknesses->count()
-            + (Auth::user()->currentShelterHasModule('health_records') ? $this->pet->vaccines->count() + $this->pet->treatments->count() : 0);
+            + (Auth::user()->currentShelterHasModule('health_records') ? $this->pet->vaccines->count() + $this->pet->treatments->count() + $this->pet->clinicalPhotos->count() : 0);
     }
 
     /**
@@ -242,6 +243,20 @@ class PetShow extends Component
             'treatments' => fn ($query) => $query->with('treatment')->orderByRaw('COALESCE(administered_date, due_date) desc'),
         ]);
         unset($this->pendingTreatmentIds);
+
+        Flux::toast(variant: 'success', text: __('Record deleted successfully'));
+    }
+
+    /**
+     * Soft delete only: the files stay on the private disk so an
+     * administrator can restore the photo.
+     */
+    public function deleteClinicalPhoto(int $photoId): void
+    {
+        abort_unless(Auth::user()->canEditArea('health'), 403);
+        $this->pet->clinicalPhotos()->findOrFail($photoId)->delete();
+
+        $this->pet->load('clinicalPhotos');
 
         Flux::toast(variant: 'success', text: __('Record deleted successfully'));
     }

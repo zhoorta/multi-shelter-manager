@@ -457,6 +457,16 @@ class Pet extends Model
     }
 
     /**
+     * Get the dated photos of the pet's clinical follow-up, oldest first.
+     *
+     * @return HasMany<PetClinicalPhoto, $this>
+     */
+    public function clinicalPhotos(): HasMany
+    {
+        return $this->hasMany(PetClinicalPhoto::class)->orderBy('taken_at')->orderBy('id');
+    }
+
+    /**
      * Get the preventive treatments (deworming, antiparasitics) given to the pet.
      *
      * @return HasMany<PetTreatment, $this>

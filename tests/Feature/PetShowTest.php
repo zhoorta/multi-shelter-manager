@@ -6,6 +6,7 @@ use App\Models\Breed;
 use App\Models\Cage;
 use App\Models\Facility;
 use App\Models\Pet;
+use App\Models\PetClinicalPhoto;
 use App\Models\PetImage;
 use App\Models\PetTreatment;
 use App\Models\Shelter;
@@ -1221,4 +1222,59 @@ test('viewers have no people tab and never see the adopter, even asking for it i
         ->assertSet('availableTabs', ['summary', 'health'])
         ->assertDontSee('Maria Silva')
         ->assertSee('Identification');
+});
+
+test('the health tab groups the clinical photos by label, oldest first, with download and edit links', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $newer = PetClinicalPhoto::factory()->for($pet)->create(['label' => 'Lump A', 'taken_at' => '2026-10-12', 'notes' => 'Bigger']);
+    $older = PetClinicalPhoto::factory()->for($pet)->create(['label' => 'lump a ', 'taken_at' => '2026-09-01']);
+    PetClinicalPhoto::factory()->for($pet)->create(['label' => 'Wound B', 'taken_at' => '2026-10-20']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
+        ->assertOk()
+        ->assertSeeInOrder(['Clinical Photos', 'Wound B', '(1)', 'Lump A', '(2)', '01/09/2026', '12/10/2026', 'Bigger'])
+        ->assertSee(route('pets.clinical-photos.file', ['pet' => $pet, 'clinicalPhoto' => $newer, 'download' => 1]), false)
+        ->assertSee(route('pets.clinical-photos.edit', ['pet' => $pet, 'clinicalPhoto' => $older]), false)
+        ->assertSee(route('pets.clinical-photos.create', $pet), false)
+        ->assertSee('clinical-photo-gallery')
+        ->assertSee(route('pets.clinical-photos.file', ['pet' => $pet, 'clinicalPhoto' => $newer, 'size' => 'full']), false);
+
+    $this->get(route('pets.show', $pet))->assertDontSee('Wound B');
+});
+
+test('staff can delete a clinical photo, which only soft-deletes it, and viewers cannot', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $photo = PetClinicalPhoto::factory()->for($pet)->create(['label' => 'Lump A']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteClinicalPhoto', $photo->id)->assertForbidden();
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
+        ->assertSee('Lump A')
+        ->assertDontSee(route('pets.clinical-photos.create', $pet), false);
+
+    $staff = User::factory()->forShelter($shelter, 'staff')->create();
+    $this->actingAs($staff);
+    Livewire::withQueryParams(['tab' => 'health'])
+        ->test(PetShow::class, ['pet' => $pet])
+        ->call('deleteClinicalPhoto', $photo->id)
+        ->assertDontSee('Lump A')
+        ->assertSee('No clinical photos registered');
+
+    expect($photo->fresh()->trashed())->toBeTrue()
+        ->and($photo->fresh()->deleted_by)->toBe($staff->id);
+});
+
+test('a clinical photo of another pet cannot be deleted from this page', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $photo = PetClinicalPhoto::factory()->for(Pet::factory()->for($shelter))->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteClinicalPhoto', $photo->id))
+        ->toThrow(ModelNotFoundException::class);
+
+    expect($photo->fresh()->trashed())->toBeFalse();
 });

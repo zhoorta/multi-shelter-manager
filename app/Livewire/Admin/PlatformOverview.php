@@ -81,8 +81,9 @@ class PlatformOverview extends Component
     }
 
     /**
-     * Bytes of uploaded files per shelter id: pet photos, volunteer photos
-     * and the logo. Soft-deleted pets and volunteers still hold their files.
+     * Bytes of uploaded files per shelter id: pet photos, clinical photos,
+     * volunteer photos and the logo. Soft-deleted pets, volunteers and photos
+     * still hold their files.
      *
      * @return array<int, int>
      */
@@ -95,6 +96,12 @@ class PlatformOverview extends Component
             ->selectRaw('pets.shelter_id as shelter_id, SUM(pet_images.file_size) as bytes')
             ->pluck('bytes', 'shelter_id');
 
+        $clinicalPhotos = DB::table('pet_clinical_photos')
+            ->join('pets', 'pets.id', '=', 'pet_clinical_photos.pet_id')
+            ->groupBy('pets.shelter_id')
+            ->selectRaw('pets.shelter_id as shelter_id, SUM(pet_clinical_photos.file_size) as bytes')
+            ->pluck('bytes', 'shelter_id');
+
         $volunteerPhotos = DB::table('volunteers')
             ->groupBy('shelter_id')
             ->selectRaw('shelter_id, SUM(image_size) as bytes')
@@ -105,6 +112,7 @@ class PlatformOverview extends Component
         return $this->shelters
             ->mapWithKeys(fn (Shelter $shelter): array => [
                 $shelter->id => (int) ($petPhotos[$shelter->id] ?? 0)
+                    + (int) ($clinicalPhotos[$shelter->id] ?? 0)
                     + (int) ($volunteerPhotos[$shelter->id] ?? 0)
                     + (int) ($logos[$shelter->id] ?? 0),
             ])
