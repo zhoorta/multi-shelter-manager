@@ -593,6 +593,18 @@ test('paginates pets 20 per page', function () {
     expect($component->get('pets')->count())->toBe(5);
 });
 
+test('lists pets by most recent checkin date first, with unknown checkin dates last', function () {
+    $shelter = Shelter::factory()->create();
+    Pet::factory()->for($shelter)->create(['name' => 'Alpha', 'checkin_date' => '2025-01-10']);
+    Pet::factory()->for($shelter)->create(['name' => 'Bravo', 'checkin_date' => null]);
+    Pet::factory()->for($shelter)->create(['name' => 'Charlie', 'checkin_date' => '2026-03-05']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(ManagePets::class)
+        ->assertSeeInOrder(['Charlie', 'Alpha', 'Bravo']);
+});
+
 test('soft-deletes a pet instead of removing it permanently', function () {
     $shelter = Shelter::factory()->create();
     $user = User::factory()->forShelter($shelter, 'staff')->create();
@@ -621,19 +633,19 @@ test('cannot delete a pet belonging to another shelter', function () {
     expect($pet->fresh()->trashed())->toBeFalse();
 });
 
-test('lists pets by most recent checkin date first, with unknown checkin dates last', function () {
+test('the row menu offers view, edit and delete to editors', function () {
     $shelter = Shelter::factory()->create();
-    Pet::factory()->for($shelter)->create(['name' => 'Alpha', 'checkin_date' => '2025-01-10']);
-    Pet::factory()->for($shelter)->create(['name' => 'Bravo', 'checkin_date' => null]);
-    Pet::factory()->for($shelter)->create(['name' => 'Charlie', 'checkin_date' => '2026-03-05']);
-
+    $pet = Pet::factory()->for($shelter)->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    Livewire::test(ManagePets::class)
-        ->assertSeeInOrder(['Charlie', 'Alpha', 'Bravo']);
+    $this->get(route('pets.index'))
+        ->assertOk()
+        ->assertSee(route('pets.show', $pet))
+        ->assertSee(route('pets.edit', $pet))
+        ->assertSee('confirm-pet-deletion-'.$pet->id);
 });
 
-test('viewers can view the list without create or delete controls', function () {
+test('viewers can view the list without create, edit or delete controls', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
     $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
@@ -641,7 +653,9 @@ test('viewers can view the list without create or delete controls', function () 
     $this->get(route('pets.index'))
         ->assertOk()
         ->assertSee('Rex')
+        ->assertSee(route('pets.show', $pet))
         ->assertDontSee(route('pets.create'))
+        ->assertDontSee(route('pets.edit', $pet))
         ->assertDontSee('confirm-pet-deletion-'.$pet->id);
 });
 

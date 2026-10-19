@@ -201,46 +201,55 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-3">
-                                    <div class="flex items-center gap-2">
+                                    <flux:dropdown align="end">
                                         <flux:button
-                                            :href="route('pets.show', $pet)"
                                             size="sm"
                                             variant="subtle"
-                                            icon="eye"
-                                            :aria-label="__('View')"
-                                            wire:navigate
+                                            icon="ellipsis-horizontal"
+                                            :aria-label="__('Actions')"
                                         />
 
-                                        @if ($canEdit)
-                                            <flux:modal.trigger name="confirm-pet-deletion-{{ $pet->id }}">
-                                                <flux:button
-                                                    size="sm"
-                                                    variant="subtle"
-                                                    icon="trash"
-                                                    :aria-label="__('Delete')"
-                                                />
-                                            </flux:modal.trigger>
+                                        <flux:menu>
+                                            <flux:menu.item :href="route('pets.show', $pet)" icon="eye" wire:navigate>
+                                                {{ __('View') }}
+                                            </flux:menu.item>
 
-                                            <flux:modal name="confirm-pet-deletion-{{ $pet->id }}" class="max-w-lg">
-                                                <div class="space-y-6">
-                                                    <div>
-                                                        <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
-                                                        <flux:subheading>{{ __('This record can be restored later by an administrator') }}</flux:subheading>
-                                                    </div>
+                                            @if ($canEdit)
+                                                <flux:menu.item :href="route('pets.edit', $pet)" icon="pencil-square" wire:navigate>
+                                                    {{ __('Edit') }}
+                                                </flux:menu.item>
 
-                                                    <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                                                        <flux:modal.close>
-                                                            <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                                                        </flux:modal.close>
+                                                <flux:menu.separator />
 
-                                                        <flux:button variant="danger" wire:click="deletePet({{ $pet->id }})">
-                                                            {{ __('Delete') }}
-                                                        </flux:button>
-                                                    </div>
+                                                <flux:modal.trigger name="confirm-pet-deletion-{{ $pet->id }}">
+                                                    <flux:menu.item variant="danger" icon="trash">
+                                                        {{ __('Delete') }}
+                                                    </flux:menu.item>
+                                                </flux:modal.trigger>
+                                            @endif
+                                        </flux:menu>
+                                    </flux:dropdown>
+
+                                    @if ($canEdit)
+                                        <flux:modal name="confirm-pet-deletion-{{ $pet->id }}" class="max-w-lg">
+                                            <div class="space-y-6">
+                                                <div>
+                                                    <flux:heading size="lg">{{ __('Are you sure you want to delete this record?') }}</flux:heading>
+                                                    <flux:subheading>{{ $pet->name }} — {{ __('This record can be restored later by an administrator') }}</flux:subheading>
                                                 </div>
-                                            </flux:modal>
-                                        @endif
-                                    </div>
+
+                                                <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                                                    <flux:modal.close>
+                                                        <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                                                    </flux:modal.close>
+
+                                                    <flux:button variant="danger" wire:click="deletePet({{ $pet->id }})">
+                                                        {{ __('Delete') }}
+                                                    </flux:button>
+                                                </div>
+                                            </div>
+                                        </flux:modal>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
