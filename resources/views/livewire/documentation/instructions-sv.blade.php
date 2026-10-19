@@ -172,7 +172,7 @@
             <li>Koloniens summor: djur, <strong>Kastrerad</strong>, <strong>Kastrering väntar</strong>, <strong>Ingen kastreringsinfo</strong> (inget registrerat om kastrering) och <strong>Örontopp</strong>. Summorna räknar alltid hela kolonin, oavsett vad filtren visar.</li>
             <li>Sök djuren på namn, referens eller chip och filtrera efter kastreringsläge eller örontopp.</li>
             <li>Knappen <strong>Lägg till …</strong> öppnar djurformuläret med kolonin och arten redan ifyllda.</li>
-            <li><strong>Exportera som CSV</strong> laddar ner ett kalkylblad med alla levande djur i kolonin (uppgifter om fångst, kastrering, örontopp och återsläppning) till rapporterna till kommunen.</li>
+            <li><strong>Exportera till Excel</strong> laddar ner ett kalkylblad med alla levande djur i kolonin (uppgifter om fångst, kastrering, örontopp och återsläppning) till rapporterna till kommunen.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Djur i en koloni</h3>
         <p>Välj <strong>Koloni</strong> i djurformuläret (bara kolonier av djurets art visas) och fyll i <strong>Fångad den</strong>, <strong>Återsläppt den</strong> och <strong>Örontopp</strong>. Burfältet döljs då, eftersom djuret inte bor på hemmet. Djuret behåller allt annat: foton, vaccinationer, behandlingar, diagnoser och kastreringsuppgifter. Kolonin visas under Boende i djurlistan och på djursidan och kan användas i platsfiltret i djurlistan och i formulären för gruppvaccination och gruppbehandling.</p>

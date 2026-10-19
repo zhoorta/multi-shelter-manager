@@ -165,13 +165,13 @@ trait ExportsReportLists
      */
     private function downloadList(string $title, array $headings, iterable $rows): StreamedResponse
     {
-        $csv = ExportShelterData::csv($headings, $rows);
+        $xlsx = ExportShelterData::xlsx($headings, $rows);
         [$start, $end] = $this->dateRange();
 
         return response()->streamDownload(
-            fn () => print ($csv),
-            Str::slug($title.' '.$start->format('Y-m-d').' '.$end->format('Y-m-d')).'.csv',
-            ['Content-Type' => 'text/csv; charset=UTF-8'],
+            fn () => print ($xlsx),
+            Str::slug($title.' '.$start->format('Y-m-d').' '.$end->format('Y-m-d')).'.xlsx',
+            ['Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
         );
     }
 }

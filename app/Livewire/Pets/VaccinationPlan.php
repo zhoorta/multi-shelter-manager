@@ -144,16 +144,16 @@ class VaccinationPlan extends Component
     /**
      * Download the selected list as a spreadsheet, in box order.
      */
-    public function exportCsv(): StreamedResponse
+    public function exportXlsx(): StreamedResponse
     {
         abort_if($this->month === null, 404);
 
-        $csv = $this->dueVaccinationsCsv($this->duePets);
+        $xlsx = $this->dueVaccinationsXlsx($this->duePets);
 
         return response()->streamDownload(
-            fn () => print ($csv),
-            Str::slug(__('Vaccination Plan').' '.$this->monthLabel()).'.csv',
-            ['Content-Type' => 'text/csv; charset=UTF-8'],
+            fn () => print ($xlsx),
+            Str::slug(__('Vaccination Plan').' '.$this->monthLabel()).'.xlsx',
+            ['Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
         );
     }
 

@@ -172,7 +172,7 @@
             <li>The totals of the colony: animals, <strong>Neutered</strong>, <strong>Pending neutering</strong>, <strong>No neutering info</strong> (nothing recorded about neutering) and <strong>Ear-tipped</strong>. The totals always count the whole colony, whatever the filters show.</li>
             <li>Search the animals by name, reference or chip, and filter them by neutering situation or ear-tipped.</li>
             <li>The <strong>Add …</strong> button opens the pet form already set to the colony and its species.</li>
-            <li><strong>Export CSV</strong> downloads a spreadsheet with all the colony's living animals (capture, neutering, ear-tip and return data) for the reports you send to the town hall.</li>
+            <li><strong>Export to Excel</strong> downloads a spreadsheet with all the colony's living animals (capture, neutering, ear-tip and return data) for the reports you send to the town hall.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Animals in a colony</h3>
         <p>In the pet form, choose the <strong>Colony</strong> (only the colonies of the animal's species are offered) and fill in <strong>Captured on</strong>, <strong>Returned on</strong> and <strong>Ear-tipped</strong>. The cage field is then hidden, because the animal does not live in the shelter. The animal keeps everything else: photos, vaccinations, treatments, diagnoses and neutering details. The colony is shown under Accommodation in the pets list and on the pet page, and it can be used in the location filter of the pets list and of the group vaccination and group treatment forms.</p>

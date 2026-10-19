@@ -172,7 +172,7 @@
             <li>Sumy dla kolonii: zwierzęta, <strong>Wykastrowany</strong>, <strong>Sterylizacja oczekuje</strong>, <strong>Brak informacji o sterylizacji</strong> (brak zapisanych danych o sterylizacji) i <strong>Przycięte ucho</strong>. Sumy zawsze obejmują całą kolonię, niezależnie od filtrów.</li>
             <li>Wyszukuj zwierzęta po imieniu, numerze referencyjnym lub chipie i filtruj według sytuacji sterylizacji lub przyciętego ucha.</li>
             <li>Przycisk <strong>Dodaj: …</strong> otwiera formularz zwierzęcia z już wypełnioną kolonią i gatunkiem.</li>
-            <li><strong>Eksportuj do CSV</strong> pobiera arkusz ze wszystkimi żyjącymi zwierzętami kolonii (dane o złapaniu, sterylizacji, przyciętym uchu i wypuszczeniu) do raportów dla urzędu miasta.</li>
+            <li><strong>Eksportuj do Excela</strong> pobiera arkusz ze wszystkimi żyjącymi zwierzętami kolonii (dane o złapaniu, sterylizacji, przyciętym uchu i wypuszczeniu) do raportów dla urzędu miasta.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Zwierzęta w kolonii</h3>
         <p>W formularzu zwierzęcia wybierz <strong>Kolonia</strong> (widoczne są tylko kolonie gatunku zwierzęcia) i wypełnij <strong>Złapany dnia</strong>, <strong>Wypuszczony dnia</strong> oraz <strong>Przycięte ucho</strong>. Pole boksu zostaje wtedy ukryte, bo zwierzę nie mieszka w schronisku. Zwierzę zachowuje wszystko inne: zdjęcia, szczepienia, zabiegi, diagnozy i dane o sterylizacji. Kolonia pojawia się w Zakwaterowaniu na liście zwierząt i na stronie zwierzęcia i można jej użyć w filtrze lokalizacji listy zwierząt oraz formularzy szczepień i zabiegów grupowych.</p>

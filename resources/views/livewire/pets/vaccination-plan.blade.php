@@ -139,7 +139,7 @@
                     </flux:button>
 
                     @if ($this->duePets->isNotEmpty())
-                        <flux:button wire:click="exportCsv" variant="filled" icon="arrow-down-tray">
+                        <flux:button wire:click="exportXlsx" variant="filled" icon="arrow-down-tray">
                             {{ __('Export to Excel') }}
                         </flux:button>
                     @endif

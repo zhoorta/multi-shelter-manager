@@ -17,7 +17,7 @@ beforeEach(function () {
 });
 
 /**
- * Call an export of the reports page for a year and return the CSV text.
+ * Call an export of the reports page for a year and return the spreadsheet text.
  */
 function exportedList(string $method, string $year = '2025'): string
 {
@@ -26,7 +26,7 @@ function exportedList(string $method, string $year = '2025'): string
         ->call($method)
         ->assertFileDownloaded();
 
-    return base64_decode((string) ($response->effects['download']['content'] ?? ''));
+    return xlsxText(base64_decode((string) ($response->effects['download']['content'] ?? '')));
 }
 
 test('exports the animals that entered in the year with chip, birth date and box', function () {
@@ -37,7 +37,7 @@ test('exports the animals that entered in the year with chip, birth date and box
     $csv = exportedList('exportIntakes');
 
     expect($csv)
-        ->toContain('Reference;Name;Species;Gender;Microchip;"Birth Date";"Checkin Date";Facility;Wing;Cage')
+        ->toContain('Reference;Name;Species;Gender;Microchip;Birth Date;Checkin Date;Facility;Wing;Cage')
         ->toContain(';Abby;Dog;')
         ->toContain('941000023525681;04/03/2020;10/03/2025')
         ->not->toContain('Earlier')
@@ -82,7 +82,7 @@ test('exports the vaccinations given in the year, one row per dose', function ()
     $csv = exportedList('exportVaccinations');
 
     expect($csv)
-        ->toContain('01/05/2025;Rabies;L123;"Dr Costa"')
+        ->toContain('01/05/2025;Rabies;L123;Dr Costa')
         ->not->toContain('01/05/2024')
         ->and(substr_count($csv, 'Abby'))->toBe(1);
 });

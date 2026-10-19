@@ -172,7 +172,7 @@
             <li>Die Summen der Kolonie: Tiere, <strong>Kastriert</strong>, <strong>Kastration ausstehend</strong>, <strong>Keine Kastrationsinfo</strong> (nichts zur Kastration erfasst) und <strong>Ohrmarkiert</strong>. Die Summen zählen immer die ganze Kolonie, unabhängig von den Filtern.</li>
             <li>Suchen Sie Tiere nach Name, Referenz oder Chip und filtern Sie nach Kastrationsstatus oder Ohrmarkierung.</li>
             <li>Die Schaltfläche <strong>Hinzufügen: …</strong> öffnet das Tierformular mit bereits eingetragener Kolonie und Tierart.</li>
-            <li><strong>Als CSV exportieren</strong> lädt eine Tabelle mit allen lebenden Tieren der Kolonie herunter (Fang-, Kastrations-, Ohrmarkierungs- und Rücksetzdaten) für die Berichte an die Gemeinde.</li>
+            <li><strong>Nach Excel exportieren</strong> lädt eine Tabelle mit allen lebenden Tieren der Kolonie herunter (Fang-, Kastrations-, Ohrmarkierungs- und Rücksetzdaten) für die Berichte an die Gemeinde.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Tiere in einer Kolonie</h3>
         <p>Wählen Sie im Tierformular die <strong>Kolonie</strong> (es werden nur Kolonien der Tierart des Tieres angeboten) und füllen Sie <strong>Gefangen am</strong>, <strong>Zurückgesetzt am</strong> und <strong>Ohrmarkiert</strong> aus. Das Zwingerfeld wird dann ausgeblendet, weil das Tier nicht im Tierheim lebt. Alles andere bleibt erhalten: Fotos, Impfungen, Behandlungen, Diagnosen und Kastrationsdaten. Die Kolonie erscheint unter Unterbringung in der Tierliste und auf der Tierseite und kann im Standortfilter der Tierliste sowie der Formulare für Gruppenimpfung und Gruppenbehandlung verwendet werden.</p>

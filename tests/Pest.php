@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use OpenSpout\Reader\XLSX\Reader;
 use Tests\TestCase;
 
 /*
@@ -47,4 +48,31 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+/**
+ * The text of an .xlsx download: one line per row, cells joined with ";".
+ */
+function xlsxText(string $xlsx): string
+{
+    $path = tempnam(sys_get_temp_dir(), 'xlsx');
+    file_put_contents($path, $xlsx);
+
+    try {
+        $reader = new Reader;
+        $reader->open($path);
+        $lines = [];
+
+        foreach ($reader->getSheetIterator() as $sheet) {
+            foreach ($sheet->getRowIterator() as $row) {
+                $lines[] = implode(';', array_map('strval', $row->toArray()));
+            }
+        }
+
+        $reader->close();
+
+        return implode("\n", $lines);
+    } finally {
+        @unlink($path);
+    }
 }

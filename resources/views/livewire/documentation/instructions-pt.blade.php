@@ -172,7 +172,7 @@
             <li>Os totais da colónia: animais, <strong>Esterilizado</strong>, <strong>Esterilização pendente</strong>, <strong>Sem informação de esterilização</strong> (nada registado sobre a esterilização) e <strong>Orelha cortada</strong>. Os totais contam sempre a colónia inteira, sejam quais forem os filtros.</li>
             <li>Pesquise os animais por nome, referência ou chip e filtre-os pela situação de esterilização ou por orelha cortada.</li>
             <li>O botão <strong>Adicionar …</strong> abre o formulário do animal já com a colónia e a espécie preenchidas.</li>
-            <li><strong>Exportar CSV</strong> descarrega uma folha de cálculo com todos os animais vivos da colónia (dados de captura, esterilização, orelha cortada e devolução) para os relatórios que envia à Câmara.</li>
+            <li><strong>Exportar para Excel</strong> descarrega uma folha de cálculo com todos os animais vivos da colónia (dados de captura, esterilização, orelha cortada e devolução) para os relatórios que envia à Câmara.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Animais numa colónia</h3>
         <p>No formulário do animal, escolha a <strong>Colónia</strong> (só aparecem as colónias da espécie do animal) e preencha <strong>Capturado em</strong>, <strong>Devolvido em</strong> e <strong>Orelha cortada</strong>. O campo da box fica então escondido, porque o animal não vive no abrigo. O animal mantém tudo o resto: fotografias, vacinas, tratamentos, diagnósticos e dados de esterilização. A colónia aparece em Acomodação na lista de animais e na página do animal, e pode usar-se no filtro de localização da lista de animais e dos formulários de vacinação e de tratamento em grupo.</p>

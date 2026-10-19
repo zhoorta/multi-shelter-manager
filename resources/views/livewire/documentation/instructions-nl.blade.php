@@ -172,7 +172,7 @@
             <li>De totalen van de kolonie: dieren, <strong>Gecastreerd</strong>, <strong>Sterilisatie in afwachting</strong>, <strong>Geen sterilisatie-informatie</strong> (niets vastgelegd over sterilisatie) en <strong>Oor getopt</strong>. De totalen tellen altijd de hele kolonie, wat de filters ook tonen.</li>
             <li>Zoek dieren op naam, referentie of chip en filter op sterilisatiestatus of getopt oor.</li>
             <li>De knop <strong>Voeg … toe</strong> opent het dierformulier met de kolonie en soort al ingevuld.</li>
-            <li><strong>Exporteren als CSV</strong> downloadt een spreadsheet met alle levende dieren van de kolonie (gegevens over vangst, sterilisatie, getopt oor en terugzetting) voor de rapporten aan de gemeente.</li>
+            <li><strong>Exporteren naar Excel</strong> downloadt een spreadsheet met alle levende dieren van de kolonie (gegevens over vangst, sterilisatie, getopt oor en terugzetting) voor de rapporten aan de gemeente.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Dieren in een kolonie</h3>
         <p>Kies in het dierformulier de <strong>Kolonie</strong> (alleen kolonies van de soort van het dier worden getoond) en vul <strong>Gevangen op</strong>, <strong>Teruggezet op</strong> en <strong>Oor getopt</strong> in. Het hokveld wordt dan verborgen, omdat het dier niet in het asiel woont. Al het andere blijft behouden: foto's, vaccinaties, behandelingen, diagnoses en sterilisatiegegevens. De kolonie staat onder Huisvesting in de dierenlijst en op de dierpagina en kan worden gebruikt in het locatiefilter van de dierenlijst en van de formulieren voor groepsvaccinatie en groepsbehandeling.</p>

@@ -10,7 +10,7 @@
 
         <div class="flex flex-wrap gap-2">
             <flux:button icon="arrow-left" :href="route('colonies.index')" wire:navigate>{{ __('Back') }}</flux:button>
-            <flux:button icon="arrow-down-tray" wire:click="exportCsv">{{ __('Export CSV') }}</flux:button>
+            <flux:button icon="arrow-down-tray" wire:click="exportXlsx">{{ __('Export to Excel') }}</flux:button>
             @if ($canEdit)
                 <flux:button variant="primary" icon="plus" :href="route('pets.create', ['colony' => $colony->id, 'species' => $colony->species_id])" wire:navigate>
                     {{ __('Add :species', ['species' => $colony->species->name]) }}

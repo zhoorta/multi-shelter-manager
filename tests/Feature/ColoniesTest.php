@@ -119,7 +119,7 @@ test('the colony page shows the totals and exports the living cats as CSV', func
         ->assertSet('totals', ['total' => 2, 'neutered' => 1, 'pending' => 1, 'unknown' => 0, 'earTipped' => 1])
         ->assertSee('Tigre')
         ->assertDontSee('Gone')
-        ->call('exportCsv')
+        ->call('exportXlsx')
         ->assertFileDownloaded();
 });
 

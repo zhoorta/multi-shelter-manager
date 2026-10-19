@@ -10,3 +10,6 @@ Settings > Export data (manager only) builds a ZIP of CSVs (';' separator, BOM) 
 
 
 Every download is also audited in the data_exports table (DataExport: shelter, user, IP; written by Settings\ExportData::export). The export page lists the last ten for the manager's shelter; there is no admin view.
+
+## Spreadsheet downloads are .xlsx with text cells; CSV only for the data ZIP
+Vaccination plan, colony and report-list exports use ExportShelterData::xlsx() (openspout, added 2026-10-19): every value is a StringCell, so 15-digit chips keep all digits and leading zeros (as CSV, Excel showed 6,2E+14 and zeroed digits after 15) and a value starting with = is text, not a formula (Cell::fromValue would turn it into one, so never use Row::fromValues here). Settings > Export data stays a ZIP of CSVs (backup/portability format). Tests read downloads with the xlsxText() helper in tests/Pest.php.

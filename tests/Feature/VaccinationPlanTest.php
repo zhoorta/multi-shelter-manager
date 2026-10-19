@@ -158,16 +158,16 @@ test('exports the list as a spreadsheet with chip, birth date, box and vaccine d
     $response = Livewire::withQueryParams(['year' => 2027])
         ->test(VaccinationPlan::class)
         ->call('selectWholeYear')
-        ->call('exportCsv')
-        ->assertFileDownloaded('vaccination-plan-2027.csv');
+        ->call('exportXlsx')
+        ->assertFileDownloaded('vaccination-plan-2027.xlsx');
 
     $csv = $response->effects['download']['content'] ?? null;
-    $decoded = base64_decode((string) $csv);
+    $decoded = xlsxText(base64_decode((string) $csv));
 
     expect($decoded)
-        ->toContain('Name;Microchip;"Birth Date";Facility;Wing;Cage;Colony;"Rabies — Administered Date";"Rabies — Next Due Date"')
-        ->toContain('Abby;941000023525681;04/03/2020;"Main Kennel";"Corridor A";A2;;01/05/2024;01/05/2027')
-        ->toContain("'=Bad");
+        ->toContain('Name;Microchip;Birth Date;Facility;Wing;Cage;Colony;Rabies — Administered Date;Rabies — Next Due Date')
+        ->toContain('Abby;941000023525681;04/03/2020;Main Kennel;Corridor A;A2;;01/05/2024;01/05/2027')
+        ->toContain('=Bad;');
 });
 
 test('an animal in a colony shows the colony as its location in the plan, the print list and the spreadsheet', function () {
@@ -181,8 +181,22 @@ test('an animal in a colony shows the colony as its location in the plan, the pr
         ->call('selectWholeYear')
         ->assertSee('Ribeira');
 
-    $csv = base64_decode((string) ($plan->call('exportCsv')->effects['download']['content'] ?? null));
+    $csv = xlsxText(base64_decode((string) ($plan->call('exportXlsx')->effects['download']['content'] ?? null)));
     expect($csv)->toContain('Wild;;;;;;Ribeira;');
 
     $this->get(route('pets.vaccinations.plan.print', ['year' => 2027, 'month' => 5]))->assertSee('Ribeira');
+});
+
+test('the spreadsheet keeps every digit of a chip, including a leading zero', function () {
+    $this->actingAs(User::factory()->forShelter($this->shelter, 'viewer')->create());
+
+    planDog($this->shelter, $this->dogs, [[$this->rabies, '2027-05-01']], ['name' => 'Zero', 'chip' => '012345678901234']);
+
+    $plan = Livewire::withQueryParams(['year' => 2027])
+        ->test(VaccinationPlan::class)
+        ->call('selectWholeYear');
+
+    $xlsx = base64_decode((string) ($plan->call('exportXlsx')->effects['download']['content'] ?? null));
+
+    expect(xlsxText($xlsx))->toContain('Zero;012345678901234;');
 });

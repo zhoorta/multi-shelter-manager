@@ -172,7 +172,7 @@
             <li>Koloniens totaler: dyr, <strong>Kastreret</strong>, <strong>Kastration afventer</strong>, <strong>Ingen kastreringsinfo</strong> (intet registreret om kastration) og <strong>Øreklip</strong>. Totalerne tæller altid hele kolonien, uanset hvad filtrene viser.</li>
             <li>Søg i dyrene på navn, reference eller chip, og filtrer efter kastrationsstatus eller øreklip.</li>
             <li>Knappen <strong>Tilføj …</strong> åbner dyreformularen med kolonien og arten allerede udfyldt.</li>
-            <li><strong>Eksporter som CSV</strong> henter et regneark med alle koloniens levende dyr (oplysninger om fangst, kastration, øreklip og genudsætning) til rapporterne til kommunen.</li>
+            <li><strong>Eksportér til Excel</strong> henter et regneark med alle koloniens levende dyr (oplysninger om fangst, kastration, øreklip og genudsætning) til rapporterne til kommunen.</li>
         </ul>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Dyr i en koloni</h3>
         <p>Vælg <strong>Koloni</strong> i dyreformularen (kun kolonier af dyrets art vises), og udfyld <strong>Fanget den</strong>, <strong>Genudsat den</strong> og <strong>Øreklip</strong>. Båsfeltet skjules da, fordi dyret ikke bor i herberget. Dyret beholder alt andet: fotos, vaccinationer, behandlinger, diagnoser og kastrationsoplysninger. Kolonien vises under Indkvartering i dyrelisten og på dyrets side og kan bruges i placeringsfilteret i dyrelisten og i formularerne til gruppevaccination og gruppebehandling.</p>

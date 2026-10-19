@@ -27,6 +27,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use OpenSpout\Common\Entity\Cell\StringCell;
+use OpenSpout\Common\Entity\Row;
+use OpenSpout\Common\Entity\Style\Style;
+use OpenSpout\Writer\XLSX\Writer;
 use RuntimeException;
 use ZipArchive;
 
@@ -238,6 +242,47 @@ class ExportShelterData
         rewind($stream);
 
         return (string) stream_get_contents($stream);
+    }
+
+    /**
+     * An .xlsx workbook with one bold heading row. Every value is written as
+     * a text cell, so long numbers such as microchips keep all their digits
+     * (a spreadsheet would show them as 6,2E+14) and nothing is read as a
+     * formula.
+     *
+     * @param  list<string>  $headings
+     * @param  iterable<int, array<int, mixed>>  $rows
+     */
+    public static function xlsx(array $headings, iterable $rows): string
+    {
+        $path = tempnam(sys_get_temp_dir(), 'xlsx');
+
+        try {
+            $writer = new Writer;
+            $writer->openToFile($path);
+            $writer->addRow(self::textRow($headings, new Style(fontBold: true)));
+
+            foreach ($rows as $row) {
+                $writer->addRow(self::textRow($row));
+            }
+
+            $writer->close();
+
+            return (string) file_get_contents($path);
+        } finally {
+            @unlink($path);
+        }
+    }
+
+    /**
+     * @param  array<int, mixed>  $values
+     */
+    private static function textRow(array $values, ?Style $style = null): Row
+    {
+        return new Row(array_map(
+            fn (mixed $value): StringCell => new StringCell((string) ($value ?? ''), $style),
+            array_values($values),
+        ));
     }
 
     /**

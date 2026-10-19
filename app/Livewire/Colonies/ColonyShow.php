@@ -97,7 +97,7 @@ class ColonyShow extends Component
     /**
      * Spreadsheet of the colony's cats for the CED/CER reports.
      */
-    public function exportCsv(): StreamedResponse
+    public function exportXlsx(): StreamedResponse
     {
         $headings = [
             __('Colony'), __('Reference'), __('Name'), __('Gender'), __('Microchip / Chip'), __('Birth Date'),
@@ -118,12 +118,12 @@ class ColonyShow extends Component
             $pet->returned_at?->format('d/m/Y'),
         ]);
 
-        $csv = ExportShelterData::csv($headings, $rows);
+        $xlsx = ExportShelterData::xlsx($headings, $rows);
 
         return response()->streamDownload(
-            fn () => print ($csv),
-            Str::slug(__('Colony').' '.$this->colony->name.' '.now()->format('Y-m-d')).'.csv',
-            ['Content-Type' => 'text/csv; charset=UTF-8'],
+            fn () => print ($xlsx),
+            Str::slug(__('Colony').' '.$this->colony->name.' '.now()->format('Y-m-d')).'.xlsx',
+            ['Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
         );
     }
 

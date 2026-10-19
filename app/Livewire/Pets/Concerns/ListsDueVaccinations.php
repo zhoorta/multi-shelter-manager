@@ -89,12 +89,12 @@ trait ListsDueVaccinations
     }
 
     /**
-     * Spreadsheet (CSV) of the vet list: one row per pet with its chip, birth
+     * Spreadsheet (.xlsx) of the vet list: one row per pet with its chip, birth
      * date and box, and the last and next dose date of each vaccine listed.
      *
      * @param  Collection<int, array{pet: Pet, vaccinations: EloquentCollection<int, PetVaccine>}>  $duePets
      */
-    protected function dueVaccinationsCsv(Collection $duePets): string
+    protected function dueVaccinationsXlsx(Collection $duePets): string
     {
         $vaccines = $duePets
             ->flatMap(fn (array $row) => $row['vaccinations']->pluck('vaccine'))
@@ -102,7 +102,7 @@ trait ListsDueVaccinations
             ->sortBy('name')
             ->values();
 
-        return ExportShelterData::csv(
+        return ExportShelterData::xlsx(
             [
                 __('Name'),
                 __('Microchip / Chip'),
