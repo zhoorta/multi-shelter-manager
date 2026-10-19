@@ -185,3 +185,16 @@ test('filtering by colony only ticks the animals of that colony', function () {
         ->set('locationFilter', 'colony:'.$colony->id)
         ->assertSet('selectedPetIds', [(string) $inColony->id]);
 });
+
+test('warns that the next due date must be typed when the vaccine has no frequency', function () {
+    [$shelter, $dogs, $rabies] = shelterWithDogRabies();
+    $leptospirosis = Vaccine::factory()->create(['name' => 'Leptospirosis', 'frequency_months' => null]);
+    $leptospirosis->species()->attach($dogs);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(GroupVaccinationForm::class)
+        ->set('vaccineId', (string) $rabies->id)
+        ->assertDontSee('no fixed interval')
+        ->set('vaccineId', (string) $leptospirosis->id)
+        ->assertSee('no fixed interval');
+});

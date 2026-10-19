@@ -355,8 +355,10 @@ test('fills the next due date from the vaccine frequency and recalculates it whe
         ->assertSee('every 36 months')
         ->set('administeredDate', '2026-09-28')
         ->assertSet('dueDate', '2029-09-28')
+        ->assertDontSee('no fixed interval')
         ->set('vaccineId', (string) $withoutFrequency->id)
-        ->assertSet('dueDate', '');
+        ->assertSet('dueDate', '')
+        ->assertSee('no fixed interval');
 });
 
 test('never overwrites a next due date the user typed', function () {

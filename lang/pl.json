@@ -220,6 +220,7 @@
     "Every :months months": "Co :months mies.",
     "Leave empty when the next date depends on the veterinarian's protocol.": "Pozostaw puste, gdy następna data zależy od protokołu weterynarza.",
     "Filled in from the vaccine frequency (every :months months). You can change it.": "Uzupełniono na podstawie częstotliwości szczepionki (co :months mies.). Możesz to zmienić.",
+    "This vaccine has no fixed interval: enter the next due date yourself, or the animal will not appear in the vaccination plan.": "Ta szczepionka nie ma stałego odstępu: wpisz samodzielnie datę następnego szczepienia, w przeciwnym razie zwierzę nie pojawi się w planie szczepień.",
     "Lot Number": "Numer serii",
     "Veterinarian": "Lekarz weterynarii",
     "No vaccinations registered": "Brak zarejestrowanych szczepień.",

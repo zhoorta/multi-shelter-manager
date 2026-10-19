@@ -220,6 +220,7 @@
     "Every :months months": "Tous les :months mois",
     "Leave empty when the next date depends on the veterinarian's protocol.": "Laissez vide lorsque la prochaine date dépend du protocole du vétérinaire.",
     "Filled in from the vaccine frequency (every :months months). You can change it.": "Remplie à partir de la fréquence du vaccin (tous les :months mois). Vous pouvez la modifier.",
+    "This vaccine has no fixed interval: enter the next due date yourself, or the animal will not appear in the vaccination plan.": "Ce vaccin n'a pas d'intervalle fixe : indiquez vous-même la date du prochain rappel, sinon l'animal n'apparaîtra pas dans le plan de vaccination.",
     "Lot Number": "Numéro de Lot",
     "Veterinarian": "Vétérinaire",
     "No vaccinations registered": "Aucune vaccination enregistrée.",

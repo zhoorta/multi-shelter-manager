@@ -220,6 +220,7 @@
     "Every :months months": "Elke :months maanden",
     "Leave empty when the next date depends on the veterinarian's protocol.": "Laat leeg wanneer de volgende datum afhangt van het protocol van de dierenarts.",
     "Filled in from the vaccine frequency (every :months months). You can change it.": "Ingevuld op basis van de frequentie van het vaccin (elke :months maanden). U kunt dit wijzigen.",
+    "This vaccine has no fixed interval: enter the next due date yourself, or the animal will not appear in the vaccination plan.": "Dit vaccin heeft geen vast interval: vul zelf de datum van de volgende vaccinatie in, anders verschijnt het dier niet in het vaccinatieplan.",
     "Lot Number": "Batchnummer",
     "Veterinarian": "Dierenarts",
     "No vaccinations registered": "Geen vaccinaties geregistreerd.",

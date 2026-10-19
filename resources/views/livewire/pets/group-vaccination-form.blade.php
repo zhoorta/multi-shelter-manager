@@ -42,6 +42,11 @@
                     <flux:text class="-mt-2.5">
                         {{ __('Filled in from the vaccine frequency (every :months months). You can change it.', ['months' => $this->selectedVaccine->frequency_months]) }}
                     </flux:text>
+                @elseif ($this->selectedVaccine)
+                    <div></div>
+                    <flux:text class="-mt-2.5">
+                        {{ __('This vaccine has no fixed interval: enter the next due date yourself, or the animal will not appear in the vaccination plan.') }}
+                    </flux:text>
                 @endif
             </div>
 
