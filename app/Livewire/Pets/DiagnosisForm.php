@@ -129,7 +129,7 @@ class DiagnosisForm extends Component
             text: $isEditing ? __('Record updated successfully') : __('Record created successfully'),
         );
 
-        $this->redirect(route('pets.show', $this->pet), navigate: true);
+        $this->redirect(route('pets.show', ['pet' => $this->pet, 'tab' => 'health']), navigate: true);
     }
 
     public function render(): View

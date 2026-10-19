@@ -44,7 +44,7 @@ test('creates a treatment record with the next date filled in from the frequency
         ->set('treatmentNotes', 'Weighed 12 kg')
         ->call('saveTreatment')
         ->assertHasNoErrors()
-        ->assertRedirect(route('pets.show', $pet));
+        ->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'health']));
 
     $petTreatment = PetTreatment::query()->sole();
     expect($petTreatment->pet_id)->toBe($pet->id)

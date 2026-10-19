@@ -82,7 +82,7 @@ test('creates an adoption record, marks the pet as adopted, and sets its checkou
     expect($pet->status)->toBe('adopted');
     expect($pet->checkout_date->toDateString())->toBe('2026-01-15');
 
-    $component->assertRedirect(route('pets.show', $pet));
+    $component->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'people']));
 });
 
 test('creates an adoption record with a return date', function () {
@@ -202,7 +202,7 @@ test('updates an existing adoption record and keeps the pet checkout date in syn
     expect($pet->status)->toBe('adopted');
     expect($pet->checkout_date->toDateString())->toBe('2026-01-20');
 
-    $component->assertRedirect(route('pets.show', $pet));
+    $component->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'people']));
 });
 
 test('setting a return date marks the pet as available again and clears its checkout date', function () {

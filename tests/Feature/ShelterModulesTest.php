@@ -117,11 +117,11 @@ test('the public adoption form and button are gone when applications are off', f
 test('the health records switch hides vaccinations and treatments on the pet page', function () {
     $pet = Pet::factory()->for($this->shelter)->for(Species::factory()->create())->create();
 
-    $this->actingAs($this->manager)->get(route('pets.show', $pet))->assertSee(route('pets.vaccinate', $pet), false);
+    $this->actingAs($this->manager)->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))->assertSee(route('pets.vaccinate', $pet), false);
 
     $this->shelter->update(['modules' => ['health_records' => false]]);
 
-    $this->actingAs($this->manager->fresh())->get(route('pets.show', $pet))
+    $this->actingAs($this->manager->fresh())->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
         ->assertOk()
         ->assertDontSee(route('pets.vaccinate', $pet), false)
         ->assertDontSee(route('pets.treat', $pet), false);

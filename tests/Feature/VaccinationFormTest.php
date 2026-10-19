@@ -75,7 +75,7 @@ test('creates a vaccination record for the pet', function () {
     expect($petVaccine->pivot->veterinarian_name)->toBe('Dr. Silva');
     expect($petVaccine->pivot->notes)->toBe('No adverse reaction');
 
-    $component->assertRedirect(route('pets.show', $pet));
+    $component->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'health']));
 });
 
 test('creates a scheduled vaccination with only a due date', function () {
@@ -292,7 +292,7 @@ test('updates an existing vaccination record', function () {
     expect($petVaccine->fresh()->due_date->toDateString())->toBe('2027-02-01');
     expect($petVaccine->fresh()->lot_number)->toBe('LOT-999');
 
-    $component->assertRedirect(route('pets.show', $pet));
+    $component->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'health']));
 });
 
 test('editing a scheduled vaccination to add an administered date changes its status to administered', function () {

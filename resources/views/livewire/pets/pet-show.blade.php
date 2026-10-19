@@ -2,10 +2,11 @@
     $user = auth()->user();
     $canEditPet = $user->canEditArea('pets');
     $canEditHealth = $user->canEditArea('health');
-    $canAdopt = $user->canEditArea('adoptions') && $pet->status !== 'adopted';
+    $canAdopt = $user->canEditArea('adoptions') && $pet->status !== 'adopted' && $pet->date_of_death === null;
     $canSponsor = $user->canEditArea('sponsorships') && $pet->is_sponsorable && $user->currentShelterHasModule('sponsorships');
     // Viewers never see people's data (adopters, sponsors, foster families).
     $seesPeople = $user->canEditCurrentShelter();
+    $activeTab = $this->activeTab;
 @endphp
 
 <div class="flex h-full w-full flex-1 flex-col gap-6">
@@ -37,29 +38,6 @@
                 <flux:button :href="route('pets.edit', $pet)" variant="primary" icon="pencil" wire:navigate>
                     {{ __('Edit') }}
                 </flux:button>
-            @endif
-
-            @if ($canAdopt || $canSponsor)
-                <flux:dropdown position="bottom" align="end">
-                    <flux:button
-                        icon="heart"
-                        :aria-label="__('Adoption Registration')"
-                    />
-
-                    <flux:menu>
-                        @if ($canAdopt)
-                            <flux:menu.item :href="route('pets.adopt', $pet)" icon="heart" wire:navigate>
-                                {{ __('Adoption Registration') }}
-                            </flux:menu.item>
-                        @endif
-
-                        @if ($canSponsor)
-                            <flux:menu.item :href="route('pets.sponsor', $pet)" icon="gift" wire:navigate>
-                                {{ __('Sponsorship Registration') }}
-                            </flux:menu.item>
-                        @endif
-                    </flux:menu>
-                </flux:dropdown>
             @endif
 
             @if ($this->isShareable)
@@ -146,6 +124,33 @@
     @endphp
 
     <div class="flex flex-col gap-8">
+        <div class="-mb-2 flex gap-1 overflow-x-auto border-b border-neutral-200 dark:border-neutral-700" role="tablist">
+            @foreach ($this->availableTabs as $tabKey)
+                @php
+                    $tabLabel = match ($tabKey) {
+                        'summary' => __('Summary'),
+                        'health' => __('Health').' ('.$this->healthCount().')',
+                        'people' => ($user->currentShelterHasModule('sponsorships') ? __('Adoptions and sponsorships') : __('Adoptions')).' ('.$this->peopleCount().')',
+                    };
+                @endphp
+                <button
+                    type="button"
+                    role="tab"
+                    wire:key="pet-tab-{{ $tabKey }}"
+                    wire:click="selectTab('{{ $tabKey }}')"
+                    aria-selected="{{ $activeTab === $tabKey ? 'true' : 'false' }}"
+                    @class([
+                        '-mb-px shrink-0 border-b-2 px-4 py-2 text-sm font-medium whitespace-nowrap',
+                        'border-neutral-900 text-neutral-900 dark:border-white dark:text-white' => $activeTab === $tabKey,
+                        'border-transparent text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200' => $activeTab !== $tabKey,
+                    ])
+                >
+                    {{ $tabLabel }}
+                </button>
+            @endforeach
+        </div>
+
+        @if ($activeTab === 'summary')
         <div
             class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900"
             x-data="{ lightboxIndex: 0, images: @js($galleryUrls), open: false }"
@@ -483,6 +488,36 @@
             @endif
         </div>
 
+        @endif
+
+        @if ($activeTab === 'people')
+        @if ($canAdopt || $canSponsor)
+            <div class="flex flex-wrap justify-end gap-2">
+                @if ($canAdopt)
+                    <flux:button :href="route('pets.adopt', $pet)" variant="filled" size="sm" icon="heart" wire:navigate>
+                        {{ __('Adoption Registration') }}
+                    </flux:button>
+                @endif
+
+                @if ($canSponsor)
+                    <flux:button :href="route('pets.sponsor', $pet)" variant="filled" size="sm" icon="gift" wire:navigate>
+                        {{ __('Sponsorship Registration') }}
+                    </flux:button>
+                @endif
+            </div>
+        @endif
+
+        @if ($this->peopleCount() === 0)
+            <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+                <flux:text>
+                    {{ __('No adoptions registered') }}
+                    @if ($user->currentShelterHasModule('sponsorships'))
+                        {{ __('No sponsorships registered') }}
+                    @endif
+                </flux:text>
+            </div>
+        @endif
+
         {{-- Viewers are read-only and must not see adopter or sponsor personal data. --}}
         @if ($seesPeople)
             @foreach ($pet->adoptions as $adoption)
@@ -499,7 +534,9 @@
                 @endif
             @endif
         @endif
+        @endif
 
+        @if ($activeTab === 'health')
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
             <div class="flex w-full items-center justify-between">
                 <flux:label>{{ __('Diagnoses') }}</flux:label>
@@ -860,6 +897,7 @@
                     </div>
                 </div>
             </div>
+        @endif
         @endif
     </div>
 </div>

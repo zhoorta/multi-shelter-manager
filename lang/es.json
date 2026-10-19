@@ -183,6 +183,8 @@
     "Deceased": "Fallecido",
     "Cannot clear the return date because the pet has already been adopted again since then.": "No se puede eliminar la fecha de devolución porque el animal ya ha sido adoptado de nuevo desde entonces.",
     "Adoptions": "Adopciones",
+    "Summary": "Resumen",
+    "Adoptions and sponsorships": "Adopciones y apadrinamientos",
     "Search by owner, contact, pet or notes": "Buscar por adoptante, contacto, animal o notas",
     "Owner Name and Contacts": "Nombre y Contactos del Adoptante",
     "No adoptions registered": "No hay adopciones registradas.",

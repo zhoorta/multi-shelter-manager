@@ -127,11 +127,11 @@ test('links to the adoption registration page unless the pet is already adopted'
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))->assertSee(route('pets.adopt', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))->assertSee(route('pets.adopt', $pet), false);
 
     $pet->update(['status' => 'adopted']);
 
-    $this->get(route('pets.show', $pet))->assertDontSee(route('pets.adopt', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))->assertDontSee(route('pets.adopt', $pet), false);
 });
 
 test('links to the sponsorship registration page only when the pet is sponsorable', function () {
@@ -140,11 +140,11 @@ test('links to the sponsorship registration page only when the pet is sponsorabl
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))->assertSee(route('pets.sponsor', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))->assertSee(route('pets.sponsor', $pet), false);
 
     $pet->update(['is_sponsorable' => false]);
 
-    $this->get(route('pets.show', $pet))->assertDontSee(route('pets.sponsor', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))->assertDontSee(route('pets.sponsor', $pet), false);
 });
 
 test('links to the adoption registration page only when the pet is not adopted', function () {
@@ -153,11 +153,11 @@ test('links to the adoption registration page only when the pet is not adopted',
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))->assertSee(route('pets.adopt', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))->assertSee(route('pets.adopt', $pet), false);
 
     $pet->update(['status' => 'adopted']);
 
-    $this->get(route('pets.show', $pet))->assertDontSee(route('pets.adopt', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))->assertDontSee(route('pets.adopt', $pet), false);
 });
 
 test('links back to the pets list scoped to the pet species', function () {
@@ -432,7 +432,7 @@ test('shows the sponsorship box when the pet has a sponsorship', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
         ->assertOk()
         ->assertSeeInOrder(['Sponsorship', 'Maria Silva', 'maria@example.com', '912345678', 'Rua das Flores, 10', '1000-001', 'Lisboa', 'Prefers monthly updates']);
 });
@@ -445,7 +445,7 @@ test('shows every sponsorship, most recent first, when the pet has more than one
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
         ->assertOk()
         ->assertSeeInOrder(['New Sponsor', 'Old Sponsor']);
 });
@@ -464,7 +464,7 @@ test('does not show the sponsorship box when the pet has no sponsorship', functi
         ->assertDontSeeText('Sponsorship Payments');
 });
 
-test('shows the adoption box after the description', function () {
+test('shows the adoption box in the people tab and the description in the summary', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted', 'description' => 'Loves belly rubs.']);
     Adoption::factory()->for($pet)->create([
@@ -485,8 +485,12 @@ test('shows the adoption box after the description', function () {
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
+        ->assertSeeInOrder(['Description', 'Loves belly rubs.'])
+        ->assertDontSee('Maria Silva');
+
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
+        ->assertOk()
         ->assertSeeInOrder([
-            'Description', 'Loves belly rubs.',
             'Adoption', 'Maria Silva', 'maria@example.com', '912345678',
             'Rua das Flores, 10', '1000-001', 'Lisboa', '15/01/2026',
             '25,50', 'Approved', 'Great home visit',
@@ -516,7 +520,7 @@ test('still shows the adoption box after the pet has been returned', function ()
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
         ->assertOk()
         ->assertSeeInOrder(['Adoption', 'Maria Silva', '15/01/2026', '01/03/2026']);
 });
@@ -529,7 +533,7 @@ test('shows every adoption, most recent first, when the pet has more than one', 
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
         ->assertOk()
         ->assertSeeInOrder(['New Adopter', 'Old Adopter']);
 });
@@ -548,7 +552,7 @@ test('shows the payments made for a sponsorship', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
         ->assertOk()
         ->assertSeeInOrder(['Sponsorship Payments', '01/01/2026', '31/01/2026', '25,00', 'January contribution']);
 });
@@ -560,7 +564,7 @@ test('shows a message when a sponsorship has no payments', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
         ->assertOk()
         ->assertSee('No sponsorship payments registered');
 });
@@ -725,7 +729,10 @@ test('lists open health issues in the health section and every diagnosis in the 
 
     $this->get(route('pets.show', $pet))
         ->assertOk()
-        ->assertSeeInOrder(['Open health issues', 'Parvovirus', 'Is Adoptable'])
+        ->assertSeeInOrder(['Open health issues', 'Parvovirus', 'Is Adoptable']);
+
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
+        ->assertOk()
         ->assertSeeInOrder(['Diagnoses', 'Parvovirus', '01/03/2026', 'Active', 'Otitis', '10/01/2026', 'Treated', '24/01/2026', 'Vaccinations'])
         ->assertSee(route('pets.diagnose', $pet));
 });
@@ -752,7 +759,7 @@ test('shows an empty state when the pet has no diagnoses', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))->assertSee('No diagnoses registered');
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))->assertSee('No diagnoses registered');
 });
 
 test('deletes a diagnosis', function () {
@@ -764,7 +771,8 @@ test('deletes a diagnosis', function () {
     $user = User::factory()->forShelter($shelter, 'staff')->create();
     $this->actingAs($user);
 
-    Livewire::test(PetShow::class, ['pet' => $pet])
+    Livewire::withQueryParams(['tab' => 'health'])
+        ->test(PetShow::class, ['pet' => $pet])
         ->call('deleteDiagnosis', $diagnosis->id)
         ->assertSee('No diagnoses registered');
 
@@ -792,7 +800,7 @@ test('links to the vaccination form next to the vaccinations table', function ()
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
         ->assertOk()
         ->assertSeeHtml('href="'.route('pets.vaccinate', $pet).'"');
 });
@@ -803,7 +811,7 @@ test('the vaccination link stays visible even when the heart dropdown is hidden'
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
         ->assertOk()
         ->assertSeeHtml('href="'.route('pets.vaccinate', $pet).'"');
 });
@@ -814,7 +822,7 @@ test('shows a message when the pet has no vaccinations', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
         ->assertOk()
         ->assertSee('No vaccinations registered');
 });
@@ -843,7 +851,7 @@ test('lists the vaccines administered to the pet, most recent first', function (
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
         ->assertOk()
         ->assertSeeInOrder(['Distemper', 'LOT-NEW', 'Dr. Costa', 'Rabies', 'LOT-OLD', 'Dr. Alves']);
 });
@@ -866,7 +874,7 @@ test('highlights the due date amber when pending and due within a week or exactl
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $response = $this->get(route('pets.show', $pet))->assertOk();
+    $response = $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))->assertOk();
 
     // Matched against the full class string (rather than a short substring like
     // "bg-amber-50") because Flux's own components elsewhere on the page also
@@ -884,7 +892,7 @@ test('highlights the due date red when scheduled and overdue', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $response = $this->get(route('pets.show', $pet))->assertOk();
+    $response = $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))->assertOk();
 
     expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(1);
     expect(substr_count($response->getContent(), 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200'))->toBe(0);
@@ -899,7 +907,7 @@ test('highlights the due date red when a logged dose has an overdue next dose', 
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $response = $this->get(route('pets.show', $pet))->assertOk();
+    $response = $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))->assertOk();
 
     expect(substr_count($response->getContent(), 'bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200'))->toBe(1);
 });
@@ -929,7 +937,7 @@ test('renders show, edit and delete actions for each vaccination', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
         ->assertOk()
         ->assertSee('vaccination-show-'.$petVaccine->id, false)
         ->assertSeeHtml('href="'.route('pets.vaccinate.edit', [$pet, $petVaccine]).'"')
@@ -1092,7 +1100,7 @@ test('shows the pet treatments and lets staff delete one', function () {
     $petTreatment = PetTreatment::factory()->for($pet)->for($treatment)->create(['product' => 'Drontal']);
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    $this->get(route('pets.show', $pet))
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
         ->assertSee('Internal deworming')
         ->assertSee('Drontal')
         ->assertSee(route('pets.treat', $pet));
@@ -1130,11 +1138,11 @@ test('badges the returned adoption of a pet nobody adopted again, but not one ad
     Adoption::factory()->for($readopted)->create(['adoption_date' => '2024-01-10', 'return_date' => '2024-03-01']);
     Adoption::factory()->for($readopted)->create(['adoption_date' => '2024-06-01', 'return_date' => null]);
 
-    $this->get(route('pets.show', $backAtShelter))
+    $this->get(route('pets.show', ['pet' => $backAtShelter, 'tab' => 'people']))
         ->assertOk()
         ->assertSee('Returned at 01/03/2025');
 
-    $this->get(route('pets.show', $readopted))
+    $this->get(route('pets.show', ['pet' => $readopted, 'tab' => 'people']))
         ->assertOk()
         ->assertDontSee('Returned at');
 });
@@ -1156,4 +1164,61 @@ test('shows the return date and reason in the adoption section of a returned pet
         ->assertOk()
         ->assertSee('Returned on')
         ->assertDontSee('Moved abroad');
+});
+
+test('the page opens on the summary and each tab shows only its own section', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
+    Adoption::factory()->for($pet)->create(['name' => 'Maria Silva']);
+    $pet->sicknesses()->attach(Sickness::factory()->create(['name' => 'Parvovirus']), ['diagnosed_at' => '2026-03-01', 'status' => 'active']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->assertSet('tab', 'summary')
+        ->assertSee('Identification')
+        ->assertDontSee('Maria Silva')
+        ->assertDontSee('No vaccinations registered')
+        ->call('selectTab', 'people')
+        ->assertSee('Maria Silva')
+        ->assertDontSee('Identification')
+        ->call('selectTab', 'health')
+        ->assertSee('Diagnoses')
+        ->assertDontSee('Maria Silva');
+});
+
+test('the people tab is always there for editors, with the register buttons and an empty state', function () {
+    $shelter = Shelter::factory()->create();
+    $free = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(PetShow::class, ['pet' => $free])
+        ->assertSet('availableTabs', ['summary', 'health', 'people'])
+        ->call('selectTab', 'people')
+        ->assertSet('tab', 'people')
+        ->assertSee('No adoptions registered')
+        ->assertSee(route('pets.adopt', $free))
+        ->assertSee(route('pets.sponsor', $free));
+});
+
+test('a deceased pet cannot be registered for adoption from the people tab', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['date_of_death' => '2026-05-01']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
+        ->assertOk()
+        ->assertDontSee(route('pets.adopt', $pet), false);
+});
+
+test('viewers have no people tab and never see the adopter, even asking for it in the URL', function () {
+    $shelter = Shelter::factory()->create();
+    $adopted = Pet::factory()->for($shelter)->create(['status' => 'adopted']);
+    Adoption::factory()->for($adopted)->create(['name' => 'Maria Silva']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+    Livewire::withQueryParams(['tab' => 'people'])
+        ->test(PetShow::class, ['pet' => $adopted])
+        ->assertSet('availableTabs', ['summary', 'health'])
+        ->assertDontSee('Maria Silva')
+        ->assertSee('Identification');
 });

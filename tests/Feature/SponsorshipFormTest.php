@@ -76,7 +76,7 @@ test('creates a sponsorship record for the pet', function () {
     expect($sponsorship->send_feedback)->toBeTrue();
     expect($sponsorship->send_newsletter)->toBeTrue();
 
-    $component->assertRedirect(route('pets.show', $pet));
+    $component->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'people']));
 });
 
 test('requires a sponsor name', function () {
@@ -118,7 +118,7 @@ test('updates an existing sponsorship record', function () {
     expect($pet->sponsorships()->count())->toBe(1);
     expect($sponsorship->refresh()->name)->toBe('Ana Costa Silva');
 
-    $component->assertRedirect(route('pets.show', $pet));
+    $component->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'people']));
 });
 
 test('returns 404 when the sponsorship does not belong to the given pet', function () {

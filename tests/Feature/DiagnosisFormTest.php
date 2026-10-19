@@ -75,7 +75,7 @@ test('creates an active diagnosis dated today by default', function () {
         ->set('treatmentNotes', 'Antibiotics for 10 days')
         ->call('saveDiagnosis')
         ->assertHasNoErrors()
-        ->assertRedirect(route('pets.show', $pet));
+        ->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'health']));
 
     $diagnosis = $pet->sicknesses()->first()->pivot;
     expect($diagnosis->sickness_id)->toBe($sickness->id)

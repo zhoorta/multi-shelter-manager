@@ -17,6 +17,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class PetShow extends Component
@@ -24,6 +25,14 @@ class PetShow extends Component
     use ManagesSponsorshipPayments;
 
     public Pet $pet;
+
+    /**
+     * The visible section of the page: 'summary', 'health' or 'people'
+     * (adoptions and sponsorships). Kept in the URL so a redirect back from
+     * a health or adoption form lands on the right tab.
+     */
+    #[Url(as: 'tab', except: 'summary')]
+    public string $tab = 'summary';
 
     public function mount(Pet $pet): void
     {
@@ -37,6 +46,55 @@ class PetShow extends Component
             'treatments' => fn ($query) => $query->with('treatment')->orderByRaw('COALESCE(administered_date, due_date) desc'),
             'sicknesses' => fn ($query) => $query->orderByPivot('diagnosed_at', 'desc'),
         ]);
+    }
+
+    /**
+     * The tabs the current user can open. The people tab holds the adopter
+     * and sponsor boxes and the buttons to register them, so it is missing
+     * for viewers (see .ai/rules/pets.md on viewers and personal data).
+     *
+     * @return list<string>
+     */
+    #[Computed]
+    public function availableTabs(): array
+    {
+        $tabs = ['summary', 'health'];
+
+        if (Auth::user()->canEditCurrentShelter()) {
+            $tabs[] = 'people';
+        }
+
+        return $tabs;
+    }
+
+    #[Computed]
+    public function activeTab(): string
+    {
+        return in_array($this->tab, $this->availableTabs, true) ? $this->tab : 'summary';
+    }
+
+    public function selectTab(string $tab): void
+    {
+        $this->tab = in_array($tab, $this->availableTabs, true) ? $tab : 'summary';
+    }
+
+    /**
+     * Adoptions plus, when the shelter uses them, sponsorships.
+     */
+    public function peopleCount(): int
+    {
+        return $this->pet->adoptions->count()
+            + (Auth::user()->currentShelterHasModule('sponsorships') ? $this->pet->sponsorships->count() : 0);
+    }
+
+    /**
+     * Records listed in the health tab: diagnoses plus, when the shelter
+     * uses health records, vaccinations and treatments.
+     */
+    public function healthCount(): int
+    {
+        return $this->pet->sicknesses->count()
+            + (Auth::user()->currentShelterHasModule('health_records') ? $this->pet->vaccines->count() + $this->pet->treatments->count() : 0);
     }
 
     /**

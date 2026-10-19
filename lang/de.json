@@ -183,6 +183,8 @@
     "Deceased": "Verstorben",
     "Cannot clear the return date because the pet has already been adopted again since then.": "Das Rückgabedatum kann nicht entfernt werden, da das Tier seitdem bereits erneut vermittelt wurde.",
     "Adoptions": "Vermittlungen",
+    "Summary": "Übersicht",
+    "Adoptions and sponsorships": "Vermittlungen und Patenschaften",
     "Search by owner, contact, pet or notes": "Nach Halter, Kontakt, Tier oder Notizen suchen",
     "Owner Name and Contacts": "Name und Kontaktdaten des Halters",
     "No adoptions registered": "Keine Vermittlungen erfasst.",

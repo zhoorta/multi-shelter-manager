@@ -183,6 +183,8 @@
     "Deceased": "Død",
     "Cannot clear the return date because the pet has already been adopted again since then.": "Returdatoen kan ikke fjernes, fordi dyret siden er blevet adopteret igen.",
     "Adoptions": "Adoptioner",
+    "Summary": "Oversigt",
+    "Adoptions and sponsorships": "Adoptioner og fadderskaber",
     "Search by owner, contact, pet or notes": "Søg efter adoptant, kontakt, dyr eller noter",
     "Owner Name and Contacts": "Adoptantens navn og kontaktoplysninger",
     "No adoptions registered": "Ingen adoptioner registreret.",

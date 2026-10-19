@@ -59,17 +59,25 @@ test('the pet page only offers the actions of the areas the user can edit', func
     $pet = Pet::factory()->for($this->shelter)->create(['is_adoptable' => true]);
 
     $this->actingAs(User::factory()->forShelter($this->shelter, 'staff', editAreas: ['health'])->create());
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
+        ->assertOk()
+        ->assertSee(route('pets.vaccinate', $pet), false);
     $this->get(route('pets.show', $pet))
         ->assertOk()
-        ->assertSee(route('pets.vaccinate', $pet), false)
-        ->assertDontSee(route('pets.edit', $pet), false)
+        ->assertDontSee(route('pets.edit', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
+        ->assertOk()
         ->assertDontSee(route('pets.adopt', $pet), false);
 
     $this->actingAs(User::factory()->forShelter($this->shelter, 'staff', editAreas: ['pets', 'adoptions'])->create());
     $this->get(route('pets.show', $pet))
         ->assertOk()
-        ->assertSee(route('pets.edit', $pet), false)
-        ->assertSee(route('pets.adopt', $pet), false)
+        ->assertSee(route('pets.edit', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'people']))
+        ->assertOk()
+        ->assertSee(route('pets.adopt', $pet), false);
+    $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))
+        ->assertOk()
         ->assertDontSee(route('pets.vaccinate', $pet), false);
 });
 
