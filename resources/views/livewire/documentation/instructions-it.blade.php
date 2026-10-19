@@ -141,7 +141,7 @@
         <p>Quando un animale è già stato adottato o non è più disponibile, le sue richieste in attesa vengono segnalate e si possono rifiutare tutte insieme. Gli utenti con le <strong>Notifiche delle Richieste di Adozione</strong> attive ricevono un'email per ogni nuova richiesta; il richiedente non riceve email, quindi contattalo tu. Le richieste vengono eliminate automaticamente sei mesi dopo l'ultima modifica, come indicato nell'informativa sulla privacy.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Trasferimento nel registro degli animali</h3>
         <p>Attivi <strong>Trasferito nel registro</strong> quando il veterinario ha già intestato l'animale all'adottante nel registro degli animali (SIAC in Portogallo); la data viene salvata. Ogni adozione mostra se il trasferimento è fatto o in sospeso, e la pagina delle adozioni ha un filtro del registro per trovare quelli in sospeso.</p>
-        <p>La scheda di un animale elenca tutte le sue adozioni. Quando un'adozione è finita con una restituzione e nessuno ha adottato di nuovo l'animale, mostra un'etichetta di restituzione con la data.</p>
+        <p>La scheda di un animale elenca tutte le sue adozioni. Quando un'adozione è finita con una restituzione e nessuno ha adottato di nuovo l'animale, mostra un'etichetta di restituzione con la data, e la sezione Adozione della scheda mostra la data di restituzione e, per il team, il <strong>Motivo della restituzione</strong> scritto nell'adozione.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">

@@ -141,7 +141,7 @@
         <p>Cuando un animal ya ha sido adoptado o deja de estar disponible, sus solicitudes pendientes se señalan y pueden rechazarse todas a la vez. Los usuarios con las <strong>Notificaciones de Solicitudes de Adopción</strong> activadas reciben un email por cada nueva solicitud; el solicitante no recibe ningún email, así que contacte con él directamente. Las solicitudes se eliminan automáticamente seis meses después de su último cambio, como indica la política de privacidad.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Traspaso en el registro de animales</h3>
         <p>Active <strong>Transferido en el registro</strong> cuando el veterinario ya haya pasado el animal al nombre del adoptante en el registro de animales (SIAC en Portugal); la fecha queda guardada. Cada adopción muestra si el traspaso está hecho o pendiente, y la página de Adopciones tiene un filtro del registro para encontrar las pendientes.</p>
-        <p>La ficha de un animal lista todas sus adopciones. Cuando una adopción terminó con una devolución y nadie ha adoptado de nuevo al animal, muestra una etiqueta de devuelto con la fecha.</p>
+        <p>La ficha de un animal lista todas sus adopciones. Cuando una adopción terminó con una devolución y nadie ha adoptado de nuevo al animal, muestra una etiqueta de devuelto con la fecha, y la sección Adopción de la ficha muestra la fecha de devolución y, para el equipo, el <strong>Motivo de la devolución</strong> escrito en la adopción.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">

@@ -171,6 +171,8 @@
     "Adoption": "Adoption",
     "Adoption Date": "Adoptionsdatum",
     "Return Date": "Returdatum",
+    "Return reason": "Orsak till återlämningen",
+    "Only kept when there is a return date": "Sparas bara om det finns ett återlämningsdatum",
     "Adoption Fee": "Adoptionsavgift",
     "Application Status": "Ansökningsstatus",
     "Pending": "Väntande",

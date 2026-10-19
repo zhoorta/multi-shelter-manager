@@ -76,6 +76,13 @@
             <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $adoption->return_date?->format('d/m/Y') ?? '—' }}</flux:text>
         </div>
 
+        @if ($adoption->return_reason)
+            <div class="sm:col-span-2 lg:col-span-3">
+                <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Return reason') }}</flux:text>
+                <flux:text class="text-neutral-700 dark:text-neutral-300 whitespace-pre-line">{{ $adoption->return_reason }}</flux:text>
+            </div>
+        @endif
+
         <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Pet registry') }}</flux:text>
             @if ($adoption->siac_transferred_at)

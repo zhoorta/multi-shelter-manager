@@ -1138,3 +1138,22 @@ test('badges the returned adoption of a pet nobody adopted again, but not one ad
         ->assertOk()
         ->assertDontSee('Returned at');
 });
+
+test('shows the return date and reason in the adoption section of a returned pet, reason hidden from viewers', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
+    Adoption::factory()->for($pet)->create(['adoption_date' => '2021-05-20', 'return_date' => '2026-04-20', 'return_reason' => 'Moved abroad']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSee('Returned on')
+        ->assertSee('20/04/2026')
+        ->assertSee('Moved abroad');
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+    $this->get(route('pets.show', $pet))
+        ->assertOk()
+        ->assertSee('Returned on')
+        ->assertDontSee('Moved abroad');
+});

@@ -141,7 +141,7 @@
         <p>Als een dier al geadopteerd is of niet meer beschikbaar is, worden de openstaande aanvragen gemarkeerd en kunnen ze in één keer worden afgewezen. Gebruikers met <strong>Meldingen van adoptieaanvragen</strong> ingeschakeld krijgen een e-mail bij elke nieuwe aanvraag; de aanvrager krijgt geen e-mail, neem dus zelf contact op. Aanvragen worden zes maanden na hun laatste wijziging automatisch verwijderd, zoals vermeld in het privacybeleid.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Overdracht in het dierenregister</h3>
         <p>Zet <strong>Overgedragen in het register</strong> aan wanneer de dierenarts het dier al op naam van de adoptant heeft gezet in het dierenregister (SIAC in Portugal); de datum wordt bewaard. Elke adoptie toont of de overdracht gedaan of nog in afwachting is, en de adoptiepagina heeft een registerfilter om de openstaande te vinden.</p>
-        <p>De pagina van een dier toont al zijn adopties. Als een adoptie eindigde met een teruggave en niemand het dier opnieuw heeft geadopteerd, toont ze een teruggebracht-label met de datum.</p>
+        <p>De pagina van een dier toont al zijn adopties. Als een adoptie eindigde met een teruggave en niemand het dier opnieuw heeft geadopteerd, toont ze een teruggebracht-label met de datum, en het onderdeel Adoptie van de pagina toont de datum van teruggave en, voor het team, de bij de adoptie ingevulde <strong>Reden van teruggave</strong>.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">

@@ -171,6 +171,8 @@
     "Adoption": "Adozione",
     "Adoption Date": "Data di Adozione",
     "Return Date": "Data di Restituzione",
+    "Return reason": "Motivo della restituzione",
+    "Only kept when there is a return date": "Viene conservato solo se c'è una data di restituzione",
     "Adoption Fee": "Contributo di Adozione",
     "Application Status": "Stato della Richiesta",
     "Pending": "In attesa",

@@ -141,7 +141,7 @@
         <p>Når et dyr allerede er adopteret eller ikke længere er tilgængeligt, markeres dets afventende ansøgninger og kan afvises på én gang. Brugere med <strong>Notifikationer om adoptionsansøgninger</strong> slået til får en e-mail for hver ny ansøgning; ansøgeren får ingen e-mail, så kontakt vedkommende selv. Ansøgninger slettes automatisk seks måneder efter seneste ændring, som angivet i privatlivspolitikken.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Overførsel i dyreregisteret</h3>
         <p>Slå <strong>Overført i registret</strong> til, når dyrlægen allerede har overført dyret til adoptantens navn i dyreregisteret (SIAC i Portugal); datoen gemmes. Hver adoption viser, om overførslen er udført eller afventer, og adoptionssiden har et registerfilter til at finde dem, der afventer.</p>
-        <p>Et dyrs side viser alle dets adoptioner. Når en adoption endte med en tilbagelevering, og ingen har adopteret dyret igen, viser den en tilbageleveret-etiket med dato.</p>
+        <p>Et dyrs side viser alle dets adoptioner. Når en adoption endte med en tilbagelevering, og ingen har adopteret dyret igen, viser den en tilbageleveret-etiket med dato, og afsnittet Adoption på siden viser datoen for tilbageleveringen og, for teamet, den <strong>Årsag til tilbagelevering</strong>, der er skrevet i adoptionen.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">

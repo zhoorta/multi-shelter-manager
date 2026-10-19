@@ -171,6 +171,8 @@
     "Adoption": "Adoption",
     "Adoption Date": "Adoption Date",
     "Return Date": "Return Date",
+    "Return reason": "Return reason",
+    "Only kept when there is a return date": "Only kept when there is a return date",
     "Adoption Fee": "Adoption Fee",
     "Application Status": "Application Status",
     "Pending": "Pending",

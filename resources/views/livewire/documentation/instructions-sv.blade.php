@@ -141,7 +141,7 @@
         <p>När ett djur redan har adopterats eller inte längre är tillgängligt markeras dess väntande ansökningar och kan avslås på en gång. Användare med <strong>Aviseringar om adoptionsansökningar</strong> påslagna får ett e-postmeddelande för varje ny ansökan; den sökande får inget e-postmeddelande, så kontakta hen själv. Ansökningar raderas automatiskt sex månader efter senaste ändring, enligt integritetspolicyn.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Överföring i djurregistret</h3>
         <p>Slå på <strong>Överförd i registret</strong> när veterinären redan har flyttat djuret till adoptantens namn i djurregistret (SIAC i Portugal); datumet sparas. Varje adoption visar om överföringen är klar eller väntar, och adoptionssidan har ett registerfilter för att hitta dem som väntar.</p>
-        <p>Ett djurs sida listar alla dess adoptioner. När en adoption slutade med en återlämning och ingen har adopterat djuret igen visas en etikett för återlämnad med datum.</p>
+        <p>Ett djurs sida listar alla dess adoptioner. När en adoption slutade med en återlämning och ingen har adopterat djuret igen visas en etikett för återlämnad med datum, och avsnittet Adoption på sidan visar återlämningsdatumet och, för teamet, den <strong>Orsak till återlämningen</strong> som angetts i adoptionen.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">

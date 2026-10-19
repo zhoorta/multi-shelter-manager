@@ -171,6 +171,8 @@
     "Adoption": "Adoption",
     "Adoption Date": "Adoptionsdato",
     "Return Date": "Returdato",
+    "Return reason": "Årsag til tilbagelevering",
+    "Only kept when there is a return date": "Gemmes kun, hvis der er en dato for tilbagelevering",
     "Adoption Fee": "Adoptionsgebyr",
     "Application Status": "Ansøgningsstatus",
     "Pending": "Afventer",

@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $city
  * @property Carbon $adoption_date
  * @property Carbon|null $return_date
+ * @property string|null $return_reason
  * @property Carbon|null $siac_transferred_at
  * @property string $adoption_fee
  * @property string|null $notes
@@ -38,7 +39,7 @@ use Illuminate\Support\Carbon;
  */
 #[Fillable([
     'pet_id', 'name', 'email', 'phone', 'address', 'postal_code', 'city',
-    'adoption_date', 'return_date', 'siac_transferred_at', 'adoption_fee', 'notes', 'application_status',
+    'adoption_date', 'return_date', 'return_reason', 'siac_transferred_at', 'adoption_fee', 'notes', 'application_status',
 ])]
 class Adoption extends Model
 {

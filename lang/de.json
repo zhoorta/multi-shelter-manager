@@ -171,6 +171,8 @@
     "Adoption": "Vermittlung",
     "Adoption Date": "Vermittlungsdatum",
     "Return Date": "Rückgabedatum",
+    "Return reason": "Rückgabegrund",
+    "Only kept when there is a return date": "Wird nur gespeichert, wenn ein Rückgabedatum vorhanden ist",
     "Adoption Fee": "Schutzgebühr",
     "Application Status": "Antragsstatus",
     "Pending": "Ausstehend",

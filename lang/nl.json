@@ -171,6 +171,8 @@
     "Adoption": "Adoptie",
     "Adoption Date": "Adoptiedatum",
     "Return Date": "Terugbrengdatum",
+    "Return reason": "Reden van teruggave",
+    "Only kept when there is a return date": "Wordt alleen bewaard als er een datum van teruggave is",
     "Adoption Fee": "Adoptiebijdrage",
     "Application Status": "Status van de aanvraag",
     "Pending": "In behandeling",

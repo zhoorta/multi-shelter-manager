@@ -141,7 +141,7 @@
         <p>Quando um animal já foi adotado ou deixou de estar disponível, as suas candidaturas pendentes são assinaladas e podem ser rejeitadas de uma só vez. Os utilizadores com as <strong>Notificações de Candidaturas de Adoção</strong> ativas recebem um email por cada nova candidatura; o candidato não recebe email, por isso contacte-o diretamente. As candidaturas são apagadas automaticamente seis meses após a última alteração, como indicado na política de privacidade.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Transferência no registo de animais</h3>
         <p>Ative <strong>Transferido no SIAC</strong> quando o veterinário já passou o animal para o nome do adotante no registo de animais (SIAC, em Portugal); a data fica guardada. Cada adoção mostra se a transferência está feita ou pendente, e a página de Adoções tem um filtro do registo para encontrar as pendentes.</p>
-        <p>A ficha de um animal lista todas as suas adoções. Quando uma adoção terminou com uma devolução e ninguém adotou o animal de novo, mostra uma etiqueta de devolvido com a data.</p>
+        <p>A ficha de um animal lista todas as suas adoções. Quando uma adoção terminou com uma devolução e ninguém adotou o animal de novo, mostra uma etiqueta de devolvido com a data, e a secção Adoção da ficha mostra a data de devolução e, para a equipa, o <strong>Motivo da devolução</strong> escrito na adoção.</p>
     </section>
 
     <section id="sponsorships" class="flex scroll-mt-6 flex-col gap-2">

@@ -57,6 +57,9 @@
                                             <span class="text-neutral-500 dark:text-neutral-400">
                                                 {!! __('Returned at :date', ['date' => '<strong>'.$adoption->return_date->format('d/m/Y').'</strong>']) !!}
                                             </span>
+                                            @if ($adoption->return_reason)
+                                                <span class="text-neutral-500 dark:text-neutral-400">{{ $adoption->return_reason }}</span>
+                                            @endif
                                         @endif
                                         <div>
                                             @if ($adoption->siac_transferred_at)

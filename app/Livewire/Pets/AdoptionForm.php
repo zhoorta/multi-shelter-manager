@@ -41,6 +41,8 @@ class AdoptionForm extends Component
 
     public string $returnDate = '';
 
+    public string $returnReason = '';
+
     public bool $siacTransferred = false;
 
     public string $adoptionFee = '0.00';
@@ -87,6 +89,7 @@ class AdoptionForm extends Component
         $this->adopterCity = (string) $adoption->city;
         $this->adoptionDate = $adoption->adoption_date->toDateString();
         $this->returnDate = (string) $adoption->return_date?->toDateString();
+        $this->returnReason = (string) $adoption->return_reason;
         $this->siacTransferred = $adoption->siac_transferred_at !== null;
         $this->adoptionFee = (string) $adoption->adoption_fee;
         $this->adoptionNotes = (string) $adoption->notes;
@@ -104,6 +107,7 @@ class AdoptionForm extends Component
             'adopterCity' => ['nullable', 'string', 'max:100'],
             'adoptionDate' => ['required', 'date'],
             'returnDate' => ['nullable', 'date', 'after_or_equal:adoptionDate'],
+            'returnReason' => ['nullable', 'string', 'max:2000'],
             'siacTransferred' => ['boolean'],
             'adoptionFee' => ['nullable', 'numeric', 'min:0'],
             'adoptionNotes' => ['nullable', 'string'],
@@ -117,6 +121,7 @@ class AdoptionForm extends Component
             'adopterCity' => __('City'),
             'adoptionDate' => __('Adoption Date'),
             'returnDate' => __('Return Date'),
+            'returnReason' => __('Return reason'),
             'siacTransferred' => __('Transferred in the pet registry'),
             'adoptionFee' => __('Adoption Fee'),
             'adoptionNotes' => __('Notes'),
@@ -149,6 +154,7 @@ class AdoptionForm extends Component
                 'city' => $validated['adopterCity'] !== '' ? $validated['adopterCity'] : null,
                 'adoption_date' => $validated['adoptionDate'],
                 'return_date' => $validated['returnDate'] !== '' ? $validated['returnDate'] : null,
+                'return_reason' => $validated['returnDate'] !== '' && $validated['returnReason'] !== '' ? $validated['returnReason'] : null,
                 'siac_transferred_at' => $validated['siacTransferred'] ? ($this->adoption?->siac_transferred_at ?? today()) : null,
                 'adoption_fee' => $validated['adoptionFee'] !== '' ? $validated['adoptionFee'] : 0,
                 'notes' => $validated['adoptionNotes'] !== '' ? $validated['adoptionNotes'] : null,

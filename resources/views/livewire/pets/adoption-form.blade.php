@@ -59,6 +59,13 @@
                 />
             </div>
 
+            <flux:textarea
+                wire:model="returnReason"
+                :label="__('Return reason')"
+                :description="__('Only kept when there is a return date')"
+                rows="2"
+            />
+
             <flux:switch
                 wire:model="siacTransferred"
                 :label="__('Transferred in the pet registry')"

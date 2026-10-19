@@ -376,6 +376,22 @@
                             'deceased' => 'Deceased',
                         }) }}</flux:badge>
                     </div>
+                    @php
+                        $returnedAdoption = $pet->adoptions->first();
+                        $returnedAdoption = $returnedAdoption?->isReturnedWithoutReadoption($pet->adoptions) ? $returnedAdoption : null;
+                    @endphp
+                    @if ($returnedAdoption)
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Returned on') }}</flux:text>
+                            <flux:badge size="sm" color="orange">{{ $returnedAdoption->return_date->format('d/m/Y') }}</flux:badge>
+                        </div>
+                        @if ($seesPeople && $returnedAdoption->return_reason)
+                            <div class="sm:col-span-2">
+                                <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Return reason') }}</flux:text>
+                                <flux:text class="text-neutral-700 dark:text-neutral-300 whitespace-pre-line">{{ $returnedAdoption->return_reason }}</flux:text>
+                            </div>
+                        @endif
+                    @endif
                 </div>
             </div>
 

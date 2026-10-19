@@ -102,6 +102,31 @@ test('creates an adoption record with a return date', function () {
     expect($adoption->return_date->toDateString())->toBe('2026-02-01');
 });
 
+test('keeps the return reason only when there is a return date', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet])
+        ->set('adopterName', 'Maria Silva')
+        ->set('adoptionDate', '2026-01-15')
+        ->set('returnDate', '2026-02-01')
+        ->set('returnReason', 'Allergy in the family')
+        ->call('saveAdoption')
+        ->assertHasNoErrors();
+
+    $adoption = $pet->adoptions()->first();
+    expect($adoption->return_reason)->toBe('Allergy in the family');
+
+    Livewire::test(AdoptionForm::class, ['pet' => $pet, 'adoption' => $adoption])
+        ->assertSet('returnReason', 'Allergy in the family')
+        ->set('returnDate', '')
+        ->call('saveAdoption')
+        ->assertHasNoErrors();
+
+    expect($adoption->refresh()->return_reason)->toBeNull();
+});
+
 test('rejects a return date before the adoption date', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['status' => 'available']);
