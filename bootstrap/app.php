@@ -21,6 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
             ReadOnlyWhileImpersonating::class,
         ]);
 
+        // Behind a reverse proxy (the demo): comma-separated proxy addresses or CIDR ranges.
+        $middleware->trustProxies(at: env('TRUSTED_PROXIES') ? explode(',', env('TRUSTED_PROXIES')) : null);
+
         $middleware->alias([
             'module' => EnsureModuleEnabled::class,
             'verified' => EnsureEmailIsVerifiedUnlessImpersonating::class,

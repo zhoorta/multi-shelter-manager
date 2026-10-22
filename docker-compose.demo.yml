@@ -1,16 +1,30 @@
-# Public demo on a single host. Copy docker/demo.env.example to demo.env and fill it in, then:
+# Public demo (demo.focinhos.pt) on a host that already runs nginx with HTTPS (see docker/nginx-demo.conf).
+# Copy docker/demo.env.example to demo.env and fill it in, then:
 #   docker compose -f docker-compose.demo.yml up -d --build
-# The first start seeds the template shelter (it downloads sample animal photos, so it needs
-# internet access and takes a minute or two). Put a reverse proxy with HTTPS in front of port 8080.
+# The first start seeds the template shelter (it downloads sample animal photos, so it needs internet
+# access and takes a minute or two). The port is bound to localhost: only nginx can reach it
+# (Docker bypasses ufw otherwise).
+# Throwaway by design: /data is RAM-backed (tmpfs), so every restart wipes the sandboxes and re-seeds.
+# Worst case: 30 sandboxes x about 6 MB of photos + the database stays well under the 768m tmpfs.
 services:
   demo:
     build: .
     restart: unless-stopped
     env_file: demo.env
-    ports:
-      - "8080:8080"
-    volumes:
-      - demo-data:/data
+    ports: ["127.0.0.1:8083:8080"]
 
-volumes:
-  demo-data:
+    read_only: true
+    tmpfs:
+      - /data:size=768m,uid=33,gid=33,mode=0755
+      - /tmp:size=64m,uid=33,gid=33,mode=1777
+      - /app/bootstrap/cache:size=8m,uid=33,gid=33,mode=0755
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]   # the frankenphp binary carries this file capability; without it exec fails with EPERM
+    security_opt: ["no-new-privileges:true"]
+
+    mem_limit: 1280m
+    cpus: 1.0
+    pids_limit: 200
+    logging:
+      driver: json-file
+      options: { max-size: 10m, max-file: "3" }
