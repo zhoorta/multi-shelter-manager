@@ -70,7 +70,7 @@
         <p>Los ingresos más recientes (con fecha de ingreso y jaula), adopciones (con la fecha y el nombre del adoptante, oculto para los usuarios de consulta) y fallecimientos (con la fecha).</p>
         <p>La capacidad disponible solo cuenta las jaulas del propio refugio: las alas de familias de acogida quedan fuera, igual que los animales que viven con familias de acogida.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Panel del administrador</h3>
-        <p>Los administradores no pertenecen a un refugio, así que su panel muestra toda la plataforma: contadores de refugios, usuarios activos en los últimos 30 días, animales a cargo y adopciones de este año; una tabla de los refugios con sus animales, adopciones, último acceso y última actualización de animales, los menos usados primero y los accesos antiguos resaltados; <strong>Configuración pendiente</strong> (refugios sin especies, jaulas o usuarios, y especies sin razas); e <strong>Invitaciones sin aceptar</strong>, los usuarios invitados que nunca han entrado. Solo muestra totales, nunca animales ni datos de personas.</p>
+        <p>Los administradores no pertenecen a un refugio, así que su panel muestra toda la plataforma: contadores de refugios, usuarios activos en los últimos 30 días, animales a cargo y adopciones de este año; una tabla de los refugios con sus animales, adopciones, último acceso y última actualización de animales, los menos usados primero y los accesos antiguos resaltados; <strong>Configuración pendiente</strong> (refugios sin especies, jaulas o usuarios, y especies sin razas); e <strong>Invitaciones sin aceptar</strong>, los usuarios invitados que nunca han entrado. Solo muestra totales, nunca animales ni datos de personas. El espacio ocupado por los archivos subidos por cada refugio (fotos y documentos) aparece en el resumen, con el total de la plataforma.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -92,6 +92,7 @@
         <p>Cuando el portal público está activado, aparecen dos opciones más: <strong>Publicar en el Portal Público</strong> y <strong>Destacado</strong>. Consulta <a href="#public-portal" class="underline underline-offset-2">Portal Público</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Búsqueda y filtros</h3>
         <p>Busque por nombre, referencia, microchip o notas internas, y filtre por estado, especie o ubicación (instalación, ala o jaula). El último filtro encuentra animales con <strong>Problemas de salud abiertos</strong>, por esterilización (<strong>Esterilizado</strong>, <strong>No esterilizado</strong>, <strong>Esterilizado, faltan detalles</strong>) o con datos que faltan (sin edad, sin foto, sin fecha de ingreso o sin ubicación), lo que ayuda a mantener las fichas completas. Los animales con un problema de salud abierto muestran un corazón junto a su nombre en la lista.</p>
+        <p>En la lista, el menú al final de cada fila (los tres puntos) ofrece <strong>Ver</strong>, <strong>Editar</strong> y <strong>Eliminar</strong>; eliminar pide confirmación antes.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impresión</h3>
         <p>Puede imprimir la ficha de un animal desde su página, o imprimir la lista de animales; la lista impresa usa los mismos filtros que están activos en pantalla.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Compartir en redes sociales</h3>
@@ -241,6 +242,7 @@
         </ul>
         <p>En cada vinculación con un refugio también se pueden activar las <strong>Notificaciones de Solicitudes de Adopción</strong>: esos usuarios reciben un email por cada nueva solicitud de adopción.</p>
         <p>Mientras la persona invitada no haya iniciado sesión por primera vez, la lista de usuarios muestra un botón <strong>Reenviar invitación</strong> en su fila. Envía por email un enlace nuevo y anula el anterior; el enlace caduca a los 15 días.</p>
+        <p>Los administradores pueden comprobar lo que ve un usuario con el botón del ojo (<strong>Ver como este usuario</strong>) en su fila, también para personas invitadas que aún no han aceptado. Un aviso muestra <em>Viendo como &hellip; (solo lectura)</em>: no se puede cambiar nada mientras se ve, y <strong>Dejar de ver</strong> vuelve a la cuenta de administrador. No se puede ver como otros administradores.</p>
         <p>Una pertenencia como <strong>Empleado / Operativo</strong> puede limitarse a algunas áreas: desactive, en <strong>Puede editar</strong>, las que el usuario no debe editar (Animales, Salud, Adopciones, Apadrinamientos, Socios). Con todas activadas, el usuario edita todo, como antes. Quien tiene <strong>Consulta (solo lectura)</strong> solo consulta y nunca ve datos personales de adoptantes, padrinos, voluntarios ni socios; el <strong>Gestor de Refugio</strong> edita todo.</p>
     </section>
 

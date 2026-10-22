@@ -70,7 +70,7 @@
         <p>As entradas mais recentes (com data de entrada e jaula), adoções (com a data e o primeiro nome do adotante, oculto para os utilizadores de consulta) e óbitos (com a data).</p>
         <p>A capacidade disponível conta apenas as jaulas do próprio abrigo: as alas de famílias de acolhimento ficam de fora, tal como os animais que vivem com famílias de acolhimento.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Painel do administrador</h3>
-        <p>Os administradores não pertencem a um abrigo, por isso o seu painel mostra a plataforma inteira: contadores de abrigos, utilizadores ativos nos últimos 30 dias, animais ao cuidado e adoções deste ano; uma tabela dos abrigos com os seus animais, adoções, último acesso e última atualização de animais, os menos usados primeiro e os acessos antigos destacados; <strong>Configuração por concluir</strong> (abrigos sem espécies, jaulas ou utilizadores, e espécies sem raças); e <strong>Convites por aceitar</strong>, os utilizadores convidados que nunca entraram. Mostra apenas totais, nunca animais nem dados de pessoas.</p>
+        <p>Os administradores não pertencem a um abrigo, por isso o seu painel mostra a plataforma inteira: contadores de abrigos, utilizadores ativos nos últimos 30 dias, animais ao cuidado e adoções deste ano; uma tabela dos abrigos com os seus animais, adoções, último acesso e última atualização de animais, os menos usados primeiro e os acessos antigos destacados; <strong>Configuração por concluir</strong> (abrigos sem espécies, jaulas ou utilizadores, e espécies sem raças); e <strong>Convites por aceitar</strong>, os utilizadores convidados que nunca entraram. Mostra apenas totais, nunca animais nem dados de pessoas. O espaço ocupado pelos ficheiros enviados por cada abrigo (fotografias e documentos) aparece na vista geral, com o total da plataforma.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -92,6 +92,7 @@
         <p>Quando o portal público está ativo, aparecem mais duas opções: <strong>Publicar no Portal Público</strong> e <strong>Destaque</strong>. Veja <a href="#public-portal" class="underline underline-offset-2">Portal Público</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Pesquisa e filtros</h3>
         <p>Pesquise por nome, referência, microchip ou notas internas, e filtre por estado, espécie ou localização (instalação, ala ou jaula). O último filtro encontra animais com <strong>Problemas de saúde em aberto</strong>, pela esterilização (<strong>Esterilizado</strong>, <strong>Não esterilizado</strong>, <strong>Esterilizado, faltam detalhes</strong>) ou com dados em falta (sem idade, sem fotografia, sem data de entrada ou sem localização), o que ajuda a manter as fichas completas. Os animais com um problema de saúde em aberto têm um coração junto ao nome na lista.</p>
+        <p>Na lista, o menu no fim de cada linha (os três pontos) oferece <strong>Ver</strong>, <strong>Editar</strong> e <strong>Eliminar</strong>; eliminar pede confirmação primeiro.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Impressão</h3>
         <p>Pode imprimir a ficha de um animal a partir da sua página, ou imprimir a lista de animais; a lista impressa usa os mesmos filtros que estão ativos no ecrã.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Partilhar nas redes sociais</h3>
@@ -241,6 +242,7 @@
         </ul>
         <p>Em cada ligação a um abrigo também pode ativar as <strong>Notificações de Candidaturas de Adoção</strong>: esses utilizadores recebem um email por cada nova candidatura de adoção.</p>
         <p>Enquanto a pessoa convidada não iniciar sessão pela primeira vez, a lista de utilizadores mostra um botão <strong>Reenviar convite</strong> na sua linha. Envia por email uma nova ligação e anula a anterior; a ligação expira ao fim de 15 dias.</p>
+        <p>Os administradores podem ver o que um utilizador vê com o botão do olho (<strong>Ver como este utilizador</strong>) na linha do utilizador, também para pessoas convidadas que ainda não aceitaram. Um aviso mostra <em>A ver como &hellip; (só de leitura)</em>: nada pode ser alterado durante a visualização e <strong>Parar de ver</strong> volta à conta de administrador. Não é possível ver como outros administradores.</p>
         <p>Uma participação como <strong>Funcionário / Operacional</strong> pode ser limitada a algumas áreas: desative, em <strong>Pode editar</strong>, as que o utilizador não deve editar (Animais, Saúde, Adoções, Apadrinhamentos, Sócios). Com todas ativas, o utilizador edita tudo, como antes. Quem tem <strong>Consulta (só leitura)</strong> só consulta e nunca vê dados pessoais de adotantes, padrinhos, voluntários ou sócios; o <strong>Gestor de Abrigo</strong> edita tudo.</p>
     </section>
 

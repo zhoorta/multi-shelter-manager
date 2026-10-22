@@ -22,7 +22,9 @@ Each row shows:
 | **Identification** | Reference (e.g. *PET00002*), name, gender and microchip. A red ❤️ next to the name means the animal has an open health issue. Adopted animals also show *Adopted at* and the date |
 | **Characteristics** | Breed (and *Pure breed*), size, fur type, colours and age |
 | **Accommodation** | Facility, wing and cage, or *–* if the animal has no location |
-| **Actions** | 👁 open the record · 🗑 delete |
+| **Actions** | A menu (the three dots) with **View**, **Edit** and **Delete**. Delete asks for confirmation first |
+
+![Row actions menu](screenshots/32a-pets-row-menu.png)
 
 ### Searching and filtering
 
@@ -106,11 +108,11 @@ The pet gets an automatic **reference** such as `PET00025`. Use it to find the a
 
 ## 7.3 The pet record
 
-Click the 👁 icon in a list (or a pet anywhere else) to open its record.
+Choose **View** in a row's menu (or click a pet anywhere else) to open its record.
 
 ![Pet record](screenshots/35-pet-show.png)
 
-The record shows, in sections:
+The record is split into three tabs: **Summary** (the sections below), **Health** (diagnoses, vaccinations, treatments and clinical photos) and **Adoptions and sponsorships** (the adoptions and sponsorships of the pet and the buttons to register new ones; read-only users do not see this tab). The summary shows, in sections:
 
 - **Photos**.
 - **Identification** — name, microchip, species, breed, gender, birth date, death date.
@@ -120,9 +122,13 @@ The record shows, in sections:
 - **Public Portal** — whether it is published or featured, and the **View Count** (how many times its page was viewed on the portal).
 - **Accommodation** — cage (facility · wing · cage), check-in and check-out dates.
 - **Description**.
-- The **adoption** (if any), with its own **Edit** button — see [chapter 9](09-adoptions.md).
+- The **adoption** (if any), with its own **Edit** button — see [chapter 9](09-adoptions.md). The adoption and sponsorship registration buttons are in the **Adoptions and sponsorships** tab.
 - **Diagnoses**, with a **New Diagnosis** button — see [Diagnoses](#diagnoses) below.
 - **Vaccinations**, with a **New Vaccination** button — see [chapter 8](08-vaccinations.md).
+
+The **Adoptions and sponsorships** tab, with the buttons to register an adoption or a sponsorship:
+
+![People tab](screenshots/35e-pet-people-tab.png)
 
 The buttons at the top right are:
 
@@ -130,7 +136,6 @@ The buttons at the top right are:
 |--------|--------|
 | ← *Species* | Back to the list |
 | ✏️ **Edit** | Open the edit form |
-| ❤️ **Heart** | Menu with **Adoption Registration** (hidden once the pet is adopted) and **Sponsorship Registration** (only if the pet is sponsorable) |
 | 🖨 **Printer** | Print the pet's sheet |
 | 🔗 **Share** | Prepare a social media post (only for adoptable, available pets) — see [7.9](#79-sharing-on-social-media) |
 
@@ -152,6 +157,12 @@ Click **New Diagnosis** on the pet's page to record an illness:
 - **Treatment Notes** — medication, doses, check-ups.
 
 Active and chronic diagnoses are the animal's **open health issues**: they show on its record, on the dashboard ([6.2](06-dashboard.md#62-needs-attention)) and in the **Open health issues** filter of the list. Use the pencil to update a diagnosis (for example to mark it as treated) and the bin to delete one recorded by mistake.
+
+### Clinical photos
+
+![Health tab with clinical photos](screenshots/35d-pet-health-tab.png)
+
+In the **Health** tab, **Clinical Photos** keeps a dated sequence of photos for each lump, wound or other problem being followed. Type what is followed (the names already used are suggested), the date, and add one or more photos (JPG, PNG or WEBP, up to 10 MB each). Photos with the same name are grouped from the oldest to the newest, open full size in a gallery and can be downloaded in their original resolution. They are stored privately: they are never shown on the public portal, and the data export lists them without the image files.
 
 ### Sterilisation
 

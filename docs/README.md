@@ -21,6 +21,7 @@ Read the chapters in order the first time. Each one builds on the previous.
 | 13 | [Reports](13-reports.md) | Manager |
 | 14 | [The public adoption portal](14-public-portal.md) | Everyone |
 | 15 | [Personal settings](15-settings.md) | Everyone |
+| 16 | [Colonies](16-colonies.md) | Manager, Staff |
 
 ## The big picture
 
@@ -37,6 +38,7 @@ Platform (Admin)
        ├── Pets ─► photos · vaccinations · diagnoses · adoptions · sponsorships
        │     └── adoption applications (from the public portal)
        ├── Volunteers (also the contacts of foster families)
+       ├── Colonies ─► free-roaming animals (CED/CER)
        ├── Members ─► joining fee · membership fee payments
        └── Reports ─► animals · finances · occupancy · health
 ```

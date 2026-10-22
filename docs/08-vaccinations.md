@@ -54,7 +54,7 @@ For shelters that vaccinate in groups, **Pets → Vaccinations → Vaccination P
 
 - Click a number, a month, or **Whole year** (next to the year) to list the animals, with microchip and location. The list is ordered by facility, wing and cage, so the vet can walk the corridors in order.
 - **Print list for the vet** prints it, with a blank column to note what was given.
-- **Export to Excel** downloads it as a spreadsheet: name, microchip, birth date, facility, wing, cage and, for each vaccine, the date of the last dose and of the next one.
+- **Export to Excel** downloads it as a spreadsheet (microchips are kept as text, so they keep all their digits): name, microchip, birth date, facility, wing, cage and, for each vaccine, the date of the last dose and of the next one.
 - **Group Vaccination** (also a button on the Vaccinations page) records the same vaccine for many animals at once: choose the vaccine and which animals to list (due in a month, overdue, or all), untick the exceptions, and enter the date, lot number and veterinarian once.
 
 ## 8.4 Daily e-mail reminders
@@ -66,6 +66,12 @@ Every day, the application sends an e-mail to the users who have **Vaccination N
 - In the users list, a 🔔 bell next to a shelter shows who receives the reminders.
 
 > The reminders need the scheduler to be running on the server and a working mail configuration. See [Installation, section 1.8](01-installation.md#18-schedule-the-daily-tasks).
+
+## 8.4 Treatments
+
+Treatments are recurring preventive care that is not a vaccine, such as internal and external deworming. Record one on the pet's page (**Health** tab) with **New Treatment**: the treatment, the date it was given, the next due date, the product, the veterinarian and notes. They work like vaccinations: an entry stays pending until a later round of the same treatment is recorded, and when the treatment has a frequency the next date is filled in for you. The **Treatments** page, in the **Pets** menu, lists them for all the shelter's pets, and **Group Treatment** records the same treatment for many animals at once.
+
+> **Tip:** when a vaccine or treatment has no frequency set, the form warns you, and you must type the next due date yourself.
 
 ---
 

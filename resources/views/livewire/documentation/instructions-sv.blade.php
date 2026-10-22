@@ -70,7 +70,7 @@
         <p>De senaste intagen (med intagsdatum och bur), adoptionerna (med datum och adoptantens förnamn, dolt för läsare) och dödsfallen (med datum).</p>
         <p>Ledig kapacitet räknar bara härbärgets egna burar: flyglar för jourhem räknas inte, och inte heller djuren som bor i jourhem.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Översikt för administratörer</h3>
-        <p>Administratörer hör inte till något djurhem, så deras översikt visar hela plattformen: räknare för djurhem, användare aktiva de senaste 30 dagarna, djur i vård och adoptioner i år; en tabell över djurhemmen med deras djur, adoptioner, senaste inloggning och senaste djuruppdatering, de minst använda först och gamla inloggningar markerade; <strong>Inställningar att slutföra</strong> (djurhem utan arter, burar eller användare, och arter utan raser); och <strong>Ej accepterade inbjudningar</strong>, de inbjudna användare som aldrig har loggat in. Den visar bara summor, aldrig djur eller personuppgifter.</p>
+        <p>Administratörer hör inte till något djurhem, så deras översikt visar hela plattformen: räknare för djurhem, användare aktiva de senaste 30 dagarna, djur i vård och adoptioner i år; en tabell över djurhemmen med deras djur, adoptioner, senaste inloggning och senaste djuruppdatering, de minst använda först och gamla inloggningar markerade; <strong>Inställningar att slutföra</strong> (djurhem utan arter, burar eller användare, och arter utan raser); och <strong>Ej accepterade inbjudningar</strong>, de inbjudna användare som aldrig har loggat in. Den visar bara summor, aldrig djur eller personuppgifter. Det utrymme som varje skyddshems uppladdade filer (foton och dokument) upptar visas i översikten, tillsammans med plattformens totalsumma.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -92,6 +92,7 @@
         <p>När den öppna portalen är aktiverad visas ytterligare två alternativ: <strong>Publicera på den öppna portalen</strong> och <strong>Utvald</strong>. Se <a href="#public-portal" class="underline underline-offset-2">Öppen portal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sökning och filtrering</h3>
         <p>Sök på namn, referens, mikrochip eller interna anteckningar och filtrera på status, art eller placering (anläggning, flygel eller bur). Det sista filtret hittar djur med <strong>Öppna hälsoproblem</strong>, efter kastrering (<strong>Kastrerad</strong>, <strong>Inte kastrerad</strong>, <strong>Kastrerad, uppgifter saknas</strong>) eller med saknade uppgifter (ingen ålder, inget foto, inget intagsdatum eller ingen placering), vilket hjälper till att hålla journalerna fullständiga. Djur med ett öppet hälsoproblem har ett hjärta bredvid namnet i listan.</p>
+        <p>I listan har menyn i slutet av varje rad (de tre prickarna) <strong>Visa</strong>, <strong>Redigera</strong> och <strong>Ta bort</strong>; borttagning ber först om bekräftelse.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Utskrift</h3>
         <p>Du kan skriva ut ett enskilt djurs kort från dess sida, eller skriva ut djurlistan; den utskrivna listan använder samma filter som är aktiva på skärmen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Dela i sociala medier</h3>
@@ -241,6 +242,7 @@
         </ul>
         <p>För varje medlemskap i ett härbärge kan man också slå på <strong>Aviseringar om adoptionsansökningar</strong>: de användarna får ett e-postmeddelande för varje ny adoptionsansökan.</p>
         <p>Tills den inbjudna personen har loggat in för första gången visar användarlistan en knapp <strong>Skicka inbjudan igen</strong> på personens rad. Den skickar en ny länk via e-post och gör den tidigare ogiltig; länken går ut efter 15 dagar.</p>
+        <p>Administratörer kan se vad en användare ser med ögonknappen (<strong>Visa som den här användaren</strong>) på användarens rad, även för inbjudna som inte har accepterat ännu. Ett fält visar <em>Visar som &hellip; (skrivskyddat)</em>: inget kan ändras medan du tittar, och <strong>Sluta visa</strong> återgår till administratörskontot. Andra administratörer kan inte visas.</p>
         <p>Ett <strong>Personal</strong>-medlemskap kan begränsas till vissa områden: stäng av, under <strong>Får redigera</strong>, de som användaren inte ska redigera (Djur, Hälsa, Adoptioner, Fadderskap, Medlemmar). Med alla på redigerar användaren allt, som förut. En <strong>Läsare (endast läsning)</strong> kan bara titta och ser aldrig personuppgifter om adoptanter, fadderer, volontärer eller medlemmar; en <strong>Föreståndare</strong> redigerar allt.</p>
     </section>
 

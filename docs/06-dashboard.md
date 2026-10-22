@@ -61,6 +61,7 @@ Admins don't belong to a shelter, so their dashboard shows the **whole platform*
 
 - **Counters**: shelters, users who logged in during the last 30 days, animals in care and adoptions this year, across all shelters.
 - **Shelters**: each shelter with its animals in care, adoptions this year, the **last login** of any of its users and the **last pet update**. The least recently used shelters come first, and a last login that is *Never* or older than 30 days is highlighted, so shelters that went quiet stand out. Click a name to edit the shelter.
+- **Storage**: the space used by each shelter's uploaded files (photos and documents), and the total for the platform, in the **Total storage** counter and the **Storage** column.
 - **Setup to complete** (only when there is something to fix): shelters with no species enabled, no cages or no users, and species used by a shelter that have no breeds.
 - **Invitations not accepted** (only when there are any): invited users who have never logged in, with their email, shelter and invitation date.
 

@@ -70,7 +70,7 @@
         <p>De seneste indtag (med indtagsdato og bur), adoptioner (med dato og adoptantens fornavn, skjult for læsere) og dødsfald (med dato).</p>
         <p>Ledig kapacitet tæller kun internatets egne bure: fløje for plejefamilier tælles ikke med, og det gør dyrene, der bor hos plejefamilier, heller ikke.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Oversigt for administratorer</h3>
-        <p>Administratorer hører ikke til et internat, så deres oversigt viser hele platformen: tællere for internater, brugere aktive inden for de sidste 30 dage, dyr i pleje og adoptioner i år; en tabel over internaterne med deres dyr, adoptioner, seneste login og seneste dyreopdatering, de mindst brugte først og gamle logins fremhævet; <strong>Opsætning der mangler</strong> (internater uden arter, bure eller brugere, og arter uden racer); og <strong>Ikke accepterede invitationer</strong>, de inviterede brugere, der aldrig har logget ind. Den viser kun totaler, aldrig dyr eller personoplysninger.</p>
+        <p>Administratorer hører ikke til et internat, så deres oversigt viser hele platformen: tællere for internater, brugere aktive inden for de sidste 30 dage, dyr i pleje og adoptioner i år; en tabel over internaterne med deres dyr, adoptioner, seneste login og seneste dyreopdatering, de mindst brugte først og gamle logins fremhævet; <strong>Opsætning der mangler</strong> (internater uden arter, bure eller brugere, og arter uden racer); og <strong>Ikke accepterede invitationer</strong>, de inviterede brugere, der aldrig har logget ind. Den viser kun totaler, aldrig dyr eller personoplysninger. Den plads, som hvert dyreinternats uploadede filer (fotos og dokumenter) fylder, vises i oversigten sammen med platformens samlede sum.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -92,6 +92,7 @@
         <p>Når den offentlige portal er slået til, vises yderligere to indstillinger: <strong>Udgiv på den offentlige portal</strong> og <strong>Fremhævet</strong>. Se <a href="#public-portal" class="underline underline-offset-2">Offentlig portal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Søgning og filtrering</h3>
         <p>Søg på navn, reference, mikrochip eller interne noter, og filtrer på status, art eller placering (facilitet, fløj eller bur). Det sidste filter finder dyr med <strong>Åbne helbredsproblemer</strong>, efter kastration (<strong>Kastreret</strong>, <strong>Ikke kastreret</strong>, <strong>Kastreret, detaljer mangler</strong>) eller med manglende data (ingen alder, intet foto, ingen indtagsdato eller ingen placering), hvilket hjælper med at holde journalerne komplette. Dyr med et åbent helbredsproblem har et hjerte ved siden af navnet på listen.</p>
+        <p>I listen har menuen i slutningen af hver række (de tre prikker) <strong>Vis</strong>, <strong>Rediger</strong> og <strong>Slet</strong>; sletning beder først om bekræftelse.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Udskrivning</h3>
         <p>Du kan udskrive et enkelt dyrs kort fra dets side eller udskrive dyrelisten; den udskrevne liste bruger de samme filtre, som er aktive på skærmen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Del på sociale medier</h3>
@@ -241,6 +242,7 @@
         </ul>
         <p>For hvert medlemskab af et internat kan man også slå <strong>Notifikationer om adoptionsansøgninger</strong> til: de brugere får en e-mail for hver ny adoptionsansøgning.</p>
         <p>Indtil den inviterede person har logget ind for første gang, viser brugerlisten en knap <strong>Send invitation igen</strong> på personens række. Den sender et nyt link via e-mail og annullerer det forrige; linket udløber efter 15 dage.</p>
+        <p>Administratorer kan se, hvad en bruger ser, med øjeknappen (<strong>Se som denne bruger</strong>) på brugerens række, også for inviterede, der endnu ikke har accepteret. En bjælke viser <em>Ser som &hellip; (skrivebeskyttet)</em>: intet kan ændres imens, og <strong>Stop visning</strong> vender tilbage til administratorkontoen. Andre administratorer kan ikke ses.</p>
         <p>Et <strong>Medarbejder</strong>-medlemskab kan begrænses til nogle områder: slå, under <strong>Må redigere</strong>, de områder fra, som brugeren ikke må redigere (Dyr, Helbred, Adoptioner, Fadderskaber, Medlemmer). Med alle slået til redigerer brugeren alt, som før. En <strong>Læser (kun læseadgang)</strong> kan kun se og ser aldrig personoplysninger om adoptanter, faddere, frivillige eller medlemmer; en <strong>Internatleder</strong> redigerer alt.</p>
     </section>
 

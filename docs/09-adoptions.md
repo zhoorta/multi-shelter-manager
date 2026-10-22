@@ -40,7 +40,8 @@ As soon as a pet has an adoption with no **Return Date**, its status becomes **A
 - it leaves *Pets in Shelter* and appears in *Recent Adoptions* on the dashboard;
 - the pet list shows *Adopted at* and the date;
 - it no longer appears on the public adoption portal;
-- the **Adoption Registration** option disappears from the heart menu.
+- the **Adoption Registration** button disappears from the **Adoptions and sponsorships** tab;
+- its cage is freed, so the place can be used by another animal, and it is no longer marked as adoptable (it is not offered for adoption any more).
 
 The adoption is shown on the pet's record, with an **Edit** button.
 
@@ -67,10 +68,10 @@ The adoption page shows all its details, with an **Edit** button:
 Sometimes an adopted animal comes back to the shelter. **Do not delete the adoption.** Instead:
 
 1. Open the adoption (from the pet's record or from **Pets → Adoptions**) and click **Edit**.
-2. Fill in the **Return Date**, and explain why in **Notes**.
+2. Fill in the **Return Date** and, if you want, the **Return reason** (it is only kept when there is a return date). Use **Notes** for anything else.
 3. Click **Save**.
 
-The pet becomes available again (or *not available*, depending on its **Is Adoptable** switch), and the adoption stays in the pet's history. The pet's record lists all its adoptions, and when the animal came back and nobody has adopted it again, the adoption shows a *Returned at* badge with the date. In the pet list, the **Returned after adoption** filter finds these animals.
+The pet becomes adoptable again (unless it has died), so it is *available* again; it comes back without a cage, so choose a new one when you edit the pet. Deleting an open adoption does the same, and the adoption stays in the pet's history. The pet's record lists all its adoptions, and when the animal came back and nobody has adopted it again, the adoption shows a *Returned at* badge with the date. In the pet list, the **Returned after adoption** filter finds these animals.
 
 
 ## 9.5 Adoption applications

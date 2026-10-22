@@ -70,6 +70,12 @@ Only admins can do this. In **Invite User**, switch on **Global Admin**. Adminis
 
 Managers can only change memberships of the shelters they manage.
 
+## 4.6 Viewing the app as a user (admins)
+
+To check what a user sees, an admin clicks the eye button (**View as this user**) on the user's row in **Users**. It also works for invited people who have not accepted yet, so a new shelter can be checked before its manager arrives. Other admins cannot be viewed.
+
+A banner shows *Viewing as … (read-only)*: nothing can be created, changed or deleted while viewing. **Stop viewing** returns to the admin account.
+
 ---
 
 [← Administration](03-administration.md) · [Documentation index](README.md) · [Next: Facilities, wings and cages →](05-facilities.md)

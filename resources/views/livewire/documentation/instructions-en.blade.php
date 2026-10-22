@@ -70,7 +70,7 @@
         <p>The latest intakes (with check-in date and cage), adoptions (with the date and the adopter&rsquo;s first name, hidden from viewers) and deaths (with the date).</p>
         <p>Available capacity only counts the shelter's own cages: foster family wings are left out, and so are the animals living with foster families.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Admin dashboard</h3>
-        <p>Admins do not belong to a shelter, so their dashboard shows the whole platform instead: counters for shelters, users active in the last 30 days, animals in care and adoptions this year; a table of the shelters with their animals, adoptions, last login and last pet update, the least recently used first and old logins highlighted; <strong>Setup to complete</strong> (shelters with no species, cages or users, and species without breeds); and <strong>Invitations not accepted</strong>, the invited users who never logged in. It shows totals only, never animals or people&rsquo;s details.</p>
+        <p>Admins do not belong to a shelter, so their dashboard shows the whole platform instead: counters for shelters, users active in the last 30 days, animals in care and adoptions this year; a table of the shelters with their animals, adoptions, last login and last pet update, the least recently used first and old logins highlighted; <strong>Setup to complete</strong> (shelters with no species, cages or users, and species without breeds); and <strong>Invitations not accepted</strong>, the invited users who never logged in. It shows totals only, never animals or people&rsquo;s details. Storage used by each shelter's uploaded files (photos and documents) is shown in the overview, with the platform total.</p>
     </section>
 
     <section id="pets" class="flex scroll-mt-6 flex-col gap-2">
@@ -92,6 +92,7 @@
         <p>When the public portal is enabled, two more options appear: <strong>Publish to Portal</strong> and <strong>Is Featured</strong>. See <a href="#public-portal" class="underline underline-offset-2">Public Portal</a>.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Searching and filtering</h3>
         <p>Search by name, reference, microchip or internal notes, and filter by status, species or location (facility, wing or cage). The last filter finds pets with <strong>Open health issues</strong>, by sterilisation (<strong>Neutered</strong>, <strong>Not neutered</strong>, <strong>Neutered, details missing</strong>) or with missing data (no age, no photo, no check-in date or no location), which helps keep records complete. Pets with an open health issue show a heart next to their name in the list.</p>
+        <p>In the list, the menu at the end of each row (the three dots) offers <strong>View</strong>, <strong>Edit</strong> and <strong>Delete</strong>; deleting asks for confirmation first.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Printing</h3>
         <p>You can print a single pet's sheet from its page, or print the pet list; the printed list uses the same filters that are active on screen.</p>
         <h3 class="mt-2 font-semibold text-neutral-900 dark:text-white">Sharing on social media</h3>
@@ -241,6 +242,7 @@
         </ul>
         <p>Each membership can also have <strong>Adoption Application Notifications</strong> turned on: those users receive an email for each new adoption application.</p>
         <p>Until an invited person logs in for the first time, the Users list shows a <strong>Resend invitation</strong> button on their row. It emails a new link and cancels the previous one; the link expires after 15 days.</p>
+        <p>Admins can check what a user sees with the eye button (<strong>View as this user</strong>) on the user&rsquo;s row, also for invited people who have not accepted yet. A banner shows <em>Viewing as &hellip; (read-only)</em>: nothing can be changed while viewing, and <strong>Stop viewing</strong> returns to the admin account. Other admins cannot be viewed.</p>
         <p>A <strong>Staff / Worker</strong> membership can be limited to some areas: switch off, under <strong>Can edit</strong>, the ones the user must not edit (Animals, Health, Adoptions, Sponsorships, Members). With all of them on, the user edits everything, as before. A <strong>Viewer (read-only)</strong> only views, and never sees adopters', sponsors', volunteers' or members' personal data; a <strong>Shelter Manager</strong> edits everything.</p>
     </section>
 

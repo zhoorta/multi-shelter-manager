@@ -1,6 +1,6 @@
 # 15. Personal settings
 
-[← The public adoption portal](14-public-portal.md) · [Documentation index](README.md)
+[← The public adoption portal](14-public-portal.md) · [Documentation index](README.md) · [Next: Colonies →](16-colonies.md)
 
 > **Who:** Everyone. The **Shelter** tab is for managers only.
 
@@ -63,7 +63,13 @@ The manager keeps the profile of the **active shelter** up to date. These detail
 
 Click **Save**.
 
-The shelter's **name** and its **species** (which species appear under **Pets**) can only be changed by an admin (see [Shelters](03-administration.md#39-shelters)). Staff and viewers do not see this tab.
+The shelter's **name** can only be changed by an admin (see [Shelters](03-administration.md#39-shelters)). Staff and viewers do not see this tab.
+
+The same tab lets the manager turn **species** on (for example to start taking in cats), which adds them under **Pets**. A species can only be turned off while the shelter has no animals, cages or colonies of it. The **Colonies** module only appears when one of the shelter's species allows colonies ([chapter 16](16-colonies.md)).
+
+### Modules
+
+Optional parts of the application are modules, and the manager switches each one on or off under **Settings → Shelter → Modules** (admins can do it in the shelter's edit form). All modules are on by default. A module that is off disappears from the sidebar, the dashboard and the pet pages, and its pages no longer open. Nothing is deleted: switching it back on restores all its data. Pets, adoptions, diagnoses and facilities are always on.
 
 ---
 
