@@ -17,6 +17,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | app/Models/PetTreatment.php,app/Models/Treatment.php,app/Traits/TracksDueDates.php,app/Livewire/Pets/TreatmentForm.php,app/Livewire/Pets/GroupTreatmentForm.php,app/Livewire/Pets/ManagePetTreatments.php,app/Console/Commands/SendTreatmentDueNotifications.php | .ai/rules/console-commands.md |
 | app/Models/PetClinicalPhoto.php,app/Http/Controllers/ClinicalPhotoController.php,app/Livewire/Pets/ClinicalPhotoForm.php | .ai/rules/controllers-livewire-pets.md |
 | resources/css/app.css | .ai/rules/css.md |
+| app/Actions/Demo/** | .ai/rules/demo.md |
 | app/Livewire/Documentation.php,resources/views/livewire/documentation.blade.php,resources/views/livewire/documentation/*.blade.php | .ai/rules/documentation.md |
 | app/Livewire/Facilities/** | .ai/rules/facilities.md |
 | app/Livewire/Dashboard.php,resources/views/livewire/dashboard.blade.php,tests/Feature/DashboardTest.php | .ai/rules/feature.md |

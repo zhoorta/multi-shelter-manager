@@ -3,11 +3,13 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\ClinicalPhotoController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\RobotsController;
 use App\Http\Controllers\ShelterFeedController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Middleware\BlockInDemo;
 use App\Http\Middleware\EnsurePublicPortalEnabled;
 use App\Livewire\About;
 use App\Livewire\Admin\ManageActivities;
@@ -93,6 +95,9 @@ Route::get('sitemap.xml', SitemapController::class)->middleware(EnsurePublicPort
 
 // Public guest routes.
 Route::middleware(['guest'])->group(function (): void {
+    // Public demo: a throwaway shelter per visitor (DEMO_MODE=true).
+    Route::post('demo', DemoController::class)->middleware('throttle:6,60')->name('demo.start');
+
     // First-run wizard to create the initial admin; only usable while no users exist.
     Route::livewire('setup', Setup::class)->name('setup');
 
@@ -160,7 +165,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     // Administration routes.
     Route::livewire('admin/users', ManageUsers::class)->name('admin.users.index');
-    Route::livewire('admin/users/create', UserForm::class)->name('admin.users.create');
+    Route::livewire('admin/users/create', UserForm::class)->middleware(BlockInDemo::class)->name('admin.users.create');
     Route::livewire('admin/users/{user}/edit', UserForm::class)->name('admin.users.edit');
     Route::livewire('admin/shelters', ManageShelters::class)->name('admin.shelters.index');
     Route::livewire('admin/shelters/create', ShelterForm::class)->name('admin.shelters.create');

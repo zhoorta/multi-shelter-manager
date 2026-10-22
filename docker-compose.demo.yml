@@ -1,0 +1,16 @@
+# Public demo on a single host. Copy docker/demo.env.example to demo.env and fill it in, then:
+#   docker compose -f docker-compose.demo.yml up -d --build
+# The first start seeds the template shelter (it downloads sample animal photos, so it needs
+# internet access and takes a minute or two). Put a reverse proxy with HTTPS in front of port 8080.
+services:
+  demo:
+    build: .
+    restart: unless-stopped
+    env_file: demo.env
+    ports:
+      - "8080:8080"
+    volumes:
+      - demo-data:/data
+
+volumes:
+  demo-data:

@@ -76,6 +76,23 @@
                     {{ __('Log in') }}
                 </button>
             </form>
+
+            @if (\App\Actions\Demo\DemoSandbox::enabled())
+                <form method="POST" action="{{ route('demo.start') }}" data-test="demo-form" class="mt-4 flex flex-col gap-2 border-t border-zinc-200 pt-4 dark:border-zinc-700">
+                    @csrf
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400">{{ __('Explore a throwaway shelter filled with sample data. No sign-up needed.') }}</p>
+                    @error('demo')
+                        <span class="text-sm text-red-600 dark:text-red-400">{{ $message }}</span>
+                    @enderror
+                    <button
+                        type="submit"
+                        data-test="demo-button"
+                        class="w-full rounded-lg border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-white dark:hover:bg-zinc-800"
+                    >
+                        {{ __('Try the demo') }}
+                    </button>
+                </form>
+            @endif
         </div>
     </div>
 </x-layouts::auth>

@@ -794,5 +794,12 @@
     "Read-only while viewing as another user.": "Solo lectura mientras ves como otro usuario.",
     "Viewing as :name (read-only)": "Viendo como :name (solo lectura)",
     "Stop viewing": "Dejar de ver",
-    "View as this user": "Ver como este usuario"
+    "View as this user": "Ver como este usuario",
+    "Try the demo": "Probar la demo",
+    "Explore a throwaway shelter filled with sample data. No sign-up needed.": "Explore un refugio temporal con datos de ejemplo. Sin registro.",
+    "The demo is busy right now. Please try again in a few minutes.": "La demo está muy solicitada ahora. Inténtelo de nuevo en unos minutos.",
+    "Not available in the demo.": "No disponible en la demo.",
+    "Demo manager": "Gestor de la demo",
+    "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "Esto es una demo con datos de ejemplo. Todo se borra :minutes minutos después de empezar, así que no introduzca datos personales.",
+    "Questions? :contact": "¿Dudas? :contact"
 }

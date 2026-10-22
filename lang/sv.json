@@ -794,5 +794,12 @@
     "Read-only while viewing as another user.": "Skrivskyddat när du visar som en annan användare.",
     "Viewing as :name (read-only)": "Visar som :name (skrivskyddat)",
     "Stop viewing": "Avsluta",
-    "View as this user": "Visa som den här användaren"
+    "View as this user": "Visa som den här användaren",
+    "Try the demo": "Prova demon",
+    "Explore a throwaway shelter filled with sample data. No sign-up needed.": "Utforska ett tillfälligt skyddshem med exempeldata. Ingen registrering.",
+    "The demo is busy right now. Please try again in a few minutes.": "Demon är fullbokad just nu. Försök igen om några minuter.",
+    "Not available in the demo.": "Inte tillgängligt i demon.",
+    "Demo manager": "Demoansvarig",
+    "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "Detta är en demo med exempeldata. Allt raderas :minutes minuter efter att du börjat, så ange inga personuppgifter.",
+    "Questions? :contact": "Frågor? :contact"
 }

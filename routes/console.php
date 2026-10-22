@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Demo\DemoSandbox;
 use App\Console\Commands\SendTreatmentDueNotifications;
 use App\Console\Commands\SendVaccinationDueNotifications;
 use App\Models\AdoptionApplication;
@@ -13,4 +14,5 @@ Artisan::command('inspire', function () {
 
 Schedule::command(SendVaccinationDueNotifications::class)->daily();
 Schedule::command(SendTreatmentDueNotifications::class)->daily();
+Schedule::command('demo:prune')->everyTenMinutes()->when(fn () => DemoSandbox::enabled());
 Schedule::command('model:prune', ['--model' => [AdoptionApplication::class]])->daily();

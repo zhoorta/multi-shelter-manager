@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\BlockInDemo;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\ExportData;
 use App\Livewire\Settings\Profile;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
-    Route::livewire('settings/profile', Profile::class)->name('profile.edit');
+    Route::livewire('settings/profile', Profile::class)->middleware(BlockInDemo::class)->name('profile.edit');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -18,10 +19,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::livewire('settings/shelter', ShelterProfile::class)->name('shelter-profile.edit');
 
-    Route::livewire('settings/export', ExportData::class)->name('data-export.edit');
+    Route::livewire('settings/export', ExportData::class)->middleware(BlockInDemo::class)->name('data-export.edit');
 
     Route::livewire('settings/security', Security::class)
         ->middleware([
+            BlockInDemo::class,
             'password.confirm',
         ])
         ->name('security.edit');

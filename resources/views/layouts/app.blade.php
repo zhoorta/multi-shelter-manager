@@ -14,6 +14,15 @@
             </form>
         @endif
 
+        @if (\App\Actions\Demo\DemoSandbox::isDemoUser(auth()->user()))
+            <div data-test="demo-banner" class="mb-4 rounded-lg border border-sky-300 bg-sky-100 px-4 py-2 text-sm text-sky-900 dark:border-sky-700 dark:bg-sky-900/40 dark:text-sky-100">
+                {{ __('This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.', ['minutes' => config('demo.ttl_minutes')]) }}
+                @if (config('demo.contact'))
+                    {{ __('Questions? :contact', ['contact' => config('demo.contact')]) }}
+                @endif
+            </div>
+        @endif
+
         {{ $slot }}
     </flux:main>
 </x-layouts::app.sidebar>

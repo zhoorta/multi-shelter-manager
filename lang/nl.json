@@ -794,5 +794,12 @@
     "Read-only while viewing as another user.": "Alleen lezen tijdens het bekijken als een andere gebruiker.",
     "Viewing as :name (read-only)": "Bekijken als :name (alleen lezen)",
     "Stop viewing": "Stoppen",
-    "View as this user": "Bekijken als deze gebruiker"
+    "View as this user": "Bekijken als deze gebruiker",
+    "Try the demo": "Probeer de demo",
+    "Explore a throwaway shelter filled with sample data. No sign-up needed.": "Verken een tijdelijk asiel met voorbeeldgegevens. Zonder registratie.",
+    "The demo is busy right now. Please try again in a few minutes.": "De demo is op dit moment druk. Probeer het over enkele minuten opnieuw.",
+    "Not available in the demo.": "Niet beschikbaar in de demo.",
+    "Demo manager": "Demobeheerder",
+    "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "Dit is een demo met voorbeeldgegevens. Alles wordt :minutes minuten na het begin verwijderd, voer dus geen persoonlijke gegevens in.",
+    "Questions? :contact": "Vragen? :contact"
 }

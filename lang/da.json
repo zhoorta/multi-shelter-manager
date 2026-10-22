@@ -794,5 +794,12 @@
     "Read-only while viewing as another user.": "Skrivebeskyttet, mens du ser som en anden bruger.",
     "Viewing as :name (read-only)": "Ser som :name (skrivebeskyttet)",
     "Stop viewing": "Afslut",
-    "View as this user": "Se som denne bruger"
+    "View as this user": "Se som denne bruger",
+    "Try the demo": "Prøv demoen",
+    "Explore a throwaway shelter filled with sample data. No sign-up needed.": "Udforsk et midlertidigt dyreinternat med eksempeldata. Ingen tilmelding.",
+    "The demo is busy right now. Please try again in a few minutes.": "Demoen er travl lige nu. Prøv igen om et par minutter.",
+    "Not available in the demo.": "Ikke tilgængeligt i demoen.",
+    "Demo manager": "Demoleder",
+    "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "Dette er en demo med eksempeldata. Alt slettes :minutes minutter efter start, så indtast ikke personlige oplysninger.",
+    "Questions? :contact": "Spørgsmål? :contact"
 }
