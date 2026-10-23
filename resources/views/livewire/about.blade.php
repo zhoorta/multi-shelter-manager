@@ -25,6 +25,11 @@
             <p class="max-w-2xl text-lg leading-relaxed text-stone-500 dark:text-stone-400">
                 {{ __(':app is a nonprofit project that helps animal shelters organise their daily work and find a loving home for the animals in their care.', ['app' => config('app.name')]) }}
             </p>
+            @if ($demoUrl)
+                <a href="{{ $demoUrl }}" target="_blank" rel="noopener" class="mt-2 rounded-full bg-orange-500 px-7 py-3.5 font-display text-lg font-semibold text-white shadow-lg shadow-orange-300/60 transition hover:-translate-y-0.5 hover:bg-orange-600 dark:shadow-none">
+                    🐶 {{ __('Try the demo') }}
+                </a>
+            @endif
         </div>
 
         <div class="mt-12 grid gap-6 sm:grid-cols-3">

@@ -92,3 +92,16 @@ test('hides the user guide link when the pdf has not been uploaded', function ()
         ->assertOk()
         ->assertDontSee('User guide (PDF)');
 });
+
+test('links to the demo only when a demo url is configured', function () {
+    config(['app.demo_url' => null]);
+
+    $this->get(route('about'))->assertOk()->assertDontSee('Try the demo');
+
+    config(['app.demo_url' => 'https://demo.shelters.test']);
+
+    $this->get(route('about'))
+        ->assertOk()
+        ->assertSee('Try the demo')
+        ->assertSee('https://demo.shelters.test', false);
+});

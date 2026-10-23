@@ -55,7 +55,7 @@ class About extends Component
     #[Layout('layouts::public')]
     public function render(): View
     {
-        return view('livewire.about', ['contactEmail' => config('app.contact_email'), 'userGuideUrl' => $this->userGuideUrl(), 'screenshotsPath' => $this->screenshotsPath()])
+        return view('livewire.about', ['contactEmail' => config('app.contact_email'), 'demoUrl' => config('app.demo_url'), 'userGuideUrl' => $this->userGuideUrl(), 'screenshotsPath' => $this->screenshotsPath()])
             ->title(__('Free management platform for animal shelters'))
             ->layoutData(['description' => __('Nonprofit platform, free for animal shelters and associations: animals, health, vaccinations, adoptions, sponsorships, volunteers and members in one place.')]);
     }
