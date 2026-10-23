@@ -83,6 +83,28 @@ test('the login page offers the demo only when demo mode is on', function () {
     $this->get(route('login'))->assertOk()->assertDontSee('demo-button', false)->assertSee('login-button', false);
 });
 
+test('the demo follows the browser language until one is chosen, and other installs ignore it', function () {
+    User::factory()->create();
+    config(['app.locale' => 'pt']);
+
+    $this->withHeader('Accept-Language', 'xx-XX,es-ES;q=0.8')->get(route('login'))->assertOk();
+    expect(app()->getLocale())->toBe('es');
+
+    app()->setLocale('pt');
+    $this->withHeader('Accept-Language', 'xx-XX')->get(route('login'))->assertOk();
+    expect(app()->getLocale())->toBe('pt');
+
+    app()->setLocale('pt');
+    $this->withSession(['locale' => 'de'])->withHeader('Accept-Language', 'es')->get(route('login'))->assertOk();
+    expect(app()->getLocale())->toBe('de');
+
+    config(['demo.enabled' => false]);
+    session()->flush();
+    app()->setLocale('pt');
+    $this->withHeader('Accept-Language', 'es')->get(route('login'))->assertOk();
+    expect(app()->getLocale())->toBe('pt');
+});
+
 test('starting the demo logs the visitor in as the manager of a new shelter', function () {
     $this->post(route('demo.start'))->assertRedirect(route('dashboard'));
 
