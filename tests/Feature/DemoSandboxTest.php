@@ -77,10 +77,10 @@ test('pruning deletes expired sandboxes with their files and leaves the template
 test('the login page offers the demo only when demo mode is on', function () {
     User::factory()->create();
 
-    $this->get(route('login'))->assertOk()->assertSee('demo-button', false);
+    $this->get(route('login'))->assertOk()->assertSee('demo-button', false)->assertDontSee('login-button', false)->assertDontSee('name="password"', false);
 
     config(['demo.enabled' => false]);
-    $this->get(route('login'))->assertOk()->assertDontSee('demo-button', false);
+    $this->get(route('login'))->assertOk()->assertDontSee('demo-button', false)->assertSee('login-button', false);
 });
 
 test('starting the demo logs the visitor in as the manager of a new shelter', function () {
