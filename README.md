@@ -1,6 +1,16 @@
 # Multi Shelter Manager
 
+[![Live demo](https://img.shields.io/badge/live%20demo-demo.focinhos.pt-2ea44f)](https://demo.focinhos.pt)
+[![Release](https://img.shields.io/github/v/release/zhoorta/multi-shelter-manager)](https://github.com/zhoorta/multi-shelter-manager/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777bb4)
+![Laravel 13](https://img.shields.io/badge/Laravel-13-ff2d20)
+
 **A web application for animal shelters.** Several shelters share one platform, each completely isolated. Manage animals, cages, foster families, vaccinations, adoptions, sponsorships, volunteers and members, follow everything in reports, and publish your animals on a public adoption website that takes adoption applications.
+
+**👉 [Try the live demo](https://demo.focinhos.pt)** — one click, no sign-up. You get your own sandbox shelter with sample data, wiped after a short time.
+
+Built for and used by real shelters: it runs [Focinhos](https://focinhos.pt), a free platform for animal shelters in Portugal.
 
 ![Dashboard](docs/screenshots/30-dashboard.png)
 
@@ -43,7 +53,7 @@ composer run dev            # start the app on http://localhost:8000
 
 Open http://localhost:8000. The **setup wizard** asks you to create the administrator account.
 
-Want to explore with sample data first? Load the demo data into an **empty** database:
+Want to explore first? Use the [live demo](https://demo.focinhos.pt), or load the demo data into an **empty** database:
 
 ```bash
 php artisan migrate:fresh --seeder=DocumentationDemoSeeder
