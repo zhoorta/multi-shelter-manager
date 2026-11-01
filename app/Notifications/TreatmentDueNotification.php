@@ -48,9 +48,9 @@ class TreatmentDueNotification extends Notification
     public function treatmentRounds(): array
     {
         return $this->dueTreatments
-            ->groupBy(fn (PetTreatment $petTreatment): string => $petTreatment->treatment_id.'|'.$petTreatment->due_date->toDateString())
+            ->groupBy(fn (PetTreatment $petTreatment): string => ($petTreatment->treatment_id ?? $petTreatment->custom_name).'|'.$petTreatment->due_date->toDateString())
             ->map(fn ($roundTreatments): array => [
-                'treatment' => $roundTreatments->first()->treatment->name,
+                'treatment' => $roundTreatments->first()->display_name,
                 'due_date' => $roundTreatments->first()->due_date->format('d/m/Y'),
                 'pets' => $roundTreatments->map(fn (PetTreatment $petTreatment): string => $petTreatment->pet->name)->sort()->values()->all(),
             ])

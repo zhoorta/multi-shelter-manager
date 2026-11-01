@@ -16,7 +16,12 @@
                 @foreach ($this->treatments as $treatment)
                     <flux:select.option value="{{ $treatment->id }}">{{ $treatment->name }}</flux:select.option>
                 @endforeach
+                <flux:select.option value="other">{{ __('Other (free text)') }}</flux:select.option>
             </flux:select>
+
+            @if ($treatmentId === 'other')
+                <flux:input wire:model="customName" :label="__('Treatment name')" />
+            @endif
 
             <div class="grid grid-cols-2 gap-4">
                 {{-- Safari renders an empty native date input showing today's date instead of a
@@ -35,6 +40,7 @@
                     x-on:blur="if (! $el.value) dateFieldType = 'text'"
                 />
 
+                @if ($treatmentId !== 'other')
                 <flux:input
                     type="text"
                     wire:model="dueDate"
@@ -47,6 +53,7 @@
                     x-on:focus="dateFieldType = 'date'"
                     x-on:blur="if (! $el.value) dateFieldType = 'text'"
                 />
+                @endif
 
                 {{-- Its own grid row under Next Due Date, rather than a field description,
                      so both date inputs keep the same height and stay aligned. --}}

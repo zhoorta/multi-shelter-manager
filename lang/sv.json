@@ -802,5 +802,7 @@
     "Demo manager": "Demoansvarig",
     "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "Detta är en demo med exempeldata. Allt raderas :minutes minuter efter att du börjat, så ange inga personuppgifter.",
     "Questions? :contact": "Frågor? :contact",
-    "Last cage": "Senaste bur"
+    "Last cage": "Senaste bur",
+    "Other (free text)": "Annat (fritext)",
+    "Treatment name": "Namn på behandlingen"
 }

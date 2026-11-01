@@ -68,6 +68,7 @@ class ManagePetTreatments extends Component
                         ->orWhere('veterinarian_name', 'like', '%'.$search.'%')
                         ->orWhere('notes', 'like', '%'.$search.'%')
                         ->orWhereHas('treatment', fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%'))
+                        ->orWhere('custom_name', 'like', '%'.$search.'%')
                         ->orWhereHas('pet', fn (Builder $query) => $query->where('name', 'like', '%'.$search.'%')
                             ->orWhere('ref', 'like', '%'.$search.'%'))
                 ),

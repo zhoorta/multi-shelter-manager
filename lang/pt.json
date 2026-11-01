@@ -802,5 +802,7 @@
     "Demo manager": "Gestor da demonstração",
     "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "Esta é uma demonstração com dados de exemplo. Tudo é apagado :minutes minutos depois de começar, por isso não introduza dados pessoais.",
     "Questions? :contact": "Dúvidas? :contact",
-    "Last cage": "Última jaula"
+    "Last cage": "Última jaula",
+    "Other (free text)": "Outro (texto livre)",
+    "Treatment name": "Nome do tratamento"
 }

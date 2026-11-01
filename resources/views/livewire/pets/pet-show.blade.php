@@ -805,7 +805,7 @@
                                         };
                                     @endphp
                                     <tr wire:key="pet-treatment-{{ $petTreatment->id }}">
-                                        <td class="px-4 py-2">{{ $petTreatment->treatment->name }}</td>
+                                        <td class="px-4 py-2">{{ $petTreatment->display_name }}</td>
                                         <td class="px-4 py-2">{{ $petTreatment->administered_date?->format('d/m/Y') ?? '—' }}</td>
                                         <td class="px-4 py-2 {{ $nextDueDateClass }}">{{ $petTreatment->due_date?->format('d/m/Y') ?? '—' }}</td>
                                         <td class="px-4 py-2">{{ $petTreatment->product ?? '—' }}</td>
@@ -834,7 +834,7 @@
 
                                                 <flux:modal name="treatment-show-{{ $petTreatment->id }}" class="max-w-lg">
                                                     <div class="space-y-6">
-                                                        <flux:heading size="lg">{{ $petTreatment->treatment->name }}</flux:heading>
+                                                        <flux:heading size="lg">{{ $petTreatment->display_name }}</flux:heading>
 
                                                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                             <div>

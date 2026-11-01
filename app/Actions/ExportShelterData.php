@@ -116,7 +116,7 @@ class ExportShelterData
             ],
             'treatments' => [
                 PetTreatment::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet, 'treatment']),
-                $petLabels() + ['treatment_id' => fn (PetTreatment $row): mixed => $row->treatment?->name],
+                $petLabels() + ['treatment_id' => fn (PetTreatment $row): mixed => $row->display_name],
             ],
             'diagnoses' => [
                 PetSickness::query()->whereHas('pet', $ownRow)->with(['pet' => $eagerPet, 'sickness']),

@@ -8,6 +8,7 @@ use App\Traits\Blameable;
 use App\Traits\TracksDueDates;
 use Database\Factories\PetTreatmentFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +18,8 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property int $pet_id
- * @property int $treatment_id
+ * @property int|null $treatment_id
+ * @property string|null $custom_name
  * @property Carbon|null $administered_date
  * @property Carbon|null $due_date
  * @property string $status
@@ -33,7 +35,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $deleted_by
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['pet_id', 'treatment_id', 'administered_date', 'due_date', 'status', 'product', 'veterinarian_name', 'notes'])]
+#[Fillable(['pet_id', 'treatment_id', 'custom_name', 'administered_date', 'due_date', 'status', 'product', 'veterinarian_name', 'notes'])]
 class PetTreatment extends Model
 {
     /** @use HasFactory<PetTreatmentFactory> */
@@ -74,6 +76,17 @@ class PetTreatment extends Model
     public function treatment(): BelongsTo
     {
         return $this->belongsTo(Treatment::class)->withTrashed();
+    }
+
+    /**
+     * The treatment's name: the catalogue entry, or the free text typed in
+     * when the treatment is not in the catalogue.
+     *
+     * @return Attribute<string, never>
+     */
+    protected function displayName(): Attribute
+    {
+        return Attribute::get(fn (): string => (string) ($this->treatment?->name ?? $this->custom_name));
     }
 
     /**

@@ -28,11 +28,16 @@ class TreatmentForm extends Component
 {
     use FillsDueDateFromFrequency;
 
+    /** Select value for a treatment that is not in the catalogue. */
+    public const OTHER = 'other';
+
     public Pet $pet;
 
     public ?PetTreatment $petTreatment = null;
 
     public string $treatmentId = '';
+
+    public string $customName = '';
 
     public string $product = '';
 
@@ -53,7 +58,8 @@ class TreatmentForm extends Component
             return;
         }
 
-        $this->treatmentId = (string) $petTreatment->treatment_id;
+        $this->treatmentId = $petTreatment->treatment_id === null ? self::OTHER : (string) $petTreatment->treatment_id;
+        $this->customName = (string) $petTreatment->custom_name;
         $this->administeredDate = (string) $petTreatment->administered_date?->toDateString();
         $this->dueDate = (string) $petTreatment->due_date?->toDateString();
         $this->product = (string) $petTreatment->product;
@@ -99,12 +105,15 @@ class TreatmentForm extends Component
 
     public function saveTreatment(): void
     {
+        $isOther = $this->treatmentId === self::OTHER;
+
         $validated = $this->validate([
-            'treatmentId' => [
+            'treatmentId' => $isOther ? ['required', 'in:'.self::OTHER] : [
                 'required',
                 'integer',
                 Rule::exists('treatment_species', 'treatment_id')->where('species_id', $this->pet->species_id),
             ],
+            'customName' => [Rule::requiredIf($isOther), 'nullable', 'string', 'max:255'],
             'administeredDate' => ['nullable', 'date'],
             'dueDate' => ['nullable', 'date'],
             'product' => ['nullable', 'string', 'max:255'],
@@ -112,6 +121,7 @@ class TreatmentForm extends Component
             'treatmentNotes' => ['nullable', 'string'],
         ], [], [
             'treatmentId' => __('Treatment'),
+            'customName' => __('Treatment name'),
             'administeredDate' => __('Administered Date'),
             'dueDate' => __('Next Due Date'),
             'product' => __('Product'),
@@ -119,15 +129,22 @@ class TreatmentForm extends Component
             'treatmentNotes' => __('Notes'),
         ]);
 
+        if ($isOther) {
+            // Free-text treatments have no catalogue frequency, so they only record a dose given.
+            $validated['dueDate'] = '';
+        }
+
         if ($validated['administeredDate'] === '' && $validated['dueDate'] === '') {
             $this->addError('administeredDate', __('Either the administered date or the due date must be filled in.'));
 
             return;
         }
 
-        $treatmentId = (int) $validated['treatmentId'];
+        $treatmentId = $isOther ? null : (int) $validated['treatmentId'];
 
         $treatmentAttributes = [
+            'treatment_id' => $treatmentId,
+            'custom_name' => $isOther ? $validated['customName'] : null,
             'administered_date' => $validated['administeredDate'] !== '' ? $validated['administeredDate'] : null,
             'due_date' => $validated['dueDate'] !== '' ? $validated['dueDate'] : null,
             'status' => $validated['administeredDate'] !== '' ? 'administered' : 'scheduled',
@@ -138,16 +155,16 @@ class TreatmentForm extends Component
 
         $isEditing = $this->petTreatment !== null;
 
-        $scheduledTreatment = $isEditing || $treatmentAttributes['administered_date'] === null
+        $scheduledTreatment = $isEditing || $isOther || $treatmentAttributes['administered_date'] === null
             ? null
             : PetTreatment::scheduledRecordFulfilledBy($this->pet->id, $treatmentId, $treatmentAttributes['administered_date']);
 
         if ($isEditing) {
-            $this->petTreatment->update([...$treatmentAttributes, 'treatment_id' => $treatmentId]);
+            $this->petTreatment->update($treatmentAttributes);
         } elseif ($scheduledTreatment !== null) {
             $scheduledTreatment->update($treatmentAttributes);
         } else {
-            $this->pet->treatments()->create([...$treatmentAttributes, 'treatment_id' => $treatmentId]);
+            $this->pet->treatments()->create($treatmentAttributes);
         }
 
         Flux::toast(

@@ -802,5 +802,7 @@
     "Demo manager": "Demo manager",
     "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.",
     "Questions? :contact": "Questions? :contact",
-    "Last cage": "Last cage"
+    "Last cage": "Last cage",
+    "Other (free text)": "Other (free text)",
+    "Treatment name": "Treatment name"
 }
