@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Adoption;
+use App\Models\Cage;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
@@ -152,4 +153,13 @@ test('shows the chip, birth date, biography and every kind of notes for the pape
         ->assertSee('Found at the harbour', false)
         ->assertSee('Allergic to chicken')
         ->assertSee('Do not adopt to cats owners');
+});
+
+test('the printable page shows the last cage of an adopted pet without a cage', function () {
+    $shelter = Shelter::factory()->create();
+    $cage = Cage::factory()->create(['code' => 'J-42']);
+    $pet = Pet::factory()->for($shelter)->create(['cage_id' => null, 'last_cage_id' => $cage->id, 'status' => 'adopted']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $this->get(route('pets.print', $pet))->assertOk()->assertSee('Last cage:')->assertSee('J-42');
 });

@@ -474,6 +474,9 @@ class PetForm extends Component
 
         $petAttributes = [
             'cage_id' => $cage?->id,
+            'last_cage_id' => $isEditing && $this->pet->status === 'adopted' && $this->pet->cage_id !== null && $cage?->id !== $this->pet->cage_id
+                ? $this->pet->cage_id
+                : ($this->pet?->last_cage_id),
             'colony_id' => $colony?->id,
             'captured_at' => $colony !== null && $validated['petCapturedAt'] !== '' ? $validated['petCapturedAt'] : null,
             'returned_at' => $colony !== null && $validated['petReturnedAt'] !== '' ? $validated['petReturnedAt'] : null,

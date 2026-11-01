@@ -26,6 +26,7 @@ use Illuminate\Support\Str;
  * @property int $id
  * @property int $shelter_id
  * @property int|null $cage_id
+ * @property int|null $last_cage_id
  * @property int|null $colony_id
  * @property Carbon|null $captured_at
  * @property Carbon|null $returned_at
@@ -70,7 +71,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $deleted_at
  */
 #[Fillable([
-    'shelter_id', 'cage_id', 'colony_id', 'captured_at', 'returned_at', 'is_ear_tipped', 'species_id', 'breed_id', 'is_pure_breed', 'primary_color_id', 'secondary_color_id',
+    'shelter_id', 'cage_id', 'last_cage_id', 'colony_id', 'captured_at', 'returned_at', 'is_ear_tipped', 'species_id', 'breed_id', 'is_pure_breed', 'primary_color_id', 'secondary_color_id',
     'fur_type_id', 'size_id', 'ref', 'name', 'chip', 'is_neutered', 'neutered_at', 'neutered_by_shelter',
     'neutering_status', 'neutering_scheduled_at', 'neutering_notes', 'gender', 'birth_date', 'status',
     'description', 'is_adoptable', 'is_sponsorable', 'publish_to_portal', 'is_featured',
@@ -338,6 +339,16 @@ class Pet extends Model
     public function cage(): BelongsTo
     {
         return $this->belongsTo(Cage::class);
+    }
+
+    /**
+     * Get the cage the pet lived in before leaving the shelter (adoption).
+     *
+     * @return BelongsTo<Cage, $this>
+     */
+    public function lastCage(): BelongsTo
+    {
+        return $this->belongsTo(Cage::class, 'last_cage_id')->withTrashed();
     }
 
     /**

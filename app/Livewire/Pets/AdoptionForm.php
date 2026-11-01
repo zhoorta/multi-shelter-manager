@@ -187,8 +187,12 @@ class AdoptionForm extends Component
             if ($isReturned) {
                 $this->pet->is_adoptable = $this->pet->date_of_death === null ? true : $this->pet->is_adoptable;
             } elseif (! $wasOpenAdoption) {
-                // The animal leaves the shelter: free its box and stop offering it.
-                $this->pet->fill(['cage_id' => null, 'is_adoptable' => false]);
+                // The animal leaves the shelter: free its box (remembering it) and stop offering it.
+                $this->pet->fill([
+                    'last_cage_id' => $this->pet->cage_id ?? $this->pet->last_cage_id,
+                    'cage_id' => null,
+                    'is_adoptable' => false,
+                ]);
             }
 
             $this->pet->status = $this->pet->determineStatus();

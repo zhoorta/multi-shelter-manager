@@ -801,5 +801,6 @@
     "Not available in the demo.": "Not available in the demo.",
     "Demo manager": "Demo manager",
     "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.",
-    "Questions? :contact": "Questions? :contact"
+    "Questions? :contact": "Questions? :contact",
+    "Last cage": "Last cage"
 }

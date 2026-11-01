@@ -801,5 +801,6 @@
     "Not available in the demo.": "No disponible en la demo.",
     "Demo manager": "Gestor de la demo",
     "This is a demo with sample data. Everything here is deleted :minutes minutes after you started, so do not enter personal data.": "Esto es una demo con datos de ejemplo. Todo se borra :minutes minutos después de empezar, así que no introduzca datos personales.",
-    "Questions? :contact": "¿Dudas? :contact"
+    "Questions? :contact": "¿Dudas? :contact",
+    "Last cage": "Última jaula"
 }

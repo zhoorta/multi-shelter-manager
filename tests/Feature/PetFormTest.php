@@ -1245,3 +1245,17 @@ test('saves internal notes on the pet and loads them back when editing', functio
 
     expect($pet->refresh()->internal_notes)->toBeNull();
 });
+
+test('moving an adopted pet out of its cage remembers that cage as the last one', function () {
+    $shelter = Shelter::factory()->create();
+    $cage = Cage::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['cage_id' => $cage->id, 'status' => 'adopted']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(PetForm::class, ['pet' => $pet])
+        ->set('petCageId', null)
+        ->call('savePet')
+        ->assertHasNoErrors();
+
+    expect($pet->fresh())->cage_id->toBeNull()->last_cage_id->toBe($cage->id);
+});

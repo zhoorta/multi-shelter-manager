@@ -1,11 +1,17 @@
 @php
     $mainImage = $pet->images->firstWhere('is_main', true) ?? $pet->images->first();
 
+    $locationCage = $pet->cage ?? $pet->lastCage;
+
     $location = collect([
-        $pet->cage?->wing->facility->name ?? __('No Facility Assigned'),
-        $pet->cage?->wing->name ?? __('No Wing Assigned'),
-        $pet->cage->code ?? __('No Cage Assigned'),
+        $locationCage?->wing->facility->name ?? __('No Facility Assigned'),
+        $locationCage?->wing->name ?? __('No Wing Assigned'),
+        $locationCage->code ?? __('No Cage Assigned'),
     ])->implode(' - ');
+
+    if ($pet->cage === null && $pet->lastCage !== null) {
+        $location = __('Last cage').': '.$location;
+    }
 @endphp
 
 <div class="mx-auto max-w-3xl p-10 print:p-0">

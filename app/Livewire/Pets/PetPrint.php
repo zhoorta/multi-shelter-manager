@@ -19,7 +19,7 @@ class PetPrint extends Component
         abort_unless(! Auth::user()->is_admin, 403);
 
         $this->pet = $pet->load([
-            'species', 'breed', 'cage.wing.facility', 'images', 'shelter',
+            'species', 'breed', 'cage.wing.facility', 'lastCage.wing.facility', 'images', 'shelter',
             'adoptions' => fn ($query) => $query->latest('adoption_date'),
         ]);
     }

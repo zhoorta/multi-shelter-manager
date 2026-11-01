@@ -1278,3 +1278,14 @@ test('a clinical photo of another pet cannot be deleted from this page', functio
 
     expect($photo->fresh()->trashed())->toBeFalse();
 });
+
+test('an adopted pet without a cage shows the cage it lived in before', function () {
+    $shelter = Shelter::factory()->create();
+    $cage = Cage::factory()->create(['code' => 'J-42']);
+    $pet = Pet::factory()->for($shelter)->create(['cage_id' => null, 'last_cage_id' => $cage->id, 'status' => 'adopted']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->assertSee('Last cage')
+        ->assertSee('J-42');
+});

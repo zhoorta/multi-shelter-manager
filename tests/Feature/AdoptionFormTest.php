@@ -456,6 +456,7 @@ test('registering an adoption frees the pet\'s box and stops offering it for ado
     $pet->refresh();
     expect($pet->status)->toBe('adopted')
         ->and($pet->cage_id)->toBeNull()
+        ->and($pet->last_cage_id)->toBe($cage->id)
         ->and($pet->is_adoptable)->toBeFalse();
 });
 

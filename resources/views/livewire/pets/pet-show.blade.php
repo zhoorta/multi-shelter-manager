@@ -458,6 +458,12 @@
                             <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->cage?->wing->facility->name ?? __('No Facility Assigned') }} &middot; {{ $pet->cage?->wing->name ?? __('No Wing Assigned') }} &middot; {{ $pet->cage->code ?? __('No Cage Assigned') }}</flux:text>
                         </div>
                     @endif
+                    @if (! $pet->cage && $pet->lastCage)
+                        <div>
+                            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Last cage') }}</flux:text>
+                            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ collect([$pet->lastCage->wing?->facility?->name, $pet->lastCage->wing?->name, $pet->lastCage->code])->filter()->implode(' · ') }}</flux:text>
+                        </div>
+                    @endif
                     <div>
                         <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Checkin Date') }}</flux:text>
                         <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $pet->checkin_date?->format('d/m/Y') ?? '—' }}</flux:text>
