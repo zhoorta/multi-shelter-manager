@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pets;
 
 use App\Livewire\Pets\Concerns\FillsDueDateFromFrequency;
+use App\Livewire\Pets\Concerns\SuggestsCustomTreatmentNames;
 use App\Models\Pet;
 use App\Models\PetTreatment;
 use App\Models\Treatment;
@@ -27,6 +28,7 @@ use Livewire\Component;
 class TreatmentForm extends Component
 {
     use FillsDueDateFromFrequency;
+    use SuggestsCustomTreatmentNames;
 
     /** Select value for a treatment that is not in the catalogue. */
     public const OTHER = 'other';
@@ -80,6 +82,11 @@ class TreatmentForm extends Component
             ->whereHas('species', fn (Builder $query) => $query->whereKey($this->pet->species_id))
             ->orderBy('name')
             ->get();
+    }
+
+    protected function suggestionShelterId(): ?int
+    {
+        return $this->pet->shelter_id;
     }
 
     /**

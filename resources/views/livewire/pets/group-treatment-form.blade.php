@@ -16,7 +16,17 @@
                 @foreach ($this->treatments as $treatment)
                     <flux:select.option value="{{ $treatment->id }}">{{ $treatment->name }}</flux:select.option>
                 @endforeach
+                <flux:select.option value="other">{{ __('Other (free text)') }}</flux:select.option>
             </flux:select>
+
+            @if ($this->isOtherTreatment())
+                <flux:input wire:model="customName" :label="__('Treatment name')" list="custom-treatment-names" />
+                <datalist id="custom-treatment-names">
+                    @foreach ($this->customNameSuggestions as $suggestion)
+                        <option value="{{ $suggestion }}"></option>
+                    @endforeach
+                </datalist>
+            @endif
 
             <div class="grid grid-cols-2 gap-4">
                 <flux:input type="date" wire:model.live="administeredDate" :label="__('Administered Date')" />
@@ -24,6 +34,7 @@
                 {{-- Safari renders an empty native date input showing today's date instead of a
                      blank placeholder, so the field starts as plain text and only switches to the
                      native date picker on focus (reverting to text on blur if still empty). --}}
+                @if (! $this->isOtherTreatment())
                 <flux:input
                     type="text"
                     wire:model="dueDate"
@@ -36,6 +47,7 @@
                     x-on:focus="dateFieldType = 'date'"
                     x-on:blur="if (! $el.value) dateFieldType = 'text'"
                 />
+                @endif
 
                 @if ($this->selectedTreatment?->frequency_months !== null)
                     <div></div>
@@ -66,14 +78,15 @@
                 @endif
             </div>
 
-            @if ($this->selectedTreatment === null)
+            @if ($this->selectedTreatment === null && ! $this->isOtherTreatment())
                 <flux:text>{{ __('Choose a treatment to list the resident animals it applies to.') }}</flux:text>
             @else
+                @php($filterSpecies = $this->isOtherTreatment() ? $this->shelterSpecies : $this->selectedTreatment->species)
                 <div class="flex flex-col gap-4 sm:flex-row">
-                    @if ($this->selectedTreatment->species->count() > 1)
+                    @if ($filterSpecies->count() > 1 || $this->isOtherTreatment())
                         <flux:select wire:model.live="speciesFilter" class="sm:max-w-xs">
-                            <flux:select.option value="">{{ __('All') }}</flux:select.option>
-                            @foreach ($this->selectedTreatment->species as $species)
+                            <flux:select.option value="">{{ $this->isOtherTreatment() ? __('Select a species') : __('All') }}</flux:select.option>
+                            @foreach ($filterSpecies as $species)
                                 <flux:select.option value="{{ $species->id }}">{{ $species->name }}</flux:select.option>
                             @endforeach
                         </flux:select>

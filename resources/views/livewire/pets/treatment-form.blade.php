@@ -20,7 +20,12 @@
             </flux:select>
 
             @if ($treatmentId === 'other')
-                <flux:input wire:model="customName" :label="__('Treatment name')" />
+                <flux:input wire:model="customName" :label="__('Treatment name')" list="custom-treatment-names" />
+                <datalist id="custom-treatment-names">
+                    @foreach ($this->customNameSuggestions as $suggestion)
+                        <option value="{{ $suggestion }}"></option>
+                    @endforeach
+                </datalist>
             @endif
 
             <div class="grid grid-cols-2 gap-4">

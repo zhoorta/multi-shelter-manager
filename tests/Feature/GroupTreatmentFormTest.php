@@ -167,3 +167,44 @@ test('filtering by colony only ticks the animals of that colony', function () {
         ->set('locationFilter', 'colony:'.$colony->id)
         ->assertSet('selectedPetIds', [(string) $inColony->id]);
 });
+
+test('records a free-text treatment for the residents of the chosen species without a due date', function () {
+    [$shelter, $dogs] = shelterWithDogDeworming();
+    $cats = Species::factory()->create(['name' => 'Cat']);
+    $shelter->species()->attach($cats);
+    $dog = Pet::factory()->for($shelter)->create(['species_id' => $dogs->id]);
+    $cat = Pet::factory()->for($shelter)->create(['species_id' => $cats->id]);
+    PetTreatment::factory()->for(Pet::factory()->for($shelter))->create(['treatment_id' => null, 'custom_name' => 'Drontal']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(GroupTreatmentForm::class)
+        ->set('treatmentId', 'other')
+        ->assertSet('selectedPetIds', [])
+        ->assertSee('Drontal')
+        ->set('speciesFilter', (string) $dogs->id)
+        ->assertSet('selectedPetIds', [(string) $dog->id])
+        ->set('customName', 'Ivermectin')
+        ->set('dueDate', '2027-01-01')
+        ->call('saveGroupTreatment')
+        ->assertHasNoErrors();
+
+    $record = PetTreatment::query()->where('custom_name', 'Ivermectin')->sole();
+
+    expect($record->pet_id)->toBe($dog->id)
+        ->and($record->treatment_id)->toBeNull()
+        ->and($record->due_date)->toBeNull()
+        ->and($record->status)->toBe('administered')
+        ->and(PetTreatment::query()->where('pet_id', $cat->id)->exists())->toBeFalse();
+});
+
+test('a free-text group treatment requires a name', function () {
+    [$shelter, $dogs] = shelterWithDogDeworming();
+    $dog = Pet::factory()->for($shelter)->create(['species_id' => $dogs->id]);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(GroupTreatmentForm::class)
+        ->set('treatmentId', 'other')
+        ->set('speciesFilter', (string) $dogs->id)
+        ->call('saveGroupTreatment')
+        ->assertHasErrors(['customName']);
+});

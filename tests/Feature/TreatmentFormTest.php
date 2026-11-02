@@ -172,3 +172,17 @@ test('a free-text treatment shows its name on the pet page', function () {
 
     $this->get(route('pets.show', ['pet' => $pet, 'tab' => 'health']))->assertSee('Limpeza de ouvidos');
 });
+
+test('suggests free-text treatment names already used in the same shelter only', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create();
+    $otherPet = Pet::factory()->for(Shelter::factory()->create())->create();
+    PetTreatment::factory()->for(Pet::factory()->for($shelter))->create(['treatment_id' => null, 'custom_name' => 'Drontal']);
+    PetTreatment::factory()->for($otherPet)->create(['treatment_id' => null, 'custom_name' => 'Other shelter product']);
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(TreatmentForm::class, ['pet' => $pet])
+        ->set('treatmentId', 'other')
+        ->assertSee('Drontal')
+        ->assertDontSee('Other shelter product');
+});

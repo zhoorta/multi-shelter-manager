@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Livewire\Pets;
 
 use App\Livewire\Pets\Concerns\FillsDueDateFromFrequency;
+use App\Livewire\Pets\Concerns\SuggestsCustomTreatmentNames;
 use App\Models\Colony;
 use App\Models\Facility;
 use App\Models\Pet;
 use App\Models\PetTreatment;
+use App\Models\Species;
 use App\Models\Treatment;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -16,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -27,6 +30,7 @@ use Livewire\Component;
  *
  * @property-read Collection<int, Treatment> $treatments
  * @property-read Treatment|null $selectedTreatment
+ * @property-read Collection<int, Species> $shelterSpecies
  * @property-read Collection<int, Facility> $facilities
  * @property-read Collection<int, Colony> $colonies
  * @property-read Collection<int, Pet> $candidatePets
@@ -35,8 +39,11 @@ use Livewire\Component;
 class GroupTreatmentForm extends Component
 {
     use FillsDueDateFromFrequency;
+    use SuggestsCustomTreatmentNames;
 
     public string $treatmentId = '';
+
+    public string $customName = '';
 
     public string $speciesFilter = '';
 
@@ -76,6 +83,30 @@ class GroupTreatmentForm extends Component
             ->whereHas('species', fn (Builder $query) => $query->whereKey($shelterSpeciesIds))
             ->orderBy('name')
             ->get();
+    }
+
+    protected function suggestionShelterId(): ?int
+    {
+        return Auth::user()->currentShelter?->id;
+    }
+
+    /**
+     * Whether the round is for a free-text treatment outside the catalogue.
+     */
+    public function isOtherTreatment(): bool
+    {
+        return $this->treatmentId === TreatmentForm::OTHER;
+    }
+
+    /**
+     * Species enabled for the shelter, to narrow a free-text round.
+     *
+     * @return Collection<int, Species>
+     */
+    #[Computed]
+    public function shelterSpecies(): Collection
+    {
+        return Auth::user()->currentShelter?->species()->orderBy('name')->get() ?? new Collection;
     }
 
     #[Computed]
@@ -125,7 +156,12 @@ class GroupTreatmentForm extends Component
     #[Computed]
     public function candidatePets(): Collection
     {
-        if ($this->selectedTreatment === null) {
+        if ($this->selectedTreatment === null && ! $this->isOtherTreatment()) {
+            return new Collection;
+        }
+
+        // A free-text treatment has no species of its own, so nothing is listed until one is chosen.
+        if ($this->isOtherTreatment() && $this->speciesFilter === '') {
             return new Collection;
         }
 
@@ -140,7 +176,9 @@ class GroupTreatmentForm extends Component
      */
     protected function candidatePetsQuery(): Builder
     {
-        $speciesIds = $this->selectedTreatment?->species->pluck('id')->all() ?? [];
+        $speciesIds = $this->isOtherTreatment()
+            ? $this->shelterSpecies->pluck('id')->all()
+            : ($this->selectedTreatment?->species->pluck('id')->all() ?? []);
 
         return Pet::query()
             ->resident()
@@ -168,8 +206,12 @@ class GroupTreatmentForm extends Component
     {
         unset($this->selectedTreatment);
 
-        if ($this->selectedTreatment?->species->doesntContain('id', (int) $this->speciesFilter)) {
+        if ($this->isOtherTreatment() || $this->selectedTreatment?->species->doesntContain('id', (int) $this->speciesFilter)) {
             $this->speciesFilter = '';
+        }
+
+        if ($this->isOtherTreatment()) {
+            $this->dueDate = '';
         }
 
         $this->fillDueDateFromFrequency();
@@ -208,8 +250,11 @@ class GroupTreatmentForm extends Component
 
     public function saveGroupTreatment(): void
     {
+        $isOther = $this->isOtherTreatment();
+
         $validated = $this->validate([
-            'treatmentId' => ['required', 'integer'],
+            'treatmentId' => $isOther ? ['required', 'in:'.TreatmentForm::OTHER] : ['required', 'integer'],
+            'customName' => [Rule::requiredIf($isOther), 'nullable', 'string', 'max:255'],
             'administeredDate' => ['required', 'date'],
             'dueDate' => ['nullable', 'date', 'after:administeredDate'],
             'selectedPetIds' => ['required', 'array', 'min:1'],
@@ -221,6 +266,7 @@ class GroupTreatmentForm extends Component
             'selectedPetIds.required' => __('Select at least one animal.'),
         ], [
             'treatmentId' => __('Treatment'),
+            'customName' => __('Treatment name'),
             'administeredDate' => __('Administered Date'),
             'dueDate' => __('Next Due Date'),
             'selectedPetIds' => __('Animals'),
@@ -229,9 +275,10 @@ class GroupTreatmentForm extends Component
             'treatmentNotes' => __('Notes'),
         ]);
 
-        abort_if($this->selectedTreatment === null, 404);
+        abort_if(! $isOther && $this->selectedTreatment === null, 404);
 
-        $treatmentId = $this->selectedTreatment->id;
+        // Free-text treatments have no catalogue frequency, so they only record a dose given.
+        $treatmentId = $isOther ? null : $this->selectedTreatment->id;
 
         // Re-query through the candidate scope so a tampered id can't reach a
         // pet of another shelter, species or a non-resident one.
@@ -241,7 +288,8 @@ class GroupTreatmentForm extends Component
 
         $treatmentAttributes = [
             'administered_date' => $validated['administeredDate'],
-            'due_date' => $validated['dueDate'] !== '' ? $validated['dueDate'] : null,
+            'custom_name' => $isOther ? $validated['customName'] : null,
+            'due_date' => ! $isOther && $validated['dueDate'] !== '' ? $validated['dueDate'] : null,
             'status' => 'administered',
             'product' => $validated['product'] !== '' ? $validated['product'] : null,
             'veterinarian_name' => $validated['veterinarianName'] !== '' ? $validated['veterinarianName'] : null,
@@ -250,7 +298,9 @@ class GroupTreatmentForm extends Component
 
         DB::transaction(function () use ($petIds, $treatmentId, $treatmentAttributes): void {
             foreach ($petIds as $petId) {
-                $scheduledTreatment = PetTreatment::scheduledRecordFulfilledBy($petId, $treatmentId, $treatmentAttributes['administered_date']);
+                $scheduledTreatment = $treatmentId === null
+                    ? null
+                    : PetTreatment::scheduledRecordFulfilledBy($petId, $treatmentId, $treatmentAttributes['administered_date']);
 
                 if ($scheduledTreatment !== null) {
                     $scheduledTreatment->update($treatmentAttributes);
