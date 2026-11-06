@@ -6,7 +6,6 @@ use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Volunteer;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -151,8 +150,8 @@ test('manager cannot delete a volunteer belonging to another shelter', function 
     $manager = User::factory()->forShelter($shelter, 'manager')->create();
     $this->actingAs($manager);
 
-    expect(fn () => Livewire::test(ManageVolunteers::class)->call('deleteVolunteer', $volunteer->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageVolunteers::class)->call('deleteVolunteer', $volunteer->id)
+        ->assertNotFound();
 
     expect($volunteer->fresh()->trashed())->toBeFalse();
 });

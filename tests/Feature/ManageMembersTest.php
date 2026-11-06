@@ -5,7 +5,6 @@ use App\Models\Member;
 use App\Models\MemberPayment;
 use App\Models\Shelter;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -102,9 +101,9 @@ test('managers soft-delete members of their shelter only', function () {
 
     Livewire::test(ManageMembers::class)->call('deleteMember', $member->id);
 
-    expect($member->fresh()->trashed())->toBeTrue()
-        ->and(fn () => Livewire::test(ManageMembers::class)->call('deleteMember', $otherShelterMember->id))
-        ->toThrow(ModelNotFoundException::class);
+    expect($member->fresh()->trashed())->toBeTrue();
+
+    Livewire::test(ManageMembers::class)->call('deleteMember', $otherShelterMember->id)->assertNotFound();
 });
 
 test('staff cannot delete members or change the default fees', function (string $action) {

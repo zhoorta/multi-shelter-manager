@@ -4,7 +4,6 @@ use App\Livewire\Admin\ManageUsers;
 use App\Models\Shelter;
 use App\Models\User;
 use App\Notifications\UserInvitation;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
@@ -192,8 +191,8 @@ test('manager cannot delete a user from another shelter', function () {
     $otherStaff = User::factory()->forShelter($otherShelter, 'staff')->create();
     $this->actingAs($manager);
 
-    expect(fn () => Livewire::test(ManageUsers::class)->call('deleteUser', $otherStaff->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageUsers::class)->call('deleteUser', $otherStaff->id)
+        ->assertNotFound();
 
     expect($otherStaff->fresh()->trashed())->toBeFalse();
 });
@@ -273,8 +272,8 @@ test('manager who manages two shelters only sees the roster of their current she
         ->assertSee($staffA->name)
         ->assertDontSee($staffB->name);
 
-    expect(fn () => Livewire::test(ManageUsers::class)->call('deleteUser', $staffB->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageUsers::class)->call('deleteUser', $staffB->id)
+        ->assertNotFound();
 });
 
 test('a manager of another shelter is forbidden while acting in a shelter where they are staff', function () {
@@ -317,8 +316,8 @@ test('managers cannot resend invitations for users of other shelters', function 
     $outsider = User::factory()->forShelter(Shelter::factory()->create(), 'staff')->create(['last_login' => null]);
     $this->actingAs($manager);
 
-    expect(fn () => Livewire::test(ManageUsers::class)->call('resendInvitation', $outsider->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageUsers::class)->call('resendInvitation', $outsider->id)
+        ->assertNotFound();
 
     Notification::assertNothingSent();
 });

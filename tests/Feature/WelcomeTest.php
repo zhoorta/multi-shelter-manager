@@ -9,7 +9,6 @@ use App\Models\Shelter;
 use App\Models\Size;
 use App\Models\Species;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 beforeEach(function () {
@@ -150,8 +149,8 @@ test('opening the pet details adds one view without touching its audit columns',
 test('cannot open the details of an unpublished pet', function () {
     $pet = publishedPet(['publish_to_portal' => false]);
 
-    Livewire::test(Welcome::class)->call('showPet', $pet->id);
-})->throws(ModelNotFoundException::class);
+    Livewire::test(Welcome::class)->call('showPet', $pet->id)->assertNotFound();
+});
 
 test('the partner shelters count links to the shelters page', function () {
     $html = $this->get(route('home'))->assertOk()->getContent();

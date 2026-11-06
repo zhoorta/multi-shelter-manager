@@ -11,7 +11,6 @@ use App\Models\Size;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -627,8 +626,8 @@ test('cannot delete a pet belonging to another shelter', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(ManagePets::class)->call('deletePet', $pet->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManagePets::class)->call('deletePet', $pet->id)
+        ->assertNotFound();
 
     expect($pet->fresh()->trashed())->toBeFalse();
 });

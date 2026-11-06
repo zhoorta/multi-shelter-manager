@@ -5,7 +5,6 @@ use App\Models\Member;
 use App\Models\MemberPayment;
 use App\Models\Shelter;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('viewers are forbidden from viewing a member', function () {
@@ -149,6 +148,6 @@ test('cannot edit a payment of another member', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter)->create());
 
-    expect(fn () => Livewire::test(MemberShow::class, ['member' => $member])->call('editPayment', $otherPayment->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(MemberShow::class, ['member' => $member])->call('editPayment', $otherPayment->id)
+        ->assertNotFound();
 });

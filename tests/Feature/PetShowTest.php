@@ -19,7 +19,6 @@ use App\Models\Treatment;
 use App\Models\User;
 use App\Models\Vaccine;
 use App\Models\Wing;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -710,14 +709,14 @@ test('cannot create, edit or delete a payment for a sponsorship belonging to ano
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('createPayment', $otherSponsorship->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('createPayment', $otherSponsorship->id)
+        ->assertNotFound();
 
-    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('editPayment', $otherPayment->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('editPayment', $otherPayment->id)
+        ->assertNotFound();
 
-    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deletePayment', $otherPayment->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('deletePayment', $otherPayment->id)
+        ->assertNotFound();
 });
 
 test('lists open health issues in the health section and every diagnosis in the diagnoses table', function () {
@@ -791,8 +790,8 @@ test('cannot delete a diagnosis belonging to another pet', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteDiagnosis', $otherDiagnosis->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteDiagnosis', $otherDiagnosis->id)
+        ->assertNotFound();
 });
 
 test('links to the vaccination form next to the vaccinations table', function () {
@@ -974,8 +973,8 @@ test('cannot delete a vaccination belonging to another pet', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteVaccination', $otherPetVaccine->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteVaccination', $otherPetVaccine->id)
+        ->assertNotFound();
 });
 
 test('viewers see the pet without edit controls or adopter and sponsor details', function () {
@@ -1273,8 +1272,8 @@ test('a clinical photo of another pet cannot be deleted from this page', functio
     $photo = PetClinicalPhoto::factory()->for(Pet::factory()->for($shelter))->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteClinicalPhoto', $photo->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(PetShow::class, ['pet' => $pet])->call('deleteClinicalPhoto', $photo->id)
+        ->assertNotFound();
 
     expect($photo->fresh()->trashed())->toBeFalse();
 });

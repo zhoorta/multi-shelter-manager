@@ -5,7 +5,6 @@ use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
 use App\Models\Vaccine;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -341,8 +340,8 @@ test('cannot delete a vaccination belonging to another shelter\'s pet', function
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(ManageVaccinations::class)->call('deleteVaccination', $petVaccine->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageVaccinations::class)->call('deleteVaccination', $petVaccine->id)
+        ->assertNotFound();
 
     expect($petVaccine->fresh()->trashed())->toBeFalse();
 });

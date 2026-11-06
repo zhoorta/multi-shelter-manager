@@ -4,7 +4,6 @@ use App\Livewire\PartnerShelterShow;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 beforeEach(function () {
@@ -75,5 +74,5 @@ test('cannot open the details of an unpublished pet', function () {
     $shelter = Shelter::factory()->create();
     $pet = publishedShelterPet($shelter, ['publish_to_portal' => false]);
 
-    Livewire::test(PartnerShelterShow::class, ['shelter' => $shelter])->call('showPet', $pet->id);
-})->throws(ModelNotFoundException::class);
+    Livewire::test(PartnerShelterShow::class, ['shelter' => $shelter])->call('showPet', $pet->id)->assertNotFound();
+});

@@ -6,7 +6,6 @@ use App\Models\AdoptionApplication;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -53,8 +52,8 @@ test('cannot reject an application from another shelter', function () {
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
     $otherApplication = AdoptionApplication::factory()->create();
 
-    expect(fn () => Livewire::test(ManageAdoptionApplications::class)->call('rejectApplication', $otherApplication->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageAdoptionApplications::class)->call('rejectApplication', $otherApplication->id)
+        ->assertNotFound();
 
     expect($otherApplication->fresh()->status)->toBe('pending');
 });
@@ -100,9 +99,9 @@ test('the adoption form refuses an application of another pet', function () {
     $pet = Pet::factory()->for($shelter)->create();
     $otherPetApplication = AdoptionApplication::factory()->for(Pet::factory()->for($shelter))->create();
 
-    expect(fn () => Livewire::withQueryParams(['application' => $otherPetApplication->id])
-        ->test(AdoptionForm::class, ['pet' => $pet]))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::withQueryParams(['application' => $otherPetApplication->id])
+        ->test(AdoptionForm::class, ['pet' => $pet])
+        ->assertNotFound();
 });
 
 test('applications are pruned after the retention period', function () {

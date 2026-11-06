@@ -13,7 +13,6 @@ use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -100,10 +99,8 @@ test('cannot edit or delete a colony of another shelter', function () {
     $other = Colony::factory()->create();
     $this->actingAs(User::factory()->forShelter(Shelter::factory()->create(), 'manager')->create());
 
-    expect(fn () => Livewire::test(ManageColonies::class)->call('editColony', $other->id))
-        ->toThrow(ModelNotFoundException::class);
-    expect(fn () => Livewire::test(ManageColonies::class)->call('deleteColony', $other->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageColonies::class)->call('editColony', $other->id)->assertNotFound();
+    Livewire::test(ManageColonies::class)->call('deleteColony', $other->id)->assertNotFound();
 });
 
 test('the colony page shows the totals and exports the living cats as CSV', function () {

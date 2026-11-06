@@ -5,7 +5,6 @@ use App\Models\Adoption;
 use App\Models\Pet;
 use App\Models\Shelter;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -339,8 +338,8 @@ test('cannot delete an adoption belonging to another shelter\'s pet', function (
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(ManageAdoptions::class)->call('deleteAdoption', $adoption->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageAdoptions::class)->call('deleteAdoption', $adoption->id)
+        ->assertNotFound();
 
     expect($adoption->fresh()->trashed())->toBeFalse();
 });

@@ -6,7 +6,6 @@ use App\Models\Shelter;
 use App\Models\Sponsorship;
 use App\Models\SponsorshipPayment;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -110,9 +109,9 @@ test('cannot edit a payment belonging to a different sponsorship', function () {
 
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(SponsorshipShow::class, ['pet' => $pet, 'sponsorship' => $sponsorship])
-        ->call('editPayment', $otherPayment->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(SponsorshipShow::class, ['pet' => $pet, 'sponsorship' => $sponsorship])
+        ->call('editPayment', $otherPayment->id)
+        ->assertNotFound();
 });
 
 test('viewers are forbidden from viewing adopter and sponsor personal data', function () {

@@ -13,7 +13,6 @@ use App\Models\Size;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
@@ -564,14 +563,14 @@ test('cannot assign a pet to a cage belonging to another shelter', function () {
     $species = Species::factory()->create();
     $breed = Breed::factory()->for($species)->create();
 
-    expect(fn () => Livewire::test(PetForm::class)
+    Livewire::test(PetForm::class)
         ->set('petName', 'Rex')
         ->set('petSpeciesId', $species->id)
         ->set('petBreedId', $breed->id)
         ->set('petGender', 'male')
         ->set('petCageId', $cage->id)
-        ->call('savePet'))
-        ->toThrow(ModelNotFoundException::class);
+        ->call('savePet')
+        ->assertNotFound();
 
     expect(Pet::query()->where('name', 'Rex')->exists())->toBeFalse();
 });
@@ -1203,11 +1202,11 @@ test('cannot set as main or delete a photo belonging to another shelter\'s pet',
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(PetForm::class)->call('setMainPetImage', $image->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(PetForm::class)->call('setMainPetImage', $image->id)
+        ->assertNotFound();
 
-    expect(fn () => Livewire::test(PetForm::class)->call('deletePetImage', $image->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(PetForm::class)->call('deletePetImage', $image->id)
+        ->assertNotFound();
 
     expect(PetImage::query()->find($image->id))->not->toBeNull();
 });

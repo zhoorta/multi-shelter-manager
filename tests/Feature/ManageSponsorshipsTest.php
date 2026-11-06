@@ -6,7 +6,6 @@ use App\Models\Shelter;
 use App\Models\Sponsorship;
 use App\Models\SponsorshipPayment;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -289,8 +288,8 @@ test('cannot delete a sponsorship belonging to another shelter\'s pet', function
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(ManageSponsorships::class)->call('deleteSponsorship', $sponsorship->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSponsorships::class)->call('deleteSponsorship', $sponsorship->id)
+        ->assertNotFound();
 
     expect($sponsorship->fresh()->trashed())->toBeFalse();
 });

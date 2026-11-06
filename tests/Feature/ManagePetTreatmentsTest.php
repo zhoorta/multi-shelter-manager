@@ -6,7 +6,6 @@ use App\Models\PetTreatment;
 use App\Models\Shelter;
 use App\Models\Treatment;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -60,5 +59,5 @@ test('cannot delete a treatment record of another shelter', function () {
     $this->actingAs(User::factory()->forShelter(Shelter::factory()->create(), 'staff')->create());
     $petTreatment = PetTreatment::factory()->create();
 
-    Livewire::test(ManagePetTreatments::class)->call('deleteTreatment', $petTreatment->id);
-})->throws(ModelNotFoundException::class);
+    Livewire::test(ManagePetTreatments::class)->call('deleteTreatment', $petTreatment->id)->assertNotFound();
+});

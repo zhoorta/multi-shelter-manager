@@ -8,7 +8,6 @@ use App\Models\Shelter;
 use App\Models\Species;
 use App\Models\User;
 use App\Models\Wing;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 test('guests are redirected to the login page', function () {
@@ -167,11 +166,11 @@ test('cannot edit or delete a facility belonging to another shelter', function (
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('editFacility', $facility->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('editFacility', $facility->id)
+        ->assertNotFound();
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('deleteFacility', $facility->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('deleteFacility', $facility->id)
+        ->assertNotFound();
 });
 
 test('adds a wing to a facility and closes the modal', function () {
@@ -241,16 +240,16 @@ test('cannot add a wing to a facility belonging to another shelter', function ()
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('createWing', $facility->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('createWing', $facility->id)
+        ->assertNotFound();
 
     // Even if the modal's hidden field is tampered with directly, saving must
     // still fail rather than silently creating a wing on another shelter's facility.
-    expect(fn () => Livewire::test(ManageSpaces::class)
+    Livewire::test(ManageSpaces::class)
         ->set('wingFacilityId', $facility->id)
         ->set('wingName', 'North Wing')
-        ->call('saveWing'))
-        ->toThrow(ModelNotFoundException::class);
+        ->call('saveWing')
+        ->assertNotFound();
 
     expect(Wing::query()->where('name', 'North Wing')->exists())->toBeFalse();
 });
@@ -309,11 +308,11 @@ test('cannot edit or delete a wing belonging to another shelter\'s facility', fu
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('editWing', $wing->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('editWing', $wing->id)
+        ->assertNotFound();
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('deleteWing', $wing->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('deleteWing', $wing->id)
+        ->assertNotFound();
 });
 
 test('adds a cage to a wing and closes the modal', function () {
@@ -397,17 +396,17 @@ test('cannot add a cage to a wing belonging to another shelter', function () {
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('createCage', $wing->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('createCage', $wing->id)
+        ->assertNotFound();
 
     // Even if the modal's hidden field is tampered with directly, saving must
     // still fail rather than silently creating a cage on another shelter's wing.
-    expect(fn () => Livewire::test(ManageSpaces::class)
+    Livewire::test(ManageSpaces::class)
         ->set('cageWingId', $wing->id)
         ->set('cageCode', 'C-01')
         ->set('cageCapacity', 1)
-        ->call('saveCage'))
-        ->toThrow(ModelNotFoundException::class);
+        ->call('saveCage')
+        ->assertNotFound();
 
     expect(Cage::query()->where('code', 'C-01')->exists())->toBeFalse();
 });
@@ -469,11 +468,11 @@ test('cannot edit or delete a cage belonging to another shelter\'s wing', functi
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'manager')->create());
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('editCage', $cage->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('editCage', $cage->id)
+        ->assertNotFound();
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('deleteCage', $cage->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('deleteCage', $cage->id)
+        ->assertNotFound();
 
     expect($cage->fresh()->trashed())->toBeFalse();
 });
@@ -561,6 +560,6 @@ test('cannot view the pets of a cage belonging to another shelter\'s wing', func
     $shelter = Shelter::factory()->create();
     $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
 
-    expect(fn () => Livewire::test(ManageSpaces::class)->call('viewCagePets', $cage->id))
-        ->toThrow(ModelNotFoundException::class);
+    Livewire::test(ManageSpaces::class)->call('viewCagePets', $cage->id)
+        ->assertNotFound();
 });
