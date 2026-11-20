@@ -806,11 +806,11 @@
     "Last cage": "Senaste bur",
     "Other (free text)": "Annat (fritext)",
     "Treatment name": "Namn på behandlingen",
-    "Pet Number": "Pet Number",
-    "Sponsorship ID": "Sponsorship ID",
-    "Previous PZ Sponsorship ID": "Previous PZ Sponsorship ID",
-    "Last Payment Date": "Last Payment Date",
-    "Last Payment Value": "Last Payment Value",
-    "Valid Until": "Valid Until",
-    "Payment Frequency": "Payment Frequency"
+    "Pet Number": "Djurnummer",
+    "Sponsorship ID": "Fadderskaps-ID",
+    "Previous PZ Sponsorship ID": "Tidigare fadderskaps-ID",
+    "Last Payment Date": "Datum för senaste betalning",
+    "Last Payment Value": "Belopp för senaste betalning",
+    "Valid Until": "Giltigt till",
+    "Payment Frequency": "Betalningsfrekvens"
 }

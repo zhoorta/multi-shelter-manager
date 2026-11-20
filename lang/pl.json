@@ -806,11 +806,11 @@
     "Last cage": "Ostatnia klatka",
     "Other (free text)": "Inne (dowolny tekst)",
     "Treatment name": "Nazwa leczenia",
-    "Pet Number": "Pet Number",
-    "Sponsorship ID": "Sponsorship ID",
-    "Previous PZ Sponsorship ID": "Previous PZ Sponsorship ID",
-    "Last Payment Date": "Last Payment Date",
-    "Last Payment Value": "Last Payment Value",
-    "Valid Until": "Valid Until",
-    "Payment Frequency": "Payment Frequency"
+    "Pet Number": "Numer zwierzęcia",
+    "Sponsorship ID": "ID adopcji",
+    "Previous PZ Sponsorship ID": "Poprzednie ID adopcji",
+    "Last Payment Date": "Data ostatniej płatności",
+    "Last Payment Value": "Kwota ostatniej płatności",
+    "Valid Until": "Ważne do",
+    "Payment Frequency": "Częstotliwość płatności"
 }

@@ -806,11 +806,11 @@
     "Last cage": "Letzter Käfig",
     "Other (free text)": "Andere (Freitext)",
     "Treatment name": "Name der Behandlung",
-    "Pet Number": "Pet Number",
-    "Sponsorship ID": "Sponsorship ID",
-    "Previous PZ Sponsorship ID": "Previous PZ Sponsorship ID",
-    "Last Payment Date": "Last Payment Date",
-    "Last Payment Value": "Last Payment Value",
-    "Valid Until": "Valid Until",
-    "Payment Frequency": "Payment Frequency"
+    "Pet Number": "Tiernummer",
+    "Sponsorship ID": "Patenschafts-ID",
+    "Previous PZ Sponsorship ID": "Frühere Patenschafts-ID",
+    "Last Payment Date": "Datum der letzten Zahlung",
+    "Last Payment Value": "Betrag der letzten Zahlung",
+    "Valid Until": "Gültig bis",
+    "Payment Frequency": "Zahlungsweise"
 }

@@ -806,11 +806,11 @@
     "Last cage": "Ultima gabbia",
     "Other (free text)": "Altro (testo libero)",
     "Treatment name": "Nome del trattamento",
-    "Pet Number": "Pet Number",
-    "Sponsorship ID": "Sponsorship ID",
-    "Previous PZ Sponsorship ID": "Previous PZ Sponsorship ID",
-    "Last Payment Date": "Last Payment Date",
-    "Last Payment Value": "Last Payment Value",
-    "Valid Until": "Valid Until",
-    "Payment Frequency": "Payment Frequency"
+    "Pet Number": "Numero dell'animale",
+    "Sponsorship ID": "ID adozione a distanza",
+    "Previous PZ Sponsorship ID": "ID precedente adozione a distanza",
+    "Last Payment Date": "Data ultimo pagamento",
+    "Last Payment Value": "Importo ultimo pagamento",
+    "Valid Until": "Valido fino al",
+    "Payment Frequency": "Frequenza di pagamento"
 }

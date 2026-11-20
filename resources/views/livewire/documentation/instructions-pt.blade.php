@@ -150,6 +150,7 @@
         <p>Os padrinhos apoiam os cuidados de um animal sem o adotar. Um apadrinhamento guarda os contactos do padrinho e se este pretende receber notícias do animal ou a newsletter.</p>
         <p>Só é possível criar apadrinhamentos para animais marcados como <strong>Disponível para Apadrinhamento</strong>. A página Apadrinhamentos (em Animais, no menu lateral) lista-os todos, com a mesma pesquisa das adoções: nome, telefone, email ou notas do padrinho, ou o nome ou referência do animal.</p>
         <p>Cada apadrinhamento tem uma lista de pagamentos. Um pagamento regista o período que cobre (datas de início e fim), a data de pagamento e o valor, suportando assim contribuições pontuais e recorrentes.</p>
+        <p>Um apadrinhamento pode também registar a <strong>Forma de pagamento</strong> (mensal ou anual), que define a data de fim sugerida ao adicionar um novo pagamento: um mês ou um ano depois do início. <strong>Exportar para Excel</strong>, na página Apadrinhamentos, descarrega uma folha de cálculo com todos os apadrinhamentos, com o animal, o seu número e microchip, o padrinho, o <strong>ID do apadrinhamento</strong>, a data e o valor do último pagamento, a validade, a forma de pagamento e o email e telefone do padrinho, por exemplo para cruzar com a contabilidade. O ID do apadrinhamento é permanente: nunca é atribuído a outro apadrinhamento, mesmo que o original seja apagado.</p>
     </section>
 
     <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">

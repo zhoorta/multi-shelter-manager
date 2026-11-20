@@ -150,6 +150,7 @@
         <p>Faddrar stöder ett djurs omvårdnad utan att adoptera det. Ett fadderskap sparar fadderns kontaktuppgifter och om hen vill få nyheter om djuret eller nyhetsbrevet.</p>
         <p>Fadderskap kan bara skapas för djur som är markerade som <strong>Tillgänglig för fadderskap</strong>. Sidan Fadderskap (under Djur i sidomenyn) visar alla, med samma sökning som för adoptioner: fadderns namn, telefon, e-post eller anteckningar, eller djurets namn eller referens.</p>
         <p>Varje fadderskap har en lista med betalningar. En betalning registrerar perioden den gäller (start- och slutdatum), betalningsdatum och belopp, så både engångsbidrag och återkommande bidrag stöds.</p>
+        <p>Ett fadderskap kan också ange sin <strong>Betalningsfrekvens</strong> (månadsvis eller årsvis), som styr det föreslagna slutdatumet när du lägger till en ny betalning: en månad eller ett år efter starten. <strong>Exportera till Excel</strong> på sidan Fadderskap laddar ner ett kalkylblad med alla fadderskap, med djuret, dess nummer och mikrochip, fadder, <strong>Fadderskaps-ID</strong>, datum och belopp för den senaste betalningen, giltighet, betalningsfrekvens samt faddrens e-post och telefon, till exempel för att jämföra med bokföringen. Fadderskaps-ID är permanent: det ges aldrig till ett annat fadderskap, inte ens om det ursprungliga raderas.</p>
     </section>
 
     <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">

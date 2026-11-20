@@ -150,6 +150,7 @@
         <p>Sponsors support a pet's care without adopting it. A sponsorship stores the sponsor's contact details and whether they want to receive news about the pet or the newsletter.</p>
         <p>Sponsorships can only be created for pets marked as <strong>Is Sponsorable</strong>. The Sponsorships page (under Pets in the sidebar) lists them all, with the same search as adoptions: sponsor name, phone, email, notes, or the pet's name or reference.</p>
         <p>Each sponsorship has a list of payments. A payment records the period it covers (start and end dates), the payment date and the amount, so one-off and recurring contributions are both supported.</p>
+        <p>A sponsorship can also record its <strong>Payment frequency</strong> (monthly or yearly), which sets the suggested end date when you add a new payment: one month or one year after the start. <strong>Export to Excel</strong>, on the Sponsorships page, downloads a spreadsheet of all sponsorships with the animal, its number and microchip, the sponsor, the <strong>Sponsorship ID</strong>, the date and value of the last payment, the validity, the payment frequency and the sponsor's email and phone, for example to match them against accounting records. The Sponsorship ID is permanent: it is never given to another sponsorship, even if the original is deleted.</p>
     </section>
 
     <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">

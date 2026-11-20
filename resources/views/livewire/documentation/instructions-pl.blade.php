@@ -150,6 +150,7 @@
         <p>Wirtualni opiekunowie wspierają utrzymanie zwierzęcia bez jego adopcji. Adopcja wirtualna przechowuje dane kontaktowe opiekuna oraz informację, czy chce otrzymywać wiadomości o zwierzęciu lub newsletter.</p>
         <p>Adopcje wirtualne można tworzyć tylko dla zwierząt oznaczonych jako <strong>Do adopcji wirtualnej</strong>. Strona Adopcje wirtualne (w menu Zwierzęta w panelu bocznym) zawiera je wszystkie, z takim samym wyszukiwaniem jak adopcje: imię i nazwisko, telefon, e-mail lub notatki opiekuna albo imię lub numer referencyjny zwierzęcia.</p>
         <p>Każda adopcja wirtualna ma listę wpłat. Wpłata zapisuje okres, który obejmuje (daty rozpoczęcia i zakończenia), datę wpłaty i kwotę, dzięki czemu obsługiwane są zarówno wpłaty jednorazowe, jak i cykliczne.</p>
+        <p>Adopcja na odległość może też zapisywać <strong>Częstotliwość płatności</strong> (miesięczną lub roczną), która ustala sugerowaną datę zakończenia przy dodawaniu nowej płatności: miesiąc lub rok po rozpoczęciu. <strong>Eksportuj do Excela</strong> na stronie Adopcje na odległość pobiera arkusz ze wszystkimi adopcjami, ze zwierzęciem, jego numerem i mikroczipem, opiekunem, <strong>ID adopcji</strong>, datą i kwotą ostatniej płatności, ważnością, częstotliwością płatności oraz e-mailem i telefonem opiekuna, na przykład do porównania z księgowością. ID adopcji jest stałe: nigdy nie jest nadawane innej adopcji, nawet jeśli oryginalna zostanie usunięta.</p>
     </section>
 
     <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">

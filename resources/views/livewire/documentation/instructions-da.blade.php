@@ -150,6 +150,7 @@
         <p>Faddere støtter et dyrs pleje uden at adoptere det. Et fadderskab gemmer fadderens kontaktoplysninger, og om fadderen vil modtage nyheder om dyret eller nyhedsbrevet.</p>
         <p>Fadderskaber kan kun oprettes for dyr, der er markeret som <strong>Mulig for fadderskab</strong>. Siden Fadderskaber (under Dyr i sidemenuen) viser dem alle, med samme søgning som adoptioner: fadderens navn, telefon, e-mail eller noter eller dyrets navn eller reference.</p>
         <p>Hvert fadderskab har en liste over betalinger. En betaling registrerer den periode, den dækker (start- og slutdato), betalingsdatoen og beløbet, så både engangsbidrag og faste bidrag understøttes.</p>
+        <p>Et fadderskab kan også registrere sin <strong>Betalingshyppighed</strong> (månedlig eller årlig), som bestemmer den foreslåede slutdato, når du tilføjer en ny betaling: en måned eller et år efter starten. <strong>Eksportér til Excel</strong> på siden Fadderskaber henter et regneark med alle fadderskaber, med dyret, dets nummer og mikrochip, fadderen, <strong>Fadderskabs-ID</strong>, dato og beløb for den seneste betaling, gyldighed, betalingshyppighed samt faddarens e-mail og telefon, for eksempel til afstemning med regnskabet. Fadderskabs-ID er permanent: det tildeles aldrig et andet fadderskab, heller ikke hvis det oprindelige slettes.</p>
     </section>
 
     <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">

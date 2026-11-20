@@ -150,6 +150,7 @@
         <p>Paten unterstützen die Versorgung eines Tieres, ohne es zu adoptieren. Eine Patenschaft speichert die Kontaktdaten des Paten und ob er Neuigkeiten über das Tier oder den Newsletter erhalten möchte.</p>
         <p>Patenschaften können nur für Tiere angelegt werden, die als <strong>Für Patenschaft verfügbar</strong> markiert sind. Die Seite Patenschaften (unter Tiere in der Seitenleiste) listet alle auf, mit derselben Suche wie bei Vermittlungen: Name, Telefon, E-Mail oder Notizen der Paten oder Name bzw. Referenz des Tieres.</p>
         <p>Jede Patenschaft hat eine Liste von Zahlungen. Eine Zahlung erfasst den abgedeckten Zeitraum (Start- und Enddatum), das Zahlungsdatum und den Betrag, sodass sowohl einmalige als auch regelmäßige Beiträge möglich sind.</p>
+        <p>Eine Patenschaft kann auch ihre <strong>Zahlungsweise</strong> (monatlich oder jährlich) speichern, die das vorgeschlagene Enddatum beim Hinzufügen einer neuen Zahlung bestimmt: einen Monat oder ein Jahr nach dem Beginn. <strong>Nach Excel exportieren</strong> auf der Seite Patenschaften lädt eine Tabelle aller Patenschaften herunter, mit Tier, dessen Nummer und Mikrochip, Pate, <strong>Patenschafts-ID</strong>, Datum und Betrag der letzten Zahlung, Gültigkeit, Zahlungsweise sowie E-Mail und Telefon des Paten, zum Beispiel zum Abgleich mit der Buchhaltung. Die Patenschafts-ID ist dauerhaft: Sie wird nie an eine andere Patenschaft vergeben, auch wenn die ursprüngliche gelöscht wird.</p>
     </section>
 
     <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">

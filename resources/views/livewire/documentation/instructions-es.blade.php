@@ -150,6 +150,7 @@
         <p>Los padrinos contribuyen al cuidado de un animal sin adoptarlo. Un apadrinamiento guarda los datos de contacto del padrino y si desea recibir novedades sobre el animal o el boletín.</p>
         <p>Solo se pueden crear apadrinamientos para animales marcados como <strong>Disponible para Apadrinamiento</strong>. La página Apadrinamientos (en Animales, en el menú lateral) los lista todos, con la misma búsqueda que las adopciones: nombre, teléfono, email o notas del padrino, o el nombre o la referencia del animal.</p>
         <p>Cada apadrinamiento tiene una lista de pagos. Un pago registra el periodo que cubre (fechas de inicio y fin), la fecha de pago y el importe, por lo que se admiten tanto contribuciones puntuales como periódicas.</p>
+        <p>Un apadrinamiento también puede registrar su <strong>Forma de pago</strong> (mensual o anual), que define la fecha de fin sugerida al añadir un nuevo pago: un mes o un año después del inicio. <strong>Exportar a Excel</strong>, en la página de Apadrinamientos, descarga una hoja de cálculo con todos los apadrinamientos, con el animal, su número y microchip, el padrino, el <strong>ID del apadrinamiento</strong>, la fecha y el importe del último pago, la validez, la forma de pago y el correo y teléfono del padrino, por ejemplo para cruzarlos con la contabilidad. El ID del apadrinamiento es permanente: nunca se asigna a otro apadrinamiento, aunque se elimine el original.</p>
     </section>
 
     <section id="volunteers" class="flex scroll-mt-6 flex-col gap-2">
