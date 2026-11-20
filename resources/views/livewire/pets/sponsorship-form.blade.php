@@ -28,6 +28,12 @@
         </div>
 
         <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+            <flux:select wire:model="paymentFrequency" :label="__('Payment Frequency')">
+                <flux:select.option value="">—</flux:select.option>
+                <flux:select.option value="monthly">{{ __('monthly') }}</flux:select.option>
+                <flux:select.option value="yearly">{{ __('yearly') }}</flux:select.option>
+            </flux:select>
+
             <div class="grid grid-cols-2 gap-4">
                 <flux:switch wire:model="sendFeedback" :label="__('Send Feedback')" align="left" />
 

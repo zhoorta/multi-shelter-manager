@@ -588,6 +588,18 @@ test('defaults the payment dates to today and the end date to one year later whe
         ->assertHasNoErrors();
 });
 
+test('defaults the payment end date to one month later for a monthly sponsorship', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+    $sponsorship = Sponsorship::factory()->for($pet)->create(['payment_frequency' => 'monthly']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(PetShow::class, ['pet' => $pet])
+        ->call('createPayment', $sponsorship->id)
+        ->assertSet('paymentEndDate', now()->addMonth()->format('Y-m-d'));
+});
+
 test('creates a sponsorship payment', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);

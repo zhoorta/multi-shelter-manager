@@ -805,5 +805,12 @@
     "Questions? :contact": "Frågor? :contact",
     "Last cage": "Senaste bur",
     "Other (free text)": "Annat (fritext)",
-    "Treatment name": "Namn på behandlingen"
+    "Treatment name": "Namn på behandlingen",
+    "Pet Number": "Pet Number",
+    "Sponsorship ID": "Sponsorship ID",
+    "Previous PZ Sponsorship ID": "Previous PZ Sponsorship ID",
+    "Last Payment Date": "Last Payment Date",
+    "Last Payment Value": "Last Payment Value",
+    "Valid Until": "Valid Until",
+    "Payment Frequency": "Payment Frequency"
 }

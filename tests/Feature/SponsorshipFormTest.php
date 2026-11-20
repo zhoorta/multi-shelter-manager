@@ -79,6 +79,24 @@ test('creates a sponsorship record for the pet', function () {
     $component->assertRedirect(route('pets.show', ['pet' => $pet, 'tab' => 'people']));
 });
 
+test('saves the payment frequency and rejects an unknown one', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    Livewire::test(SponsorshipForm::class, ['pet' => $pet])
+        ->set('sponsorName', 'Maria Silva')
+        ->set('paymentFrequency', 'weekly')
+        ->call('saveSponsorship')
+        ->assertHasErrors(['paymentFrequency'])
+        ->set('paymentFrequency', 'monthly')
+        ->call('saveSponsorship')
+        ->assertHasNoErrors();
+
+    expect($pet->sponsorships()->first()->payment_frequency)->toBe('monthly');
+});
+
 test('requires a sponsor name', function () {
     $shelter = Shelter::factory()->create();
     $pet = Pet::factory()->for($shelter)->create(['is_sponsorable' => true]);

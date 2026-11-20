@@ -159,6 +159,7 @@ test('imports sponsorships with a placeholder payment ending on the paid-until d
         ->name->toBe('Luísa Narigão')
         ->phone->toBe('967375999')
         ->send_feedback->toBeFalse()
+        ->previous_id->toBe('7001')
         ->notes->toBe("Válido até 2026-12-02\n[PZ apad 7001]");
 
     $payment = $sponsorship->payments()->sole();

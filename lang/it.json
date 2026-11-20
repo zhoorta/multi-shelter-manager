@@ -805,5 +805,12 @@
     "Questions? :contact": "Domande? :contact",
     "Last cage": "Ultima gabbia",
     "Other (free text)": "Altro (testo libero)",
-    "Treatment name": "Nome del trattamento"
+    "Treatment name": "Nome del trattamento",
+    "Pet Number": "Pet Number",
+    "Sponsorship ID": "Sponsorship ID",
+    "Previous PZ Sponsorship ID": "Previous PZ Sponsorship ID",
+    "Last Payment Date": "Last Payment Date",
+    "Last Payment Value": "Last Payment Value",
+    "Valid Until": "Valid Until",
+    "Payment Frequency": "Payment Frequency"
 }

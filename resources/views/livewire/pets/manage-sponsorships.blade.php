@@ -5,6 +5,10 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     <div class="flex items-center justify-between">
         <flux:heading size="xl">{{ __('Sponsorships') }}</flux:heading>
+
+        <flux:button wire:click="exportXlsx" variant="filled" icon="arrow-down-tray">
+            {{ __('Export to Excel') }}
+        </flux:button>
     </div>
 
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">

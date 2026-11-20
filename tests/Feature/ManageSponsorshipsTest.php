@@ -300,3 +300,54 @@ test('viewers are forbidden from viewing adopter and sponsor personal data', fun
 
     $this->get(route('pets.sponsorships.index'))->assertForbidden();
 });
+
+test('exports the sponsorships to Excel with both ids, the last real payment and the frequency', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex', 'chip' => '620098100123456']);
+    $sponsorship = Sponsorship::factory()->for($pet)->create([
+        'name' => 'Maria Silva',
+        'email' => 'maria@example.com',
+        'phone' => '912345678',
+        'previous_id' => '8418',
+        'notes' => "Válido até 2026-12-31\n[PZ apad 8418]",
+        'payment_frequency' => 'monthly',
+    ]);
+    SponsorshipPayment::factory()->for($sponsorship)->create([
+        'start_date' => '2025-01-01', 'end_date' => '2025-12-31', 'payment_date' => '2025-01-01', 'payment_value' => 0,
+    ]);
+    SponsorshipPayment::factory()->for($sponsorship)->create([
+        'start_date' => '2026-10-01', 'end_date' => '2026-10-31', 'payment_date' => '2026-10-02', 'payment_value' => 10,
+    ]);
+
+    $otherPet = Pet::factory()->for(Shelter::factory()->create())->create();
+    Sponsorship::factory()->for($otherPet)->create(['name' => 'Outro Padrinho']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $response = Livewire::test(ManageSponsorships::class)->call('exportXlsx')->assertFileDownloaded('sponsorships.xlsx');
+    $text = xlsxText($response->effects['download']['content'] ? base64_decode($response->effects['download']['content']) : '');
+
+    expect($text)
+        ->toContain("Rex;{$pet->ref};620098100123456;Maria Silva;{$sponsorship->id};8418;02/10/2026;10,00;31/10/2026;Monthly;maria@example.com;912345678")
+        ->not->toContain('Outro Padrinho');
+});
+
+test('viewers cannot export the sponsorships', function () {
+    $shelter = Shelter::factory()->create();
+    $this->actingAs(User::factory()->forShelter($shelter, 'viewer')->create());
+
+    Livewire::test(ManageSponsorships::class)->assertForbidden();
+});
+
+test('the export leaves out the previous PZ id column when nothing was imported from PZ', function () {
+    $shelter = Shelter::factory()->create();
+    $pet = Pet::factory()->for($shelter)->create(['name' => 'Rex']);
+    Sponsorship::factory()->for($pet)->create(['name' => 'Maria Silva', 'payment_frequency' => 'yearly']);
+
+    $this->actingAs(User::factory()->forShelter($shelter, 'staff')->create());
+
+    $response = Livewire::test(ManageSponsorships::class)->call('exportXlsx');
+    $text = xlsxText(base64_decode($response->effects['download']['content']));
+
+    expect($text)->not->toContain('Previous PZ Sponsorship ID')->toContain('Maria Silva')->toContain('Yearly');
+});

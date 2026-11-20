@@ -58,6 +58,11 @@
         </div>
 
         <div>
+            <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Payment Frequency') }}</flux:text>
+            <flux:text class="text-neutral-700 dark:text-neutral-300">{{ $sponsorship->payment_frequency ? __($sponsorship->payment_frequency) : '—' }}</flux:text>
+        </div>
+
+        <div>
             <flux:text class="text-neutral-500 dark:text-neutral-400">{{ __('Send Feedback') }}</flux:text>
             <flux:badge size="sm" :color="$sponsorship->send_feedback ? 'lime' : 'zinc'">{{ $sponsorship->send_feedback ? __('Yes') : __('No') }}</flux:badge>
         </div>

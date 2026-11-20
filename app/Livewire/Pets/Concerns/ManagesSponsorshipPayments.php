@@ -40,7 +40,7 @@ trait ManagesSponsorshipPayments
     public function createPayment(int $sponsorshipId): void
     {
         abort_unless(Auth::user()->canEditArea('sponsorships'), 403);
-        $this->scopedSponsorshipQuery()->findOrFail($sponsorshipId);
+        $sponsorship = $this->scopedSponsorshipQuery()->findOrFail($sponsorshipId);
 
         $this->resetPaymentForm();
         $this->paymentSponsorshipId = $sponsorshipId;
@@ -52,7 +52,7 @@ trait ManagesSponsorshipPayments
         // looked already filled in.
         $today = now();
         $this->paymentStartDate = $today->format('Y-m-d');
-        $this->paymentEndDate = $today->clone()->addYear()->format('Y-m-d');
+        $this->paymentEndDate = ($sponsorship->payment_frequency === 'monthly' ? $today->clone()->addMonth() : $today->clone()->addYear())->format('Y-m-d');
         $this->paymentDate = $today->format('Y-m-d');
     }
 

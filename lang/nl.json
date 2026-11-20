@@ -805,5 +805,12 @@
     "Questions? :contact": "Vragen? :contact",
     "Last cage": "Laatste kooi",
     "Other (free text)": "Anders (vrije tekst)",
-    "Treatment name": "Naam van de behandeling"
+    "Treatment name": "Naam van de behandeling",
+    "Pet Number": "Pet Number",
+    "Sponsorship ID": "Sponsorship ID",
+    "Previous PZ Sponsorship ID": "Previous PZ Sponsorship ID",
+    "Last Payment Date": "Last Payment Date",
+    "Last Payment Value": "Last Payment Value",
+    "Valid Until": "Valid Until",
+    "Payment Frequency": "Payment Frequency"
 }

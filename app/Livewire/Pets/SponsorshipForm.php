@@ -33,6 +33,8 @@ class SponsorshipForm extends Component
 
     public bool $sendNewsletter = false;
 
+    public string $paymentFrequency = '';
+
     public string $sponsorshipNotes = '';
 
     public function mount(Pet $pet, ?Sponsorship $sponsorship = null): void
@@ -57,6 +59,7 @@ class SponsorshipForm extends Component
         $this->sponsorCity = (string) $sponsorship->city;
         $this->sendFeedback = $sponsorship->send_feedback;
         $this->sendNewsletter = $sponsorship->send_newsletter;
+        $this->paymentFrequency = (string) $sponsorship->payment_frequency;
         $this->sponsorshipNotes = (string) $sponsorship->notes;
     }
 
@@ -71,6 +74,7 @@ class SponsorshipForm extends Component
             'sponsorCity' => ['nullable', 'string', 'max:100'],
             'sendFeedback' => ['boolean'],
             'sendNewsletter' => ['boolean'],
+            'paymentFrequency' => ['nullable', 'in:monthly,yearly'],
             'sponsorshipNotes' => ['nullable', 'string'],
         ], [], [
             'sponsorName' => __('Name'),
@@ -79,6 +83,7 @@ class SponsorshipForm extends Component
             'sponsorAddress' => __('Address'),
             'sponsorPostalCode' => __('Postal Code'),
             'sponsorCity' => __('City'),
+            'paymentFrequency' => __('Payment Frequency'),
             'sponsorshipNotes' => __('Notes'),
         ]);
 
@@ -91,6 +96,7 @@ class SponsorshipForm extends Component
             'city' => $validated['sponsorCity'] !== '' ? $validated['sponsorCity'] : null,
             'send_feedback' => $validated['sendFeedback'],
             'send_newsletter' => $validated['sendNewsletter'],
+            'payment_frequency' => $validated['paymentFrequency'] !== '' ? $validated['paymentFrequency'] : null,
             'notes' => $validated['sponsorshipNotes'] !== '' ? $validated['sponsorshipNotes'] : null,
         ];
 

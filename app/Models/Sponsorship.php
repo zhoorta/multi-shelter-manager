@@ -17,6 +17,7 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property int $pet_id
+ * @property string|null $previous_id
  * @property string|null $name
  * @property string|null $email
  * @property string|null $phone
@@ -25,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $city
  * @property bool $send_feedback
  * @property bool $send_newsletter
+ * @property string|null $payment_frequency
  * @property string|null $notes
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -34,8 +36,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  */
 #[Fillable([
-    'pet_id', 'name', 'email', 'phone', 'address', 'postal_code', 'city',
-    'send_feedback', 'send_newsletter', 'notes',
+    'pet_id', 'previous_id', 'name', 'email', 'phone', 'address', 'postal_code', 'city',
+    'send_feedback', 'send_newsletter', 'payment_frequency', 'notes',
 ])]
 class Sponsorship extends Model
 {

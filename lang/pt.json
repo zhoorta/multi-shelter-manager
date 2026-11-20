@@ -805,5 +805,12 @@
     "Questions? :contact": "Dúvidas? :contact",
     "Last cage": "Última jaula",
     "Other (free text)": "Outro (texto livre)",
-    "Treatment name": "Nome do tratamento"
+    "Treatment name": "Nome do tratamento",
+    "Pet Number": "Número do animal",
+    "Sponsorship ID": "ID do apadrinhamento",
+    "Previous PZ Sponsorship ID": "ID anterior (Portugal Zoófilo)",
+    "Last Payment Date": "Data do último pagamento",
+    "Last Payment Value": "Valor do último pagamento",
+    "Valid Until": "Validade",
+    "Payment Frequency": "Forma de pagamento"
 }

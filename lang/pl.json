@@ -805,5 +805,12 @@
     "Questions? :contact": "Pytania? :contact",
     "Last cage": "Ostatnia klatka",
     "Other (free text)": "Inne (dowolny tekst)",
-    "Treatment name": "Nazwa leczenia"
+    "Treatment name": "Nazwa leczenia",
+    "Pet Number": "Pet Number",
+    "Sponsorship ID": "Sponsorship ID",
+    "Previous PZ Sponsorship ID": "Previous PZ Sponsorship ID",
+    "Last Payment Date": "Last Payment Date",
+    "Last Payment Value": "Last Payment Value",
+    "Valid Until": "Valid Until",
+    "Payment Frequency": "Payment Frequency"
 }

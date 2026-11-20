@@ -520,6 +520,7 @@ class ImportPortugalZoofilo extends Command
             $sponsorship = Sponsorship::query()->where('pet_id', $pet->id)->where('notes', 'like', "%{$marker}%")->first()
                 ?? new Sponsorship(['pet_id' => $pet->id]);
             $sponsorship->fill([
+                'previous_id' => $row['apad_id'],
                 'name' => $namesByEmail[mb_strtolower((string) $email)] ?? $row['apad_nome_padrinho'],
                 'email' => $email,
                 'phone' => $phones[0] ?? null,
